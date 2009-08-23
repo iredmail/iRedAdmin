@@ -58,6 +58,8 @@ class Preferences(core.LDAPWrap):
                 (ldap.MOD_REPLACE, 'preferredLanguage', self.lang)
                 ]
         dn = session.get('userdn')
-        self.conn.modify_s(dn, mod_attrs)
-
-        return True
+        try:
+            self.conn.modify_s(dn, mod_attrs)
+            return True
+        except ldap.LDAPError, e:
+            return str(e)

@@ -4,9 +4,9 @@
 # Author: Zhang Huangbin <michaelbibby (at) gmail.com>
 
 import sys
-import ldap
+import ldap, ldap.filter
 import web
-from libs.ldaplib import core, attrs, ldaputils
+from libs.ldaplib import core, attrs
 
 session = web.config.get('_session')
 
@@ -15,8 +15,8 @@ class Admin(core.LDAPWrap):
         pass
 
     # Get preferredLanguage.
-    def getPreferredLanguage(self, admin):
-        dn = ldaputils.convEmailToAdminDN(web.safestr(admin))
+    def getPreferredLanguage(self, dn):
+        dn = ldap.filter.escape_filter_chars(dn)
         self.lang = self.conn.search_s(
                 dn,
                 ldap.SCOPE_BASE,

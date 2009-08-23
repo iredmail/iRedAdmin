@@ -60,7 +60,7 @@ class login:
             # Per-user i18n.
             try:
                 adminLib = admin.Admin()
-                lang = adminLib.getPreferredLanguage(username)
+                lang = adminLib.getPreferredLanguage(userdn)
                 if lang is not False and lang != session.get('lang'):
                     web.render = iredutils.setRenderLang(web.render, lang)
                     session['lang'] = lang

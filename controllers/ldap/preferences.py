@@ -8,6 +8,7 @@ import web
 from web import render
 from controllers.ldap import base
 from controllers.ldap.core import dbinit
+from libs import iredutils
 from libs.ldaplib import preferences
 
 session = web.config.get('_session')
@@ -30,11 +31,17 @@ class Preferences:
         # Get passwords.
         i = web.input()
         self.result = prefLib.update(i)
-
         self.langs = prefLib.get_langs()
 
+        cur_lang = self.langs.pop('cur_lang')
+        if self.result is True:
+            msg = 'SUCCESS'
+            web.render = iredutils.setRenderLang(web.render, cur_lang)
+        else:
+            msg = self.result
+
         return render.preferences(
-                cur_lang=self.langs.pop('cur_lang'),
+                cur_lang=cur_lang,
                 langmaps=self.langs.pop('langmaps'),
-                msg=self.result,
+                msg=msg,
                 )
