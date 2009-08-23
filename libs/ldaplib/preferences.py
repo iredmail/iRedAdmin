@@ -9,7 +9,7 @@ import ldap
 import web
 from web import iredconfig as cfg
 from libs import languages
-from libs.ldaplib import core, attrs, iredutils
+from libs.ldaplib import core, attrs, ldaputils
 
 session = web.config.get('_session')
 

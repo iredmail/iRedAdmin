@@ -38,6 +38,8 @@
             {{ _('Login required') }}
         {% elif msg == 'SERVER_DOWN' %}
             {{ _('Server is down, Please contact <a href="mailto:%s">webmaster</a> to solve it.' % webmaster ) }}
+        {% elif msg is sameas false %}
+            {{ _('Authentication failed.') }}
         {% else %}
             {{msg}}
         {% endif %}

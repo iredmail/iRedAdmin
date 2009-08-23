@@ -9,7 +9,7 @@ from web import render
 from web import iredconfig as cfg
 from controllers.ldap import base
 from controllers.ldap.core import dbinit
-from libs.ldaplib import domain, user, iredldif, iredutils
+from libs.ldaplib import domain, user, iredldif, ldaputils
 
 session = web.config.get('_session')
 
@@ -57,7 +57,7 @@ class profile(dbinit):
 
         if len(email.split('@', 1)) == 2:
             domain = email.split('@', 1)[1]
-            userdn = iredutils.convEmailToUserDN(email)
+            userdn = ldaputils.convEmailToUserDN(email)
 
             if userdn:
                 profile = userLib.profile(dn=userdn)
@@ -103,7 +103,7 @@ class create(dbinit):
         newpw = web.safestr(i.get('newpw'))
         confirmpw = web.safestr(i.get('confirmpw'))
         if len(newpw) > 0 and len(confirmpw) > 0 and newpw == confirmpw:
-            passwd = iredutils.generatePasswd(newpw, pwscheme=cfg.general.get('default_pw_scheme', 'SSHA'))
+            passwd = ldaputils.generatePasswd(newpw, pwscheme=cfg.general.get('default_pw_scheme', 'SSHA'))
         else:
             return render.user_create(
                     domainName=domain,
@@ -121,7 +121,7 @@ class create(dbinit):
                 quota=quota,
                 )
 
-        dn = iredutils.convEmailToUserDN(username + '@' + domain)
+        dn = ldaputils.convEmailToUserDN(username + '@' + domain)
         result = userLib.add(dn, ldif)
         if result is True:
             web.seeother('/users/' + domain)
@@ -140,6 +140,6 @@ class delete(dbinit):
 
         mails = i.get('mail', [])
         for mail in mails:
-            dn = ldap.filter.escape_filter_chars(iredutils.convEmailToUserDN(mail))
+            dn = ldap.filter.escape_filter_chars(ldaputils.convEmailToUserDN(mail))
         print >> sys.stderr, i 
         web.seeother('/users/' + web.safestr(domain))

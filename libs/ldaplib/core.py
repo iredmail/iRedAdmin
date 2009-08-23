@@ -6,7 +6,7 @@
 import os, sys, time
 import web
 import ldap
-from libs.ldaplib import attrs, iredutils
+from libs.ldaplib import attrs, ldaputils
 
 cfg = web.iredconfig
 session = web.config.get('_session')
@@ -97,7 +97,7 @@ class LDAPWrap:
 
     def check_domain_access(self, domainDN, admin):
         domainDN = web.safestr(domainDN)
-        domainName = iredutils.extractValueFromDN(domainDN, 'domainName')
+        domainName = ldaputils.extractValueFromDN(domainDN, 'domainName')
         if domainName is None: return False
 
         admin = web.safestr(admin)
@@ -109,7 +109,7 @@ class LDAPWrap:
                 #"""
                 try:
                     self.access = self.conn.search_s(
-                            iredutils.convEmailToAdminDN(admin),
+                            ldaputils.convEmailToAdminDN(admin),
                             ldap.SCOPE_BASE,
                             "(&(objectClass=mailAdmin)(domainGlobalAdmin=yes))",
                             )

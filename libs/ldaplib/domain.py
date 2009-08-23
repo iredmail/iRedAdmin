@@ -6,7 +6,7 @@
 import sys
 import ldap
 import web
-from libs.ldaplib import core, attrs, iredldif, iredutils, deltree
+from libs.ldaplib import core, attrs, iredldif, ldaputils, deltree
 
 session = web.config.get('_session')
 
@@ -17,11 +17,11 @@ class Domain(core.LDAPWrap):
     def add(self, domainName, cn=None):
         # msg: {key: value}
         msg = {}
-        domainName = iredutils.removeSpaceAndDot(web.safestr(domainName)).lower()
+        domainName = ldaputils.removeSpaceAndDot(web.safestr(domainName)).lower()
         if domainName == '' or domainName == 'None' or domainName is None:
             return False
 
-        dn = iredutils.convDomainToDN(domainName)
+        dn = ldaputils.convDomainToDN(domainName)
         ldif = iredldif.ldif_maildomain(domainName, cn)
 
         # Add domain dn.
@@ -77,7 +77,7 @@ class Domain(core.LDAPWrap):
         
         msg = {}
         for domain in domainName:
-            dn = iredutils.convDomainToDN(web.safestr(domain))
+            dn = ldaputils.convDomainToDN(web.safestr(domain))
 
             try:
                 deltree.DelTree( self.conn, dn, ldap.SCOPE_SUBTREE )
@@ -90,7 +90,7 @@ class Domain(core.LDAPWrap):
     # Get domain attributes & values.
     def profile(self, domain):
         self.domain = web.safestr(domain)
-        self.domainDN = iredutils.convDomainToDN(self.domain)
+        self.domainDN = ldaputils.convDomainToDN(self.domain)
 
         # Access control.
         if self.check_domain_access(self.domainDN, session.get('username')):
@@ -139,7 +139,7 @@ class Domain(core.LDAPWrap):
             pass
 
         try:
-            dn = iredutils.convDomainToDN(domain)
+            dn = ldaputils.convDomainToDN(domain)
             self.conn.modify_s(dn, mod_attrs)
             return True
         except Exception, e:

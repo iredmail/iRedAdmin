@@ -5,7 +5,7 @@
 
 import time
 from web import iredconfig as cfg
-from libs.ldaplib import iredutils
+from libs.ldaplib import ldaputils
 
 # Define and return LDIF structure of domain.
 def ldif_maildomain(domainName, cn=None,
@@ -76,7 +76,7 @@ def ldif_mailuser(domain, username, cn, passwd, quota=cfg.general.get('default_q
     DATE = time.strftime('%Y.%m.%d.%H.%M.%S')
     domain = str(domain)
     quota = int(quota) * 1024 * 1024
-    username = iredutils.removeSpaceAndDot(str(username))
+    username = ldaputils.removeSpaceAndDot(str(username))
     mail = username.lower() + '@' + domain
     #dn = convEmailToUserDN(mail)
 

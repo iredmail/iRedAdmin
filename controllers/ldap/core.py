@@ -4,7 +4,8 @@
 # Author: Zhang Huangbin <michaelbibby (at) gmail.com>
 
 import web, sys
-from libs.ldaplib import core, auth, domain, iredutils
+from libs import iredutils
+from libs.ldaplib import core, auth, domain, ldaputils
 from controllers.ldap import base
 
 session = web.config.get('_session')
@@ -28,7 +29,7 @@ class login:
         username = web.safestr(i.get('username').strip())
 
         # Convert username to ldap dn.
-        userdn = iredutils.convEmailToAdminDN(username)
+        userdn = ldaputils.convEmailToAdminDN(username)
         if not userdn:
             return render.login(msg='INVALID_USERNAME')
 
@@ -56,6 +57,16 @@ class login:
                 # Expire session when browser closed.
                 web.config.session_parameters['timeout'] = 600      # 10 minutes
 
+            # Per-user i18n.
+            try:
+                adminLib = admin.Admin()
+                lang = adminLib.getPreferredLanguage(username)
+                if lang is not False and lang != session.get('lang'):
+                    web.render = iredutils.setRenderLang(web.render, lang)
+                    session['lang'] = lang
+            except:
+                pass
+
             web.seeother('/dashboard')
         else:
             session['failedTimes'] += 1
@@ -74,4 +85,3 @@ class dashboard:
 class dbinit:
     def __init__(self):
         self.dbwrap = core.LDAPWrap(app=web.app, session=session)
-        self.domain = domain.Domain()

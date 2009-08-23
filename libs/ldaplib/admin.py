@@ -6,13 +6,27 @@
 import sys
 import ldap
 import web
-from libs.ldaplib import core, attrs, iredutils
+from libs.ldaplib import core, attrs, ldaputils
 
 session = web.config.get('_session')
 
 class Admin(core.LDAPWrap):
     def __del__(self):
         pass
+
+    # Get preferredLanguage.
+    def getPreferredLanguage(self, admin):
+        dn = ldaputils.convEmailToAdminDN(web.safestr(admin))
+        self.lang = self.conn.search_s(
+                dn,
+                ldap.SCOPE_BASE,
+                attrlist=['preferredLanguage'],
+                )
+        if self.lang[0][1].has_key('preferredLanguage'):
+            lang = self.lang[0][1]['preferredLanguage'][0]
+        else:
+            lang = session.get('lang')
+        return lang
 
     # List all admin accounts.
     def list(self):

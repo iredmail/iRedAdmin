@@ -6,7 +6,7 @@
 import sys
 import ldap, ldap.filter
 import web
-from libs.ldaplib import core, attrs, iredutils, deltree
+from libs.ldaplib import core, attrs, ldaputils, deltree
 
 session = web.config.get('_session')
 
@@ -17,7 +17,7 @@ class User(core.LDAPWrap):
     # List all users under one domain.
     def list(self, domain):
         self.domain = domain
-        self.domainDN = iredutils.convDomainToDN(self.domain)
+        self.domainDN = ldaputils.convDomainToDN(self.domain)
 
         # Check whether user is admin of domain.
         if self.check_domain_access(self.domainDN, session.get('username')):
@@ -71,7 +71,7 @@ class User(core.LDAPWrap):
 
         msg = {}
         for mail in mails:
-            dn = iredutils.convEmailToUserDN(mail)
+            dn = ldaputils.convEmailToUserDN(mail)
 
             try:
                 deltree.DelTree( self.conn, dn, ldap.SCOPE_SUBTREE )

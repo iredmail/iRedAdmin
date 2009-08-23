@@ -3,13 +3,10 @@
 
 # Author: Zhang Huangbin <michaelbibby@gmail.com>
 
-'''
-init settings
-'''
+# init settings
 
-import os, sys, time
+import os, sys
 import ConfigParser
-import gettext
 
 import web
 from web.contrib.template import render_jinja
@@ -46,9 +43,9 @@ web.app = app
 web.config.debug = eval(cfg.general.get('debug', 'False'))
 lang = cfg.general.get('lang', 'en_US')
 
-web.config.session_parameters['cookie_name'] = 'iRedAdmin'
+web.config.session_parameters['cookie_name'] = 'iRedAdmin-ent'
 web.config.session_parameters['cookie_domain'] = None
-#web.config.session_parameters['timeout'] = 600     # 10 minutes
+#web.config.session_parameters['timeout'] = 600          # 10 minutes
 web.config.session_parameters['ignore_expiry'] = False
 web.config.session_parameters['ignore_change_ip'] = False
 
@@ -76,41 +73,23 @@ session = web.session.Session(app, sessionStore,
         )
 web.config._session = session
 
-# Init translations.
-if lang == 'en_US':
-    translations = gettext.NullTranslations()
-else:
-    try:
-        translations = gettext.translation(
-                'iredadmin',
-                rootdir + 'i18n',
-                languages=[lang],
-                )
-    except IOError:
-        translations = gettext.NullTranslations()
-
 # Use JinJa2 template.
 tmpldir = rootdir + '/templates/' + \
         cfg.general.get('skin', 'default') +  '/' + \
         cfg.general.get('backend')
 
 # init render
-def set_render(tmpl_dir):
-    r = render_jinja(
-            tmpl_dir,                           # template dir.
-            extensions = ['jinja2.ext.i18n'],   # Jinja2 extensions.
-            encoding = 'utf-8',                 # Encoding.
-            globals = {
-                'skin': cfg.general.get('skin', 'default'), # Used for static files.
-                'session': web.config._session,  # Used for session.
-                'ctx': web.ctx,                  # Used to get 'homepath'.
-                },
-            )
-    r._lookup.install_gettext_translations(translations)
-    return r
+render = render_jinja(
+        tmpldir,                           # template dir.
+        extensions = ['jinja2.ext.i18n'],   # Jinja2 extensions.
+        encoding = 'utf-8',                 # Encoding.
+        globals = {
+            'skin': cfg.general.get('skin', 'default'), # Used for static files.
+            'session': web.config._session,  # Used for session.
+            'ctx': web.ctx,                  # Used to get 'homepath'.
+            },
+        )
 
-render = set_render(tmpldir)
+import iredutils
+render = iredutils.setRenderLang(render, lang)
 web.render = render
-
-def notfound():
-    return web.notfound(render.pageNotFound())
