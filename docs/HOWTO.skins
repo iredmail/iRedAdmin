@@ -1,0 +1,5 @@
+iRedAdmin uses Jinja2 as template engine, you can read Jinja2
+<Template Designer Documentation> here:
+
+    - http://jinja.pocoo.org/2/documentation/templates
+

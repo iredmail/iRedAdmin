@@ -1,0 +1,92 @@
+dn: dc=iredmail,dc=org
+objectclass: dcObject
+objectclass: organization
+dc: iredmail
+o: iredmail
+
+dn: cn=vmail,dc=iredmail,dc=org
+objectClass: person
+objectClass: shadowAccount
+objectClass: top
+cn: vmail
+sn: vmail
+uid: vmail
+userPassword: passwd
+
+dn: cn=vmailadmin,dc=iredmail,dc=org
+objectClass: person
+objectClass: shadowAccount
+objectClass: top
+cn: vmailadmin
+sn: vmailadmin
+uid: vmailadmin
+userPassword: passwd
+
+dn: o=domains,dc=iredmail,dc=org
+objectClass: Organization
+o: domains
+
+dn: o=domainAdmins,dc=iredmail,dc=org
+objectClass: Organization
+o: domainAdmins
+
+dn: domainName=a.cn,o=domains,dc=iredmail,dc=org
+objectClass: mailDomain
+domainName: a.cn
+mtaTransport: dovecot
+accountStatus: active
+enabledService: mail
+
+dn: ou=Users,domainName=a.cn,o=domains,dc=iredmail,dc=org
+objectClass: organizationalUnit
+objectClass: top
+ou: Users
+
+dn: ou=Groups,domainName=a.cn,o=domains,dc=iredmail,dc=org
+objectClass: organizationalUnit
+objectClass: top
+ou: Groups
+
+dn: ou=Aliases,domainName=a.cn,o=domains,dc=iredmail,dc=org
+objectClass: organizationalUnit
+objectClass: top
+ou: Aliases
+
+dn: mail=postmaster@a.cn,o=domainAdmins,dc=iredmail,dc=org
+objectClass: mailAdmin
+objectClass: shadowAccount
+objectClass: top
+cn: postmaster
+uid: postmaster
+givenName: postmaster
+mail: postmaster@a.cn
+accountStatus: active
+userPassword: passwd
+domainGlobalAdmin: yes
+enabledService: awstats
+
+dn: mail=www@a.cn,ou=Users,domainName=a.cn,o=domains,dc=iredmail,dc=org
+objectClass: inetOrgPerson
+objectClass: shadowAccount
+objectClass: mailUser
+objectClass: top
+cn: www
+sn: www
+uid: www
+givenName: www
+mail: www@a.cn
+accountStatus: active
+mailMessageStore: a.cn/www/
+homeDirectory: /home/vmail
+mailQuota: 104857600
+userPassword: passwd
+enabledService: mail
+enabledService: smtp
+enabledService: pop3
+enabledService: imap
+enabledService: deliver
+enabledService: forward
+enabledService: senderbcc
+enabledService: recipientbcc
+enabledService: managesieve
+memberOfGroup: all@a.cn

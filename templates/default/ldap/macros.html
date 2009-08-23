@@ -1,0 +1,164 @@
+{% macro set_account_status_img(status) -%}
+    {% if status == 'active' or status == 'yes' %}
+        {% set img = "enabled.png" %}
+    {% else %}
+        {% set img = "disabled.png" %}
+    {% endif %}
+    <img title="{{ _('Status:') }} {{status |title }}" src="{{ctx.homepath}}/static/{{skin}}/images/{{img}}">
+{%- endmacro %}
+
+{% macro set_status_img(status) -%}
+    {% if status == 'active' or status == 'yes' %}
+        {% set img = "enabled.png" %}
+    {% else %}
+        {% set img = "disabled.png" %}
+    {% endif %}
+    <img title="{{status |title }}" src="{{ctx.homepath}}/static/{{skin}}/images/{{img}}">
+{%- endmacro %}
+
+{% macro display_input_img(image="", alt="") -%}
+    <input type="image" src="{{ctx.homepath}}/static/{{skin}}/images/{{image}}" alt="{{alt}}">
+{%- endmacro %}
+
+{% macro input_hidden(name, value) -%}
+    <input type="hidden" name="{{ name }}" value="{{ value }}">
+{%- endmacro %}
+
+{% macro display_cn(value='', accountType='domain') -%}
+    <fieldset class="frm-group">
+        <div class="sf-set">
+            <div class="sf-box text">
+                <label><span>
+                {% if accountType == 'domain' %}
+                    {{ _('Company/Organization name') }}
+                {% else %}
+                    {{ _('Display Name') }}
+                {% endif %}
+                </span></label>
+                <span class="fld-input"><input type="text" name="cn" value="{{value}}" size="50" /></span>
+            </div>
+        </div>
+    </fieldset>
+{%- endmacro %}
+
+{# Display accountStatus #}
+{% macro display_account_status(accountStatus) %}
+    <fieldset class="frm-group">
+        <legend class="group-legend"><strong>{{ _('Account status') }}</strong></legend>
+        <fieldset class="mf-set required">
+            <legend><span>{{ _('Account status') }}<em>{{ _('(Required)') }}</em></span></legend>
+            <div class="mf-box">
+                <div class="mf-item">
+                    <span class="fld-input"><input type="radio" name="accountStatus" value="active" {% if accountStatus == 'active' %}checked="on"{%endif%}/></span>
+                    <label>{{ _('Active') }}</label>
+                </div>
+                <div class="mf-item">
+                    <span class="fld-input"><input type="radio" name="accountStatus" value="disabled" {% if accountStatus == 'disabled' %}checked{%endif%}/></span>
+                    <label>{{ _('Disabled') }}</label>
+                </div>
+            </div>
+        </fieldset>
+    </fieldset>
+{%- endmacro %}
+
+{# Display domainBackupMX #}
+{% macro display_domain_backup_mx(domainBackupMX) %}
+    <fieldset class="frm-group">
+        <legend class="group-legend"><strong>{{ _('Backup MX') }}</strong></legend>
+        <fieldset class="mf-set">
+            <legend><span>{{ _('Backup MX') }}</span></legend>
+            <div class="mf-box">
+                <div class="mf-item">
+                    <span class="fld-input"><input type="radio" name="domainBackupMX" {% if domainBackupMX == 'yes' %}value="yes" checked{%endif%} /></span>
+                    <label>{{ _('Yes') }}</label>
+                </div>
+                <div class="mf-item">
+                    <span class="fld-input"><input type="radio" name="domainBackupMX" {% if domainBackupMX == 'no' %}value="no" checked{%endif%} /></span>
+                    <label>{{ _('No') }}</label>
+                </div>
+            </div>
+        </fieldset>
+    </fieldset>
+{%- endmacro %}
+
+{% macro display_all_admins(admins, domainAdmins=[]) -%}
+    <fieldset class="frm-group mf-set required">
+        <legend><span>{{ _('Domain admin assignment') }}<em>{{ _('If no admin assigned, you can manage it with global admin.') }}</em></span></legend>
+        <div class="mf-box">
+            <div class="checklist">
+                <fieldset>
+                    {% for admin in admins %}
+                    {% set adminMail = admin[1].get('mail')[0] %}
+                    <div class="checklist-item">
+                        <span class="fld-input">
+                            <input type="checkbox" id="fld1" name="domainAdmin" value="{{ adminMail }}" {% if adminMail in domainAdmins %}checked{%endif%} />
+                        </span>
+                        <label>
+                            {% if admin[1].has_key('cn') %}
+                                {{ _("%s (%s)") |format( admin[1].get('cn')[0].decode('utf-8'), adminMail ) }}
+                            {% else %}
+                            {{ adminMail }}
+                            {% endif %}
+                            {% if 'yes' in admin[1].get('domainGlobalAdmin', []) %}<em><strong>{{ _('(Global Admin)') }}</strong></em>{% endif %}</label>
+                    </div>
+                    {% endfor %}
+                </fieldset>
+            </div>
+            <div><span><a href="{{ctx.homepath}}/create/admin" target="_blank">{{ _('Create new admin') }}</a></span></div>
+        </div>
+    </fieldset>
+{%- endmacro %}
+
+{% macro display_mta_transport(mtaTransport) -%}
+    <fieldset class="frm-group">
+        <legend class="group-legend"><strong>{{ _('MTA transport') }}</strong></legend>
+        <div class="sf-set">
+            <div class="sf-box text required">
+                <label><span>{{ _('MTA transport') }}</span><small>{{ _('Default is <strong>%s</strong>.') |format(mtaTransport) }}</em></small></label>
+                <span class="fld-input"><input type="text" name="mtaTransport" size="25" /><em>{{ _('Leave it empty to use default transport.') }}</em></span>
+            </div>
+        </div>
+    </fieldset>
+{%- endmacro %}
+
+{% macro display_reset_password(oldpw='', newpw='', confirmpw='', show_oldpw='no', show_confirmpw='yes') -%}
+    <fieldset class="frm-group">
+        <legend class="group-legend"><strong>Required information</strong></legend>
+        {% if show_oldpw == 'yes' %}
+        <div class="sf-set">
+            <div class="sf-box text required">
+                <label for="oldpw"><span>{{ _('Old password') }} <em>{{ _('(Required)') }}</em></span></label><br />
+                <span class="fld-input"><input type="password" id="oldpw" name="oldpw" size="35" value="{{oldpw}}"/></span><br />
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="sf-set">
+            <div class="sf-box text required">
+                <label for="newpw"><span>{{ _('New password') }} <em>{{ _('(Required)') }}</em></span></label><br />
+                <span class="fld-input"><input type="password" id="newpw" name="newpw" size="35" value="{{newpw}}"/></span><br />
+            </div>
+        </div>
+
+        {% if show_confirmpw == 'yes' %}
+        <div class="sf-set">
+            <div class="sf-box text required">
+                <label for="confirmpw"><span>{{ _('Confirm new password') }} <em>{{ _('(Required)') }}</em></span> <small>{{ _('Re-enter your password exactly as before.') }}</small></label><br />
+                <span class="fld-input"><input type="password" id="confirmpw" name="confirmpw" size="35" value="{{confirmpw}}"/></span><br />
+            </div>
+        </div>
+        {% endif %}
+    </fieldset>
+{%- endmacro %}
+
+{% macro display_quota(value='') -%}
+    <fieldset class="frm-group">
+        <legend class="group-legend"><strong>{{ _('Quota') }}</strong></legend>
+        <div class="sf-set">
+            <div class="sf-box text required">
+                <label><span>{{ _('Quota (in MB)') }}</span></label>
+                <span class="fld-input"><input type="text" name="quota" size="25" value="{{value}}" /></span>
+            </div>
+        </div>
+    </fieldset>
+{%- endmacro %}

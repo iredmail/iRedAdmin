@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% from "macros.html" import
+        display_cn,
+        display_account_status,
+        display_domain_backup_mx,
+        display_all_admins,
+        %}
+
+{% block js_tablesorter %}{% endblock %}
+
+{% block title %}{{ _('Edit domain profile.') }}{% endblock %}
+
+{% block id_welcome %}
+<span class="float_right">{{ _('View/Update domain profile:') }} <a href="{{homepath |e}}/profile/domain/{{domain}}">{{domain}}</a></strong></span>
+{% endblock id_welcome %}
+
+{# Domain profile. #}
+{% block main %}
+<div id="brd-visit" class="gen-content">
+    <p><span>{{ _('Domain profile.') }}</span></p>
+</div>
+
+{# Domain profile. #}
+{% set p = profile[0] %}
+{% set dn = p[0] %}
+{% set entries = p[1] %}
+{% set domainName = entries.get('domainName')[0] %}
+{% set cn = entries.get('cn', [''])[0].decode('utf-8') %}
+{% set accountStatus = entries.get('accountStatus', ['disabled'])[0] %}
+{% set domainAdmin = entries.get('domainAdmin', ['']) %}
+{% set domainBackupMX = entries.get('domainBackupMX', ['no'])[0] %}
+
+{% set createTimestamp = entries.get('createTimestamp', ['--------------'])[0] %}
+
+<form class="frm-form" method="post" method="{{ctx.homepath}}/user/edit">
+<div class="main-content main-frm">
+        <div class="ct-set data-set set1">
+            <div class="ct-box data-box">
+                <ul class="data-list">
+                    <input type="hidden" name="domainName" value="{{domain}}" />
+                    <li><span><strong>{{ _('Domain name:') }}</strong> {{domain}}</span></li>
+                    <li><span><strong>{{ _('Company/Organization:') }}</strong> {{cn}}</span></li>
+                    <li><span><strong>{{ _('Created Date:') }}</strong> {{createTimestamp[:4]}}.{{createTimestamp[4:6]}}.{{createTimestamp[6:8]}} {{createTimestamp[8:10]}}:{{createTimestamp[10:12]}}:{{createTimestamp[12:14]}}</span></li>
+                </ul>
+            </div>
+        </div>
+
+        {{ display_cn(cn) }}
+
+        {% if session.get('domainGlobalAdmin') == 'yes' %}
+            {{ display_account_status(accountStatus) }}
+
+            {{ display_all_admins(admins=admins, domainAdmins=domainAdmins) }}
+
+            {{ display_domain_backup_mx(domainBackupMX) }}
+
+        {% endif %}
+
+        <div class="frm-buttons">
+            <span class="submit"><input type="submit" name="save" value="{{ _('Save changes') }}" /></span>
+        </div>
+</div>
+</form>
+{% endblock main %}

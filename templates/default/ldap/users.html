@@ -1,0 +1,105 @@
+{# users, cur_domain, allDomains, msg #}
+
+{% extends "layout.html" %}
+
+{% from "macros.html" import set_account_status_img %}
+
+{% block title %}{{ _('Mail users') }}{% endblock %}
+
+{% block jquery_snippets %}
+{# Sort user name at initialization. #}
+$("#user_list").tablesorter( {
+    sortList: [[1,0]]
+});
+{% endblock jquery_snippets %}
+
+{# Show drop-down menu of domain list #}
+{% block id_welcome %}
+<span>{{ _('View users under domain:') }} </span>
+<span>
+    <select id="domainSelect" name="domainName" onchange="listAccountsUnderDomain(this, baseurl='{{ctx.homepath}}/users/');">
+        <option value="none" {% if cur_domain is sameas none %}selected{%endif%}>{{ _('Select one domain') }}</option>
+        {% for d in allDomains %}
+            <option value="{{d[1].domainName[0]}}" {% if cur_domain == d[1].domainName[0] %}selected{%endif%}>{{d[1].domainName[0]}}</option>
+        {% endfor %}
+    </select>
+</span>
+{% endblock id_welcome %}
+
+{% block main %}
+{# Show system message #}
+{#
+{% if msg is defined and msg is not none %}
+    <div class="note">
+        <p>{{ _('System message:') }}</p>
+
+        <ul>
+        {% if msg == 'PERMISSION_DENIED' %}
+            <p>{{ _('Permission deny.') }}</p>
+        {% elif msg == 'SIZELIMIT_EXCEEDED' %}
+            <p>{{ _('Size limit exceeded.') }}</p>
+        {% elif msg == 'ADDED_SUCCESS' %}
+            <p>{{ _('Added success.') }}</p>
+        {% else %}
+            <p>{{ msg }}</p>
+        {% endif %}
+        </ul>
+    </div>
+{% endif %}
+#}
+
+{% if users is defined %}
+    {# List all users. #}
+    <div class="main-frm">
+    <form name="list_table" id="list_table" action="{{ctx.homepath}}/users/{{cur_domain}}" method="post">
+    <table id="user_list" class="full tablesorter headerSortUp">
+        {# Table header. #}
+        <thead>
+        <tr>
+            <th>{{ _('Name') }}/{{ users |length}}</th>
+            <th>{{ _('Mail Address') }}</th>
+            <th>{{ _('Quota') }}</th>
+            <th>{{ _('Created Date') }}</th>
+        </tr>
+        </thead>
+
+        {# List user attributes/avalues. #}
+        <tbody>
+        {% if users is not string or users |length != 0 %}
+            {% for i in users %}
+                {% set entries = i[1] %}
+                {% set mail = entries.get('mail')[0] |string %}
+                {# If not present, mark as 'disabled'. #}
+                {% set accountStatus = entries.get('accountStatus', ['disabled'])[0] %} 
+                {% set createTimestamp = entries.get('createTimestamp', ['--------------'])[0] %}
+
+                <tr class="{{ loop.cycle('odd', 'even') }} {{ accountStatus |lower }}">
+                    <td>
+                        <span class="float_left">
+                            <input type="checkbox" name="mail" value="{{mail}}" />
+                            <a href="{{ctx.homepath}}/profile/user/{{mail}}" title="{{ _('Edit user profile.') }}">{{ entries.get('cn', [''])[0].decode('utf-8') }}</a>
+                        </span>
+                        <span class="float_right">{{ set_account_status_img(accountStatus) }}</span>
+                    </td>
+                    <td><a href="mailto:{{mail}}" title="{{ _('Send mail to %s.') |format(mail) }}">{{ mail }}</a></td>
+
+                {# mail quota #}
+                <td>{{ entries.get('mailQuota', [0])[0] |filesizeformat }}</td>
+
+                <td>{{createTimestamp[:4]}}-{{createTimestamp[4:6]}}-{{createTimestamp[6:8]}} {{createTimestamp[8:10]}}:{{createTimestamp[10:12]}}:{{createTimestamp[12:14]}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="frm-buttons">
+        <span class="submit">
+            <input type="checkbox" id="checkall" />{{ _('Select all') }}
+            <input type="submit" value="{{ _('Delete') }}" onclick="return confirm('{{ _('Are you sure want to delete selected account(s)?') }}');" }}" />
+        </span>
+    </div>
+    {%endif%}
+</form>
+</div>
+{%endif%}
+{% endblock main %}

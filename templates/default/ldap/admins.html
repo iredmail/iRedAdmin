@@ -1,0 +1,87 @@
+{% extends "layout.html" %}
+
+{% from "macros.html" import set_account_status_img %}
+
+{% block title %}{{ _('Domain admins') }}{% endblock %}
+
+{% block jquery_snippets %}
+{# Sort user name at initialization. #}
+$("#admin_list").tablesorter( {
+    headers: {4: {sorter: false},},
+    sortList: [[1,0]]
+});
+{% endblock jquery_snippets %}
+
+{% block id_welcome %}
+<span>{{ _('All mail administrators.') }} {{ _('Total: %s.') |format(admins |length) }}</span>
+{% endblock id_welcome %}
+
+{% block main %}
+{# Show system message #}
+{#
+{% if msg is defined %}
+    <div class="note">
+        <h5>{{ _('System message:') }}</h5>
+
+        <ul>
+        {% for i in msg.items() %}
+            <li>{{ i[1] }} ({{i[0]}})</li>
+        {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+#}
+
+{# List admins #}
+
+{#{% if admins|length > 0 %}#}
+{% if admins is not string %}
+    <div>
+    <form name="list_table" id="list_table" action="{{ctx.homepath}}/admin/list" method="post">
+        <input type="hidden" name="action" value="delete" />
+
+        <table id="admin_list" class="full tablesorter headerSortUp">
+        <thead>
+        <tr>
+            <th>{{ _('Name') }}</th>
+            <th>{{ _('Mail') }}</th>
+            <th>{{ _('Global Admin') }}</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for admin in admins %}
+            {% set dn = admin[0] %}
+            {% set entry = admin[1] %}
+
+            {% set mail = entry.get('mail')[0] %}
+            {% set cn = entry.get('cn', [''])[0].decode('utf-8') %}
+            {% set accountStatus = entry.get('accountStatus', ['disabled'])[0] %}
+            {% set domainGlobalAdmin = entry.get('domainGlobalAdmin', ['no'])[0] %}
+
+            <tr class="{{ loop.cycle('odd', 'even') }} {{ accountStatus |lower }}">
+                <td>
+                    <span class="float_left">
+                        <input type="checkbox" name="dn" value="{{dn}}" />
+                        <a href="{{ctx.homepath}}/profile/admin/{{mail}}" title="{{ _('Edit admin profile.') }}">{{ cn }}</a>
+                    </span>
+                    <span class="float_right">{{ set_account_status_img(accountStatus) }}</span>
+                </td>
+                <td><a href="mailto:{{mail}}" title="{{ _('Send mail to %s.') |format(mail) }}">{{ mail }}</a></td>
+                <td>{{ set_account_status_img(domainGlobalAdmin) }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+        <div class="frm-buttons">
+            <span class="submit">
+                <input type="checkbox" id="checkall" />{{ _('Select all') }}
+                <input type="submit" value="{{ _('Delete') }}" onclick="return confirm('{{ _('Are you sure want to delete selected account(s)?') }}');" }}" />
+            </span>
+        </div>
+    </form>
+</div>
+{% endif %}
+
+{% endblock main %}

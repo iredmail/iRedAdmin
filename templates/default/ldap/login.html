@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ _('Login to manage your mail domains & users') }}{% endblock %}
+{% block js %}{% endblock %}
+{% block js_tablesorter %}{% endblock %}
+{% block jquery_docoment_ready %}{% endblock jquery_docoment_ready %}
+
+{% block css %}
+{# Override default css style, center the login page. #}
+<style type="text/css">
+    body {
+        text-align: center;
+    }
+    #brd-wrap {
+        margin-left: auto;
+        margin-right: auto;
+        width: 40em;
+        text-align: left;
+    }
+</style>
+{% endblock %}
+
+{% block main %}
+<div id="brd-main">
+    <div class="main-head">
+        <h2 class="hn"><span>{{ _('Login to manage your mail domains & users') }}</span></h2>
+    </div>
+    <div class="main-frm">
+        <div class="content-head">
+            <p class="important">{{ _('All fields labelled <em>(Required)</em> must be completed before the form is submitted.') }}</p>
+        </div>
+
+        <form class="frm-form" method="post" action="{{ctx.homepath}}/login">
+            <div class="frm-group">
+                <div class="sf-set">
+                    <div class="sf-box text required">
+                        <label><span>{{ _('Username')}} <em>{{ _('(Required)')}}</em></span><small>{{ _('Must be a valid email address.') }}</small></label><br />
+                        <span class="fld-input"><input type="text" name="username" size="35" /></span>
+                    </div>
+                </div>
+
+                <div class="sf-set">
+                    <div class="sf-box text required">
+                        <label><span>{{ _('Password') }} <em>{{ _('(Required)') }}</em></span></label><br />
+                        <span class="fld-input"><input type="password" name="password" size="35" /></span>
+                    </div>
+                </div>
+
+                <div class="sf-set">
+                    <div class="sf-box checkbox">
+                        <span class="fld-input"><input type="checkbox" name="save_pass" value="yes" /></span>
+                        <label><span>{{ _('Remember me')}} </span>{{ _('Log me in automatically each time I visit.') }}</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="frm-buttons">
+                <span class="submit"><input type="submit" value="{{ _('Login') }}" /></span>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock main %}
+
+{% block footer %}{%endblock%}

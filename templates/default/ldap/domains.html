@@ -1,0 +1,91 @@
+{% extends "layout.html" %}
+
+{% from "macros.html" import set_account_status_img, %}
+
+{% block title %}{{ _('Mail domains') }}{% endblock %}
+
+{% block jquery_snippets %}
+    {# Sort domain name at initialization. #}
+    $("#domain_list").tablesorter( {
+        sortList: [[0,0]]
+    });
+{% endblock jquery_snippets %}
+
+{% block id_welcome %}
+<span>{{ _('All domains under your control.') }} {{ _('Total: %s.') |format(domains|length) }}</span>
+{% endblock id_welcome %}
+
+{% block main %}
+{# Show system message #}
+{#
+{% if msg is not none %}
+    <div class="note">
+        <p>{{ _('System message:') }}</p>
+
+        {{ msg }}
+        <ul>
+        {% for i in msg.items()|sort %}
+            {% if i[1] == 'DELETED' %}
+                <li>{{ _('Deleted:') }} {{ i[0] }}</li>
+            {% elif i[1] == 'NO_SUCH_OBJECT' %}
+                <li>{{ _('No such object:') }} {{ i[0] }}</li>
+            {% else %}
+                <li>{{ i[1] }} {{ i[0] }}</li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+#}
+
+{# List all domains under control. #}
+<div class="main-frm">
+    <form id="list_table" method="post" action="{{ctx.homepath}}/domains">
+    <table id="domain_list" cellspacing="0">
+        <thead>
+        <tr>
+            <th>{{ _('Domain Name') }}</th>
+            <th>{{ _('Users') }}</th>
+        </tr>
+        </thead>
+
+        {# List domain attributes/avalues. #}
+        {% if domains is not string and domains |length != 0 %}
+        <tbody>
+        {% for i in domains %}
+            {% set entries = i[1] %}
+            {% set domain = entries.get('domainName')[0] |string%}
+            {% set accountStatus = entries.get('accountStatus', ['disabled'])[0] %}
+
+            <tr class="{{ loop.cycle('odd', 'even') }} {{ accountStatus |lower }}">
+                <td>
+                    <span class="float_left">
+                        {% if session.get('domainGlobalAdmin') == 'yes' %}
+                        <input type="checkbox" name="domainName" value="{{domain}}"/>
+                        {% endif %}
+                        <a href="{{ctx.homepath}}/profile/domain/{{domain}}" alt="{{_('Edit')}}" title="{{ _('Edit domain profile.') }}">{{domain}}</a>
+                    </span>
+                    <span class="float_right">{{ set_account_status_img(accountStatus) }}</span>
+                </td>
+
+                {# Mail user count #}
+                <td><a href="{{ctx.homepath}}/users/{{domain}}" title="{{ _('List all mail users.') }}">{{ entries.get('domainCurrentUserNumber', [0])[0] }}</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% if session.get('domainGlobalAdmin') == 'yes' %}
+        <div class="frm-buttons">
+            <span class="submit">
+                <input type="checkbox" id="checkall" />{{ _('Select all') }}
+                <input type="submit" value="{{ _('Delete') }}" onclick="return confirm('{{ _('Are you sure want to delete selected domain(s) and accounts under it?') }}');" }}" />
+            </span>
+        </div>
+    {% endif %}
+
+    </form>
+</div>
+        {% endif %}
+
+{% endblock main %}

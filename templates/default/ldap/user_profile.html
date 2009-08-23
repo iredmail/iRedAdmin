@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+
+{% from "macros.html" import display_account_status, %}
+
+{% block title %}{{ _('Edit user profile') }}{% endblock %}
+
+{# User profile. #}
+
+{# Show profile categories #}
+{% block id_welcome %}
+<span><a href="#">General</a>&nbsp;</span>
+<span><a href="#">Reset password</a>&nbsp;</span>
+{% endblock id_welcome %}
+
+{% block main %}
+
+{% set user = user_profile[0] %}
+{% set entries = user[1] %}
+{% set cn = entries.get('cn', [''])[0].decode('utf-8') %}
+{% set mail = entries.get('mail')[0] %}
+{% set username, domain = mail.split('@') %}
+{% set employeeNumber = entries.get('employeeNumber', [''])[0] %}
+{% set jpegPhoto = entries.get('jpegPhoto', [''])[0] %}
+{% set accountStatus = entries.get('accountStatus', ['disabled'])[0] %}
+{% set mailQuota = entries.get('mailQuota', [0])[0] %}
+{% set memberOfGroup = entries.get('memberOfGroup', []) %}
+{% set homeDirectory = entries.get('homeDirectory', ['/home/vmail'])[0] %}
+{% set mailMessageStore = entries.get('mailMessageStore', [domain + '/' + username + '/'])[0] %}
+{% set enabledService = entries.get('enabledService', ['']) %}
+{% set mailForwardingAddress = entries.get('mailForwardingAddress', ['']) %}
+{% set userRecipientBccAddress = entries.get('userRecipientBccAddress', [''])[0] %}
+{% set userSenderBccAddress = entries.get('userSenderBccAddress', [''])[0] %}
+{% set createTimestamp = entries.get('createTimestamp', ['--------------'])[0] %}
+
+<form class="frm-form" method="post" method="{{ctx.homepath}}/user/edit">
+<div class="main-content main-frm">
+    <div class="profile ct-group data-group vcard">
+        <div class="ct-set data-set set1">
+            <div class="ct-box data-box">
+                <ul class="user-ident ct-legend">
+                    <li class="useravatar">{% if jpegPhoto |length != 0 %}<img src="{{ctx.homepath}}/img/{{jpegPhoto.encode('base64')}}" width="120" alt="" />{%else%}{{ _('No avatar available.') }}{%endif%}</li>
+                </ul>
+                <ul class="data-list">
+                    <li class="username fn nickname"><span>{{ _('Name:') }} <strong>{{cn}}</strong></span></li>
+                    <li><span>{{ _('Mail:') }} <strong>{{mail}}</strong></span></li>
+                    <li><span>{{ _('Employee ID:') }} <strong>{{employeeNumber}}</strong></span></li>
+                    <li><span>{{ _('Created:') }} <strong>{{createTimestamp[:4]}}.{{createTimestamp[4:6]}}.{{createTimestamp[6:8]}} {{createTimestamp[8:10]}}:{{createTimestamp[10:12]}}:{{createTimestamp[12:14]}}</strong></span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    {# Modify #}
+        <fieldset class="frm-group group1">
+            <legend class="group-legend"><strong>{{ _('Name') }}</strong></legend>
+            <div class="sf-set set1">
+                <div class="sf-box text">
+                    <label><span>{{ _('Username') }}</span></label>
+                    <span class="fld-input"><input type="text" name="cn" value="{{cn}}" size="25" /></span>
+                </div>
+                <div class="sf-box text">
+                    <label><span>{{ _('Mail address') }}</span>{% if session.get('domainGlobalAdmin') == 'yes' %}<small>{{ _("Warning: Change mail address won't cause mailbox location changed.") }}</small>{%endif%}</label>
+                    <span class="fld-input"><input type="text" name="mail" value="{{username}}" size="25" />@{{domain}}</span>
+                </div>
+
+                <div class="sf-box text">
+                    <label><span>{{ _('Mail quota (in MB)') }}</span></label>
+                    <span class="fld-input"><input type="text" name="mailQuota" value="" size="15" /> {{_('Current quota:') }} {% if mailQuota == '0' %}{{ _('Unlimited') }}{%else%}{{mailQuota |filesizeformat}}{%endif%}</span>
+                </div>
+            </div>
+        </fieldset>
+
+        {{ display_account_status(accountStatus) }}
+</table>
+
+    <div class="frm-buttons">
+        <span class="submit">
+            <input type="submit" name="save" value="{{ _('Save changes') }}" />
+        </span>
+    </div>
+
+</div>
+</form>
+{% endblock main %}

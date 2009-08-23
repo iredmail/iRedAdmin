@@ -1,0 +1,100 @@
+*) Overview
+
+Required components:
+    - Apache (2.2+)
+    - mod_wsgi (2.1+)
+    - Python (2.4+)
+    - webpy (0.32)
+    - MySQL-python
+    - python-ldap
+
+*) Installation
+
+    - Install python related modules and packages: 
+
+        # ---- Install development files ---
+        $ sudo apt-get install gcc python-setuptools python-dev libldap2-dev libmysqlclient15-dev libsasl2-dev libssl-dev libapache2-mod-wsgi
+
+        # ---- Install python packages ----
+        $ sudo easy_install web.py Jinja2 python-ldap MySQL-python
+
+        # ---- Enable wsgi module in apache.
+        $ sudo a2enmod mod-wsgi
+
+*) Setup
+
+    - Copy iRedAdmin to apache document root /usr/share/apache2/:
+
+        $ tar xjf iRedAdmin-x.y.z.tar.bz2
+        $ sudo mv iRedAdmin-x.y.z /usr/share/apache2/
+        $ cd /usr/share/apache2/
+        $ sudo chown -R root:root iRedAdmin-x.y.z
+        $ sudo chmod -R 0755 iRedAdmin-x.y.z
+        $ sudo ln -s iRedAdmin-x.y.z iRedAdmin
+
+    - Add apache configure file: /etc/apache2/conf.d/iredadmin.conf.
+
+        # ----
+        WSGIScriptAlias /iredadmin /usr/share/apache2/iRedAdmin/iredadmin.py
+
+        Alias /iredadmin/static /usr/share/apache2/iRedAdmin/static
+        AddType text/html .py
+
+        <Directory /usr/share/apache2/iRedAdmin/>
+            Order deny,allow
+            Allow from all
+        </Directory>
+        # ----
+
+      Restart apache to enable it:
+
+        $ sudo /etc/init.d/apache2 restart
+
+    - Create MySQL database:
+
+        $ mysql -uroot -p
+        mysql> CREATE DATABASE iredadmin DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+        mysql> USE iredadmin;
+        mysql> SOURCE /var/www/iRedAdmin/docs/samples/iredadmin.sql;
+
+      Add MySQL user and grant privileges:
+
+        mysql> GRANT SELECT,INSERT,UPDATE,DELETE ON iredadmin.* TO iredadmin@localhost IDENTIFIED BY 'secret_passwd';
+        mysql> FLUSH PRIVILEGES;
+
+*) Configuration:
+
+    - Copy example config file:
+
+        $ cd /usr/share/apache2/iRedAdmin-x.y.z/config/
+        $ cp settings.ini.sample settings.ini
+
+    - Edit settings.ini and set several variables:
+
+        [general]
+        admin = michaelbibby@gmail.com
+        debug = False
+        lang = en_US
+        backend = ldap
+        storage_base_directory = /var/vmail/vmail01
+
+        [iredadmin]
+        dbn = mysql
+        host = localhost
+        port = 3306
+        db = iredadmin
+        user = iredadmin
+        passwd = secret_passwd
+        db_table_session = sessions
+
+        [ldap]
+        uri = ldap://127.0.0.1:389
+        suffix = dc=iredmail,dc=org
+        basedn = o=domains,dc=iredmail,dc=org
+        domainadmin_dn = o=domainAdmins,dc=iredmail,dc=org
+        bind_dn = cn=vmailadmin,dc=iredmail,dc=org
+        bind_pw = passwd
+
+*) Visit below url in your web browser for test:
+
+    http://your_server_ip_address/iredadmin/

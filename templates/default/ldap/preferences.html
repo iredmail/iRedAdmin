@@ -1,0 +1,63 @@
+{# defined: cur_lang, langmaps #}
+
+{% extends "layout.html" %}
+
+{% block js_tablesorter %}{% endblock %}
+
+{% block title %}{{ _('Preferences') }}{% endblock %}
+
+{% block main %}
+<div class="main-subhead">
+    <h2 class="hn"><span>{{ _('View/Update your preferences (%s).') |format(session.get('username')) }}</span></h2>
+</div>
+
+{% if msg is not none %}
+    {% if msg is sameas true %}
+        <div class="main-submenu"><span class="success">{{ _('Changes are saved.') }}</span></div>
+    {% endif %}
+{% endif %}
+
+<div class="main-content frm parted">
+    <form class="frm-form" method="post" action="{{ctx.homepath}}/preferences">
+        <div class="content-head">
+            <h2 class="hn"><span>{{ _('Default language') }}</span></h2>
+        </div>
+
+        <fieldset class="sf-set">
+            <legend><span>{{ _('Default language') }}</span></legend>
+            <div class="mf-box select">
+                <label><span>{{ _('Default language') }}</span></label>
+                <select name="preferredLanguage">
+                    {% for lang in langmaps %}
+                        <option value="{{lang}}" {% if lang == cur_lang %}selected{%endif%}>{{langmaps[lang]}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </fieldset>
+
+        <div class="content-head">
+            <h2 class="hn"><span>{{ _('Change password') }}</span></h2>
+        </div>
+        <div class="sf-set">
+            <div class="sf-box text">
+                <label><span>{{ _('Current password') }}</span></label><br />
+                <span class="fld-input"><input type="password" id="cur_passwd" name="cur_passwd" size="25" /></span>
+            </div>
+
+            <div class="sf-box text">
+                <label><span>{{ _('New password') }}</span></label><br />
+                <span class="fld-input"><input type="password" id="new_passwd" name="new_passwd" size="25" /></span>
+            </div>
+
+            <div class="sf-box text">
+                <label><span>{{ _('Retype new password') }}</span></label><br />
+                <span class="fld-input"><input type="password" id="new_passwd_confirm" name="new_passwd_confirm" size="25" /></span>
+            </div>
+        </div>
+
+        <div class="frm-buttons">
+            <span class="submit"><input type="submit" value="{{ _('Save changes') }}" /></span>
+        </div>
+    </form>
+</div>
+{% endblock main %}
