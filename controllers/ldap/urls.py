@@ -39,7 +39,7 @@ urls = (
         '/(.*)/',                           'controllers.ldap.base.redirect',
 
         # used to display jpegPhoto.
-        '/img/(.*)',                        'controllers.ldap.utils.img',
+        '/img/(.*)',                        'controllers.utils.img',
 
         '/',                                'controllers.ldap.core.login',
         '/login',                           'controllers.ldap.core.login',

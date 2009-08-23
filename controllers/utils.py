@@ -3,7 +3,7 @@
 
 # Author: Zhang Huangbin <michaelbibby (at) gmail.com>
 
-import web,sys
+import web
 
 class img:
     def GET(self, encoded_img):
