@@ -23,8 +23,23 @@
 {% block main %}
 <div id="brd-main">
     <div class="main-head">
-        <h2 class="hn"><span>{{ _('Login to manage your mail domains & users') }}</span></h2>
+        <h2 class="hn"><span>{{ _('Login to manage your mail domains & users') |title }}</span></h2>
     </div>
+
+    {# Show error msg if available #}
+    {% if msg is defined %}
+    <div class="ct-box error-box">
+        <p class="warn"><strong>{{ _('Error:') }}</strong>
+        {% if msg == 'SERVER_DOWN' %}
+            {{ _('Server is down, Please contact <a href="mailto:{{webmaster}}">webmaster</a> to solve it.') }}
+        {% elif msg == 'loginRequired' %}
+            {{ _('Login required') }}
+        {% endif %}
+        </p>
+    </div>
+    {% endif %}
+
+    {# Show login form #}
     <div class="main-frm">
         <div class="content-head">
             <p class="important">{{ _('All fields labelled <em>(Required)</em> must be completed before the form is submitted.') }}</p>

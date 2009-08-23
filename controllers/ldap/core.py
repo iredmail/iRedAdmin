@@ -56,7 +56,7 @@ class login:
             web.seeother('/dashboard')
         else:
             session['failedTimes'] += 1
-            return render.login(msg=self.auth_result, sysadmin=session.get('webmaster', ''))
+            return render.login(msg=self.auth_result, webmaster=session.get('webmaster', ''))
 
 class logout:
     def GET(self):
