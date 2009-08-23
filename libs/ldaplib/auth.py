@@ -12,13 +12,6 @@ cfg = web.iredconfig
 def Auth(dn, pw, session=web.config.get('_session')):
     try:
         conn = ldap.initialize(cfg.ldap.get('uri', 'ldap://127.0.0.1'))
-        use_tls = eval(cfg.ldap.get('use_tls', 0))
-        if use_tls:
-            try:
-                #self.conn.start_tls_s()
-                conn.start_tls_s()
-            except ldap.LDAPError, e:
-                return e
 
         dn = ldap.filter.escape_filter_chars(web.safestr(dn.strip()))
         pw = pw.strip()

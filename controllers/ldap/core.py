@@ -26,11 +26,14 @@ class login:
         i = web.input()
 
         username = web.safestr(i.get('username').strip())
+
+        # Convert username to ldap dn.
+        userdn = iredutils.convEmailToAdminDN(username)
+        if not userdn:
+            return render.login(msg='INVALID_USERNAME')
+
         password = i.get('password').strip()
         save_pass = web.safestr(i.get('save_pass', 'no').strip())
-
-        # Convert email to ldap dn.
-        userdn = iredutils.convEmailToAdminDN(username)
 
         # Return True if auth success, otherwise return error msg.
         self.auth_result = auth.Auth(userdn, password)
@@ -56,7 +59,7 @@ class login:
             web.seeother('/dashboard')
         else:
             session['failedTimes'] += 1
-            return render.login(msg=self.auth_result, webmaster=session.get('webmaster', ''))
+            return render.login(msg=self.auth_result, webmaster=session.get('webmaster'))
 
 class logout:
     def GET(self):

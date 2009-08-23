@@ -2,8 +2,8 @@
 # Version number of iRedAdmin-OSE, don't touch it.
 version = 0.1
 
-# Site admin's mail address.
-admin = michaelbibby@gmail.com
+# Site webmaster's mail address.
+webmaster = michaelbibby@gmail.com
 
 # Debug mode: True, False.
 # Warning: Do *NOT* enable debug in product server.
@@ -50,7 +50,7 @@ uri = ldap://127.0.0.1:389
 protocol_version = 3
 
 # Enable TLS/SSL: True, False.
-use_tls = False
+#use_tls = False
 
 # Debug level of LDAP communite: 0, 2, [...], 255.
 debug_level = 0

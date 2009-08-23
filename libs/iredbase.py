@@ -65,7 +65,7 @@ sessionStore = web.session.DBStore(sessionDB, 'sessions')
 
 session = web.session.Session(app, sessionStore,
         initializer={
-            'webmaster': cfg.general.get('admin', 'iredmailsupport@gmail.com'),
+            'webmaster': cfg.general.get('webmaster'),
             'default_quota': cfg.general.get('default_quota', '1024'),
             'username': None,
             'userdn': None,

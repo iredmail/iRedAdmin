@@ -24,7 +24,6 @@ def convEmailToAdminDN(email):
     else:
         return False
 
-
     # Admin DN format.
     # mail=user@domain.ltd,[LDAP_DOMAINADMIN_DN]
     dn = '%s=%s,%s' % ( attrs.USER_RDN, email, domainadmin_dn)
@@ -69,9 +68,9 @@ def extractValueFromDN(dn, attr):
 
     return domain
 
-def removeSpaceAndDot(string):
+def removeSpaceAndDot(s):
     """Remove leading and trailing dot and all whitespace."""
-    return str(string).strip(' .').replace(' ', '')
+    return str(s).strip(' .').replace(' ', '')
 
 # Sort LDAP query by dn.
 # Note: this function deprecated since we use JavaScript to implement
