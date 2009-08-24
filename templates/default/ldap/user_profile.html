@@ -13,7 +13,9 @@
 {% block id_welcome %}
 <span><a href="{{ctx.homepath}}/profile/user/general/{{mail}}" {% if profile_type == "general" %}class="active"{%endif%}>General</a>&nbsp;</span>
 <span><a href="{{ctx.homepath}}/profile/user/password/{{mail}}" {%if profile_type == 'password'%}class="active"{%endif%}>Reset password</a>&nbsp;</span>
-<span><a href="{{ctx.homepath}}/profile/user/advanced/{{mail}}" {%if profile_type == 'advanced'%}class="active"{%endif%}>Advanced settings</a>&nbsp;</span>
+{% if session.get('domainGlobalAdmin') == 'yes' %}
+    <span><a href="{{ctx.homepath}}/profile/user/advanced/{{mail}}" {%if profile_type == 'advanced'%}class="active"{%endif%}>Advanced settings</a>&nbsp;</span>
+{% endif %}
 {% endblock id_welcome %}
 
 {% block main %}
@@ -36,7 +38,7 @@
     {% set homeDirectory = entries.get('homeDirectory', ['/home/vmail'])[0] %}
 {% endif %}
 
-<form class="frm-form" method="post" action="{{ctx.homepath}}/user/{{profile_type}}/{{mail}}">
+<form class="frm-form" method="post" action="{{ctx.homepath}}/profile/user/{{profile_type}}/{{mail}}">
 <div class="main-frm">
     <div class="profile ct-group data-group vcard">
         <div class="ct-set data-set set1">
@@ -90,6 +92,22 @@
 
     {{ display_account_status(accountStatus) }}
     {% endif %}
+
+    {% if profile_type == 'password' %}
+    {{ display_reset_password(show_confirmpw='yes') }}
+    {% endif %}
+
+    {% if session.get('domainGlobalAdmin') == 'yes' %}
+    {% if profile_type == 'advanced' %}
+    <tr>
+        <th>{{ _("Mailbox directory") }}</th>
+        <td>
+            <input type="text" name="homeDirectory" title="{{ _("Storage base directory (user's home directory)") }}" value="{{homeDirectory}}" />/<input type="text" name="mailMessageStore" title="{{ _('Mailbox path. Format: domain.ltd/username/') }}" value="{{mailMessageStore}}" />Maildir/
+        </td>
+    </tr>
+    {% endif %}
+    {% endif %}
+
 </table>
 
     <div class="frm-buttons">
