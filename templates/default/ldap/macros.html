@@ -121,11 +121,11 @@
     </fieldset>
 {%- endmacro %}
 
-{% macro display_reset_password(oldpw='', newpw='', confirmpw='', show_oldpw='no', show_confirmpw='yes') -%}
-    <fieldset class="frm-group">
+{% macro display_reset_password(oldpw='', newpw='', confirmpw='', show_oldpw='no', show_confirmpw='yes', firstitem='yes',) -%}
+    <fieldset class="frm-group {%if firstitem == 'yes' %}group1{%endif%}">
         <legend class="group-legend"><strong>Required information</strong></legend>
         {% if show_oldpw == 'yes' %}
-        <div class="sf-set">
+        <div class="sf-set {%if firstitem == 'yes' %}set1{%endif%}">
             <div class="sf-box text required">
                 <label for="oldpw"><span>{{ _('Old password') }} <em>{{ _('(Required)') }}</em></span></label><br />
                 <span class="fld-input"><input type="password" id="oldpw" name="oldpw" size="35" value="{{oldpw}}"/></span><br />

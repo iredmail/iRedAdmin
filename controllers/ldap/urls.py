@@ -65,6 +65,13 @@ urls = (
         # /domain.ltd/users
         '/users',                           'controllers.ldap.user.list',
         '/users/(.*\..*)',                  'controllers.ldap.user.list',
+        '/profile/user/(general)/(.*@.*\..*)',        'controllers.ldap.user.profile',
+        '/profile/user/(groups)/(.*@.*\..*)',        'controllers.ldap.user.profile',
+        '/profile/user/(services)/(.*@.*\..*)',        'controllers.ldap.user.profile',
+        '/profile/user/(forwarding)/(.*@.*\..*)',        'controllers.ldap.user.profile',
+        '/profile/user/(bcc)/(.*@.*\..*)',        'controllers.ldap.user.profile',
+        '/profile/user/(password)/(.*@.*\..*)',        'controllers.ldap.user.profile',
+        '/profile/user/(advanced)/(.*@.*\..*)',        'controllers.ldap.user.profile',
         '/profile/user/(.*@.*\..*)',        'controllers.ldap.user.profile',
         '/create/user/(.*\..*)',            'controllers.ldap.user.create',
         '/create/user',                     'controllers.ldap.user.create',

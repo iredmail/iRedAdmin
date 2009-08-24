@@ -582,6 +582,10 @@ D - COMMON INTERFACE ELEMENTS
     float: left;
     }
 
+#brd-visit #welcome span a.active {
+    text-decoration: none;
+    }
+
 #brd-visit #visit-links {
     text-align: right;
     float: right;

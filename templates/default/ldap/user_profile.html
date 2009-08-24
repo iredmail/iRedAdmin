@@ -1,6 +1,9 @@
 {% extends "layout.html" %}
 
-{% from "macros.html" import display_account_status, %}
+{% from "macros.html" import
+        display_account_status,
+        display_reset_password,
+        %}
 
 {% block title %}{{ _('Edit user profile') }}{% endblock %}
 
@@ -8,8 +11,9 @@
 
 {# Show profile categories #}
 {% block id_welcome %}
-<span><a href="#">General</a>&nbsp;</span>
-<span><a href="#">Reset password</a>&nbsp;</span>
+<span><a href="{{ctx.homepath}}/profile/user/general/{{mail}}" {% if profile_type == "general" %}class="active"{%endif%}>General</a>&nbsp;</span>
+<span><a href="{{ctx.homepath}}/profile/user/password/{{mail}}" {%if profile_type == 'password'%}class="active"{%endif%}>Reset password</a>&nbsp;</span>
+<span><a href="{{ctx.homepath}}/profile/user/advanced/{{mail}}" {%if profile_type == 'advanced'%}class="active"{%endif%}>Advanced settings</a>&nbsp;</span>
 {% endblock id_welcome %}
 
 {% block main %}
@@ -18,22 +22,22 @@
 {% set entries = user[1] %}
 {% set cn = entries.get('cn', [''])[0].decode('utf-8') %}
 {% set mail = entries.get('mail')[0] %}
-{% set username, domain = mail.split('@') %}
+{% set username, domain = mail.split('@', 1) %}
 {% set employeeNumber = entries.get('employeeNumber', [''])[0] %}
 {% set jpegPhoto = entries.get('jpegPhoto', [''])[0] %}
-{% set accountStatus = entries.get('accountStatus', ['disabled'])[0] %}
-{% set mailQuota = entries.get('mailQuota', [0])[0] %}
-{% set memberOfGroup = entries.get('memberOfGroup', []) %}
-{% set homeDirectory = entries.get('homeDirectory', ['/home/vmail'])[0] %}
-{% set mailMessageStore = entries.get('mailMessageStore', [domain + '/' + username + '/'])[0] %}
-{% set enabledService = entries.get('enabledService', ['']) %}
-{% set mailForwardingAddress = entries.get('mailForwardingAddress', ['']) %}
-{% set userRecipientBccAddress = entries.get('userRecipientBccAddress', [''])[0] %}
-{% set userSenderBccAddress = entries.get('userSenderBccAddress', [''])[0] %}
 {% set createTimestamp = entries.get('createTimestamp', ['--------------'])[0] %}
 
-<form class="frm-form" method="post" method="{{ctx.homepath}}/user/edit">
-<div class="main-content main-frm">
+{% if profile_type == 'general' %}
+    {% set telephoneNumber = entries.get('telephoneNumber', ['']) %}
+    {% set accountStatus = entries.get('accountStatus', ['disabled'])[0] %}
+    {% set mailQuota = entries.get('mailQuota', [0])[0] %}
+{% elif profile_type == 'advanced' %}
+    {% set mailMessageStore = entries.get('mailMessageStore', [domain + '/' + username + '/'])[0] %}
+    {% set homeDirectory = entries.get('homeDirectory', ['/home/vmail'])[0] %}
+{% endif %}
+
+<form class="frm-form" method="post" action="{{ctx.homepath}}/user/{{profile_type}}/{{mail}}">
+<div class="main-frm">
     <div class="profile ct-group data-group vcard">
         <div class="ct-set data-set set1">
             <div class="ct-box data-box">
@@ -50,27 +54,42 @@
         </div>
     </div>
 
-    {# Modify #}
-        <fieldset class="frm-group group1">
-            <legend class="group-legend"><strong>{{ _('Name') }}</strong></legend>
-            <div class="sf-set set1">
-                <div class="sf-box text">
-                    <label><span>{{ _('Username') }}</span></label>
-                    <span class="fld-input"><input type="text" name="cn" value="{{cn}}" size="25" /></span>
-                </div>
-                <div class="sf-box text">
-                    <label><span>{{ _('Mail address') }}</span>{% if session.get('domainGlobalAdmin') == 'yes' %}<small>{{ _("Warning: Change mail address won't cause mailbox location changed.") }}</small>{%endif%}</label>
-                    <span class="fld-input"><input type="text" name="mail" value="{{username}}" size="25" />@{{domain}}</span>
-                </div>
-
-                <div class="sf-box text">
-                    <label><span>{{ _('Mail quota (in MB)') }}</span></label>
-                    <span class="fld-input"><input type="text" name="mailQuota" value="" size="15" /> {{_('Current quota:') }} {% if mailQuota == '0' %}{{ _('Unlimited') }}{%else%}{{mailQuota |filesizeformat}}{%endif%}</span>
-                </div>
+    {% if profile_type == 'general' %}
+    <fieldset class="frm-group group1">
+        <legend class="group-legend"><strong>{{ _('Name') }}</strong></legend>
+        <div class="sf-set set1">
+            <div class="sf-box text">
+                <label><span>{{ _('Username') }}</span></label>
+                <span class="fld-input"><input type="text" name="cn" value="{{cn}}" size="25" /></span>
             </div>
-        </fieldset>
+            <div class="sf-box text">
+                <label><span>{{ _('Mail address') }}</span>{% if session.get('domainGlobalAdmin') == 'yes' %}<small>{{ _("Warning: Change mail address won't cause mailbox location changed.") }}</small>{%endif%}</label>
+                <span class="fld-input"><input type="text" name="mail" value="{{username}}" size="25" />@{{domain}}</span>
+            </div>
 
-        {{ display_account_status(accountStatus) }}
+            <div class="sf-box text">
+                <label><span>{{ _('Mail quota (in MB)') }}</span></label>
+                <span class="fld-input"><input type="text" name="mailQuota" value="" size="15" /> {{_('Current quota:') }} {% if mailQuota == '0' %}{{ _('Unlimited') }}{%else%}{{mailQuota |filesizeformat}}{%endif%}</span>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset class="frm-group">
+        <legend class="group-legend"><strong>{{ _('Telephone Number') }}</strong></legend>
+        <div class="sf-set">
+            <div class="sf-box text">
+                <label><span>{{ _('Telephone Number') }}</span></label>
+                <span class="fld-input">
+                    {% for phone in telephoneNumber %}
+                        <input type="text" name="telephoneNumber_{{loop.index}}" title="{{ _('Telephone Number')}} #{{loop.index}}" value="{{phone}}" /><br />
+                    {% endfor %}
+                </span>
+            </div>
+        </div>
+    </fieldset>
+
+    {{ display_account_status(accountStatus) }}
+    {% endif %}
 </table>
 
     <div class="frm-buttons">

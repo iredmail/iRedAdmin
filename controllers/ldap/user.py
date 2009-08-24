@@ -51,17 +51,21 @@ class list(dbinit):
 
 class profile(dbinit):
     @base.protected
-    def GET(self, email):
-        #i = web.input()
+    def GET(self, profile_type, email):
         email = web.safestr(email)
 
-        if len(email.split('@', 1)) == 2:
+        if len(email.split('@', 1)) == 2 and \
+                profile_type in ['general', 'groups', 'services', 'forwarding', 'bcc', 'password', 'advanced']:
             domain = email.split('@', 1)[1]
             userdn = ldaputils.convEmailToUserDN(email)
 
             if userdn:
                 profile = userLib.profile(dn=userdn)
-                return render.user_profile(user_profile=profile)
+                return render.user_profile(
+                        profile_type=profile_type,
+                        mail=email,
+                        user_profile=profile,
+                        )
             else:
                 web.seeother('/domains')
         else:
