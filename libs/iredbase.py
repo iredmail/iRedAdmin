@@ -43,7 +43,7 @@ web.app = app
 web.config.debug = eval(cfg.general.get('debug', 'False'))
 lang = cfg.general.get('lang', 'en_US')
 
-web.config.session_parameters['cookie_name'] = 'iRedAdmin-ent'
+web.config.session_parameters['cookie_name'] = 'iRedAdmin-OSE'
 web.config.session_parameters['cookie_domain'] = None
 #web.config.session_parameters['timeout'] = 600          # 10 minutes
 web.config.session_parameters['ignore_expiry'] = False

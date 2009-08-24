@@ -121,7 +121,7 @@
     </fieldset>
 {%- endmacro %}
 
-{% macro display_reset_password(oldpw='', newpw='', confirmpw='', show_oldpw='no', show_confirmpw='yes', firstitem='yes',) -%}
+{% macro display_reset_password(oldpw='', newpw='', confirmpw='', show_oldpw='no', show_confirmpw='yes', firstitem='yes') -%}
     <fieldset class="frm-group {%if firstitem == 'yes' %}group1{%endif%}">
         <legend class="group-legend"><strong>Required information</strong></legend>
         {% if show_oldpw == 'yes' %}
