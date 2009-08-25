@@ -45,6 +45,8 @@ class list(dbinit):
                     web.seeother('/domains?msg=NO_SUCH_DOMAIN')
             elif isinstance(allDomains, types.ListType) is True and len(allDomains) == 0:
                 return render.users(msg='NO_DOMAIN_AVAILABLE')
+            elif isinstance(allDomains, types.ListType) is True and len(allDomains) > 1:
+                return render.users(allDomains=allDomains)
             else:
                 web.seeother('/domains?msg=NO_SUCH_DOMAIN')
         else:

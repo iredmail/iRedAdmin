@@ -73,6 +73,7 @@ urls = (
         '/users',                           'controllers.ldap.user.list',
         '/users/(.*\..*)',                  'controllers.ldap.user.list',
         '/profile/user/(general)/(.*@.*\..*)',        'controllers.ldap.user.profile',
+        '/profile/user/(nicknames)/(.*@.*\..*)',        'controllers.ldap.user.profile',
         '/profile/user/(groups)/(.*@.*\..*)',        'controllers.ldap.user.profile',
         '/profile/user/(services)/(.*@.*\..*)',        'controllers.ldap.user.profile',
         '/profile/user/(forwarding)/(.*@.*\..*)',        'controllers.ldap.user.profile',
