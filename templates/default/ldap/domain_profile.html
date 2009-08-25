@@ -1,3 +1,4 @@
+{# cur_domain, allDomains, profile_type, #}
 {% extends "layout.html" %}
 
 {% from "macros.html" import
@@ -12,16 +13,19 @@
 {% block title %}{{ _('Edit domain profile.') }}{% endblock %}
 
 {% block id_welcome %}
-<span class="float_right">{{ _('View/Update domain profile:') }} <a href="{{homepath |e}}/profile/domain/{{domain}}">{{domain}}</a></strong></span>
+<span><a href="{{ctx.homepath}}/profile/domain/general/{{cur_domain}}" {% if profile_type == "general" %}class="active"{%endif%}>General</a>&nbsp;</span>
+{% if session.get('domainGlobalAdmin') == 'yes' %}
+    <span><a href="{{ctx.homepath}}/profile/domain/admins/{{cur_domain}}" {% if profile_type == "admins" %}class="active"{%endif%}>Admins</a>&nbsp;</span>
+    <span><a href="{{ctx.homepath}}/profile/domain/services/{{cur_domain}}" {% if profile_type == "services" %}class="active"{%endif%}>Service control</a>&nbsp;</span>
+    <span><a href="{{ctx.homepath}}/profile/domain/bcc/{{cur_domain}}" {%if profile_type == 'bcc'%}class="active"{%endif%}>BCC control</a>&nbsp;</span>
+    <span><a href="{{ctx.homepath}}/profile/domain/quotas/{{cur_domain}}" {%if profile_type == 'quotas'%}class="active"{%endif%}>Quotas</a>&nbsp;</span>
+    <span><a href="{{ctx.homepath}}/profile/domain/backupmx/{{cur_domain}}" {%if profile_type == 'backupmx'%}class="active"{%endif%}>Backup MX</a>&nbsp;</span>
+    <span><a href="{{ctx.homepath}}/profile/domain/advanced/{{cur_domain}}" {%if profile_type == 'advanced'%}class="active"{%endif%}>Advanced settings</a>&nbsp;</span>
+{% endif %}
 {% endblock id_welcome %}
 
 {# Domain profile. #}
 {% block main %}
-<div id="brd-visit" class="gen-content">
-    <p><span>{{ _('Domain profile.') }}</span></p>
-</div>
-
-{# Domain profile. #}
 {% set p = profile[0] %}
 {% set dn = p[0] %}
 {% set entries = p[1] %}
@@ -33,16 +37,25 @@
 
 {% set createTimestamp = entries.get('createTimestamp', ['--------------'])[0] %}
 
-<form class="frm-form" method="post" method="{{ctx.homepath}}/user/edit">
+<form class="frm-form" method="post" method="{{ctx.homepath}}/profile/domain/{{cur_domain}}">
 <div class="main-content main-frm">
+    <div class="profile ct-group data-group vcard">
         <div class="ct-set data-set set1">
             <div class="ct-box data-box">
                 <ul class="data-list">
-                    <input type="hidden" name="domainName" value="{{domain}}" />
-                    <li><span><strong>{{ _('Domain name:') }}</strong> {{domain}}</span></li>
+                    <input type="hidden" name="domainName" value="{{cur_domain}}" />
+                    <li><span><strong>{{ _('Domain name:') }}</strong>
+                        <span>
+                            <select id="domainSelect" name="domainName" onchange="listAccountsUnderDomain(this, baseurl='{{ctx.homepath}}/profile/domain/general/');">
+                                {% for d in allDomains %}
+                                <option value="{{d[1].domainName[0]}}" {% if cur_domain == d[1].domainName[0] %}selected{%endif%}>{{d[1].domainName[0]}}</option>
+                                {% endfor %}
+                                </select>
+                            </span></span></li>
                     <li><span><strong>{{ _('Company/Organization:') }}</strong> {{cn}}</span></li>
                     <li><span><strong>{{ _('Created Date:') }}</strong> {{createTimestamp[:4]}}.{{createTimestamp[4:6]}}.{{createTimestamp[6:8]}} {{createTimestamp[8:10]}}:{{createTimestamp[10:12]}}:{{createTimestamp[12:14]}}</span></li>
-                </ul>
+                    </ul>
+                </div>
             </div>
         </div>
 

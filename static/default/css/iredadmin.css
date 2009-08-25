@@ -584,6 +584,7 @@ D - COMMON INTERFACE ELEMENTS
 
 #brd-visit #welcome span a.active {
     text-decoration: none;
+    font-weight: bold;
     }
 
 #brd-visit #visit-links {

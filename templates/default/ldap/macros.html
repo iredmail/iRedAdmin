@@ -24,9 +24,9 @@
     <input type="hidden" name="{{ name }}" value="{{ value }}">
 {%- endmacro %}
 
-{% macro display_cn(value='', accountType='domain') -%}
-    <fieldset class="frm-group">
-        <div class="sf-set">
+{% macro display_cn(value='', accountType='domain', firstitem='yes') -%}
+    <fieldset class="frm-group {% if firstitem == 'yes' %}group1{% endif %}">
+        <div class="sf-set {% if firstitem == 'yes' %}set1{% endif %}">
             <div class="sf-box text">
                 <label><span>
                 {% if accountType == 'domain' %}

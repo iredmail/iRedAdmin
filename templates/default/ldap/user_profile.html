@@ -83,7 +83,7 @@
                 <label><span>{{ _('Telephone Number') }}</span></label>
                 <span class="fld-input">
                     {% for phone in telephoneNumber %}
-                        <input type="text" name="telephoneNumber_{{loop.index}}" title="{{ _('Telephone Number')}} #{{loop.index}}" value="{{phone}}" /><br />
+                        <input type="text" name="telephoneNumber_{{loop.index}}" value="{{phone}}" size="25" /><br />
                     {% endfor %}
                 </span>
             </div>

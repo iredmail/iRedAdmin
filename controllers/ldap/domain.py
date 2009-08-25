@@ -38,24 +38,30 @@ class profile(dbinit):
     @base.protected
     def GET(self, domain):
         domain = web.safestr(domain.split('/', 1)[0])
-        if domain is '' or domain is None:
-            web.seeother('/domains?msg=NO_SUCH_DOMAIN')
+        if domain != '' and domain is not None and \
+            profile_type in ['general', 'admins', 'services', 'bcc', 'quotas', 'backupmx', 'advanced', ]:
 
-        domain = web.safestr(domain)
-        profile = domainLib.profile(domain)
-        allAdmins = adminLib.list()
-        domainAdmins = domainLib.admins(domain)
-        
-        if profile:
-            return render.domain_profile(
-                    domain=domain,
-                    profile=profile,
-                    admins=allAdmins,
-                    # We need only mail address of domain admins.
-                    domainAdmins=domainAdmins[0][1].get('domainAdmin', []),
-                    )
+            domain = web.safestr(domain)
+            profile = domainLib.profile(domain)
+
+            if profile:
+                allDomains = domainLib.list(attrs=['domainName'])
+                allAdmins = adminLib.list()
+                domainAdmins = domainLib.admins(domain)
+
+                return render.domain_profile(
+                        cur_domain=domain,
+                        allDomains=allDomains,
+                        profile=profile,
+                        profile_type=profile_type,
+                        admins=allAdmins,
+                        # We need only mail address of domain admins.
+                        domainAdmins=domainAdmins[0][1].get('domainAdmin', []),
+                        )
+            else:
+                web.seeother('/domains?msg=NO_SUCH_DOMAIN')
         else:
-            return render.domains(msg='NO_SUCH_DOMAIN')
+            web.seeother('/domains?msg=NO_SUCH_DOMAIN')
 
     @base.protected
     def POST(self, domain):

@@ -109,6 +109,7 @@
             | <a href="http://code.google.com/p/iredmail/">iRedMail Project</a>
             {% if session.get('domainGlobalAdmin') == 'yes' %}
                 | <a href="mailto:michaelbibby@gmail.com">{{ _('Get support') }}</a>
+                | <a href="#">{{ _('Check new version') }}</a>
             {% else %}
                 | <a href="mailto:{{session.get('webmaster')}}">{{ _('Get support') }}</a>
             {% endif %}

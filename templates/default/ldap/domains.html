@@ -63,7 +63,7 @@
                         {% if session.get('domainGlobalAdmin') == 'yes' %}
                         <input type="checkbox" name="domainName" value="{{domain}}"/>
                         {% endif %}
-                        <a href="{{ctx.homepath}}/profile/domain/{{domain}}" alt="{{_('Edit')}}" title="{{ _('Edit domain profile.') }}">{{domain}}</a>
+                        <a href="{{ctx.homepath}}/profile/domain/general/{{domain}}" alt="{{_('Edit')}}" title="{{ _('Edit domain profile.') }}">{{domain}}</a>
                     </span>
                     <span class="float_right">{{ set_account_status_img(accountStatus) }}</span>
                 </td>

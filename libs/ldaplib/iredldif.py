@@ -128,5 +128,7 @@ def ldif_mailuser(domain, username, cn, passwd, quota=cfg.general.get('default_q
 
     if cn is not None and cn != '':
         ldif += [('cn', [cn.encode('utf-8')])]
+    else:
+        ldif += [('cn', [username])]
 
     return ldif

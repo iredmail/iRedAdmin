@@ -51,6 +51,13 @@ urls = (
 
         # Domain related.
         '/domains',                         'controllers.ldap.domain.list',
+        '/profile/domain/(general)/(.*\..*)',         'controllers.ldap.domain.profile',
+        '/profile/domain/(services)/(.*\..*)',         'controllers.ldap.domain.profile',
+        '/profile/domain/(admins)/(.*\..*)',         'controllers.ldap.domain.profile',
+        '/profile/domain/(quotas)/(.*\..*)',         'controllers.ldap.domain.profile',
+        '/profile/domain/(backupmx)/(.*\..*)',         'controllers.ldap.domain.profile',
+        '/profile/domain/(bcc)/(.*\..*)',         'controllers.ldap.domain.profile',
+        '/profile/domain/(advanced)/(.*\..*)',         'controllers.ldap.domain.profile',
         '/profile/domain/(.*\..*)',         'controllers.ldap.domain.profile',
         '/create/domain',                   'controllers.ldap.domain.create',
         '/delete/domain',                   'controllers.ldap.domain.delete',

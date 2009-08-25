@@ -3,7 +3,7 @@
 
 # Author: Zhang Huangbin <michaelbibby (at) gmail.com>
 
-import sys
+import types, sys
 import web
 from web import render
 from web import iredconfig as cfg
@@ -26,21 +26,37 @@ class list(dbinit):
     @base.protected
     def GET(self, domain=''):
         domain = web.safestr(domain.split('/', 1)[0])
-
-        allDomains = domainLib.list()
+        allDomains = domainLib.list(attrs=['domainName'])
 
         if domain == '' or domain is None:
-            return render.users(allDomains=allDomains)
+            #return render.users(allDomains=allDomains)
 
-        users = userLib.list(domain=domain)
-        if users is not False:
-            return render.users(
-                    users=users, cur_domain=domain,
-                    allDomains=allDomains,
-                    msg=None,
-                    )
+            # List users if only one domain available.
+            if isinstance(allDomains, types.ListType) is True and len(allDomains) == 1:
+                cur_domain = str(allDomains[0][1]['domainName'][0])
+                users = userLib.list(domain=cur_domain)
+                if users is not False:
+                    return render.users(
+                            users=users, cur_domain=domain,
+                            allDomains=allDomains,
+                            msg=None,
+                            )
+                else:
+                    web.seeother('/domains?msg=NO_SUCH_DOMAIN')
+            elif isinstance(allDomains, types.ListType) is True and len(allDomains) == 0:
+                return render.users(msg='NO_DOMAIN_AVAILABLE')
+            else:
+                web.seeother('/domains?msg=NO_SUCH_DOMAIN')
         else:
-            web.seeother('/domains?msg=NO_SUCH_DOMAIN')
+            users = userLib.list(domain=domain)
+            if users is not False:
+                return render.users(
+                        users=users, cur_domain=domain,
+                        allDomains=allDomains,
+                        msg=None,
+                        )
+            else:
+                web.seeother('/domains?msg=NO_SUCH_DOMAIN')
 
     @base.protected
     def POST(self, domain):
@@ -55,7 +71,7 @@ class profile(dbinit):
         email = web.safestr(email)
 
         if len(email.split('@', 1)) == 2 and \
-                profile_type in ['general', 'groups', 'services', 'forwarding', 'bcc', 'password', 'advanced']:
+                profile_type in ['general', 'nicknames', 'groups', 'services', 'forwarding', 'bcc', 'password', 'advanced',]:
             domain = email.split('@', 1)[1]
             userdn = ldaputils.convEmailToUserDN(email)
 
@@ -128,7 +144,7 @@ class create(dbinit):
         dn = ldaputils.convEmailToUserDN(username + '@' + domain)
         result = userLib.add(dn, ldif)
         if result is True:
-            web.seeother('/users/' + domain)
+            web.seeother('/profile/user/general/' + username + '@' + domain)
         elif result == 'ALREADY_EXISTS':
             web.seeother('/users/' + domain + '?msg=ALREADY_EXISTS')
         else:

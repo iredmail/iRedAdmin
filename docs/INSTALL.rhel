@@ -115,6 +115,10 @@ Required components:
         bind_dn = cn=vmailadmin,dc=iredmail,dc=org
         bind_pw = passwd
 
+    - Make settings.ini not world-readable:
+
+        # chmod -w settings.ini
+
 *) Visit below url in your web browser for test:
 
     http://your_server_ip_address/iredadmin/
