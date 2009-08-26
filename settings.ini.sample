@@ -1,7 +1,4 @@
 [general]
-# Version number of iRedAdmin-OSE, don't touch it.
-version = 0.1
-
 # Site webmaster's mail address.
 webmaster = michaelbibby@gmail.com
 

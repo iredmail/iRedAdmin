@@ -41,10 +41,11 @@ urls = (
         # used to display jpegPhoto.
         '/img/(.*)',                        'controllers.utils.img',
 
-        '/',                                'controllers.ldap.core.login',
-        '/login',                           'controllers.ldap.core.login',
-        '/logout',                          'controllers.ldap.core.logout',
-        '/dashboard',                       'controllers.ldap.core.dashboard',
+        '/',                                'controllers.ldap.basic.login',
+        '/login',                           'controllers.ldap.basic.login',
+        '/logout',                          'controllers.ldap.basic.logout',
+        '/dashboard',                       'controllers.ldap.basic.dashboard',
+        '/checknew',                        'controllers.ldap.basic.checknew',
 
         # Preferences.
         '/preferences',                     'controllers.ldap.preferences.Preferences',

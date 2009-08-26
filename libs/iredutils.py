@@ -4,6 +4,7 @@
 # Author: Zhang Huangbin <michaelbibby (at) gmail.com>
 
 import gettext
+import os
 import web
 
 cfg = web.iredconfig
@@ -27,3 +28,26 @@ def setRenderLang(renderInst, lang):
 
 def notfound():
     return web.notfound(render.pageNotFound())
+
+def getServerUptime():
+     try:
+         # Works on Linux.
+         f = open( "/proc/uptime" )
+         contents = f.read().split()
+         f.close()
+     except:
+        return None
+
+     total_seconds = float(contents[0])
+
+     MINUTE  = 60
+     HOUR    = MINUTE * 60
+     DAY     = HOUR * 24
+
+     # Get the days, hours, minutes.
+     days    = int( total_seconds / DAY )
+     hours   = int( ( total_seconds % DAY ) / HOUR )
+     minutes = int( ( total_seconds % HOUR ) / MINUTE )
+     seconds = int( total_seconds % MINUTE )
+
+     return (days, hours, minutes)

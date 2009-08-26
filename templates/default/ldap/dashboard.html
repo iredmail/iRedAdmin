@@ -1,3 +1,4 @@
+{# version, hostname, uptime, loadavg, #}
 {% extends "layout.html" %}
 
 {% block js %}{% endblock js %}
@@ -8,18 +9,62 @@
 {% block submenu %}{% endblock submenu %}
 
 {% block main %}
-<div class="gen-content">
-    <h3>Please report bugs and feature request to our forum or mail to author directly: <a href="mailto:michaelbibby@gmail.com">Zhang Huangbin</a>:</h3>
-    <ul>
-        <li>English forum: <a href="http://www.iredmail.org/forum/">http://www.iredmail.org/forum/</a></li>
-        <li>Chinese forum: <a href="http://www.iredmail.org/bbs/">http://www.iredmail.org/bbs/</a></li>
-    </ul>
 
-    <h3>There are demos available of both two editions now:</h3>
-    <ul>
-        <li>Open Source Edition: <a href="http://demo.iredmail.org/iredadmin-ose/">http://demo.iredmail.org/iredadmin-ose/</a></li>
-        <li>Full-featured Edition: <a href="http://demo.iredmail.org/iredadmin-ent/">http://demo.iredmail.org/iredadmin-ent/</a></li>
-    </ul>
+<div class="main-frm">
+    <div class="main-subhead">
+        <h2 class="hn">{{ _('Available operations') }}</h2>
+    </div>
 
+    <div class="ct-group">
+        <div class="ct-set group-item1">
+            <div class="ct-box">
+                <h3 class="ct-legend hn"><span>{{ _('Create new') }}</span></h3>
+                <p>
+                    {% if session.get('domainGlobalAdmin') == 'yes' %}
+                    <span><a href="{{ctx.homepath}}/create/domain">{{ _('Mail Domain') }}</a></span>&nbsp;
+                    <span><a href="{{ctx.homepath}}/create/admin">{{ _('Domain Admin') }}</a></span>&nbsp;
+                    {% endif %}
+                    <span><a href="{{ctx.homepath}}/create/user/">{{ _('Mail User') }}</a></span>&nbsp;
+                    <span><a href="{{ctx.homepath}}/create/maillist/">{{ _('Mail List') }}</a></span>&nbsp;
+                    <span><a href="{{ctx.homepath}}/create/alias/">{{ _('Mail Alias') }}</a></span>
+                </p>
+            </div>
+        </div>
+    </div>
 </div>
+
+{% if session.get('domainGlobalAdmin') == 'yes' %}
+<div class="main-frm">
+    <div class="main-subhead">
+        <h2 class="hn">{{ _('System info') }}</h2>
+    </div>
+
+    <div class="sf-group">
+        <div class="sf-set group-item1">
+            <div class="sf-box text">
+                <label><span>{{ _('iRedAdmin version') }}</span></label><br />
+                <span class="fld-input">{{ version }}&nbsp;&nbsp;<a href="{{ctx.homepath}}/checknew">{{ _('Check new version') }}</a></span>
+            </div>
+
+            <div class="sf-box text">
+                <label><span>{{ _('Hostname') }}</span></label><br />
+                <span class="fld-input">{{ hostname }}</span>
+            </div>
+
+            {% if uptime is not sameas none and uptime|length == 3 %}
+            <div class="sf-box text">
+                <label><span>{{ _('Uptime') }}</span></label><br />
+                <span class="fld-input">{{ _('%s days, %s hours, %s minutes.') |format(uptime[0], uptime[1], uptime[2]) }}</span>
+            </div>
+            {% endif %}
+
+            <div class="sf-box text">
+                <label><span>{{ _('Server load') }}</span></label><br />
+                <span class="fld-input">{{ loadavg }}</span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
 {% endblock main %}
