@@ -73,7 +73,7 @@ class profile(dbinit):
         email = web.safestr(email)
 
         if len(email.split('@', 1)) == 2 and \
-                profile_type in ['general', 'nicknames', 'groups', 'services', 'forwarding', 'bcc', 'password', 'advanced',]:
+                profile_type in ['general', 'shadow', 'groups', 'services', 'forwarding', 'bcc', 'password', 'advanced',]:
             domain = email.split('@', 1)[1]
             userdn = ldaputils.convEmailToUserDN(email)
 
