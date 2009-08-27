@@ -4,7 +4,7 @@
 {% block js %}{% endblock js %}
 {% block js_tablesorter %}{% endblock %}
 {% block jquery_docoment_ready %} {% endblock %}
-{% block title %} {{ _('Dashboard') }} {% endblock %}
+{% block title %} {{ _('Software update') }} {% endblock %}
 {% block submenu %}{% endblock submenu %}
 
 {% block main %}
@@ -14,28 +14,28 @@
         <h2 class="hn">{{ _('Check new version') }}</h2>
     </div>
 
-    <div class="ct-group">
-        <div class="ct-set group-item1">
-            <div class="ct-box">
-                <h3 class="ct-legend hn"><span>{{ _('Current iRedAdmin version') }}</span></h3>
-                <p><span class="fld-input">{{ version }}</span></p>
+    <div class="sf-group">
+        <div class="sf-set group-item1">
+            <div class="sf-box text">
+                <label><span>{{ _('Current iRedAdmin version') }}</span></label><br />
+                <span class="fld-input">{{ version }}</span>
             </div>
-            <div class="ct-box">
+            <div class="sf-box text">
                 {% if info[0] is not sameas none %}
                     {% if info[0] |float > version |float %}
-                    <h3 class="ct-legend hn"><span><strong>{{ _('New version available') }}</strong></span></h3>
+                    <label><span><strong>{{ _('New version available') }}</strong></span></label><br />
                     <ul class="data-list">
                         <li><span>{{ info[0] |float }}</span></li>
                         <li><span><a href="{{ info[1] }}">{{ _('ChangeLog') }}</a></span></li>
                         <li><span><a href="{{ info[2] }}">{{ _('Download') }}</a></span></li>
                     </ul>
                     {% else %}
-                    <h3 class="ct-legend hn"><span>{{ _('Version status:') }}</span></h3>
-                    <p><span>{{ _('Your iRedAdmin is up to date.') }}</span></p>
+                    <label><span>{{ _('Version status:') }}</span></label><br />
+                    <span class="fld-input">{{ _('Your iRedAdmin is up to date.') }}</span>
                     {% endif %}
                 {% else %}
-                    <h3 clss="ct-legend hn"><span>{{ _('Error while check new version') }}</span></h3>
-                    <p><span>{{ info[1] }}</span></p>
+                    <label><span>{{ _('Error while check new version') }}</span></label><br />
+                    <span class="fld-input">{{ info[1] }}</span>
                 {% endif %}
             </div>
         </div>

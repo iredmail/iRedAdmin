@@ -32,7 +32,7 @@ Required components:
         $ sudo yum install python-setuptools gcc.x86_64 gcc-c++.x86_64 openssl-devel.x86_64 python-devel.x86_64 openldap-devel.x86_64 mysql-devel.x86_64
 
         # ---- Install python packages ----
-        $ sudo easy_install Jinja2 python-ldap MySQL-python
+        $ sudo easy_install Jinja2 python-ldap MySQL-python netifaces
 
     - Install mod_wsgi from EPEL repository:
 
