@@ -36,11 +36,7 @@ class list(dbinit):
                 cur_domain = str(allDomains[0][1]['domainName'][0])
                 users = userLib.list(domain=cur_domain)
                 if users is not False:
-                    return render.users(
-                            users=users, cur_domain=domain,
-                            allDomains=allDomains,
-                            msg=None,
-                            )
+                    web.seeother('/users/' + cur_domain)
                 else:
                     web.seeother('/domains?msg=NO_SUCH_DOMAIN')
             elif isinstance(allDomains, types.ListType) is True and len(allDomains) == 0:

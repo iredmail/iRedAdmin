@@ -30,7 +30,8 @@
                         <li><span><a href="{{ info[2] }}">{{ _('Download') }}</a></span></li>
                     </ul>
                     {% else %}
-                    <h3 class="ct-legend hn"><span>{{ _('No new version available') }}</span></h3>
+                    <h3 class="ct-legend hn"><span>{{ _('Version status:') }}</span></h3>
+                    <p><span>{{ _('Your iRedAdmin is up to date.') }}</span></p>
                     {% endif %}
                 {% else %}
                     <h3 clss="ct-legend hn"><span>{{ _('Error while check new version') }}</span></h3>

@@ -80,13 +80,25 @@ class logout:
 class dashboard:
     @base.protected
     def GET(self):
-        from socket import gethostname
+        from socket import getfqdn
         import os
+        try:
+            import netifaces
+            ifaces = netifaces.interfaces()
+            netif_data = {}
+            for i in ifaces:
+                addr = netifaces.ifaddresses(i)
+                if addr.has_key(netifaces.AF_INET):
+                    data = addr[netifaces.AF_INET][0]
+                    netif_data[i] = {'addr': data['addr'], 'netmask': data['netmask'],}
+        except:
+            netif_data = None
         return render.dashboard(
                 version=__version__,
-                hostname=gethostname(),
+                hostname=getfqdn(),
                 uptime=iredutils.getServerUptime(),
                 loadavg=os.getloadavg(),
+                netif_data=netif_data,
                 )
 
 class checknew:

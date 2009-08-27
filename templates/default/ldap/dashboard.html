@@ -60,10 +60,31 @@
 
             <div class="sf-box text">
                 <label><span>{{ _('Server load') }}</span></label><br />
-                <span class="fld-input">{{ loadavg }}</span>
+                <span class="fld-input">{{ '%s, %s, %s.' |format(loadavg[0], loadavg[1], loadavg[2]) }}</span>
             </div>
         </div>
     </div>
+
+    {% if netif_data is not sameas none %}
+    <div class="main-frm">
+        <div class="main-subhead">
+            <h2 class="hn">{{ _('Network interfaces') }}</h2>
+        </div>
+
+        <div class="sf-group">
+            <div class="sf-set group-item1">
+                <div class="sf-box text">
+                {% for netif in netif_data.items() %}
+                <div class="sf-box">
+                    <label><span>{{ netif[0] }}</span></label><br />
+                    <span class="fld-input">{{ netif[1]['addr'] }}/{{ netif[1]['netmask'] }}</span>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
 </div>
 {% endif %}
 
