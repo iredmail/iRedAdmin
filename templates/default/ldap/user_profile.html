@@ -19,6 +19,16 @@
 {% endblock id_welcome %}
 
 {% block main %}
+{# message #}
+{% if msg is defined and msg is not sameas none %}
+<div class="ct-box info-box">
+    <p class="warn">
+    {% if msg == 'CREATE_SUCCESS' %}
+    {{ _('User created. Would you like to <a href="%s/create/user">add one more</a>?' |format(ctx.homepath)) }}
+    {% endif %}
+    </p>
+    </div>
+{% endif %}
 
 {% set user = user_profile[0] %}
 {% set entries = user[1] %}
@@ -35,7 +45,7 @@
     {% set mailQuota = entries.get('mailQuota', [0])[0] %}
 {% elif profile_type == 'advanced' %}
     {% set mailMessageStore = entries.get('mailMessageStore', [domain + '/' + username + '/'])[0] %}
-    {% set homeDirectory = entries.get('homeDirectory', ['/home/vmail'])[0] %}
+    {% set homeDirectory = entries.get('homeDirectory', ['/var/vmail/vmail01'])[0] %}
 {% endif %}
 
 <form class="frm-form" method="post" action="{{ctx.homepath}}/profile/user/{{profile_type}}/{{mail}}">

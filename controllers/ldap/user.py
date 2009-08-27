@@ -70,6 +70,7 @@ class list(dbinit):
 class profile(dbinit):
     @base.protected
     def GET(self, profile_type, email):
+        i = web.input()
         email = web.safestr(email)
 
         if len(email.split('@', 1)) == 2 and \
@@ -83,6 +84,7 @@ class profile(dbinit):
                         profile_type=profile_type,
                         mail=email,
                         user_profile=profile,
+                        msg=i.get('msg', None)
                         )
             else:
                 web.seeother('/domains')
@@ -146,7 +148,7 @@ class create(dbinit):
         dn = ldaputils.convEmailToUserDN(username + '@' + domain)
         result = userLib.add(dn, ldif)
         if result is True:
-            web.seeother('/profile/user/general/' + username + '@' + domain)
+            web.seeother('/profile/user/general/' + username + '@' + domain + '?msg=CREATE_SUCCESS')
         elif result == 'ALREADY_EXISTS':
             web.seeother('/users/' + domain + '?msg=ALREADY_EXISTS')
         else:
