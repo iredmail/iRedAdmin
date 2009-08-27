@@ -4,7 +4,7 @@
 # Author: Zhang Huangbin <michaelbibby (at) gmail.com>
 
 import web, sys
-from libs import iredutils
+from libs import __version__, __url_iredadmin_lastest__, iredutils
 from libs.ldaplib import core, auth, domain, ldaputils
 from controllers.ldap import base
 
@@ -80,7 +80,26 @@ class logout:
 class dashboard:
     @base.protected
     def GET(self):
-        return render.dashboard()
+        from socket import gethostname
+        import os
+        return render.dashboard(
+                version=__version__,
+                hostname=gethostname(),
+                uptime=iredutils.getServerUptime(),
+                loadavg=os.getloadavg(),
+                )
+
+class checknew:
+    @base.check_global_admin
+    @base.protected
+    def GET(self):
+        import urllib2
+        try:
+            f = urllib2.urlopen(__url_iredadmin_lastest__)
+            info = f.read().strip().split('\n')[:3]
+        except Exception, e:
+            info = (None, str(e))
+        return render.checknew(version=__version__, info=info,)
 
 class dbinit:
     def __init__(self):
