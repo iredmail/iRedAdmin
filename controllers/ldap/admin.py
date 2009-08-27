@@ -7,11 +7,12 @@ import web
 from web import render
 from controllers.ldap import base
 from controllers.ldap.core import dbinit
-from libs.ldaplib import admin
+from libs.ldaplib import admin, preferences
 
 session = web.config.get('_session')
 
 adminLib = admin.Admin()
+prefLib = preferences.Preferences()
 
 #
 # Admin related.
@@ -68,4 +69,4 @@ class add(dbinit):
     @base.check_global_admin
     @base.protected
     def GET(self):
-        return render.add()
+        return render.admin_add()

@@ -4,8 +4,6 @@
 {% from "macros.html" import
         display_cn,
         display_account_status,
-        display_domain_backup_mx,
-        display_all_admins,
         %}
 
 {% block js_tablesorter %}{% endblock %}
@@ -59,15 +57,11 @@
             </div>
         </div>
 
-        {{ display_cn(cn) }}
-
-        {% if session.get('domainGlobalAdmin') == 'yes' %}
-            {{ display_account_status(accountStatus) }}
-
-            {{ display_all_admins(admins=admins, domainAdmins=domainAdmins) }}
-
-            {{ display_domain_backup_mx(domainBackupMX) }}
-
+        {% if profile_type == 'general' %}
+            {{ display_cn(cn) }}
+            {% if session.get('domainGlobalAdmin') == 'yes' %}
+                {{ display_account_status(accountStatus) }}
+            {% endif %}
         {% endif %}
 
         <div class="frm-buttons">

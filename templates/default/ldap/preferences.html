@@ -8,7 +8,13 @@
 
 {% block main %}
 <div class="main-subhead">
-    <h2 class="hn"><span>{{ _('View/Update your preferences (%s).') |format(session.get('username')) }}</span></h2>
+    <h2 class="hn"><span>
+            {% if admin == session.get('username') or admin is not defined %}
+            {{ _('View/Update your preferences.') }}
+            {% else %}
+            {{ _("View/Update %s's preferences.") |format(admin) }}
+            {% endif %}
+    </span></h2>
 </div>
 
 {% if msg is not none %}
@@ -25,7 +31,7 @@
 
         <fieldset class="sf-set">
             <legend><span>{{ _('Default language') }}</span></legend>
-            <div class="mf-box select">
+            <div class="sf-box select">
                 <label><span>{{ _('Default language') }}</span></label>
                 <select name="preferredLanguage">
                     {% for lang in langmaps %}
