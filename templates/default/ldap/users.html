@@ -26,6 +26,10 @@ $("#user_list").tablesorter( {
 </span>
 {% endblock id_welcome %}
 
+{% block id_visit_links %}
+<span><a href="{{ctx.homepath}}/create/user">{{ _('Create a new mail user') }}</a></span>
+{% endblock id_visit_links %}
+
 {% block main %}
 {# Show system message #}
 {#

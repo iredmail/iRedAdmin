@@ -34,6 +34,10 @@
 #   - /profile/{accountType}/{account}
 #
 
+# Regular expressions.
+re_email = '[\w\-][\w\-\.]+@[\w\-][\w\-\.]+[a-zA-Z]{1,4}'
+re_domain = '[\w\-][\w\-\.]+[a-zA-Z]{1,4}'
+
 urls = (
         # Make url ending with or without '/' going to the same class.
         '/(.*)/',                           'controllers.ldap.base.redirect',
@@ -51,38 +55,51 @@ urls = (
         '/preferences',                     'controllers.ldap.preferences.Preferences',
 
         # Domain related.
-        '/domains',                         'controllers.ldap.domain.list',
-        '/profile/domain/(general)/(.*\..*)',         'controllers.ldap.domain.profile',
-        '/profile/domain/(services)/(.*\..*)',         'controllers.ldap.domain.profile',
-        '/profile/domain/(admins)/(.*\..*)',         'controllers.ldap.domain.profile',
-        '/profile/domain/(quotas)/(.*\..*)',         'controllers.ldap.domain.profile',
-        '/profile/domain/(backupmx)/(.*\..*)',         'controllers.ldap.domain.profile',
-        '/profile/domain/(bcc)/(.*\..*)',         'controllers.ldap.domain.profile',
-        '/profile/domain/(advanced)/(.*\..*)',         'controllers.ldap.domain.profile',
-        '/profile/domain/(.*\..*)',         'controllers.ldap.domain.profile',
-        '/create/domain',                   'controllers.ldap.domain.create',
-        '/delete/domain',                   'controllers.ldap.domain.delete',
+        '/domains',                                     'controllers.ldap.domain.list',
+        '/profile/domain/(general)/(%s)' % re_domain,   'controllers.ldap.domain.profile',
+        '/profile/domain/(services)/(%s)' % re_domain,  'controllers.ldap.domain.profile',
+        '/profile/domain/(admins)/(%s)' % re_domain,    'controllers.ldap.domain.profile',
+        '/profile/domain/(quotas)/(%s)' % re_domain,    'controllers.ldap.domain.profile',
+        '/profile/domain/(backupmx)/(%s)' % re_domain,  'controllers.ldap.domain.profile',
+        '/profile/domain/(bcc)/(%s)' % re_domain,       'controllers.ldap.domain.profile',
+        '/profile/domain/(advanced)/(%s)' % re_domain,  'controllers.ldap.domain.profile',
+        '/profile/domain/(%s)' % re_domain,             'controllers.ldap.domain.profile',
+        '/create/domain',                               'controllers.ldap.domain.create',
+        '/delete/domain',                               'controllers.ldap.domain.delete',
 
         # Admin related.
         '/admins',                          'controllers.ldap.admin.list',
-        '/profile/admin/(.*@.*\..*)',       'controllers.ldap.admin.profile',
+        '/profile/admin/(%s)' % re_email,   'controllers.ldap.admin.profile',
         '/create/admin',                    'controllers.ldap.admin.create',
         '/delete/admin',                    'controllers.ldap.admin.delete',
 
         # User related.
         # /domain.ltd/users
-        '/users',                           'controllers.ldap.user.list',
-        '/users/(.*\..*)',                  'controllers.ldap.user.list',
-        '/profile/user/(general)/(.*@.*\..*)',        'controllers.ldap.user.profile',
-        '/profile/user/(shadow)/(.*@.*\..*)',        'controllers.ldap.user.profile',
-        '/profile/user/(groups)/(.*@.*\..*)',        'controllers.ldap.user.profile',
-        '/profile/user/(services)/(.*@.*\..*)',        'controllers.ldap.user.profile',
-        '/profile/user/(forwarding)/(.*@.*\..*)',        'controllers.ldap.user.profile',
-        '/profile/user/(bcc)/(.*@.*\..*)',        'controllers.ldap.user.profile',
-        '/profile/user/(password)/(.*@.*\..*)',        'controllers.ldap.user.profile',
-        '/profile/user/(advanced)/(.*@.*\..*)',        'controllers.ldap.user.profile',
-        '/profile/user/(.*@.*\..*)',        'controllers.ldap.user.profile',
-        '/create/user/(.*\..*)',            'controllers.ldap.user.create',
-        '/create/user',                     'controllers.ldap.user.create',
-        '/delete/user',                     'controllers.ldap.user.delete',
+        '/users',                                       'controllers.ldap.user.list',
+        '/users/(%s)' % re_domain,                      'controllers.ldap.user.list',
+        '/profile/user/(general)/(%s)' % re_email,      'controllers.ldap.user.profile',
+        '/profile/user/(shadow)/(%s)' % re_email,       'controllers.ldap.domain.profile',
+        '/profile/user/(groups)/(%s)' % re_email,       'controllers.ldap.user.profile',
+        '/profile/user/(services)/(%s)' % re_email,     'controllers.ldap.user.profile',
+        '/profile/user/(forwarding)/(%s)' % re_email,   'controllers.ldap.user.profile',
+        '/profile/user/(bcc)/(%s)' % re_email,          'controllers.ldap.user.profile',
+        '/profile/user/(password)/(%s)' % re_email,     'controllers.ldap.user.profile',
+        '/profile/user/(advanced)/(%s)' % re_email,     'controllers.ldap.user.profile',
+        '/profile/user/(%s)' % re_email,                'controllers.ldap.user.profile',
+        '/create/user',                                 'controllers.ldap.user.create',
+        '/delete/user',                                 'controllers.ldap.user.delete',
+
+        # Group related.
+        '/maillists',                           'controllers.ldap.maillist.list',
+        '/maillists/(%s)' % re_domain,          'controllers.ldap.maillist.list',
+        '/profile/maillist/(%s)' % re_email,    'controllers.ldap.maillist.profile',
+        '/create/maillist',                     'controllers.ldap.maillist.create',
+        '/delete/maillist',                     'controllers.ldap.maillist.delete',
+
+        # Alias related.
+        '/aliases',                         'controllers.ldap.alias.list',
+        '/aliases/(%s)' % re_domain,        'controllers.ldap.alias.list',
+        '/profile/alias/(%s)' % re_email,   'controllers.ldap.alias.profile',
+        '/create/alias',                    'controllers.ldap.alias.create',
+        '/delete/alias',                    'controllers.ldap.alias.delete',
         )

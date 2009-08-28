@@ -22,13 +22,9 @@
             </div>
             <div class="sf-box text">
                 {% if info[0] is not sameas none %}
-                    {% if info[0] |float > version |float %}
+                    {% if info[0]  > version %}
                     <label><span><strong>{{ _('New version available') }}</strong></span></label><br />
-                    <ul class="data-list">
-                        <li><span>{{ info[0] |float }}</span></li>
-                        <li><span><a href="{{ info[1] }}">{{ _('ChangeLog') }}</a></span></li>
-                        <li><span><a href="{{ info[2] }}">{{ _('Download') }}</a></span></li>
-                    </ul>
+                    <span class="fld-input">{{ info[0] }}&nbsp;&nbsp;<a href="{{ info[1] }}">{{ _('Release note') }}</a>&nbsp;&nbsp;<a href="{{ info[2] }}">{{ _('Download') }}</a></span>
                     {% else %}
                     <label><span>{{ _('Version status:') }}</span></label><br />
                     <span class="fld-input">{{ _('Your iRedAdmin is up to date.') }}</span>

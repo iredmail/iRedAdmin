@@ -16,6 +16,10 @@ $("#admin_list").tablesorter( {
 <span>{{ _('All mail administrators.') }} {{ _('Total: %s.') |format(admins |length) }}</span>
 {% endblock id_welcome %}
 
+{% block id_visit_links %}
+<span><a href="{{ctx.homepath}}/create/admin">{{ _('Create a new mail admin') }}</a></span>
+{% endblock id_visit_links %}
+
 {% block main %}
 {# Show system message #}
 {#

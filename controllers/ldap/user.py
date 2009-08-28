@@ -68,6 +68,7 @@ class profile(dbinit):
     def GET(self, profile_type, email):
         i = web.input()
         email = web.safestr(email)
+        profile_type = web.safestr(profile_type)
 
         if len(email.split('@', 1)) == 2 and \
                 profile_type in ['general', 'shadow', 'groups', 'services', 'forwarding', 'bcc', 'password', 'advanced',]:

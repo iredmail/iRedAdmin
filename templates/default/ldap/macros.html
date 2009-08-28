@@ -82,7 +82,8 @@
 {%- endmacro %}
 
 {% macro display_all_admins(admins, domainAdmins=[]) -%}
-    <fieldset class="frm-group mf-set required">
+    <div class="frm-group group1">
+        <fieldset class="mf-set set1">
         <legend><span>{{ _('Domain admin assignment') }}<em>{{ _('If no admin assigned, you can manage it with global admin.') }}</em></span></legend>
         <div class="mf-box">
             <div class="checklist">
@@ -91,7 +92,7 @@
                     {% set adminMail = admin[1].get('mail')[0] %}
                     <div class="checklist-item">
                         <span class="fld-input">
-                            <input type="checkbox" id="fld1" name="domainAdmin" value="{{ adminMail }}" {% if adminMail in domainAdmins %}checked{%endif%} />
+                            <input type="checkbox" name="domainAdmin" value="{{ adminMail }}" {% if adminMail in domainAdmins %}checked{%endif%} />
                         </span>
                         <label>
                             {% if admin[1].has_key('cn') %}
@@ -99,7 +100,8 @@
                             {% else %}
                             {{ adminMail }}
                             {% endif %}
-                            {% if 'yes' in admin[1].get('domainGlobalAdmin', []) %}<em><strong>{{ _('(Global Admin)') }}</strong></em>{% endif %}</label>
+                            {% if 'yes' in admin[1].get('domainGlobalAdmin', []) %}<em><strong>{{ _('(Global Admin)') }}</strong></em>{% endif %}
+                        </label>
                     </div>
                     {% endfor %}
                 </fieldset>

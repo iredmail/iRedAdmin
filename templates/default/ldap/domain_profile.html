@@ -12,15 +12,11 @@
 
 {% block id_welcome %}
 <span><a href="{{ctx.homepath}}/profile/domain/general/{{cur_domain}}" {% if profile_type == "general" %}class="active"{%endif%}>General</a>&nbsp;</span>
-{% if session.get('domainGlobalAdmin') == 'yes' %}
-    <span><a href="{{ctx.homepath}}/profile/domain/admins/{{cur_domain}}" {% if profile_type == "admins" %}class="active"{%endif%}>Admins</a>&nbsp;</span>
-    <span><a href="{{ctx.homepath}}/profile/domain/services/{{cur_domain}}" {% if profile_type == "services" %}class="active"{%endif%}>Service control</a>&nbsp;</span>
-    <span><a href="{{ctx.homepath}}/profile/domain/bcc/{{cur_domain}}" {%if profile_type == 'bcc'%}class="active"{%endif%}>BCC control</a>&nbsp;</span>
-    <span><a href="{{ctx.homepath}}/profile/domain/quotas/{{cur_domain}}" {%if profile_type == 'quotas'%}class="active"{%endif%}>Quotas</a>&nbsp;</span>
-    <span><a href="{{ctx.homepath}}/profile/domain/backupmx/{{cur_domain}}" {%if profile_type == 'backupmx'%}class="active"{%endif%}>Backup MX</a>&nbsp;</span>
-    <span><a href="{{ctx.homepath}}/profile/domain/advanced/{{cur_domain}}" {%if profile_type == 'advanced'%}class="active"{%endif%}>Advanced settings</a>&nbsp;</span>
-{% endif %}
 {% endblock id_welcome %}
+
+{% block id_visit_links %}
+<span><a href="{{ctx.homepath}}/users/{{cur_domain}}">{{ _('Users') }}</a></span>
+{% endblock id_visit_links %}
 
 {# Domain profile. #}
 {% block main %}
@@ -51,7 +47,7 @@
                                 </select>
                             </span></span></li>
                     <li><span><strong>{{ _('Company/Organization:') }}</strong> {{cn}}</span></li>
-                    <li><span><strong>{{ _('Created Date:') }}</strong> {{createTimestamp[:4]}}.{{createTimestamp[4:6]}}.{{createTimestamp[6:8]}} {{createTimestamp[8:10]}}:{{createTimestamp[10:12]}}:{{createTimestamp[12:14]}}</span></li>
+                    <li><span><strong>{{ _('Created Date:') }}</strong> {{createTimestamp[:4]}}-{{createTimestamp[4:6]}}-{{createTimestamp[6:8]}} {{createTimestamp[8:10]}}:{{createTimestamp[10:12]}}:{{createTimestamp[12:14]}}</span></li>
                     </ul>
                 </div>
             </div>
