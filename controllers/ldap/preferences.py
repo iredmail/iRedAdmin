@@ -36,7 +36,7 @@ class Preferences:
         cur_lang = self.langs.pop('cur_lang')
         if self.result is True:
             msg = 'SUCCESS'
-            web.render = iredutils.setRenderLang(web.render, cur_lang)
+            web.render = iredutils.setRenderLang(web.render, cur_lang, oldlang=session.get('lang'),)
         else:
             msg = self.result
 

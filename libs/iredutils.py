@@ -9,7 +9,7 @@ import web
 
 cfg = web.iredconfig
 
-def setRenderLang(renderInst, lang):
+def get_translation(lang):
     # Init translations.
     if lang == 'en_US':
         translations = gettext.NullTranslations()
@@ -22,8 +22,15 @@ def setRenderLang(renderInst, lang):
                     )
         except IOError:
             translations = gettext.NullTranslations()
+    return translations
 
-    renderInst._lookup.install_gettext_translations(translations)
+def setRenderLang(renderInst, lang, oldlang=None):
+    if oldlang is not None:
+        old_translation = get_translation(oldlang)
+        renderInst._lookup.uninstall_gettext_translations(old_translation)
+
+    new_translations = get_translation(lang)
+    renderInst._lookup.install_gettext_translations(new_translations)
     return renderInst
 
 def notfound():

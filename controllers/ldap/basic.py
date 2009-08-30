@@ -62,7 +62,7 @@ class login:
                 adminLib = admin.Admin()
                 lang = adminLib.getPreferredLanguage(userdn)
                 if lang is not False:
-                    web.render = iredutils.setRenderLang(web.render, lang)
+                    web.render = iredutils.setRenderLang(web.render, lang, oldlang=session.get('lang'),)
                     session['lang'] = lang
             except:
                 pass
