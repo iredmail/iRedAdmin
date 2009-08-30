@@ -89,6 +89,9 @@ class profile(dbinit):
             web.seeother('/domains')
 
 class create(dbinit):
+    def __init__(self):
+        self.default_quota = cfg.general.get('default_quota', '1024')
+
     @base.protected
     def GET(self, domainName=None):
         if domainName is None:
@@ -96,11 +99,10 @@ class create(dbinit):
         else:
             domainName = web.safestr(domainName)
 
-        default_quota = cfg.general.get('default_quota', '1024')
         return render.user_create(
                 domainName=domainName,
                 allDomains=domainLib.list(),
-                default_quota=session.get('default_quota'),
+                default_quota=self.default_quota,
                 )
 
     @base.protected
@@ -115,10 +117,11 @@ class create(dbinit):
             return render.user_create(
                     domainName=domain,
                     allDomains=domainLib.list(),
+                    default_quota=self.default_quota,
                     )
 
         cn = i.get('cn', None)
-        quota = i.get('quota', session.get('default_quota'))
+        quota = i.get('quota', self.default_quota)
 
         # Check password.
         newpw = web.safestr(i.get('newpw'))
@@ -130,6 +133,7 @@ class create(dbinit):
                     domainName=domain,
                     allDomains=domainLib.list(),
                     username=username,
+                    default_quota=self.default_quota,
                     cn=cn,
                     msg='PW_ERROR',
                     )
@@ -137,6 +141,7 @@ class create(dbinit):
         ldif = iredldif.ldif_mailuser(
                 domain=web.safestr(domain),
                 username=web.safestr(username),
+                default_quota=self.default_quota,
                 cn=cn,
                 passwd=passwd,
                 quota=quota,
