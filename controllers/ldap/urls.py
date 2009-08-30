@@ -62,7 +62,7 @@ urls = (
         '/profile/domain/(quotas)/(%s)' % re_domain,    'controllers.ldap.domain.profile',
         '/profile/domain/(backupmx)/(%s)' % re_domain,  'controllers.ldap.domain.profile',
         '/profile/domain/(bcc)/(%s)' % re_domain,       'controllers.ldap.domain.profile',
-        '/profile/domain/(advanced)/(%s)' % re_domain,  'controllers.ldap.domain.profile',
+        #'/profile/domain/(advanced)/(%s)' % re_domain,  'controllers.ldap.domain.profile',
         '/profile/domain/(%s)' % re_domain,             'controllers.ldap.domain.profile',
         '/create/domain',                               'controllers.ldap.domain.create',
         '/delete/domain',                               'controllers.ldap.domain.delete',
@@ -78,7 +78,7 @@ urls = (
         '/users',                                       'controllers.ldap.user.list',
         '/users/(%s)' % re_domain,                      'controllers.ldap.user.list',
         '/profile/user/(general)/(%s)' % re_email,      'controllers.ldap.user.profile',
-        '/profile/user/(shadow)/(%s)' % re_email,       'controllers.ldap.domain.profile',
+        '/profile/user/(shadow)/(%s)' % re_email,       'controllers.ldap.user.profile',
         '/profile/user/(groups)/(%s)' % re_email,       'controllers.ldap.user.profile',
         '/profile/user/(services)/(%s)' % re_email,     'controllers.ldap.user.profile',
         '/profile/user/(forwarding)/(%s)' % re_email,   'controllers.ldap.user.profile',
@@ -86,6 +86,7 @@ urls = (
         '/profile/user/(password)/(%s)' % re_email,     'controllers.ldap.user.profile',
         '/profile/user/(advanced)/(%s)' % re_email,     'controllers.ldap.user.profile',
         '/profile/user/(%s)' % re_email,                'controllers.ldap.user.profile',
+        '/create/user/(%s)' % re_domain,                'controllers.ldap.user.create',
         '/create/user',                                 'controllers.ldap.user.create',
         '/delete/user',                                 'controllers.ldap.user.delete',
 
@@ -93,6 +94,7 @@ urls = (
         '/maillists',                           'controllers.ldap.maillist.list',
         '/maillists/(%s)' % re_domain,          'controllers.ldap.maillist.list',
         '/profile/maillist/(%s)' % re_email,    'controllers.ldap.maillist.profile',
+        '/create/maillist/(%s)' % re_domain,    'controllers.ldap.maillist.create',
         '/create/maillist',                     'controllers.ldap.maillist.create',
         '/delete/maillist',                     'controllers.ldap.maillist.delete',
 
@@ -100,6 +102,7 @@ urls = (
         '/aliases',                         'controllers.ldap.alias.list',
         '/aliases/(%s)' % re_domain,        'controllers.ldap.alias.list',
         '/profile/alias/(%s)' % re_email,   'controllers.ldap.alias.profile',
+        '/create/alias/(%s)' % re_domain,   'controllers.ldap.alias.create',
         '/create/alias',                    'controllers.ldap.alias.create',
         '/delete/alias',                    'controllers.ldap.alias.delete',
         )

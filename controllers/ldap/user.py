@@ -8,7 +8,7 @@ import web
 from web import render
 from web import iredconfig as cfg
 from controllers.ldap import base
-from controllers.ldap.core import dbinit
+from controllers.ldap.basic import dbinit
 from libs.ldaplib import domain, user, iredldif, ldaputils
 
 session = web.config.get('_session')
@@ -65,28 +65,27 @@ class list(dbinit):
 
 class profile(dbinit):
     @base.protected
-    def GET(self, profile_type, email):
+    def GET(self, profile_type, mail):
         i = web.input()
-        email = web.safestr(email)
+        mail = web.safestr(mail)
         profile_type = web.safestr(profile_type)
 
-        if len(email.split('@', 1)) == 2 and \
+        if len(mail.split('@', 1)) == 2 and \
                 profile_type in ['general', 'shadow', 'groups', 'services', 'forwarding', 'bcc', 'password', 'advanced',]:
-            domain = email.split('@', 1)[1]
-            userdn = ldaputils.convEmailToUserDN(email)
+            domain = mail.split('@', 1)[1]
 
-            if userdn:
-                profile = userLib.profile(dn=userdn)
+            profile = userLib.profile(dn=userdn)
+            if profile:
                 return render.user_profile(
                         profile_type=profile_type,
-                        mail=email,
+                        mail=mail,
                         user_profile=profile,
                         msg=i.get('msg', None)
                         )
             else:
-                web.seeother('/domains')
+                web.seeother('/users/' + '?msg=PERMISSION_DENIED')
         else:
-            web.seeother('/domains')
+            web.seeother('/domains?msg=INVALID_REQUEST')
 
 class create(dbinit):
     def __init__(self):

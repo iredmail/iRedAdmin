@@ -7,6 +7,7 @@
 {% block js %}{% endblock js %}
 {% block js_tablesorter %}{% endblock %}
 {% block jquery_docoment_ready %} {% endblock %}
+{% block submenu %}{% endblock submenu %}
 
 {% block title %}{{ _('Create new mail user') }}{% endblock title %}
 
@@ -17,7 +18,7 @@
 
 {# Display input field for adding new domain. #}
 <div class="main-frm">
-    <form class="frm-form" method="post" method="{{ctx.homepath}}/create/user">
+    <form class="frm-form" method="post" action="{{ctx.homepath}}/create/user">
 
     <fieldset class="frm-group group1">
         <legend class="group-legend"><strong>{{ _('Mail address') }}</strong></legend>

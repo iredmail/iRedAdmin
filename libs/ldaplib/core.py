@@ -16,8 +16,6 @@ class LDAPWrap:
         # Get LDAP settings.
         self.basedn = cfg.ldap.get('basedn')
         self.domainadmin_dn = cfg.ldap.get('domainadmin_dn')
-        self.bind_dn = cfg.ldap.get('bind_dn')
-        self.bind_pw = cfg.ldap.get('bind_pw')
 
         # Initialize LDAP connection.
         try:
@@ -50,26 +48,7 @@ class LDAPWrap:
                 return e
 
         # synchronous bind.
-        self.conn.bind_s(self.bind_dn, self.bind_pw)
-
-        '''
-        # Get default language.
-        lang = self.conn.search_s(
-                session.get('userdn'),
-                ldap.SCOPE_BASE,
-                '(objectClass=mailAdmin)',
-                ['preferredLanguage'],
-                )
-        if lang[0][1].has_key('preferredLanguage'):
-            session['lang'] = lang[0][1]
-        else:
-            self.conn.modify_s(
-                    session.get('userdn'),
-                    [(ldap.MOD_ADD, 'preferredLanguage', cfg.general.get('lang'))],
-                    )
-
-            session['lang'] = cfg.general.get('lang')
-        '''
+        self.conn.bind_s(cfg.ldap.get('bind_dn'), cfg.ldap.get('bind_pw'))
 
     def __del__(self):
         self.conn.unbind()
@@ -204,3 +183,37 @@ class LDAPWrap:
             return self.domains
         except Exception, e:
             return str(e)
+
+class LDAPDecorators(LDAPWrap):
+    def check_global_admin(self, func):
+        def proxyfunc(self, *args, **kw):
+            if session.get('domainGlobalAdmin') == 'yes':
+                return func(self, *args, **kw)
+            else:
+                return False
+        return proxyfunc
+
+    def check_domain_access(self, func):
+        def proxyfunc(self, *args, **kw):
+            self.domain = web.safestr(kw['mail']).split('@', 1)[1]
+            if self.domain is None or self.domain == '': return False
+
+            self.dn = ldaputils.convDomainToDN(self.domain)
+            self.admin = session.get('username')
+
+            # Check domain global admin.
+            if session.get('domainGlobalAdmin') == 'yes':
+                return func(self, *args, **kw)
+            else:
+                # Check whether is domain admin.
+                result = self.conn.search_s(
+                        self.dn,
+                        ldap.SCOPE_BASE,
+                        "(&(domainName=%s)(domainAdmin=%s))" % (self.domain, self.admin),
+                        ['dn', 'domainAdmin'],
+                        )
+                if len(result) == 0:
+                    web.seeother('/users' + '?msg=PERMISSION_DENIED&domain=' + self.domain)
+                else:
+                    return func(self, *args, **kw)
+        return proxyfunc

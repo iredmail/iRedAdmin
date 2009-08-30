@@ -9,6 +9,7 @@ import web
 from libs.ldaplib import core, attrs, ldaputils, deltree
 
 session = web.config.get('_session')
+LDAPDecorators = core.LDAPDecorators()
 
 class User(core.LDAPWrap):
     def __del__(self):
@@ -47,9 +48,11 @@ class User(core.LDAPWrap):
             return False
 
     # Get values of user dn.
-    def profile(self, dn):
+    @LDAPDecorators.check_domain_access
+    def profile(self, mail):
+        self.dn = ldaputils.convEmailToUserDN(mail)
         self.user_profile = self.conn.search_s(
-                str(dn),
+                str(self.dn),
                 ldap.SCOPE_BASE,
                 '(objectClass=mailUser)',
                 attrs.USER_ATTRS_ALL,
