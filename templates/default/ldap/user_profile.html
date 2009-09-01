@@ -45,6 +45,11 @@
                     {{ _('New password must contain at least %s characters.') |format(min_passwd_length) }}
                 {% elif msg == 'PW_GREATER_THAN_MAX_LENGTH' %}
                     {{ _('New password must NOT contain more than %s characters.') |format(max_passwd_length) }}
+                {% else %}
+                {# Catch-all #}
+                <div class="error">
+                    {{ msg }}
+                </div>
                 {% endif %}
             </div>
             {% endif %}

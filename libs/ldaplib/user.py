@@ -100,20 +100,28 @@ class User(core.LDAPWrap):
             cn = data.get('cn', None)
 
             if cn is not None:
-                mod_attrs = [ ( ldap.MOD_REPLACE, 'cn', cn.encode('utf-8') ) ]
+                mod_attrs += [ ( ldap.MOD_REPLACE, 'cn', cn.encode('utf-8') ) ]
             else:
                 # Delete attribute.
-                mod_attrs = [ ( ldap.MOD_DELETE, 'cn', None) ]
+                mod_attrs += [ ( ldap.MOD_DELETE, 'cn', None) ]
 
             # Get mail address.
 
             # Get mailQuota.
-            mailQuota = web.safestr(data.get('mailQuota', None))
+            mailQuota += web.safestr(data.get('mailQuota', None))
             if mailQuota == '':
                 # Don't touch it, keep old quota value.
                 pass
             else:
-                mod_attrs = [ ( ldap.MOD_REPLACE, 'mailQuota', str(int(mailQuota) * 1024 * 1024) ) ]
+                mod_attrs += [ ( ldap.MOD_REPLACE, 'mailQuota', str(int(mailQuota) * 1024 * 1024) ) ]
+
+            # Get telephoneNumber.
+            telephoneNumber = data.get('telephoneNumber', [])
+            if telephoneNumber != []:
+                mod_attrs += [ (ldap.MOD_REPLACE, 'telephoneNumber', None) ]
+                for i in telephoneNumber:
+                    #mod_attrs += [ (ldap.MOD_REPLACE, 'telephoneNumber', str(i)) ]
+                    mod_attrs += [ (ldap.MOD_ADD, 'telephoneNumber', str(i)) ]
 
             # Get accountStatus.
             accountStatus = web.safestr(data.get('accountStatus', 'active'))
