@@ -66,7 +66,7 @@ class list(dbinit):
 class profile(dbinit):
     @base.protected
     def GET(self, profile_type, mail):
-        i = web.input(enabledService=[],)
+        i = web.input(enabledService=[], telephoneNumber=[],)
         self.mail = web.safestr(mail)
         self.profile_type = web.safestr(profile_type)
 
@@ -80,6 +80,8 @@ class profile(dbinit):
                         profile_type=self.profile_type,
                         mail=self.mail,
                         user_profile=self.profile,
+                        min_passwd_length=cfg.general.get('min_passwd_length'),
+                        max_passwd_length=cfg.general.get('max_passwd_length'),
                         msg=i.get('msg', None)
                         )
             else:
@@ -89,7 +91,7 @@ class profile(dbinit):
 
     @base.protected
     def POST(self, profile_type, mail):
-        i = web.input()
+        i = web.input(enabledService=[], telephoneNumber=[],)
         self.profile_type = web.safestr(profile_type)
         self.mail = web.safestr(mail)
 
@@ -98,10 +100,10 @@ class profile(dbinit):
                 mail=self.mail,
                 data=i,
                 )
-        if self.result:
+        if self.result is True:
             web.seeother('/profile/user/%s/%s?msg=UPDATED_SUCCESS' % (self.profile_type, self.mail))
-        else:
-            web.seeother('/profile/user/%s/%s?msg=UPDATED_FAILED' % (self.profile_type, self.mail))
+        elif self.result[0] is False:
+            web.seeother('/profile/user/%s/%s?msg=%s' % (self.profile_type, self.mail, self.result[1]))
 
 class create(dbinit):
     def __init__(self):

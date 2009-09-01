@@ -58,3 +58,30 @@ def getServerUptime():
      seconds = int( total_seconds % MINUTE )
 
      return (days, hours, minutes)
+
+def getNewPassword(newpw, confirmpw):
+    # Get new passwords from user input.
+    newpw = str(newpw)
+    confirmpw = str(confirmpw)
+
+    # Empty password is not allowed.
+    if newpw == confirmpw:
+        passwd = newpw
+    else:
+        return (False, 'PW_MISMATCH')
+
+    if not len(passwd) > 0:
+        return (False, 'PW_EMPTY')
+
+    # Check password length.
+    min_passwd_length = cfg.general.get('min_passwd_length', 1)
+    max_passwd_length = cfg.general.get('max_passwd_length', 0)
+
+    if not len(passwd) >= int(min_passwd_length):
+        return (False, 'PW_LESS_THAN_MIN_LENGTH')
+
+    if int(max_passwd_length) != 0:
+        if not len(passwd) <= int(max_passwd_length):
+            return (False, 'PW_GREATER_THAN_MAX_LENGTH')
+
+    return (True, passwd)

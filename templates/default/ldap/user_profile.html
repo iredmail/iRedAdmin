@@ -33,6 +33,21 @@
         <div class="error">
             {{ _('Profile updated failed.') }}
         </div>
+        {% else %}
+            {# Password #}
+            {% if profile_type == 'password' %}
+            <div class="error">
+                {% if msg == 'PW_MISMATCH' %}
+                    {{ _('Two new passwords are not match.') }}
+                {% elif msg == 'PW_EMPTY' %}
+                    {{ _('Password is empty.') }}
+                {% elif msg == 'PW_LESS_THAN_MIN_LENGTH' %}
+                    {{ _('New password must contain at least %s characters.') |format(min_passwd_length) }}
+                {% elif msg == 'PW_GREATER_THAN_MAX_LENGTH' %}
+                    {{ _('New password must NOT contain more than %s characters.') |format(max_passwd_length) }}
+                {% endif %}
+            </div>
+            {% endif %}
         {% endif %}
     </div>
 {% endif %}
@@ -78,10 +93,12 @@
                 <label><span>{{ _('Username') }}</span></label>
                 <span class="fld-input"><input type="text" name="cn" value="{{cn}}" size="25" /></span>
             </div>
+            {#
             <div class="sf-box text">
                 <label><span>{{ _('Mail address') }}</span>{% if session.get('domainGlobalAdmin') == 'yes' %}<small>{{ _("Warning: Change mail address won't cause mailbox location changed.") }}</small>{%endif%}</label>
                 <span class="fld-input"><input type="text" name="username" value="{{username}}" size="25" />@{{domain}}</span>
             </div>
+            #}
         </div>
     </fieldset>
 
@@ -105,7 +122,11 @@
     {% endif %}
 
     {% if profile_type == 'password' %}
-    {{ display_reset_password(show_confirmpw='yes') }}
+    {{ display_reset_password(
+            show_confirmpw='yes',
+            min_passwd_length=min_passwd_length,
+            max_passwd_length=max_passwd_length)
+            }}
     {% endif %}
 
 </table>

@@ -6,8 +6,10 @@
 import sys
 import ldap, ldap.filter
 import web
+from libs import iredutils
 from libs.ldaplib import core, attrs, ldaputils, deltree
 
+cfg = web.iredconfig
 session = web.config.get('_session')
 LDAPDecorators = core.LDAPDecorators()
 
@@ -92,6 +94,7 @@ class User(core.LDAPWrap):
         self.mail = web.safestr(mail)
         self.domain = self.mail.split('@', 1)[1]
 
+        mod_attrs = []
         if self.profile_type == 'general':
             # Get cn.
             cn = data.get('cn', None)
@@ -103,6 +106,7 @@ class User(core.LDAPWrap):
                 mod_attrs = [ ( ldap.MOD_DELETE, 'cn', None) ]
 
             # Get mail address.
+
             # Get mailQuota.
             mailQuota = web.safestr(data.get('mailQuota', None))
             if mailQuota == '':
@@ -118,12 +122,21 @@ class User(core.LDAPWrap):
                 accountStatus = 'active'
 
             mod_attrs += [ (ldap.MOD_REPLACE, 'accountStatus', accountStatus) ]
-
-            print >> sys.stderr, mod_attrs
+        elif self.profile_type == 'password':
+            # Get new passwords from user input.
+            self.newpw = str(data.get('newpw', None))
+            self.confirmpw = str(data.get('confirmpw', None))
+             
+            self.result = iredutils.getNewPassword(newpw=self.newpw, confirmpw=self.confirmpw,)
+            if self.result[0] is True:
+                self.passwd = ldaputils.generatePasswd(self.result[1], pwscheme=cfg.general.get('default_pw_scheme', 'SSHA'))
+                mod_attrs += [ (ldap.MOD_REPLACE, 'userPassword', self.passwd) ]
+            else:
+                return self.result
 
         try:
             dn = ldaputils.convEmailToUserDN(self.mail)
             self.conn.modify_s(dn, mod_attrs)
             return True
         except Exception, e:
-            return False
+            return (False, str(e))

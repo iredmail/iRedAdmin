@@ -27,6 +27,12 @@ default_quota = 1024
 # Default mta transport.
 mtaTransport = dovecot
 
+# Min/Max password length.
+#   - min_passwd_length: 0 means unlimited, but at least 1 character.
+#   - max_passwd_length: 0 means unlimited.
+min_passwd_length = 6
+max_passwd_length = 0
+
 [iredadmin]
 # Database used to store iRedAdmin data. e.g. sessions, log.
 dbn = mysql
