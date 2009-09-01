@@ -2,7 +2,7 @@
 
 {% extends "layout.html" %}
 
-{% from "macros.html" import set_account_status_img %}
+{% from "macros.html" import set_account_status_img, display_quota, %}
 
 {% block title %}{{ _('Mail users') }}{% endblock %}
 
@@ -88,7 +88,7 @@ $("#user_list").tablesorter( {
                     <td><a href="mailto:{{mail}}" title="{{ _('Send mail to %s.') |format(mail) }}">{{ mail }}</a></td>
 
                 {# mail quota #}
-                <td>{{ entries.get('mailQuota', [0])[0] |filesizeformat }}</td>
+                <td>{% if entries.get('mailQuota', ['0'])[0] == '0' %}{{ _('Unlimited') }}{% else %}{{ entries.get('mailQuota', ['0'])[0] |filesizeformat }} {% endif %}</td>
 
                 <td>{{createTimestamp[:4]}}-{{createTimestamp[4:6]}}-{{createTimestamp[6:8]}} {{createTimestamp[8:10]}}:{{createTimestamp[10:12]}}:{{createTimestamp[12:14]}}</td>
             </tr>

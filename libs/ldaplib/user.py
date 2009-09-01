@@ -114,7 +114,6 @@ class User(core.LDAPWrap):
                 pass
             else:
                 mod_attrs = [ ( ldap.MOD_REPLACE, 'mailQuota', str(int(mailQuota) * 1024 * 1024) ) ]
-            print >> sys.stderr, 'mailQuota: -%s-' % mailQuota, type(mailQuota)
 
             # Get accountStatus.
             accountStatus = web.safestr(data.get('accountStatus', 'active'))

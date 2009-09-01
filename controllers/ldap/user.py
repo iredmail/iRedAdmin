@@ -184,5 +184,4 @@ class delete(dbinit):
         mails = i.get('mail', [])
         for mail in mails:
             dn = ldap.filter.escape_filter_chars(ldaputils.convEmailToUserDN(mail))
-        print >> sys.stderr, i 
         web.seeother('/users/' + web.safestr(domain))
