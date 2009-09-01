@@ -153,14 +153,13 @@
     </fieldset>
 {%- endmacro %}
 
-{% macro display_quota(value='') -%}
-    <fieldset class="frm-group">
-        <legend class="group-legend"><strong>{{ _('Quota') }}</strong></legend>
-        <div class="sf-set">
-            <div class="sf-box text required">
-                <label><span>{{ _('Quota (in MB)') }}</span></label>
-                <span class="fld-input"><input type="text" name="quota" size="25" value="{{value}}" /></span>
-            </div>
+{% macro display_quota(value='', display_current_value='yes', firstitem='yes') -%}
+<fieldset class="frm-group {% if firstitem == 'yes' %}group1{% endif %}">
+    <div class="sf-set {% if firstitem == 'yes' %}set1{% endif %}">
+        <div class="sf-box text">
+            <label><span>{{ _('Mail quota (in MB)') }}</span></label>
+            <span class="fld-input"><input type="text" name="mailQuota" value="" size="25" />{% if display_current_value == 'yes' %}&nbsp;{{_('Current quota:') }} {% if value == 0 or value == '0' %}<strong>{{ _('Unlimited') }}</strong>{%else%}{{ value |filesizeformat}}&nbsp;({{value}}&nbsp;Bytes){%endif%}{%endif%}</span>
         </div>
-    </fieldset>
+    </div>
+</fieldset>
 {%- endmacro %}

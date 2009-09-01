@@ -38,9 +38,9 @@
 
     {{ display_cn(value=cn, accountType='user') }}
 
-    {{ display_quota(default_quota) }}
+    {{ display_quota(value=default_quota, display_current_value='no', firstitem='no') }}
 
-    {{ display_reset_password() }}
+    {{ display_reset_password(firstitem='no') }}
 
     <div class="frm-buttons">
         <span class="submit">

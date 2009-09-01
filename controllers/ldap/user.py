@@ -66,26 +66,42 @@ class list(dbinit):
 class profile(dbinit):
     @base.protected
     def GET(self, profile_type, mail):
-        i = web.input()
-        mail = web.safestr(mail)
-        profile_type = web.safestr(profile_type)
+        i = web.input(enabledService=[],)
+        self.mail = web.safestr(mail)
+        self.profile_type = web.safestr(profile_type)
 
-        if len(mail.split('@', 1)) == 2 and \
-                profile_type in ['general', 'shadow', 'groups', 'services', 'forwarding', 'bcc', 'password', 'advanced',]:
-            domain = mail.split('@', 1)[1]
+        if len(self.mail.split('@', 1)) == 2 and \
+                self.profile_type in ['general', 'shadow', 'groups', 'services', 'forwarding', 'bcc', 'password', 'advanced',]:
+            self.domain = self.mail.split('@', 1)[1]
 
-            profile = userLib.profile(dn=userdn)
-            if profile:
+            self.profile = userLib.profile(mail=self.mail)
+            if self.profile:
                 return render.user_profile(
-                        profile_type=profile_type,
-                        mail=mail,
-                        user_profile=profile,
+                        profile_type=self.profile_type,
+                        mail=self.mail,
+                        user_profile=self.profile,
                         msg=i.get('msg', None)
                         )
             else:
                 web.seeother('/users/' + '?msg=PERMISSION_DENIED')
         else:
             web.seeother('/domains?msg=INVALID_REQUEST')
+
+    @base.protected
+    def POST(self, profile_type, mail):
+        i = web.input()
+        self.profile_type = web.safestr(profile_type)
+        self.mail = web.safestr(mail)
+
+        self.result = userLib.update(
+                profile_type=self.profile_type,
+                mail=self.mail,
+                data=i,
+                )
+        if self.result:
+            web.seeother('/profile/user/%s/%s?msg=UPDATED_SUCCESS' % (self.profile_type, self.mail))
+        else:
+            web.seeother('/profile/user/%s/%s?msg=UPDATED_FAILED' % (self.profile_type, self.mail))
 
 class create(dbinit):
     def __init__(self):
@@ -101,6 +117,7 @@ class create(dbinit):
         return render.user_create(
                 domainName=domainName,
                 allDomains=domainLib.list(),
+                username=username,
                 default_quota=self.default_quota,
                 )
 
@@ -140,7 +157,6 @@ class create(dbinit):
         ldif = iredldif.ldif_mailuser(
                 domain=web.safestr(domain),
                 username=web.safestr(username),
-                default_quota=self.default_quota,
                 cn=cn,
                 passwd=passwd,
                 quota=quota,

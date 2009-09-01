@@ -55,9 +55,9 @@ Required components:
     - Add apache configure file: /etc/httpd/conf.d/iredadmin.conf.
 
         # ----
-        WSGIScriptAlias /iredadmin /var/www/iRedAdmin/iredadmin.py
+        WSGIScriptAlias /iredadmin /var/www/iRedAdmin/iredadmin.py/
 
-        Alias /iredadmin/static /var/www/iRedAdmin/static
+        Alias /iredadmin/static /var/www/iRedAdmin/static/
         AddType text/html .py
 
         <Directory /var/www/iRedAdmin/>

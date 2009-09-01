@@ -2,6 +2,7 @@
 {% extends "layout.html" %}
 
 {% from "macros.html" import
+        display_quota,
         display_account_status,
         display_reset_password,
         %}
@@ -12,22 +13,27 @@
 
 {# Show profile categories #}
 {% block id_welcome %}
-<span><a href="{{ctx.homepath}}/profile/user/general/{{mail}}" {% if profile_type == "general" %}class="active"{%endif%}>General</a>&nbsp;</span>
-<span><a href="{{ctx.homepath}}/profile/user/password/{{mail}}" {%if profile_type == 'password'%}class="active"{%endif%}>Reset password</a>&nbsp;</span>
-{% if session.get('domainGlobalAdmin') == 'yes' %}
-    <span><a href="{{ctx.homepath}}/profile/user/advanced/{{mail}}" {%if profile_type == 'advanced'%}class="active"{%endif%}>Advanced settings</a>&nbsp;</span>
-{% endif %}
+<span><a href="{{ctx.homepath}}/profile/user/general/{{mail}}" {% if profile_type == 'general' %}class="active"{%endif%}>General</a>&nbsp;</span>
+<span><a href="{{ctx.homepath}}/profile/user/password/{{mail}}" {% if profile_type == 'password' %}class="active"{%endif%}>Reset password</a>&nbsp;</span>
 {% endblock id_welcome %}
 
 {% block main %}
 {# message #}
 {% if msg is defined and msg is not sameas none %}
-<div class="ct-box info-box">
-    <p class="warn">
-    {% if msg == 'CREATE_SUCCESS' %}
-    {{ _('User created. Would you like to <a href="%s/create/user">add one more</a>?' |format(ctx.homepath)) }}
-    {% endif %}
-    </p>
+    <div class="ct-box info-box">
+        {% if msg == 'CREATE_SUCCESS' %}
+        <div class="success">
+            {{ _('User created. Would you like to <a href="%s/create/user/%s">add one more</a>?' |format(ctx.homepath, mail.split('@', 1)[1] )) }}
+        </div>
+        {% elif msg == 'UPDATED_SUCCESS' %}
+        <div class="success">
+            {{ _('Profile updated success.') }}
+        </div>
+        {% elif msg == 'UPDATED_FAILED' %}
+        <div class="error">
+            {{ _('Profile updated failed.') }}
+        </div>
+        {% endif %}
     </div>
 {% endif %}
 
@@ -44,9 +50,6 @@
     {% set telephoneNumber = entries.get('telephoneNumber', ['']) %}
     {% set accountStatus = entries.get('accountStatus', ['disabled'])[0] %}
     {% set mailQuota = entries.get('mailQuota', [0])[0] %}
-{% elif profile_type == 'advanced' %}
-    {% set mailMessageStore = entries.get('mailMessageStore', [domain + '/' + username + '/'])[0] %}
-    {% set homeDirectory = entries.get('homeDirectory', ['/var/vmail/vmail01'])[0] %}
 {% endif %}
 
 <form class="frm-form" method="post" action="{{ctx.homepath}}/profile/user/{{profile_type}}/{{mail}}">
@@ -77,15 +80,12 @@
             </div>
             <div class="sf-box text">
                 <label><span>{{ _('Mail address') }}</span>{% if session.get('domainGlobalAdmin') == 'yes' %}<small>{{ _("Warning: Change mail address won't cause mailbox location changed.") }}</small>{%endif%}</label>
-                <span class="fld-input"><input type="text" name="mail" value="{{username}}" size="25" />@{{domain}}</span>
-            </div>
-
-            <div class="sf-box text">
-                <label><span>{{ _('Mail quota (in MB)') }}</span></label>
-                <span class="fld-input"><input type="text" name="mailQuota" value="" size="15" /> {{_('Current quota:') }} {% if mailQuota == '0' %}{{ _('Unlimited') }}{%else%}{{mailQuota |filesizeformat}}{%endif%}</span>
+                <span class="fld-input"><input type="text" name="username" value="{{username}}" size="25" />@{{domain}}</span>
             </div>
         </div>
     </fieldset>
+
+    {{ display_quota(value=mailQuota, firstitem='no' ) }}
 
     <fieldset class="frm-group">
         <legend class="group-legend"><strong>{{ _('Telephone Number') }}</strong></legend>
@@ -108,22 +108,11 @@
     {{ display_reset_password(show_confirmpw='yes') }}
     {% endif %}
 
-    {% if session.get('domainGlobalAdmin') == 'yes' %}
-    {% if profile_type == 'advanced' %}
-    <tr>
-        <th>{{ _("Mailbox directory") }}</th>
-        <td>
-            <input type="text" name="homeDirectory" title="{{ _("Storage base directory (user's home directory)") }}" value="{{homeDirectory}}" />/<input type="text" name="mailMessageStore" title="{{ _('Mailbox path. Format: domain.ltd/username/') }}" value="{{mailMessageStore}}" />Maildir/
-        </td>
-    </tr>
-    {% endif %}
-    {% endif %}
-
 </table>
 
     <div class="frm-buttons">
         <span class="submit">
-            <input type="submit" name="save" value="{{ _('Save changes') }}" />
+            <input type="submit" value="{{ _('Save changes') }}" />
         </span>
     </div>
 

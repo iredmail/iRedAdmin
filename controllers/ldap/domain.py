@@ -65,7 +65,7 @@ class profile(dbinit):
 
     @base.protected
     def POST(self, domain):
-        i = web.input(enabledService=[])
+        i = web.input(enabledService=[],)
         self.result = domainLib.update(data=i)
         if self.result:
             web.seeother('/profile/domain/' + web.safestr(domain) + '?msg=SUCCESS')

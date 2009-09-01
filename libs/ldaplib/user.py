@@ -16,6 +16,7 @@ class User(core.LDAPWrap):
         pass
 
     # List all users under one domain.
+    @LDAPDecorators.check_domain_access
     def list(self, domain):
         self.domain = domain
         self.domainDN = ldaputils.convDomainToDN(self.domain)
@@ -69,6 +70,7 @@ class User(core.LDAPWrap):
         except Exception, e:
             return str(e)
 
+    @LDAPDecorators.check_global_admin
     def delete(self, mails=[]):
         if mails is None or len(mails) == 0: return False
 
@@ -83,3 +85,45 @@ class User(core.LDAPWrap):
 
         if msg == {}: return True
         else: return False
+
+    @LDAPDecorators.check_domain_access
+    def update(self, profile_type, mail, data):
+        self.profile_type = web.safestr(profile_type)
+        self.mail = web.safestr(mail)
+        self.domain = self.mail.split('@', 1)[1]
+
+        if self.profile_type == 'general':
+            # Get cn.
+            cn = data.get('cn', None)
+
+            if cn is not None:
+                mod_attrs = [ ( ldap.MOD_REPLACE, 'cn', cn.encode('utf-8') ) ]
+            else:
+                # Delete attribute.
+                mod_attrs = [ ( ldap.MOD_DELETE, 'cn', None) ]
+
+            # Get mail address.
+            # Get mailQuota.
+            mailQuota = web.safestr(data.get('mailQuota', None))
+            if mailQuota == '':
+                # Don't touch it, keep old quota value.
+                pass
+            else:
+                mod_attrs = [ ( ldap.MOD_REPLACE, 'mailQuota', str(int(mailQuota) * 1024 * 1024) ) ]
+            print >> sys.stderr, 'mailQuota: -%s-' % mailQuota, type(mailQuota)
+
+            # Get accountStatus.
+            accountStatus = web.safestr(data.get('accountStatus', 'active'))
+            if accountStatus not in attrs.VALUES_ACCOUNT_STATUS:
+                accountStatus = 'active'
+
+            mod_attrs += [ (ldap.MOD_REPLACE, 'accountStatus', accountStatus) ]
+
+            print >> sys.stderr, mod_attrs
+
+        try:
+            dn = ldaputils.convEmailToUserDN(self.mail)
+            self.conn.modify_s(dn, mod_attrs)
+            return True
+        except Exception, e:
+            return False

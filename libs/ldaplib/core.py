@@ -195,7 +195,11 @@ class LDAPDecorators(LDAPWrap):
 
     def check_domain_access(self, func):
         def proxyfunc(self, *args, **kw):
-            self.domain = web.safestr(kw['mail']).split('@', 1)[1]
+            if kw.has_key('mail'):
+                self.domain = web.safestr(kw['mail']).split('@', 1)[1]
+            elif kw.has_key('domain'):
+                self.domain = web.safestr(kw['domain'])
+
             if self.domain is None or self.domain == '': return False
 
             self.dn = ldaputils.convDomainToDN(self.domain)

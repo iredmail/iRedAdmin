@@ -9,11 +9,13 @@ import web
 from libs.ldaplib import core, attrs, iredldif, ldaputils, deltree
 
 session = web.config.get('_session')
+LDAPDecorators = core.LDAPDecorators()
 
 class Domain(core.LDAPWrap):
     def __del__(self):
         pass
 
+    @LDAPDecorators.check_global_admin
     def add(self, domainName, cn=None):
         # msg: {key: value}
         msg = {}
@@ -74,17 +76,18 @@ class Domain(core.LDAPWrap):
         return allDomains
 
     # Delete domain.
-    def delete(self, domainName=[]):
-        if domainName is None or len(domainName) == 0: return False
+    @LDAPDecorators.check_global_admin
+    def delete(self, domain=[]):
+        if domain is None or len(domain) == 0: return False
         
         msg = {}
-        for domain in domainName:
-            dn = ldaputils.convDomainToDN(web.safestr(domain))
+        for d in domain:
+            dn = ldaputils.convDomainToDN(web.safestr(d))
 
             try:
                 deltree.DelTree( self.conn, dn, ldap.SCOPE_SUBTREE )
             except ldap.LDAPError, e:
-                msg[domain] = str(e)
+                msg[d] = str(e)
 
         if msg == {}: return True
         else: return False
