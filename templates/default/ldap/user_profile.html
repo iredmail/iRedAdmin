@@ -17,6 +17,10 @@
 <span><a href="{{ctx.homepath}}/profile/user/password/{{mail}}" {% if profile_type == 'password' %}class="active"{%endif%}>Reset password</a>&nbsp;</span>
 {% endblock id_welcome %}
 
+{% block id_visit_links %}
+<span><a href="{{ctx.homepath}}/profile/users/{{mail.split('@', 1)[1]}}">{{ _('Back to user list') }}</a>&nbsp;</span>
+{% endblock id_visit_links %}
+
 {% block main %}
 {# message #}
 {% if msg is defined and msg is not sameas none %}
