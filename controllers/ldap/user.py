@@ -134,8 +134,8 @@ class create(dbinit):
                     default_quota=domainLib.getDomainDefaultUserQuota(self.domain),
                     )
 
-        cn = i.get('cn', None)
-        quota = i.get('quota', default_quota=domainLib.getDomainDefaultUserQuota(self.domain))
+        cn = i.get('cn')
+        quota = i.get('quota', domainLib.getDomainDefaultUserQuota(self.domain))
 
         # Check password.
         newpw = web.safestr(i.get('newpw'))
@@ -160,11 +160,12 @@ class create(dbinit):
                 quota=quota,
                 )
 
-        dn = ldaputils.convEmailToUserDN(self.username + '@' + domain)
+        dn = ldaputils.convEmailToUserDN(self.username + '@' + self.domain)
         result = userLib.add(dn, ldif)
         if result is True:
             web.seeother('/profile/user/general/' + self.username + '@' + self.domain + '?msg=CREATE_SUCCESS')
         elif result == 'ALREADY_EXISTS':
+            # TODO redirect to /create/user/DOMAIN
             web.seeother('/users/' + self.domain + '?msg=ALREADY_EXISTS')
         else:
             web.seeother('/users/' + self.domain)

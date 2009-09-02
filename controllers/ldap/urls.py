@@ -35,8 +35,8 @@
 #
 
 # Regular expressions.
-re_email = '[\w\-][\w\-\.]+@[\w\-][\w\-\.]+[a-zA-Z]{1,4}'
-re_domain = '[\w\-][\w\-\.]+[a-zA-Z]{1,4}'
+re_email = '[\w\-][\w\-\.]*@[\w\-][\w\-\.]+[a-zA-Z]{1,4}'
+re_domain = '[\w\-][\w\-\.]*[a-zA-Z]{1,4}'
 
 urls = (
         # Make url ending with or without '/' going to the same class.
@@ -50,9 +50,6 @@ urls = (
         '/logout',                          'controllers.ldap.basic.logout',
         '/dashboard',                       'controllers.ldap.basic.dashboard',
         '/checknew',                        'controllers.ldap.basic.checknew',
-
-        # Preferences.
-        '/preferences',                     'controllers.ldap.admin.profile',
 
         # Domain related.
         '/domains',                                     'controllers.ldap.domain.list',
@@ -69,8 +66,7 @@ urls = (
 
         # Admin related.
         '/admins',                                      'controllers.ldap.admin.list',
-        '/profile/admin/(general)/(%s)' % re_email,     'controllers.ldap.admin.profile',
-        '/profile/admin/(password)/(%s)' % re_email,    'controllers.ldap.admin.profile',
+        '/profile/admin/(%s)' % re_email,               'controllers.ldap.admin.profile',
         '/create/admin',                                'controllers.ldap.admin.create',
         '/delete/admin',                                'controllers.ldap.admin.delete',
 

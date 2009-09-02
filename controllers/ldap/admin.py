@@ -73,31 +73,32 @@ class add(dbinit):
 
 class profile(dbinit):
     @base.protected
-    def GET(self):
+    def GET(self, mail):
+        i = web.input()
+        self.mail = web.safestr(mail)
         self.langs = prefLib.get_langs()
 
         return render.admin_profile(
+                mail=self.mail,
                 cur_lang=self.langs.pop('cur_lang'),
                 langmaps=self.langs.pop('langmaps'),
-                msg=None,
+                msg=i.get('msg', None),
                 )
 
     @base.protected
-    def POST(self):
-        # Get passwords.
+    def POST(self, mail):
         i = web.input()
+        self.mail = web.safestr(mail)
         result = prefLib.update(i)
         self.langs = prefLib.get_langs()
 
         cur_lang = self.langs.pop('cur_lang')
-        if result is True:
-            msg = 'SUCCESS'
-            web.render = iredutils.setRenderLang(web.render, cur_lang, oldlang=session.get('lang'),)
+        if result[0] is True:
+            web.seeother('/profile/admin/%s?msg=SUCCESS' % self.mail)
         else:
-            msg = result
-
-        return render.admin_profile(
-                cur_lang=cur_lang,
-                langmaps=self.langs.pop('langmaps'),
-                msg=msg,
-                )
+            return render.admin_profile(
+                    mail=self.mail,
+                    cur_lang=cur_lang,
+                    langmaps=self.langs.pop('langmaps'),
+                    msg=result[1],
+                    )

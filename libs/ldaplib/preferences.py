@@ -59,7 +59,10 @@ class Preferences(core.LDAPWrap):
                 ]
         self.dn = ldaputils.convEmailToAdminDN(session.get('username'))
         try:
+            # Modify profiles.
             self.conn.modify_s(self.dn, mod_attrs)
+
+            # Change password.
             self.change_passwd(
                     dn=self.dn,
                     cur_passwd=self.cur_passwd,

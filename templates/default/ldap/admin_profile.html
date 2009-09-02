@@ -1,4 +1,4 @@
-{# defined: cur_lang, langmaps, [msg] #}
+{# defined: mail, cur_lang, langmaps, [msg] #}
 
 {% extends "layout.html" %}
 
@@ -9,22 +9,27 @@
 {% block main %}
 <div class="main-subhead">
     <h2 class="hn"><span>
-            {% if admin == session.get('username') or admin is not defined %}
+            {% if mail == session.get('username') %}
             {{ _('View/Update your preferences.') }}
             {% else %}
-            {{ _("View/Update %s's preferences.") |format(admin) }}
+            {{ _("View/Update <strong>%s</strong>'s preferences.") |format(admin) }}
             {% endif %}
     </span></h2>
 </div>
 
-{% if msg is not none %}
-    {% if msg is sameas true %}
-        <div class="main-submenu"><span class="success">{{ _('Changes are saved.') }}</span></div>
+{# Show message #}
+{% if msg is defined and msg is not sameas none %}
+    <div class="ct-box info-box">
+    {% if msg == 'SUCCESS' %}
+        <div class="success">{{ _('Profile update success.') }}</div>
+    {% else %}
+        <div class="error">{{ msg }}</div>
     {% endif %}
+    </div>
 {% endif %}
 
-<div class="frm parted">
-    <form class="frm-form" method="post" action="{{ctx.homepath}}/preferences">
+<div class="main-frm parted">
+    <form class="frm-form" method="post" action="{{ctx.homepath}}/profile/admin/{{mail}}">
         <div class="content-head">
             <h2 class="hn"><span>{{ _('Default language') }}</span></h2>
         </div>
