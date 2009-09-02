@@ -18,11 +18,9 @@ domainadmin_dn = cfg.ldap['domainadmin_dn']
 
 def convEmailToAdminDN(email):
     """Convert email address to ldap dn of mail domain admin."""
-    mail = web.safestr(mail).strip()
-
     # Admin DN format.
     # mail=user@domain.ltd,[LDAP_DOMAINADMIN_DN]
-    dn = '%s=%s,%s' % ( attrs.USER_RDN, mail, domainadmin_dn)
+    dn = '%s=%s,%s' % ( attrs.USER_RDN, web.safestr(email).strip(), domainadmin_dn)
 
     return escape_filter_chars(dn)
 

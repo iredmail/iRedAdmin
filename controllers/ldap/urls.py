@@ -52,7 +52,7 @@ urls = (
         '/checknew',                        'controllers.ldap.basic.checknew',
 
         # Preferences.
-        '/preferences',                     'controllers.ldap.preferences.Preferences',
+        '/preferences',                     'controllers.ldap.admin.profile',
 
         # Domain related.
         '/domains',                                     'controllers.ldap.domain.list',
@@ -68,10 +68,11 @@ urls = (
         '/delete/domain',                               'controllers.ldap.domain.delete',
 
         # Admin related.
-        '/admins',                          'controllers.ldap.admin.list',
-        '/profile/admin/(%s)' % re_email,   'controllers.ldap.admin.profile',
-        '/create/admin',                    'controllers.ldap.admin.create',
-        '/delete/admin',                    'controllers.ldap.admin.delete',
+        '/admins',                                      'controllers.ldap.admin.list',
+        '/profile/admin/(general)/(%s)' % re_email,     'controllers.ldap.admin.profile',
+        '/profile/admin/(password)/(%s)' % re_email,    'controllers.ldap.admin.profile',
+        '/create/admin',                                'controllers.ldap.admin.create',
+        '/delete/admin',                                'controllers.ldap.admin.delete',
 
         # User related.
         # /domain.ltd/users
