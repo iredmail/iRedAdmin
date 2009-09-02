@@ -5,7 +5,7 @@
 
 import os, sys, time
 import web
-import ldap
+import ldap, ldap.filter
 from libs.ldaplib import attrs, ldaputils
 
 cfg = web.iredconfig
@@ -120,27 +120,18 @@ class LDAPWrap:
     def init_passwd(self, dn, passwd):
         self.conn.passwd_s(dn, '', passwd)
 
-    def change_passwd(self, dn, cur_passwd, new_passwd, new_passwd_confirm):
-        # Username should be dn.
-        if cur_passwd == '':
-            return 'EMPTY_CUR_PW'
-        elif new_passwd == '' or new_passwd_confirm == '':
-            return 'EMPTY_NEW_PW'
-        elif new_passwd != new_passwd_confirm:
-            # Verify new password.
-            return 'NEW_PW_NOT_SAME'
-        else:
+    def change_passwd(self, dn, cur_passwd, newpw, confirmpw):
+        self.dn = ldap.filter.escape_filter_chars(dn)
+        result = iredutils.getNewPassword(newpw, confirmpw)
+        if result[0] is True:
             try:
                 # Reference: RFC3062 - LDAP Password Modify Extended Operation
-                self.conn.passwd_s(dn, cur_passwd, new_passwd)
-                return True
-            except ldap.UNWILLING_TO_PERFORM, e:
-                if web.safestr(e.args[0].get('info')) == 'unwilling to verify old password':
-                    return 'BAD_OLD_PASSWD'
-                else:
-                    return 'UNWILLING_TO_PERFORM'
+                self.conn.passwd_s(self.dn, cur_passwd, result[1])
+                return (True, 'SUCCESS')
             except ldap.LDAPError, e:
-                return str(e.args[0].get('info'))
+                return (False, str(e))
+        else:
+            return result
 
     def check_domain_exist(self, domainName):
         self.result = self.conn.search_s(

@@ -144,7 +144,7 @@
         <div class="sf-set {%if firstitem == 'yes' %}set1{%endif%}">
             <div class="sf-box text required">
                 <label for="oldpw"><span>{{ _('Old password') }} <em>{{ _('(Required)') }}</em></span></label><br />
-                <span class="fld-input"><input type="password" id="oldpw" name="oldpw" size="35" value="{{oldpw}}"/></span><br />
+                <span class="fld-input"><input type="password" name="oldpw" size="35" value="{{oldpw}}"/></span><br />
             </div>
         </div>
         {% endif %}
@@ -152,7 +152,7 @@
         <div class="sf-set">
             <div class="sf-box text required">
                 <label for="newpw"><span>{{ _('New password') }} <em>{{ _('(Required)') }}</em></span></label><br />
-                <span class="fld-input"><input type="password" id="newpw" name="newpw" size="35" value="{{newpw}}"/></span><br />
+                <span class="fld-input"><input type="password" name="newpw" size="35" value="{{newpw}}"/></span><br />
             </div>
         </div>
 
@@ -160,7 +160,7 @@
         <div class="sf-set">
             <div class="sf-box text required">
                 <label for="confirmpw"><span>{{ _('Confirm new password') }} <em>{{ _('(Required)') }}</em></span> <small>{{ _('Re-enter your password exactly as before.') }}</small></label><br />
-                <span class="fld-input"><input type="password" id="confirmpw" name="confirmpw" size="35" value="{{confirmpw}}"/></span><br />
+                <span class="fld-input"><input type="password" name="confirmpw" size="35" value="{{confirmpw}}"/></span><br />
             </div>
         </div>
         {% endif %}

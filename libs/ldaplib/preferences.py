@@ -51,8 +51,8 @@ class Preferences(core.LDAPWrap):
     def update(self, data):
         self.lang = web.safestr(data.get('preferredLanguage', 'en_US'))
         self.cur_passwd = data.get('cur_passwd')
-        self.new_passwd = data.get('new_passwd')
-        self.new_passwd_confirm = data.get('new_passwd_confirm')
+        self.newpw = data.get('newpw')
+        self.confirmpw = data.get('confirmpw')
 
         mod_attrs = [
                 (ldap.MOD_REPLACE, 'preferredLanguage', self.lang)
@@ -60,6 +60,12 @@ class Preferences(core.LDAPWrap):
         self.dn = ldaputils.convEmailToAdminDN(session.get('username'))
         try:
             self.conn.modify_s(self.dn, mod_attrs)
+            self.change_passwd(
+                    dn=self.dn,
+                    cur_passwd=self.cur_passwd,
+                    newpw=self.newpw,
+                    confirmpw=self.confirmpw,
+                    )
             return (True, 'SUCCESS')
         except ldap.LDAPError, e:
             return (False, str(e))
