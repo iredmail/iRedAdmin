@@ -37,7 +37,7 @@ class list(dbinit):
 
 class profile(dbinit):
     @base.protected
-    def GET(self, domain):
+    def GET(self, profile_type, domain):
         i = web.input()
         domain = web.safestr(domain.split('/', 1)[0])
         if domain != '' and domain is not None and \
