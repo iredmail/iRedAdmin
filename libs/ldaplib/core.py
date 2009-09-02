@@ -6,6 +6,7 @@
 import os, sys, time
 import web
 import ldap, ldap.filter
+from libs import iredutils
 from libs.ldaplib import attrs, ldaputils
 
 cfg = web.iredconfig
