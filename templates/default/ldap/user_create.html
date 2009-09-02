@@ -1,4 +1,4 @@
-{# allDomains, domainName, default_quota, [username, newpw, confirmpw, ] #}
+{# allDomains, domain, default_quota, [username, newpw, confirmpw, ] #}
 {% extends "layout.html" %}
 
 {% from "macros.html" import display_cn, display_reset_password,
@@ -27,8 +27,8 @@
                 <label><span>{{ _('Mail address') }} <em>{{ _('(Required)') }}</em></span></label>
                 <span class="fld-input"><input type="text" size="25" name="username" value="{{username}}" />@
                     <select name="domainName">
-                        {% for domain in allDomains %}
-                            <option value="{{domain[1].domainName[0]}}" {% if domain[1].domainName[0] == domainName %}selected{%endif%}>{{domain[1].domainName[0]}}</option>
+                        {% for d in allDomains %}
+                            <option value="{{d[1].domainName[0]}}" {% if d[1].domainName[0] == domainName %}selected{%endif%}>{{d[1].domainName[0]}}</option>
                         {% endfor %}
                     </select>
                 </span>

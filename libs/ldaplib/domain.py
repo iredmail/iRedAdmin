@@ -8,6 +8,7 @@ import ldap
 import web
 from libs.ldaplib import core, attrs, iredldif, ldaputils, deltree
 
+cfg = web.iredconfig
 session = web.config.get('_session')
 LDAPDecorators = core.LDAPDecorators()
 
@@ -69,11 +70,30 @@ class Domain(core.LDAPWrap):
         except Exception, e:
             return str(e)
 
-    # List all domains.
+    # List all domains under control.
     def list(self, attrs=attrs.DOMAIN_SEARCH_ATTRS):
         allDomains = self.get_all_domains(attrs)
         allDomains.sort()
         return allDomains
+
+    # Get domain default user quota: domainDefaultUserQuota.
+    def getDomainDefaultUserQuota(self, domain):
+        self.domain = web.safestr(domain)
+        self.dn = ldaputils.convDomainToDN(self.domain)
+
+        try:
+            result = self.conn.search_s(
+                    self.dn,
+                    ldap.SCOPE_BASE,
+                    '(domainName=%s)' % self.domain,
+                    ['domainDefaultUserQuota'],
+                    )
+            if result[0][1].has_key('domainDefaultUserQuota'):
+                return result[0][1]['domainDefaultUserQuota'][0]
+            else:
+                return cfg.general.get('default_quota', '1024')
+        except Exception, e:
+            return cfg.general.get('default_quota', '1024')
 
     # Delete domain.
     @LDAPDecorators.check_global_admin
