@@ -119,7 +119,6 @@ class create(dbinit):
         return render.user_create(
                 domainName=domainName,
                 allDomains=domainLib.list(),
-                username=username,
                 default_quota=self.default_quota,
                 )
 
