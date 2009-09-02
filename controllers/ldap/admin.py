@@ -70,3 +70,34 @@ class add(dbinit):
     @base.protected
     def GET(self):
         return render.admin_add()
+
+class profile(dbinit):
+    @base.protected
+    def GET(self):
+        self.langs = prefLib.get_langs()
+
+        return render.admin_profile(
+                cur_lang=self.langs.pop('cur_lang'),
+                langmaps=self.langs.pop('langmaps'),
+                msg=None,
+                )
+
+    @base.protected
+    def POST(self):
+        # Get passwords.
+        i = web.input()
+        result = prefLib.update(i)
+        self.langs = prefLib.get_langs()
+
+        cur_lang = self.langs.pop('cur_lang')
+        if result is True:
+            msg = 'SUCCESS'
+            web.render = iredutils.setRenderLang(web.render, cur_lang, oldlang=session.get('lang'),)
+        else:
+            msg = result
+
+        return render.admin_profile(
+                cur_lang=cur_lang,
+                langmaps=self.langs.pop('langmaps'),
+                msg=msg,
+                )
