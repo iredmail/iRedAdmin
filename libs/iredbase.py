@@ -65,7 +65,6 @@ session = web.session.Session(app, sessionStore,
             'webmaster': cfg.general.get('webmaster'),
             'default_quota': cfg.general.get('default_quota', '1024'),
             'username': None,
-            'userdn': None,
             'logged': False,
             'failedTimes': 0,   # Integer.
             'lang': lang,

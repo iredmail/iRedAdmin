@@ -47,7 +47,8 @@ class User(core.LDAPWrap):
     # Get values of user dn.
     @LDAPDecorators.check_domain_access
     def profile(self, mail):
-        self.dn = ldaputils.convEmailToUserDN(mail)
+        self.mail = web.safestr(mail)
+        self.dn = ldaputils.convEmailToUserDN(self.mail)
         self.user_profile = self.conn.search_s(
                 str(self.dn),
                 ldap.SCOPE_BASE,
@@ -72,12 +73,13 @@ class User(core.LDAPWrap):
 
         msg = {}
         for mail in mails:
-            dn = ldaputils.convEmailToUserDN(mail)
+            self.mail = web.safestr(mail)
+            dn = ldaputils.convEmailToUserDN(self.mail)
 
             try:
                 deltree.DelTree( self.conn, dn, ldap.SCOPE_SUBTREE )
             except ldap.LDAPError, e:
-                msg[mail] = str(e)
+                msg[self.mail] = str(e)
 
         if msg == {}: return True
         else: return False

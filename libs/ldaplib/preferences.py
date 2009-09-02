@@ -33,7 +33,7 @@ class Preferences(core.LDAPWrap):
 
         # Get current language.
         self.cur_lang = self.conn.search_s(
-                session.get('userdn'),
+                ldaputils.convEmailToAdminDN(session.get('username')),
                 ldap.SCOPE_BASE,
                 '(&(objectClass=mailAdmin)(%s=%s))' % (attrs.USER_RDN, session.get('username')),
                 ['preferredLanguage'],
@@ -57,9 +57,9 @@ class Preferences(core.LDAPWrap):
         mod_attrs = [
                 (ldap.MOD_REPLACE, 'preferredLanguage', self.lang)
                 ]
-        dn = session.get('userdn')
+        self.dn = ldaputils.convEmailToAdminDN(session.get('username'))
         try:
-            self.conn.modify_s(dn, mod_attrs)
-            return True
+            self.conn.modify_s(self.dn, mod_attrs)
+            return (True, 'SUCCESS')
         except ldap.LDAPError, e:
-            return str(e)
+            return (False, str(e))

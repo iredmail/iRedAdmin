@@ -30,15 +30,15 @@ class Preferences:
     def POST(self):
         # Get passwords.
         i = web.input()
-        self.result = prefLib.update(i)
+        result = prefLib.update(i)
         self.langs = prefLib.get_langs()
 
         cur_lang = self.langs.pop('cur_lang')
-        if self.result is True:
+        if result is True:
             msg = 'SUCCESS'
             web.render = iredutils.setRenderLang(web.render, cur_lang, oldlang=session.get('lang'),)
         else:
-            msg = self.result
+            msg = result
 
         return render.preferences(
                 cur_lang=cur_lang,

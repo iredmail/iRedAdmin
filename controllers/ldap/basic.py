@@ -41,7 +41,6 @@ class login:
 
         if self.auth_result == True:
             session['username'] = username
-            session['userdn'] = userdn
             session['logged'] = True
 
             web.config.session_parameters['cookie_name'] = 'iRedAdmin'
