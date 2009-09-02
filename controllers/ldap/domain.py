@@ -23,8 +23,9 @@ class list(dbinit):
     '''List all virtual mail domains.'''
     @base.protected
     def GET(self):
+        i = web.input()
         self.domains = domainLib.list()
-        return render.domains(domains=self.domains)
+        return render.domains(domains=self.domains, msg=i.get('msg', None))
 
     @base.check_global_admin
     @base.protected

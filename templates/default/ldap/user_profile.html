@@ -67,7 +67,7 @@
 {% set createTimestamp = entries.get('createTimestamp', ['--------------'])[0] %}
 
 {% if profile_type == 'general' %}
-    {% set telephoneNumber = entries.get('telephoneNumber', ['']) %}
+    {% set telephoneNumber = entries.get('telephoneNumber', []) %}
     {% set accountStatus = entries.get('accountStatus', ['disabled'])[0] %}
     {% set mailQuota = entries.get('mailQuota', [0])[0] %}
 {% endif %}
@@ -115,9 +115,13 @@
             <div class="sf-box text">
                 <label><span>{{ _('Telephone Number') }}</span></label>
                 <span class="fld-input">
-                    {% for phone in telephoneNumber %}
-                        <input type="text" name="telephoneNumber_{{loop.index}}" value="{{phone}}" size="25" /><br />
-                    {% endfor %}
+                    {% if telephoneNumber != [] %}
+                        {% for phone in telephoneNumber %}
+                        <input type="text" name="telephoneNumber" value="{{phone}}" size="25" /><br />
+                        {% endfor %}
+                    {% else %}
+                        <input type="text" name="telephoneNumber" value="" size="25" /><br />
+                    {% endif %}
                 </span>
             </div>
         </div>

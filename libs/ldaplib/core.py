@@ -33,8 +33,8 @@ class LDAPWrap:
 
         # Set default size limit.
         #self.conn.set_option(ldap.OPT_SIZELIMIT, int(ldapconf.LDAP_SIZELIMIT))
-        ldap.set_option(ldap.OPT_SIZELIMIT, 100)
-        self.conn.set_option(ldap.OPT_SIZELIMIT, 100)
+        #ldap.set_option(ldap.OPT_SIZELIMIT, 100)
+        #self.conn.set_option(ldap.OPT_SIZELIMIT, 100)
 
         # Set log level.
         #self.conn.set_option(ldap.OPT_DEBUG_LEVEL, int(ldapconf.LDAP_DEBUG_LEVEL))
@@ -185,6 +185,9 @@ class LDAPWrap:
             return str(e)
 
 class LDAPDecorators(LDAPWrap):
+    def __del__(self):
+        pass
+
     def check_global_admin(self, func):
         def proxyfunc(self, *args, **kw):
             if session.get('domainGlobalAdmin') == 'yes':

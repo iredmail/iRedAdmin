@@ -9,6 +9,23 @@ import web
 
 cfg = web.iredconfig
 
+def filesizeformat(value, binary=False):
+    """Format the value like a 'human-readable' file size (i.e. 13 KB,
+    4.1 MB, 102 bytes, etc).  Per default decimal prefixes are used (mega,
+    giga etc.), if the second parameter is set to `True` the binary
+    prefixes are (mebi, gibi).
+    """
+    bytes = float(value)
+    base = binary and 1024 or 1000
+    middle = binary and 'i' or ''
+    if bytes < base:
+        return "%d Byte%s" % (bytes, bytes != 1 and 's' or '')
+    elif bytes < base * base:
+        return "%d K%sB" % (bytes / base, middle)
+    elif bytes < base * base * base:
+        return "%d M%sB" % (bytes / (base * base), middle)
+    return "%.1f G%sB" % (bytes / (base * base * base), middle)
+
 def get_translation(lang):
     # Init translations.
     if lang == 'en_US':

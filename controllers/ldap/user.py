@@ -34,11 +34,11 @@ class list(dbinit):
             # List users if only one domain available.
             if isinstance(allDomains, types.ListType) is True and len(allDomains) == 1:
                 cur_domain = str(allDomains[0][1]['domainName'][0])
-                users = userLib.list(domain=cur_domain)
-                if users is not False:
+                result = userLib.list(domain=cur_domain)
+                if result[0] is True:
                     web.seeother('/users/' + cur_domain)
                 else:
-                    web.seeother('/domains?msg=NO_SUCH_DOMAIN')
+                    web.seeother('/domains?msg=%s' % result[1] )
             elif isinstance(allDomains, types.ListType) is True and len(allDomains) == 0:
                 return render.users(msg='NO_DOMAIN_AVAILABLE')
             elif isinstance(allDomains, types.ListType) is True and len(allDomains) > 1:
@@ -46,15 +46,15 @@ class list(dbinit):
             else:
                 web.seeother('/domains?msg=NO_SUCH_DOMAIN')
         else:
-            users = userLib.list(domain=domain)
-            if users is not False:
+            result = userLib.list(domain=domain)
+            if result[0] is True:
                 return render.users(
-                        users=users, cur_domain=domain,
+                        users=result[1], cur_domain=domain,
                         allDomains=allDomains,
                         msg=None,
                         )
             else:
-                web.seeother('/domains?msg=NO_SUCH_DOMAIN')
+                web.seeother('/domains?msg=%s' % result[1])
 
     @base.protected
     def POST(self, domain):

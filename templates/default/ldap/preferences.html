@@ -33,11 +33,13 @@
             <legend><span>{{ _('Default language') }}</span></legend>
             <div class="sf-box select">
                 <label><span>{{ _('Default language') }}</span></label>
-                <select name="preferredLanguage">
-                    {% for lang in langmaps %}
-                        <option value="{{lang}}" {% if lang == cur_lang %}selected{%endif%}>{{langmaps[lang]}}</option>
-                    {% endfor %}
-                </select>
+                <span class="fld-input">
+                    <select name="preferredLanguage">
+                        {% for lang in langmaps %}
+                            <option value="{{lang}}" {% if lang == cur_lang %}selected{%endif%}>{{langmaps[lang]}}</option>
+                        {% endfor %}
+                    </select>
+                </span>
             </div>
         </fieldset>
 

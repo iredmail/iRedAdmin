@@ -23,26 +23,20 @@
 
 {% block main %}
 {# Show system message #}
-{#
-{% if msg is not none %}
-    <div class="note">
-        <p>{{ _('System message:') }}</p>
-
-        {{ msg }}
-        <ul>
-        {% for i in msg.items()|sort %}
-            {% if i[1] == 'DELETED' %}
-                <li>{{ _('Deleted:') }} {{ i[0] }}</li>
-            {% elif i[1] == 'NO_SUCH_OBJECT' %}
-                <li>{{ _('No such object:') }} {{ i[0] }}</li>
-            {% else %}
-                <li>{{ i[1] }} {{ i[0] }}</li>
-            {% endif %}
-        {% endfor %}
-        </ul>
+{% if msg is defined and msg is not sameas none %}
+    <div class="ct-box info-box">
+        <div class="error">
+        {% if msg == 'SIZELIMIT_EXCEEDED' %}
+            {{ _('Server-side size limit exceeded.') }}
+        {% elif msg == 'NO_SUCH_OBJECT' %}
+            {{ _('No such domain.') }}
+        {% else %}
+            {# Catch-all #}
+            {{ msg }}
+        {% endif %}
+        </div>
     </div>
 {% endif %}
-#}
 
 {# List all domains under control. #}
 {% if domains is not string and domains |length != 0 %}

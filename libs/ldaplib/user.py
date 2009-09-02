@@ -23,32 +23,26 @@ class User(core.LDAPWrap):
         self.domain = domain
         self.domainDN = ldaputils.convDomainToDN(self.domain)
 
-        # Check whether user is admin of domain.
-        if self.check_domain_access(self.domainDN, session.get('username')):
-            # Search users under domain.
-            try:
-                self.users = self.conn.search_s(
-                        'ou=Users,' + self.domainDN,
-                        ldap.SCOPE_SUBTREE,
-                        '(objectClass=mailUser)',
-                        attrs.USER_SEARCH_ATTRS,
-                        )
+        try:
+            self.users = self.conn.search_s(
+                    'ou=Users,' + self.domainDN,
+                    ldap.SCOPE_SUBTREE,
+                    '(objectClass=mailUser)',
+                    attrs.USER_SEARCH_ATTRS,
+                    )
+            self.updateAttrSingleValue(self.domainDN, 'domainCurrentUserNumber', len(self.users))
 
-                self.updateAttrSingleValue(self.domainDN, 'domainCurrentUserNumber', len(self.users))
-
-                return self.users
-            except ldap.NO_SUCH_OBJECT:
-                self.conn.add_s(
-                        'ou=Users,'+ self.domainDN,
-                        iredldif.ldif_group('Users'),
-                        )
-                return []
-            except ldap.SIZELIMIT_EXCEEDED:
-                return 'SIZELIMIT_EXCEEDED'
-            except Exception, e:
-                return str(e)
-        else:
-            return False
+            return (True, self.users)
+        except ldap.NO_SUCH_OBJECT:
+            #self.conn.add_s(
+            #        'ou=Users,'+ self.domainDN,
+            #        iredldif.ldif_group('Users'),
+            #        )
+            return (False, 'NO_SUCH_OBJECT')
+        except ldap.SIZELIMIT_EXCEEDED:
+            return (False, 'SIZELIMIT_EXCEEDED')
+        except Exception, e:
+            return (False, str(e))
 
     # Get values of user dn.
     @LDAPDecorators.check_domain_access
@@ -108,7 +102,7 @@ class User(core.LDAPWrap):
             # Get mail address.
 
             # Get mailQuota.
-            mailQuota += web.safestr(data.get('mailQuota', None))
+            mailQuota = web.safestr(data.get('mailQuota', None))
             if mailQuota == '':
                 # Don't touch it, keep old quota value.
                 pass
@@ -116,12 +110,12 @@ class User(core.LDAPWrap):
                 mod_attrs += [ ( ldap.MOD_REPLACE, 'mailQuota', str(int(mailQuota) * 1024 * 1024) ) ]
 
             # Get telephoneNumber.
+            # TODO add multiple value support
             telephoneNumber = data.get('telephoneNumber', [])
-            if telephoneNumber != []:
+            if telephoneNumber != [] and telephoneNumber != [u'']:
                 mod_attrs += [ (ldap.MOD_REPLACE, 'telephoneNumber', None) ]
                 for i in telephoneNumber:
-                    #mod_attrs += [ (ldap.MOD_REPLACE, 'telephoneNumber', str(i)) ]
-                    mod_attrs += [ (ldap.MOD_ADD, 'telephoneNumber', str(i)) ]
+                    mod_attrs += [ ( ldap.MOD_REPLACE, 'telephoneNumber', web.safestr(i) ) ]
 
             # Get accountStatus.
             accountStatus = web.safestr(data.get('accountStatus', 'active'))
