@@ -20,6 +20,30 @@
 
 {# Domain profile. #}
 {% block main %}
+
+{# message #}
+{% if msg is defined and msg is not sameas none %}
+    <div class="ct-box info-box">
+        {% if msg == 'SUCCESS' %}
+        <div class="success">
+            {{ _('Profile update success.') }}
+        </div>
+        {% else %}
+            {# Password #}
+            {% if profile_type == 'password' %}
+            <div class="error">
+                {{msg}}
+            </div>
+            {% else %}
+            {# Catch-all #}
+            <div class="error">
+                {{ msg }}
+            </div>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endif %}
+
 {% set p = profile[0] %}
 {% set dn = p[0] %}
 {% set entries = p[1] %}
@@ -31,7 +55,7 @@
 
 {% set createTimestamp = entries.get('createTimestamp', ['--------------'])[0] %}
 
-<form class="frm-form" method="post" action="{{ctx.homepath}}/profile/domain/{{cur_domain}}">
+<form class="frm-form" method="post" action="{{ctx.homepath}}/profile/{{profile_type}}/{{cur_domain}}">
 <div class="main-frm">
     <div class="profile ct-group data-group vcard">
         <div class="ct-set data-set set1">

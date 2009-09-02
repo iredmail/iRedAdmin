@@ -117,15 +117,18 @@ class Domain(core.LDAPWrap):
 
     # Update domain profile.
     # data = web.input()
-    def update(self, data):
-        domain = web.safestr(data.get('domainName'))
-        cn = data.get('cn', None)
+    def update(self, profile_type, domain, data):
+        self.profile_type = web.safestr(profile_type)
+        self.domain = web.safestr(domain)
 
-        if cn is not None:
-            mod_attrs = [ ( ldap.MOD_REPLACE, 'cn', cn.encode('utf-8') ) ]
-        else:
-            # Delete attribute.
-            mod_attrs = [ ( ldap.MOD_DELETE, 'cn', None) ]
+        mod_attrs = []
+        if self.profile_type == 'general':
+            cn = data.get('cn', None)
+            if cn is not None:
+                mod_attrs += [ ( ldap.MOD_REPLACE, 'cn', cn.encode('utf-8') ) ]
+            else:
+                # Delete attribute.
+                mod_attrs += [ ( ldap.MOD_DELETE, 'cn', None) ]
 
         if session.get('domainGlobalAdmin') == 'yes':
             # Convert to string, they don't contain non-ascii characters.
@@ -144,8 +147,8 @@ class Domain(core.LDAPWrap):
             pass
 
         try:
-            dn = ldaputils.convDomainToDN(domain)
+            dn = ldaputils.convDomainToDN(self.domain)
             self.conn.modify_s(dn, mod_attrs)
-            return True
+            return (True, 'SUCCESS')
         except Exception, e:
-            return False
+            return (False, str(e))

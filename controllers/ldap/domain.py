@@ -38,6 +38,7 @@ class list(dbinit):
 class profile(dbinit):
     @base.protected
     def GET(self, domain):
+        i = web.input()
         domain = web.safestr(domain.split('/', 1)[0])
         if domain != '' and domain is not None and \
             profile_type in ['general', 'admins', 'services', 'bcc', 'quotas', 'backupmx', 'advanced', ]:
@@ -58,20 +59,29 @@ class profile(dbinit):
                         admins=allAdmins,
                         # We need only mail address of domain admins.
                         domainAdmins=domainAdmins[0][1].get('domainAdmin', []),
+                        msg=i.get('msg', None),
                         )
             else:
-                web.seeother('/domains?msg=NO_SUCH_DOMAIN')
+                web.seeother('/domains?msg=%s' % i.get('msg', None))
         else:
-            web.seeother('/domains?msg=NO_SUCH_DOMAIN')
+            web.seeother('/domains?msg=%s' % i.get('msg', None))
 
     @base.protected
-    def POST(self, domain):
+    def POST(self, profile_type, domain):
+        self.profile_type = web.safestr(profile_type)
+        self.domain = web.safestr(domain)
+
         i = web.input(enabledService=[],)
-        self.result = domainLib.update(data=i)
-        if self.result:
-            web.seeother('/profile/domain/' + web.safestr(domain) + '?msg=SUCCESS')
-        else:
-            web.seeother('/profile/domain/' + web.safestr(domain))
+
+        result = domainLib.update(
+                profile_type=self.profile_type,
+                domain=self.domain,
+                data=i,
+                )
+        if result[0] is True:
+            web.seeother('/profile/domain/%s/%s?msg=SUCCESS' % (self.profile_type, self.domain) )
+        elif result[0] is False:
+            web.seeother('/profile/domain/%s/%s?msg=%s' % (self.profile_type, self.domain, result[1]) )
 
 class create(dbinit):
     @base.check_global_admin
