@@ -72,32 +72,41 @@ class add(dbinit):
 
 class profile(dbinit):
     @base.protected
-    def GET(self, mail):
-        i = web.input()
+    def GET(self, profile_type, mail):
+        self.profile_type = web.safestr(profile_type)
         self.mail = web.safestr(mail)
+        i = web.input()
+
         self.langs = adminLib.get_langs()
 
         return render.admin_profile(
                 mail=self.mail,
+                profile_type=self.profile_type,
                 cur_lang=self.langs.pop('cur_lang'),
                 langmaps=self.langs.pop('langmaps'),
                 msg=i.get('msg', None),
                 )
 
     @base.protected
-    def POST(self, mail):
-        i = web.input()
+    def POST(self, profile_type, mail):
+        self.profile_type = web.safestr(profile_type)
         self.mail = web.safestr(mail)
+        i = web.input()
 
-        result = adminLib.update(i)
+        result = adminLib.update(
+                    profile_type=self.profile_type,
+                    mail=self.mail,
+                    data=i,
+                    )
         self.langs = adminLib.get_langs()
 
         cur_lang = self.langs.pop('cur_lang')
         if result[0] is True:
-            web.seeother('/profile/admin/%s?msg=SUCCESS' % self.mail)
+            web.seeother('/profile/admin/%s/%s?msg=SUCCESS' % (self.profile_type, self.mail))
         else:
             return render.admin_profile(
                     mail=self.mail,
+                    profile_type=self.profile_type,
                     cur_lang=cur_lang,
                     langmaps=self.langs.pop('langmaps'),
                     msg=result[1],

@@ -1,21 +1,23 @@
-{# defined: mail, cur_lang, langmaps, [msg] #}
+{# defined: mail, cur_lang, langmaps, [msg], #}
 
 {% extends "layout.html" %}
 
 {% block js_tablesorter %}{% endblock %}
+
 {% block title %}{{ _('Preferences') }}{% endblock %}
-{% block submenu %}{% endblock submenu %}
+
+{% block id_welcome %}
+<span><a href="{{ctx.homepath}}/profile/admin/general/{{mail}}" {% if profile_type == 'general' %}class="active"{%endif%}>{{ _('General') }}</a>&nbsp;</span>
+<span><a href="{{ctx.homepath}}/profile/admin/password/{{mail}}" {% if profile_type == 'password' %}class="active"{%endif%}>{{ _('Reset password') }}</a>&nbsp;</span>
+{% endblock id_welcome %}
+
+{% if session.get('domainGlobalAdmin') == 'yes' %}
+    {% block id_visit_links %}
+        <span><a href="{{ctx.homepath}}/admins">{{ _('Back to admin list') }}</a></span>
+    {% endblock id_visit_links %}
+{% endif %}
 
 {% block main %}
-<div class="main-subhead">
-    <h2 class="hn"><span>
-            {% if mail == session.get('username') %}
-            {{ _('View/Update your preferences.') }}
-            {% else %}
-            {{ _("View/Update <strong>%s</strong>'s preferences.") |format(admin) }}
-            {% endif %}
-    </span></h2>
-</div>
 
 {# Show message #}
 {% if msg is defined and msg is not sameas none %}
@@ -28,12 +30,9 @@
     </div>
 {% endif %}
 
-<div class="main-frm parted">
-    <form class="frm-form" method="post" action="{{ctx.homepath}}/profile/admin/{{mail}}">
-        <div class="content-head">
-            <h2 class="hn"><span>{{ _('Default language') }}</span></h2>
-        </div>
-
+<form class="frm-form" method="post" action="{{ctx.homepath}}/profile/admin/{{profile_type}}/{{mail}}">
+{% if profile_type == 'general' %}
+    <div class="main-frm">
         <fieldset class="sf-set">
             <legend><span>{{ _('Default language') }}</span></legend>
             <div class="sf-box select">
@@ -47,10 +46,11 @@
                 </span>
             </div>
         </fieldset>
+    </div>
+{% endif %}
 
-        <div class="content-head">
-            <h2 class="hn"><span>{{ _('Change password') }}</span></h2>
-        </div>
+{% if profile_type == 'password' %}
+    <div class="main-frm">
         <div class="sf-set">
             <div class="sf-box text">
                 <label><span>{{ _('Current password') }}</span></label><br />
@@ -67,10 +67,11 @@
                 <span class="fld-input"><input type="password" name="confirmpw" size="25" /></span>
             </div>
         </div>
+    </div>
+{% endif %}
 
-        <div class="frm-buttons">
-            <span class="submit"><input type="submit" value="{{ _('Save changes') }}" /></span>
-        </div>
-    </form>
-</div>
+    <div class="frm-buttons">
+        <span class="submit"><input type="submit" value="{{ _('Save changes') }}" /></span>
+    </div>
+</form>
 {% endblock main %}

@@ -13,12 +13,12 @@
 
 {# Show profile categories #}
 {% block id_welcome %}
-<span><a href="{{ctx.homepath}}/profile/user/general/{{mail}}" {% if profile_type == 'general' %}class="active"{%endif%}>General</a>&nbsp;</span>
-<span><a href="{{ctx.homepath}}/profile/user/password/{{mail}}" {% if profile_type == 'password' %}class="active"{%endif%}>Reset password</a>&nbsp;</span>
+<span><a href="{{ctx.homepath}}/profile/user/general/{{mail}}" {% if profile_type == 'general' %}class="active"{%endif%}>{{ _('General') }}</a>&nbsp;</span>
+<span><a href="{{ctx.homepath}}/profile/user/password/{{mail}}" {% if profile_type == 'password' %}class="active"{%endif%}>{{ _('Reset password') }}</a>&nbsp;</span>
 {% endblock id_welcome %}
 
 {% block id_visit_links %}
-<span><a href="{{ctx.homepath}}/users/{{mail.split('@', 1)[1]}}">{{ _('Back to user list') }}</a>&nbsp;</span>
+<span><a href="{{ctx.homepath}}/users/{{mail.split('@', 1)[1]}}">{{ _('Back to user list') }}</a></span>
 {% endblock id_visit_links %}
 
 {% block main %}

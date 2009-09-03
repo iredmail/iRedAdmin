@@ -3,10 +3,10 @@
 
 # Author: Zhang Huangbin <michaelbibby (at) gmail.com>
 
-import sys
+import os, sys
 import ldap, ldap.filter
 import web
-from libs.ldaplib import core, attrs
+from libs.ldaplib import core, attrs, ldaputils
 
 cfg = web.iredconfig
 session = web.config.get('_session')

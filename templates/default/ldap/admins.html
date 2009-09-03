@@ -41,21 +41,20 @@ $("#admin_list").tablesorter( {
 {#{% if admins|length > 0 %}#}
 {% if admins is not string %}
     <div>
-    <form name="list_table" id="list_table" action="{{ctx.homepath}}/admin/list" method="post">
+    <form name="list_table" id="list_table" action="{{ctx.homepath}}/admins" method="post">
         <input type="hidden" name="action" value="delete" />
 
         <table id="admin_list" class="full tablesorter headerSortUp">
         <thead>
         <tr>
-            <th>{{ _('Name') }}</th>
-            <th>{{ _('Mail') }}</th>
+            <th>{{ _('Display name') }}</th>
+            <th>{{ _('Mail address') }}</th>
             <th>{{ _('Global Admin') }}</th>
         </tr>
         </thead>
 
         <tbody>
         {% for admin in admins %}
-            {% set dn = admin[0] %}
             {% set entry = admin[1] %}
 
             {% set mail = entry.get('mail')[0] %}
@@ -66,8 +65,8 @@ $("#admin_list").tablesorter( {
             <tr class="{{ loop.cycle('odd', 'even') }} {{ accountStatus |lower }}">
                 <td>
                     <span class="float_left">
-                        <input type="checkbox" name="dn" value="{{dn}}" />
-                        <a href="{{ctx.homepath}}/profile/admin/{{mail}}" title="{{ _('Edit admin profile.') }}">{{ cn }}</a>
+                        <input type="checkbox" name="mail" value="{{mail}}" />
+                        <a href="{{ctx.homepath}}/profile/admin/general/{{mail}}" title="{{ _('Edit admin profile.') }}">{{ cn }}</a>
                     </span>
                     <span class="float_right">{{ set_account_status_img(accountStatus) }}</span>
                 </td>
@@ -80,7 +79,7 @@ $("#admin_list").tablesorter( {
 
         <div class="frm-buttons">
             <span class="submit">
-                <input type="checkbox" id="checkall" />{{ _('Select/Unselect all') }}
+                <input type="checkbox" />{{ _('Select/Unselect all') }}
                 <input type="submit" value="{{ _('Delete') }}" onclick="return confirm('{{ _('Are you sure want to delete selected account(s)?') }}');" }}" />
             </span>
         </div>
