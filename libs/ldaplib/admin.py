@@ -6,7 +6,7 @@
 import os, sys
 import ldap, ldap.filter
 import web
-from libs import languages
+from libs import languages, iredutils
 from libs.ldaplib import core, attrs, ldaputils
 
 cfg = web.iredconfig
@@ -98,11 +98,11 @@ class Admin(core.LDAPWrap):
         self.mail = web.safestr(mail)
         self.dn = ldaputils.convEmailToAdminDN(self.mail)
 
-
+        mod_attrs = []
         if self.profile_type == 'general':
             self.lang = web.safestr(data.get('preferredLanguage', 'en_US'))
 
-            mod_attrs = [
+            mod_attrs += [
                     (ldap.MOD_REPLACE, 'preferredLanguage', self.lang)
                     ]
 
@@ -118,14 +118,15 @@ class Admin(core.LDAPWrap):
             self.newpw = data.get('newpw')
             self.confirmpw = data.get('confirmpw')
 
-            try:
-                # Change password.
-                self.change_passwd(
-                        dn=self.dn,
-                        cur_passwd=self.cur_passwd,
-                        newpw=self.newpw,
-                        confirmpw=self.confirmpw,
-                        )
+            result = iredutils.getNewPassword(self.newpw, self.confirmpw)
+            if result[0] is True:
+                self.passwd = result[1]
+            else:
+                return result
+
+            # Change password.
+            result = self.change_passwd(self.dn, self.cur_passwd, self.passwd)
+            if result[0] is True:
                 return (True, 'SUCCESS')
-            except ldap.LDAPError, e:
-                return (False, str(e))
+            else:
+                return result

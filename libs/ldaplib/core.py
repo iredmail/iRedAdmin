@@ -121,18 +121,16 @@ class LDAPWrap:
     def init_passwd(self, dn, passwd):
         self.conn.passwd_s(dn, '', passwd)
 
-    def change_passwd(self, dn, cur_passwd, newpw, confirmpw):
-        self.dn = ldap.filter.escape_filter_chars(dn)
-        result = iredutils.getNewPassword(newpw, confirmpw)
-        if result[0] is True:
-            try:
-                # Reference: RFC3062 - LDAP Password Modify Extended Operation
-                self.conn.passwd_s(self.dn, cur_passwd, result[1])
-                return (True, 'SUCCESS')
-            except ldap.LDAPError, e:
-                return (False, str(e))
-        else:
-            return result
+    def change_passwd(self, dn, cur_passwd, newpw):
+        dn = ldap.filter.escape_filter_chars(dn)
+        try:
+            # Reference: RFC3062 - LDAP Password Modify Extended Operation
+            self.conn.passwd_s(dn, cur_passwd, newpw)
+            return (True, 'SUCCESS')
+        except ldap.UNWILLING_TO_PERFORM:
+            return (False, 'INCORRECT_OLDPW')
+        except Exception, e:
+            return (False, str(e))
 
     def check_domain_exist(self, domainName):
         self.result = self.conn.search_s(

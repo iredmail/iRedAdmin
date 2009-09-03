@@ -82,8 +82,8 @@ class profile(dbinit):
         return render.admin_profile(
                 mail=self.mail,
                 profile_type=self.profile_type,
-                cur_lang=self.langs.pop('cur_lang'),
-                langmaps=self.langs.pop('langmaps'),
+                cur_lang=self.langs['cur_lang'],
+                langmaps=self.langs['langmaps'],
                 msg=i.get('msg', None),
                 )
 
@@ -98,16 +98,15 @@ class profile(dbinit):
                     mail=self.mail,
                     data=i,
                     )
-        self.langs = adminLib.get_langs()
-
-        cur_lang = self.langs.pop('cur_lang')
         if result[0] is True:
             web.seeother('/profile/admin/%s/%s?msg=SUCCESS' % (self.profile_type, self.mail))
         else:
+            self.langs = adminLib.get_langs()
+            cur_lang = self.langs['cur_lang']
             return render.admin_profile(
                     mail=self.mail,
                     profile_type=self.profile_type,
                     cur_lang=cur_lang,
-                    langmaps=self.langs.pop('langmaps'),
+                    langmaps=self.langs['langmaps'],
                     msg=result[1],
                     )

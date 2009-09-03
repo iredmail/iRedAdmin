@@ -1,4 +1,4 @@
-{# defined: mail, cur_lang, langmaps, [msg], #}
+{# defined: profile_type, mail, cur_lang, langmaps, [msg], #}
 
 {% extends "layout.html" %}
 
@@ -25,7 +25,14 @@
     {% if msg == 'SUCCESS' %}
         <div class="success">{{ _('Profile update success.') }}</div>
     {% else %}
-        <div class="error">{{ msg }}</div>
+        <div class="error">
+        {% if msg == 'INCORRECT_OLDPW' %}
+            {{ _('Current password is incorrect.') }}
+        {% else %}
+            {# Catch-all #}
+            {{ msg }}
+        {% endif %}
+        </div>
     {% endif %}
     </div>
 {% endif %}
