@@ -167,12 +167,12 @@
     </fieldset>
 {%- endmacro %}
 
-{% macro display_quota(value='', display_current_value='yes', firstitem='yes') -%}
+{% macro display_quota(value='', show_quota_in_input='no', display_current_value='yes', firstitem='yes') -%}
 <fieldset class="frm-group {% if firstitem == 'yes' %}group1{% endif %}">
     <div class="sf-set {% if firstitem == 'yes' %}set1{% endif %}">
         <div class="sf-box text">
             <label><span>{{ _('Mail quota (in MB)') }}</span></label>
-            <span class="fld-input"><input type="text" name="mailQuota" value="" size="25" />{% if display_current_value == 'yes' %}&nbsp;{{_('Current quota:') }} {% if value == 0 or value == '0' or value == 'None' %}<strong>{{ _('Unlimited') }}</strong>{%else%}{{ value |filesizeformat}}&nbsp;({{value}}&nbsp;Bytes){%endif%}{%endif%}</span>
+            <span class="fld-input"><input type="text" name="mailQuota" {% if show_quota_in_input == 'yes' %}value="{{value}}"{% endif%} size="25" />{% if display_current_value == 'yes' %}&nbsp;{{_('Current quota:') }} {% if value == 0 or value == '0' or value == 'None' %}<strong>{{ _('Unlimited') }}</strong>{%else%}{{ value |filesizeformat}}&nbsp;({{value}}&nbsp;Bytes){%endif%}{%endif%}</span>
         </div>
     </div>
 </fieldset>
