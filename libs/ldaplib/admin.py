@@ -102,7 +102,7 @@ class Admin(core.LDAPWrap):
         if self.profile_type == 'general':
             self.lang = web.safestr(data.get('preferredLanguage', 'en_US'))
 
-            mod_attrs += [
+            mod_attrs = [
                     (ldap.MOD_REPLACE, 'preferredLanguage', self.lang)
                     ]
 
@@ -117,7 +117,7 @@ class Admin(core.LDAPWrap):
                 return (False, str(e))
 
         if self.profile_type == 'password':
-            self.cur_passwd = data.get('cur_passwd')
+            self.cur_passwd = data.get('cur_passwd', None)
             self.newpw = data.get('newpw')
             self.confirmpw = data.get('confirmpw')
 
@@ -128,7 +128,13 @@ class Admin(core.LDAPWrap):
                 return result
 
             # Change password.
-            result = self.change_passwd(self.dn, self.cur_passwd, self.passwd)
+            if self.cur_passwd is None and session.get('domainGlobalAdmin') == 'yes':
+                # Reset password without verify old password.
+                self.cur_passwd = None
+            else:
+                self.cur_passwd = str(self.cur_passwd)
+
+            result = self.change_passwd(dn=self.dn, cur_passwd=self.cur_passwd, newpw=self.passwd,)
             if result[0] is True:
                 return (True, 'SUCCESS')
             else:

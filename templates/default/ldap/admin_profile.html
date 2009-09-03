@@ -19,6 +19,24 @@
 
 {% block main %}
 
+<div class="main-subhead">
+    <h2 class="hn"><span>
+    {% if profile_type == 'general' %}
+        {% if mail == session.get('username') %}
+            {{ _('View/Update your preferences.') }}
+        {% else %}
+            {{ _("View/Update <strong>%s</strong>'s preferences.") |format(mail) }}
+        {% endif %}
+    {% elif profile_type == 'password' %}
+        {% if mail == session.get('username') %}
+            {{ _('Reset your password.') }}
+        {% else %}
+            {{ _("Reset <strong>%s</strong>'s password.") |format(mail) }}
+        {% endif %}
+    {% endif %}
+    </span></h2>
+</div>
+
 {# Show message #}
 {% if msg is defined and msg is not sameas none %}
     <div class="ct-box info-box">
@@ -28,6 +46,10 @@
         <div class="error">
         {% if msg == 'INCORRECT_OLDPW' %}
             {{ _('Current password is incorrect.') }}
+        {% elif msg == 'PW_LESS_THAN_MIN_LENGTH' %}
+            {{ _('New password must contain at least %s characters.') |format(min_passwd_length) }}
+        {% elif msg == 'PW_MISMATCH' %}
+            {{ _('New passwords are not match.') }}
         {% else %}
             {# Catch-all #}
             {{ msg }}
