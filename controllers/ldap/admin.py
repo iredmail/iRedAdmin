@@ -12,7 +12,6 @@ from libs.ldaplib import admin, preferences
 session = web.config.get('_session')
 
 adminLib = admin.Admin()
-prefLib = preferences.Preferences()
 
 #
 # Admin related.
@@ -76,7 +75,7 @@ class profile(dbinit):
     def GET(self, mail):
         i = web.input()
         self.mail = web.safestr(mail)
-        self.langs = prefLib.get_langs()
+        self.langs = adminLib.get_langs()
 
         return render.admin_profile(
                 mail=self.mail,
@@ -89,8 +88,9 @@ class profile(dbinit):
     def POST(self, mail):
         i = web.input()
         self.mail = web.safestr(mail)
-        result = prefLib.update(i)
-        self.langs = prefLib.get_langs()
+
+        result = adminLib.update(i)
+        self.langs = adminLib.get_langs()
 
         cur_lang = self.langs.pop('cur_lang')
         if result[0] is True:

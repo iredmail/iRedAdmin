@@ -8,6 +8,7 @@ import ldap, ldap.filter
 import web
 from libs.ldaplib import core, attrs
 
+cfg = web.iredconfig
 session = web.config.get('_session')
 
 class Admin(core.LDAPWrap):
@@ -27,6 +28,36 @@ class Admin(core.LDAPWrap):
         else:
             lang = session.get('lang')
         return lang
+
+    # Get available languages.
+    def get_langs(self):
+        # Get available languages.
+        self.available_langs = [ web.safestr(v)
+                for v in os.listdir(cfg.get('rootdir')+'i18n')
+                if v in languages.langmaps
+                ]
+
+        # Get language maps.
+        self.langmaps = {}
+        [ self.langmaps.update({i: languages.langmaps[i]})
+                for i in self.available_langs
+                if i in languages.langmaps
+                ]
+
+        # Get current language.
+        self.cur_lang = self.conn.search_s(
+                ldaputils.convEmailToAdminDN(session.get('username')),
+                ldap.SCOPE_BASE,
+                '(&(objectClass=mailAdmin)(%s=%s))' % (attrs.USER_RDN, session.get('username')),
+                ['preferredLanguage'],
+                )
+
+        if len(self.cur_lang[0][1]) != 0:
+            self.cur_lang = self.cur_lang[0][1]['preferredLanguage'][0]
+        else:
+            self.cur_lang = session.get('lang')
+
+        return {'cur_lang': self.cur_lang, 'langmaps': self.langmaps}
 
     # List all admin accounts.
     def list(self):
@@ -59,3 +90,33 @@ class Admin(core.LDAPWrap):
 
         return msg
 
+    # Update admin profile.
+    # data: must be a webpy storage object.
+    def update(self, profile_type, mail, data):
+        self.profile_type = web.safestr(profile_type)
+        self.mail = web.safestr(mail)
+
+        self.lang = web.safestr(data.get('preferredLanguage', 'en_US'))
+        self.cur_passwd = data.get('cur_passwd')
+        self.newpw = data.get('newpw')
+        self.confirmpw = data.get('confirmpw')
+
+        mod_attrs = [
+                (ldap.MOD_REPLACE, 'preferredLanguage', self.lang)
+                ]
+
+        self.dn = ldaputils.convEmailToAdminDN(session.get('username'))
+        try:
+            # Modify profiles.
+            self.conn.modify_s(self.dn, mod_attrs)
+
+            # Change password.
+            self.change_passwd(
+                    dn=self.dn,
+                    cur_passwd=self.cur_passwd,
+                    newpw=self.newpw,
+                    confirmpw=self.confirmpw,
+                    )
+            return (True, 'SUCCESS')
+        except ldap.LDAPError, e:
+            return (False, str(e))
