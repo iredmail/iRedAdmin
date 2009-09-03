@@ -6,6 +6,7 @@
 import os, sys
 import ldap, ldap.filter
 import web
+from libs import languages
 from libs.ldaplib import core, attrs, ldaputils
 
 cfg = web.iredconfig
@@ -95,28 +96,36 @@ class Admin(core.LDAPWrap):
     def update(self, profile_type, mail, data):
         self.profile_type = web.safestr(profile_type)
         self.mail = web.safestr(mail)
+        self.dn = ldaputils.convEmailToAdminDN(self.mail)
 
-        self.lang = web.safestr(data.get('preferredLanguage', 'en_US'))
-        self.cur_passwd = data.get('cur_passwd')
-        self.newpw = data.get('newpw')
-        self.confirmpw = data.get('confirmpw')
 
-        mod_attrs = [
-                (ldap.MOD_REPLACE, 'preferredLanguage', self.lang)
-                ]
+        if self.profile_type == 'general':
+            self.lang = web.safestr(data.get('preferredLanguage', 'en_US'))
 
-        self.dn = ldaputils.convEmailToAdminDN(session.get('username'))
-        try:
-            # Modify profiles.
-            self.conn.modify_s(self.dn, mod_attrs)
+            mod_attrs = [
+                    (ldap.MOD_REPLACE, 'preferredLanguage', self.lang)
+                    ]
 
-            # Change password.
-            self.change_passwd(
-                    dn=self.dn,
-                    cur_passwd=self.cur_passwd,
-                    newpw=self.newpw,
-                    confirmpw=self.confirmpw,
-                    )
-            return (True, 'SUCCESS')
-        except ldap.LDAPError, e:
-            return (False, str(e))
+            try:
+                # Modify profiles.
+                self.conn.modify_s(self.dn, mod_attrs)
+                return (True, 'SUCCESS')
+            except ldap.LDAPError, e:
+                return (False, str(e))
+
+        if self.profile_type == 'password':
+            self.cur_passwd = data.get('cur_passwd')
+            self.newpw = data.get('newpw')
+            self.confirmpw = data.get('confirmpw')
+
+            try:
+                # Change password.
+                self.change_passwd(
+                        dn=self.dn,
+                        cur_passwd=self.cur_passwd,
+                        newpw=self.newpw,
+                        confirmpw=self.confirmpw,
+                        )
+                return (True, 'SUCCESS')
+            except ldap.LDAPError, e:
+                return (False, str(e))
