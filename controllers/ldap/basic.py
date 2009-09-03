@@ -27,14 +27,14 @@ class login:
         i = web.input()
 
         username = web.safestr(i.get('username').strip())
+        password = i.get('password').strip()
+        save_pass = web.safestr(i.get('save_pass', 'no').strip())
+
+        if len(username) == 0 or len(password) == 0:
+            return render.login(msg='EMPTY_USER_PW')
 
         # Convert username to ldap dn.
         userdn = ldaputils.convEmailToAdminDN(username)
-        if not userdn:
-            return render.login(msg='INVALID_USERNAME')
-
-        password = i.get('password').strip()
-        save_pass = web.safestr(i.get('save_pass', 'no').strip())
 
         # Return True if auth success, otherwise return error msg.
         self.auth_result = auth.Auth(userdn, password)
