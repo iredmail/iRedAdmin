@@ -109,6 +109,9 @@ class Admin(core.LDAPWrap):
             try:
                 # Modify profiles.
                 self.conn.modify_s(self.dn, mod_attrs)
+                if session.get('username') == self.mail:
+                    web.render = iredutils.setRenderLang(web.render, self.lang, oldlang=session.get('lang'),)
+                    session['lang'] = self.lang
                 return (True, 'SUCCESS')
             except ldap.LDAPError, e:
                 return (False, str(e))
