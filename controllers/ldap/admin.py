@@ -9,6 +9,7 @@ from controllers.ldap import base
 from controllers.ldap.basic import dbinit
 from libs.ldaplib import admin, preferences
 
+cfg = web.iredconfig
 session = web.config.get('_session')
 
 adminLib = admin.Admin()
@@ -84,6 +85,8 @@ class profile(dbinit):
                 profile_type=self.profile_type,
                 cur_lang=self.langs['cur_lang'],
                 langmaps=self.langs['langmaps'],
+                min_passwd_length=cfg.general.get('min_passwd_length'),
+                max_passwd_length=cfg.general.get('max_passwd_length'),
                 msg=i.get('msg', None),
                 )
 
@@ -108,5 +111,7 @@ class profile(dbinit):
                     profile_type=self.profile_type,
                     cur_lang=cur_lang,
                     langmaps=self.langs['langmaps'],
+                    min_passwd_length=cfg.general.get('min_passwd_length'),
+                    max_passwd_length=cfg.general.get('max_passwd_length'),
                     msg=result[1],
                     )

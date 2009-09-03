@@ -1,6 +1,6 @@
 {# defined: profile_type, mail, cur_lang, langmaps, [msg], #}
-
 {% extends "layout.html" %}
+{% from "macros.html" import display_reset_password, %}
 
 {% block js_tablesorter %}{% endblock %}
 
@@ -57,24 +57,21 @@
 {% endif %}
 
 {% if profile_type == 'password' %}
-    <div class="main-frm">
-        <div class="sf-set">
-            <div class="sf-box text">
-                <label><span>{{ _('Current password') }}</span></label><br />
-                <span class="fld-input"><input type="password" id="cur_passwd" name="cur_passwd" size="25" /></span>
-            </div>
+    {% if session.get('domainGlobalAdmin') == 'yes' %}
+        {{ display_reset_password(
+                show_confirmpw='yes',
+                min_passwd_length=min_passwd_length,
+                max_passwd_length=max_passwd_length)
+                }}
+    {% else %}
+        {{ display_reset_password(
+                show_oldpw='yes',
+                show_confirmpw='yes',
+                min_passwd_length=min_passwd_length,
+                max_passwd_length=max_passwd_length)
+                }}
+    {% endif %}
 
-            <div class="sf-box text">
-                <label><span>{{ _('New password') }}</span></label><br />
-                <span class="fld-input"><input type="password" name="newpw" size="25" /></span>
-            </div>
-
-            <div class="sf-box text">
-                <label><span>{{ _('Retype new password') }}</span></label><br />
-                <span class="fld-input"><input type="password" name="confirmpw" size="25" /></span>
-            </div>
-        </div>
-    </div>
 {% endif %}
 
     <div class="frm-buttons">
