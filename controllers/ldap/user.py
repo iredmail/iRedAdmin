@@ -117,6 +117,8 @@ class create(dbinit):
                 domain=self.domain,
                 allDomains=domainLib.list(),
                 default_quota=domainLib.getDomainDefaultUserQuota(self.domain),
+                min_passwd_length=cfg.general.get('min_passwd_length'),
+                max_passwd_length=cfg.general.get('max_passwd_length'),
                 )
 
     @base.protected
