@@ -5,8 +5,8 @@
 
 import web
 from web import render
-from controllers.ldap import base
 from controllers.ldap.basic import dbinit
+from controllers.ldap import base
 from libs.ldaplib import admin
 
 cfg = web.iredconfig
@@ -74,21 +74,25 @@ class add(dbinit):
 class profile(dbinit):
     @base.protected
     def GET(self, profile_type, mail):
-        self.profile_type = web.safestr(profile_type)
         self.mail = web.safestr(mail)
+        self.profile_type = web.safestr(profile_type)
         i = web.input()
 
         self.langs = adminLib.get_langs()
 
-        return render.admin_profile(
-                mail=self.mail,
-                profile_type=self.profile_type,
-                cur_lang=self.langs['cur_lang'],
-                langmaps=self.langs['langmaps'],
-                min_passwd_length=cfg.general.get('min_passwd_length'),
-                max_passwd_length=cfg.general.get('max_passwd_length'),
-                msg=i.get('msg', None),
-                )
+        if session.get('domainGlobalAdmin') != 'yes' and session.get('username') != self.mail:
+            # Don't allow to view/update other admins' profile.
+            web.seeother('/profile/admin/%s/%s?msg=PERMISSION_DENIED' % ( self.profile_type, session.get('username') ))
+        else:
+            return render.admin_profile(
+                    mail=self.mail,
+                    profile_type=self.profile_type,
+                    cur_lang=self.langs['cur_lang'],
+                    langmaps=self.langs['langmaps'],
+                    min_passwd_length=cfg.general.get('min_passwd_length'),
+                    max_passwd_length=cfg.general.get('max_passwd_length'),
+                    msg=i.get('msg', None),
+                    )
 
     @base.protected
     def POST(self, profile_type, mail):
@@ -97,19 +101,19 @@ class profile(dbinit):
         i = web.input()
 
         result = adminLib.update(
-                    profile_type=self.profile_type,
-                    mail=self.mail,
-                    data=i,
-                    )
+                profile_type=self.profile_type,
+                mail=self.mail,
+                data=i,
+                )
         if result[0] is True:
             web.seeother('/profile/admin/%s/%s?msg=SUCCESS' % (self.profile_type, self.mail))
         else:
             self.langs = adminLib.get_langs()
-            cur_lang = self.langs['cur_lang']
+            self.cur_lang = self.langs['cur_lang']
             return render.admin_profile(
                     mail=self.mail,
                     profile_type=self.profile_type,
-                    cur_lang=cur_lang,
+                    cur_lang=self.cur_lang,
                     langmaps=self.langs['langmaps'],
                     min_passwd_length=cfg.general.get('min_passwd_length'),
                     max_passwd_length=cfg.general.get('max_passwd_length'),

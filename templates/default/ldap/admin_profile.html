@@ -44,16 +44,19 @@
         <div class="success">{{ _('Profile update success.') }}</div>
     {% else %}
         <div class="error">
-        {% if msg == 'INCORRECT_OLDPW' %}
-            {{ _('Current password is incorrect.') }}
-        {% elif msg == 'PW_LESS_THAN_MIN_LENGTH' %}
-            {{ _('New password must contain at least %s characters.') |format(min_passwd_length) }}
-        {% elif msg == 'PW_MISMATCH' %}
-            {{ _('New passwords are not match.') }}
-        {% else %}
-            {# Catch-all #}
-            {{ msg }}
-        {% endif %}
+            {% if msg == 'PERMISSION_DENIED' %}
+                {{ _("You are NOT permited to view/update other's profile.") }}
+            {# Password related #}
+            {% elif msg == 'INCORRECT_OLDPW' %}
+                {{ _('Current password is incorrect.') }}
+            {% elif msg == 'PW_LESS_THAN_MIN_LENGTH' %}
+                {{ _('New password must contain at least %s characters.') |format(min_passwd_length) }}
+            {% elif msg == 'PW_MISMATCH' %}
+                {{ _('New passwords are not match.') }}
+            {% else %}
+                {# Catch-all #}
+                {{ msg }}
+            {% endif %}
         </div>
     {% endif %}
     </div>
