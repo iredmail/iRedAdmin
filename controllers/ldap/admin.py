@@ -3,11 +3,12 @@
 
 # Author: Zhang Huangbin <michaelbibby (at) gmail.com>
 
+import sys
 import web
 from web import render
 from controllers.ldap.basic import dbinit
 from controllers.ldap import base
-from libs.ldaplib import admin
+from libs.ldaplib import admin, ldaputils, iredldif
 
 cfg = web.iredconfig
 session = web.config.get('_session')
@@ -65,11 +66,34 @@ class list(dbinit):
         else:
             return render.admins()
 
-class add(dbinit):
-    @base.check_global_admin
+class create(dbinit):
     @base.protected
     def GET(self):
-        return render.admin_add()
+        return render.admin_create(
+                languagemaps=adminLib.getLanguageMaps(),
+                min_passwd_length=cfg.general.get('min_passwd_length'),
+                max_passwd_length=cfg.general.get('max_passwd_length'),
+                )
+
+    @base.protected
+    def POST(self):
+        i = web.input()
+        self.username = web.safestr(i.get('username'))
+        self.domain = web.safestr(i.get('domain'))
+        self.mail = self.username + '@' + self.domain
+        result = adminLib.add(data=i)
+
+        if result[0] is True:
+            web.seeother('/profile/admin/general/%s' % self.mail)
+        else:
+            self.cn = i.get('cn')
+            return render.admin_create(
+                    username=self.username,
+                    domain=self.domain,
+                    cn=self.cn,
+                    languagemaps=adminLib.getLanguageMaps(),
+                    msg=result[1],
+                    )
 
 class profile(dbinit):
     @base.protected

@@ -4,8 +4,10 @@
 # Author: Zhang Huangbin <michaelbibby (at) gmail.com>
 
 import time
-from web import iredconfig as cfg
+import web
 from libs.ldaplib import ldaputils
+
+cfg = web.iredconfig
 
 # Define and return LDIF structure of domain.
 def ldif_maildomain(domainName, cn=None,
@@ -60,14 +62,21 @@ def ldif_maillist(group, domain, cn=u'Mail Group', desc=u'Mail Group',):
     return ldif
 
 # Define and return LDIF structure of domain admin.
-def ldif_mailadmin(admin, passwd, domainGlobalAdmin):
+def ldif_mailadmin(mail, passwd, cn, domainGlobalAdmin):
+    mail = web.safestr(mail)
+
     ldif = [
             ('objectCLass',     ['mailAdmin']),
-            ('mail',            [str(admin)]),
+            ('mail',            [mail]),
             ('userPassword',    [str(passwd)]),
             ('accountStatus',   ['active']),
             ('domainGlobalAdmin',   [str(domainGlobalAdmin)]),
             ]
+
+    if cn is not None and cn != '':
+        ldif += [('cn', [cn.encode('utf-8')])]
+    else:
+        ldif += [('cn', [mail.split('@', 1)[0]])]
 
     return ldif
 

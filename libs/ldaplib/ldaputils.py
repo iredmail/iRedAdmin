@@ -126,16 +126,16 @@ def generatePasswd(password, pwscheme='SSHA'):
         if pwscheme == 'SSHA':
             h = sha.new(password)
             h.update(salt)
-            hash = "{SSHA}" + b64encode( h.digest() + salt )
+            pw = "{SSHA}" + b64encode( h.digest() + salt )
         else:
-            hash = password
+            pw = password
     else:
         import hashlib
         if pwscheme == 'SSHA':
             h = hashlib.sha1(password)
             h.update(salt)
-            hash = "{SSHA}" + b64encode( h.digest() + salt )
+            pw = "{SSHA}" + b64encode( h.digest() + salt )
         else:
-            hash = password
+            pw = password
 
-    return hash
+    return pw

@@ -1,0 +1,79 @@
+{# cn, [msg], #}
+{% extends "layout.html" %}
+
+{% from "macros.html" import
+        display_cn,
+        display_password_policy,
+        display_reset_password,
+        display_preferredLanguage,
+        %}
+
+{% block js %}{% endblock js %}
+{% block js_tablesorter %}{% endblock %}
+{% block jquery_docoment_ready %} {% endblock %}
+{% block submenu %}{% endblock submenu %}
+
+{% block title %}{{ _('Create new mail admin') }}{% endblock title %}
+
+{% block main %}
+<div class="main-subhead">
+    <h2 class="hn"><span>{{ _('Create new mail admin') }}</span></h2>
+</div>
+
+{# message #}
+{% if msg is defined and msg is not sameas none %}
+<div class="ct-box info-box">
+    <div class="error">
+        {% if msg == 'PW_MISMATCH' %}
+            {{ _('Two new passwords are not match.') }}
+        {% elif msg == 'PW_EMPTY' %}
+            {{ _('Password is empty.') }}
+        {% elif msg == 'PW_LESS_THAN_MIN_LENGTH' %}
+            {{ _('New password must contain at least %s characters.') |format(min_passwd_length) }}
+        {% elif msg == 'PW_GREATER_THAN_MAX_LENGTH' %}
+            {{ _('New password must NOT contain more than %s characters.') |format(max_passwd_length) }}
+        {% else %}
+            {{ msg }}
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+
+{# Display input field for adding new domain. #}
+<div class="main-frm">
+    <form class="frm-form" method="post" action="{{ctx.homepath}}/create/admin">
+
+    {{ display_password_policy(
+            min_passwd_length=min_passwd_length,
+            max_passwd_length=max_passwd_length)
+            }}
+
+
+    {{ display_cn(value=cn, accountType='admin') }}
+
+    <fieldset class="frm-group group1">
+        <legend class="group-legend"><strong>{{ _('Mail address') }}</strong></legend>
+        <div class="sf-set set1">
+            <div class="sf-box text required">
+                <label><span>{{ _('Mail address') }} <em>{{ _('(Required)') }}</em></span></label>
+                <span class="fld-input"><input type="text" size="25" name="username" value="{{username}}" />@<input type="text" size="15" name="domain" value="{{domain}}" /></span>
+            </div>
+        </div>
+    </fieldset>
+
+    {{ display_preferredLanguage(
+            languagemaps=languagemaps)
+            }}
+
+    {{ display_reset_password(firstitem='no') }}
+
+    <div class="frm-buttons">
+        <span class="submit">
+            <input type="submit" value="{{ _('Create') }}" />
+        </span>
+    </div>
+
+</form>
+</div>
+
+{% endblock main %}

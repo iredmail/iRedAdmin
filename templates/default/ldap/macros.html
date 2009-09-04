@@ -41,6 +41,22 @@
     </fieldset>
 {%- endmacro %}
 
+{% macro display_preferredLanguage(value='', languagemaps=['en_US',], firstitem='yes') -%}
+    <fieldset class="frm-group {% if firstitem == 'yes' %}group1{% endif %}">
+        <div class="sf-set {% if firstitem == 'yes' %}set1{% endif %}">
+            <div class="sf-box text">
+                <label><span>{{ _('Default language') }}</span></label>
+                <span class="fld-input">
+                    <select name="preferredLanguage">
+                        {% for lang in languagemaps %}
+                            <option value="{{lang}}" {% if value == lang %}selected{%endif%}>{{languagemaps[lang]}}</option>
+                        {% endfor %}
+                    </select>
+            </div>
+        </div>
+    </fieldset>
+{%- endmacro %}
+
 {# Display accountStatus #}
 {% macro display_account_status(accountStatus) %}
     <fieldset class="frm-group">
@@ -123,21 +139,23 @@
     </fieldset>
 {%- endmacro %}
 
-{% macro display_reset_password(oldpw='', newpw='', confirmpw='', show_oldpw='no', show_confirmpw='yes', min_passwd_length='0', max_passwd_length='0', firstitem='yes') -%}
+{% macro display_password_policy(min_passwd_length='0', max_passwd_length='0') -%}
     {% if min_passwd_length != '0' or max_passwd_length != '0' %}
     <div class="ct-box info-box">
         <ul class="info-list">
             {% if min_passwd_length != '0' %}
-            <li><span>{{ _('New password must contain at least %s characters.') |format(min_passwd_length) }}</span><br />
+            <li><span>{{ _('New password must contain at least <strong>%s</strong> characters.') |format(min_passwd_length) }}</span><br />
             {% endif %}
 
             {% if max_passwd_length != '0' %}
-            <li><span>{{ _('New password must <strong>NOT</strong> contain more than %s characters.') |format(max_passwd_length) }}</span><br />
+            <li><span>{{ _('New password must <strong>NOT</strong> contain more than <strong>%s</strong> characters.') |format(max_passwd_length) }}</span><br />
             {% endif %}
         </ul>
     </div>
     {% endif %}
+{%- endmacro %}
 
+{% macro display_reset_password(oldpw='', newpw='', confirmpw='', show_oldpw='no', show_confirmpw='yes', firstitem='yes') -%}
     <fieldset class="frm-group {%if firstitem == 'yes' %}group1{%endif%}">
         <legend class="group-legend"><strong>Required information</strong></legend>
         {% if show_oldpw == 'yes' %}

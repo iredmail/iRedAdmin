@@ -22,7 +22,7 @@
                 <p>
                     {% if session.get('domainGlobalAdmin') == 'yes' %}
                     <span><a href="{{ctx.homepath}}/create/domain">{{ _('Mail Domain') }}</a></span>&nbsp;
-                    {#<span><a href="{{ctx.homepath}}/create/admin">{{ _('Domain Admin') }}</a></span>&nbsp;#}
+                    <span><a href="{{ctx.homepath}}/create/admin">{{ _('Domain Admin') }}</a></span>&nbsp;
                     {% endif %}
                     <span><a href="{{ctx.homepath}}/create/user">{{ _('Mail User') }}</a></span>&nbsp;
                 </p>

@@ -1,6 +1,11 @@
 {# defined: profile_type, mail, profile, languagemaps, [msg], #}
 {% extends "layout.html" %}
-{% from "macros.html" import display_reset_password, %}
+{% from "macros.html" import
+                display_cn,
+                display_preferredLanguage,
+                display_password_policy,
+                display_reset_password,
+                %}
 
 {% block js_tablesorter %}{% endblock %}
 
@@ -70,47 +75,27 @@
         {% set preferredLanguage = entry.get('preferredLanguage', ['en_US'])[0] |string %}
     {% endif %}
 
-    <div class="main-frm">
-        <fieldset class="frm-group group1">
-            <legend class="group-legend"><strong>{{ _('Name') }}</strong></legend>
-            <div class="sf-set set1">
-                <div class="sf-box text">
-                    <label><span>{{ _('Display name') }}</span></label>
-                    <span class="fld-input"><input type="text" name="cn" value="{{cn}}" size="25" /></span>
-                </div>
-            </div>
-        </fieldset>
+    {{ display_cn(
+            value=cn,
+            accountType='admin')
+            }}
 
-        <fieldset class="sf-set">
-            <legend><span>{{ _('Default language') }}</span></legend>
-            <div class="sf-box select">
-                <label><span>{{ _('Default language') }}</span></label>
-                <span class="fld-input">
-                    <select name="preferredLanguage">
-                        {% for lang in languagemaps %}
-                            <option value="{{lang}}" {% if preferredLanguage == lang %}selected{%endif%}>{{languagemaps[lang]}}</option>
-                        {% endfor %}
-                    </select>
-                </span>
-            </div>
-        </fieldset>
-    </div>
+    {{ display_preferredLanguage(
+            value=preferredLanguage,
+            languagemaps=languagemaps)
+            }}
 {% endif %}
 
 {% if profile_type == 'password' %}
+    {{ display_password_policy(
+            min_passwd_length=min_passwd_length,
+            max_passwd_length=max_passwd_length)
+            }}
+
     {% if session.get('domainGlobalAdmin') == 'yes' %}
-        {{ display_reset_password(
-                show_confirmpw='yes',
-                min_passwd_length=min_passwd_length,
-                max_passwd_length=max_passwd_length)
-                }}
+        {{ display_reset_password(show_confirmpw='yes') }}
     {% else %}
-        {{ display_reset_password(
-                show_oldpw='yes',
-                show_confirmpw='yes',
-                min_passwd_length=min_passwd_length,
-                max_passwd_length=max_passwd_length)
-                }}
+        {{ display_reset_password(show_oldpw='yes', show_confirmpw='yes') }}
     {% endif %}
 
 {% endif %}

@@ -7,7 +7,7 @@ import os, sys
 import ldap, ldap.filter
 import web
 from libs import languages, iredutils
-from libs.ldaplib import core, attrs, ldaputils
+from libs.ldaplib import core, attrs, ldaputils, iredldif
 
 cfg = web.iredconfig
 session = web.config.get('_session')
@@ -73,24 +73,40 @@ class Admin(core.LDAPWrap):
         except Exception, e:
             return (False, str(e))
 
-    def add(self, admin, passwd, domainGlobalAdmin):
-        # msg: {'admin': 'result'}
-        msg = {}
-        admin = str(admin)
-        dn = "mail=" + admin + "," + self.domainadmin_dn
-        ldif = iredldif.ldif_mailadmin(admin, passwd, domainGlobalAdmin)
+    def add(self, data):
+        self.cn = data.get('cn')
+        self.mail = web.safestr(data.get('username')) + '@' + web.safestr(data.get('domain'))
+
+        self.domainGlobalAdmin = data.get('domainGlobalAdmin', 'no')
+        if self.domainGlobalAdmin not in ['yes', 'no',]:
+            self.domainGlobalAdmin = 'no'
+
+        # Check password.
+        self.newpw = web.safestr(data.get('newpw'))
+        self.confirmpw = web.safestr(data.get('confirmpw'))
+
+        result = iredutils.getNewPassword(self.newpw, self.confirmpw)
+        if result[0] is True:
+            self.passwd = ldaputils.generatePasswd(result[1], pwscheme=cfg.general.get('default_pw_scheme', 'SSHA'))
+        else:
+            return result
+
+        ldif = iredldif.ldif_mailadmin(
+                mail=self.mail,
+                passwd=self.passwd,
+                cn=self.cn,
+                domainGlobalAdmin=self.domainGlobalAdmin,
+                )
+
+        self.dn = ldaputils.convEmailToAdminDN(self.mail)
 
         try:
-            # Add object and initialize password.
-            self.conn.add_s(dn, ldif)
-            self.conn.passwd(dn, passwd, passwd)
-            msg[admin] = 'SUCCESS'
+            self.conn.add_s(self.dn, ldif)
+            return (True, 'SUCCESS')
         except ldap.ALREADY_EXISTS:
-            msg[admin] = 'ALREADY_EXISTS'
-        except ldap.LDAPError, e:
-            msg[admin] = str(e)
-
-        return msg
+            return (False, 'ALREADY_EXISTS')
+        except Exception, e:
+            return (False, str(e))
 
     # Update admin profile.
     # data: must be a webpy storage object.

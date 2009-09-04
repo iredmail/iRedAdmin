@@ -4,6 +4,7 @@
 {% from "macros.html" import
         display_quota,
         display_account_status,
+        display_password_policy,
         display_reset_password,
         %}
 
@@ -135,11 +136,12 @@
     {% endif %}
 
     {% if profile_type == 'password' %}
-    {{ display_reset_password(
-            show_confirmpw='yes',
+        {{ display_password_policy(
             min_passwd_length=min_passwd_length,
             max_passwd_length=max_passwd_length)
             }}
+
+        {{ display_reset_password(show_confirmpw='yes') }}
     {% endif %}
 
 </table>
