@@ -21,6 +21,9 @@ storage_base_directory = /var/vmail/vmail01
 # Mailbox type: maildir, mbox.
 mailbox_type = maildir
 
+# Hashed maildir: True, False.
+hashed_maildir = True
+
 # Default quota size (in MB). 0 means unlimited.
 default_quota = 1024
 
