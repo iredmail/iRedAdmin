@@ -34,6 +34,11 @@ DOMAINADMIN_SEARCH_FILTER = '(objectClass=mailAdmin)'
 DOMAINADMIN_SEARCH_ATTRS = ['mail', 'accountStatus', 'domainGlobalAdmin', 'cn', 'enabledService']
 
 # ---------------------------------------------------------
+# Admin related.
+# ---------------------------------------------------------
+ADMIN_ATTRS_ALL = ['cn', 'preferredLanguage', ]
+
+# ---------------------------------------------------------
 # Domain related.
 # ---------------------------------------------------------
 DOMAIN_FILTER = '(objectClass=mailDomain)'

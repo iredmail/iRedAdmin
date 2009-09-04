@@ -1,4 +1,4 @@
-{# defined: profile_type, mail, cur_lang, langmaps, [msg], #}
+{# defined: profile_type, mail, profile, languagemaps, [msg], #}
 {% extends "layout.html" %}
 {% from "macros.html" import display_reset_password, %}
 
@@ -64,15 +64,31 @@
 
 <form class="frm-form" method="post" action="{{ctx.homepath}}/profile/admin/{{profile_type}}/{{mail}}">
 {% if profile_type == 'general' %}
+    {% if profile[0] is sameas true %}
+        {% set entry = profile[1][0][1] %}
+        {% set cn = entry.get('cn', [''])[0].decode('utf-8') %}
+        {% set preferredLanguage = entry.get('preferredLanguage', ['en_US'])[0] |string %}
+    {% endif %}
+
     <div class="main-frm">
+        <fieldset class="frm-group group1">
+            <legend class="group-legend"><strong>{{ _('Name') }}</strong></legend>
+            <div class="sf-set set1">
+                <div class="sf-box text">
+                    <label><span>{{ _('Display name') }}</span></label>
+                    <span class="fld-input"><input type="text" name="cn" value="{{cn}}" size="25" /></span>
+                </div>
+            </div>
+        </fieldset>
+
         <fieldset class="sf-set">
             <legend><span>{{ _('Default language') }}</span></legend>
             <div class="sf-box select">
                 <label><span>{{ _('Default language') }}</span></label>
                 <span class="fld-input">
                     <select name="preferredLanguage">
-                        {% for lang in langmaps %}
-                            <option value="{{lang}}" {% if lang == cur_lang %}selected{%endif%}>{{langmaps[lang]}}</option>
+                        {% for lang in languagemaps %}
+                            <option value="{{lang}}" {% if preferredLanguage == lang %}selected{%endif%}>{{languagemaps[lang]}}</option>
                         {% endfor %}
                     </select>
                 </span>

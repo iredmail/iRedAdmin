@@ -31,7 +31,7 @@ class Admin(core.LDAPWrap):
         return lang
 
     # Get available languages.
-    def get_langs(self):
+    def getLanguageMaps(self):
         # Get available languages.
         self.available_langs = [ web.safestr(v)
                 for v in os.listdir(cfg.get('rootdir')+'i18n')
@@ -39,26 +39,12 @@ class Admin(core.LDAPWrap):
                 ]
 
         # Get language maps.
-        self.langmaps = {}
-        [ self.langmaps.update({i: languages.langmaps[i]})
+        self.languagemaps = {}
+        [ self.languagemaps.update({i: languages.langmaps[i]})
                 for i in self.available_langs
                 if i in languages.langmaps
                 ]
-
-        # Get current language.
-        self.cur_lang = self.conn.search_s(
-                ldaputils.convEmailToAdminDN(session.get('username')),
-                ldap.SCOPE_BASE,
-                '(&(objectClass=mailAdmin)(%s=%s))' % (attrs.USER_RDN, session.get('username')),
-                ['preferredLanguage'],
-                )
-
-        if len(self.cur_lang[0][1]) != 0:
-            self.cur_lang = self.cur_lang[0][1]['preferredLanguage'][0]
-        else:
-            self.cur_lang = session.get('lang')
-
-        return {'cur_lang': self.cur_lang, 'langmaps': self.langmaps}
+        return self.languagemaps
 
     # List all admin accounts.
     def list(self):
@@ -71,6 +57,21 @@ class Admin(core.LDAPWrap):
                 )
 
         return self.admins
+
+    # Get admin profile.
+    def profile(self, mail):
+        self.mail = web.safestr(mail)
+        self.dn = ldaputils.convEmailToAdminDN(self.mail)
+        try:
+            self.admin_profile = self.conn.search_s(
+                    self.dn,
+                    ldap.SCOPE_BASE,
+                    '(&(objectClass=mailAdmin)(mail=%s))' % self.mail,
+                    attrs.ADMIN_ATTRS_ALL,
+                    )
+            return (True, self.admin_profile)
+        except Exception, e:
+            return (False, str(e))
 
     def add(self, admin, passwd, domainGlobalAdmin):
         # msg: {'admin': 'result'}
@@ -105,6 +106,13 @@ class Admin(core.LDAPWrap):
             mod_attrs = [
                     (ldap.MOD_REPLACE, 'preferredLanguage', self.lang)
                     ]
+
+            cn = data.get('cn', None)
+            if cn is not None:
+                mod_attrs += [ ( ldap.MOD_REPLACE, 'cn', cn.encode('utf-8') ) ]
+            else:
+                # Delete attribute.
+                mod_attrs += [ ( ldap.MOD_DELETE, 'cn', None) ]
 
             try:
                 # Modify profiles.

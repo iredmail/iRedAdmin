@@ -50,7 +50,7 @@ class User(core.LDAPWrap):
         self.mail = web.safestr(mail)
         self.dn = ldaputils.convEmailToUserDN(self.mail)
         self.user_profile = self.conn.search_s(
-                str(self.dn),
+                self.dn,
                 ldap.SCOPE_BASE,
                 '(objectClass=mailUser)',
                 attrs.USER_ATTRS_ALL,
