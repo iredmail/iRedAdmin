@@ -65,7 +65,7 @@ $("#admin_list").tablesorter( {
             {% set domainGlobalAdmin = entry.get('domainGlobalAdmin', ['no'])[0] %}
 
             {# Display username part of mail address when cn is empty. #}
-            {% if cn |string == '' %}
+            {% if cn == '' %}
                 {% set cn = mail.split('@', 1)[0] %}
             {% endif %}
 

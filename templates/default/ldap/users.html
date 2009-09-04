@@ -73,12 +73,13 @@ $("#user_list").tablesorter( {
             {% for i in users %}
                 {% set entries = i[1] %}
                 {% set mail = entries.get('mail')[0] |string %}
+                {% set cn = entries.get('cn', [''])[0].decode('utf-8') %}
                 {# If not present, mark as 'disabled'. #}
                 {% set accountStatus = entries.get('accountStatus', ['disabled'])[0] %} 
                 {% set createTimestamp = entries.get('createTimestamp', ['--------------'])[0] %}
 
                 {# Display username part of mail address when cn is empty. #}
-                {% if cn |string == '' %}
+                {% if cn == '' %}
                     {% set cn = mail.split('@', 1)[0] %}
                 {% endif %}
 
