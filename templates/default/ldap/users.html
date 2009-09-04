@@ -77,11 +77,16 @@ $("#user_list").tablesorter( {
                 {% set accountStatus = entries.get('accountStatus', ['disabled'])[0] %} 
                 {% set createTimestamp = entries.get('createTimestamp', ['--------------'])[0] %}
 
+                {# Display username part of mail address when cn is empty. #}
+                {% if cn == '' %}
+                    {% set cn = mail.split('@', 1)[0] %}
+                {% endif %}
+
                 <tr class="{{ loop.cycle('odd', 'even') }} {{ accountStatus |lower }}">
                     <td>
                         <span class="float_left">
                             <input type="checkbox" name="mail" value="{{mail}}" />
-                            <a href="{{ctx.homepath}}/profile/user/general/{{mail}}" title="{{ _('Edit user profile.') }}">{{ entries.get('cn', [''])[0].decode('utf-8') }}</a>
+                            <a href="{{ctx.homepath}}/profile/user/general/{{mail}}" title="{{ _('Edit user profile.') }}">{{ cn }}</a>
                         </span>
                         <span class="float_right">{{ set_account_status_img(accountStatus) }}</span>
                     </td>

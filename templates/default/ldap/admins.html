@@ -64,6 +64,11 @@ $("#admin_list").tablesorter( {
             {% set accountStatus = entry.get('accountStatus', ['disabled'])[0] %}
             {% set domainGlobalAdmin = entry.get('domainGlobalAdmin', ['no'])[0] %}
 
+            {# Display username part of mail address when cn is empty. #}
+            {% if cn == '' %}
+                {% set cn = mail.split('@', 1)[0] %}
+            {% endif %}
+
             <tr class="{{ loop.cycle('odd', 'even') }} {{ accountStatus |lower }}">
                 <td>
                     <span class="float_left">
