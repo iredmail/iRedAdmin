@@ -7,7 +7,7 @@ import web
 from web import render
 from controllers.ldap import base
 from controllers.ldap.basic import dbinit
-from libs.ldaplib import admin, preferences
+from libs.ldaplib import admin
 
 cfg = web.iredconfig
 session = web.config.get('_session')
