@@ -18,6 +18,25 @@
     <h2 class="hn"><span>{{ _('Create new mail user') }}</span></h2>
 </div>
 
+{# message #}
+{% if msg is defined and msg is not sameas none %}
+<div class="ct-box info-box">
+    <div class="error">
+        {% if msg == 'PW_MISMATCH' %}
+            {{ _('Two new passwords are not match.') }}
+        {% elif msg == 'PW_EMPTY' %}
+            {{ _('EMPTY password is NOT allowed.') }}
+        {% elif msg == 'PW_LESS_THAN_MIN_LENGTH' %}
+            {{ _('New password must contain at least %s characters.') |format(min_passwd_length) }}
+        {% elif msg == 'PW_GREATER_THAN_MAX_LENGTH' %}
+            {{ _('New password must NOT contain more than %s characters.') |format(max_passwd_length) }}
+        {% else %}
+            {{ msg }}
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+
 {# Display input field for adding new domain. #}
 <div class="main-frm">
     <form class="frm-form" method="post" action="{{ctx.homepath}}/create/user">

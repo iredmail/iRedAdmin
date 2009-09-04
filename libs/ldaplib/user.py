@@ -58,14 +58,45 @@ class User(core.LDAPWrap):
 
         return self.user_profile
 
-    def add(self, dn, ldif):
+    @LDAPDecorators.check_global_admin
+    def add(self, data):
+        # Get domain name, username, cn.
+        self.domain = web.safestr(data.get('domainName'))
+        self.username = web.safestr(data.get('username'))
+
+        if self.domain == '' or self.username == '':
+            return (False, 'MISSING_DOMAIN_OR_USERNAME')
+
+        # Check password.
+        self.newpw = web.safestr(data.get('newpw'))
+        self.confirmpw = web.safestr(data.get('confirmpw'))
+
+        result = iredutils.getNewPassword(self.newpw, self.confirmpw)
+        if result[0] is True:
+            self.passwd = ldaputils.generatePasswd(result[1], pwscheme=cfg.general.get('default_pw_scheme', 'SSHA'))
+        else:
+            return result
+
+        self.cn = data.get('cn')
+        self.quota = data.get('quota', domainLib.getDomainDefaultUserQuota(self.domain))
+
+        ldif = iredldif.ldif_mailuser(
+                domain=self.domain,
+                username=self.username,
+                cn=self.cn,
+                passwd=self.passwd,
+                quota=self.quota,
+                )
+
+        self.dn = ldaputils.convEmailToUserDN(self.username + '@' + self.domain)
+
         try:
-            self.conn.add_s(ldap.filter.escape_filter_chars(dn), ldif,)
-            return True
+            self.conn.add_s(ldap.filter.escape_filter_chars(self.dn), ldif,)
+            return (True, 'SUCCESS')
         except ldap.ALREADY_EXISTS:
-            return 'ALREADY_EXISTS'
+            return (False, 'ALREADY_EXISTS')
         except Exception, e:
-            return str(e)
+            return (False, str(e))
 
     @LDAPDecorators.check_global_admin
     def delete(self, mails=[]):

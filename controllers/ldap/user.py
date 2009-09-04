@@ -126,51 +126,26 @@ class create(dbinit):
         i = web.input()
 
         # Get domain name, username, cn.
-        self.domain = i.get('domainName', None)
-        self.username = i.get('username', None)
+        self.domain = web.safestr(i.get('domainName'))
+        self.username = web.safestr(i.get('username'))
 
-        if self.domain is None or self.username is None:
-            return render.user_create(
-                    domain=self.domain,
-                    allDomains=domainLib.list(),
-                    default_quota=domainLib.getDomainDefaultUserQuota(self.domain),
-                    )
-
-        cn = i.get('cn')
-        quota = i.get('quota', domainLib.getDomainDefaultUserQuota(self.domain))
-
-        # Check password.
-        newpw = web.safestr(i.get('newpw'))
-        confirmpw = web.safestr(i.get('confirmpw'))
-        if len(newpw) > 0 and len(confirmpw) > 0 and newpw == confirmpw:
-            passwd = ldaputils.generatePasswd(newpw, pwscheme=cfg.general.get('default_pw_scheme', 'SSHA'))
+        result = userLib.add(data=i)
+        if result[0] is True:
+            web.seeother('/profile/user/general/%s?msg=SUCCESS' % (self.username + '@' + self.domain))
         else:
+            self.cn = i.get('cn', '')
+            self.quota = i.get('quota', domainLib.getDomainDefaultUserQuota(self.domain))
             return render.user_create(
                     domain=self.domain,
-                    allDomains=domainLib.list(),
                     username=self.username,
+                    cn=self.cn,
+                    quota=self.quota,
+                    allDomains=domainLib.list(),
                     default_quota=domainLib.getDomainDefaultUserQuota(self.domain),
-                    cn=cn,
-                    msg='PW_ERROR',
+                    min_passwd_length=cfg.general.get('min_passwd_length'),
+                    max_passwd_length=cfg.general.get('max_passwd_length'),
+                    msg=result[1],
                     )
-
-        ldif = iredldif.ldif_mailuser(
-                domain=web.safestr(self.domain),
-                username=web.safestr(self.username),
-                cn=cn,
-                passwd=passwd,
-                quota=quota,
-                )
-
-        dn = ldaputils.convEmailToUserDN(self.username + '@' + self.domain)
-        result = userLib.add(dn, ldif)
-        if result is True:
-            web.seeother('/profile/user/general/' + self.username + '@' + self.domain + '?msg=CREATE_SUCCESS')
-        elif result == 'ALREADY_EXISTS':
-            # TODO redirect to /create/user/DOMAIN
-            web.seeother('/users/' + self.domain + '?msg=ALREADY_EXISTS')
-        else:
-            web.seeother('/users/' + self.domain)
 
 class delete(dbinit):
     @base.protected

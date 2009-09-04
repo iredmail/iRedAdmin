@@ -27,7 +27,7 @@
         {% if msg == 'PW_MISMATCH' %}
             {{ _('Two new passwords are not match.') }}
         {% elif msg == 'PW_EMPTY' %}
-            {{ _('Password is empty.') }}
+            {{ _('EMPTY password is NOT allowed.') }}
         {% elif msg == 'PW_LESS_THAN_MIN_LENGTH' %}
             {{ _('New password must contain at least %s characters.') |format(min_passwd_length) }}
         {% elif msg == 'PW_GREATER_THAN_MAX_LENGTH' %}

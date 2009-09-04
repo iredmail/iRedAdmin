@@ -67,6 +67,7 @@ class list(dbinit):
             return render.admins()
 
 class create(dbinit):
+    @base.check_global_admin
     @base.protected
     def GET(self):
         return render.admin_create(
@@ -75,6 +76,7 @@ class create(dbinit):
                 max_passwd_length=cfg.general.get('max_passwd_length'),
                 )
 
+    @base.check_global_admin
     @base.protected
     def POST(self):
         i = web.input()
