@@ -78,7 +78,7 @@ $("#user_list").tablesorter( {
                 {% set createTimestamp = entries.get('createTimestamp', ['--------------'])[0] %}
 
                 {# Display username part of mail address when cn is empty. #}
-                {% if cn == '' %}
+                {% if cn |string == '' %}
                     {% set cn = mail.split('@', 1)[0] %}
                 {% endif %}
 
