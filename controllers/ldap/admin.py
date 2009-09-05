@@ -25,46 +25,14 @@ class list(dbinit):
         self.admins = adminLib.list()
         return render.admins(admins=self.admins)
 
+    # Delete admins.
     @base.check_global_admin
     @base.protected
     def POST(self):
-        i = web.input(dn=[])
-
-        # Post method: add, delete.
-        action = i.get('action', None)
-
-        if action == 'add':
-            # Get admin list (python list obj).
-            admin = i.get('admin', None)
-            passwd = i.get('passwd', None)
-            domainGlobalAdmin = i.get('domainGlobalAdmin', 'no')
-
-            if admin is not None and passwd is not None:
-                # Try to add it.
-                results = self.dbwrap.admin_add(admin, passwd, domainGlobalAdmin)
-
-                # List admins.
-                self.admins = adminLib.list()
-                return render.admins(admins=self.admins, msg=results)
-            else:
-                # Show system message.
-                self.admins = adminLib.list()
-                return render.admins(admins=self.admins, msg='NO_DOMAIN')
-        elif action == 'delete':
-            dn = i.get('dn', [])
-
-            if len(dn) >= 1:
-                # Delete dn(s).
-                results = self.dbwrap.delete_dn(dn)
-
-                # List admins.
-                self.admins = adminLib.list()
-                return render.admins(admins=self.admins, msg=results)
-            else:
-                # Show system message.
-                return render.admins()
-        else:
-            return render.admins()
+        i = web.input(_unicode=False, mail=[])
+        mails = i.mail
+        result = adminLib.delete(mails=mails)
+        web.seeother('/admins')
 
 class create(dbinit):
     @base.check_global_admin

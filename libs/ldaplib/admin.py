@@ -77,9 +77,7 @@ class Admin(core.LDAPWrap):
         self.cn = data.get('cn')
         self.mail = web.safestr(data.get('username')) + '@' + web.safestr(data.get('domain'))
 
-        self.domainGlobalAdmin = data.get('domainGlobalAdmin', 'yes')
-        if self.domainGlobalAdmin not in ['yes', 'no',]:
-            self.domainGlobalAdmin = 'yes'
+        self.preferredLanguage = web.safestr(data.get('preferredLanguage', 'en_US'))
 
         # Check password.
         self.newpw = web.safestr(data.get('newpw'))
@@ -95,7 +93,7 @@ class Admin(core.LDAPWrap):
                 mail=self.mail,
                 passwd=self.passwd,
                 cn=self.cn,
-                domainGlobalAdmin=self.domainGlobalAdmin,
+                preferredLanguage=self.preferredLanguage,
                 )
 
         self.dn = ldaputils.convEmailToAdminDN(self.mail)
@@ -163,3 +161,6 @@ class Admin(core.LDAPWrap):
                 return (True, 'SUCCESS')
             else:
                 return result
+
+    def delete(self):
+        pass

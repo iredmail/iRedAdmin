@@ -44,7 +44,7 @@
 {% macro display_preferredLanguage(value='', languagemaps=['en_US',], firstitem='yes') -%}
     <fieldset class="frm-group {% if firstitem == 'yes' %}group1{% endif %}">
         <div class="sf-set {% if firstitem == 'yes' %}set1{% endif %}">
-            <div class="sf-box text">
+            <div class="sf-box select">
                 <label><span>{{ _('Default language') }}</span></label>
                 <span class="fld-input">
                     <select name="preferredLanguage">
@@ -58,9 +58,9 @@
 {%- endmacro %}
 
 {# Display accountStatus #}
-{% macro display_account_status(accountStatus) %}
-    <fieldset class="frm-group">
-        <legend class="group-legend"><strong>{{ _('Account status') }}</strong></legend>
+{% macro display_account_status(accountStatus, firstitem='yes') %}
+    <fieldset class="frm-group {% if firstitem == 'yes' %}group1{% endif %}">
+        <fieldset class="mf-set required {% if firstitem == 'yes' %}set1{% endif %}">
         <fieldset class="mf-set required">
             <legend><span>{{ _('Account status') }}<em>{{ _('(Required)') }}</em></span></legend>
             <div class="mf-box">

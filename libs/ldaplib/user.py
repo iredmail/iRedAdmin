@@ -100,11 +100,11 @@ class User(core.LDAPWrap):
         except Exception, e:
             return (False, str(e))
 
-    @LDAPDecorators.check_global_admin
-    def delete(self, mails=[]):
+    @LDAPDecorators.check_domain_access
+    def delete(self, domain, mails=[]):
         if mails is None or len(mails) == 0: return False
 
-        msg = {}
+        result = {}
         for mail in mails:
             self.mail = web.safestr(mail)
             dn = ldaputils.convEmailToUserDN(self.mail)
@@ -112,10 +112,12 @@ class User(core.LDAPWrap):
             try:
                 deltree.DelTree( self.conn, dn, ldap.SCOPE_SUBTREE )
             except ldap.LDAPError, e:
-                msg[self.mail] = str(e)
+                result[self.mail] = str(e)
 
-        if msg == {}: return True
-        else: return False
+        if result == {}:
+            return (True, 'SUCCESS')
+        else:
+            return (False, result)
 
     @LDAPDecorators.check_domain_access
     def update(self, profile_type, mail, data):

@@ -59,9 +59,10 @@ class list(dbinit):
     @base.protected
     def POST(self, domain):
         i = web.input(_unicode=False, mail=[])
+        self.domain = web.safestr(domain)
         mails = i.mail
-        result = userLib.delete(mails=mails)
-        web.seeother('/users/' + str(domain))
+        result = userLib.delete(domain=self.domain, mails=mails)
+        web.seeother('/users/%s' % self.domain)
 
 class profile(dbinit):
     @base.protected
@@ -146,16 +147,3 @@ class create(dbinit):
                     max_passwd_length=cfg.general.get('max_passwd_length'),
                     msg=result[1],
                     )
-
-class delete(dbinit):
-    @base.protected
-    def POST(self):
-        i = web.input(mail=[])
-        domain = i.get('domain', None)
-        if domain is None:
-            web.seeother('/users?msg=NO_DOMAIN')
-
-        mails = i.get('mail', [])
-        for mail in mails:
-            dn = ldap.filter.escape_filter_chars(ldaputils.convEmailToUserDN(mail))
-        web.seeother('/users/' + web.safestr(domain))
