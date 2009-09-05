@@ -77,9 +77,9 @@ class Admin(core.LDAPWrap):
         self.cn = data.get('cn')
         self.mail = web.safestr(data.get('username')) + '@' + web.safestr(data.get('domain'))
 
-        self.domainGlobalAdmin = data.get('domainGlobalAdmin', 'no')
+        self.domainGlobalAdmin = data.get('domainGlobalAdmin', 'yes')
         if self.domainGlobalAdmin not in ['yes', 'no',]:
-            self.domainGlobalAdmin = 'no'
+            self.domainGlobalAdmin = 'yes'
 
         # Check password.
         self.newpw = web.safestr(data.get('newpw'))
