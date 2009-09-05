@@ -62,7 +62,7 @@ def ldif_maillist(group, domain, cn=u'Mail Group', desc=u'Mail Group',):
     return ldif
 
 # Define and return LDIF structure of domain admin.
-def ldif_mailadmin(mail, passwd, cn, preferredLanguage='en_US', domainGlobalAdmin='no'):
+def ldif_mailadmin(mail, passwd, cn, preferredLanguage='en_US', domainGlobalAdmin='yes'):
     mail = web.safestr(mail)
 
     ldif = [
