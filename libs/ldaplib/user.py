@@ -7,7 +7,7 @@ import sys
 import ldap, ldap.filter
 import web
 from libs import iredutils
-from libs.ldaplib import core, domain, attrs, ldaputils, deltree
+from libs.ldaplib import core, domain, attrs, ldaputils, iredldif, deltree
 
 cfg = web.iredconfig
 session = web.config.get('_session')
