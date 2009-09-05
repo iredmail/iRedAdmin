@@ -7,11 +7,13 @@ import sys
 import ldap, ldap.filter
 import web
 from libs import iredutils
-from libs.ldaplib import core, attrs, ldaputils, deltree
+from libs.ldaplib import core, domain, attrs, ldaputils, deltree
 
 cfg = web.iredconfig
 session = web.config.get('_session')
 LDAPDecorators = core.LDAPDecorators()
+
+domainLib = domain.Domain()
 
 class User(core.LDAPWrap):
     def __del__(self):

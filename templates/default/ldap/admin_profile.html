@@ -45,7 +45,9 @@
 {# Show message #}
 {% if msg is defined and msg is not sameas none %}
     <div class="ct-box info-box">
-    {% if msg == 'SUCCESS' %}
+    {% if msg == 'CREATE_SUCCESS' %}
+        <div class="success">{{ _('Admin created success.') }}</div>
+    {% elif msg == 'UPDATE_SUCCESS' %}
         <div class="success">{{ _('Profile update success.') }}</div>
     {% else %}
         <div class="error">

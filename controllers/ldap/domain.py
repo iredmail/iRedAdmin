@@ -39,32 +39,34 @@ class profile(dbinit):
     @base.protected
     def GET(self, profile_type, domain):
         i = web.input()
-        domain = web.safestr(domain.split('/', 1)[0])
-        if domain != '' and domain is not None and \
-            profile_type in ['general', 'admins', 'services', 'bcc', 'quotas', 'backupmx', 'advanced', ]:
+        self.domain = web.safestr(domain.split('/', 1)[0])
+        self.profile_type = web.safestr(profile_type)
+        if self.domain == '' or self.domain is None:
+            web.seeother('/domains?msg=EMPTY_DOMAIN')
 
-            domain = web.safestr(domain)
-            profile = domainLib.profile(domain)
+        if self.profile_type not in ['general', 'admins', 'services', 'bcc', 'quotas', 'backupmx', 'advanced', ]:
+            web.seeother('/domains?msg=INCORRECT_PROFILE_TYPE')
 
-            if profile:
-                allDomains = domainLib.list(attrs=['domainName'])
-                allAdmins = adminLib.list()
-                domainAdmins = domainLib.admins(domain)
+        print >> sys.stderr, self.domain
+        result = domainLib.profile(domain=self.domain)
 
-                return render.domain_profile(
-                        cur_domain=domain,
-                        allDomains=allDomains,
-                        profile=profile,
-                        profile_type=profile_type,
-                        admins=allAdmins,
-                        # We need only mail address of domain admins.
-                        domainAdmins=domainAdmins[0][1].get('domainAdmin', []),
-                        msg=i.get('msg', None),
-                        )
-            else:
-                web.seeother('/domains?msg=%s' % i.get('msg', None))
+        if result[0] is True:
+            allDomains = domainLib.list(attrs=['domainName'])
+            allAdmins = adminLib.list()
+            domainAdmins = domainLib.admins(self.domain)
+
+            return render.domain_profile(
+                    cur_domain=self.domain,
+                    allDomains=allDomains,
+                    profile=result[1],
+                    profile_type=self.profile_type,
+                    admins=allAdmins,
+                    # We need only mail address of domain admins.
+                    domainAdmins=domainAdmins[0][1].get('domainAdmin', []),
+                    msg='SUCCESS',
+                    )
         else:
-            web.seeother('/domains?msg=%s' % i.get('msg', None))
+            web.seeother('/domains?msg=%s' % result[1])
 
     @base.protected
     def POST(self, profile_type, domain):

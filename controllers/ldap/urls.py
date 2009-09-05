@@ -10,8 +10,11 @@
 #                 www@example.com, list01@example.com,
 #                 alias01@example.com
 #
-# * Create new accounts:
+# * Create new domain:
 #   - /create/{accountType}
+#
+# * Create new account:
+#   - /create/{accountType}[/domain]
 #
 # * Delete accounts:
 #   - /delete/{accountType}/{account}
@@ -19,8 +22,6 @@
 # * List all accounts:
 #   - /domains
 #   - /admins
-#
-# * Show a search form for user to choose domain.
 #   - /users
 #   - /maillists
 #   - /aliases
@@ -31,7 +32,7 @@
 #   - /aliases/{domain}
 #
 # * View & Update account profile:
-#   - /profile/{accountType}/{account}
+#   - /profile/{accountType}/{profile_type}/{account}
 #
 
 # Regular expressions.

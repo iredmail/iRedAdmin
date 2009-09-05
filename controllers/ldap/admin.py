@@ -86,7 +86,7 @@ class create(dbinit):
         result = adminLib.add(data=i)
 
         if result[0] is True:
-            web.seeother('/profile/admin/general/%s' % self.mail)
+            web.seeother('/profile/admin/general/%s?msg=CREATE_SUCCESS' % self.mail)
         else:
             self.cn = i.get('cn')
             return render.admin_create(
@@ -141,7 +141,7 @@ class profile(dbinit):
                 data=i,
                 )
         if result[0] is True:
-            web.seeother('/profile/admin/%s/%s?msg=SUCCESS' % (self.profile_type, self.mail))
+            web.seeother('/profile/admin/%s/%s?msg=UPDATE_SUCCESS' % (self.profile_type, self.mail))
         else:
             if self.profile_type == 'general':
                 return render.admin_profile(

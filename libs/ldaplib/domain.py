@@ -113,27 +113,26 @@ class Domain(core.LDAPWrap):
         else: return False
 
     # Get domain attributes & values.
+    @LDAPDecorators.check_domain_access
     def profile(self, domain):
         self.domain = web.safestr(domain)
-        self.domainDN = ldaputils.convDomainToDN(self.domain)
+        self.dn = ldaputils.convDomainToDN(self.domain)
 
-        # Access control.
-        if self.check_domain_access(self.domainDN, session.get('username')):
-            try:
-                self.domain_detail = self.conn.search_s(
-                        self.domainDN,
-                        ldap.SCOPE_BASE,
-                        '(objectClass=mailDomain)',
-                        attrs.DOMAIN_ATTRS_ALL,
-                        )
-                if len(self.domain_detail) == 1:
-                    return self.domain_detail
-                else:
-                    return False
-            except:
-                return False
-        else:
-            return False
+        try:
+            self.domain_profile = self.conn.search_s(
+                    self.dn,
+                    ldap.SCOPE_BASE,
+                    '(&(objectClass=mailDomain)(domainName=%s))' % self.domain,
+                    attrs.DOMAIN_ATTRS_ALL,
+                    )
+            if len(self.domain_profile) == 1:
+                return (True, self.domain_profile)
+            else:
+                return (False, 'NO_SUCH_DOMAIN')
+        except ldap.NO_SUCH_OBJECT:
+            return (False, 'NO_SUCH_OBJECT')
+        except Exception, e:
+            return (False, str(e))
 
     # Update domain profile.
     # data = web.input()
