@@ -6,7 +6,7 @@
 
 {% block jquery_snippets %}
     {# Sort domain name at initialization. #}
-    $("#domain_list").tablesorter( {
+    $("#account_list").tablesorter( {
         sortList: [[0,0]]
     });
 {% endblock jquery_snippets %}
@@ -42,7 +42,7 @@
 {% if domains is not string and domains |length != 0 %}
 <div class="main-frm">
     <form id="list_table" method="post" action="{{ctx.homepath}}/domains">
-    <table id="domain_list" cellspacing="0">
+    <table id="account_list" class="tablesorter">
         <thead>
         <tr>
             <th>{{ _('Domain Name') }}</th>

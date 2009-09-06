@@ -43,8 +43,8 @@ $("#admin_list").tablesorter( {
 {#{% if admins|length > 0 %}#}
 {% if admins is not string %}
     <div>
-    <form id="list_table">
-        <table id="admin_list" class="full tablesorter headerSortUp">
+    <form id="list_table" method="post" action="{{ctx.homepath}}/admins">
+        <table id="admin_list" class="tablesorter">
         <thead>
         <tr>
             <th>{{ _('Display name') }}</th>
