@@ -1935,3 +1935,22 @@ H - MAIN CONTENT - ODDMENTS
     */
     background-image: url('../images/error.png');
 }
+
+/* for jquery plugin: tablesorter */
+table.tablesorter thead tr .header {
+    background-image: url(../images/sorter/bg.gif);
+    background-repeat: no-repeat;
+    background-position: center right;
+    cursor: pointer;
+}
+table.tablesorter thead tr .headerSortUp {
+    background-image: url(../images/sorter/asc.gif);
+}
+table.tablesorter thead tr .headerSortDown {
+    background-image: url(../images/sorter/desc.gif);
+}
+/*
+table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
+    background-color: #8dbdd8;
+}
+*/

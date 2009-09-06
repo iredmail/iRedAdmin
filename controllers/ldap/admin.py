@@ -31,7 +31,7 @@ class list(dbinit):
     @base.protected
     def POST(self):
         i = web.input(_unicode=False, mail=[])
-        mails = i..get('mail', [])
+        self.mails = i.get('mail', [])
         result = adminLib.delete(mails=self.mails)
         if result[0] is True:
             web.seeother('/admins?msg=DELETE_SUCCESS')
