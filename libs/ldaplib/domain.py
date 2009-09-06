@@ -143,20 +143,13 @@ class Domain(core.LDAPWrap):
         mod_attrs = []
         if self.profile_type == 'general':
             cn = data.get('cn', None)
-            if cn is not None and len(cn) != 0:
+            if cn is not None:
                 mod_attrs += [ ( ldap.MOD_REPLACE, 'cn', cn.encode('utf-8') ) ]
             else:
                 # Delete attribute.
-                mod_attrs += [ ( ldap.MOD_DELETE, 'cn', None) ]
+                mod_attrs += [ ( ldap.MOD_REPLACE, 'cn', '') ]
 
         if session.get('domainGlobalAdmin') == 'yes':
-            # Convert to string, they don't contain non-ascii characters.
-            domainBackupMX = web.safestr(data.get('domainBackupMX', 'no'))
-            if domainBackupMX not in attrs.VALUES_DOMAIN_BACKUPMX:
-                domainBackupMX = 'no'
-
-            mod_attrs += [ (ldap.MOD_REPLACE, 'domainBackupMX', domainBackupMX) ]
-
             accountStatus = web.safestr(data.get('accountStatus', 'active'))
             if accountStatus not in attrs.VALUES_ACCOUNT_STATUS:
                 accountStatus = 'active'

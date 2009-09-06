@@ -62,6 +62,7 @@ class profile(dbinit):
                     admins=allAdmins,
                     # We need only mail address of domain admins.
                     domainAdmins=domainAdmins[0][1].get('domainAdmin', []),
+                    msg=i.get('msg', None),
                     )
         else:
             web.seeother('/domains?msg=%s' % result[1])

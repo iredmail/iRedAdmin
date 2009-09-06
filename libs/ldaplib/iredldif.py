@@ -21,7 +21,7 @@ def ldif_maildomain(domainName, cn=None,
             ('enabledService',  enabledService),
             ]
 
-    if cn is not None and cn != '':
+    if cn is not None and cn != u'' and cn != '':
         ldif += [('cn', [cn.encode('utf-8')])]
 
     return ldif
@@ -53,7 +53,7 @@ def ldif_maillist(group, domain, cn=u'Mail Group', desc=u'Mail Group',):
             ('hasMember',       'no'),
             ]
 
-    if cn is not None:
+    if cn is not None and cn != u'' and cn != '':
         ldif += [('cn', cn.encode('utf-8'))]
 
     if desc is not None:
@@ -74,7 +74,7 @@ def ldif_mailadmin(mail, passwd, cn, preferredLanguage='en_US', domainGlobalAdmi
             ('domainGlobalAdmin',   [web.safestr(domainGlobalAdmin)]),
             ]
 
-    if cn is not None and cn != '':
+    if cn is not None and cn != u'' and cn != '':
         ldif += [('cn', [cn.encode('utf-8')])]
     else:
         ldif += [('cn', [mail.split('@', 1)[0]])]
@@ -136,7 +136,7 @@ def ldif_mailuser(domain, username, cn, passwd, quota=cfg.general.get('default_q
         ('memberOfGroup',       ['all@'+domain]), # Make all users belong to group 'all@domain.ltd'.
         ]
 
-    if cn is not None and cn != '':
+    if cn is not None and cn != u'' and cn != '':
         ldif += [('cn', [cn.encode('utf-8')])]
     else:
         ldif += [('cn', [username])]

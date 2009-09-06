@@ -122,11 +122,11 @@ class Admin(core.LDAPWrap):
                     ]
 
             cn = data.get('cn', None)
-            if cn is not None:
+            if cn is not None and cn != u'' and cn != '':
                 mod_attrs += [ ( ldap.MOD_REPLACE, 'cn', cn.encode('utf-8') ) ]
-            else:
-                # Delete attribute.
-                mod_attrs += [ ( ldap.MOD_DELETE, 'cn', None) ]
+            #else:
+            #    # Delete attribute.
+            #    mod_attrs += [ ( ldap.MOD_REPLACE, 'cn', '') ]
 
             try:
                 # Modify profiles.
