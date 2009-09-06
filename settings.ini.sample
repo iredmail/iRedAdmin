@@ -54,7 +54,6 @@ port = 3306
 db = iredadmin_ose
 user = iredadmin_ose
 passwd = secret_passwd
-db_table_session = sessions
 
 [ldap]
 # Settings used for LDAP backend.
