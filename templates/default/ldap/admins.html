@@ -61,10 +61,7 @@
 
             <tr class="{{ loop.cycle('odd', 'even') }} {{ accountStatus |lower }}">
                 <td>
-                    <span class="float_left">
-                        <input type="checkbox" name="mail" value="{{mail}}" />
-                        <a href="mailto:{{mail}}" title="{{ _('Send mail to %s.') |format(mail) }}">{{ mail }}</a>
-                    </span>
+                    <span class="float_left"><input type="checkbox" name="mail" value="{{mail}}" />{{mail}}</span>
                     <span class="float_right">{{ set_account_status_img(accountStatus) }}</span>
                 </td>
                 <td><a href="{{ctx.homepath}}/profile/admin/general/{{mail}}" title="{{ _('Edit admin profile.') }}">{{ cn }}</a></td>
