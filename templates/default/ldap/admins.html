@@ -4,14 +4,6 @@
 
 {% block title %}{{ _('Domain admins') }}{% endblock %}
 
-{% block jquery_snippets %}
-{# Sort user name at initialization. #}
-$("#admin_list").tablesorter( {
-    headers: {4: {sorter: false},},
-    sortList: [[1,0]]
-});
-{% endblock jquery_snippets %}
-
 {% block id_welcome %}
 <span>{{ _('All mail administrators.') }} {{ _('Total: %s.') |format(admins |length) }}</span>
 {% endblock id_welcome %}
@@ -44,11 +36,11 @@ $("#admin_list").tablesorter( {
 {% if admins is not string %}
     <div>
     <form id="list_table" method="post" action="{{ctx.homepath}}/admins">
-        <table id="admin_list" class="tablesorter">
+        <table id="account_list" class="tablesorter">
         <thead>
         <tr>
-            <th>{{ _('Display name') }}</th>
-            <th>{{ _('Mail address') }}</th>
+            <th>{{ _('Mail Address') }}</th>
+            <th>{{ _('Display Name') }}</th>
             <th>{{ _('Global Admin') }}</th>
         </tr>
         </thead>
@@ -71,11 +63,11 @@ $("#admin_list").tablesorter( {
                 <td>
                     <span class="float_left">
                         <input type="checkbox" name="mail" value="{{mail}}" />
-                        <a href="{{ctx.homepath}}/profile/admin/general/{{mail}}" title="{{ _('Edit admin profile.') }}">{{ cn }}</a>
+                        <a href="mailto:{{mail}}" title="{{ _('Send mail to %s.') |format(mail) }}">{{ mail }}</a>
                     </span>
                     <span class="float_right">{{ set_account_status_img(accountStatus) }}</span>
                 </td>
-                <td><a href="mailto:{{mail}}" title="{{ _('Send mail to %s.') |format(mail) }}">{{ mail }}</a></td>
+                <td><a href="{{ctx.homepath}}/profile/admin/general/{{mail}}" title="{{ _('Edit admin profile.') }}">{{ cn }}</a></td>
                 <td>{{ set_account_status_img(domainGlobalAdmin) }}</td>
             </tr>
         {% endfor %}

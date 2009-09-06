@@ -4,13 +4,6 @@
 
 {% block title %}{{ _('Mail domains') }}{% endblock %}
 
-{% block jquery_snippets %}
-    {# Sort domain name at initialization. #}
-    $("#account_list").tablesorter( {
-        sortList: [[0,0]]
-    });
-{% endblock jquery_snippets %}
-
 {% block id_welcome %}
 <span>{{ _('All domains under your control.') }} {{ _('Total: %s.') |format(domains|length) }}</span>
 {% endblock id_welcome %}
