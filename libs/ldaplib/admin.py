@@ -7,7 +7,7 @@ import os, sys
 import ldap, ldap.filter
 import web
 from libs import languages, iredutils
-from libs.ldaplib import core, attrs, ldaputils, iredldif
+from libs.ldaplib import core, attrs, ldaputils, iredldif, deltree
 
 cfg = web.iredconfig
 session = web.config.get('_session')
@@ -162,5 +162,21 @@ class Admin(core.LDAPWrap):
             else:
                 return result
 
-    def delete(self):
-        pass
+    def delete(self, mails):
+        if mails is None or len(mails) == 0: return (False, 'NO_ACCOUNT_SELECTED')
+
+        result = {}
+
+        for mail in mails:
+            self.mail = web.safestr(mail)
+            dn = ldaputils.convEmailToAdminDN(self.mail)
+
+            try:
+                deltree.DelTree( self.conn, dn, ldap.SCOPE_SUBTREE )
+            except ldap.LDAPError, e:
+                result[self.mail] = str(e)
+
+        if result == {}:
+            return (True, 'SUCCESS')
+        else:
+            return (False, result)

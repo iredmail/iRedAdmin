@@ -22,17 +22,21 @@ class list(dbinit):
     @base.check_global_admin
     @base.protected
     def GET(self):
+        i = web.input()
         self.admins = adminLib.list()
-        return render.admins(admins=self.admins)
+        return render.admins(admins=self.admins, msg=i.get('msg', None))
 
     # Delete admins.
     @base.check_global_admin
     @base.protected
     def POST(self):
         i = web.input(_unicode=False, mail=[])
-        mails = i.mail
-        result = adminLib.delete(mails=mails)
-        web.seeother('/admins')
+        mails = i..get('mail', [])
+        result = adminLib.delete(mails=self.mails)
+        if result[0] is True:
+            web.seeother('/admins?msg=DELETE_SUCCESS')
+        else:
+            web.seeother('/admins?msg=%s' % result[1])
 
 class create(dbinit):
     @base.check_global_admin

@@ -60,8 +60,8 @@ class list(dbinit):
     def POST(self, domain):
         i = web.input(_unicode=False, mail=[])
         self.domain = web.safestr(domain)
-        mails = i.mail
-        result = userLib.delete(domain=self.domain, mails=mails)
+        self.mails = i.get('mail', [])
+        result = userLib.delete(domain=self.domain, mails=self.mails)
         web.seeother('/users/%s' % self.domain)
 
 class profile(dbinit):

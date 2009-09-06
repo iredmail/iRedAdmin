@@ -32,25 +32,6 @@ $("#user_list").tablesorter( {
 
 {% block main %}
 {# Show system message #}
-{#
-{% if msg is defined and msg is not none %}
-    <div class="note">
-        <p>{{ _('System message:') }}</p>
-
-        <ul>
-        {% if msg == 'PERMISSION_DENIED' %}
-            <p>{{ _('Permission deny.') }}</p>
-        {% elif msg == 'SIZELIMIT_EXCEEDED' %}
-            <p>{{ _('Size limit exceeded.') }}</p>
-        {% elif msg == 'ADDED_SUCCESS' %}
-            <p>{{ _('Added success.') }}</p>
-        {% else %}
-            <p>{{ msg }}</p>
-        {% endif %}
-        </ul>
-    </div>
-{% endif %}
-#}
 
 {% if users is defined %}
     {# List all users. #}

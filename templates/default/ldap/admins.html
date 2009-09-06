@@ -22,19 +22,21 @@ $("#admin_list").tablesorter( {
 
 {% block main %}
 {# Show system message #}
-{#
-{% if msg is defined %}
-    <div class="note">
-        <h5>{{ _('System message:') }}</h5>
-
-        <ul>
-        {% for i in msg.items() %}
-            <li>{{ i[1] }} ({{i[0]}})</li>
-        {% endfor %}
-        </ul>
+{% if msg is defined and msg is not sameas none %}
+    <div class="ct-box info-box">
+    {% if msg == 'DELETE_SUCCESS' %}
+        <div class="success">{{ _('Account(s) deleted success.') }}</div>
+    {% else %}
+        <div class="error">
+        {% if msg == 'NO_ACCOUNT_SELECTED' %}
+            {{ _('No account selected.') }}
+        {% else %}
+            {{ msg }}
+        {% endif %}
+        </div>
+    {% endif %}
     </div>
 {% endif %}
-#}
 
 {# List admins #}
 
@@ -42,8 +44,6 @@ $("#admin_list").tablesorter( {
 {% if admins is not string %}
     <div>
     <form name="list_table" id="list_table" action="{{ctx.homepath}}/admins" method="post">
-        <input type="hidden" name="action" value="delete" />
-
         <table id="admin_list" class="full tablesorter headerSortUp">
         <thead>
         <tr>
