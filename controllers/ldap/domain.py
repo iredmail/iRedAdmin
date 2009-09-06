@@ -47,7 +47,6 @@ class profile(dbinit):
         if self.profile_type not in ['general', 'admins', 'services', 'bcc', 'quotas', 'backupmx', 'advanced', ]:
             web.seeother('/domains?msg=INCORRECT_PROFILE_TYPE')
 
-        print >> sys.stderr, self.domain
         result = domainLib.profile(domain=self.domain)
 
         if result[0] is True:
@@ -63,7 +62,6 @@ class profile(dbinit):
                     admins=allAdmins,
                     # We need only mail address of domain admins.
                     domainAdmins=domainAdmins[0][1].get('domainAdmin', []),
-                    msg='SUCCESS',
                     )
         else:
             web.seeother('/domains?msg=%s' % result[1])

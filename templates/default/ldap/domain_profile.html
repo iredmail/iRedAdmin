@@ -25,9 +25,7 @@
 {% if msg is defined and msg is not sameas none %}
     <div class="ct-box info-box">
         {% if msg == 'SUCCESS' %}
-        <div class="success">
-            {{ _('Profile update success.') }}
-        </div>
+        <div class="success">{{ _('Profile update success.') }}</div>
         {% else %}
             {# Password #}
             {% if profile_type == 'password' %}

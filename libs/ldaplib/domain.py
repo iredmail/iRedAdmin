@@ -143,7 +143,7 @@ class Domain(core.LDAPWrap):
         mod_attrs = []
         if self.profile_type == 'general':
             cn = data.get('cn', None)
-            if cn is not None:
+            if cn is not None and len(cn) != 0:
                 mod_attrs += [ ( ldap.MOD_REPLACE, 'cn', cn.encode('utf-8') ) ]
             else:
                 # Delete attribute.
