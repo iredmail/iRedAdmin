@@ -377,190 +377,190 @@ msgstr "域名："
 
 #: ../templates/default/ldap/domain_profile.html:99
 msgid "Company/Organization:"
-msgstr ""
+msgstr "公司/组织名称"
 
 #: ../templates/default/ldap/domain_profile.html:100
 msgid "Created Date:"
-msgstr ""
+msgstr "创建时间："
 
 #: ../templates/default/ldap/domain_profile.html:118
 msgid "If no admin assigned for domain, you can also manage it with global admin."
-msgstr ""
+msgstr "如果没有指派任何的管理员，您可以使用全局管理员进行管理。"
 
 #: ../templates/default/ldap/domain_profile.html:155
 msgid "Warning:"
-msgstr ""
+msgstr "警告："
 
 #: ../templates/default/ldap/domain_profile.html:155
 msgid "Domain BCC setting will override per-user bcc settings."
-msgstr ""
+msgstr "域级别的 bcc 设置将会覆盖针对单个用户的 bcc 设置。"
 
 #: ../templates/default/ldap/domains.html:9
 msgid "Mail domains"
-msgstr ""
+msgstr "邮件域"
 
 #: ../templates/default/ldap/domains.html:12
 msgid "All domains under your control."
-msgstr ""
+msgstr "您管理的所有邮件域："
 
 #: ../templates/default/ldap/domains.html:17
 msgid "Create a new mail domain"
-msgstr ""
+msgstr "新建邮件域"
 
 #: ../templates/default/ldap/domains.html:27
 msgid "Server-side size limit exceeded."
-msgstr ""
+msgstr "超过了服务器端的 sizelimit 设置。"
 
 #: ../templates/default/ldap/domains.html:29
 msgid "No such domain."
-msgstr ""
+msgstr "域名不存在。"
 
 #: ../templates/default/ldap/domains.html:45
 msgid "Domain Name"
-msgstr ""
+msgstr "域名"
 
 #: ../templates/default/ldap/domains.html:46
 #: ../templates/default/ldap/users.html:48
 msgid "Quota"
-msgstr ""
+msgstr "限额"
 
 #: ../templates/default/ldap/domains.html:48
 msgid "Lists"
-msgstr ""
+msgstr "列表"
 
 #: ../templates/default/ldap/domains.html:66
 msgid "Edit"
-msgstr ""
+msgstr "编辑"
 
 #: ../templates/default/ldap/domains.html:73
 msgid "List all mail users."
-msgstr ""
+msgstr "列出所有邮件用户。"
 
 #: ../templates/default/ldap/domains.html:76
 msgid "List all mail lists."
-msgstr ""
+msgstr "列出所有邮件列表。"
 
 #: ../templates/default/ldap/domains.html:79
 msgid "List all mail aliases."
-msgstr ""
+msgstr "列出所有邮件别名。"
 
 #: ../templates/default/ldap/domains.html:89
 msgid "Are you sure want to delete selected domain(s) and accounts under it?"
-msgstr ""
+msgstr "您确定要删除选择的域和域内的所有帐号嘛？"
 
 #: ../templates/default/ldap/layout.html:74
 msgid "Preferences"
-msgstr ""
+msgstr "偏好设置"
 
 #: ../templates/default/ldap/layout.html:75
 msgid "Logout"
-msgstr ""
+msgstr "退出登录"
 
 #: ../templates/default/ldap/layout.html:79
 msgid "iRedMail Management"
-msgstr ""
+msgstr "iRedMail 管理后台"
 
 #: ../templates/default/ldap/layout.html:86
 msgid "Mail Domains"
-msgstr ""
+msgstr "邮件域"
 
 #: ../templates/default/ldap/layout.html:89
 msgid "Admins"
-msgstr ""
+msgstr "管理员"
 
 #: ../templates/default/ldap/layout.html:114
 msgid "Feature request & support"
-msgstr ""
+msgstr "需求反馈和技术支持"
 
 #: ../templates/default/ldap/layout.html:116
 msgid "Get support"
-msgstr ""
+msgstr "获取支持"
 
 #: ../templates/default/ldap/login.html:3
 #: ../templates/default/ldap/login.html:27
 msgid "Login to manage your mail domains & users"
-msgstr ""
+msgstr "登录管理您的邮件域和用户"
 
 #: ../templates/default/ldap/login.html:33
 msgid "Error:"
-msgstr ""
+msgstr "错误："
 
 #: ../templates/default/ldap/login.html:35
 msgid "Username or password is incorrect."
-msgstr ""
+msgstr "用户名密码错误。"
 
 #: ../templates/default/ldap/login.html:37
 msgid "Username must be an valid email address."
-msgstr ""
+msgstr "用户名必须是一个有效的邮件地址。"
 
 #: ../templates/default/ldap/login.html:39
 msgid "Login required"
-msgstr ""
+msgstr "您必须先登录。"
 
 #: ../templates/default/ldap/login.html:41
 msgid "Username or password is empty."
-msgstr ""
+msgstr "用户名或密码为空。"
 
 #: ../templates/default/ldap/login.html:45
 msgid "Authentication failed."
-msgstr ""
+msgstr "验证失败。"
 
 #: ../templates/default/ldap/login.html:56
 msgid ""
 "All fields labelled <em>(Required)</em> must be completed before the form"
 " is submitted."
-msgstr ""
+msgstr "所有标记为 <em>（必填）</em> 的项都不能为空。"
 
 #: ../templates/default/ldap/login.html:63
 msgid "Username"
-msgstr ""
+msgstr "用户名"
 
 #: ../templates/default/ldap/login.html:63
 msgid "Must be a valid email address."
-msgstr ""
+msgstr "必须是有效的邮件地址"
 
 #: ../templates/default/ldap/login.html:70
 msgid "Password"
-msgstr ""
+msgstr "密码"
 
 #: ../templates/default/ldap/login.html:78
 msgid "Remember me"
-msgstr ""
+msgstr "记住我"
 
 #: ../templates/default/ldap/login.html:78
 msgid "Log me in automatically each time I visit."
-msgstr ""
+msgstr "每次访问时自动登录"
 
 #: ../templates/default/ldap/login.html:84
 msgid "Login"
-msgstr ""
+msgstr "登录"
 
 #: ../templates/default/ldap/macros.html:7
 msgid "Status:"
-msgstr ""
+msgstr "状态："
 
 #: ../templates/default/ldap/macros.html:33
 msgid "Company/Organization name"
-msgstr ""
+msgstr "公司/组织名称"
 
 #: ../templates/default/ldap/macros.html:48
 msgid "Default language"
-msgstr ""
+msgstr "默认语言"
 
 #: ../templates/default/ldap/macros.html:63
 msgid "Admin type"
-msgstr ""
+msgstr "管理员类型"
 
 #: ../templates/default/ldap/macros.html:71
 msgid "Normal Admin"
-msgstr ""
+msgstr "普通管理员"
 
 #: ../templates/default/ldap/macros.html:80
 #: ../templates/default/ldap/macros.html:85
 #: ../templates/default/ldap/macros.html:349
 #: ../templates/default/ldap/users.html:77
 msgid "Unlimited"
-msgstr ""
+msgstr "无限制"
 
 #: ../templates/default/ldap/macros.html:106
 msgid "Max quota size"
@@ -568,7 +568,7 @@ msgstr ""
 
 #: ../templates/default/ldap/macros.html:109
 msgid "Max quota size (in MB)"
-msgstr ""
+msgstr "邮箱最大容量（以 MB 为单位）"
 
 #: ../templates/default/ldap/macros.html:111
 #, python-format
@@ -603,18 +603,18 @@ msgstr ""
 
 #: ../templates/default/ldap/macros.html:148
 msgid "Account status"
-msgstr ""
+msgstr "帐号状态"
 
 #: ../templates/default/ldap/macros.html:152
 msgid "Active"
-msgstr ""
+msgstr "启用"
 
 #: ../templates/default/ldap/macros.html:156
 #: ../templates/default/ldap/macros.html:366
 #: ../templates/default/ldap/macros.html:395
 #: ../templates/default/ldap/macros.html:425
 msgid "Disabled"
-msgstr ""
+msgstr "禁用"
 
 #: ../templates/default/ldap/macros.html:166
 #: ../templates/default/ldap/macros.html:168
@@ -623,24 +623,24 @@ msgstr ""
 
 #: ../templates/default/ldap/macros.html:172
 msgid "Yes"
-msgstr ""
+msgstr "是"
 
 #: ../templates/default/ldap/macros.html:176
 msgid "No"
-msgstr ""
+msgstr "否"
 
 #: ../templates/default/ldap/macros.html:190
 #: ../templates/default/ldap/user_profile.html:24
 msgid "Service control"
-msgstr ""
+msgstr "服务控制"
 
 #: ../templates/default/ldap/macros.html:192
 msgid "Services control"
-msgstr ""
+msgstr "服务控制"
 
 #: ../templates/default/ldap/macros.html:197
 msgid "Mail service."
-msgstr ""
+msgstr "邮件服务"
 
 #: ../templates/default/ldap/macros.html:197
 msgid "Check out this to enable all mail related services."
@@ -693,11 +693,11 @@ msgstr ""
 #: ../templates/default/ldap/macros.html:272
 #, python-format
 msgid "%s (%s)"
-msgstr ""
+msgstr "%s（%s）"
 
 #: ../templates/default/ldap/macros.html:276
 msgid "(Global Admin)"
-msgstr ""
+msgstr "（全局管理员）"
 
 #: ../templates/default/ldap/macros.html:288
 #: ../templates/default/ldap/macros.html:291
@@ -707,7 +707,7 @@ msgstr ""
 #: ../templates/default/ldap/macros.html:291
 #, python-format
 msgid "Default is <strong>%s</strong>."
-msgstr ""
+msgstr "默认是 <strong>%s</strong>。"
 
 #: ../templates/default/ldap/macros.html:292
 msgid "Leave it empty to use default transport."
@@ -716,38 +716,38 @@ msgstr ""
 #: ../templates/default/ldap/macros.html:303
 #, python-format
 msgid "New password must contain at least <strong>%s</strong> characters."
-msgstr ""
+msgstr "新密码必须包含至少 <strong>%s</strong> 个字符。"
 
 #: ../templates/default/ldap/macros.html:307
 #, python-format
 msgid ""
 "New password must <strong>NOT</strong> contain more than "
 "<strong>%s</strong> characters."
-msgstr ""
+msgstr "新密码不能少于 <strong>%s</strong> 个字符。"
 
 #: ../templates/default/ldap/macros.html:320
 msgid "Old password"
-msgstr ""
+msgstr "旧密码"
 
 #: ../templates/default/ldap/macros.html:328
 msgid "New password"
-msgstr ""
+msgstr "新密码"
 
 #: ../templates/default/ldap/macros.html:336
 msgid "Confirm new password"
-msgstr ""
+msgstr "确认新密码"
 
 #: ../templates/default/ldap/macros.html:336
 msgid "Re-enter your password exactly as before."
-msgstr ""
+msgstr "重新输入上面的新密码"
 
 #: ../templates/default/ldap/macros.html:348
 msgid "Mail quota (in MB)"
-msgstr ""
+msgstr "邮箱容量（单位：MB）"
 
 #: ../templates/default/ldap/macros.html:349
 msgid "Current quota:"
-msgstr ""
+msgstr "当前容量"
 
 #: ../templates/default/ldap/macros.html:358
 msgid "Recipient BCC"
@@ -757,7 +757,7 @@ msgstr ""
 #: ../templates/default/ldap/macros.html:391
 #: ../templates/default/ldap/macros.html:421
 msgid "Enabled"
-msgstr ""
+msgstr "启用"
 
 #: ../templates/default/ldap/macros.html:372
 #: ../templates/default/ldap/macros.html:375
