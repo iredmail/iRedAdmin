@@ -3,11 +3,12 @@
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
 #
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: michaelbibby@gmail.com\n"
-"POT-Creation-Date: 2009-06-25 19:27-0400\n"
+"POT-Creation-Date: 2009-06-26 12:04-0400\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,139 +17,126 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.4\n"
 
-#: ../templates/default/ldap/admin_add.html:5
-#: ../templates/default/ldap/layout.html:89
-msgid "Admins"
-msgstr "管理员"
-
-#: ../templates/default/ldap/admin_add.html:10
-msgid "Add new admin(s):"
-msgstr "添加新管理员"
-
-#: ../templates/default/ldap/admin_add.html:15
-msgid "Note: Multiple accounts must be sperated by SPACE."
-msgstr "注意：多个"
-
-#: ../templates/default/ldap/admin_create.html:17
-#: ../templates/default/ldap/admin_create.html:21
+#: ../templates/default/ldap/admin_create.html:16
+#: ../templates/default/ldap/admin_create.html:20
+#: ../templates/default/ldap/admins.html:12
+#: ../templates/default/ldap/macros.html:124
 msgid "Create new mail admin"
 msgstr ""
 
-#: ../templates/default/ldap/admin_create.html:29
+#: ../templates/default/ldap/admin_create.html:28
+#: ../templates/default/ldap/admin_profile.html:62
 #: ../templates/default/ldap/user_create.html:26
-#: ../templates/default/ldap/user_profile.html:59
-msgid "Two new passwords are not match."
+#: ../templates/default/ldap/user_profile.html:46
+msgid "New passwords are not match."
 msgstr ""
 
-#: ../templates/default/ldap/admin_create.html:31
+#: ../templates/default/ldap/admin_create.html:30
 #: ../templates/default/ldap/user_create.html:28
 msgid "EMPTY password is NOT allowed."
 msgstr ""
 
-#: ../templates/default/ldap/admin_create.html:33
-#: ../templates/default/ldap/admin_profile.html:61
+#: ../templates/default/ldap/admin_create.html:32
+#: ../templates/default/ldap/admin_profile.html:60
 #: ../templates/default/ldap/user_create.html:30
-#: ../templates/default/ldap/user_profile.html:63
+#: ../templates/default/ldap/user_profile.html:50
 #, python-format
 msgid "New password must contain at least %s characters."
 msgstr ""
 
-#: ../templates/default/ldap/admin_create.html:35
+#: ../templates/default/ldap/admin_create.html:34
 #: ../templates/default/ldap/user_create.html:32
-#: ../templates/default/ldap/user_profile.html:65
+#: ../templates/default/ldap/user_profile.html:52
 #, python-format
 msgid "New password must NOT contain more than %s characters."
 msgstr ""
 
-#: ../templates/default/ldap/admin_create.html:56
-#: ../templates/default/ldap/admin_create.html:59
-#: ../templates/default/ldap/user_create.html:50
-#: ../templates/default/ldap/user_create.html:53
-msgid "Mail address"
+#: ../templates/default/ldap/admin_create.html:55
+#: ../templates/default/ldap/admin_create.html:58
+#: ../templates/default/ldap/admins.html:42
+#: ../templates/default/ldap/user_create.html:52
+#: ../templates/default/ldap/user_profile.html:90
+#: ../templates/default/ldap/users.html:38
+msgid "Mail Address"
 msgstr ""
 
-#: ../templates/default/ldap/admin_create.html:59
+#: ../templates/default/ldap/admin_create.html:58
 #: ../templates/default/ldap/domain_create.html:23
-#: ../templates/default/ldap/login.html:63
-#: ../templates/default/ldap/login.html:70
-#: ../templates/default/ldap/macros.html:63
-#: ../templates/default/ldap/macros.html:148
-#: ../templates/default/ldap/macros.html:320
-#: ../templates/default/ldap/macros.html:328
-#: ../templates/default/ldap/macros.html:336
-#: ../templates/default/ldap/user_create.html:53
+#: ../templates/default/ldap/login.html:62
+#: ../templates/default/ldap/login.html:69
+#: ../templates/default/ldap/macros.html:64
+#: ../templates/default/ldap/macros.html:163
+#: ../templates/default/ldap/macros.html:171
+#: ../templates/default/ldap/macros.html:179
+#: ../templates/default/ldap/user_create.html:52
 msgid "(Required)"
 msgstr ""
 
-#: ../templates/default/ldap/admin_create.html:73
+#: ../templates/default/ldap/admin_create.html:70
 #: ../templates/default/ldap/domain_create.html:33
-#: ../templates/default/ldap/user_create.html:78
+#: ../templates/default/ldap/user_create.html:77
 msgid "Create"
 msgstr ""
 
-#: ../templates/default/ldap/admin_profile.html:13
-msgid "Add admin profile"
+#: ../templates/default/ldap/admin_profile.html:12
+msgid "Edit admin profile"
 msgstr ""
 
-#: ../templates/default/ldap/admin_profile.html:16
-#: ../templates/default/ldap/user_profile.html:21
+#: ../templates/default/ldap/admin_profile.html:15
+#: ../templates/default/ldap/user_profile.html:17
 msgid "General"
 msgstr ""
 
-#: ../templates/default/ldap/admin_profile.html:17
-#: ../templates/default/ldap/user_profile.html:27
+#: ../templates/default/ldap/admin_profile.html:16
+#: ../templates/default/ldap/user_profile.html:18
 msgid "Reset password"
 msgstr ""
 
-#: ../templates/default/ldap/admin_profile.html:22
+#: ../templates/default/ldap/admin_profile.html:21
 msgid "Back to admin list"
 msgstr ""
 
-#: ../templates/default/ldap/admin_profile.html:32
+#: ../templates/default/ldap/admin_profile.html:31
 msgid "View/Update your preferences."
 msgstr ""
 
-#: ../templates/default/ldap/admin_profile.html:34
+#: ../templates/default/ldap/admin_profile.html:33
 #, python-format
 msgid "View/Update <strong>%s</strong>'s preferences."
 msgstr ""
 
-#: ../templates/default/ldap/admin_profile.html:38
+#: ../templates/default/ldap/admin_profile.html:37
 msgid "Reset your password."
 msgstr ""
 
-#: ../templates/default/ldap/admin_profile.html:40
+#: ../templates/default/ldap/admin_profile.html:39
 #, python-format
 msgid "Reset <strong>%s</strong>'s password."
 msgstr ""
 
-#: ../templates/default/ldap/admin_profile.html:50
+#: ../templates/default/ldap/admin_profile.html:49
 #, python-format
 msgid ""
 "Account created success. Would you like to <a "
 "href=\"%s/create/admin\">add one more</a>?"
 msgstr ""
 
-#: ../templates/default/ldap/admin_profile.html:52
-#: ../templates/default/ldap/domain_profile.html:46
+#: ../templates/default/ldap/admin_profile.html:51
+#: ../templates/default/ldap/domain_profile.html:28
 msgid "Profile update success."
 msgstr ""
 
-#: ../templates/default/ldap/admin_profile.html:56
+#: ../templates/default/ldap/admin_profile.html:55
 msgid "You are NOT permited to view/update other's profile."
 msgstr ""
 
-#: ../templates/default/ldap/admin_profile.html:59
+#: ../templates/default/ldap/admin_profile.html:58
 msgid "Current password is incorrect."
 msgstr ""
 
-#: ../templates/default/ldap/admin_profile.html:63
-msgid "New passwords are not match."
-msgstr ""
-
-#: ../templates/default/ldap/admin_profile.html:110
-#: ../templates/default/ldap/domain_profile.html:163
-#: ../templates/default/ldap/user_profile.html:224
+#: ../templates/default/ldap/admin_profile.html:104
+#: ../templates/default/ldap/domain_profile.html:78
+#: ../templates/default/ldap/user_profile.html:151
 msgid "Save changes"
 msgstr ""
 
@@ -161,16 +149,10 @@ msgid "All mail administrators."
 msgstr ""
 
 #: ../templates/default/ldap/admins.html:8
-#: ../templates/default/ldap/aliases.html:19
-#: ../templates/default/ldap/domains.html:12
-#: ../templates/default/ldap/maillists.html:18
+#: ../templates/default/ldap/domains.html:8
 #: ../templates/default/ldap/users.html:20
 #, python-format
 msgid "Total: %s."
-msgstr ""
-
-#: ../templates/default/ldap/admins.html:12
-msgid "Create a new mail admin"
 msgstr ""
 
 #: ../templates/default/ldap/admins.html:20
@@ -181,19 +163,16 @@ msgstr ""
 msgid "No account selected."
 msgstr ""
 
-#: ../templates/default/ldap/admins.html:42
-#: ../templates/default/ldap/users.html:46
-msgid "Mail Address"
-msgstr ""
-
 #: ../templates/default/ldap/admins.html:43
 #: ../templates/default/ldap/macros.html:35
-#: ../templates/default/ldap/users.html:47
+#: ../templates/default/ldap/user_profile.html:89
+#: ../templates/default/ldap/user_profile.html:100
+#: ../templates/default/ldap/user_profile.html:103
+#: ../templates/default/ldap/users.html:39
 msgid "Display Name"
 msgstr ""
 
 #: ../templates/default/ldap/admins.html:44
-#: ../templates/default/ldap/macros.html:67
 msgid "Global Admin"
 msgstr ""
 
@@ -202,59 +181,20 @@ msgid "Edit admin profile."
 msgstr ""
 
 #: ../templates/default/ldap/admins.html:76
-#: ../templates/default/ldap/aliases.html:69
-#: ../templates/default/ldap/domains.html:88
-#: ../templates/default/ldap/maillists.html:73
-#: ../templates/default/ldap/users.html:87
+#: ../templates/default/ldap/domains.html:74
+#: ../templates/default/ldap/users.html:79
 msgid "Select/Unselect all"
 msgstr ""
 
 #: ../templates/default/ldap/admins.html:77
-#: ../templates/default/ldap/aliases.html:70
-#: ../templates/default/ldap/domains.html:89
-#: ../templates/default/ldap/maillists.html:74
-#: ../templates/default/ldap/users.html:88
+#: ../templates/default/ldap/domains.html:75
+#: ../templates/default/ldap/users.html:80
 msgid "Delete"
 msgstr ""
 
 #: ../templates/default/ldap/admins.html:77
-#: ../templates/default/ldap/aliases.html:70
-#: ../templates/default/ldap/maillists.html:74
-#: ../templates/default/ldap/users.html:88
+#: ../templates/default/ldap/users.html:80
 msgid "Are you sure want to delete selected account(s)?"
-msgstr ""
-
-#: ../templates/default/ldap/aliases.html:6
-msgid "Mail aliases"
-msgstr ""
-
-#: ../templates/default/ldap/aliases.html:10
-msgid "View aliases under domain:"
-msgstr ""
-
-#: ../templates/default/ldap/aliases.html:13
-#: ../templates/default/ldap/maillists.html:12
-#: ../templates/default/ldap/users.html:14
-msgid "Select one domain"
-msgstr ""
-
-#: ../templates/default/ldap/aliases.html:23
-msgid "Create a new mail alias"
-msgstr ""
-
-#: ../templates/default/ldap/aliases.html:37
-#: ../templates/default/ldap/maillists.html:37
-msgid "Email Address"
-msgstr ""
-
-#: ../templates/default/ldap/aliases.html:38
-#: ../templates/default/ldap/maillists.html:36
-msgid "Name/Comment"
-msgstr ""
-
-#: ../templates/default/ldap/aliases.html:61
-#: ../templates/default/ldap/maillists.html:63
-msgid "Send mail to this group"
 msgstr ""
 
 #: ../templates/default/ldap/checknew.html:7
@@ -262,7 +202,7 @@ msgid "Software update"
 msgstr ""
 
 #: ../templates/default/ldap/checknew.html:14
-#: ../templates/default/ldap/dashboard.html:46
+#: ../templates/default/ldap/dashboard.html:44
 msgid "Check new version"
 msgstr ""
 
@@ -283,7 +223,7 @@ msgid "Download"
 msgstr ""
 
 #: ../templates/default/ldap/checknew.html:29
-msgid "Version status:"
+msgid "Version status"
 msgstr ""
 
 #: ../templates/default/ldap/checknew.html:30
@@ -292,12 +232,6 @@ msgstr ""
 
 #: ../templates/default/ldap/checknew.html:33
 msgid "Error while check new version"
-msgstr ""
-
-#: ../templates/default/ldap/checknew.html:36
-msgid ""
-"No account available for updating: missing \"username\" and \"password\" "
-"in section \"[auth]\" in settings.ini."
 msgstr ""
 
 #: ../templates/default/ldap/dashboard.html:7
@@ -325,145 +259,96 @@ msgstr ""
 msgid "Mail User"
 msgstr ""
 
-#: ../templates/default/ldap/dashboard.html:39
+#: ../templates/default/ldap/dashboard.html:37
 msgid "System info"
 msgstr ""
 
-#: ../templates/default/ldap/dashboard.html:45
+#: ../templates/default/ldap/dashboard.html:43
 msgid "iRedAdmin version"
 msgstr ""
 
-#: ../templates/default/ldap/dashboard.html:50
+#: ../templates/default/ldap/dashboard.html:48
 msgid "Hostname"
 msgstr ""
 
-#: ../templates/default/ldap/dashboard.html:56
+#: ../templates/default/ldap/dashboard.html:54
 msgid "Uptime"
 msgstr ""
 
-#: ../templates/default/ldap/dashboard.html:57
+#: ../templates/default/ldap/dashboard.html:55
 #, python-format
 msgid "%s days, %s hours, %s minutes."
 msgstr ""
 
-#: ../templates/default/ldap/dashboard.html:62
+#: ../templates/default/ldap/dashboard.html:60
 msgid "Server load"
 msgstr ""
 
-#: ../templates/default/ldap/dashboard.html:71
+#: ../templates/default/ldap/dashboard.html:69
 msgid "Network interfaces"
 msgstr ""
 
 #: ../templates/default/ldap/domain_create.html:8
-msgid "Add new mail domain"
-msgstr ""
-
 #: ../templates/default/ldap/domain_create.html:13
+#: ../templates/default/ldap/domains.html:13
 msgid "Create new mail domain"
 msgstr ""
 
 #: ../templates/default/ldap/domain_create.html:20
 #: ../templates/default/ldap/domain_create.html:23
-msgid "Domain name"
+#: ../templates/default/ldap/domain_profile.html:54
+#: ../templates/default/ldap/domains.html:41
+msgid "Domain Name"
 msgstr ""
 
-#: ../templates/default/ldap/domain_profile.html:19
-#: ../templates/default/ldap/domains.html:66
+#: ../templates/default/ldap/domain_profile.html:11
 msgid "Edit domain profile."
 msgstr ""
 
-#: ../templates/default/ldap/domain_profile.html:34
-#: ../templates/default/ldap/domains.html:47
+#: ../templates/default/ldap/domain_profile.html:18
+#: ../templates/default/ldap/domains.html:42
 #: ../templates/default/ldap/error.html:3
 #: ../templates/default/ldap/layout.html:91
 msgid "Users"
 msgstr ""
 
-#: ../templates/default/ldap/domain_profile.html:35
-#: ../templates/default/ldap/layout.html:92
-msgid "Mail Lists"
+#: ../templates/default/ldap/domain_profile.html:62
+#: ../templates/default/ldap/macros.html:33
+msgid "Company/Organization"
 msgstr ""
 
-#: ../templates/default/ldap/domain_profile.html:36
-#: ../templates/default/ldap/domains.html:49
-#: ../templates/default/ldap/layout.html:93
-msgid "Aliases"
+#: ../templates/default/ldap/domain_profile.html:63
+#: ../templates/default/ldap/user_profile.html:92
+#: ../templates/default/ldap/users.html:41
+msgid "Created Date"
 msgstr ""
 
-#: ../templates/default/ldap/domain_profile.html:91
-msgid "Domain name:"
+#: ../templates/default/ldap/domains.html:5
+#: ../templates/default/ldap/layout.html:86
+msgid "Mail Domains"
 msgstr ""
 
-#: ../templates/default/ldap/domain_profile.html:99
-msgid "Company/Organization:"
-msgstr ""
-
-#: ../templates/default/ldap/domain_profile.html:100
-msgid "Created Date:"
-msgstr ""
-
-#: ../templates/default/ldap/domain_profile.html:118
-msgid "If no admin assigned for domain, you can also manage it with global admin."
-msgstr ""
-
-#: ../templates/default/ldap/domain_profile.html:155
-msgid "Warning:"
-msgstr ""
-
-#: ../templates/default/ldap/domain_profile.html:155
-msgid "Domain BCC setting will override per-user bcc settings."
-msgstr ""
-
-#: ../templates/default/ldap/domains.html:9
-msgid "Mail domains"
-msgstr ""
-
-#: ../templates/default/ldap/domains.html:12
+#: ../templates/default/ldap/domains.html:8
 msgid "All domains under your control."
 msgstr ""
 
-#: ../templates/default/ldap/domains.html:17
-msgid "Create a new mail domain"
-msgstr ""
-
-#: ../templates/default/ldap/domains.html:27
+#: ../templates/default/ldap/domains.html:23
 msgid "Server-side size limit exceeded."
 msgstr ""
 
-#: ../templates/default/ldap/domains.html:29
+#: ../templates/default/ldap/domains.html:25
 msgid "No such domain."
 msgstr ""
 
-#: ../templates/default/ldap/domains.html:45
-msgid "Domain Name"
+#: ../templates/default/ldap/domains.html:59
+msgid "Edit domain profile"
 msgstr ""
 
-#: ../templates/default/ldap/domains.html:46
-#: ../templates/default/ldap/users.html:48
-msgid "Quota"
-msgstr ""
-
-#: ../templates/default/ldap/domains.html:48
-msgid "Lists"
-msgstr ""
-
-#: ../templates/default/ldap/domains.html:66
-msgid "Edit"
-msgstr ""
-
-#: ../templates/default/ldap/domains.html:73
+#: ../templates/default/ldap/domains.html:65
 msgid "List all mail users."
 msgstr ""
 
-#: ../templates/default/ldap/domains.html:76
-msgid "List all mail lists."
-msgstr ""
-
-#: ../templates/default/ldap/domains.html:79
-msgid "List all mail aliases."
-msgstr ""
-
-#: ../templates/default/ldap/domains.html:89
+#: ../templates/default/ldap/domains.html:75
 msgid "Are you sure want to delete selected domain(s) and accounts under it?"
 msgstr ""
 
@@ -479,74 +364,71 @@ msgstr ""
 msgid "iRedMail Management"
 msgstr ""
 
-#: ../templates/default/ldap/layout.html:86
-msgid "Mail Domains"
+#: ../templates/default/ldap/layout.html:89
+msgid "Admins"
 msgstr ""
 
+#: ../templates/default/ldap/layout.html:112
 #: ../templates/default/ldap/layout.html:114
-msgid "Feature request & support"
-msgstr ""
-
-#: ../templates/default/ldap/layout.html:116
 msgid "Get support"
 msgstr ""
 
 #: ../templates/default/ldap/login.html:3
-#: ../templates/default/ldap/login.html:27
+#: ../templates/default/ldap/login.html:26
 msgid "Login to manage your mail domains & users"
 msgstr ""
 
-#: ../templates/default/ldap/login.html:33
+#: ../templates/default/ldap/login.html:32
 msgid "Error:"
 msgstr ""
 
-#: ../templates/default/ldap/login.html:35
+#: ../templates/default/ldap/login.html:34
 msgid "Username or password is incorrect."
 msgstr ""
 
-#: ../templates/default/ldap/login.html:37
+#: ../templates/default/ldap/login.html:36
 msgid "Username must be an valid email address."
 msgstr ""
 
-#: ../templates/default/ldap/login.html:39
+#: ../templates/default/ldap/login.html:38
 msgid "Login required"
 msgstr ""
 
-#: ../templates/default/ldap/login.html:41
+#: ../templates/default/ldap/login.html:40
 msgid "Username or password is empty."
 msgstr ""
 
-#: ../templates/default/ldap/login.html:45
+#: ../templates/default/ldap/login.html:44
 msgid "Authentication failed."
 msgstr ""
 
-#: ../templates/default/ldap/login.html:56
+#: ../templates/default/ldap/login.html:55
 msgid ""
 "All fields labelled <em>(Required)</em> must be completed before the form"
 " is submitted."
 msgstr ""
 
-#: ../templates/default/ldap/login.html:63
+#: ../templates/default/ldap/login.html:62
 msgid "Username"
 msgstr ""
 
-#: ../templates/default/ldap/login.html:63
+#: ../templates/default/ldap/login.html:62
 msgid "Must be a valid email address."
 msgstr ""
 
-#: ../templates/default/ldap/login.html:70
+#: ../templates/default/ldap/login.html:69
 msgid "Password"
 msgstr ""
 
-#: ../templates/default/ldap/login.html:78
+#: ../templates/default/ldap/login.html:77
 msgid "Remember me"
 msgstr ""
 
-#: ../templates/default/ldap/login.html:78
+#: ../templates/default/ldap/login.html:77
 msgid "Log me in automatically each time I visit."
 msgstr ""
 
-#: ../templates/default/ldap/login.html:84
+#: ../templates/default/ldap/login.html:83
 msgid "Login"
 msgstr ""
 
@@ -554,281 +436,102 @@ msgstr ""
 msgid "Status:"
 msgstr ""
 
-#: ../templates/default/ldap/macros.html:33
-msgid "Company/Organization name"
-msgstr ""
-
 #: ../templates/default/ldap/macros.html:48
 msgid "Default language"
 msgstr ""
 
-#: ../templates/default/ldap/macros.html:63
-msgid "Admin type"
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:71
-msgid "Normal Admin"
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:80
-#: ../templates/default/ldap/macros.html:85
-#: ../templates/default/ldap/macros.html:349
-#: ../templates/default/ldap/users.html:77
-msgid "Unlimited"
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:106
-msgid "Max quota size"
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:109
-msgid "Max quota size (in MB)"
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:111
-#, python-format
-msgid "Current quota size: <strong>%s</strong>."
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:112
-#: ../templates/default/ldap/macros.html:120
-#: ../templates/default/ldap/macros.html:128
-#: ../templates/default/ldap/macros.html:136
-msgid "Tip: 0 or empty is unlimited."
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:117
-msgid "Max number of mail users"
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:119
-#: ../templates/default/ldap/macros.html:127
-#: ../templates/default/ldap/macros.html:135
-#, python-format
-msgid "Current number: <strong>%s</strong>."
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:125
-msgid "Max number of mail lists"
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:133
-msgid "Max number of mail aliases"
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:148
+#: ../templates/default/ldap/macros.html:64
 msgid "Account status"
 msgstr ""
 
-#: ../templates/default/ldap/macros.html:152
+#: ../templates/default/ldap/macros.html:68
 msgid "Active"
 msgstr ""
 
-#: ../templates/default/ldap/macros.html:156
-#: ../templates/default/ldap/macros.html:366
-#: ../templates/default/ldap/macros.html:395
-#: ../templates/default/ldap/macros.html:425
+#: ../templates/default/ldap/macros.html:72
+#: ../templates/default/ldap/macros.html:92
 msgid "Disabled"
 msgstr ""
 
-#: ../templates/default/ldap/macros.html:166
-#: ../templates/default/ldap/macros.html:168
+#: ../templates/default/ldap/macros.html:82
+#: ../templates/default/ldap/macros.html:84
 msgid "Backup MX"
 msgstr ""
 
-#: ../templates/default/ldap/macros.html:172
-msgid "Yes"
+#: ../templates/default/ldap/macros.html:88
+msgid "Enabled"
 msgstr ""
 
-#: ../templates/default/ldap/macros.html:176
-msgid "No"
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:190
-#: ../templates/default/ldap/user_profile.html:24
-msgid "Service control"
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:192
-msgid "Services control"
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:197
-msgid "Mail service."
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:197
-msgid "Check out this to enable all mail related services."
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:203
-msgid "Fetch mails via POP3."
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:208
-msgid "Fetch mails via IMAP."
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:213
-msgid "Send mail via SMTP."
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:218
-msgid "Receive mails."
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:223
-msgid "Forward incoming mails to other mail address."
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:228
-msgid "Customize mail filter rule."
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:236
-msgid "Automatic BCC all <strong>outgoing</strong> mails to specify mail address."
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:241
-msgid "Automatic BCC all <strong>incoming</strong> mails to specify mail address."
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:249
-msgid "Display this account's mail address in global LDAP address book."
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:260
+#: ../templates/default/ldap/macros.html:102
 msgid "Domain admin assignment"
 msgstr ""
 
-#: ../templates/default/ldap/macros.html:260
+#: ../templates/default/ldap/macros.html:102
 msgid "If no admin assigned, you can manage it with global admin."
 msgstr ""
 
-#: ../templates/default/ldap/macros.html:272
+#: ../templates/default/ldap/macros.html:114
 #, python-format
 msgid "%s (%s)"
 msgstr ""
 
-#: ../templates/default/ldap/macros.html:276
+#: ../templates/default/ldap/macros.html:118
 msgid "(Global Admin)"
 msgstr ""
 
-#: ../templates/default/ldap/macros.html:288
-#: ../templates/default/ldap/macros.html:291
+#: ../templates/default/ldap/macros.html:131
+#: ../templates/default/ldap/macros.html:134
 msgid "MTA transport"
 msgstr ""
 
-#: ../templates/default/ldap/macros.html:291
+#: ../templates/default/ldap/macros.html:134
 #, python-format
 msgid "Default is <strong>%s</strong>."
 msgstr ""
 
-#: ../templates/default/ldap/macros.html:292
+#: ../templates/default/ldap/macros.html:135
 msgid "Leave it empty to use default transport."
 msgstr ""
 
-#: ../templates/default/ldap/macros.html:303
+#: ../templates/default/ldap/macros.html:146
 #, python-format
 msgid "New password must contain at least <strong>%s</strong> characters."
 msgstr ""
 
-#: ../templates/default/ldap/macros.html:307
+#: ../templates/default/ldap/macros.html:150
 #, python-format
 msgid ""
 "New password must <strong>NOT</strong> contain more than "
 "<strong>%s</strong> characters."
 msgstr ""
 
-#: ../templates/default/ldap/macros.html:320
+#: ../templates/default/ldap/macros.html:163
 msgid "Old password"
 msgstr ""
 
-#: ../templates/default/ldap/macros.html:328
+#: ../templates/default/ldap/macros.html:171
 msgid "New password"
 msgstr ""
 
-#: ../templates/default/ldap/macros.html:336
+#: ../templates/default/ldap/macros.html:179
 msgid "Confirm new password"
 msgstr ""
 
-#: ../templates/default/ldap/macros.html:336
+#: ../templates/default/ldap/macros.html:179
 msgid "Re-enter your password exactly as before."
 msgstr ""
 
-#: ../templates/default/ldap/macros.html:348
+#: ../templates/default/ldap/macros.html:191
 msgid "Mail quota (in MB)"
 msgstr ""
 
-#: ../templates/default/ldap/macros.html:349
+#: ../templates/default/ldap/macros.html:192
 msgid "Current quota:"
 msgstr ""
 
-#: ../templates/default/ldap/macros.html:358
-msgid "Recipient BCC"
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:362
-#: ../templates/default/ldap/macros.html:391
-#: ../templates/default/ldap/macros.html:421
-msgid "Enabled"
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:372
-#: ../templates/default/ldap/macros.html:375
-msgid "Recipient BCC address"
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:376
-#: ../templates/default/ldap/macros.html:406
-msgid "Multiple addresses are <strong>NOT</strong> supported."
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:385
-#: ../templates/default/ldap/macros.html:387
-msgid "Sender BCC"
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:400
-#: ../templates/default/ldap/macros.html:402
-#: ../templates/default/ldap/macros.html:405
-msgid "Sender BCC address"
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:415
-#: ../templates/default/ldap/macros.html:417
-#: ../templates/default/ldap/user_profile.html:25
-msgid "Mail forwarding"
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:430
-#: ../templates/default/ldap/macros.html:432
-#: ../templates/default/ldap/macros.html:435
-msgid "Mail forwarding address"
-msgstr ""
-
-#: ../templates/default/ldap/maillists.html:5
-msgid "Mail lists"
-msgstr ""
-
-#: ../templates/default/ldap/maillists.html:9
-msgid "View mail lists under domain:"
-msgstr ""
-
-#: ../templates/default/ldap/maillists.html:22
-msgid "Create a new mail list"
-msgstr ""
-
-#: ../templates/default/ldap/maillists.html:38
-msgid "Has Members"
-msgstr ""
-
-#: ../templates/default/ldap/maillists.html:39
-msgid "Access Policy"
-msgstr ""
-
-#: ../templates/default/ldap/maillists.html:64
-msgid "View members"
+#: ../templates/default/ldap/macros.html:192
+#: ../templates/default/ldap/users.html:69
+msgid "Unlimited"
 msgstr ""
 
 #: ../templates/default/ldap/pageNotFound.html:3
@@ -838,117 +541,57 @@ msgstr ""
 
 #: ../templates/default/ldap/user_create.html:14
 #: ../templates/default/ldap/user_create.html:18
+#: ../templates/default/ldap/users.html:24
 msgid "Create new mail user"
 msgstr ""
 
-#: ../templates/default/ldap/user_profile.html:15
+#: ../templates/default/ldap/user_profile.html:11
+#: ../templates/default/ldap/users.html:66
 msgid "Edit user profile"
 msgstr ""
 
 #: ../templates/default/ldap/user_profile.html:22
-msgid "Shadow"
-msgstr ""
-
-#: ../templates/default/ldap/user_profile.html:23
-msgid "Groups"
-msgstr ""
-
-#: ../templates/default/ldap/user_profile.html:29
-msgid "Advanced settings"
-msgstr ""
-
-#: ../templates/default/ldap/user_profile.html:34
 msgid "Back to user list"
 msgstr ""
 
-#: ../templates/default/ldap/user_profile.html:47
+#: ../templates/default/ldap/user_profile.html:35
 msgid "Profile updated success."
 msgstr ""
 
-#: ../templates/default/ldap/user_profile.html:51
+#: ../templates/default/ldap/user_profile.html:39
 msgid "Profile updated failed."
 msgstr ""
 
-#: ../templates/default/ldap/user_profile.html:61
+#: ../templates/default/ldap/user_profile.html:48
 msgid "Password is empty."
 msgstr ""
 
-#: ../templates/default/ldap/user_profile.html:116
+#: ../templates/default/ldap/user_profile.html:86
 msgid "No avatar available."
 msgstr ""
 
-#: ../templates/default/ldap/user_profile.html:119
-msgid "Display name:"
+#: ../templates/default/ldap/user_profile.html:91
+msgid "Employee ID"
 msgstr ""
 
-#: ../templates/default/ldap/user_profile.html:120
-msgid "Mail:"
-msgstr ""
-
+#: ../templates/default/ldap/user_profile.html:118
 #: ../templates/default/ldap/user_profile.html:121
-msgid "Employee ID:"
-msgstr ""
-
-#: ../templates/default/ldap/user_profile.html:122
-msgid "Created:"
-msgstr ""
-
-#: ../templates/default/ldap/user_profile.html:130
-msgid "Name"
-msgstr ""
-
-#: ../templates/default/ldap/user_profile.html:133
-msgid "Display name"
-msgstr ""
-
-#: ../templates/default/ldap/user_profile.html:148
-#: ../templates/default/ldap/user_profile.html:151
 msgid "Telephone Number"
 msgstr ""
 
-#: ../templates/default/ldap/user_profile.html:170
-#: ../templates/default/ldap/user_profile.html:172
-msgid "Member of mail lists"
-msgstr ""
-
-#: ../templates/default/ldap/user_profile.html:180
-#, python-format
-msgid "(%s)"
-msgstr ""
-
-#: ../templates/default/ldap/user_profile.html:195
-msgid "Mailbox directory"
-msgstr ""
-
-#: ../templates/default/ldap/user_profile.html:197
-msgid "Storage base directory (user's home directory)"
-msgstr ""
-
-#: ../templates/default/ldap/user_profile.html:197
-msgid "Mailbox path. Format: domain.ltd/username/"
-msgstr ""
-
 #: ../templates/default/ldap/users.html:7
-msgid "Mail users"
+msgid "Mail Users"
 msgstr ""
 
 #: ../templates/default/ldap/users.html:11
 msgid "View users under domain:"
 msgstr ""
 
-#: ../templates/default/ldap/users.html:24
-msgid "Create a new mail user"
+#: ../templates/default/ldap/users.html:14
+msgid "Select one domain"
 msgstr ""
 
-#: ../templates/default/ldap/users.html:32
-msgid "Last Login Date"
-msgstr ""
-
-#: ../templates/default/ldap/users.html:35
-msgid "Created Date"
-msgstr ""
-
-#: ../templates/default/ldap/users.html:74
-msgid "Edit user profile."
+#: ../templates/default/ldap/users.html:40
+msgid "Quota"
 msgstr ""
 
