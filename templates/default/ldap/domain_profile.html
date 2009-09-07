@@ -61,21 +61,22 @@
                             </span></span></li>
                     <li><span><strong>{{ _('Company/Organization:') }}</strong> {{cn}}</span></li>
                     <li><span><strong>{{ _('Created Date:') }}</strong> {{createTimestamp[:4]}}-{{createTimestamp[4:6]}}-{{createTimestamp[6:8]}} {{createTimestamp[8:10]}}:{{createTimestamp[10:12]}}:{{createTimestamp[12:14]}}</span></li>
-                    </ul>
-                </div>
+                </ul>
             </div>
         </div>
+    </div>
 
-        {% if profile_type == 'general' %}
-            {{ display_cn(cn) }}
-            {% if session.get('domainGlobalAdmin') == 'yes' %}
-                {{ display_account_status(accountStatus) }}
-            {% endif %}
+    {% if profile_type == 'general' %}
+        {{ display_cn(cn) }}
+
+        {% if session.get('domainGlobalAdmin') == 'yes' %}
+            {{ display_account_status(accountStatus) }}
         {% endif %}
+    {% endif %}
 
-        <div class="frm-buttons">
-            <span class="submit"><input type="submit" name="save" value="{{ _('Save changes') }}" /></span>
-        </div>
+    <div class="frm-buttons">
+        <span class="submit"><input type="submit" name="save" value="{{ _('Save changes') }}" /></span>
+    </div>
 </div>
 </form>
 {% endblock main %}
