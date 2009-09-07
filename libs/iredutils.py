@@ -18,12 +18,12 @@ def filesizeformat(value):
     bytes = float(value)
     base = 1024
     if bytes < base:
-        return "%d Byte%s" % (bytes, bytes != 1 and 's' or '')
+        return "%d Bytes" % (bytes, bytes != 1 and 's' or '')
     elif bytes < base * base:
         return "%d KB" % (bytes / base)
     elif bytes < base * base * base:
-        return "%d M%sB" % (bytes / (base * base))
-    return "%.1f G%sB" % (bytes / (base * base * base))
+        return "%d MB" % (bytes / (base * base))
+    return "%.1f GB" % (bytes / (base * base * base))
 
 def get_translation(lang):
     # Init translations.
