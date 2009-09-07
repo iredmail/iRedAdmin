@@ -77,24 +77,24 @@ class profile(dbinit):
 
         if session.get('domainGlobalAdmin') != 'yes' and session.get('username') != self.mail:
             # Don't allow to view/update other admins' profile.
-            web.seeother('/profile/admin/%s/%s?msg=PERMISSION_DENIED' % ( self.profile_type, session.get('username') ))
+            web.seeother('/profile/admin/general/%s?msg=PERMISSION_DENIED' % session.get('username'))
         else:
             i = web.input()
             if self.profile_type == 'general':
                 # Get admin profile.
-                self.profile = adminLib.profile(self.mail)
+                result = adminLib.profile(self.mail)
 
                 # Get available languages.
-                if self.profile[0] is True:
+                if result[0] is True:
                     return render.admin_profile(
                             mail=self.mail,
                             profile_type=self.profile_type,
-                            profile=self.profile[1],
+                            profile=result[1],
                             languagemaps=adminLib.getLanguageMaps(),
                             msg=i.get('msg', None),
                             )
                 else:
-                    web.seeother('/profile/admin/%s/%s?msg=%s' % (self.profile_type, self.mail, self.profile[1]))
+                    web.seeother('/profile/admin/%s/%s?msg=%s' % (self.profile_type, self.mail, result[1]))
             elif self.profile_type == 'password':
                 return render.admin_profile(
                         mail=self.mail,
