@@ -80,7 +80,7 @@ class User(core.LDAPWrap):
             return result
 
         self.cn = data.get('cn')
-        self.quota = data.get('quota', domainLib.getDomainDefaultUserQuota(self.domain))
+        self.quota = data.get('mailQuota', domainLib.getDomainDefaultUserQuota(self.domain))
 
         ldif = iredldif.ldif_mailuser(
                 domain=self.domain,
