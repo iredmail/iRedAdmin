@@ -71,11 +71,9 @@
 
 <form class="frm-form" method="post" action="{{ctx.homepath}}/profile/admin/{{profile_type}}/{{mail}}">
 {% if profile_type == 'general' %}
-    {% if profile[0] is sameas true %}
-        {% set entry = profile[1][0][1] %}
-        {% set cn = entry.get('cn', [''])[0].decode('utf-8') %}
-        {% set preferredLanguage = entry.get('preferredLanguage', ['en_US'])[0] |string %}
-    {% endif %}
+    {% set entry = profile[0][1] %}
+    {% set cn = entry.get('cn', [''])[0].decode('utf-8') %}
+    {% set preferredLanguage = entry.get('preferredLanguage', ['en_US'])[0] |string %}
 
     {{ display_cn(
             value=cn,

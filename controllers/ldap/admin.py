@@ -85,13 +85,16 @@ class profile(dbinit):
                 self.profile = adminLib.profile(self.mail)
 
                 # Get available languages.
-                return render.admin_profile(
-                        mail=self.mail,
-                        profile_type=self.profile_type,
-                        profile=self.profile,
-                        languagemaps=adminLib.getLanguageMaps(),
-                        msg=i.get('msg', None),
-                        )
+                if self.profile[0] is True:
+                    return render.admin_profile(
+                            mail=self.mail,
+                            profile_type=self.profile_type,
+                            profile=self.profile[1],
+                            languagemaps=adminLib.getLanguageMaps(),
+                            msg=i.get('msg', None),
+                            )
+                else:
+                    web.seeother('/profile/admin/%s/%s?msg=%s' % (self.profile_type, self.mail, self.profile[1]))
             elif self.profile_type == 'password':
                 return render.admin_profile(
                         mail=self.mail,
