@@ -51,7 +51,7 @@
             <div class="ct-box data-box">
                 <ul class="data-list">
                     <input type="hidden" name="domainName" value="{{cur_domain}}" />
-                    <li><span><strong>{{ _('Domain name:') }}</strong>
+                    <li><span><strong>{{ _('Domain Name') }}</strong>
                         <span>
                             <select id="domainSelect" name="domainName" onchange="listAccountsUnderDomain(this, baseurl='{{ctx.homepath}}/profile/domain/general/');">
                                 {% for d in allDomains %}
@@ -59,8 +59,8 @@
                                 {% endfor %}
                                 </select>
                             </span></span></li>
-                    <li><span><strong>{{ _('Company/Organization:') }}</strong> {{cn}}</span></li>
-                    <li><span><strong>{{ _('Created Date:') }}</strong> {{createTimestamp[:4]}}-{{createTimestamp[4:6]}}-{{createTimestamp[6:8]}} {{createTimestamp[8:10]}}:{{createTimestamp[10:12]}}:{{createTimestamp[12:14]}}</span></li>
+                    <li><span><strong>{{ _('Company/Organization') }}</strong> {{cn}}</span></li>
+                    <li><span><strong>{{ _('Created Date') }}</strong> {{createTimestamp[:4]}}-{{createTimestamp[4:6]}}-{{createTimestamp[6:8]}} {{createTimestamp[8:10]}}:{{createTimestamp[10:12]}}:{{createTimestamp[12:14]}}</span></li>
                 </ul>
             </div>
         </div>

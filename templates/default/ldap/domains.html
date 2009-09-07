@@ -2,7 +2,7 @@
 
 {% from "macros.html" import set_account_status_img, %}
 
-{% block title %}{{ _('Mail domains') }}{% endblock %}
+{% block title %}{{ _('Mail Domains') }}{% endblock %}
 
 {% block id_welcome %}
 <span>{{ _('All domains under your control.') }} {{ _('Total: %s.') |format(domains|length) }}</span>
@@ -10,7 +10,7 @@
 
 {% block id_visit_links %}
 {% if session.get('domainGlobalAdmin') == 'yes' %}
-<span><a href="{{ctx.homepath}}/create/domain">{{ _('Create a new mail domain') }}</a></span>
+<span><a href="{{ctx.homepath}}/create/domain">{{ _('Create new mail domain') }}</a></span>
 {% endif %}
 {% endblock id_visit_links %}
 

@@ -47,10 +47,9 @@
             }}
 
     <fieldset class="frm-group group1">
-        <legend class="group-legend"><strong>{{ _('Mail address') }}</strong></legend>
         <div class="sf-set set1">
             <div class="sf-box text required">
-                <label><span>{{ _('Mail address') }} <em>{{ _('(Required)') }}</em></span></label>
+                <label><span>{{ _('Mail Address') }} <em>{{ _('(Required)') }}</em></span></label>
                 <span class="fld-input"><input type="text" size="25" name="username" value="{{username}}" />@
                     <select name="domainName">
                         {% for d in allDomains %}

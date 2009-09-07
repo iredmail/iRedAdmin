@@ -30,7 +30,7 @@
             <div class="sf-box text">
                 <label><span>
                 {% if accountType == 'domain' %}
-                    {{ _('Company/Organization name') }}
+                    {{ _('Company/Organization') }}
                 {% else %}
                     {{ _('Display Name') }}
                 {% endif %}
@@ -85,11 +85,11 @@
             <div class="mf-box">
                 <div class="mf-item">
                     <span class="fld-input"><input type="radio" name="domainBackupMX" {% if domainBackupMX == 'yes' %}value="yes" checked{%endif%} /></span>
-                    <label>{{ _('Yes') }}</label>
+                    <label>{{ _('Enabled') }}</label>
                 </div>
                 <div class="mf-item">
                     <span class="fld-input"><input type="radio" name="domainBackupMX" {% if domainBackupMX == 'no' %}value="no" checked{%endif%} /></span>
-                    <label>{{ _('No') }}</label>
+                    <label>{{ _('Disabled') }}</label>
                 </div>
             </div>
         </fieldset>

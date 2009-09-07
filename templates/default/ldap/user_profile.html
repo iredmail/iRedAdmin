@@ -86,10 +86,10 @@
                     <li class="useravatar">{% if jpegPhoto |length != 0 %}<img src="{{ctx.homepath}}/img/{{jpegPhoto.encode('base64')}}" width="120" alt="" />{%else%}{{ _('No avatar available.') }}{%endif%}</li>
                 </ul>
                 <ul class="data-list">
-                    <li class="username fn nickname"><span>{{ _('Display name:') }} <strong>{{cn}}</strong></span></li>
-                    <li><span>{{ _('Mail:') }} <strong>{{mail}}</strong></span></li>
-                    <li><span>{{ _('Employee ID:') }} <strong>{{employeeNumber}}</strong></span></li>
-                    <li><span>{{ _('Created:') }} <strong>{{createTimestamp[:4]}}-{{createTimestamp[4:6]}}-{{createTimestamp[6:8]}} {{createTimestamp[8:10]}}:{{createTimestamp[10:12]}}:{{createTimestamp[12:14]}}</strong></span></li>
+                    <li class="username fn nickname"><span>{{ _('Display Name') }} <strong>{{cn}}</strong></span></li>
+                    <li><span>{{ _('Mail Address') }} <strong>{{mail}}</strong></span></li>
+                    <li><span>{{ _('Employee ID') }} <strong>{{employeeNumber}}</strong></span></li>
+                    <li><span>{{ _('Created Date') }} <strong>{{createTimestamp[:4]}}-{{createTimestamp[4:6]}}-{{createTimestamp[6:8]}} {{createTimestamp[8:10]}}:{{createTimestamp[10:12]}}:{{createTimestamp[12:14]}}</strong></span></li>
                 </ul>
             </div>
         </div>
@@ -97,10 +97,10 @@
 
     {% if profile_type == 'general' %}
     <fieldset class="frm-group group1">
-        <legend class="group-legend"><strong>{{ _('Display name') }}</strong></legend>
+        <legend class="group-legend"><strong>{{ _('Display Name') }}</strong></legend>
         <div class="sf-set set1">
             <div class="sf-box text">
-                <label><span>{{ _('Username') }}</span></label>
+                <label><span>{{ _('Display Name') }}</span></label>
                 <span class="fld-input"><input type="text" name="cn" value="{{cn}}" size="25" /></span>
             </div>
             {#

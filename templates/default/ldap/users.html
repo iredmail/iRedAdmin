@@ -4,7 +4,7 @@
 
 {% from "macros.html" import set_account_status_img, display_quota, %}
 
-{% block title %}{{ _('Mail users') }}{% endblock %}
+{% block title %}{{ _('Mail Users') }}{% endblock %}
 
 {# Show drop-down menu of domain list #}
 {% block id_welcome %}
@@ -21,7 +21,7 @@
 {% endblock id_welcome %}
 
 {% block id_visit_links %}
-<span><a href="{{ctx.homepath}}/create/user/{{cur_domain}}">{{ _('Create a new mail user') }}</a></span>
+<span><a href="{{ctx.homepath}}/create/user/{{cur_domain}}">{{ _('Create new mail user') }}</a></span>
 {% endblock id_visit_links %}
 
 {% block main %}
@@ -63,7 +63,7 @@
                         <span class="float_left"><input type="checkbox" name="mail" value="{{mail}}" />&nbsp;{{mail}}</span>
                         <span class="float_right">{{ set_account_status_img(accountStatus) }}</span>
                     </td>
-                    <td><a href="{{ctx.homepath}}/profile/user/general/{{mail}}" title="{{ _('Edit user profile.') }}">{{ cn }}</a></td>
+                    <td><a href="{{ctx.homepath}}/profile/user/general/{{mail}}" title="{{ _('Edit user profile') }}">{{ cn }}</a></td>
 
                 {# mail quota #}
                 <td>{% if entries.get('mailQuota', ['0'])[0] == '0' %}{{ _('Unlimited') }}{% else %}{{ entries.get('mailQuota', ['0'])[0] |filesizeformat }} {% endif %}</td>
