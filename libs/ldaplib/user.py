@@ -129,12 +129,7 @@ class User(core.LDAPWrap):
         if self.profile_type == 'general':
             # Get cn.
             cn = data.get('cn', None)
-
-            if cn is not None and cn != u'' and cn != '':
-                mod_attrs += [ ( ldap.MOD_REPLACE, 'cn', cn.encode('utf-8') ) ]
-            #else:
-            #    # Delete attribute.
-            #    mod_attrs += [ ( ldap.MOD_REPLACE, 'cn', '') ]
+            mod_attrs += ldaputils.getModAttrCN(cn, default=self.mail.split('@')[0])
 
             # Get mail address.
 
@@ -175,6 +170,6 @@ class User(core.LDAPWrap):
         try:
             dn = ldaputils.convEmailToUserDN(self.mail)
             self.conn.modify_s(dn, mod_attrs)
-            return True
+            return (True, 'SUCCESS')
         except Exception, e:
             return (False, str(e))

@@ -21,8 +21,7 @@ def ldif_maildomain(domainName, cn=None,
             ('enabledService',  enabledService),
             ]
 
-    if cn is not None and cn != u'' and cn != '':
-        ldif += [('cn', [cn.encode('utf-8')])]
+    ldif += ldaputils.getModAttrCN(cn, default=domainName)
 
     return ldif
 
@@ -53,8 +52,7 @@ def ldif_maillist(group, domain, cn=u'Mail Group', desc=u'Mail Group',):
             ('hasMember',       'no'),
             ]
 
-    if cn is not None and cn != u'' and cn != '':
-        ldif += [('cn', cn.encode('utf-8'))]
+    ldif += ldaputils.getModAttrCN(cn, default=group)
 
     if desc is not None:
         ldif += [('description', desc.encode('utf-8'))]
@@ -74,10 +72,7 @@ def ldif_mailadmin(mail, passwd, cn, preferredLanguage='en_US', domainGlobalAdmi
             ('domainGlobalAdmin',   [web.safestr(domainGlobalAdmin)]),
             ]
 
-    if cn is not None and cn != u'' and cn != '':
-        ldif += [('cn', [cn.encode('utf-8')])]
-    else:
-        ldif += [('cn', [mail.split('@', 1)[0]])]
+    ldif += ldaputils.getModAttrCN(cn, default=mail.split('@', 1)[0])
 
     return ldif
 
@@ -136,9 +131,6 @@ def ldif_mailuser(domain, username, cn, passwd, quota=cfg.general.get('default_q
         ('memberOfGroup',       ['all@'+domain]), # Make all users belong to group 'all@domain.ltd'.
         ]
 
-    if cn is not None and cn != u'' and cn != '':
-        ldif += [('cn', [cn.encode('utf-8')])]
-    else:
-        ldif += [('cn', [username])]
+    ldif += ldaputils.getModAttrCN(cn, default=username)
 
     return ldif

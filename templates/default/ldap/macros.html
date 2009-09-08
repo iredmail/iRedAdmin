@@ -35,7 +35,7 @@
                     {{ _('Display Name') }}
                 {% endif %}
                 </span></label>
-                <span class="fld-input"><input type="text" name="cn" value="{{value}}" size="35" /></span>
+                <span class="fld-input"><input type="text" name="cn" value="{% if value != 'None' %}{{value}}{% endif %}" size="35" /></span>
             </div>
         </div>
     </fieldset>

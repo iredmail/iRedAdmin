@@ -139,3 +139,12 @@ def generatePasswd(password, pwscheme='SSHA'):
             pw = password
 
     return pw
+
+def getModAttrCN(cn, default='None'):
+    if cn is not None and cn != '' and cn != u'':
+        mod_attrs = [ ( ldap.MOD_REPLACE, 'cn', cn.encode('utf-8') ) ]
+    else:
+        # Value is 'None' (string, not NoneType).
+        mod_attrs = [ ( ldap.MOD_REPLACE, 'cn', default ) ]
+
+    return mod_attrs

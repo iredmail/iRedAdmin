@@ -117,16 +117,10 @@ class Admin(core.LDAPWrap):
         if self.profile_type == 'general':
             self.lang = web.safestr(data.get('preferredLanguage', 'en_US'))
 
-            mod_attrs = [
-                    (ldap.MOD_REPLACE, 'preferredLanguage', self.lang)
-                    ]
+            mod_attrs += [ (ldap.MOD_REPLACE, 'preferredLanguage', self.lang) ]
 
             cn = data.get('cn', None)
-            if cn is not None and cn != u'' and cn != '':
-                mod_attrs += [ ( ldap.MOD_REPLACE, 'cn', cn.encode('utf-8') ) ]
-            #else:
-            #    # Delete attribute.
-            #    mod_attrs += [ ( ldap.MOD_REPLACE, 'cn', '') ]
+            mod_attrs += ldaputils.getModAttrCN(cn, default=self.mail.split('@')[0])
 
             try:
                 # Modify profiles.

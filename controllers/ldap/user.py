@@ -96,15 +96,15 @@ class profile(dbinit):
         self.profile_type = web.safestr(profile_type)
         self.mail = web.safestr(mail)
 
-        self.result = userLib.update(
+        result = userLib.update(
                 profile_type=self.profile_type,
                 mail=self.mail,
                 data=i,
                 )
-        if self.result is True:
+        if result[0] is True:
             web.seeother('/profile/user/%s/%s?msg=UPDATED_SUCCESS' % (self.profile_type, self.mail))
-        elif self.result[0] is False:
-            web.seeother('/profile/user/%s/%s?msg=%s' % (self.profile_type, self.mail, self.result[1]))
+        else:
+            web.seeother('/profile/user/%s/%s?msg=%s' % (self.profile_type, self.mail, result[1]))
 
 class create(dbinit):
     @base.protected
