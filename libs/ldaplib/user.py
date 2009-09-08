@@ -129,7 +129,7 @@ class User(core.LDAPWrap):
         if self.profile_type == 'general':
             # Get cn.
             cn = data.get('cn', None)
-            mod_attrs += ldaputils.getModAttrCN(cn, default=self.mail.split('@')[0])
+            mod_attrs += ldaputils.getSingleModAttr(attr='cn', value=cn, default=self.mail.split('@')[0])
 
             # Get mail address.
 
@@ -143,7 +143,7 @@ class User(core.LDAPWrap):
 
             # Get telephoneNumber.
             employeeNumber = web.safestr(data.get('employeeNumber', 'None'))
-            mod_attrs += [ ( ldap.MOD_REPLACE, 'employeeNumber', employeeNumber ) ]
+            mod_attrs += ldaputils.getSingleModAttr(attr='employeeNumber', value=employeeNumber, default='None')
             
             # TODO add multiple value support
             telephoneNumber = data.get('telephoneNumber', [])

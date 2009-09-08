@@ -1,5 +1,7 @@
 = 0.2 =
+    * Show employee id while list users.
     * Ability to modify user's employee id (employeeNumber).
+    * Fix issue while submit empty display name (cn).
 
 = 0.1 =
     * Initiaize release.

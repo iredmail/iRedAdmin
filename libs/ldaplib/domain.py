@@ -143,7 +143,7 @@ class Domain(core.LDAPWrap):
         mod_attrs = []
         if self.profile_type == 'general':
             cn = data.get('cn', None)
-            mod_attrs += ldaputils.getModAttrCN(cn, default=self.domain)
+            mod_attrs += ldaputils.getSingleModAttr(attr='cn', value=cn, default=self.domain)
 
         if session.get('domainGlobalAdmin') == 'yes':
             accountStatus = web.safestr(data.get('accountStatus', 'active'))

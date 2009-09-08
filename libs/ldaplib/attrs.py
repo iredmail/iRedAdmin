@@ -72,7 +72,7 @@ USER_ATTR_PASSWORD = 'userPassword'
 
 USER_SEARCH_ATTRS = [
         # Required attributes.
-        'mail', 'cn', 'accountStatus', 'mailQuota', 'jpegPhoto',
+        'mail', 'cn', 'accountStatus', 'mailQuota', 'employeeNumber',
         'createTimestamp',                      # Internal/System attributes.
         ]
 

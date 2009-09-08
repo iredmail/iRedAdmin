@@ -37,6 +37,7 @@
         <tr>
             <th>{{ _('Mail Address') }}</th>
             <th>{{ _('Display Name') }}</th>
+            <th>{{ _('Employee ID') }}</th>
             <th>{{ _('Quota') }}</th>
             <th>{{ _('Created Date') }}</th>
         </tr>
@@ -49,6 +50,7 @@
                 {% set entries = i[1] %}
                 {% set mail = entries.get('mail')[0] |string %}
                 {% set cn = entries.get('cn', [''])[0].decode('utf-8') %}
+                {% set employeeid = entries.get('employeeNumber', [''])[0].decode('utf-8') %}
                 {# If not present, mark as 'disabled'. #}
                 {% set accountStatus = entries.get('accountStatus', ['disabled'])[0] %} 
                 {% set createTimestamp = entries.get('createTimestamp', ['--------------'])[0] %}
@@ -64,6 +66,7 @@
                         <span class="float_right">{{ set_account_status_img(accountStatus) }}</span>
                     </td>
                     <td><a href="{{ctx.homepath}}/profile/user/general/{{mail}}" title="{{ _('Edit user profile') }}">{{ cn }}</a></td>
+                    <td>{{ employeeid }}</a></td>
 
                 {# mail quota #}
                 <td>{% if entries.get('mailQuota', ['0'])[0] == '0' %}{{ _('Unlimited') }}{% else %}{{ entries.get('mailQuota', ['0'])[0] |filesizeformat }} {% endif %}</td>
