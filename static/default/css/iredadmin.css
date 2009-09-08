@@ -25,7 +25,7 @@ html, body, /* remove this line if necessary for site integration */
 
 .brd table {
     width: 100%;
-    table-layout: fixed;
+    table-layout: auto;
     empty-cells: show;
     }
 
@@ -1691,7 +1691,7 @@ H - MAIN TABLES
 
 .brd table {
     width: 100%;
-    table-layout: fixed;
+    table-layout: auto;
     empty-cells: show;
     border-spacing: 0;
     line-height: 1.3333em;
