@@ -130,7 +130,7 @@ class LDAPWrap:
         except ldap.UNWILLING_TO_PERFORM:
             return (False, 'INCORRECT_OLDPW')
         except Exception, e:
-            return (False, str(e))
+            return (False, ldaputils.getExceptionDesc(e))
 
     def check_domain_exist(self, domainName):
         self.result = self.conn.search_s(

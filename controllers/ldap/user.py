@@ -67,7 +67,7 @@ class list(dbinit):
 class profile(dbinit):
     @base.protected
     def GET(self, profile_type, mail):
-        i = web.input(enabledService=[], telephoneNumber=[],)
+        i = web.input(enabledService=[],telephoneNumber=[],mailForwardingAddress=[],)
         self.mail = web.safestr(mail)
         self.profile_type = web.safestr(profile_type)
 
@@ -92,7 +92,7 @@ class profile(dbinit):
 
     @base.protected
     def POST(self, profile_type, mail):
-        i = web.input(enabledService=[], telephoneNumber=[],)
+        i = web.input(enabledService=[],telephoneNumber=[],mailForwardingAddress=[],)
         self.profile_type = web.safestr(profile_type)
         self.mail = web.safestr(mail)
 

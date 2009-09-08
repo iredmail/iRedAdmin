@@ -21,6 +21,8 @@
         <div class="error">
         {% if msg == 'SIZELIMIT_EXCEEDED' %}
             {{ _('Server-side size limit exceeded.') }}
+        {% elif msg == 'PERMISSION_DENIED' %}
+            {{ _('Permission denied.') }}
         {% elif msg == 'NO_SUCH_OBJECT' %}
             {{ _('No such domain.') }}
         {% else %}

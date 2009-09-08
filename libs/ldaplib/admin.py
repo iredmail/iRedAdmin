@@ -71,7 +71,7 @@ class Admin(core.LDAPWrap):
                     )
             return (True, self.admin_profile)
         except Exception, e:
-            return (False, str(e))
+            return (False, ldaputils.getExceptionDesc(e))
 
     def add(self, data):
         self.cn = data.get('cn')
@@ -104,7 +104,7 @@ class Admin(core.LDAPWrap):
         except ldap.ALREADY_EXISTS:
             return (False, 'ALREADY_EXISTS')
         except Exception, e:
-            return (False, str(e))
+            return (False, ldaputils.getExceptionDesc(e))
 
     # Update admin profile.
     # data: must be a webpy storage object.
@@ -130,7 +130,7 @@ class Admin(core.LDAPWrap):
                     session['lang'] = self.lang
                 return (True, 'SUCCESS')
             except ldap.LDAPError, e:
-                return (False, str(e))
+                return (False, ldaputils.getExceptionDesc(e))
 
         if self.profile_type == 'password':
             self.cur_passwd = data.get('cur_passwd', None)

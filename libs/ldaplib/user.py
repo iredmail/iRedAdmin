@@ -44,7 +44,7 @@ class User(core.LDAPWrap):
         except ldap.SIZELIMIT_EXCEEDED:
             return (False, 'SIZELIMIT_EXCEEDED')
         except Exception, e:
-            return (False, str(e))
+            return (False, ldaputils.getExceptionDesc(e))
 
     # Get values of user dn.
     @LDAPDecorators.check_domain_access
@@ -98,7 +98,7 @@ class User(core.LDAPWrap):
         except ldap.ALREADY_EXISTS:
             return (False, 'ALREADY_EXISTS')
         except Exception, e:
-            return (False, str(e))
+            return (False, ldaputils.getExceptionDesc(e))
 
     @LDAPDecorators.check_domain_access
     def delete(self, domain, mails=[]):
@@ -147,7 +147,7 @@ class User(core.LDAPWrap):
             
             # TODO add multiple value support
             telephoneNumber = data.get('telephoneNumber', [])
-            if telephoneNumber != [] and telephoneNumber != [u'']:
+            if telephoneNumber != [] and telephoneNumber != [u''] and telephoneNumber != []:
                 mod_attrs += [ (ldap.MOD_REPLACE, 'telephoneNumber', None) ]
                 for i in telephoneNumber:
                     mod_attrs += [ ( ldap.MOD_REPLACE, 'telephoneNumber', web.safestr(i) ) ]
@@ -175,4 +175,4 @@ class User(core.LDAPWrap):
             self.conn.modify_s(dn, mod_attrs)
             return (True, 'SUCCESS')
         except Exception, e:
-            return (False, str(e))
+            return (False, ldaputils.getExceptionDesc(e))

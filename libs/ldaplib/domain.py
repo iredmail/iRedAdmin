@@ -132,7 +132,7 @@ class Domain(core.LDAPWrap):
         except ldap.NO_SUCH_OBJECT:
             return (False, 'NO_SUCH_OBJECT')
         except Exception, e:
-            return (False, str(e))
+            return (False, ldaputils.getExceptionDesc(e))
 
     # Update domain profile.
     # data = web.input()
@@ -159,4 +159,4 @@ class Domain(core.LDAPWrap):
             self.conn.modify_s(dn, mod_attrs)
             return (True, 'SUCCESS')
         except Exception, e:
-            return (False, str(e))
+            return (False, ldaputils.getExceptionDesc(e))

@@ -148,3 +148,18 @@ def getSingleModAttr(attr, value, default='None'):
         mod_attrs = [ ( ldap.MOD_REPLACE, attr, default ) ]
 
     return mod_attrs
+
+def getExceptionDesc(e):
+    try:
+        msg = ''
+        if e.args[0].has_key('info'):
+            # Get attribute name.
+            msg += e.args[0]['info'].split(':')[0]
+        if e.args[0].has_key('desc'):
+            # Get error description.
+            msg += ': ' + e.args[0]['desc']
+        else:
+            msg = "%s" % str(e)
+        return msg
+    except:
+        return "%s " % str(e)
