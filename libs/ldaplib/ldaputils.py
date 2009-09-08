@@ -140,6 +140,14 @@ def generatePasswd(password, pwscheme='SSHA'):
 
     return pw
 
+def getSingleLDIF(attr, value, default='None'):
+    if value is not None and value != u'' and value != '':
+        ldif = [(attr, [value.encode('utf-8')])]
+    else:
+        ldif = [(attr, [default.encode('utf-8')])]
+
+    return ldif
+
 def getSingleModAttr(attr, value, default='None'):
     if value is not None and value != '' and value != u'':
         mod_attrs = [ ( ldap.MOD_REPLACE, attr, value.encode('utf-8') ) ]

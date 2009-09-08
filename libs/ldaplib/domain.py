@@ -17,29 +17,32 @@ class Domain(core.LDAPWrap):
         pass
 
     @LDAPDecorators.check_global_admin
-    def add(self, domainName, cn=None):
+    def add(self):
         # msg: {key: value}
         msg = {}
-        domainName = ldaputils.removeSpaceAndDot(web.safestr(domainName)).lower()
-        if domainName == '' or domainName == 'None' or domainName is None:
-            return False
+        self.domain = web.safestr(data.get('domainName', None))
+        if self.domain == 'None' or self.domain == '':
+            return (False, 'EMPTY_DOMAIN')
+        
+        self.domain = ldaputils.removeSpaceAndDot(self.domain.lower())
+        self.dn = ldaputils.convDomainToDN(self.domain)
 
-        dn = ldaputils.convDomainToDN(domainName)
-        ldif = iredldif.ldif_maildomain(domainName, cn)
+        self.cn = data.get('cn', None)
+        ldif = iredldif.ldif_maildomain(domain=self.domain, cn=self.cn,)
 
         # Add domain dn.
         try:
-            result = self.conn.add_s(dn, ldif)
+            result = self.conn.add_s(self.dn, ldif)
         except ldap.ALREADY_EXISTS:
-            msg[domainName] = 'ALREADY_EXISTS'
+            msg[self.domain] = 'ALREADY_EXISTS'
         except ldap.LDAPError, e:
-            msg[domainName] = str(e)
+            msg[self.domain] = str(e)
 
         # Add domain groups.
         if len(attrs.DEFAULT_GROUPS) >= 1:
             for i in attrs.DEFAULT_GROUPS:
                 try:
-                    group_dn = 'ou=' + str(i) + ',' + str(dn)
+                    group_dn = 'ou=' + str(i) + ',' + str(self.dn)
                     group_ldif = iredldif.ldif_group(str(i))
 
                     self.conn.add_s(group_dn, group_ldif)
@@ -51,9 +54,9 @@ class Domain(core.LDAPWrap):
             pass
 
         if len(msg) == 0:
-            return True
+            return (True, 'SUCCESS')
         else:
-            return msg
+            return (False, msg)
 
     # List all domain admins.
     def admins(self, domain):

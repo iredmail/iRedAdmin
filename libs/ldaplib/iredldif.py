@@ -10,18 +10,19 @@ from libs.ldaplib import ldaputils
 cfg = web.iredconfig
 
 # Define and return LDIF structure of domain.
-def ldif_maildomain(domainName, cn=None,
+def ldif_maildomain(domain, cn=None,
         mtaTransport=cfg.general.get('mtaTransport', 'dovecot'),
         enabledService=['mail'], ):
+    domain = web.safestr(domain).lower()
     ldif = [
             ('objectCLass',     ['mailDomain']),
-            ('domainName',      [domainName.lower()]),
+            ('domainName',      [domain]),
             ('mtaTransport',    [mtaTransport]),
             ('accountStatus',   ['active']),
             ('enabledService',  enabledService),
             ]
 
-    ldif += ldaputils.getSingleModAttr(attr='cn', value=cn, default=domainName)
+    ldif += ldaputils.getSingleLDIF(attr='cn', value=cn, default=domain,)
 
     return ldif
 
@@ -52,7 +53,7 @@ def ldif_maillist(group, domain, cn=u'Mail Group', desc=u'Mail Group',):
             ('hasMember',       'no'),
             ]
 
-    ldif += ldaputils.getSingleModAttr(attr='cn', value=cn, default=group)
+    ldif += ldaputils.getSingleLDIF(attr='cn', value=cn, default=group)
 
     if desc is not None:
         ldif += [('description', desc.encode('utf-8'))]
@@ -72,7 +73,7 @@ def ldif_mailadmin(mail, passwd, cn, preferredLanguage='en_US', domainGlobalAdmi
             ('domainGlobalAdmin',   [web.safestr(domainGlobalAdmin)]),
             ]
 
-    ldif += ldaputils.getSingleModAttr(attr='cn', value=cn, default=mail.split('@', 1)[0])
+    ldif += ldaputils.getSingleLDIF(attr='cn', value=cn, default=mail.split('@', 1)[0])
 
     return ldif
 
@@ -131,6 +132,6 @@ def ldif_mailuser(domain, username, cn, passwd, quota=cfg.general.get('default_q
         ('memberOfGroup',       ['all@'+domain]), # Make all users belong to group 'all@domain.ltd'.
         ]
 
-    ldif += ldaputils.getSingleModAttr(attr='cn', value=cn, default=username)
+    ldif += ldaputils.getSingleLDIF(attr='cn', value=cn, default=username)
 
     return ldif

@@ -18,18 +18,22 @@
 {# Show system message #}
 {% if msg is defined and msg is not sameas none %}
     <div class="ct-box info-box">
-        <div class="error">
-        {% if msg == 'SIZELIMIT_EXCEEDED' %}
-            {{ _('Server-side size limit exceeded.') }}
-        {% elif msg == 'PERMISSION_DENIED' %}
-            {{ _('Permission denied.') }}
-        {% elif msg == 'NO_SUCH_OBJECT' %}
-            {{ _('No such domain.') }}
+        {% if msg == 'CREATE_SUCCESS' %}
+            <div class="success">{{ _('Domain created success.') }}</div>
         {% else %}
-            {# Catch-all #}
-            {{ msg }}
+            <div class="error">
+            {% if msg == 'SIZELIMIT_EXCEEDED' %}
+                {{ _('Server-side size limit exceeded.') }}
+            {% elif msg == 'PERMISSION_DENIED' %}
+                {{ _('Permission denied.') }}
+            {% elif msg == 'NO_SUCH_OBJECT' %}
+                {{ _('No such domain.') }}
+            {% else %}
+                {# Catch-all #}
+                {{ msg }}
+            {% endif %}
+            </div>
         {% endif %}
-        </div>
     </div>
 {% endif %}
 

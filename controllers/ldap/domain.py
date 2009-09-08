@@ -94,10 +94,8 @@ class create(dbinit):
     @base.protected
     def POST(self):
         i = web.input()
-        domainName = i.get('domainName', None)
-        cn = i.get('cn', None)
-        result = domainLib.add(domainName=domainName, cn=cn)
-        if result is True:
-            web.seeother('/domains')
+        result = domainLib.add(data=i)
+        if result[0] is True:
+            web.seeother('/domains?msg=CREATE_SUCCESS')
         else:
-            return render.domain_create(msg=result)
+            return render.domain_create(msg=result[1])
