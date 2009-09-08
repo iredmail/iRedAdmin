@@ -142,7 +142,7 @@ class User(core.LDAPWrap):
                 mod_attrs += [ ( ldap.MOD_REPLACE, 'mailQuota', str(int(mailQuota) * 1024 * 1024) ) ]
 
             # Get telephoneNumber.
-            employeeNumber = web.safestr(data.get('employeeNumber', 'None'))
+            employeeNumber = data.get('employeeNumber', 'None')
             mod_attrs += ldaputils.getSingleModAttr(attr='employeeNumber', value=employeeNumber, default='None')
             
             # TODO add multiple value support
