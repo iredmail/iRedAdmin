@@ -1,4 +1,5 @@
 = 0.2 =
+    * Show multiple values of phone number (telephoneNumber).
     * Show employee id while list users.
     * Ability to modify user's employee id (employeeNumber).
     * Fix issue while submit empty display name (cn).

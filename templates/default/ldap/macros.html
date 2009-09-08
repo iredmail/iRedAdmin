@@ -56,18 +56,19 @@
     <fieldset class="frm-group">
         <legend class="group-legend"><strong>{{ _('Telephone Number') }}</strong></legend>
         <div class="sf-set">
+            {% if value |length == 0 %}
             <div class="sf-box text">
                 <label><span>{{ _('Telephone Number') }}</span></label>
-                <span class="fld-input">
-                    {% if value != [] %}
-                        {% for phone in value %}
-                        <input type="text" name="telephoneNumber" value="{{phone}}" size="25" /><br />
-                        {% endfor %}
-                    {% else %}
-                        <input type="text" name="telephoneNumber" value="" size="25" /><br />
-                    {% endif %}
-                </span>
+                <span class="fld-input"><input type="text" name="telephoneNumber" value="" size="25" /><br /></span>
             </div>
+            {% else %}
+                {% for phone in value %}
+                <div class="sf-box text">
+                    <label><span>{{ _('Telephone Number') }}</span></label>
+                    <span class="fld-input"><input type="text" name="telephoneNumber" value="{{phone}}" size="25" /></span><br />
+                </div>
+                {% endfor %}
+            {% endif %}
         </div>
     </fieldset>
 {%- endmacro %}
@@ -83,6 +84,7 @@
                             <option value="{{lang}}" {% if value == lang %}selected{%endif%}>{{languagemaps[lang]}}</option>
                         {% endfor %}
                     </select>
+                </span>
             </div>
         </div>
     </fieldset>
