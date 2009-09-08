@@ -3,6 +3,9 @@
 
 {% from "macros.html" import
         display_quota,
+        display_cn,
+        display_employeeid,
+        display_phone,
         display_account_status,
         display_password_policy,
         display_reset_password,
@@ -86,53 +89,21 @@
                     <li class="useravatar">{% if jpegPhoto |length != 0 %}<img src="{{ctx.homepath}}/img/{{jpegPhoto.encode('base64')}}" width="120" alt="" />{%else%}{{ _('No avatar available.') }}{%endif%}</li>
                 </ul>
                 <ul class="data-list">
-                    <li class="username fn nickname"><span>{{ _('Display Name') }} <strong>{% if cn != 'None'  %}{{cn}}{% endif %}</strong></span></li>
-                    <li><span>{{ _('Mail Address') }} <strong>{{mail}}</strong></span></li>
-                    <li><span>{{ _('Employee ID') }} <strong>{{employeeNumber}}</strong></span></li>
-                    <li><span>{{ _('Created Date') }} <strong>{{createTimestamp[:4]}}-{{createTimestamp[4:6]}}-{{createTimestamp[6:8]}} {{createTimestamp[8:10]}}:{{createTimestamp[10:12]}}:{{createTimestamp[12:14]}}</strong></span></li>
+                    <li class="username fn nickname"><span>{{ _('Display Name') }}{{_(':')}} <strong>{% if cn != 'None'  %}{{cn}}{% endif %}</strong></span></li>
+                    <li><span>{{ _('Mail Address') }}{{_(':')}} <strong>{{mail}}</strong></span></li>
+                    <li><span>{{ _('Employee ID') }}{{_(':')}} <strong>{{employeeNumber}}</strong></span></li>
+                    <li><span>{{ _('Created Date') }}{{_(':')}} <strong>{{createTimestamp[:4]}}-{{createTimestamp[4:6]}}-{{createTimestamp[6:8]}} {{createTimestamp[8:10]}}:{{createTimestamp[10:12]}}:{{createTimestamp[12:14]}}</strong></span></li>
                 </ul>
             </div>
         </div>
     </div>
 
     {% if profile_type == 'general' %}
-    <fieldset class="frm-group group1">
-        <legend class="group-legend"><strong>{{ _('Display Name') }}</strong></legend>
-        <div class="sf-set set1">
-            <div class="sf-box text">
-                <label><span>{{ _('Display Name') }}</span></label>
-                <span class="fld-input"><input type="text" name="cn" value="{% if cn != 'None'  %}{{cn}}{% endif %}" size="25" /></span>
-            </div>
-            {#
-            <div class="sf-box text">
-                <label><span>{{ _('Mail address') }}</span>{% if session.get('domainGlobalAdmin') == 'yes' %}<small>{{ _("Warning: Change mail address won't cause mailbox location changed.") }}</small>{%endif%}</label>
-                <span class="fld-input"><input type="text" name="username" value="{{username}}" size="25" />@{{domain}}</span>
-            </div>
-            #}
-        </div>
-    </fieldset>
-
-    {{ display_quota(value=mailQuota, firstitem='no' ) }}
-
-    <fieldset class="frm-group">
-        <legend class="group-legend"><strong>{{ _('Telephone Number') }}</strong></legend>
-        <div class="sf-set">
-            <div class="sf-box text">
-                <label><span>{{ _('Telephone Number') }}</span></label>
-                <span class="fld-input">
-                    {% if telephoneNumber != [] %}
-                        {% for phone in telephoneNumber %}
-                        <input type="text" name="telephoneNumber" value="{{phone}}" size="25" /><br />
-                        {% endfor %}
-                    {% else %}
-                        <input type="text" name="telephoneNumber" value="" size="25" /><br />
-                    {% endif %}
-                </span>
-            </div>
-        </div>
-    </fieldset>
-
-    {{ display_account_status(accountStatus) }}
+        {{ display_account_status(accountStatus) }}
+        {{ display_cn(cn, firstitem='no') }}
+        {{ display_employeeid(employeeNumber) }}
+        {{ display_quota(value=mailQuota, firstitem='no' ) }}
+        {{ display_phone(value=telephoneNumber) }}
     {% endif %}
 
     {% if profile_type == 'password' %}

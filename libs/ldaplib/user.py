@@ -142,6 +142,9 @@ class User(core.LDAPWrap):
                 mod_attrs += [ ( ldap.MOD_REPLACE, 'mailQuota', str(int(mailQuota) * 1024 * 1024) ) ]
 
             # Get telephoneNumber.
+            employeeNumber = web.safestr(data.get('employeeNumber', 'None'))
+            mod_attrs += [ ( ldap.MOD_REPLACE, 'employeeNumber', employeeNumber ) ]
+            
             # TODO add multiple value support
             telephoneNumber = data.get('telephoneNumber', [])
             if telephoneNumber != [] and telephoneNumber != [u'']:

@@ -1,2 +1,5 @@
+= 0.2 =
+    * Ability to modify user's employee id (employeeNumber).
+
 = 0.1 =
     * Initiaize release.

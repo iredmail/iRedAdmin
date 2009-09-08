@@ -24,7 +24,7 @@
     <input type="hidden" name="{{ name }}" value="{{ value }}">
 {%- endmacro %}
 
-{% macro display_cn(value='', accountType='domain', firstitem='yes') -%}
+{% macro display_cn(value='', accountType='user', firstitem='yes') -%}
     <fieldset class="frm-group {% if firstitem == 'yes' %}group1{% endif %}">
         <div class="sf-set {% if firstitem == 'yes' %}set1{% endif %}">
             <div class="sf-box text">
@@ -36,6 +36,37 @@
                 {% endif %}
                 </span></label>
                 <span class="fld-input"><input type="text" name="cn" value="{% if value != 'None' %}{{value}}{% endif %}" size="35" /></span>
+            </div>
+        </div>
+    </fieldset>
+{%- endmacro %}
+
+{% macro display_employeeid(value='', firstitem='no') -%}
+    <fieldset class="frm-group">
+        <div class="sf-set">
+            <div class="sf-box text">
+                <label><span>{{ _('Employee ID') }}</span></label>
+                <span class="fld-input"><input type="text" name="employeeNumber" value="{% if value != 'None' %}{{value}}{% endif %}" size="25" /></span>
+            </div>
+        </div>
+    </fieldset>
+{%- endmacro %}
+
+{% macro display_phone(value=[], firstitem='no') -%}
+    <fieldset class="frm-group">
+        <legend class="group-legend"><strong>{{ _('Telephone Number') }}</strong></legend>
+        <div class="sf-set">
+            <div class="sf-box text">
+                <label><span>{{ _('Telephone Number') }}</span></label>
+                <span class="fld-input">
+                    {% if value != [] %}
+                        {% for phone in value %}
+                        <input type="text" name="telephoneNumber" value="{{phone}}" size="25" /><br />
+                        {% endfor %}
+                    {% else %}
+                        <input type="text" name="telephoneNumber" value="" size="25" /><br />
+                    {% endif %}
+                </span>
             </div>
         </div>
     </fieldset>

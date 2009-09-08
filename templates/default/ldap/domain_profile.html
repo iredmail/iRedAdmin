@@ -67,7 +67,7 @@
     </div>
 
     {% if profile_type == 'general' %}
-        {{ display_cn(cn) }}
+        {{ display_cn(cn, accountType='domain') }}
 
         {% if session.get('domainGlobalAdmin') == 'yes' %}
             {{ display_account_status(accountStatus) }}
