@@ -26,6 +26,18 @@
 
 {% block main %}
 {# Show system message #}
+{% if msg is defined and msg is not sameas none %}
+<div class="ct-box info-box">
+    <div class="error">
+        {% if msg == 'INVALID_PROFILE_TYPE' %}
+            {{ _('Invalid profile type: %s.') |format(profile_type) }}
+        {% else %}
+            {{ msg }}
+        {% endif %}
+    </div>
+</div>
+{% endif %}
+
 
 {% if users is defined %}
     {# List all users. #}

@@ -61,6 +61,11 @@ DOMAIN_ATTRS_ALL = [
         'createTimestamp',
         ]
 
+DOMAIN_PROFILE_TYPE = [
+        'general', 'admins', 'services', 'bcc', 'quotas',
+        'backupmx', 'advanced',
+        ]
+
 VALUES_DOMAIN_BACKUPMX = ['yes', 'no']
 
 # ---------------------------------------------------------
@@ -83,4 +88,9 @@ USER_ATTRS_ALL = [
         'telephoneNumber', 'userRecipientBccAddress', 'userSenderBccAddress',
         'mailForwardingAddress',
         'createTimestamp',                      # Internal/System attributes.
+        ]
+
+USER_PROFILE_TYPE = [
+        'general', 'shadow', 'groups', 'services', 'forwarding',
+        'bcc', 'password', 'advanced',
         ]

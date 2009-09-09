@@ -51,14 +51,17 @@ class User(core.LDAPWrap):
     def profile(self, mail):
         self.mail = web.safestr(mail)
         self.dn = ldaputils.convEmailToUserDN(self.mail)
-        self.user_profile = self.conn.search_s(
-                self.dn,
-                ldap.SCOPE_BASE,
-                '(objectClass=mailUser)',
-                attrs.USER_ATTRS_ALL,
-                )
+        try:
+            self.user_profile = self.conn.search_s(
+                    self.dn,
+                    ldap.SCOPE_BASE,
+                    '(objectClass=mailUser)',
+                    attrs.USER_ATTRS_ALL,
+                    )
+            return (True, self.user_profile)
+        except Exception, e:
+            return (False, ldaputils.getExceptionDesc(e))
 
-        return self.user_profile
 
     @LDAPDecorators.check_global_admin
     def add(self, data):

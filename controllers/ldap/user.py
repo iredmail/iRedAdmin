@@ -9,7 +9,7 @@ from web import render
 from web import iredconfig as cfg
 from controllers.ldap import base
 from controllers.ldap.basic import dbinit
-from libs.ldaplib import domain, user, iredldif, ldaputils
+from libs.ldaplib import domain, user, attrs, iredldif, ldaputils
 
 session = web.config.get('_session')
 
@@ -71,24 +71,25 @@ class profile(dbinit):
         self.mail = web.safestr(mail)
         self.profile_type = web.safestr(profile_type)
 
-        if len(self.mail.split('@', 1)) == 2 and \
-                self.profile_type in ['general', 'shadow', 'groups', 'services', 'forwarding', 'bcc', 'password', 'advanced',]:
-            self.domain = self.mail.split('@', 1)[1]
+        if len(self.mail.split('@')) != 2:
+            web.seeother('/domains?msg=INVALID_USER')
 
-            self.profile = userLib.profile(mail=self.mail)
-            if self.profile:
-                return render.user_profile(
-                        profile_type=self.profile_type,
-                        mail=self.mail,
-                        user_profile=self.profile,
-                        min_passwd_length=cfg.general.get('min_passwd_length'),
-                        max_passwd_length=cfg.general.get('max_passwd_length'),
-                        msg=i.get('msg', None)
-                        )
-            else:
-                web.seeother('/users/' + '?msg=PERMISSION_DENIED')
+        self.domain = self.mail.split('@')[1]
+        if self.profile_type not in attrs.USER_PROFILE_TYPE:
+            web.seeother('/users/%s?msg=INVALID_PROFILE_TYPE&profile_type=%s' % (self.domain, self.profile_type) )
+
+        self.user_profile = userLib.profile(mail=self.mail)
+        if self.user_profile[0] is True:
+            return render.user_profile(
+                    profile_type=self.profile_type,
+                    mail=self.mail,
+                    user_profile=self.user_profile[1],
+                    min_passwd_length=cfg.general.get('min_passwd_length'),
+                    max_passwd_length=cfg.general.get('max_passwd_length'),
+                    msg=i.get('msg', None)
+                    )
         else:
-            web.seeother('/domains?msg=INVALID_REQUEST')
+            web.seeother('/users/%s?msg=%s' % (self.domain, self.user_profile[1]))
 
     @base.protected
     def POST(self, profile_type, mail):

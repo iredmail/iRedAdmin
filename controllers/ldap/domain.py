@@ -9,7 +9,7 @@ from web import render
 from web import iredconfig as cfg
 from controllers.ldap import base
 from controllers.ldap.basic import dbinit
-from libs.ldaplib import core, admin, domain
+from libs.ldaplib import core, admin, domain, atrs
 
 session = web.config.get('_session')
 
@@ -44,7 +44,7 @@ class profile(dbinit):
         if self.domain == '' or self.domain is None:
             web.seeother('/domains?msg=EMPTY_DOMAIN')
 
-        if self.profile_type not in ['general', 'admins', 'services', 'bcc', 'quotas', 'backupmx', 'advanced', ]:
+        if self.profile_type not in attrs.DOMAIN_PROFILE_TYPE:
             web.seeother('/domains?msg=INCORRECT_PROFILE_TYPE')
 
         result = domainLib.profile(domain=self.domain)

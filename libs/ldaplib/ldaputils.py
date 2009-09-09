@@ -149,11 +149,14 @@ def getSingleLDIF(attr, value, default='None'):
     return ldif
 
 def getSingleModAttr(attr, value, default='None'):
+    # Default value is 'None' string, not NoneType.
     if value is not None and value != '' and value != u'':
         mod_attrs = [ ( ldap.MOD_REPLACE, attr, value.encode('utf-8') ) ]
     else:
-        # Value is 'None' (string, not NoneType).
-        mod_attrs = [ ( ldap.MOD_REPLACE, attr, default ) ]
+        if default != 'None':
+            mod_attrs = [ ( ldap.MOD_REPLACE, attr, default.encode('utf-8') ) ]
+        else:
+            mod_attrs = [ ( ldap.MOD_REPLACE, attr, default ) ]
 
     return mod_attrs
 
