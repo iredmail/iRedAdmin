@@ -18,7 +18,7 @@
 {# Show profile categories #}
 {% block id_welcome %}
 <span><a href="{{ctx.homepath}}/profile/user/general/{{mail}}" {% if profile_type == 'general' %}class="active"{%endif%}>{{ _('General') }}</a>&nbsp;</span>
-<span><a href="{{ctx.homepath}}/profile/user/password/{{mail}}" {% if profile_type == 'password' %}class="active"{%endif%}>{{ _('Reset password') }}</a>&nbsp;</span>
+<span><a href="{{ctx.homepath}}/profile/user/password/{{mail}}" {% if profile_type == 'password' %}class="active"{%endif%}>{{ _('Reset Password') }}</a>&nbsp;</span>
 {% endblock id_welcome %}
 
 {% block id_visit_links %}

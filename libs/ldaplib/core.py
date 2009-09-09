@@ -54,73 +54,6 @@ class LDAPWrap:
     def __del__(self):
         self.conn.unbind()
 
-    def check_dn_exist(self, dn):
-        try:
-            result = self.conn.search_s(
-                    dn,
-                    ldap.SCOPE_BASE,
-                    '(objectClass=*)',
-                    )
-            return True
-        except ldap.NO_SUCH_OBJECT:
-            return False
-        except:
-            return False
-
-    def check_global_admin(func):
-        def proxyfunc(self, *args, **kw):
-            if session.get('domainGlobalAdmin') == 'yes':
-                return func(self, *args, **kw)
-            else:
-                return False
-        return proxyfunc
-
-    def check_domain_access(self, domainDN, admin):
-        domainDN = web.safestr(domainDN)
-        domainName = ldaputils.extractValueFromDN(domainDN, 'domainName')
-        if domainName is None: return False
-
-        admin = web.safestr(admin)
-
-        # Check domain exist.
-        if self.check_dn_exist(domainDN):
-            if session.get('domainGlobalAdmin') == 'yes':
-                #return True
-                #"""
-                try:
-                    self.access = self.conn.search_s(
-                            ldaputils.convEmailToAdminDN(admin),
-                            ldap.SCOPE_BASE,
-                            "(&(objectClass=mailAdmin)(domainGlobalAdmin=yes))",
-                            )
-                    if len(self.access) == 1:
-                        return True
-                    else:
-                        return False
-                except:
-                    return False    # Not a domain global admin.
-                #"""
-            else:
-                self.access = self.conn.search_s(
-                        domainDN,
-                        ldap.SCOPE_BASE,
-                        "(&(domainName=%s)(domainAdmin=%s))" % (domainName, admin),
-                        ['domainAdmin'],
-                        )
-
-                if len(self.access) == 1:
-                    #else:
-                    entry = self.access[0][1]
-                    if entry.has_key('domainAdmin') and admin in entry.get('domainAdmin'):
-                        return True
-                    else:
-                        return False
-                else:
-                    return False
-
-    def init_passwd(self, dn, passwd):
-        self.conn.passwd_s(dn, '', passwd)
-
     def change_passwd(self, dn, cur_passwd, newpw):
         dn = ldap.filter.escape_filter_chars(dn)
         try:
@@ -132,24 +65,15 @@ class LDAPWrap:
         except Exception, e:
             return (False, ldaputils.getExceptionDesc(e))
 
-    def check_domain_exist(self, domainName):
-        self.result = self.conn.search_s(
-                self.basedn,
-                ldap.SCOPE_ONELEVEL,
-                "(domainName=%s)" % (domainName),
-                )
-
-        if len(self.result) == 1:
-            return True
-        else:
-            return False
-
     def updateAttrSingleValue(self, dn, attr, value):
         self.mod_attrs = [
                 ( ldap.MOD_REPLACE, web.safestr(attr), web.safestr(value) )
                 ]
-        result = self.conn.modify_s(web.safestr(dn), self.mod_attrs)
-        return result
+        try:
+            result = self.conn.modify_s(web.safestr(dn), self.mod_attrs)
+            return (True, 'SUCCESS')
+        except Exception, e:
+            return (False, ldaputils.getExceptionDesc(e))
 
     # List all domains.
     def get_all_domains(self, attrs=attrs.DOMAIN_SEARCH_ATTRS):

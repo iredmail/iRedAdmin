@@ -22,7 +22,9 @@
 {% if msg is defined and msg is not sameas none %}
 <div class="ct-box info-box">
     <div class="error">
-        {% if msg == 'PW_MISMATCH' %}
+        {% if msg == 'ALREADY_EXISTS' %}
+            {{ _('Account already exists, please choose another username.') }}
+        {% elif msg == 'PW_MISMATCH' %}
             {{ _('New passwords are not match.') }}
         {% elif msg == 'PW_EMPTY' %}
             {{ _('EMPTY password is NOT allowed.') }}
