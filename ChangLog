@@ -1,4 +1,5 @@
 = 0.2 =
+    * Add French translation. Thanks Mael Lesaout (mael.lesaout@gmail).
     * Show multiple values of phone number (telephoneNumber).
     * Show employee id while list users.
     * Ability to modify user's employee id (employeeNumber).
