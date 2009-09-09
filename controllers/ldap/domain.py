@@ -9,7 +9,7 @@ from web import render
 from web import iredconfig as cfg
 from controllers.ldap import base
 from controllers.ldap.basic import dbinit
-from libs.ldaplib import core, admin, domain, atrs
+from libs.ldaplib import core, admin, domain, attrs
 
 session = web.config.get('_session')
 

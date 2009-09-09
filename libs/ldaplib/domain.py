@@ -17,7 +17,7 @@ class Domain(core.LDAPWrap):
         pass
 
     @LDAPDecorators.check_global_admin
-    def add(self):
+    def add(self, data):
         # msg: {key: value}
         msg = {}
         self.domain = web.safestr(data.get('domainName', None))
