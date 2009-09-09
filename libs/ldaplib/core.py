@@ -20,7 +20,10 @@ class LDAPWrap:
 
         # Initialize LDAP connection.
         try:
-            self.conn = ldap.initialize(cfg.ldap.get('uri', 'ldap://127.0.0.1'))
+            self.conn = ldap.initialize(
+                    uri=cfg.ldap.get('uri', 'ldap://127.0.0.1:389'),
+                    trace_level=int(cfg.ldap.get('trace_level', 0)),
+                    )
 
             #self.conn.protocol_version = ldap.VERSION3
             # Set LDAP protocol version.
@@ -31,15 +34,6 @@ class LDAPWrap:
                 self.conn.set_option(ldap.OPT_PROTOCOL_VERSION, ldap.VERSION3)
         except Exception, e:
             return False
-
-        # Set default size limit.
-        #self.conn.set_option(ldap.OPT_SIZELIMIT, int(ldapconf.LDAP_SIZELIMIT))
-        #ldap.set_option(ldap.OPT_SIZELIMIT, 100)
-        #self.conn.set_option(ldap.OPT_SIZELIMIT, 100)
-
-        # Set log level.
-        #self.conn.set_option(ldap.OPT_DEBUG_LEVEL, int(ldapconf.LDAP_DEBUG_LEVEL))
-        #ldap.set_option(ldap.OPT_DEBUG_LEVEL, int(ldapconf.LDAP_DEBUG_LEVEL))
 
         use_tls = eval(cfg.ldap.get('use_tls', '0'))
         if use_tls:

@@ -65,9 +65,9 @@ uri = ldap://127.0.0.1:389
 # LDAP protocol version. 3 (LDAP v3) is recommend.
 protocol_version = 3
 
-# Debug level of LDAP operations: 0, 2, [...], 255.
-# Warning: it's not RECOMMEND to increase debug level in product server.
-debug_level = 0
+# Trace level of LDAP operations: 0, 2, [...], 255.
+# 0 is recommend for production use.
+trace_level = 0
 
 # LDAP suffix.
 suffix = dc=iredmail,dc=org
