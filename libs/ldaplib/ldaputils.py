@@ -153,7 +153,7 @@ def getSingleModAttr(attr, value, default='None'):
     if value is not None and value != '' and value != u'':
         mod_attrs = [ ( ldap.MOD_REPLACE, attr, value.encode('utf-8') ) ]
     else:
-        if default != 'None':
+        if default is not None and default != 'None':
             mod_attrs = [ ( ldap.MOD_REPLACE, attr, default.encode('utf-8') ) ]
         else:
             mod_attrs = [ ( ldap.MOD_REPLACE, attr, default ) ]
