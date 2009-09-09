@@ -66,8 +66,8 @@ class User(core.LDAPWrap):
     @LDAPDecorators.check_global_admin
     def add(self, data):
         # Get domain name, username, cn.
-        self.domain = web.safestr(data.get('domainName'))
-        self.username = web.safestr(data.get('username'))
+        self.domain = web.safestr(data.get('domainName')).lower()
+        self.username = web.safestr(data.get('username')).lower()
 
         if self.domain == '' or self.username == '':
             return (False, 'MISSING_DOMAIN_OR_USERNAME')

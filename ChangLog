@@ -1,4 +1,6 @@
-= 0.2 =
+= 0.1.1 =
+    * Convert new account name to lower case.
+    * Fix incorrect maildir path: missing '/'.
     * Add French translation. Thanks Mael Lesaout (mael.lesaout@gmail).
     * Show multiple values of phone number (telephoneNumber).
     * Show employee id while list users.

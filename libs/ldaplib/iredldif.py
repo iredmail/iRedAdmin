@@ -80,16 +80,13 @@ def ldif_mailadmin(mail, passwd, cn, preferredLanguage='en_US', domainGlobalAdmi
 # Define and return LDIF structure of mail user.
 def ldif_mailuser(domain, username, cn, passwd, quota=cfg.general.get('default_quota')):
     DATE = time.strftime('%Y.%m.%d.%H.%M.%S')
-    domain = str(domain)
+    domain = str(domain).lower()
     quota = int(quota) * 1024 * 1024
-    username = ldaputils.removeSpaceAndDot(str(username))
-    mail = username.lower() + '@' + domain
+    username = ldaputils.removeSpaceAndDot(str(username)).lower()
+    mail = username + '@' + domain
     #dn = convEmailToUserDN(mail)
 
-    maildir_domain = str(domain).lower()
     if eval(cfg.general.get('hashed_maildir', True)) is True:
-        # Hashed. Length of domain name are always >= 2.
-        #maildir_domain = "%s/%s/%s/" % (domain[:1], domain[:2], domain,)
         if len(username) >= 3:
             maildir_user = "%s/%s/%s/%s-%s/" % (username[:1], username[:2], username[:3], username, DATE,)
         elif len(username) == 2:
@@ -108,11 +105,13 @@ def ldif_mailuser(domain, username, cn, passwd, quota=cfg.general.get('default_q
                     username,
                     DATE,
                     )
-        mailMessageStore = maildir_domain + maildir_user
+        mailMessageStore = domain + '/' + maildir_user
     else:
         mailMessageStore = "%s/%s-%s/" % (domain, username, DATE,)
 
-    homeDirectory = cfg.general.get('storage_base_directory') + '/' + mailMessageStore
+    mailMessageStore = mailMessageStore.lower()
+    storageBaseDirectory = cfg.general.get('storage_base_directory').lower()
+    homeDirectory = storageBaseDirectory + '/' + mailMessageStore
 
     ldif = [
         ('objectCLass',         ['inetOrgPerson', 'mailUser', 'shadowAccount']),
@@ -121,7 +120,7 @@ def ldif_mailuser(domain, username, cn, passwd, quota=cfg.general.get('default_q
         ('mailQuota',           [str(quota)]),
         ('sn',                  [username]),
         ('uid',                 [username]),
-        ('storageBaseDirectory', [cfg.general.get('storage_base_directory')]),
+        ('storageBaseDirectory', [storageBaseDirectory]),
         ('mailMessageStore',    [mailMessageStore]),
         ('homeDirectory',       [homeDirectory]),
         ('accountStatus',       ['active']),

@@ -75,7 +75,7 @@ class Admin(core.LDAPWrap):
 
     def add(self, data):
         self.cn = data.get('cn')
-        self.mail = web.safestr(data.get('username')) + '@' + web.safestr(data.get('domain'))
+        self.mail = web.safestr(data.get('username')).lower() + '@' + web.safestr(data.get('domain')).lower()
 
         self.preferredLanguage = web.safestr(data.get('preferredLanguage', 'en_US'))
 
