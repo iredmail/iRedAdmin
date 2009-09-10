@@ -120,7 +120,7 @@ class Admin(core.LDAPWrap):
             mod_attrs += [ (ldap.MOD_REPLACE, 'preferredLanguage', self.lang) ]
 
             cn = data.get('cn', None)
-            mod_attrs += ldaputils.getSingleModAttr(attr='cn', value=cn, default=self.mail.split('@')[0])
+            mod_attrs += ldaputils.getSingleModAttr(attr='cn', value=cn, default=self.mail.split('@')[0],)
 
             try:
                 # Modify profiles.
