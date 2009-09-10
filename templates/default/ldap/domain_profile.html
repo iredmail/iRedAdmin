@@ -39,8 +39,6 @@
 {% set domainName = entries.get('domainName')[0] %}
 {% set cn = entries.get('cn', [''])[0].decode('utf-8') %}
 {% set accountStatus = entries.get('accountStatus', ['disabled'])[0] %}
-{% set domainAdmin = entries.get('domainAdmin', ['']) %}
-{% set domainBackupMX = entries.get('domainBackupMX', ['no'])[0] %}
 
 {% set createTimestamp = entries.get('createTimestamp', ['--------------'])[0] %}
 
