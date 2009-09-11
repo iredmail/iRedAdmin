@@ -4,12 +4,14 @@
 {% block js_tablesorter %}{% endblock js_tablesorter %}
 {% block jquery_docoment_ready %}{% endblock jquery_docoment_ready %}
 
-{% block title %}{{ _('Page not found.') }}{% endblock title %}
+{% block title %}
+    {{ _('Error:') }}&nbsp;{{ _('Page not found (%s).') |format(ctx.path) }}
+{% endblock title %}
 
 {% block main %}
 <div class="ct-box info-box">
     <div class="error">
-        <strong>{{ _('Error:') }}&nbsp;{{ _('Page not found.') }}</strong>
+        <strong>{{ _('Error:') }}&nbsp;{{ _('Page not found (%s).') |format(ctx.path) }}</strong>
     </div>
 </div>
 {% endblock main %}
