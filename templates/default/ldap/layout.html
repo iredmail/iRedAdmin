@@ -48,7 +48,9 @@
             });
 
             $("a,input,img").ToolTipDemo('#8dbdd8');
-            $("#account_list").tablesorter( {sortList: [[0,0]]} );
+            {% block jquery_snippet_sorter %}
+                $("#account_list").tablesorter( {sortList: [[0,0]]} );
+            {% endblock jquery_snippet_sorter %}
             {% block jquery_snippets %}{% endblock jquery_snippets %}
         });
 
