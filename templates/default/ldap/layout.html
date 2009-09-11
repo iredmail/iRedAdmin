@@ -58,7 +58,9 @@
 
     <script type="text/javascript">
         function changeDomain(domain, baseurl) {
-            location.href = baseurl + domain.options[domain.selectedIndex].value;
+            if ( domain.options[domain.selectedIndex].value != 'none' ) {
+                location.href = baseurl + domain.options[domain.selectedIndex].value;
+            }
         }
     </script>
 
