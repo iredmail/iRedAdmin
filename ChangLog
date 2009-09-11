@@ -1,4 +1,5 @@
 = 0.1.1 =
+    * Fix http error 404 page.
     * Convert new account name to lower case.
     * Fix incorrect maildir path: missing '/'.
     * Add French translation. Thanks Mael Lesaout (mael.lesaout@gmail).

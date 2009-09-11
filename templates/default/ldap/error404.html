@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+
+{% block js %}{% endblock js %}
+{% block js_tablesorter %}{% endblock js_tablesorter %}
+{% block jquery_docoment_ready %}{% endblock jquery_docoment_ready %}
+
+{% block title %}{{ _('Page not found.') }}{% endblock title %}
+
+{% block main %}
+<div class="ct-box info-box">
+    <div class="error">
+        <strong>{{ _('Error:') }}&nbsp;{{ _('Page not found.') }}</strong>
+    </div>
+</div>
+{% endblock main %}

@@ -92,4 +92,9 @@ render = render_jinja(
 import iredutils
 render._lookup.filters['filesizeformat'] = iredutils.filesizeformat
 render = iredutils.setRenderLang(render, lang)
+
+def notfound():
+    return web.notfound(render.error404())
+
+app.notfound = notfound
 web.render = render

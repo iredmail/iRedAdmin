@@ -12,7 +12,6 @@ from libs import iredbase, iredutils
 
 # start app
 app = iredbase.app
-web.notfound = iredutils.notfound
 
 if __name__ == '__main__':
     # Use webpy builtin http server.

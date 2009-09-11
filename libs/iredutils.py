@@ -49,9 +49,6 @@ def setRenderLang(renderInst, lang, oldlang=None):
     renderInst._lookup.install_gettext_translations(new_translations)
     return renderInst
 
-def notfound():
-    return web.notfound(render.pageNotFound())
-
 def getServerUptime():
      try:
          # Works on Linux.
