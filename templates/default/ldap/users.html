@@ -32,6 +32,8 @@
     <div class="error">
         {% if msg == 'INVALID_PROFILE_TYPE' %}
             {{ _('Invalid profile type: %s.') |format(profile_type) }}
+        {% elif msg == 'NO_DOMAIN_AVAILABLE' %}
+            {{ _('No mail domain available.') %}
         {% else %}
             {{ msg }}
         {% endif %}
