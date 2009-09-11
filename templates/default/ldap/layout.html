@@ -53,15 +53,14 @@
             {% endblock jquery_snippet_sorter %}
             {% block jquery_snippets %}{% endblock jquery_snippets %}
         });
-
-        function listAccountsUnderDomain(domain, baseurl) {
-            d = $('#domainSelect').val();
-            if ( d != 'none' ) {
-                location.href = baseurl + d;
-            }
-        }
     </script>
     {% endblock jquery_docoment_ready %}
+
+    <script type="text/javascript">
+        function changeDomain(domain, baseurl) {
+            location.href = baseurl + domain.options[domain.selectedIndex].value;
+        }
+    </script>
 
 </head>
 <body>
