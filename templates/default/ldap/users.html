@@ -22,7 +22,9 @@
 
 {% block id_visit_links %}
 <span><a href="{{ctx.homepath}}/create/user/{{cur_domain}}">{{ _('Create new mail user') }}</a></span>
+{% if cur_domain is defined %}
 <span><a href="{{ctx.homepath}}/profile/domain/general/{{cur_domain}}">{{ _('View/Update domain profile') }}</a></span>
+{% endif %}
 {% endblock id_visit_links %}
 
 {% block main %}
