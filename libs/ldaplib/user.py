@@ -63,8 +63,8 @@ class User(core.LDAPWrap):
             return (False, ldaputils.getExceptionDesc(e))
 
 
-    @LDAPDecorators.check_global_admin
-    def add(self, data):
+    @LDAPDecorators.check_domain_access
+    def add(self, domain, data):
         # Get domain name, username, cn.
         self.domain = web.safestr(data.get('domainName')).lower()
         self.username = web.safestr(data.get('username')).lower()
@@ -147,8 +147,7 @@ class User(core.LDAPWrap):
             # Get telephoneNumber.
             employeeNumber = data.get('employeeNumber', 'None')
             mod_attrs += ldaputils.getSingleModAttr(attr='employeeNumber', value=employeeNumber, default='None')
-            
-            # TODO add multiple value support
+
             telephoneNumber = data.get('telephoneNumber', [])
             if telephoneNumber != [] and telephoneNumber != [u''] and telephoneNumber != []:
                 mod_attrs += [ (ldap.MOD_REPLACE, 'telephoneNumber', None) ]
@@ -166,12 +165,12 @@ class User(core.LDAPWrap):
             self.newpw = str(data.get('newpw', None))
             self.confirmpw = str(data.get('confirmpw', None))
              
-            self.result = iredutils.getNewPassword(newpw=self.newpw, confirmpw=self.confirmpw,)
-            if self.result[0] is True:
-                self.passwd = ldaputils.generatePasswd(self.result[1], pwscheme=cfg.general.get('default_pw_scheme', 'SSHA'))
+            result = iredutils.getNewPassword(newpw=self.newpw, confirmpw=self.confirmpw,)
+            if result[0] is True:
+                self.passwd = ldaputils.generatePasswd(result[1], pwscheme=cfg.general.get('default_pw_scheme', 'SSHA'))
                 mod_attrs += [ (ldap.MOD_REPLACE, 'userPassword', self.passwd) ]
             else:
-                return self.result
+                return result
 
         try:
             dn = ldaputils.convEmailToUserDN(self.mail)

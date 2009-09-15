@@ -131,7 +131,7 @@ class create(dbinit):
         self.domain = web.safestr(i.get('domainName'))
         self.username = web.safestr(i.get('username'))
 
-        result = userLib.add(data=i)
+        result = userLib.add(domain=self.domain, data=i)
         if result[0] is True:
             web.seeother('/profile/user/general/%s?msg=SUCCESS' % (self.username + '@' + self.domain))
         else:
