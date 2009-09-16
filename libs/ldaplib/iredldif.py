@@ -15,7 +15,7 @@ def ldif_maildomain(domain, cn=None,
         enabledService=['mail'], ):
     domain = web.safestr(domain).lower()
     ldif = [
-            ('objectCLass',     ['mailDomain']),
+            ('objectClass',     ['mailDomain']),
             ('domainName',      [domain]),
             ('mtaTransport',    [mtaTransport]),
             ('accountStatus',   ['active']),
@@ -65,7 +65,7 @@ def ldif_mailadmin(mail, passwd, cn, preferredLanguage='en_US', domainGlobalAdmi
     mail = web.safestr(mail)
 
     ldif = [
-            ('objectCLass',     ['mailAdmin']),
+            ('objectClass',     ['mailAdmin']),
             ('mail',            [mail]),
             ('userPassword',    [str(passwd)]),
             ('accountStatus',   ['active']),
@@ -114,7 +114,7 @@ def ldif_mailuser(domain, username, cn, passwd, quota=cfg.general.get('default_q
     homeDirectory = storageBaseDirectory + '/' + mailMessageStore
 
     ldif = [
-        ('objectCLass',         ['inetOrgPerson', 'mailUser', 'shadowAccount']),
+        ('objectClass',         ['inetOrgPerson', 'mailUser', 'shadowAccount']),
         ('mail',                [mail]),
         ('userPassword',        [str(passwd)]),
         ('mailQuota',           [str(quota)]),

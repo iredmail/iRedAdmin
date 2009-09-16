@@ -48,14 +48,14 @@ class User(core.LDAPWrap):
 
     # Get values of user dn.
     @LDAPDecorators.check_domain_access
-    def profile(self, mail):
+    def profile(self, domain, mail):
         self.mail = web.safestr(mail)
         self.dn = ldaputils.convEmailToUserDN(self.mail)
         try:
             self.user_profile = self.conn.search_s(
                     self.dn,
                     ldap.SCOPE_BASE,
-                    '(objectClass=mailUser)',
+                    '(&(objectClass=mailUser)(%s))' % self.mail,
                     attrs.USER_ATTRS_ALL,
                     )
             return (True, self.user_profile)

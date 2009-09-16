@@ -78,7 +78,7 @@ class profile(dbinit):
         if self.profile_type not in attrs.USER_PROFILE_TYPE:
             web.seeother('/users/%s?msg=INVALID_PROFILE_TYPE&profile_type=%s' % (self.domain, self.profile_type) )
 
-        self.user_profile = userLib.profile(mail=self.mail)
+        self.user_profile = userLib.profile(domain=self.domain, mail=self.mail)
         if self.user_profile[0] is True:
             return render.user_profile(
                     profile_type=self.profile_type,
