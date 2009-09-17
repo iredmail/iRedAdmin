@@ -75,9 +75,13 @@ class Domain(core.LDAPWrap):
 
     # List all domains under control.
     def list(self, attrs=attrs.DOMAIN_SEARCH_ATTRS):
-        allDomains = self.get_all_domains(attrs)
-        allDomains.sort()
-        return allDomains
+        result = self.get_all_domains(attrs)
+        if result[0] is True:
+            allDomains = result[1]
+            allDomains.sort()
+            return (True, allDomains)
+        else:
+            return result
 
     # Get domain default user quota: domainDefaultUserQuota.
     def getDomainDefaultUserQuota(self, domain):

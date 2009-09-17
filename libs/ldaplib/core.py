@@ -88,9 +88,9 @@ class LDAPWrap:
                     filter,
                     attrs,
                     )
-            return self.domains
+            return (True, self.domains)
         except Exception, e:
-            return str(e)
+            return (False, ldaputils.getExceptionDesc(e))
 
 class LDAPDecorators(LDAPWrap):
     def __del__(self):

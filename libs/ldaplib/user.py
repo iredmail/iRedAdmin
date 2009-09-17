@@ -55,7 +55,7 @@ class User(core.LDAPWrap):
             self.user_profile = self.conn.search_s(
                     self.dn,
                     ldap.SCOPE_BASE,
-                    '(&(objectClass=mailUser)(%s))' % self.mail,
+                    '(&(objectClass=mailUser)(mail=%s))' % self.mail,
                     attrs.USER_ATTRS_ALL,
                     )
             return (True, self.user_profile)

@@ -5,7 +5,7 @@
 {% block title %}{{ _('Mail Domains') }}{% endblock %}
 
 {% block id_welcome %}
-<span>{{ _('All domains under your control.') }} {{ _('Total: %s.') |format(domains|length) }}</span>
+<span>{{ _('All domains under your control.') }} {{ _('Total: %s.') |format(allDomains|length) }}</span>
 {% endblock id_welcome %}
 
 {% block id_visit_links %}
@@ -38,7 +38,7 @@
 {% endif %}
 
 {# List all domains under control. #}
-{% if domains is not string and domains |length != 0 %}
+{% if allDomains is not string and allDomains |length != 0 %}
 <div class="main-frm">
     <form id="list_table" method="post" action="{{ctx.homepath}}/domains">
     <table id="account_list" class="tablesorter">
@@ -51,7 +51,7 @@
 
         {# List domain attributes/avalues. #}
         <tbody>
-        {% for i in domains %}
+        {% for i in allDomains %}
             {% set entries = i[1] %}
             {% set domain = entries.get('domainName')[0] |string%}
             {% set accountStatus = entries.get('accountStatus', ['disabled'])[0] %}

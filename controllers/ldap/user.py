@@ -26,7 +26,12 @@ class list(dbinit):
     @base.protected
     def GET(self, domain=''):
         domain = web.safestr(domain.split('/', 1)[0])
-        allDomains = domainLib.list(attrs=['domainName'])
+        i = web.input()
+        result = domainLib.list(attrs=['domainName'])
+        if result[0] is True:
+            allDomains = result[1]
+        else:
+            return result
 
         if domain == '' or domain is None:
             #return render.users(allDomains=allDomains)
@@ -42,7 +47,7 @@ class list(dbinit):
             elif isinstance(allDomains, types.ListType) is True and len(allDomains) == 0:
                 return render.users(msg='NO_DOMAIN_AVAILABLE')
             elif isinstance(allDomains, types.ListType) is True and len(allDomains) > 1:
-                return render.users(allDomains=allDomains)
+                return render.users(allDomains=allDomains, msg=i.get('msg'),)
             else:
                 web.seeother('/domains?msg=NO_SUCH_DOMAIN')
         else:
@@ -51,7 +56,7 @@ class list(dbinit):
                 return render.users(
                         users=result[1], cur_domain=domain,
                         allDomains=allDomains,
-                        msg=None,
+                        msg=i.get('msg'),
                         )
             else:
                 web.seeother('/domains?msg=%s' % result[1])
@@ -115,9 +120,14 @@ class create(dbinit):
         else:
             self.domain = web.safestr(domainName)
 
+        result = domainLib.list()
+        if result[0] is True:
+            allDomains = result[1]
+        else:
+            return result
         return render.user_create(
                 domain=self.domain,
-                allDomains=domainLib.list(),
+                allDomains=allDomains,
                 default_quota=domainLib.getDomainDefaultUserQuota(self.domain),
                 min_passwd_length=cfg.general.get('min_passwd_length'),
                 max_passwd_length=cfg.general.get('max_passwd_length'),
@@ -137,12 +147,18 @@ class create(dbinit):
         else:
             self.cn = i.get('cn', '')
             self.quota = i.get('quota', domainLib.getDomainDefaultUserQuota(self.domain))
+
+            r = domainLib.list()
+            if r[0] is True:
+                allDomains = r[1]
+            else:
+                return r
             return render.user_create(
                     domain=self.domain,
                     username=self.username,
                     cn=self.cn,
                     quota=self.quota,
-                    allDomains=domainLib.list(),
+                    allDomains=allDomains,
                     default_quota=domainLib.getDomainDefaultUserQuota(self.domain),
                     min_passwd_length=cfg.general.get('min_passwd_length'),
                     max_passwd_length=cfg.general.get('max_passwd_length'),

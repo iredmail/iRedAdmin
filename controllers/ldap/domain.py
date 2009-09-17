@@ -24,8 +24,12 @@ class list(dbinit):
     @base.protected
     def GET(self):
         i = web.input()
-        self.domains = domainLib.list()
-        return render.domains(domains=self.domains, msg=i.get('msg', None))
+        result = domainLib.list()
+        if result[0] is True:
+            allDomains = result[1]
+        else:
+            return result
+        return render.domains(allDomains=allDomains, msg=i.get('msg', None))
 
     @base.check_global_admin
     @base.protected
@@ -50,7 +54,11 @@ class profile(dbinit):
         result = domainLib.profile(domain=self.domain)
 
         if result[0] is True:
-            allDomains = domainLib.list(attrs=['domainName'])
+            r = domainLib.list(attrs=['domainName'])
+            if r[0] is True:
+                allDomains = r[1]
+            else:
+                return r
             allAdmins = adminLib.list()
             domainAdmins = domainLib.admins(self.domain)
 
