@@ -74,7 +74,9 @@ suffix = dc=iredmail,dc=org
 basedn = o=domains,dc=iredmail,dc=org
 domainadmin_dn = o=domainAdmins,dc=iredmail,dc=org
 # Bind dn and password.
-# Warning: bind dn should have write privilege in LDAP.
+# Warning:
+#   - bind dn should have write privilege in LDAP.
+#   - bind pw is plain text, not encryped/hashed.
 bind_dn = cn=vmailadmin,dc=iredmail,dc=org
 bind_pw = passwd
 
