@@ -44,7 +44,8 @@ ADMIN_ATTRS_ALL = ['cn', 'preferredLanguage', ]
 DOMAIN_FILTER = '(objectClass=mailDomain)'
 
 # Default groups which will be created while create a new domain.
-DEFAULT_GROUPS = ['Users', 'Groups', 'Aliases',]    # Don't list unicode str here.
+# WARNING: Don't use unicode str here.
+DEFAULT_GROUPS = ['Users', 'Groups', 'Aliases', 'Externals',]
 
 DOMAIN_SEARCH_ATTRS = [
         # Normal attributes.

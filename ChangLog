@@ -1,4 +1,5 @@
 = 0.1.1 =
+    * Add ou=Externals by default.
     * Fix http error 404 page.
     * Convert new account name to lower case.
     * Fix incorrect maildir path: missing '/'.
