@@ -21,12 +21,12 @@
 
 {# Show profile categories #}
 {% block id_welcome %}
-<span><a href="{{ctx.homepath}}/profile/employee/general/{{mail}}" {% if profile_type == 'general' %}class="active"{%endif%}>{{ _('General') }}</a>&nbsp;</span>
-<span><a href="{{ctx.homepath}}/profile/employee/password/{{mail}}" {% if profile_type == 'password' %}class="active"{%endif%}>{{ _('Reset Password') }}</a>&nbsp;</span>
+<span><a href="{{ctx.homepath}}/profile/user/general/{{mail}}" {% if profile_type == 'general' %}class="active"{%endif%}>{{ _('General') }}</a>&nbsp;</span>
+<span><a href="{{ctx.homepath}}/profile/user/password/{{mail}}" {% if profile_type == 'password' %}class="active"{%endif%}>{{ _('Reset Password') }}</a>&nbsp;</span>
 {% endblock id_welcome %}
 
 {% block id_visit_links %}
-<span><a href="{{ctx.homepath}}/employees/{{mail.split('@', 1)[1]}}">{{ _('Back to user list') }}</a></span>
+<span><a href="{{ctx.homepath}}/users/{{mail.split('@', 1)[1]}}">{{ _('Back to user list') }}</a></span>
 {% endblock id_visit_links %}
 
 {% block main %}
@@ -35,7 +35,7 @@
     <div class="ct-box info-box">
         {% if msg == 'SUCCESS' %}
         <div class="success">
-            {{ _('User created. Would you like to <a href="%s/create/employee/%s">add one more</a>?' |format(ctx.homepath, mail.split('@', 1)[1] )) }}
+            {{ _('User created. Would you like to <a href="%s/create/user/%s">add one more</a>?' |format(ctx.homepath, mail.split('@', 1)[1] )) }}
         </div>
         {% elif msg == 'UPDATED_SUCCESS' %}
         <div class="success">
@@ -84,7 +84,7 @@
     {% set mailQuota = entries.get('mailQuota', [0])[0] %}
 {% endif %}
 
-<form class="frm-form" method="post" action="{{ctx.homepath}}/profile/employee/{{profile_type}}/{{mail}}">
+<form class="frm-form" method="post" action="{{ctx.homepath}}/profile/user/{{profile_type}}/{{mail}}">
 <div class="main-frm">
     <div class="profile ct-group data-group vcard">
         <div class="ct-set data-set set1">

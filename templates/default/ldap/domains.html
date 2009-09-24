@@ -45,7 +45,7 @@
         <thead>
         <tr>
             <th>{{ _('Domain Name') }}</th>
-            <th>{{ _('Employees') }}</th>
+            <th>{{ _('Users') }}</th>
         </tr>
         </thead>
 
@@ -67,8 +67,8 @@
                     <span class="float_right">{{ set_account_status_img(accountStatus) }}</span>
                 </td>
 
-                {# Employee count #}
-                <td><a href="{{ctx.homepath}}/employees/{{domain}}" title="{{ _('List all employees.') }}">{{ entries.get('domainCurrentUserNumber', [0])[0] }}</a></td>
+                {# Mail user count #}
+                <td><a href="{{ctx.homepath}}/users/{{domain}}" title="{{ _('List all mail users.') }}">{{ entries.get('domainCurrentUserNumber', [0])[0] }}</a></td>
             </tr>
         {% endfor %}
         </tbody>
