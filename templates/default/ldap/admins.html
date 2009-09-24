@@ -39,8 +39,8 @@
         <table id="account_list" class="tablesorter">
         <thead>
         <tr>
-            <th>{{ _('Mail Address') }}</th>
             <th>{{ _('Display Name') }}</th>
+            <th>{{ _('Mail Address') }}</th>
             <th>{{ _('Global Admin') }}</th>
         </tr>
         </thead>
@@ -61,10 +61,13 @@
 
             <tr class="{{ loop.cycle('odd', 'even') }} {{ accountStatus |lower }}">
                 <td>
-                    <span class="float_left"><input type="checkbox" name="mail" value="{{mail}}" />&nbsp;{{mail}}</span>
+                    <span class="float_left">
+                        <input type="checkbox" name="mail" value="{{mail}}" />
+                        <a href="{{ctx.homepath}}/profile/admin/general/{{mail}}" title="{{ _('Edit admin profile.') }}">{{ cn }}</a>
+                    </span>
                     <span class="float_right">{{ set_account_status_img(accountStatus) }}</span>
                 </td>
-                <td><a href="{{ctx.homepath}}/profile/admin/general/{{mail}}" title="{{ _('Edit admin profile.') }}">{{ cn }}</a></td>
+                <td>{{mail}}</td>
                 <td>{{ set_account_status_img(domainGlobalAdmin) }}</td>
             </tr>
         {% endfor %}
