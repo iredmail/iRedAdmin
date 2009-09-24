@@ -52,8 +52,8 @@
         {# Table header. #}
         <thead>
         <tr>
-            <th>{{ _('Mail Address') }}</th>
             <th>{{ _('Display Name') }}</th>
+            <th>{{ _('Mail Address') }}</th>
             <th>{{ _('Employee ID') }}</th>
             <th>{{ _('Quota') }}</th>
             <th>{{ _('Created Date') }}</th>
@@ -79,10 +79,13 @@
 
                 <tr class="{{ loop.cycle('odd', 'even') }} {{ accountStatus |lower }}">
                     <td>
-                        <span class="float_left"><input type="checkbox" name="mail" value="{{mail}}" />&nbsp;{{mail}}</span>
+                        <span class="float_left">
+                            <input type="checkbox" name="mail" value="{{mail}}" />
+                            <a href="{{ctx.homepath}}/profile/user/general/{{mail}}" title="{{ _('Edit user profile') }}">{{ cn }}</a>
+                        </span>
                         <span class="float_right">{{ set_account_status_img(accountStatus) }}</span>
                     </td>
-                    <td><a href="{{ctx.homepath}}/profile/user/general/{{mail}}" title="{{ _('Edit user profile') }}">{{ cn }}</a></td>
+                    <td>{{mail}}</td>
                     <td>{{ employeeid }}</a></td>
 
                 {# mail quota #}
