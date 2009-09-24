@@ -22,12 +22,12 @@
 # * List all accounts:
 #   - /domains
 #   - /admins
-#   - /users
+#   - /employees
 #   - /maillists
 #   - /aliases
 #
 # * List all accounts under single domain.
-#   - /users/{domain}
+#   - /employees/{domain}
 #   - /maillists/{domain}
 #   - /aliases/{domain}
 #
@@ -74,21 +74,21 @@ urls = (
         '/delete/admin',                                'controllers.ldap.admin.delete',
 
         # User related.
-        # /domain.ltd/users
-        '/users',                                       'controllers.ldap.user.list',
-        '/users/(%s)' % re_domain,                      'controllers.ldap.user.list',
-        '/profile/user/(general)/(%s)' % re_email,      'controllers.ldap.user.profile',
-        '/profile/user/(shadow)/(%s)' % re_email,       'controllers.ldap.user.profile',
-        '/profile/user/(groups)/(%s)' % re_email,       'controllers.ldap.user.profile',
-        '/profile/user/(services)/(%s)' % re_email,     'controllers.ldap.user.profile',
-        '/profile/user/(forwarding)/(%s)' % re_email,   'controllers.ldap.user.profile',
-        '/profile/user/(bcc)/(%s)' % re_email,          'controllers.ldap.user.profile',
-        '/profile/user/(password)/(%s)' % re_email,     'controllers.ldap.user.profile',
-        '/profile/user/(advanced)/(%s)' % re_email,     'controllers.ldap.user.profile',
-        '/profile/user/(%s)' % re_email,                'controllers.ldap.user.profile',
-        '/create/user/(%s)' % re_domain,                'controllers.ldap.user.create',
-        '/create/user',                                 'controllers.ldap.user.create',
-        '/delete/user',                                 'controllers.ldap.user.delete',
+        # /domain.ltd/employees
+        '/employees',                                       'controllers.ldap.user.list',
+        '/employees/(%s)' % re_domain,                      'controllers.ldap.user.list',
+        '/profile/employee/(general)/(%s)' % re_email,      'controllers.ldap.user.profile',
+        '/profile/employee/(shadow)/(%s)' % re_email,       'controllers.ldap.user.profile',
+        '/profile/employee/(groups)/(%s)' % re_email,       'controllers.ldap.user.profile',
+        '/profile/employee/(services)/(%s)' % re_email,     'controllers.ldap.user.profile',
+        '/profile/employee/(forwarding)/(%s)' % re_email,   'controllers.ldap.user.profile',
+        '/profile/employee/(bcc)/(%s)' % re_email,          'controllers.ldap.user.profile',
+        '/profile/employee/(password)/(%s)' % re_email,     'controllers.ldap.user.profile',
+        '/profile/employee/(advanced)/(%s)' % re_email,     'controllers.ldap.user.profile',
+        '/profile/employee/(%s)' % re_email,                'controllers.ldap.user.profile',
+        '/create/employee/(%s)' % re_domain,                'controllers.ldap.user.create',
+        '/create/employee',                                 'controllers.ldap.user.create',
+        '/delete/employee',                                 'controllers.ldap.user.delete',
 
         # Group related.
         '/maillists',                           'controllers.ldap.maillist.list',

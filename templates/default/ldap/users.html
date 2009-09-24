@@ -10,7 +10,7 @@
 {% block id_welcome %}
 <span>{{ _('View users under domain:') }} </span>
 <span>
-    <select id="domainSelect" name="domainName" onchange="changeDomain(this, baseurl='{{ctx.homepath}}/users/');">
+    <select id="domainSelect" name="domainName" onchange="changeDomain(this, baseurl='{{ctx.homepath}}/employees/');">
         <option value="none" {% if cur_domain is sameas none %}selected{%endif%}>{{ _('Select one domain') }}</option>
         {% for d in allDomains %}
             <option value="{{d[1].domainName[0]}}" {% if cur_domain == d[1].domainName[0] %}selected{%endif%}>{{d[1].domainName[0]}}</option>
@@ -21,7 +21,7 @@
 {% endblock id_welcome %}
 
 {% block id_visit_links %}
-<span><a href="{{ctx.homepath}}/create/user/{{cur_domain}}">{{ _('Create new mail user') }}</a></span>
+<span><a href="{{ctx.homepath}}/create/employee/{{cur_domain}}">{{ _('Create new mail user') }}</a></span>
 {% if cur_domain is defined %}
 <span><a href="{{ctx.homepath}}/profile/domain/general/{{cur_domain}}">{{ _('View/Update domain profile') }}</a></span>
 {% endif %}
@@ -47,7 +47,7 @@
 {% if users is defined %}
     {# List all users. #}
     <div class="main-frm">
-    <form id="list_table" method="post" action="{{ctx.homepath}}/users/{{cur_domain}}">
+    <form id="list_table" method="post" action="{{ctx.homepath}}/employees/{{cur_domain}}">
     <table id="account_list" class="tablesorter">
         {# Table header. #}
         <thead>
@@ -82,7 +82,7 @@
                         <span class="float_left"><input type="checkbox" name="mail" value="{{mail}}" />&nbsp;{{mail}}</span>
                         <span class="float_right">{{ set_account_status_img(accountStatus) }}</span>
                     </td>
-                    <td><a href="{{ctx.homepath}}/profile/user/general/{{mail}}" title="{{ _('Edit user profile') }}">{{ cn }}</a></td>
+                    <td><a href="{{ctx.homepath}}/profile/employee/general/{{mail}}" title="{{ _('Edit user profile') }}">{{ cn }}</a></td>
                     <td>{{ employeeid }}</a></td>
 
                 {# mail quota #}
