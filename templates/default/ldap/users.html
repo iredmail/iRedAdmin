@@ -4,11 +4,11 @@
 
 {% from "macros.html" import set_account_status_img, display_quota, %}
 
-{% block title %}{{ _('Mail Users') }}{% endblock %}
+{% block title %}{{ _('Employees') }}{% endblock %}
 
 {# Show drop-down menu of domain list #}
 {% block id_welcome %}
-<span>{{ _('View users under domain:') }} </span>
+<span>{{ _('View employees under domain:') }} </span>
 <span>
     <select id="domainSelect" name="domainName" onchange="changeDomain(this, baseurl='{{ctx.homepath}}/employees/');">
         <option value="none" {% if cur_domain is sameas none %}selected{%endif%}>{{ _('Select one domain') }}</option>
@@ -45,7 +45,7 @@
 
 
 {% if users is defined %}
-    {# List all users. #}
+    {# List all employees. #}
     <div class="main-frm">
     <form id="list_table" method="post" action="{{ctx.homepath}}/employees/{{cur_domain}}">
     <table id="account_list" class="tablesorter">
