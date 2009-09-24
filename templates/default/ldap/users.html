@@ -21,7 +21,7 @@
 {% endblock id_welcome %}
 
 {% block id_visit_links %}
-<span><a href="{{ctx.homepath}}/create/employee/{{cur_domain}}">{{ _('Create new mail user') }}</a></span>
+<span><a href="{{ctx.homepath}}/create/employee/{{cur_domain}}">{{ _('Create new employee') }}</a></span>
 {% if cur_domain is defined %}
 <span><a href="{{ctx.homepath}}/profile/domain/general/{{cur_domain}}">{{ _('View/Update domain profile') }}</a></span>
 {% endif %}
@@ -81,7 +81,7 @@
                     <td>
                         <span class="float_left">
                             <input type="checkbox" name="mail" value="{{mail}}" />
-                            <a href="{{ctx.homepath}}/profile/employee/general/{{mail}}" title="{{ _('Edit user profile') }}">{{ cn }}</a>
+                            <a href="{{ctx.homepath}}/profile/employee/general/{{mail}}" title="{{ _('Edit employee profile') }}">{{ cn }}</a>
                         </span>
                         <span class="float_right">{{ set_account_status_img(accountStatus) }}</span>
                     </td>
