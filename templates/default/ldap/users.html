@@ -94,6 +94,7 @@
                 <td>{{createTimestamp[:4]}}-{{createTimestamp[4:6]}}-{{createTimestamp[6:8]}} {{createTimestamp[8:10]}}:{{createTimestamp[10:12]}}:{{createTimestamp[12:14]}}</td>
             </tr>
         {% endfor %}
+    {%endif%}
         </tbody>
     </table>
 
@@ -105,9 +106,6 @@
             <input type="submit" name="enable" value="{{ _('Enable') }}" onclick="return confirm('{{ _('Are you sure want to enable selected account(s)?') }}');" }}" />
         </span>
     </div>
-    {% else %}
-        {% block jquery_snippet_sorter %}{% endblock jquery_snippet_sorter %}
-    {%endif%}
 </form>
 </div>
 {%endif%}
