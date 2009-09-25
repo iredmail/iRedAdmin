@@ -36,13 +36,18 @@
             {{ _('Invalid profile type: %s.') |format(profile_type) }}
         {% elif msg == 'NO_DOMAIN_AVAILABLE' %}
             {{ _('No mail domain available.') }}
+        {% elif msg == 'ADMIN_DELETED_SUCCESS' %}
+            <div class="success">{{ _('Selected accounts are deleted.') }}</div>
+        {% elif msg == 'ADMIN_DISABLED_SUCCESS' %}
+            <div class="success">{{ _('Selected accounts are diabled.') }}</div>
+        {% elif msg == 'ADMIN_ENABLED_SUCCESS' %}
+            <div class="success">{{ _('Selected accounts are enabled.') }}</div>
         {% else %}
             {{ msg }}
         {% endif %}
     </div>
 </div>
 {% endif %}
-
 
 {% if users is defined %}
     {# List all users. #}
@@ -88,13 +93,13 @@
                     <td>{{mail}}</td>
                     <td>{{ employeeid }}</td>
 
-                {# mail quota #}
-                <td>{% if entries.get('mailQuota', ['0'])[0] == '0' %}{{ _('Unlimited') }}{% else %}{{ entries.get('mailQuota', ['0'])[0] |filesizeformat }} {% endif %}</td>
+                    {# mail quota #}
+                    <td>{% if entries.get('mailQuota', ['0'])[0] == '0' %}{{ _('Unlimited') }}{% else %}{{ entries.get('mailQuota', ['0'])[0] |filesizeformat }} {% endif %}</td>
 
-                <td>{{createTimestamp[:4]}}-{{createTimestamp[4:6]}}-{{createTimestamp[6:8]}} {{createTimestamp[8:10]}}:{{createTimestamp[10:12]}}:{{createTimestamp[12:14]}}</td>
-            </tr>
-        {% endfor %}
-    {%endif%}
+                    <td>{{createTimestamp[:4]}}-{{createTimestamp[4:6]}}-{{createTimestamp[6:8]}} {{createTimestamp[8:10]}}:{{createTimestamp[10:12]}}:{{createTimestamp[12:14]}}</td>
+                </tr>
+            {% endfor %}
+        {% endif %}
         </tbody>
     </table>
 
@@ -108,5 +113,5 @@
     </div>
 </form>
 </div>
-{%endif%}
+{% endif %}
 {% endblock main %}

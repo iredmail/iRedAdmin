@@ -119,6 +119,29 @@ class Domain(core.LDAPWrap):
         if msg == {}: return True
         else: return False
 
+    @LDAPDecorators.check_global_admin
+    def enableOrDisableAccount(self, domains, value, attr='accountStatus',):
+        if domains is None or len(domains) == 0: return (False, 'NO_DOMAIN_SELECTED')
+
+        result = {}
+        for domain in domains:
+            self.domain = web.safestr(domain)
+            self.dn = ldaputils.convDomainToDN(self.domain)
+
+            try:
+                self.updateAttrSingleValue(
+                        dn=self.dn,
+                        attr=web.safestr(attr),
+                        value=web.safestr(value),
+                        )
+            except ldap.LDAPError, e:
+                result[self.domain] = str(e)
+
+        if result == {}:
+            return (True, 'SUCCESS')
+        else:
+            return (False, result)
+
     # Get domain attributes & values.
     @LDAPDecorators.check_domain_access
     def profile(self, domain):

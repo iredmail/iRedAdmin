@@ -1954,3 +1954,8 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
     background-color: #8dbdd8;
 }
 */
+
+.brd #footer {
+    text-align: center;
+    margin-top: 20px;
+}

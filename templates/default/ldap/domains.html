@@ -20,6 +20,12 @@
     <div class="ct-box info-box">
         {% if msg == 'CREATE_SUCCESS' %}
             <div class="success">{{ _('Domain created success.') }}</div>
+        {% elif msg == 'DOMAIN_DELETED_SUCCESS' %}
+            <div class="success">{{ _('Selected domains are deleted.') }}</div>
+        {% elif msg == 'DOMAIN_DISABLED_SUCCESS' %}
+            <div class="success">{{ _('Selected domains are diabled.') }}</div>
+        {% elif msg == 'DOMAIN_ENABLED_SUCCESS' %}
+            <div class="success">{{ _('Selected domains are enabled.') }}</div>
         {% else %}
             <div class="error">
             {% if msg == 'SIZELIMIT_EXCEEDED' %}
@@ -78,7 +84,9 @@
         <div class="frm-buttons">
             <span class="submit">
                 <input type="checkbox" id="checkall" />{{ _('Select/Unselect all') }}
-                <input type="submit" value="{{ _('Delete') }}" onclick="return confirm('{{ _('Are you sure want to delete selected domain(s) and accounts under it?') }}');" }}" />
+                <input type="submit" name="delete" value="{{ _('Delete') }}" onclick="return confirm('{{ _('Are you sure want to delete selected domain(s) and accounts under it?') }}');" }}" />
+                <input type="submit" name="disable" value="{{ _('Disable') }}" onclick="return confirm('{{ _('Are you sure want to disable selected domain(s)?') }}');" }}" />
+                <input type="submit" name="enable" value="{{ _('Enable') }}" onclick="return confirm('{{ _('Are you sure want to enable selected domain(s)?') }}');" }}" />
             </span>
         </div>
     {% endif %}

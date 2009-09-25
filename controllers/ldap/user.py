@@ -68,11 +68,20 @@ class list(dbinit):
         self.mails = i.get('mail', [])
         if i.has_key('delete'):
             result = userLib.delete(domain=self.domain, mails=self.mails,)
+            msg = 'USER_DELETED_SUCCESS'
         elif i.has_key('disable'):
             result = userLib.enableOrDisableAccount(domain=self.domain, mails=self.mails, value='disabled',)
+            msg = 'USER_DISABLED_SUCCESS'
         elif i.has_key('enable'):
             result = userLib.enableOrDisableAccount(domain=self.domain, mails=self.mails, value='active',)
-        web.seeother('/users/%s' % self.domain)
+            msg = 'USER_ENABLED_SUCCESS'
+        else:
+            msg = i.get('msg', None)
+
+        if result[0] is True:
+            web.seeother('/users/%s?msg=%s' % (self.domain, msg))
+        else:
+            web.seeother('/users/%s?msg=%s' % (self.domain, result[1]))
 
 class profile(dbinit):
     @base.protected
@@ -158,6 +167,7 @@ class create(dbinit):
                 allDomains = r[1]
             else:
                 return r
+
             return render.user_create(
                     domain=self.domain,
                     username=self.username,

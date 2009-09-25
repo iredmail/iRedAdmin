@@ -36,8 +36,22 @@ class list(dbinit):
     def POST(self):
         i = web.input(domainName=[])
         domainName = i.get('domainName', None)
-        result = domainLib.delete(domainName)
-        web.seeother('/domains')
+        if i.has_key('delete'):
+            result = domainLib.delete(domainName)
+            msg = 'DOMAIN_DELETED_SUCCESS'
+        elif i.has_key('disable'):
+            result = domainLib.enableOrDisableAccount(domains=domainName, value='disabled',)
+            msg = 'DOMAIN_DISABLED_SUCCESS'
+        elif i.has_key('enable'):
+            result = domainLib.enableOrDisableAccount(domains=domainName, value='active',)
+            msg = 'DOMAIN_ENABLED_SUCCESS'
+        else:
+            msg = i.get('msg', None)
+
+        if result[0] is True:
+            web.seeother('/domains?msg=%s' % msg)
+        else:
+            web.seeother('/domains?msg=%s' % result[1])
 
 class profile(dbinit):
     @base.protected

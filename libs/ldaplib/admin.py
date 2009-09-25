@@ -12,6 +12,8 @@ from libs.ldaplib import core, attrs, ldaputils, iredldif, deltree
 cfg = web.iredconfig
 session = web.config.get('_session')
 
+LDAPDecorators = core.LDAPDecorators()
+
 class Admin(core.LDAPWrap):
     def __del__(self):
         pass
@@ -156,6 +158,7 @@ class Admin(core.LDAPWrap):
             else:
                 return result
 
+    @LDAPDecorators.check_global_admin
     def delete(self, mails):
         if mails is None or len(mails) == 0: return (False, 'NO_ACCOUNT_SELECTED')
 
@@ -167,6 +170,29 @@ class Admin(core.LDAPWrap):
 
             try:
                 deltree.DelTree( self.conn, dn, ldap.SCOPE_SUBTREE )
+            except ldap.LDAPError, e:
+                result[self.mail] = str(e)
+
+        if result == {}:
+            return (True, 'SUCCESS')
+        else:
+            return (False, result)
+
+    @LDAPDecorators.check_global_admin
+    def enableOrDisableAccount(self, mails, value, attr='accountStatus',):
+        if mails is None or len(mails) == 0: return (False, 'NO_ACCOUNT_SELECTED')
+
+        result = {}
+        for mail in mails:
+            self.mail = web.safestr(mail)
+            self.dn = ldaputils.convEmailToAdminDN(self.mail)
+
+            try:
+                self.updateAttrSingleValue(
+                        dn=self.dn,
+                        attr=web.safestr(attr),
+                        value=web.safestr(value),
+                        )
             except ldap.LDAPError, e:
                 result[self.mail] = str(e)
 

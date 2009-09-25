@@ -26,15 +26,26 @@ class list(dbinit):
         self.admins = adminLib.list()
         return render.admins(admins=self.admins, msg=i.get('msg', None))
 
-    # Delete admins.
+    # Delete, disable, enable admin accounts.
     @base.check_global_admin
     @base.protected
     def POST(self):
         i = web.input(_unicode=False, mail=[])
         self.mails = i.get('mail', [])
-        result = adminLib.delete(mails=self.mails)
+        if i.has_key('delete'):
+            result = adminLib.delete(mails=self.mails,)
+            msg = 'ADMIN_DELETED_SUCCESS'
+        elif i.has_key('disable'):
+            result = adminLib.enableOrDisableAccount(mails=self.mails, value='disabled',)
+            msg = 'ADMIN_DISABLED_SUCCESS'
+        elif i.has_key('enable'):
+            result = adminLib.enableOrDisableAccount(mails=self.mails, value='active',)
+            msg = 'ADMIN_ENABLED_SUCCESS'
+        else:
+            msg = i.get('msg', None)
+
         if result[0] is True:
-            web.seeother('/admins?msg=DELETE_SUCCESS')
+            web.seeother('/admins?msg=%s' % msg)
         else:
             web.seeother('/admins?msg=%s' % result[1])
 

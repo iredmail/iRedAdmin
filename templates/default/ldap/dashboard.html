@@ -62,6 +62,7 @@
             </div>
         </div>
     </div>
+</div>
 
     {% if netif_data is not sameas none %}
     <div class="main-frm">
@@ -78,12 +79,11 @@
                     <span class="fld-input">{{ netif[1]['addr'] }}/{{ netif[1]['netmask'] }}</span>
                 </div>
                 {% endfor %}
+                </div>
             </div>
         </div>
     </div>
     {% endif %}
-
-</div>
 {% endif %}
 
 {% endblock main %}

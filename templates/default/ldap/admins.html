@@ -16,8 +16,12 @@
 {# Show system message #}
 {% if msg is defined and msg is not sameas none %}
     <div class="ct-box info-box">
-    {% if msg == 'DELETE_SUCCESS' %}
-        <div class="success">{{ _('Account(s) deleted success.') }}</div>
+    {% if msg == 'ADMIN_DELETED_SUCCESS' %}
+        <div class="success">{{ _('Selected accounts are deleted.') }}</div>
+    {% elif msg == 'ADMIN_DISABLED_SUCCESS' %}
+        <div class="success">{{ _('Selected accounts are diabled.') }}</div>
+    {% elif msg == 'ADMIN_ENABLED_SUCCESS' %}
+        <div class="success">{{ _('Selected accounts are enabled.') }}</div>
     {% else %}
         <div class="error">
         {% if msg == 'NO_ACCOUNT_SELECTED' %}
@@ -77,7 +81,9 @@
         <div class="frm-buttons">
             <span class="submit">
                 <input type="checkbox" id="checkall" />{{ _('Select/Unselect all') }}
-                <input type="submit" value="{{ _('Delete') }}" onclick="return confirm('{{ _('Are you sure want to delete selected account(s)?') }}');" }}" />
+                <input type="submit" name="delete" value="{{ _('Delete') }}" onclick="return confirm('{{ _('Are you sure want to delete selected account(s)?') }}');" }}" />
+                <input type="submit" name="disable" value="{{ _('Disable') }}" onclick="return confirm('{{ _('Are you sure want to disable selected account(s)?') }}');" }}" />
+                <input type="submit" name="enable" value="{{ _('Enable') }}" onclick="return confirm('{{ _('Are you sure want to enable selected account(s)?') }}');" }}" />
             </span>
         </div>
     </form>
