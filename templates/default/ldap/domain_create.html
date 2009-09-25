@@ -3,9 +3,10 @@
 {% extends "layout.html" %}
 {% from "macros.html" import display_cn, %}
 
-{% block js_tablesorter %}{% endblock %}
-
 {% block title %}{{ _('Create new mail domain') }}{% endblock title %}
+{% block js %}{% endblock js %}
+{% block js_tablesorter %}{% endblock %}
+{% block jquery_docoment_ready %} {% endblock %}
 {% block submenu %}{% endblock submenu %}
 
 {% block main %}

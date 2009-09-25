@@ -86,7 +86,7 @@
                         <span class="float_right">{{ set_account_status_img(accountStatus) }}</span>
                     </td>
                     <td>{{mail}}</td>
-                    <td>{{ employeeid }}</a></td>
+                    <td>{{ employeeid }}</td>
 
                 {# mail quota #}
                 <td>{% if entries.get('mailQuota', ['0'])[0] == '0' %}{{ _('Unlimited') }}{% else %}{{ entries.get('mailQuota', ['0'])[0] |filesizeformat }} {% endif %}</td>
