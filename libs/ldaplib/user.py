@@ -123,6 +123,39 @@ class User(core.LDAPWrap):
             return (False, result)
 
     @LDAPDecorators.check_domain_access
+    def enableOrDisableAccount(self, domain, mails, value, attr='accountStatus',):
+        if mails is None or len(mails) == 0: return False
+
+        result = {}
+        for mail in mails:
+            self.mail = web.safestr(mail)
+            self.dn = ldaputils.convEmailToUserDN(self.mail)
+
+            try:
+                self.updateAttrSingleValue(
+                        dn=self.dn,
+                        attr=web.safestr(attr),
+                        value=web.safestr(value),
+                        )
+            except ldap.LDAPError, e:
+                result[self.mail] = str(e)
+
+        if result == {}:
+            return (True, 'SUCCESS')
+        else:
+            return (False, result)
+
+    @LDAPDecorators.check_domain_access
+    def update(self, profile_type, mail, data):
+        self.profile_type = web.safestr(profile_type)
+        self.mail = web.safestr(mail)
+        self.domain = self.mail.split('@', 1)[1]
+        self.dn = ldaputils.convEmailToUserDN(self.mail)
+
+        mod_attrs = []
+        if self.profile_type == 'general':
+            # Get cn.
+    @LDAPDecorators.check_domain_access
     def update(self, profile_type, mail, data):
         self.profile_type = web.safestr(profile_type)
         self.mail = web.safestr(mail)

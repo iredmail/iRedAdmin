@@ -87,11 +87,11 @@
                 <ul>
                     <li><a href="{{ctx.homepath}}/dashboard">{{ _('Dashboard') }}</a></li>
                     <li><a href="{{ctx.homepath}}/domains">{{ _('Mail Domains') }}</a></li>
+                    <li class="normal"><a href="{{ctx.homepath}}/users">{{ _('Users') }}</a></li>
                     {# Display extra menus for global admin. #}
                     {% if session.get('domainGlobalAdmin') == 'yes' %}
                         <li class="normal"><a href="{{ctx.homepath}}/admins">{{ _('Admins') }}</a></li>
                     {% endif %}
-                    <li class="normal"><a href="{{ctx.homepath}}/users">{{ _('Users') }}</a></li>
                 </ul>
             </div>
 

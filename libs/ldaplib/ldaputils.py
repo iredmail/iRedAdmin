@@ -164,6 +164,8 @@ def getSingleModAttr(attr, value, default='None'):
     return mod_attrs
 
 def getExceptionDesc(e):
+    if not isinstance(e, tuple):
+        return str(e)
     try:
         msg = ''
         if e.args[0].has_key('info'):
@@ -176,4 +178,4 @@ def getExceptionDesc(e):
             msg = "%s" % str(e)
         return msg
     except:
-        return "%s " % str(e)
+        return str(e)

@@ -66,7 +66,12 @@ class list(dbinit):
         i = web.input(_unicode=False, mail=[])
         self.domain = web.safestr(domain)
         self.mails = i.get('mail', [])
-        result = userLib.delete(domain=self.domain, mails=self.mails)
+        if i.has_key('delete'):
+            result = userLib.delete(domain=self.domain, mails=self.mails,)
+        elif i.has_key('disable'):
+            result = userLib.enableOrDisableAccount(domain=self.domain, mails=self.mails, value='disabled',)
+        elif i.has_key('enable'):
+            result = userLib.enableOrDisableAccount(domain=self.domain, mails=self.mails, value='active',)
         web.seeother('/users/%s' % self.domain)
 
 class profile(dbinit):
