@@ -168,8 +168,8 @@ class User(core.LDAPWrap):
                 mod_attrs += [ ( ldap.MOD_REPLACE, 'mailQuota', str(int(mailQuota) * 1024 * 1024) ) ]
 
             # Get telephoneNumber.
-            employeeNumber = data.get('employeeNumber', 'None')
-            mod_attrs += ldaputils.getSingleModAttr(attr='employeeNumber', value=employeeNumber, default='None')
+            employeeNumber = data.get('employeeNumber', None)
+            mod_attrs += ldaputils.getSingleModAttr(attr='employeeNumber', value=employeeNumber, default=None)
 
             telephoneNumber = data.get('telephoneNumber', [])
             if telephoneNumber != [] and telephoneNumber != [u''] and telephoneNumber != []:
