@@ -249,6 +249,16 @@ B - GLOBAL STYLES
     position: relative;
     }
 
+.brd .main-subhead .hn span {
+    padding: 0.5em 0;
+    margin-right: 0.75em;
+    }
+
+.brd .main-subhead .hn span a.active {
+    text-decoration: none;
+    font-weight: bold;
+    }
+
 .brd .main-foot {
     margin-top: -1em;
     }

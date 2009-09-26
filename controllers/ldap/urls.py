@@ -91,12 +91,15 @@ urls = (
         '/delete/user',                                 'controllers.ldap.user.delete',
 
         # Group related.
-        '/maillists',                           'controllers.ldap.maillist.list',
-        '/maillists/(%s)' % re_domain,          'controllers.ldap.maillist.list',
-        '/profile/maillist/(%s)' % re_email,    'controllers.ldap.maillist.profile',
-        '/create/maillist/(%s)' % re_domain,    'controllers.ldap.maillist.create',
-        '/create/maillist',                     'controllers.ldap.maillist.create',
-        '/delete/maillist',                     'controllers.ldap.maillist.delete',
+        '/maillists',                                   'controllers.ldap.maillist.list',
+        '/profile/maillist/general/(%s)' % re_email,    'controllers.ldap.maillist.profile',
+        '/profile/maillist/members/(%s)' % re_email,    'controllers.ldap.maillist.members',
+        '/profile/maillist/members/(%s)/(current)' % re_email,    'controllers.ldap.maillist.members',
+        '/profile/maillist/members/(%s)/(addnew)' % re_email,    'controllers.ldap.maillist.members',
+        '/maillists/(%s)' % re_domain,                  'controllers.ldap.maillist.list',
+        '/create/maillist/(%s)' % re_domain,            'controllers.ldap.maillist.create',
+        '/create/maillist',                             'controllers.ldap.maillist.create',
+        '/delete/maillist',                             'controllers.ldap.maillist.delete',
 
         # Alias related.
         '/aliases',                         'controllers.ldap.alias.list',
