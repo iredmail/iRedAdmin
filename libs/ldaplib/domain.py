@@ -176,9 +176,9 @@ class Domain(core.LDAPWrap):
             mod_attrs += ldaputils.getSingleModAttr(attr='cn', value=cn, default=self.domain)
 
         if session.get('domainGlobalAdmin') == 'yes':
-            accountStatus = web.safestr(data.get('accountStatus', 'active'))
-            if accountStatus not in attrs.VALUES_ACCOUNT_STATUS:
-                accountStatus = 'active'
+            # Get accountStatus.
+            if data.has_key('accountStatus'): accountStatus = 'active'
+            else: accountStatus = 'disabled'
 
             mod_attrs += [ (ldap.MOD_REPLACE, 'accountStatus', accountStatus) ]
         else:

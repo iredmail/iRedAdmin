@@ -124,6 +124,12 @@ class Admin(core.LDAPWrap):
             cn = data.get('cn', None)
             mod_attrs += ldaputils.getSingleModAttr(attr='cn', value=cn, default=self.mail.split('@')[0],)
 
+            # Get accountStatus.
+            if data.has_key('accountStatus'): accountStatus = 'active'
+            else: accountStatus = 'disabled'
+
+            mod_attrs += [ (ldap.MOD_REPLACE, 'accountStatus', accountStatus) ]
+
             try:
                 # Modify profiles.
                 self.conn.modify_s(self.dn, mod_attrs)
@@ -134,7 +140,7 @@ class Admin(core.LDAPWrap):
             except ldap.LDAPError, e:
                 return (False, ldaputils.getExceptionDesc(e))
 
-        if self.profile_type == 'password':
+        elif self.profile_type == 'password':
             self.cur_passwd = data.get('cur_passwd', None)
             self.newpw = data.get('newpw')
             self.confirmpw = data.get('confirmpw')

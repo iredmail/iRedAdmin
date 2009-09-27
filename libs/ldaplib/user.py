@@ -178,9 +178,8 @@ class User(core.LDAPWrap):
                     mod_attrs += [ ( ldap.MOD_REPLACE, 'telephoneNumber', web.safestr(i) ) ]
 
             # Get accountStatus.
-            accountStatus = web.safestr(data.get('accountStatus', 'active'))
-            if accountStatus not in attrs.VALUES_ACCOUNT_STATUS:
-                accountStatus = 'active'
+            if data.has_key('accountStatus'): accountStatus = 'active'
+            else: accountStatus = 'disabled'
 
             mod_attrs += [ (ldap.MOD_REPLACE, 'accountStatus', accountStatus) ]
         elif self.profile_type == 'password':

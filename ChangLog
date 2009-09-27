@@ -1,4 +1,6 @@
 = 0.1.1 =
+    * Better typo while showing accountStatus.
+    * Show accountStatus image while view/update account profile.
     * Add ou=Externals by default.
     * Fix http error 404 page.
     * Convert new account name to lower case.

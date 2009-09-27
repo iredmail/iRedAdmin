@@ -91,18 +91,17 @@
 {%- endmacro %}
 
 {# Display accountStatus #}
-{% macro display_account_status(accountStatus, firstitem='yes') %}
+{% macro display_account_status(accountStatus, accountType='user', firstitem='yes') %}
     <fieldset class="frm-group {% if firstitem == 'yes' %}group1{% endif %}">
         <fieldset class="mf-set required {% if firstitem == 'yes' %}set1{% endif %}">
-            <legend><span>{{ _('Account status') }}<em>{{ _('(Required)') }}</em></span></legend>
             <div class="mf-box">
                 <div class="mf-item">
-                    <span class="fld-input"><input type="radio" name="accountStatus" value="active" {% if accountStatus == 'active' %}checked="on"{%endif%}/></span>
-                    <label>{{ _('Active') }}</label>
-                </div>
-                <div class="mf-item">
-                    <span class="fld-input"><input type="radio" name="accountStatus" value="disabled" {% if accountStatus == 'disabled' %}checked{%endif%}/></span>
-                    <label>{{ _('Disabled') }}</label>
+                    <span class="fld-input"><input type="checkbox" name="accountStatus" value="active" {% if accountStatus == 'active' %}checked="on"{%endif%}/></span>
+                    {% if accountType == 'domain' %}
+                    <label>{{ _('Enable this domain') }}</label>
+                    {% else %}
+                    <label>{{ _('Enable this account') }}</label>
+                    {% endif %}
                 </div>
             </div>
         </fieldset>

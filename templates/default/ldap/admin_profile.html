@@ -1,6 +1,7 @@
 {# defined: profile_type, mail, profile, languagemaps, [msg], #}
 {% extends "layout.html" %}
 {% from "macros.html" import
+                display_account_status,
                 display_cn,
                 display_preferredLanguage,
                 display_password_policy,
@@ -76,6 +77,9 @@
     {% set entry = profile[0][1] %}
     {% set cn = entry.get('cn', [''])[0].decode('utf-8') %}
     {% set preferredLanguage = entry.get('preferredLanguage', ['en_US'])[0] |string %}
+    {% set accountStatus = entry.get('accountStatus', ['disabled'])[0] %}
+
+    {{ display_account_status(accountStatus, firstitem='yes',) }}
 
     {{ display_cn(
             value=cn,

@@ -2,6 +2,7 @@
 {% extends "layout.html" %}
 
 {% from "macros.html" import
+        set_account_status_img,
         display_quota,
         display_cn,
         display_employeeid,
@@ -77,10 +78,10 @@
 {% set employeeNumber = entries.get('employeeNumber', [''])[0].decode('utf-8') %}
 {% set jpegPhoto = entries.get('jpegPhoto', [''])[0] %}
 {% set createTimestamp = entries.get('createTimestamp', ['--------------'])[0] %}
+{% set accountStatus = entries.get('accountStatus', ['disabled'])[0] %}
 
 {% if profile_type == 'general' %}
     {% set telephoneNumber = entries.get('telephoneNumber', []) %}
-    {% set accountStatus = entries.get('accountStatus', ['disabled'])[0] %}
     {% set mailQuota = entries.get('mailQuota', [0])[0] %}
 {% endif %}
 
@@ -94,7 +95,7 @@
                 </ul>
                 <ul class="data-list">
                     <li class="username fn nickname"><span>{{ _('Display Name') }}{{_(':')}} <strong>{% if cn != 'None'  %}{{cn}}{% endif %}</strong></span></li>
-                    <li><span>{{ _('Mail Address') }}{{_(':')}} <strong>{{mail}}</strong></span></li>
+                    <li><span>{{ _('Mail Address') }}{{_(':')}} <strong>{{mail}}</strong> {{ set_account_status_img(accountStatus) }}</span></li>
                     <li><span>{{ _('Employee ID') }}{{_(':')}} <strong>{{employeeNumber}}</strong></span></li>
                     <li><span>{{ _('Created Date') }}{{_(':')}} <strong>{{createTimestamp[:4]}}-{{createTimestamp[4:6]}}-{{createTimestamp[6:8]}} {{createTimestamp[8:10]}}:{{createTimestamp[10:12]}}:{{createTimestamp[12:14]}}</strong></span></li>
                 </ul>

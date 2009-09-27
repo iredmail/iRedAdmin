@@ -2,6 +2,7 @@
 {% extends "layout.html" %}
 
 {% from "macros.html" import
+        set_account_status_img,
         display_cn,
         display_account_status,
         %}
@@ -51,15 +52,18 @@
             <div class="ct-box data-box">
                 <ul class="data-list">
                     <input type="hidden" name="domainName" value="{{cur_domain}}" />
-                    <li><span><strong>{{ _('Domain Name') }}</strong>
+                    <li>
+                        <span><strong>{{ _('Domain Name') }}</strong></span>
                         <span>
                             <select id="domainSelect" name="domainName" onchange="changeDomain(this, baseurl='{{ctx.homepath}}/profile/domain/{{profile_type}}/');">
                                 {% for d in allDomains %}
                                 <option value="{{d[1].domainName[0]}}" {% if cur_domain == d[1].domainName[0] %}selected{%endif%}>{{d[1].domainName[0]}}</option>
                                 {% endfor %}
-                                </select>
-                            </span></span></li>
-                        <li><span><strong>{{ _('Company/Organization') }}</strong> {% if cn != 'None' %}{{cn}}{% endif %}</span></li>
+                            </select>
+                        </span>
+                        <span>{{ set_account_status_img(accountStatus) }}</span>
+                    </li>
+                    <li><span><strong>{{ _('Company/Organization') }}</strong> {% if cn != 'None' %}{{cn}}{% endif %}</span></li>
                     <li><span><strong>{{ _('Created Date') }}</strong> {{createTimestamp[:4]}}-{{createTimestamp[4:6]}}-{{createTimestamp[6:8]}} {{createTimestamp[8:10]}}:{{createTimestamp[10:12]}}:{{createTimestamp[12:14]}}</span></li>
                 </ul>
             </div>
@@ -67,11 +71,11 @@
     </div>
 
     {% if profile_type == 'general' %}
-        {{ display_cn(cn, accountType='domain') }}
-
         {% if session.get('domainGlobalAdmin') == 'yes' %}
-            {{ display_account_status(accountStatus) }}
+            {{ display_account_status(accountStatus, accountType='domain', firstitem='yes',) }}
         {% endif %}
+
+        {{ display_cn(cn, accountType='domain') }}
     {% endif %}
 
     <div class="frm-buttons">
