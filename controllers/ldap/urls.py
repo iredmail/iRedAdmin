@@ -79,7 +79,7 @@ urls = (
         '/users/(%s)' % re_domain,                      'controllers.ldap.user.list',
         '/profile/user/(general)/(%s)' % re_email,      'controllers.ldap.user.profile',
         '/profile/user/(shadow)/(%s)' % re_email,       'controllers.ldap.user.profile',
-        '/profile/user/(groups)/(%s)' % re_email,       'controllers.ldap.user.profile',
+        '/profile/user/(members)/(%s)' % re_email,       'controllers.ldap.user.profile',
         '/profile/user/(services)/(%s)' % re_email,     'controllers.ldap.user.profile',
         '/profile/user/(forwarding)/(%s)' % re_email,   'controllers.ldap.user.profile',
         '/profile/user/(bcc)/(%s)' % re_email,          'controllers.ldap.user.profile',

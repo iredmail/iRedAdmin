@@ -34,8 +34,6 @@ class list(dbinit):
             return result
 
         if domain == '' or domain is None:
-            #return render.users(allDomains=allDomains)
-
             # List users if only one domain available.
             if isinstance(allDomains, types.ListType) is True and len(allDomains) == 1:
                 cur_domain = str(allDomains[0][1]['domainName'][0])
@@ -54,7 +52,8 @@ class list(dbinit):
             result = userLib.list(domain=domain)
             if result[0] is True:
                 return render.users(
-                        users=result[1], cur_domain=domain,
+                        users=result[1],
+                        cur_domain=domain,
                         allDomains=allDomains,
                         msg=i.get('msg'),
                         )
@@ -86,7 +85,12 @@ class list(dbinit):
 class profile(dbinit):
     @base.protected
     def GET(self, profile_type, mail):
-        i = web.input(enabledService=[],telephoneNumber=[],mailForwardingAddress=[],)
+        i = web.input(
+                enabledService=[],
+                telephoneNumber=[],
+                mailForwardingAddress=[],
+                memberOfGroup=[],
+                )
         self.mail = web.safestr(mail)
         self.profile_type = web.safestr(profile_type)
 
