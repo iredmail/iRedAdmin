@@ -90,7 +90,15 @@ class profile(dbinit):
             # Don't allow to view/update other admins' profile.
             web.seeother('/profile/admin/general/%s?msg=PERMISSION_DENIED' % session.get('username'))
         else:
+            # Get admin profile.
+            result = adminLib.profile(self.mail)
+            if result[0] is not True:
+                web.seeother('/admins?msg=%s' % result[1])
+            else:
+                self.admin_profile = result[1]
+
             i = web.input()
+
             if self.profile_type == 'general':
                 # Get admin profile.
                 result = adminLib.profile(self.mail)
@@ -100,7 +108,7 @@ class profile(dbinit):
                     return render.admin_profile(
                             mail=self.mail,
                             profile_type=self.profile_type,
-                            profile=result[1],
+                            profile=self.admin_profile,
                             languagemaps=adminLib.getLanguageMaps(),
                             msg=i.get('msg', None),
                             )
@@ -110,6 +118,7 @@ class profile(dbinit):
                 return render.admin_profile(
                         mail=self.mail,
                         profile_type=self.profile_type,
+                        profile=self.admin_profile,
                         min_passwd_length=cfg.general.get('min_passwd_length'),
                         max_passwd_length=cfg.general.get('max_passwd_length'),
                         msg=i.get('msg', None),

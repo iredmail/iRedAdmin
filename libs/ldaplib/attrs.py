@@ -36,7 +36,7 @@ DOMAINADMIN_SEARCH_ATTRS = ['mail', 'accountStatus', 'domainGlobalAdmin', 'cn', 
 # ---------------------------------------------------------
 # Admin related.
 # ---------------------------------------------------------
-ADMIN_ATTRS_ALL = ['accountStatus', 'cn', 'preferredLanguage', ]
+ADMIN_ATTRS_ALL = ['accountStatus', 'cn', 'preferredLanguage', 'createTimestamp', ]
 
 # ---------------------------------------------------------
 # Domain related.

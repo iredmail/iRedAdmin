@@ -1,6 +1,7 @@
 {# defined: profile_type, mail, profile, languagemaps, [msg], #}
 {% extends "layout.html" %}
 {% from "macros.html" import
+                set_account_status_img,
                 display_account_status,
                 display_cn,
                 display_preferredLanguage,
@@ -26,24 +27,6 @@
 {% endif %}
 
 {% block main %}
-
-<div class="main-subhead">
-    <h2 class="hn"><span>
-    {% if profile_type == 'general' %}
-        {% if mail == session.get('username') %}
-            {{ _('View/Update your preferences.') }}
-        {% else %}
-            {{ _("View/Update <strong>%s</strong>'s preferences.") |format(mail) }}
-        {% endif %}
-    {% elif profile_type == 'password' %}
-        {% if mail == session.get('username') %}
-            {{ _('Reset your password.') }}
-        {% else %}
-            {{ _("Reset <strong>%s</strong>'s password.") |format(mail) }}
-        {% endif %}
-    {% endif %}
-    </span></h2>
-</div>
 
 {# Show message #}
 {% if msg is defined and msg is not sameas none %}
@@ -72,12 +55,26 @@
     </div>
 {% endif %}
 
+{% set entry = profile[0][1] %}
+{% set cn = entry.get('cn', [''])[0].decode('utf-8') %}
+{% set accountStatus = entry.get('accountStatus', ['disabled'])[0] %}
+{% set createTimestamp = entry.get('createTimestamp', ['--------------'])[0] %}
+
 <form class="frm-form" method="post" action="{{ctx.homepath}}/profile/admin/{{profile_type}}/{{mail}}">
+<div class="main-frm">
+    <div class="profile ct-group data-group vcard">
+        <div class="ct-set data-set set1">
+            <div class="ct-box data-box">
+                <ul class="data-list">
+                    <li class="username fn nickname"><span>{{ _('Display Name') }}{{ _(':') }} <strong>{{cn}}</strong></span></li>
+                    <li><span>{{ _('Mail Address') }}{{ _(':') }} <strong>{{mail}}</strong> {{ set_account_status_img(accountStatus) }}</span></li>
+                    <li><span>{{ _('Created Date') }}{{ _(':') }} <strong>{{createTimestamp[:4]}}-{{createTimestamp[4:6]}}-{{createTimestamp[6:8]}} {{createTimestamp[8:10]}}:{{createTimestamp[10:12]}}:{{createTimestamp[12:14]}}</strong></span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 {% if profile_type == 'general' %}
-    {% set entry = profile[0][1] %}
-    {% set cn = entry.get('cn', [''])[0].decode('utf-8') %}
     {% set preferredLanguage = entry.get('preferredLanguage', ['en_US'])[0] |string %}
-    {% set accountStatus = entry.get('accountStatus', ['disabled'])[0] %}
 
     {{ display_account_status(accountStatus, firstitem='yes',) }}
 
