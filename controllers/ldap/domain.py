@@ -37,7 +37,7 @@ class list(dbinit):
         i = web.input(domainName=[])
         domainName = i.get('domainName', None)
         if i.has_key('delete'):
-            result = domainLib.delete(domainName)
+            result = domainLib.delete(domains=domainName)
             msg = 'DOMAIN_DELETED_SUCCESS'
         elif i.has_key('disable'):
             result = domainLib.enableOrDisableAccount(domains=domainName, value='disabled',)

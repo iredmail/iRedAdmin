@@ -104,11 +104,11 @@ class Domain(core.LDAPWrap):
 
     # Delete domain.
     @LDAPDecorators.check_global_admin
-    def delete(self, domain=[]):
-        if domain is None or len(domain) == 0: return False
+    def delete(self, domains=[]):
+        if domains is None or len(domains) == 0: return False
         
         msg = {}
-        for d in domain:
+        for d in domains:
             dn = ldaputils.convDomainToDN(web.safestr(d))
 
             try:
@@ -116,8 +116,8 @@ class Domain(core.LDAPWrap):
             except ldap.LDAPError, e:
                 msg[d] = str(e)
 
-        if msg == {}: return True
-        else: return False
+        if msg == {}: return (True, 'DOMAIN_DELETED_SUCCESS')
+        else: return (False, msg)
 
     @LDAPDecorators.check_global_admin
     def enableOrDisableAccount(self, domains, value, attr='accountStatus',):
