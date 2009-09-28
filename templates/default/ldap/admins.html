@@ -17,11 +17,11 @@
 {% if msg is defined and msg is not sameas none %}
     <div class="ct-box info-box">
     {% if msg == 'ADMIN_DELETED_SUCCESS' %}
-        <div class="success">{{ _('Selected accounts are deleted.') }}</div>
+        <div class="success">{{ _('Selected accounts were deleted.') }}</div>
     {% elif msg == 'ADMIN_DISABLED_SUCCESS' %}
-        <div class="success">{{ _('Selected accounts are diabled.') }}</div>
+        <div class="success">{{ _('Selected accounts were diabled.') }}</div>
     {% elif msg == 'ADMIN_ENABLED_SUCCESS' %}
-        <div class="success">{{ _('Selected accounts are enabled.') }}</div>
+        <div class="success">{{ _('Selected accounts were enabled.') }}</div>
     {% else %}
         <div class="error">
         {% if msg == 'NO_ACCOUNT_SELECTED' %}

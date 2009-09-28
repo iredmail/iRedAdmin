@@ -21,11 +21,11 @@
         {% if msg == 'CREATE_SUCCESS' %}
             <div class="success">{{ _('Domain created success.') }}</div>
         {% elif msg == 'DOMAIN_DELETED_SUCCESS' %}
-            <div class="success">{{ _('Selected domains are deleted.') }}</div>
+            <div class="success">{{ _('Selected domains were deleted.') }}</div>
         {% elif msg == 'DOMAIN_DISABLED_SUCCESS' %}
-            <div class="success">{{ _('Selected domains are diabled.') }}</div>
+            <div class="success">{{ _('Selected domains were diabled.') }}</div>
         {% elif msg == 'DOMAIN_ENABLED_SUCCESS' %}
-            <div class="success">{{ _('Selected domains are enabled.') }}</div>
+            <div class="success">{{ _('Selected domains were enabled.') }}</div>
         {% else %}
             <div class="error">
             {% if msg == 'SIZELIMIT_EXCEEDED' %}
