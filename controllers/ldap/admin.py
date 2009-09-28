@@ -129,18 +129,4 @@ class profile(dbinit):
         if result[0] is True:
             web.seeother('/profile/admin/%s/%s?msg=UPDATE_SUCCESS' % (self.profile_type, self.mail))
         else:
-            if self.profile_type == 'general':
-                return render.admin_profile(
-                        mail=self.mail,
-                        profile_type=self.profile_type,
-                        languagemaps=adminLib.getLanguageMaps(),
-                        msg=result[1],
-                        )
-            elif self.profile_type == 'password':
-                return render.admin_profile(
-                        mail=self.mail,
-                        profile_type=self.profile_type,
-                        min_passwd_length=cfg.general.get('min_passwd_length'),
-                        max_passwd_length=cfg.general.get('max_passwd_length'),
-                        msg=result[1],
-                        )
+            web.seeother('/profile/admin/%s/%s?msg=%s' % (self.profile_type, self.mail, result[1]) )
