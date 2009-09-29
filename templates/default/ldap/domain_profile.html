@@ -12,6 +12,7 @@
 {% block jquery_docoment_ready %}{% endblock jquery_docoment_ready %}
 
 {% block title %}{{ _('Edit domain profile.') }}{% endblock %}
+{% block navlinks_active_domains %}active{% endblock %}
 
 {% block id_welcome %}
 <span><a href="{{ctx.homepath}}/profile/domain/general/{{cur_domain}}" {% if profile_type == "general" %}class="active"{%endif%}>General</a>&nbsp;</span>

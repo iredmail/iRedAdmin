@@ -14,6 +14,7 @@
 {% block jquery_docoment_ready %}{% endblock jquery_docoment_ready %}
 
 {% block title %}{{ _('Edit admin profile') }}{% endblock %}
+{% block navlinks_active_admins %}active{% endblock %}
 
 {% block id_welcome %}
 <span><a href="{{ctx.homepath}}/profile/admin/general/{{mail}}" {% if profile_type == 'general' %}class="active"{%endif%}>{{ _('General') }}</a>&nbsp;</span>

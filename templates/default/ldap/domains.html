@@ -3,6 +3,7 @@
 {% from "macros.html" import set_account_status_img, %}
 
 {% block title %}{{ _('Mail Domains') }}{% endblock %}
+{% block navlinks_active_domains %}active{% endblock %}
 
 {% block id_welcome %}
 <span>{{ _('All domains under your control.') }} {{ _('Total: %s.') |format(allDomains|length) }}</span>

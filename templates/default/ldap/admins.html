@@ -3,6 +3,7 @@
 {% from "macros.html" import set_account_status_img %}
 
 {% block title %}{{ _('Domain Admins') }}{% endblock %}
+{% block navlinks_active_admins %}active{% endblock %}
 
 {% block id_welcome %}
 <span>{{ _('All mail administrators.') }} {{ _('Total: %s.') |format(admins |length) }}</span>
