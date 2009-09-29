@@ -393,3 +393,7 @@ body {
 .brd .checklist .checklist-item label:hover {
     background: #EDF1F5;
     }
+
+.brd .disabled {
+    background: #FFFFE1;
+    }
