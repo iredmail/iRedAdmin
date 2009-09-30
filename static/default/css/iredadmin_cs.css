@@ -240,6 +240,7 @@ body {
     }
 
 .brd .main-menu, .brd .admin-menu {
+    /*background: #1F537B;*/
     background: #113C5E;
     }
 
@@ -286,7 +287,7 @@ body {
     }
 
 .brd .admin-menu li.active a {
-    color: #eef;
+    color: #b42000;
     }
 
 #brd-admod #alert a {
@@ -396,4 +397,12 @@ body {
 
 .brd .disabled {
     background: #FFFFE1;
+    }
+
+.brd .even {
+    background: #F4F9FD;
+    }
+
+.brd table tr:hover {
+    background: #F4F9FD;
     }
