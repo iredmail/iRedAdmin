@@ -37,7 +37,6 @@
             $("#list_table :checkbox").change(function() {
                 var chkAll = this;
                 if (chkAll.id == "checkall") {
-                    /*$("#list_table :checkbox").filter("[id^='data_']").each(function() {*/
                     $("#list_table :checkbox").each(function() {
                         this.checked = chkAll.checked;
                     });
