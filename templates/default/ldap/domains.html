@@ -63,7 +63,7 @@
             {% set domain = entries.get('domainName')[0] |string%}
             {% set accountStatus = entries.get('accountStatus', ['disabled'])[0] %}
 
-            <tr class="{{ loop.cycle('odd', 'even') }} {{ accountStatus |lower }}">
+            <tr class="{{ accountStatus |lower }}">
                 <td>
                     <span class="float_left">
                         {% if session.get('domainGlobalAdmin') == 'yes' %}

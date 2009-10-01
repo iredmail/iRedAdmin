@@ -5,9 +5,15 @@
 
 import gettext
 import os
+import re
 import web
 
 cfg = web.iredconfig
+
+# Regular expression.
+pEmail = '[\w\-][\w\-\.]*@[\w\-][\w\-\.]+[a-zA-Z]{1,4}'
+
+regEmail = re.compile(pEmail)
 
 def filesizeformat(value):
     """Format the value like a 'human-readable' file size (i.e. 13 KB,

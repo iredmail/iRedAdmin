@@ -85,7 +85,7 @@
                     {% set cn = mail.split('@', 1)[0] %}
                 {% endif %}
 
-                <tr class="{{ loop.cycle('odd', 'even') }} {{ accountStatus |lower }}">
+                <tr class="{{ accountStatus |lower }}">
                     <td>
                         <span class="float_left">
                             <input type="checkbox" name="mail" value="{{mail}}" />

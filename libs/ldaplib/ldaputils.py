@@ -170,7 +170,7 @@ def getExceptionDesc(e):
         msg = ''
         if e.args[0].has_key('info'):
             # Get attribute name.
-            msg += e.args[0]['info'].split(':')[0]
+            msg += e.args[0]['info']
         if e.args[0].has_key('desc'):
             # Get error description.
             msg += ': ' + e.args[0]['desc']
