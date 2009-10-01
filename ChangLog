@@ -1,4 +1,5 @@
 = 0.1.1 =
+    * Fixed: use 'ENINGE=' instead of 'TYPE='. Thanks peterpp @forum.
     * Better typo while showing accountStatus.
     * Show accountStatus image while view/update account profile.
     * Add ou=Externals by default.
