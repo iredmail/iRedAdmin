@@ -12,8 +12,10 @@ cfg = web.iredconfig
 
 # Regular expression.
 pEmail = '[\w\-][\w\-\.]*@[\w\-][\w\-\.]+[a-zA-Z]{1,4}'
+pQuota = '\d+'
 
 regEmail = re.compile(pEmail)
+regQuota = re.compile(pQuota)
 
 def filesizeformat(value):
     """Format the value like a 'human-readable' file size (i.e. 13 KB,
@@ -87,20 +89,20 @@ def getNewPassword(newpw, confirmpw):
     if newpw == confirmpw:
         passwd = newpw
     else:
-        return (False, 'PW_MISMATCH')
+        return (False, 'msg=PW_MISMATCH')
 
     if not len(passwd) > 0:
-        return (False, 'PW_EMPTY')
+        return (False, 'msg=PW_EMPTY')
 
     # Check password length.
     min_passwd_length = cfg.general.get('min_passwd_length', 1)
     max_passwd_length = cfg.general.get('max_passwd_length', 0)
 
     if not len(passwd) >= int(min_passwd_length):
-        return (False, 'PW_LESS_THAN_MIN_LENGTH')
+        return (False, 'msg=PW_LESS_THAN_MIN_LENGTH')
 
     if int(max_passwd_length) != 0:
         if not len(passwd) <= int(max_passwd_length):
-            return (False, 'PW_GREATER_THAN_MAX_LENGTH')
+            return (False, 'msg=PW_GREATER_THAN_MAX_LENGTH')
 
     return (True, passwd)

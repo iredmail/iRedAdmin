@@ -51,7 +51,7 @@ class list(dbinit):
         if result[0] is True:
             web.seeother('/domains?msg=%s' % msg)
         else:
-            web.seeother('/domains?msg=%s' % result[1])
+            web.seeother('/domains?' + result[1])
 
 class profile(dbinit):
     @base.protected
@@ -87,7 +87,7 @@ class profile(dbinit):
                     msg=i.get('msg', None),
                     )
         else:
-            web.seeother('/domains?msg=%s' % result[1])
+            web.seeother('/domains?' + result[1])
 
     @base.protected
     def POST(self, profile_type, domain):
@@ -102,22 +102,22 @@ class profile(dbinit):
                 data=i,
                 )
         if result[0] is True:
-            web.seeother('/profile/domain/%s/%s?msg=SUCCESS' % (self.profile_type, self.domain) )
+            web.seeother('/profile/domain/%s/%s?msg=DOMAIN_PROFILE_UPDATED_SUCCESS' % (self.profile_type, self.domain) )
         elif result[0] is False:
-            web.seeother('/profile/domain/%s/%s?msg=%s' % (self.profile_type, self.domain, result[1]) )
+            web.seeother('/profile/domain/%s/%s?' % (self.profile_type, self.domain) + result[1])
 
 class create(dbinit):
     @base.check_global_admin
     @base.protected
     def GET(self):
-        return render.domain_create()
+        i = web.input()
+        return render.domain_create(msg=i.get('msg'))
 
     @base.check_global_admin
     @base.protected
     def POST(self):
-        i = web.input()
         result = domainLib.add(data=i)
         if result[0] is True:
-            web.seeother('/domains?msg=CREATE_SUCCESS')
+            web.seeother('/domains?msg=DOMAIN_CREATED_SUCCESS')
         else:
-            return render.domain_create(msg=result[1])
+            web.seeother('/create/domain?' + result[1])

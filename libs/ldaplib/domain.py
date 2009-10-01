@@ -22,7 +22,7 @@ class Domain(core.LDAPWrap):
         msg = {}
         self.domain = web.safestr(data.get('domainName', None))
         if self.domain == 'None' or self.domain == '':
-            return (False, 'EMPTY_DOMAIN')
+            return (False, 'msg=EMPTY_DOMAIN')
         
         self.domain = ldaputils.removeSpaceAndDot(self.domain.lower())
         self.dn = ldaputils.convDomainToDN(self.domain)
@@ -54,9 +54,9 @@ class Domain(core.LDAPWrap):
             pass
 
         if len(msg) == 0:
-            return (True, 'SUCCESS')
+            return (True,)
         else:
-            return (False, msg)
+            return (False, ldaputils.getExceptionDesc(msg))
 
     # List all domain admins.
     def admins(self, domain):
@@ -116,12 +116,12 @@ class Domain(core.LDAPWrap):
             except ldap.LDAPError, e:
                 msg[d] = str(e)
 
-        if msg == {}: return (True, 'DOMAIN_DELETED_SUCCESS')
-        else: return (False, msg)
+        if msg == {}: return (True,)
+        else: return (False, ldaputils.getExceptionDesc(msg))
 
     @LDAPDecorators.check_global_admin
     def enableOrDisableAccount(self, domains, value, attr='accountStatus',):
-        if domains is None or len(domains) == 0: return (False, 'NO_DOMAIN_SELECTED')
+        if domains is None or len(domains) == 0: return (False, 'msg=NO_DOMAIN_SELECTED')
 
         result = {}
         for domain in domains:
@@ -138,9 +138,9 @@ class Domain(core.LDAPWrap):
                 result[self.domain] = str(e)
 
         if result == {}:
-            return (True, 'SUCCESS')
+            return (True,)
         else:
-            return (False, result)
+            return (False, ldaputils.getExceptionDesc(result))
 
     # Get domain attributes & values.
     @LDAPDecorators.check_domain_access
@@ -158,9 +158,9 @@ class Domain(core.LDAPWrap):
             if len(self.domain_profile) == 1:
                 return (True, self.domain_profile)
             else:
-                return (False, 'NO_SUCH_DOMAIN')
+                return (False, 'msg=NO_SUCH_DOMAIN')
         except ldap.NO_SUCH_OBJECT:
-            return (False, 'NO_SUCH_OBJECT')
+            return (False, 'msg=NO_SUCH_OBJECT')
         except Exception, e:
             return (False, ldaputils.getExceptionDesc(e))
 
@@ -187,6 +187,6 @@ class Domain(core.LDAPWrap):
         try:
             dn = ldaputils.convDomainToDN(self.domain)
             self.conn.modify_s(dn, mod_attrs)
-            return (True, 'SUCCESS')
+            return (True,)
         except Exception, e:
             return (False, ldaputils.getExceptionDesc(e))

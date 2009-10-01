@@ -32,9 +32,9 @@
 {# Show message #}
 {% if msg is defined and msg is not sameas none %}
     <div class="ct-box info-box">
-    {% if msg == 'CREATE_SUCCESS' %}
+    {% if msg == 'ADMIN_CREATED_SUCCESS' %}
         <div class="success">{{ _('Account created success. Would you like to <a href="%s/create/admin">add one more</a>?') |format(ctx.homepath) }}</div>
-    {% elif msg == 'UPDATE_SUCCESS' %}
+    {% elif msg == 'ADMIN_PROFILE_UPDATE_SUCCESS' %}
         <div class="success">{{ _('Profile update success.') }}</div>
     {% else %}
         <div class="error">

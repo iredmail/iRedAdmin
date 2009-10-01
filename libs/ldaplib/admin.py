@@ -102,9 +102,9 @@ class Admin(core.LDAPWrap):
 
         try:
             self.conn.add_s(self.dn, ldif)
-            return (True, 'SUCCESS')
+            return (True,)
         except ldap.ALREADY_EXISTS:
-            return (False, 'ALREADY_EXISTS')
+            return (False, 'msg=ALREADY_EXISTS')
         except Exception, e:
             return (False, ldaputils.getExceptionDesc(e))
 
@@ -136,7 +136,7 @@ class Admin(core.LDAPWrap):
                 if session.get('username') == self.mail:
                     web.render = iredutils.setRenderLang(web.render, self.lang, oldlang=session.get('lang'),)
                     session['lang'] = self.lang
-                return (True, 'SUCCESS')
+                return (True,)
             except ldap.LDAPError, e:
                 return (False, ldaputils.getExceptionDesc(e))
 
@@ -160,13 +160,13 @@ class Admin(core.LDAPWrap):
 
             result = self.change_passwd(dn=self.dn, cur_passwd=self.cur_passwd, newpw=self.passwd,)
             if result[0] is True:
-                return (True, 'SUCCESS')
+                return (True,)
             else:
                 return result
 
     @LDAPDecorators.check_global_admin
     def delete(self, mails):
-        if mails is None or len(mails) == 0: return (False, 'NO_ACCOUNT_SELECTED')
+        if mails is None or len(mails) == 0: return (False, 'msg=NO_ACCOUNT_SELECTED')
 
         result = {}
 
@@ -180,13 +180,13 @@ class Admin(core.LDAPWrap):
                 result[self.mail] = str(e)
 
         if result == {}:
-            return (True, 'SUCCESS')
+            return (True,)
         else:
-            return (False, result)
+            return (False, ldaputils.getExceptionDesc(result))
 
     @LDAPDecorators.check_global_admin
     def enableOrDisableAccount(self, mails, value, attr='accountStatus',):
-        if mails is None or len(mails) == 0: return (False, 'NO_ACCOUNT_SELECTED')
+        if mails is None or len(mails) == 0: return (False, 'msg=NO_ACCOUNT_SELECTED')
 
         result = {}
         for mail in mails:
@@ -203,6 +203,6 @@ class Admin(core.LDAPWrap):
                 result[self.mail] = str(e)
 
         if result == {}:
-            return (True, 'SUCCESS')
+            return (True,)
         else:
-            return (False, result)
+            return (False, ldaputils.getExceptionDesc(result))

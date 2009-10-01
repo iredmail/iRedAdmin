@@ -40,9 +40,9 @@ class User(core.LDAPWrap):
             #        'ou=Users,'+ self.domainDN,
             #        iredldif.ldif_group('Users'),
             #        )
-            return (False, 'NO_SUCH_OBJECT')
+            return (False, 'msg=NO_SUCH_OBJECT')
         except ldap.SIZELIMIT_EXCEEDED:
-            return (False, 'SIZELIMIT_EXCEEDED')
+            return (False, 'msg=SIZELIMIT_EXCEEDED')
         except Exception, e:
             return (False, ldaputils.getExceptionDesc(e))
 
@@ -70,7 +70,7 @@ class User(core.LDAPWrap):
         self.username = web.safestr(data.get('username')).lower()
 
         if self.domain == '' or self.username == '':
-            return (False, 'MISSING_DOMAIN_OR_USERNAME')
+            return (False, 'msg=MISSING_DOMAIN_OR_USERNAME')
 
         # Check password.
         self.newpw = web.safestr(data.get('newpw'))
@@ -97,9 +97,9 @@ class User(core.LDAPWrap):
 
         try:
             self.conn.add_s(ldap.filter.escape_filter_chars(self.dn), ldif,)
-            return (True, 'SUCCESS')
+            return (True,)
         except ldap.ALREADY_EXISTS:
-            return (False, 'ALREADY_EXISTS')
+            return (False, 'msg=ALREADY_EXISTS')
         except Exception, e:
             return (False, ldaputils.getExceptionDesc(e))
 
@@ -118,13 +118,13 @@ class User(core.LDAPWrap):
                 result[self.mail] = str(e)
 
         if result == {}:
-            return (True, 'SUCCESS')
+            return (True,)
         else:
-            return (False, result)
+            return (False, ldaputils.getExceptionDesc(result))
 
     @LDAPDecorators.check_domain_access
     def enableOrDisableAccount(self, domain, mails, value, attr='accountStatus',):
-        if mails is None or len(mails) == 0: return (False, 'NO_ACCOUNT_SELECTED')
+        if mails is None or len(mails) == 0: return (False, 'msg=NO_ACCOUNT_SELECTED')
 
         result = {}
         for mail in mails:
@@ -141,9 +141,9 @@ class User(core.LDAPWrap):
                 result[self.mail] = str(e)
 
         if result == {}:
-            return (True, 'SUCCESS')
+            return (True,)
         else:
-            return (False, result)
+            return (False, ldaputils.getExceptionDesc(result))
 
     @LDAPDecorators.check_domain_access
     def update(self, profile_type, mail, data):
@@ -197,6 +197,6 @@ class User(core.LDAPWrap):
         try:
             dn = ldaputils.convEmailToUserDN(self.mail)
             self.conn.modify_s(dn, mod_attrs)
-            return (True, 'SUCCESS')
+            return (True,)
         except Exception, e:
             return (False, ldaputils.getExceptionDesc(e))

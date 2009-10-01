@@ -41,7 +41,7 @@ class list(dbinit):
                 if result[0] is True:
                     web.seeother('/users/' + cur_domain)
                 else:
-                    web.seeother('/domains?msg=%s' % result[1] )
+                    web.seeother('/domains?' + result[1] )
             elif isinstance(allDomains, types.ListType) is True and len(allDomains) == 0:
                 return render.users(msg='NO_DOMAIN_AVAILABLE')
             elif isinstance(allDomains, types.ListType) is True and len(allDomains) > 1:
@@ -58,7 +58,7 @@ class list(dbinit):
                         msg=i.get('msg'),
                         )
             else:
-                web.seeother('/domains?msg=%s' % result[1])
+                web.seeother('/domains?' + result[1])
 
     @base.protected
     def POST(self, domain):
@@ -80,7 +80,7 @@ class list(dbinit):
         if result[0] is True:
             web.seeother('/users/%s?msg=%s' % (self.domain, msg))
         else:
-            web.seeother('/users/%s?msg=%s' % (self.domain, result[1]))
+            web.seeother('/users/%s?' % (self.domain) + result[1])
 
 class profile(dbinit):
     @base.protected
@@ -101,18 +101,18 @@ class profile(dbinit):
         if self.profile_type not in attrs.USER_PROFILE_TYPE:
             web.seeother('/users/%s?msg=INVALID_PROFILE_TYPE&profile_type=%s' % (self.domain, self.profile_type) )
 
-        self.user_profile = userLib.profile(domain=self.domain, mail=self.mail)
-        if self.user_profile[0] is True:
+        result = userLib.profile(domain=self.domain, mail=self.mail)
+        if result[0] is True:
             return render.user_profile(
                     profile_type=self.profile_type,
                     mail=self.mail,
-                    user_profile=self.user_profile[1],
+                    user_profile=result[1],
                     min_passwd_length=cfg.general.get('min_passwd_length'),
                     max_passwd_length=cfg.general.get('max_passwd_length'),
                     msg=i.get('msg', None)
                     )
         else:
-            web.seeother('/users/%s?msg=%s' % (self.domain, self.user_profile[1]))
+            web.seeother('/users/%s?' % (self.domain) + result[1])
 
     @base.protected
     def POST(self, profile_type, mail):
@@ -126,9 +126,9 @@ class profile(dbinit):
                 data=i,
                 )
         if result[0] is True:
-            web.seeother('/profile/user/%s/%s?msg=UPDATED_SUCCESS' % (self.profile_type, self.mail))
+            web.seeother('/profile/user/%s/%s?msg=USER_PROFILE_UPDATED_SUCCESS' % (self.profile_type, self.mail))
         else:
-            web.seeother('/profile/user/%s/%s?msg=%s' % (self.profile_type, self.mail, result[1]))
+            web.seeother('/profile/user/%s/%s?' % (self.profile_type, self.mail) + result[1])
 
 class create(dbinit):
     @base.protected
@@ -161,7 +161,7 @@ class create(dbinit):
 
         result = userLib.add(domain=self.domain, data=i)
         if result[0] is True:
-            web.seeother('/profile/user/general/%s?msg=SUCCESS' % (self.username + '@' + self.domain))
+            web.seeother('/profile/user/general/%s?msg=USER_CREATED_SUCCESS' % (self.username + '@' + self.domain))
         else:
             self.cn = i.get('cn', '')
             self.quota = i.get('quota', domainLib.getDomainDefaultUserQuota(self.domain))

@@ -3,7 +3,7 @@
 
 # Author: Zhang Huangbin <michaelbibby (at) gmail.com>
 
-import os, sys
+import os, urllib, sys
 from base64 import b64encode
 import web
 import ldap
@@ -165,7 +165,7 @@ def getSingleModAttr(attr, value, default='None'):
 
 def getExceptionDesc(e):
     if not isinstance(e, tuple):
-        return str(e)
+        return urllib.urlencode({'msg': str(e)})
     try:
         msg = ''
         if e.args[0].has_key('info'):
@@ -176,6 +176,6 @@ def getExceptionDesc(e):
             msg += ': ' + e.args[0]['desc']
         else:
             msg = "%s" % str(e)
-        return msg
+        return urllib.urlencode({'msg': msg})
     except:
-        return str(e)
+        return urllib.urlencode({'msg': str(e)})

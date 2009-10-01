@@ -33,14 +33,14 @@ class LDAPWrap:
             else:
                 self.conn.set_option(ldap.OPT_PROTOCOL_VERSION, ldap.VERSION3)
         except Exception, e:
-            return False
+            return (False, ldaputils.getExceptionDesc(e))
 
         use_tls = eval(cfg.ldap.get('use_tls', '0'))
         if use_tls:
             try:
                 self.conn.start_tls_s()
             except ldap.LDAPError, e:
-                return e
+                return (False, ldaputils.getExceptionDesc(e))
 
         # synchronous bind.
         self.conn.bind_s(cfg.ldap.get('bind_dn'), cfg.ldap.get('bind_pw'))
@@ -53,9 +53,9 @@ class LDAPWrap:
         try:
             # Reference: RFC3062 - LDAP Password Modify Extended Operation
             self.conn.passwd_s(dn, cur_passwd, newpw)
-            return (True, 'SUCCESS')
+            return (True,)
         except ldap.UNWILLING_TO_PERFORM:
-            return (False, 'INCORRECT_OLDPW')
+            return (False, 'msg=INCORRECT_OLDPW')
         except Exception, e:
             return (False, ldaputils.getExceptionDesc(e))
 
@@ -65,7 +65,7 @@ class LDAPWrap:
                 ]
         try:
             result = self.conn.modify_s(web.safestr(dn), self.mod_attrs)
-            return (True, 'SUCCESS')
+            return (True,)
         except Exception, e:
             return (False, ldaputils.getExceptionDesc(e))
 

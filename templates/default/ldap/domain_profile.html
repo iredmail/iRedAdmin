@@ -7,6 +7,8 @@
         display_account_status,
         %}
 
+{% from "msgHandlers.html" import domainMsgHandler %}
+
 {% block js %}{% endblock js %}
 {% block js_tablesorter %}{% endblock js_tablesorter %}
 {% block jquery_docoment_ready %}{% endblock jquery_docoment_ready %}
@@ -25,17 +27,8 @@
 {# Domain profile. #}
 {% block main %}
 
-{# message #}
-{% if msg is defined and msg is not sameas none %}
-    <div class="ct-box info-box">
-        {% if msg == 'SUCCESS' %}
-            <div class="success">{{ _('Profile update success.') }}</div>
-        {% else %}
-            {# Catch-all #}
-            <div class="error">{{msg}}</div>
-        {% endif %}
-    </div>
-{% endif %}
+{# Show system message #}
+{{ domainMsgHandler(msg) }}
 
 {% set p = profile[0] %}
 {% set dn = p[0] %}

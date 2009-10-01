@@ -35,11 +35,11 @@
 {# message #}
 {% if msg is defined and msg is not sameas none %}
     <div class="ct-box info-box">
-        {% if msg == 'SUCCESS' %}
+        {% if msg == 'USER_CREATED_SUCCESS' %}
         <div class="success">
             {{ _('User created. Would you like to <a href="%s/create/user/%s">add one more</a>?' |format(ctx.homepath, mail.split('@', 1)[1] )) }}
         </div>
-        {% elif msg == 'UPDATED_SUCCESS' %}
+        {% elif msg == 'USER_PROFILE_UPDATED_SUCCESS' %}
         <div class="success">
             {{ _('Profile updated success.') }}
         </div>

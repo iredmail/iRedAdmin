@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 
 {% from "macros.html" import set_account_status_img, %}
+{% from "msgHandlers.html" import domainMsgHandler %}
 
 {% block title %}{{ _('Mail Domains') }}{% endblock %}
 {% block navlinks_active_domains %}active{% endblock %}
@@ -17,32 +18,7 @@
 
 {% block main %}
 {# Show system message #}
-{% if msg is defined and msg is not sameas none %}
-    <div class="ct-box info-box">
-        {% if msg == 'CREATE_SUCCESS' %}
-            <div class="success">{{ _('Domain created success.') }}</div>
-        {% elif msg == 'DOMAIN_DELETED_SUCCESS' %}
-            <div class="success">{{ _('Selected domains were deleted.') }}</div>
-        {% elif msg == 'DOMAIN_DISABLED_SUCCESS' %}
-            <div class="success">{{ _('Selected domains were diabled.') }}</div>
-        {% elif msg == 'DOMAIN_ENABLED_SUCCESS' %}
-            <div class="success">{{ _('Selected domains were enabled.') }}</div>
-        {% else %}
-            <div class="error">
-            {% if msg == 'SIZELIMIT_EXCEEDED' %}
-                {{ _('Server-side size limit exceeded.') }}
-            {% elif msg == 'PERMISSION_DENIED' %}
-                {{ _('Permission denied.') }}
-            {% elif msg == 'NO_SUCH_OBJECT' %}
-                {{ _('No such domain.') }}
-            {% else %}
-                {# Catch-all #}
-                {{ msg }}
-            {% endif %}
-            </div>
-        {% endif %}
-    </div>
-{% endif %}
+{{ domainMsgHandler(msg) }}
 
 {# List all domains under control. #}
 {% if allDomains is not string and allDomains |length != 0 %}

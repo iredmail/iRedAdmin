@@ -45,9 +45,9 @@ class list(dbinit):
             msg = i.get('msg', None)
 
         if result[0] is True:
-            web.seeother('/admins?msg=%s' % msg)
+            web.seeother('/admins?' + 'msg=' + msg)
         else:
-            web.seeother('/admins?msg=%s' % result[1])
+            web.seeother('/admins?' + result[1])
 
 class create(dbinit):
     @base.check_global_admin
@@ -69,16 +69,9 @@ class create(dbinit):
         result = adminLib.add(data=i)
 
         if result[0] is True:
-            web.seeother('/profile/admin/general/%s?msg=CREATE_SUCCESS' % self.mail)
+            web.seeother('/profile/admin/general/%s?msg=ADMIN_CREATED_SUCCESS' % self.mail)
         else:
-            self.cn = i.get('cn')
-            return render.admin_create(
-                    username=self.username,
-                    domain=self.domain,
-                    cn=self.cn,
-                    languagemaps=adminLib.getLanguageMaps(),
-                    msg=result[1],
-                    )
+            web.seeother('/create/admin?' + result[1])
 
 class profile(dbinit):
     @base.protected
@@ -93,7 +86,7 @@ class profile(dbinit):
             # Get admin profile.
             result = adminLib.profile(self.mail)
             if result[0] is not True:
-                web.seeother('/admins?msg=%s' % result[1])
+                web.seeother('/admins?' + result[1])
             else:
                 self.admin_profile = result[1]
 
@@ -113,7 +106,7 @@ class profile(dbinit):
                             msg=i.get('msg', None),
                             )
                 else:
-                    web.seeother('/profile/admin/%s/%s?msg=%s' % (self.profile_type, self.mail, result[1]))
+                    web.seeother('/profile/admin/%s/%s?' % (self.profile_type, self.mail) + result[1])
             elif self.profile_type == 'password':
                 return render.admin_profile(
                         mail=self.mail,
@@ -136,6 +129,6 @@ class profile(dbinit):
                 data=i,
                 )
         if result[0] is True:
-            web.seeother('/profile/admin/%s/%s?msg=UPDATE_SUCCESS' % (self.profile_type, self.mail))
+            web.seeother('/profile/admin/%s/%s?msg=ADMIN_PROFILE_UPDATE_SUCCESS' % (self.profile_type, self.mail))
         else:
-            web.seeother('/profile/admin/%s/%s?msg=%s' % (self.profile_type, self.mail, result[1]) )
+            web.seeother('/profile/admin/%s/%s?' % (self.profile_type, self.mail) + result[1])
