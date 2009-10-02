@@ -123,6 +123,10 @@ class profile(dbinit):
         self.mail = web.safestr(mail)
         i = web.input()
 
+        if session.get('domainGlobalAdmin') != 'yes' and session.get('username') != self.mail:
+            # Don't allow to view/update other admins' profile.
+            web.seeother('/profile/admin/general/%s?msg=PERMISSION_DENIED' % session.get('username'))
+
         result = adminLib.update(
                 profile_type=self.profile_type,
                 mail=self.mail,
