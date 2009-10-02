@@ -113,6 +113,11 @@ class Admin(core.LDAPWrap):
     def update(self, profile_type, mail, data):
         self.profile_type = web.safestr(profile_type)
         self.mail = web.safestr(mail)
+
+        if session.get('domainGlobalAdmin') != 'yes' and session.get('username') != self.mail:
+            # Don't allow to view/update other admins' profile.
+            return ldaputils.getExceptionDesc('PERMISSION_DENIED')
+
         self.dn = ldaputils.convEmailToAdminDN(self.mail)
 
         mod_attrs = []
