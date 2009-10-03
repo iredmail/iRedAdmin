@@ -1,9 +1,8 @@
 = 0.1.1 =
     * Fixed: use 'ENINGE=' instead of 'TYPE='. Thanks peterpp @forum.
-    * Better typo while showing accountStatus.
     * Show accountStatus image while view/update account profile.
     * Add ou=Externals by default.
-    * Fix http error 404 page.
+    * Show correct http error 404 page.
     * Convert new account name to lower case.
     * Fix incorrect maildir path: missing '/'.
     * Add French translation. Thanks Mael Lesaout (mael.lesaout@gmail).

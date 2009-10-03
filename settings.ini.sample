@@ -83,6 +83,3 @@ bind_pw = passwd
 # Default password scheme: SSHA, PLAIN.
 # SSHA is recommended.
 default_pw_scheme = SSHA
-
-# Size limit.
-sizelimit = 500
