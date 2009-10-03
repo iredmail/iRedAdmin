@@ -715,7 +715,7 @@ msgstr "无效的偏好类型：%s。"
 
 #: ../templates/default/ldap/users.html:46
 msgid "No mail domain available."
-msgstr "暂无头像"
+msgstr "没有受管理的邮件域。"
 
 #: ../templates/default/ldap/users.html:66
 msgid "Quota"
