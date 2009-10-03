@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: michaelbibby@gmail.com\n"
 "POT-Creation-Date: 2009-06-27 11:47+0800\n"
-"PO-Revision-Date: 2009-10-03 23:43+0800\n"
+"PO-Revision-Date: 2009-10-04 00:45+0800\n"
 "Last-Translator: Mael LE SAOUT <mael.lesaout@gmail.com>\n"
 "Language-Team: fr_FR <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -331,7 +331,7 @@ msgid "Unlimited number of mail aliases"
 msgstr "Nombre maximum d'alias de messagerie"
 
 #: ../templates/default/ldap/dashboard.html:44
-msgid "Admin type control (Global/Normal Admin)"
+msgid "Per-user mail forwarding control"
 msgstr ""
 
 #: ../templates/default/ldap/dashboard.html:45
@@ -339,7 +339,7 @@ msgid "Per-user service control"
 msgstr ""
 
 #: ../templates/default/ldap/dashboard.html:46
-msgid "Per-user MTA transport control"
+msgid "Admin type control (Global/Normal Admin)"
 msgstr ""
 
 #: ../templates/default/ldap/dashboard.html:56
@@ -436,8 +436,8 @@ msgstr "Etes-vous sûr de vouloir supprimer le(s) domaine(s) sélectionné(s)"
 
 #: ../templates/default/ldap/error404.html:8
 #: ../templates/default/ldap/error404.html:14
-#, fuzzy, python-format
-msgid "Page not found (%s)."
+#, fuzzy
+msgid "Page not found."
 msgstr "Page introuvable."
 
 #: ../templates/default/ldap/error404.html:8

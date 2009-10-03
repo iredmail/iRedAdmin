@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: michaelbibby@gmail.com\n"
 "POT-Creation-Date: 2009-10-02 01:16+0800\n"
-"PO-Revision-Date: 2009-10-03 23:43+0800\n"
+"PO-Revision-Date: 2009-10-04 00:45+0800\n"
 "Last-Translator: Lâm Minh Thông <lmthong@gmail.com>\n"
 "Language-Team: vi_VN <LL@li.org>\n"
 "Plural-Forms: nplurals=1; plural=0\n"
@@ -315,7 +315,7 @@ msgid "Unlimited number of mail aliases"
 msgstr ""
 
 #: ../templates/default/ldap/dashboard.html:44
-msgid "Admin type control (Global/Normal Admin)"
+msgid "Per-user mail forwarding control"
 msgstr ""
 
 #: ../templates/default/ldap/dashboard.html:45
@@ -323,7 +323,7 @@ msgid "Per-user service control"
 msgstr ""
 
 #: ../templates/default/ldap/dashboard.html:46
-msgid "Per-user MTA transport control"
+msgid "Admin type control (Global/Normal Admin)"
 msgstr ""
 
 #: ../templates/default/ldap/dashboard.html:56
@@ -413,8 +413,8 @@ msgstr "Bạn muốn kích hoạt tên miền đã chọn?"
 
 #: ../templates/default/ldap/error404.html:8
 #: ../templates/default/ldap/error404.html:14
-#, python-format
-msgid "Page not found (%s)."
+#, fuzzy
+msgid "Page not found."
 msgstr "Không tìm thấy trang (%s)."
 
 #: ../templates/default/ldap/error404.html:8

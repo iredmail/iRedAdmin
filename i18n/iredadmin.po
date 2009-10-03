@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: michaelbibby@gmail.com\n"
-"POT-Creation-Date: 2009-10-03 23:43+0800\n"
+"POT-Creation-Date: 2009-10-04 00:45+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -312,7 +312,7 @@ msgid "Unlimited number of mail aliases"
 msgstr ""
 
 #: ../templates/default/ldap/dashboard.html:44
-msgid "Admin type control (Global/Normal Admin)"
+msgid "Per-user mail forwarding control"
 msgstr ""
 
 #: ../templates/default/ldap/dashboard.html:45
@@ -320,7 +320,7 @@ msgid "Per-user service control"
 msgstr ""
 
 #: ../templates/default/ldap/dashboard.html:46
-msgid "Per-user MTA transport control"
+msgid "Admin type control (Global/Normal Admin)"
 msgstr ""
 
 #: ../templates/default/ldap/dashboard.html:56
@@ -410,8 +410,7 @@ msgstr ""
 
 #: ../templates/default/ldap/error404.html:8
 #: ../templates/default/ldap/error404.html:14
-#, python-format
-msgid "Page not found (%s)."
+msgid "Page not found."
 msgstr ""
 
 #: ../templates/default/ldap/error404.html:8

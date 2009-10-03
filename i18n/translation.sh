@@ -31,19 +31,17 @@ elif [ X"${ACTION}" == X"update" ]; then
             -l ${lang}
     done
 
-elif [ X"${ACTION}" == X"compile" ]; then
-    echo "* Compile translation catalogs into binary MO files..."
+elif [ X"${ACTION}" == X"convert" ]; then
+    echo "* Convert translation catalogs into binary MO files..."
     for lang in ${AVAILABLE_LANGS}
     do
-        pybabel compile -f -i ${POFILE} \
-            -D ${DOMAIN} \
-            -d . \
-            -l ${lang}
+        echo "  + Converting ${lang}..."
+        python ./msgfmt.py ${lang}/LC_MESSAGES/${DOMAIN}.po
     done
 elif [ X"${ACTION}" == X"all" ]; then
     bash $0 extract && \
     bash $0 update && \
-    bash $0 compile
+    bash $0 convert
 else
     :
 fi

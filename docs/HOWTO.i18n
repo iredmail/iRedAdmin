@@ -10,7 +10,7 @@ i18n support HOWTO
 *) Extract strings from templates:
 
     # cd /path/to/iredadmin-x.y.z/i18n/
-    # bash babel.sh extract
+    # bash translation.sh extract
 
 *) Translate '/path/to/iredadmin-x.y.z/i18n/iredadmin.po'.
 
