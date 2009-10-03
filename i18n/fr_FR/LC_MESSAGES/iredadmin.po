@@ -1,4 +1,4 @@
-# Translations template for PROJECT.
+# French (France) translations for PROJECT.
 # Copyright (C) 2009 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
@@ -8,1166 +8,771 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: michaelbibby@gmail.com\n"
 "POT-Creation-Date: 2009-06-27 11:47+0800\n"
-"PO-Revision-Date: 2009-09-08 21:57+0100\n"
+"PO-Revision-Date: 2009-10-03 23:43+0800\n"
 "Last-Translator: Mael LE SAOUT <mael.lesaout@gmail.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: fr_FR <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.4\n"
 
-#: ../templates/default/ldap/admin/add.html:5
-#: ../templates/default/ldap/admin/list.html:5
-#: ../templates/punbb/ldap/admin_add.html:5
-#: ../templates/punbb/ldap/layout.html:75
-msgid "Admins"
-msgstr "Administrateurs"
-
-#: ../templates/default/ldap/admin/add.html:10
-#: ../templates/punbb/ldap/admin_add.html:10
-msgid "Add new admin(s):"
-msgstr "Ajouter un(des) nouvel(nouveaux) administrateur(s):"
-
-#: ../templates/default/ldap/admin/add.html:15
-#: ../templates/punbb/ldap/admin_add.html:15
-msgid "Note: Multiple accounts must be sperated by SPACE."
-msgstr "Remarque: Les différents comptes doivent être séparés par un ESPACE."
-
-#: ../templates/default/ldap/admin/list.html:20
-msgid "Search admin"
-msgstr "Rechercher un administrateur"
-
-#: ../templates/default/ldap/admin/list.html:24
-#: ../templates/default/ldap/group/list.html:29
-msgid "Search"
-msgstr "Rechercher"
-
-#: ../templates/default/ldap/admin/list.html:35
-msgid "Add a new admin:"
-msgstr "Ajouter un nouvel administrateur:"
-
-#: ../templates/default/ldap/admin/list.html:36
-msgid "E-Mail:"
-msgstr "E-Mail:"
-
-#: ../templates/default/ldap/admin/list.html:37
-msgid "Password:"
-msgstr "Mot de passe:"
-
-#: ../templates/default/ldap/admin/list.html:38
-msgid "As Global Admin"
-msgstr "Comme Administrateur Global"
-
-#: ../templates/default/ldap/admin/list.html:38
-msgid "Add now"
-msgstr "Ajouter maintenant"
-
-#: ../templates/default/ldap/admin/list.html:41
-#: ../templates/default/ldap/group/list.html:48
-msgid "Note:"
-msgstr "Remarque:"
-
-#: ../templates/default/ldap/admin/list.html:43
-msgid "Do <strong>NOT</strong> specify multiple accounts."
-msgstr "<strong>NE</strong> précisez qu'<strong>UN SEUL</strong> compte."
-
-#: ../templates/default/ldap/admin/list.html:57
-#: ../templates/default/ldap/domain/add.html:22
-#: ../templates/default/ldap/domain/list.html:23
-#: ../templates/default/ldap/group/list.html:62
-#: ../templates/default/ldap/preferences/chpwd.html:9
-#: ../templates/default/ldap/user/list.html:25
-#: ../templates/punbb/ldap/aliases.html:65
-#: ../templates/punbb/ldap/domain_add.html:22
-#: ../templates/punbb/ldap/domains.html:28
-#: ../templates/punbb/ldap/maillists.html:65
-msgid "System message:"
-msgstr "Message système:"
-
-#: ../templates/default/ldap/admin/list.html:68
-msgid "All admins:"
-msgstr "Tous les administrateurs:"
-
-#: ../templates/default/ldap/admin/list.html:79
-#: ../templates/default/ldap/domain/profile.html:69
-#: ../templates/default/ldap/user/list.html:53
-#: ../templates/punbb/ldap/admins.html:90
-#: ../templates/punbb/ldap/domain_profile.html:171
-#: ../templates/punbb/ldap/users.html:60
-msgid "Mail"
-msgstr "Mail"
-
-#: ../templates/default/ldap/admin/list.html:80
-msgid "Status"
-msgstr "Statut"
-
-#: ../templates/default/ldap/admin/list.html:81
-#: ../templates/punbb/ldap/admins.html:91
-msgid "Global Admin"
-msgstr "Administrateur Global"
-
-#: ../templates/default/ldap/admin/list.html:82
-#: ../templates/default/ldap/domain/list.html:53
-#: ../templates/default/ldap/group/list.html:94
-#: ../templates/default/ldap/policyd/blacklist_helo.html:25
-#: ../templates/default/ldap/user/list.html:56
-#: ../templates/punbb/ldap/admins.html:92
-#: ../templates/punbb/ldap/aliases.html:90
-#: ../templates/punbb/ldap/blacklist_helo.html:25
-#: ../templates/punbb/ldap/domains.html:59
-#: ../templates/punbb/ldap/maillists.html:98
-#: ../templates/punbb/ldap/users.html:63
-msgid "Operations"
-msgstr "Opérations"
-
-#: ../templates/default/ldap/admin/list.html:111
-#: ../templates/default/ldap/domain/list.html:71
-#: ../templates/default/ldap/group/list.html:119
-#: ../templates/punbb/ldap/domains.html:95
-msgid "Edit"
-msgstr "Editer"
-
-#: ../templates/default/ldap/admin/list.html:120
-#: ../templates/default/ldap/admin/list.html:140
-#: ../templates/default/ldap/domain/list.html:79
-#: ../templates/default/ldap/domain/list.html:90
-#: ../templates/default/ldap/domain/list.html:100
-#: ../templates/default/ldap/group/list.html:128
-#: ../templates/default/ldap/group/list.html:138
-#: ../templates/default/ldap/policyd/blacklist_helo.html:34
-#: ../templates/default/ldap/policyd/blacklist_helo.html:43
-#: ../templates/default/ldap/user/list.html:84
-#: ../templates/default/ldap/user/list.html:95
-#: ../templates/punbb/ldap/admins.html:115
-#: ../templates/punbb/ldap/admins.html:125
-#: ../templates/punbb/ldap/aliases.html:115
-#: ../templates/punbb/ldap/aliases.html:125
-#: ../templates/punbb/ldap/blacklist_helo.html:34
-#: ../templates/punbb/ldap/blacklist_helo.html:43
-#: ../templates/punbb/ldap/domains.html:106
-#: ../templates/punbb/ldap/domains.html:116
-#: ../templates/punbb/ldap/maillists.html:126
-#: ../templates/punbb/ldap/maillists.html:136
-#: ../templates/punbb/ldap/users.html:96
-#: ../templates/punbb/ldap/users.html:106
-msgid "Delete"
-msgstr "Supprimer"
-
-#: ../templates/default/ldap/admin/list.html:120
-#: ../templates/punbb/ldap/admins.html:115
-msgid "Delete this admin?"
-msgstr "Supprimer cet administrateur?"
-
-#: ../templates/default/ldap/admin/list.html:139
-#: ../templates/default/ldap/domain/list.html:99
-#: ../templates/default/ldap/group/list.html:137
-#: ../templates/default/ldap/policyd/blacklist_helo.html:42
-#: ../templates/default/ldap/user/list.html:94
-#: ../templates/punbb/ldap/admins.html:124
-#: ../templates/punbb/ldap/aliases.html:124
-#: ../templates/punbb/ldap/blacklist_helo.html:42
-#: ../templates/punbb/ldap/domains.html:115
-#: ../templates/punbb/ldap/maillists.html:135
-#: ../templates/punbb/ldap/users.html:105
-msgid "Select all"
-msgstr "Selectionner tout"
-
-#: ../templates/default/ldap/admin/list.html:140
-msgid "Are you sure want to delete selected admin(s)?"
-msgstr "Etes vous sur de vouloir supprimer l'administrateur sélectionné?"
-
-#: ../templates/default/ldap/admin/list.html:140
-#: ../templates/default/ldap/domain/list.html:100
-#: ../templates/default/ldap/group/list.html:138
-#: ../templates/default/ldap/policyd/blacklist_helo.html:43
-#: ../templates/default/ldap/user/list.html:95
-#: ../templates/punbb/ldap/blacklist_helo.html:43
-msgid "Deleted"
-msgstr "Supprimé"
-
-#: ../templates/default/ldap/dashboard.html:3
-#: ../templates/default/ldap/layout.html:85
-#: ../templates/default/ldap/admin/layout.html:85
-#: ../templates/default/ldap/domain/layout.html:84
-#: ../templates/default/ldap/group/layout.html:85
-#: ../templates/default/ldap/preferences/layout.html:85
-#: ../templates/default/ldap/user/layout.html:85
-#: ../templates/punbb/ldap/dashboard.html:3
-#: ../templates/punbb/ldap/layout.html:71
-msgid "Dashboard"
-msgstr "Tableau de bord"
-
-#: ../templates/default/ldap/dashboard.html:15
-msgid "Loading..."
-msgstr "Chargement..."
-
-#: ../templates/default/ldap/dashboard.html:33
-#: ../templates/default/ldap/dashboard.html:48
-msgid "iRedMail - News and Announcements"
-msgstr "iRedMail - Nouveautés et Annonces"
-
-#: ../templates/default/ldap/dashboard.html:38
-#: ../templates/default/ldap/dashboard.html:53
-msgid "iRedMail - General Technical Support"
-msgstr "iRedMail - Support Technique Général"
-
-#: ../templates/default/ldap/dashboard.html:43
-#: ../templates/default/ldap/dashboard.html:58
-msgid "iRedMail - Success Stories"
-msgstr "iRedMail - Success Stories"
-
-#: ../templates/default/ldap/dashboard.html:66
-msgid "iRedMail Project News"
-msgstr "iRedMail Project News"
-
-#: ../templates/default/ldap/domain/add.html:10
-#: ../templates/punbb/ldap/domain_add.html:10
-msgid "Add new domain(s):"
-msgstr "ajouter un(des) nouveau(x) domaine(s):"
-
-#: ../templates/default/ldap/domain/add.html:16
-#: ../templates/punbb/ldap/domain_add.html:16
-msgid "Note: Multiple domains must be sperated by SPACE."
-msgstr "Remarque: Les différents domaines doivent être séparés par un ESPACE."
-
-#: ../templates/default/ldap/domain/list.html:5
-#: ../templates/punbb/ldap/domains.html:5
-msgid "Mail domains"
-msgstr "Mail domains"
-
-#: ../templates/default/ldap/domain/list.html:29
-#: ../templates/punbb/ldap/domains.html:34
-msgid "Deleted:"
-msgstr "Supprimé:"
-
-#: ../templates/default/ldap/domain/list.html:31
-#: ../templates/punbb/ldap/domains.html:36
-msgid "No such object:"
-msgstr "Aucun objet:"
-
-#: ../templates/default/ldap/domain/list.html:43
-msgid "Domain(s) under your control:"
-msgstr "Domaine(s) sous votre controle:"
-
-#: ../templates/default/ldap/domain/list.html:50
-#: ../templates/punbb/ldap/domains.html:53
-msgid "Domain Name"
-msgstr "Nom de domaine"
-
-#: ../templates/default/ldap/domain/list.html:51
-#: ../templates/default/ldap/domain/profile.html:60
-#: ../templates/punbb/ldap/domain_profile.html:148
-#: ../templates/punbb/ldap/domain_profile.html:150
-#: ../templates/punbb/ldap/domains.html:58
-msgid "Backup MX"
-msgstr "MX de Secours"
-
-#: ../templates/default/ldap/domain/list.html:52
-#: ../templates/default/ldap/domain/profile.html:41
-#: ../templates/default/ldap/user/list.html:55
-#: ../templates/default/ldap/user/profile.html:48
-#: ../templates/punbb/ldap/users.html:62
-msgid "Created Date"
-msgstr "Date de Création"
-
-#: ../templates/default/ldap/domain/list.html:71
-msgid "Edit domain detail"
-msgstr "Editer les détails du domaine"
-
-#: ../templates/default/ldap/domain/list.html:79
-msgid "List all users"
-msgstr "Afficher tous les utilisateurs"
-
-#: ../templates/default/ldap/domain/list.html:82
-msgid "List all groups"
-msgstr "Afficher tous les groupes"
-
-#: ../templates/default/ldap/domain/list.html:85
-msgid "List all aliases"
-msgstr "Afficher tous les alias"
-
-#: ../templates/default/ldap/domain/list.html:90
-#: ../templates/punbb/ldap/domains.html:106
-msgid "Delete this domain?"
-msgstr "Supprimer ce domaine?"
-
-#: ../templates/default/ldap/domain/list.html:90
-#: ../templates/punbb/ldap/domains.html:106
-msgid "Delete this domain"
-msgstr "Supprimer ce domaine"
-
-#: ../templates/default/ldap/domain/list.html:100
-msgid "Are you sure want to delete selected domain(s)?"
-msgstr "Etes-vous sûr de vouloir supprimer le(s) domaine(s) sélectionné(s)"
-
-#: ../templates/default/ldap/domain/list.html:106
-#: ../templates/default/ldap/preferences/chpwd.html:11
-#: ../templates/default/ldap/preferences/chpwd.html:13
-#: ../templates/punbb/ldap/domains.html:122
-msgid "Error:"
-msgstr "Erreur:"
-
-#: ../templates/default/ldap/domain/profile.html:3
-#: ../templates/punbb/ldap/domain_profile.html:3
-msgid "Edit domain profile"
-msgstr "Editer le profi du domaine"
-
-#: ../templates/default/ldap/domain/profile.html:22
-msgid "Detail of domain:"
-msgstr "Détail du domaine:"
-
-#: ../templates/default/ldap/domain/profile.html:27
-msgid "Domain name"
-msgstr "Nom de domaine"
-
-#: ../templates/default/ldap/domain/profile.html:35
-#: ../templates/default/ldap/domain/profile.html:36
-#: ../templates/punbb/ldap/domain_profile.html:72
-#: ../templates/punbb/ldap/domain_profile.html:75
-msgid "Company/Organization"
-msgstr "Entreprise/Organisation"
-
-#: ../templates/default/ldap/domain/profile.html:46
-#: ../templates/default/ldap/user/profile.html:53
-#: ../templates/punbb/ldap/domain_profile.html:66
-msgid "Last Modify Date"
-msgstr "Date de Dernière Modification"
-
-#: ../templates/default/ldap/domain/profile.html:52
-#: ../templates/default/ldap/user/profile.html:59
-msgid "Account Status"
-msgstr "Statut Du Compte"
-
-#: ../templates/default/ldap/domain/profile.html:54
-#: ../templates/default/ldap/user/profile.html:61
-#: ../templates/punbb/ldap/domain_profile.html:88
-#: ../templates/punbb/ldap/user_profile.html:89
-msgid "Active"
-msgstr "Actif"
-
-#: ../templates/default/ldap/domain/profile.html:55
-#: ../templates/default/ldap/user/profile.html:62
-#: ../templates/punbb/ldap/domain_profile.html:92
-#: ../templates/punbb/ldap/user_profile.html:93
-msgid "Disabled"
-msgstr "Désactivé"
-
-#: ../templates/default/ldap/domain/profile.html:62
-#: ../templates/punbb/ldap/domain_profile.html:154
-#: ../templates/punbb/ldap/user_profile.html:106
-msgid "Yes"
-msgstr "Oui"
-
-#: ../templates/default/ldap/domain/profile.html:63
-#: ../templates/punbb/ldap/domain_profile.html:158
-msgid "No"
-msgstr "Non"
-
-#: ../templates/default/ldap/domain/profile.html:67
-#: ../templates/default/ldap/user/profile.html:119
-#: ../templates/punbb/ldap/domain_profile.html:165
-#: ../templates/punbb/ldap/domain_profile.html:167
-#: ../templates/punbb/ldap/user_profile.html:113
-#: ../templates/punbb/ldap/user_profile.html:115
-msgid "Enabled services"
-msgstr "Services Autorisés"
-
-#: ../templates/default/ldap/domain/profile.html:71
-#: ../templates/punbb/ldap/domain_profile.html:176
-msgid "Sender Bcc"
-msgstr "Expéditeur Bcc"
-
-#: ../templates/default/ldap/domain/profile.html:73
-#: ../templates/punbb/ldap/domain_profile.html:181
-msgid "Recipient Bcc"
-msgstr "Destinataire Bcc"
-
-#: ../templates/default/ldap/domain/profile.html:78
-#: ../templates/default/ldap/user/profile.html:146
-#: ../templates/punbb/ldap/user_profile.html:201
-msgid "Recipient Bcc Address"
-msgstr "Adresse d'expéditeur Bcc"
-
-#: ../templates/default/ldap/domain/profile.html:79
-#: ../templates/default/ldap/domain/profile.html:84
-#: ../templates/default/ldap/user/profile.html:139
-#: ../templates/default/ldap/user/profile.html:150
-#: ../templates/default/ldap/user/profile.html:158
-#: ../templates/punbb/ldap/login.html:21
-#: ../templates/punbb/ldap/user_profile.html:194
-#: ../templates/punbb/ldap/user_profile.html:205
-#: ../templates/punbb/ldap/user_profile.html:213
-msgid "Must be a valid email address."
-msgstr "Doit être une adresse email valide."
-
-#: ../templates/default/ldap/domain/profile.html:79
-#: ../templates/default/ldap/user/profile.html:150
-#: ../templates/punbb/ldap/user_profile.html:205
-msgid "Recipient Bcc Address."
-msgstr "Adresse de destinataire Bcc."
-
-#: ../templates/default/ldap/domain/profile.html:83
-#: ../templates/default/ldap/user/profile.html:154
-#: ../templates/punbb/ldap/user_profile.html:209
-msgid "Sender Bcc Address"
-msgstr "Adresse d'expéditeur Bcc"
-
-#: ../templates/default/ldap/domain/profile.html:84
-#: ../templates/default/ldap/user/profile.html:158
-#: ../templates/punbb/ldap/user_profile.html:213
-msgid "Sender Bcc Address."
-msgstr "Adresse d'expéditeur Bcc."
-
-#: ../templates/default/ldap/domain/profile.html:91
-#: ../templates/default/ldap/preferences/language.html:28
-msgid "Save"
-msgstr "Sauvegarder"
-
-#: ../templates/default/ldap/error.html:3
-#: ../templates/default/ldap/group/list.html:5
-#: ../templates/default/ldap/user/list.html:5
-#: ../templates/punbb/ldap/domains.html:55
-#: ../templates/punbb/ldap/error.html:3
-#: ../templates/punbb/ldap/submenus.html:9
-msgid "Users"
-msgstr "Utilisateurs"
-
-#: ../templates/default/ldap/group/list.html:25
-msgid "Search group"
-msgstr "Rechercher un groupe"
-
-#: ../templates/default/ldap/group/list.html:38
-msgid "Add new group(s)"
-msgstr "Ajouter un(des) nouveau(x) groupe(s)"
-
-#: ../templates/default/ldap/group/list.html:50
-msgid "Do <strong>NOT</strong> include domain name."
-msgstr "<strong>N'</strong>incluez <strong>PAS</strong> le nom de domaine."
-
-#: ../templates/default/ldap/group/list.html:51
-msgid "Multiple accounts <strong>MUST</strong> be sperated by <strong>SPACE</strong>."
-msgstr "Les différents comptes <strong>DOIVENT</strong> être séparés par un <strong>ESPACE</.strong>"
-
-#: ../templates/default/ldap/group/list.html:66
-#: ../templates/default/ldap/user/list.html:29
-#: ../templates/punbb/ldap/aliases.html:69
-#: ../templates/punbb/ldap/maillists.html:69
-msgid "Permission deny."
-msgstr "Permission refusée."
-
-#: ../templates/default/ldap/group/list.html:68
-#: ../templates/default/ldap/user/list.html:31
-#: ../templates/punbb/ldap/aliases.html:71
-#: ../templates/punbb/ldap/maillists.html:71
-msgid "Size limit exceeded."
-msgstr "Taille limité dépassée."
-
-#: ../templates/default/ldap/group/list.html:70
-#: ../templates/default/ldap/user/list.html:33
-#: ../templates/punbb/ldap/aliases.html:73
-#: ../templates/punbb/ldap/maillists.html:73
-msgid "Added success."
-msgstr "Ajouté avec succès."
-
-#: ../templates/default/ldap/group/list.html:79
-#, python-format
-msgid "All groups under domain %s:"
-msgstr "Tous les groupes du domaine %s:"
-
-#: ../templates/default/ldap/group/list.html:91
-#: ../templates/default/ldap/user/list.html:52
-#: ../templates/default/ldap/user/profile.html:68
-#: ../templates/default/ldap/user/profile.html:69
-#: ../templates/punbb/ldap/aliases.html:88
-#: ../templates/punbb/ldap/maillists.html:94
-#: ../templates/punbb/ldap/users.html:58
-msgid "Name"
-msgstr "Nom"
-
-#: ../templates/default/ldap/group/list.html:92
-#: ../templates/default/ldap/user/profile.html:40
-#: ../templates/punbb/ldap/aliases.html:89
-#: ../templates/punbb/ldap/maillists.html:96
-msgid "Email Address"
-msgstr "Adresse Email"
-
-#: ../templates/default/ldap/group/list.html:93
-#: ../templates/punbb/ldap/maillists.html:97
-msgid "Type"
-msgstr "Type"
-
-#: ../templates/default/ldap/group/list.html:111
-#: ../templates/punbb/ldap/aliases.html:107
-#: ../templates/punbb/ldap/maillists.html:117
-msgid "Edit group profile"
-msgstr "Editer le profil du group"
-
-#: ../templates/default/ldap/group/list.html:124
-msgid "Detail"
-msgstr "Détail"
-
-#: ../templates/default/ldap/group/list.html:128
-#: ../templates/punbb/ldap/aliases.html:115
-#: ../templates/punbb/ldap/maillists.html:126
-msgid "Delete this group?"
-msgstr "Supprimer ce group?"
-
-#: ../templates/default/ldap/group/list.html:128
-#: ../templates/punbb/ldap/aliases.html:115
-#: ../templates/punbb/ldap/maillists.html:126
-msgid "Delete this group"
-msgstr "Supprimer ce groupe"
-
-#: ../templates/default/ldap/group/list.html:138
-#: ../templates/punbb/ldap/admins.html:125
-#: ../templates/punbb/ldap/aliases.html:125
-#: ../templates/punbb/ldap/domains.html:116
-#: ../templates/punbb/ldap/maillists.html:136
-#: ../templates/punbb/ldap/users.html:106
-msgid "Are you sure want to delete selected group(s)?"
-msgstr "Êtes-vous sûr de vouloir supprimer le(s) groupe(s) sélectionné(s)?"
-
-#: ../templates/default/ldap/layout.html:70
-#: ../templates/default/ldap/admin/layout.html:70
-#: ../templates/default/ldap/domain/layout.html:69
-#: ../templates/default/ldap/group/layout.html:70
-#: ../templates/default/ldap/preferences/layout.html:70
-#: ../templates/default/ldap/preferences/preferences.html:3
-#: ../templates/default/ldap/user/layout.html:70
-#: ../templates/punbb/ldap/layout.html:77
-#: ../templates/punbb/ldap/preferences.html:3
-msgid "Preferences"
-msgstr "Préférences"
-
-#: ../templates/default/ldap/layout.html:71
-#: ../templates/default/ldap/admin/layout.html:71
-#: ../templates/default/ldap/domain/layout.html:70
-#: ../templates/default/ldap/group/layout.html:71
-#: ../templates/default/ldap/preferences/layout.html:71
-#: ../templates/default/ldap/user/layout.html:71
-#: ../templates/punbb/ldap/layout.html:78
-msgid "Logout"
-msgstr "Déconnexion"
-
-#: ../templates/default/ldap/layout.html:76
-#: ../templates/default/ldap/admin/layout.html:76
-#: ../templates/default/ldap/domain/layout.html:75
-#: ../templates/default/ldap/group/layout.html:76
-#: ../templates/default/ldap/preferences/layout.html:76
-#: ../templates/default/ldap/user/layout.html:76
-#: ../templates/punbb/ldap/layout.html:65
-msgid "iRedMail Management"
-msgstr "iRedMail Management"
-
-#: ../templates/default/ldap/layout.html:86
-#: ../templates/default/ldap/admin/layout.html:86
-#: ../templates/default/ldap/domain/layout.html:85
-#: ../templates/default/ldap/group/layout.html:86
-#: ../templates/default/ldap/preferences/layout.html:86
-#: ../templates/default/ldap/user/layout.html:86
-#: ../templates/punbb/ldap/layout.html:72
-msgid "Mail Domains"
-msgstr "Domaines de Messagerie"
-
-#: ../templates/default/ldap/layout.html:90
-#: ../templates/default/ldap/admin/layout.html:90
-#: ../templates/default/ldap/domain/layout.html:89
-#: ../templates/default/ldap/group/layout.html:90
-#: ../templates/default/ldap/preferences/layout.html:90
-#: ../templates/default/ldap/user/layout.html:90
-msgid "Admin List"
-msgstr "Liste des Administrateurs"
-
-#: ../templates/default/ldap/layout.html:119
-#: ../templates/default/ldap/admin/layout.html:119
-#: ../templates/default/ldap/domain/layout.html:118
-#: ../templates/default/ldap/group/layout.html:119
-#: ../templates/default/ldap/preferences/layout.html:119
-#: ../templates/default/ldap/user/layout.html:119
-#: ../templates/punbb/ldap/layout.html:104
-msgid "Support Forum"
-msgstr "Forum se Support"
-
-#: ../templates/default/ldap/login.html:113
-msgid "Domain Control Panel"
-msgstr "Panneau de Configuration des Domaines"
-
-#: ../templates/default/ldap/login.html:136
-#: ../templates/default/ldap/login.html:190
-msgid "Login"
-msgstr "Connexion"
-
-#: ../templates/default/ldap/login.html:143
-msgid "Login required!"
-msgstr "Identifiant requis!"
-
-#: ../templates/default/ldap/login.html:145
-msgid "Username or password is incorrect."
-msgstr "L'identifiant ou le mot de passe est incorrect."
-
-#: ../templates/default/ldap/login.html:147
-#, python-format
-msgid "LDAP server is DOWN, please contact <a href=\"mailto:%s\">system admin</a> AS SOON AS POSSIBLE."
-msgstr "Le serveur LDAP est ARRÊTÉ, merci de contacter l'<a href=\"mailto:%s\">administrateur système</a> DÈS QUE POSSIBLE."
-
-#: ../templates/default/ldap/login.html:155
-#: ../templates/punbb/ldap/login.html:21
-#: ../templates/punbb/ldap/user_profile.html:60
-#: ../templates/punbb/ldap/user_profile.html:63
-msgid "Username"
-msgstr "Nom d'utilisateur"
-
-#: ../templates/default/ldap/login.html:157
-msgid "Must be a valid email address"
-msgstr "Doit être une adresse email valide"
-
-#: ../templates/default/ldap/login.html:169
-#: ../templates/punbb/ldap/login.html:28
-msgid "Password"
-msgstr "Mot de Passe"
-
-#: ../templates/default/ldap/login.html:185
-#: ../templates/punbb/ldap/login.html:36
-msgid "Remember me"
-msgstr "Se souvenir de moi"
-
-#: ../templates/default/ldap/macros.html:7
-#: ../templates/default/ldap/admin/macros.html:7
-#: ../templates/default/ldap/domain/macros.html:7
-#: ../templates/default/ldap/group/macros.html:7
-#: ../templates/default/ldap/user/macros.html:7
-#: ../templates/punbb/ldap/macros.html:7
-msgid "Status:"
-msgstr "Statut:"
-
-#: ../templates/default/ldap/pageNotFound.html:3
-#: ../templates/punbb/ldap/pageNotFound.html:3
-#: ../templates/punbb/ldap/pageNotFound.html:6
-msgid "Page not found."
-msgstr "Page introuvable."
-
-#: ../templates/default/ldap/policyd/blacklist_dns.html:3
-#: ../templates/default/ldap/policyd/blacklist_helo.html:3
-#: ../templates/punbb/ldap/blacklist_dns.html:3
-#: ../templates/punbb/ldap/blacklist_helo.html:3
-msgid "Spam Control"
-msgstr "Control du Spam"
-
-#: ../templates/default/ldap/policyd/blacklist_dns.html:7
-#: ../templates/default/ldap/policyd/blacklist_helo.html:7
-#: ../templates/punbb/ldap/blacklist_dns.html:7
-#: ../templates/punbb/ldap/blacklist_helo.html:7
-msgid "Blacklist (DNS)"
-msgstr "Liste Noire (DNS)"
-
-#: ../templates/default/ldap/policyd/blacklist_dns.html:8
-#: ../templates/default/ldap/policyd/blacklist_helo.html:8
-#: ../templates/punbb/ldap/blacklist_dns.html:8
-#: ../templates/punbb/ldap/blacklist_helo.html:8
-msgid "Blacklist (HELO)"
-msgstr "Liste Noire (HELO)"
-
-#: ../templates/default/ldap/policyd/blacklist_dns.html:9
-#: ../templates/default/ldap/policyd/blacklist_helo.html:9
-#: ../templates/punbb/ldap/blacklist_dns.html:9
-#: ../templates/punbb/ldap/blacklist_helo.html:9
-msgid "Blacklist (IP Address)"
-msgstr "Liste Noire (Adresse IP)"
-
-#: ../templates/default/ldap/policyd/blacklist_dns.html:10
-#: ../templates/default/ldap/policyd/blacklist_helo.html:10
-#: ../templates/punbb/ldap/blacklist_dns.html:10
-#: ../templates/punbb/ldap/blacklist_helo.html:10
-msgid "Whitelist (DNS)"
-msgstr "Liste Blanche (DNS)"
-
-#: ../templates/default/ldap/policyd/blacklist_dns.html:11
-#: ../templates/default/ldap/policyd/blacklist_helo.html:11
-#: ../templates/punbb/ldap/blacklist_dns.html:11
-#: ../templates/punbb/ldap/blacklist_helo.html:11
-msgid "Whitelist (IP Address)"
-msgstr "Liste Blanche (Adresse IP)"
-
-#: ../templates/default/ldap/policyd/blacklist_helo.html:17
-#: ../templates/punbb/ldap/blacklist_helo.html:17
-msgid "Blacklisted HELO identifiers:"
-msgstr "Identifiants HELO blacklistés:"
-
-#: ../templates/default/ldap/policyd/blacklist_helo.html:23
-#: ../templates/punbb/ldap/blacklist_helo.html:23
-msgid "No."
-msgstr "No."
-
-#: ../templates/default/ldap/policyd/blacklist_helo.html:24
-#: ../templates/punbb/ldap/blacklist_helo.html:24
-msgid "Blacklist HELO"
-msgstr "Liste Noire HELO"
-
-#: ../templates/default/ldap/policyd/blacklist_helo.html:34
-#: ../templates/punbb/ldap/blacklist_helo.html:34
-msgid "Are you sure want to delete this HELO identifier?"
-msgstr "Êtes-vous sûr de vouloir supprimer cet identifiant HELO?"
-
-#: ../templates/default/ldap/policyd/blacklist_helo.html:34
-#: ../templates/punbb/ldap/blacklist_helo.html:34
-msgid "Delete this HELO identifier"
-msgstr "Supprimer cet identifiant HELO"
-
-#: ../templates/default/ldap/policyd/blacklist_helo.html:43
-#: ../templates/punbb/ldap/blacklist_helo.html:43
-msgid "Are you sure want to delete selected item(s)?"
-msgstr "Êtes-vous sûr de vouloir supprimer le(s) objet(s) sélectionné(s)?"
-
-#: ../templates/default/ldap/policyd/whitelist_add.html:3
-#: ../templates/punbb/ldap/whitelist_add.html:3
-msgid "Add whitelist host"
-msgstr "Ajouter un hôte à la whitelist"
-
-#: ../templates/default/ldap/preferences/chpwd.html:9
-msgid "Password changed."
-msgstr "Mot de passe modifié."
-
-#: ../templates/default/ldap/preferences/chpwd.html:11
-msgid "Old password is incorrect."
+#: ../templates/default/ldap/admin_create.html:16
+#: ../templates/default/ldap/admin_create.html:21
+#: ../templates/default/ldap/admins.html:13
+#: ../templates/default/ldap/macros.html:156
+msgid "Create new mail admin"
+msgstr ""
+
+#: ../templates/default/ldap/admin_create.html:29
+#: ../templates/default/ldap/admin_profile.html:49
+#: ../templates/default/ldap/user_create.html:29
+#: ../templates/default/ldap/user_profile.html:55
+msgid "New passwords are not match."
+msgstr ""
+
+#: ../templates/default/ldap/admin_create.html:31
+#: ../templates/default/ldap/user_create.html:31
+#, fuzzy
+msgid "EMPTY password is NOT allowed."
 msgstr "L'ancien mot de passe est incorrect."
 
-#: ../templates/default/ldap/preferences/chpwd.html:17
-msgid "Change password for user:"
-msgstr "Changer le mot de passe pour l'utilisateur:"
-
-#: ../templates/default/ldap/preferences/chpwd.html:22
-msgid "Current password:"
-msgstr "Mot de passe actuel:"
-
-#: ../templates/default/ldap/preferences/chpwd.html:26
-msgid "New password:"
-msgstr "Nouveau mot de passe:"
-
-#: ../templates/default/ldap/preferences/chpwd.html:30
-msgid "Retype new password:"
-msgstr "Confirmer le nouveau mot de passe:"
-
-#: ../templates/default/ldap/preferences/chpwd.html:34
-msgid "Change now"
-msgstr "Changer maintenant"
-
-#: ../templates/default/ldap/preferences/language.html:3
-#: ../templates/default/ldap/preferences/language.html:17
-#: ../templates/punbb/ldap/preferences.html:16
-#: ../templates/punbb/ldap/preferences.html:19
-msgid "Default language"
-msgstr "Langage par défaut"
-
-#: ../templates/default/ldap/preferences/language.html:12
-msgid "Set default language:"
-msgstr "Définir le langage par défaut:"
-
-#: ../templates/default/ldap/sidebars.html:3
-msgid "List all domains"
-msgstr "Afficher tous les domaines"
-
-#: ../templates/default/ldap/sidebars.html:5
-#: ../templates/default/ldap/domain/add.html:3
-#: ../templates/punbb/ldap/domain_add.html:3
-msgid "Add new domain(s)"
-msgstr "Ajouter un(des) nouveau(x) domaines(s)"
-
-#: ../templates/default/ldap/sidebars.html:12
-msgid "System Info"
-msgstr "Information Système"
-
-#: ../templates/default/ldap/sidebars.html:13
-msgid "Project News"
-msgstr "Nouvelles du Projet"
-
-#: ../templates/default/ldap/sidebars.html:19
-msgid "List all admins"
-msgstr "Lister tous les administrateurs"
-
-#: ../templates/default/ldap/sidebars.html:20
-msgid "Add new admin(s)"
-msgstr "Ajouter un(des) nouvel(nouveaux) administrateur(s)"
-
-#: ../templates/default/ldap/sidebars.html:26
-#: ../templates/default/ldap/preferences/chpwd.html:3
-#: ../templates/punbb/ldap/preferences.html:32
-msgid "Change password"
-msgstr "Changer le mot de passe"
-
-#: ../templates/default/ldap/user/delete.html:3
-msgid "Delete user"
-msgstr "Supprimer un utilisateur"
-
-#: ../templates/default/ldap/user/list.html:42
+#: ../templates/default/ldap/admin_create.html:33
+#: ../templates/default/ldap/admin_profile.html:47
+#: ../templates/default/ldap/user_create.html:33
+#: ../templates/default/ldap/user_profile.html:59
 #, python-format
-msgid "All users under domain %s:"
-msgstr "Tous les utilisateurs du domaine %s:"
+msgid "New password must contain at least %s characters."
+msgstr ""
 
-#: ../templates/default/ldap/user/list.html:54
-#: ../templates/default/ldap/user/profile.html:96
-#: ../templates/punbb/ldap/user_profile.html:178
-#: ../templates/punbb/ldap/users.html:61
-msgid "Mail Quota"
-msgstr "Quota de Messagerie"
-
-#: ../templates/default/ldap/user/list.html:73
-#: ../templates/default/ldap/user/profile.html:3
-#: ../templates/punbb/ldap/user_profile.html:5
-#: ../templates/punbb/ldap/users.html:83
-msgid "Edit user profile"
-msgstr "Editer le profil de l'utilisateur"
-
-#: ../templates/default/ldap/user/list.html:74
-#: ../templates/punbb/ldap/users.html:86
-msgid "Send mail to"
-msgstr "Envoyer un mail à"
-
-#: ../templates/default/ldap/user/list.html:84
-#: ../templates/punbb/ldap/users.html:96
-msgid "Delete this user?"
-msgstr "Supprimer cet utilisateur?"
-
-#: ../templates/default/ldap/user/list.html:84
-#: ../templates/punbb/ldap/users.html:96
-msgid "Delete this user"
-msgstr "Supprimer cet utilisateur"
-
-#: ../templates/default/ldap/user/list.html:95
-msgid "Are you sure want to delete selected user(s)?"
-msgstr "Êtes-vous sûr de vouloir supprimer l'(les )utilisateur(s) sélectionné(s)?"
-
-#: ../templates/default/ldap/user/profile.html:30
+#: ../templates/default/ldap/admin_create.html:35
+#: ../templates/default/ldap/user_create.html:35
+#: ../templates/default/ldap/user_profile.html:61
 #, python-format
-msgid "Detail of user: %s (<a href=\"mailto:%s\">%s</a>)"
-msgstr "Détail de l'utilisateur: %s (<a href=\"mailto:%s\">%s</a>)"
+msgid "New password must NOT contain more than %s characters."
+msgstr ""
 
-#: ../templates/default/ldap/user/profile.html:35
-msgid "Avatar"
-msgstr "Avatar"
+#: ../templates/default/ldap/admin_create.html:56
+#: ../templates/default/ldap/admin_create.html:59
+#: ../templates/default/ldap/admin_profile.html:71
+#: ../templates/default/ldap/admins.html:48
+#: ../templates/default/ldap/user_create.html:55
+#: ../templates/default/ldap/user_profile.html:99
+#: ../templates/default/ldap/users.html:64
+#, fuzzy
+msgid "Mail Address"
+msgstr "Adresse de messagerie"
 
-#: ../templates/default/ldap/user/profile.html:63
-msgid "Displayed in Global Address Book"
-msgstr "Affiché dans le Carnet d'Adresse Global"
-
-#: ../templates/default/ldap/user/profile.html:73
-#: ../templates/default/ldap/user/profile.html:74
-msgid "Employee ID"
-msgstr "ID d'employé"
-
-#: ../templates/default/ldap/user/profile.html:78
-#: ../templates/default/ldap/user/profile.html:81
-#: ../templates/punbb/ldap/user_profile.html:72
-#: ../templates/punbb/ldap/user_profile.html:75
-msgid "Telephone Number"
-msgstr "Numéro de Téléphone"
-
-#: ../templates/default/ldap/user/profile.html:88
-#: ../templates/punbb/ldap/user_profile.html:170
-msgid "Mailbox directory"
-msgstr "Répertoire de la Boîte au Lettres"
-
-#: ../templates/default/ldap/user/profile.html:90
-#: ../templates/punbb/ldap/user_profile.html:172
-msgid "Storage base directory (user's home directory)"
-msgstr "Répertoire de stockage de base (répertoire de l'utilisateur)"
-
-#: ../templates/default/ldap/user/profile.html:90
-#: ../templates/punbb/ldap/user_profile.html:172
-msgid "Mailbox path. Format: domain.ltd/username/"
-msgstr "Chemin de la Boite aus Lettres. Format: domain.tld/utilisateur/"
-
-#: ../templates/default/ldap/user/profile.html:107
-msgid "Member of groups"
-msgstr "Membre du(des) Groupe(s)"
-
-#: ../templates/default/ldap/user/profile.html:121
-msgid "POP3"
-msgstr "POP3"
-
-#: ../templates/default/ldap/user/profile.html:123
-msgid "IMAP"
-msgstr "IMAP"
-
-#: ../templates/default/ldap/user/profile.html:125
-msgid "SMTP"
-msgstr "SMTP"
-
-#: ../templates/default/ldap/user/profile.html:127
-msgid "Deliver"
-msgstr "Deliver"
-
-#: ../templates/default/ldap/user/profile.html:129
-msgid "Managesieve"
-msgstr "Managesieve"
-
-#: ../templates/default/ldap/user/profile.html:134
-#: ../templates/punbb/ldap/user_profile.html:189
-msgid "Mail forwarding"
-msgstr "Mail forwarding"
-
-#: ../templates/default/ldap/user/profile.html:136
-#: ../templates/default/ldap/user/profile.html:148
-#: ../templates/default/ldap/user/profile.html:156
-#: ../templates/punbb/ldap/user_profile.html:191
-#: ../templates/punbb/ldap/user_profile.html:203
-#: ../templates/punbb/ldap/user_profile.html:211
-msgid "Enable"
-msgstr "Autoriser"
-
-#: ../templates/default/ldap/user/profile.html:137
-#: ../templates/default/ldap/user/profile.html:149
-#: ../templates/default/ldap/user/profile.html:157
-#: ../templates/punbb/ldap/user_profile.html:192
-#: ../templates/punbb/ldap/user_profile.html:204
-#: ../templates/punbb/ldap/user_profile.html:212
-msgid "Disable"
-msgstr "Interdire"
-
-#: ../templates/default/ldap/user/profile.html:163
-msgid "Submit"
-msgstr "Envoyer"
-
-#: ../templates/punbb/ldap/admins.html:5
-msgid "Domain admins"
-msgstr "Administrateurs du Domaine"
-
-#: ../templates/punbb/ldap/admins.html:60
-msgid "All mail administrators."
-msgstr "Tous les administrateurs de la messagerie."
-
-#: ../templates/punbb/ldap/admins.html:60
-#: ../templates/punbb/ldap/domains.html:21
-msgid "Total:"
-msgstr "Total:"
-
-#: ../templates/punbb/ldap/aliases.html:6
-msgid "Mail aliases"
-msgstr "Alias de Massagerie"
-
-#: ../templates/punbb/ldap/aliases.html:110
-#: ../templates/punbb/ldap/maillists.html:120
-msgid "Send mail to this group"
-msgstr "Envoyer un mail à ce groupe"
-
-#: ../templates/punbb/ldap/create_user.html:3
-msgid "Create new users"
-msgstr "Créer de nouveaux utilisateurs"
-
-#: ../templates/punbb/ldap/domain_profile.html:15
-msgid "Domain profile."
-msgstr "Profil du domaine."
-
-#: ../templates/punbb/ldap/domain_profile.html:63
-msgid "Domain name:"
-msgstr "Nom du domaine:"
-
-#: ../templates/punbb/ldap/domain_profile.html:64
-msgid "Company/Organization:"
-msgstr "Entreprise/Organisation:"
-
-#: ../templates/punbb/ldap/domain_profile.html:65
-msgid "Created Date:"
-msgstr "Date de Création:"
-
-#: ../templates/punbb/ldap/domain_profile.html:82
-#: ../templates/punbb/ldap/domain_profile.html:84
-#: ../templates/punbb/ldap/user_profile.html:83
-#: ../templates/punbb/ldap/user_profile.html:85
-#: ../templates/punbb/ldap/user_profile.html:100
-msgid "Account status"
-msgstr "Statut du compte"
-
-#: ../templates/punbb/ldap/domain_profile.html:99
-msgid "Max quota size"
-msgstr "Taille maximum du quota"
-
-#: ../templates/punbb/ldap/domain_profile.html:102
-msgid "Max quota size (in KB)"
-msgstr "Taille maximum du quota(en KB)"
-
-#: ../templates/punbb/ldap/domain_profile.html:103
-msgid "Current quota size:"
-msgstr "Taille actuelle du quota:"
-
-#: ../templates/punbb/ldap/domain_profile.html:105
-#: ../templates/punbb/ldap/domain_profile.html:116
-#: ../templates/punbb/ldap/domain_profile.html:127
-#: ../templates/punbb/ldap/domain_profile.html:138
-msgid "Unlimited"
-msgstr "Illimité"
-
-#: ../templates/punbb/ldap/domain_profile.html:113
-msgid "Max number of mail users"
-msgstr "Nombre maximum d'utilisateurs de messagerie"
-
-#: ../templates/punbb/ldap/domain_profile.html:114
-#: ../templates/punbb/ldap/domain_profile.html:125
-#: ../templates/punbb/ldap/domain_profile.html:136
-msgid "Current number:"
-msgstr "Nombre actuel:"
-
-#: ../templates/punbb/ldap/domain_profile.html:124
-msgid "Max number of mail lists"
-msgstr "Nombre maximum de listes de diffusions"
-
-#: ../templates/punbb/ldap/domain_profile.html:135
-msgid "Max number of mail aliases"
-msgstr "Nombre maximum d'alias de messagerie"
-
-#: ../templates/punbb/ldap/domain_profile.html:188
-#: ../templates/punbb/ldap/preferences.html:52
-#: ../templates/punbb/ldap/user_profile.html:218
-msgid "Save changes"
-msgstr "Sauvegarder"
-
-#: ../templates/punbb/ldap/domains.html:21
-msgid "All mail domains under your control."
-msgstr "Tous les domaines de messagerie sous votre controle."
-
-#: ../templates/punbb/ldap/domains.html:54
-msgid "Quota"
-msgstr "Quota"
-
-#: ../templates/punbb/ldap/domains.html:56
-msgid "Lists"
-msgstr "Listes"
-
-#: ../templates/punbb/ldap/domains.html:57
-#: ../templates/punbb/ldap/submenus.html:11
-msgid "Aliases"
-msgstr "Alias"
-
-#: ../templates/punbb/ldap/domains.html:95
-#: ../templates/punbb/ldap/submenus.html:4
-msgid "Edit domain profile."
-msgstr "Editer le profil du domain."
-
-#: ../templates/punbb/ldap/domains.html:100
-msgid "List all mail users."
-msgstr "Afficher tous les utilisateurs de messagerie."
-
-#: ../templates/punbb/ldap/domains.html:101
-msgid "List all mail lists."
-msgstr "Afficher toutes les listes de messagerie."
-
-#: ../templates/punbb/ldap/domains.html:102
-msgid "List all mail aliases."
-msgstr "Afficher tous les alias de messagerie."
-
-#: ../templates/punbb/ldap/login.html:3
-#: ../templates/punbb/ldap/login.html:10
-msgid "Login to manage your mail domains & users"
-msgstr "Connectez-vous pour gérer vos domaines et utilisateurs de messagerie"
-
-#: ../templates/punbb/ldap/login.html:14
-msgid "All fields labelled <em>(Required)</em> must be completed before the form is submitted."
-msgstr "Tous les champs <em>(Requis)</em> doivent être complétés avant les validation du formulaire."
-
-#: ../templates/punbb/ldap/login.html:21
-#: ../templates/punbb/ldap/login.html:28
+#: ../templates/default/ldap/admin_create.html:59
+#: ../templates/default/ldap/domain_create.html:30
+#: ../templates/default/ldap/login.html:62
+#: ../templates/default/ldap/login.html:69
+#: ../templates/default/ldap/macros.html:195
+#: ../templates/default/ldap/macros.html:203
+#: ../templates/default/ldap/macros.html:211
+#: ../templates/default/ldap/user_create.html:55
 msgid "(Required)"
 msgstr "(Requis)"
 
-#: ../templates/punbb/ldap/login.html:36
+#: ../templates/default/ldap/admin_create.html:71
+#: ../templates/default/ldap/domain_create.html:40
+#: ../templates/default/ldap/user_create.html:80
+msgid "Create"
+msgstr ""
+
+#: ../templates/default/ldap/admin_profile.html:16
+#, fuzzy
+msgid "Edit admin profile"
+msgstr "Editer le profi du domaine"
+
+#: ../templates/default/ldap/admin_profile.html:20
+#: ../templates/default/ldap/user_profile.html:26
+msgid "General"
+msgstr ""
+
+#: ../templates/default/ldap/admin_profile.html:21
+#, fuzzy
+msgid "Reset password"
+msgstr "Mot de passe actuel"
+
+#: ../templates/default/ldap/admin_profile.html:26
+msgid "Back to admin list"
+msgstr ""
+
+#: ../templates/default/ldap/admin_profile.html:36
+#, python-format
+msgid ""
+"Account created success. Would you like to <a "
+"href=\"%s/create/admin\">add one more</a>?"
+msgstr ""
+
+#: ../templates/default/ldap/admin_profile.html:38
+#: ../templates/default/ldap/msgHandlers.html:7
+msgid "Profile update success."
+msgstr ""
+
+#: ../templates/default/ldap/admin_profile.html:42
+msgid "You are NOT permited to view/update other's profile."
+msgstr ""
+
+#: ../templates/default/ldap/admin_profile.html:45
+#, fuzzy
+msgid "Current password is incorrect."
+msgstr "L'ancien mot de passe est incorrect."
+
+#: ../templates/default/ldap/admin_profile.html:70
+#: ../templates/default/ldap/admin_profile.html:71
+#: ../templates/default/ldap/admin_profile.html:72
+#: ../templates/default/ldap/user_profile.html:98
+#: ../templates/default/ldap/user_profile.html:99
+#: ../templates/default/ldap/user_profile.html:100
+#: ../templates/default/ldap/user_profile.html:101
+msgid ":"
+msgstr ""
+
+#: ../templates/default/ldap/admin_profile.html:70
+#: ../templates/default/ldap/admins.html:47
+#: ../templates/default/ldap/macros.html:35
+#: ../templates/default/ldap/user_profile.html:98
+#: ../templates/default/ldap/users.html:63
+msgid "Display Name"
+msgstr ""
+
+#: ../templates/default/ldap/admin_profile.html:72
+#: ../templates/default/ldap/domain_profile.html:61
+#: ../templates/default/ldap/user_profile.html:101
+#: ../templates/default/ldap/users.html:67
+msgid "Created Date"
+msgstr "Date de Création"
+
+#: ../templates/default/ldap/admin_profile.html:108
+#: ../templates/default/ldap/domain_profile.html:76
+#: ../templates/default/ldap/user_profile.html:126
+msgid "Save changes"
+msgstr "Sauvegarder"
+
+#: ../templates/default/ldap/admins.html:5
+#, fuzzy
+msgid "Domain Admins"
+msgstr "Administrateurs du Domaine"
+
+#: ../templates/default/ldap/admins.html:9
+msgid "All mail administrators."
+msgstr "Tous les administrateurs de la messagerie."
+
+#: ../templates/default/ldap/admins.html:9
+#: ../templates/default/ldap/domains.html:10
+#: ../templates/default/ldap/users.html:21
+#, fuzzy, python-format
+msgid "Total: %s."
+msgstr "Total:"
+
+#: ../templates/default/ldap/admins.html:21
+#: ../templates/default/ldap/users.html:36
+msgid "Selected accounts were deleted."
+msgstr ""
+
+#: ../templates/default/ldap/admins.html:23
+#: ../templates/default/ldap/users.html:38
+msgid "Selected accounts were disabled."
+msgstr ""
+
+#: ../templates/default/ldap/admins.html:25
+#: ../templates/default/ldap/users.html:40
+msgid "Selected accounts were enabled."
+msgstr ""
+
+#: ../templates/default/ldap/admins.html:29
+msgid "No account selected."
+msgstr ""
+
+#: ../templates/default/ldap/admins.html:49
+msgid "Global Admin"
+msgstr "Administrateur Global"
+
+#: ../templates/default/ldap/admins.html:71
+#, fuzzy
+msgid "Edit admin profile."
+msgstr "Editer le profil du domain."
+
+#: ../templates/default/ldap/admins.html:84
+#: ../templates/default/ldap/domains.html:63
+#: ../templates/default/ldap/users.html:111
+#, fuzzy
+msgid "Select/Unselect all"
+msgstr "Selectionner tout"
+
+#: ../templates/default/ldap/admins.html:85
+#: ../templates/default/ldap/domains.html:64
+#: ../templates/default/ldap/users.html:112
+msgid "Delete"
+msgstr "Supprimer"
+
+#: ../templates/default/ldap/admins.html:85
+#: ../templates/default/ldap/users.html:112
+#, fuzzy
+msgid "Are you sure want to delete selected account(s)?"
+msgstr "Êtes-vous sûr de vouloir supprimer le(s) groupe(s) sélectionné(s)?"
+
+#: ../templates/default/ldap/admins.html:86
+#: ../templates/default/ldap/domains.html:65
+#: ../templates/default/ldap/users.html:113
+msgid "Disable"
+msgstr "Interdire"
+
+#: ../templates/default/ldap/admins.html:86
+#: ../templates/default/ldap/users.html:113
+#, fuzzy
+msgid "Are you sure want to disable selected account(s)?"
+msgstr "Êtes-vous sûr de vouloir supprimer le(s) groupe(s) sélectionné(s)?"
+
+#: ../templates/default/ldap/admins.html:87
+#: ../templates/default/ldap/domains.html:66
+#: ../templates/default/ldap/users.html:114
+msgid "Enable"
+msgstr "Autoriser"
+
+#: ../templates/default/ldap/admins.html:87
+#: ../templates/default/ldap/users.html:114
+#, fuzzy
+msgid "Are you sure want to enable selected account(s)?"
+msgstr "Êtes-vous sûr de vouloir supprimer le(s) groupe(s) sélectionné(s)?"
+
+#: ../templates/default/ldap/checknew.html:7
+msgid "Software update"
+msgstr ""
+
+#: ../templates/default/ldap/checknew.html:14
+#: ../templates/default/ldap/dashboard.html:63
+msgid "Check new version"
+msgstr ""
+
+#: ../templates/default/ldap/checknew.html:20
+msgid "Current iRedAdmin version"
+msgstr ""
+
+#: ../templates/default/ldap/checknew.html:26
+msgid "New version available"
+msgstr ""
+
+#: ../templates/default/ldap/checknew.html:27
+msgid "Release note"
+msgstr ""
+
+#: ../templates/default/ldap/checknew.html:27
+msgid "Download"
+msgstr ""
+
+#: ../templates/default/ldap/checknew.html:29
+#, fuzzy
+msgid "Version status"
+msgstr "Statut du compte"
+
+#: ../templates/default/ldap/checknew.html:30
+msgid "Your iRedAdmin is up to date."
+msgstr ""
+
+#: ../templates/default/ldap/checknew.html:33
+msgid "Error while check new version"
+msgstr ""
+
+#: ../templates/default/ldap/dashboard.html:8
+#: ../templates/default/ldap/layout.html:86
+msgid "Dashboard"
+msgstr "Tableau de bord"
+
+#: ../templates/default/ldap/dashboard.html:17
+#, fuzzy
+msgid "Available operations"
+msgstr "Opérations"
+
+#: ../templates/default/ldap/dashboard.html:23
+#, fuzzy
+msgid "Create new"
+msgstr "Créer de nouveaux utilisateurs"
+
+#: ../templates/default/ldap/dashboard.html:26
+#, fuzzy
+msgid "Mail Domain"
+msgstr "Mail domains"
+
+#: ../templates/default/ldap/dashboard.html:27
+#, fuzzy
+msgid "Domain Admin"
+msgstr "Administrateurs du Domaine"
+
+#: ../templates/default/ldap/dashboard.html:29
+#, fuzzy
+msgid "Mail User"
+msgstr "Utilisateurs de messagerie"
+
+#: ../templates/default/ldap/dashboard.html:36
+msgid "Need more features?"
+msgstr ""
+
+#: ../templates/default/ldap/dashboard.html:38
+msgid ""
+"Purchase Full-featured Edition to get more features and support iRedMail "
+"project."
+msgstr ""
+
+#: ../templates/default/ldap/dashboard.html:39
+msgid "For example:"
+msgstr ""
+
+#: ../templates/default/ldap/dashboard.html:42
+#, fuzzy
+msgid "Unlimited number of mail lists"
+msgstr "Nombre maximum de listes de diffusions"
+
+#: ../templates/default/ldap/dashboard.html:43
+#, fuzzy
+msgid "Unlimited number of mail aliases"
+msgstr "Nombre maximum d'alias de messagerie"
+
+#: ../templates/default/ldap/dashboard.html:44
+msgid "Admin type control (Global/Normal Admin)"
+msgstr ""
+
+#: ../templates/default/ldap/dashboard.html:45
+msgid "Per-user service control"
+msgstr ""
+
+#: ../templates/default/ldap/dashboard.html:46
+msgid "Per-user MTA transport control"
+msgstr ""
+
+#: ../templates/default/ldap/dashboard.html:56
+#, fuzzy
+msgid "System info"
+msgstr "Information Système"
+
+#: ../templates/default/ldap/dashboard.html:62
+msgid "iRedAdmin version"
+msgstr ""
+
+#: ../templates/default/ldap/dashboard.html:67
+#, fuzzy
+msgid "Hostname"
+msgstr "Nom d'utilisateur"
+
+#: ../templates/default/ldap/dashboard.html:73
+msgid "Uptime"
+msgstr ""
+
+#: ../templates/default/ldap/dashboard.html:74
+#, python-format
+msgid "%s days, %s hours, %s minutes."
+msgstr ""
+
+#: ../templates/default/ldap/dashboard.html:79
+msgid "Server load"
+msgstr ""
+
+#: ../templates/default/ldap/dashboard.html:89
+msgid "Network interfaces"
+msgstr ""
+
+#: ../templates/default/ldap/domain_create.html:12
+#: ../templates/default/ldap/domain_create.html:17
+#: ../templates/default/ldap/domains.html:15
+#, fuzzy
+msgid "Create new mail domain"
+msgstr "Détail du domaine:"
+
+#: ../templates/default/ldap/domain_create.html:27
+#: ../templates/default/ldap/domain_create.html:30
+#: ../templates/default/ldap/domain_profile.html:50
+#: ../templates/default/ldap/domains.html:30
+msgid "Domain Name"
+msgstr "Nom de domaine"
+
+#: ../templates/default/ldap/domain_profile.html:16
+msgid "Edit domain profile."
+msgstr "Editer le profil du domain."
+
+#: ../templates/default/ldap/domain_profile.html:24
+#: ../templates/default/ldap/domains.html:31
+#: ../templates/default/ldap/layout.html:88
+msgid "Users"
+msgstr "Utilisateurs"
+
+#: ../templates/default/ldap/domain_profile.html:60
+#: ../templates/default/ldap/macros.html:33
+msgid "Company/Organization"
+msgstr "Entreprise/Organisation"
+
+#: ../templates/default/ldap/domains.html:6
+msgid "Mail Domains"
+msgstr "Domaines de Messagerie"
+
+#: ../templates/default/ldap/domains.html:10
+#, fuzzy
+msgid "All domains under your control."
+msgstr "Tous les domaines de messagerie sous votre controle."
+
+#: ../templates/default/ldap/domains.html:48
+msgid "Edit domain profile"
+msgstr "Editer le profi du domaine"
+
+#: ../templates/default/ldap/domains.html:54
+msgid "List all mail users."
+msgstr "Afficher tous les utilisateurs de messagerie."
+
+#: ../templates/default/ldap/domains.html:64
+#, fuzzy
+msgid "Are you sure want to delete selected domain(s) and accounts under it?"
+msgstr "Etes-vous sûr de vouloir supprimer le(s) domaine(s) sélectionné(s)"
+
+#: ../templates/default/ldap/domains.html:65
+#, fuzzy
+msgid "Are you sure want to disable selected domain(s)?"
+msgstr "Etes-vous sûr de vouloir supprimer le(s) domaine(s) sélectionné(s)"
+
+#: ../templates/default/ldap/domains.html:66
+#, fuzzy
+msgid "Are you sure want to enable selected domain(s)?"
+msgstr "Etes-vous sûr de vouloir supprimer le(s) domaine(s) sélectionné(s)"
+
+#: ../templates/default/ldap/error404.html:8
+#: ../templates/default/ldap/error404.html:14
+#, fuzzy, python-format
+msgid "Page not found (%s)."
+msgstr "Page introuvable."
+
+#: ../templates/default/ldap/error404.html:8
+#: ../templates/default/ldap/error404.html:14
+#: ../templates/default/ldap/login.html:32
+msgid "Error:"
+msgstr "Erreur:"
+
+#: ../templates/default/ldap/layout.html:75
+msgid "Preferences"
+msgstr "Préférences"
+
+#: ../templates/default/ldap/layout.html:76
+msgid "Logout"
+msgstr "Déconnexion"
+
+#: ../templates/default/ldap/layout.html:80
+msgid "iRedMail Management"
+msgstr "iRedMail Management"
+
+#: ../templates/default/ldap/layout.html:87
+#, fuzzy
+msgid "Domains"
+msgstr "Administrateurs"
+
+#: ../templates/default/ldap/layout.html:91
+msgid "Admins"
+msgstr "Administrateurs"
+
+#: ../templates/default/ldap/layout.html:113
+#: ../templates/default/ldap/layout.html:115
+msgid "Get support"
+msgstr ""
+
+#: ../templates/default/ldap/login.html:3
+#: ../templates/default/ldap/login.html:26
+msgid "Login to manage your mail domains & users"
+msgstr "Connectez-vous pour gérer vos domaines et utilisateurs de messagerie"
+
+#: ../templates/default/ldap/login.html:34
+msgid "Username or password is incorrect."
+msgstr "L'identifiant ou le mot de passe est incorrect."
+
+#: ../templates/default/ldap/login.html:36
+#, fuzzy
+msgid "Username must be an valid email address."
+msgstr "Doit être une adresse email valide."
+
+#: ../templates/default/ldap/login.html:38
+#, fuzzy
+msgid "Login required"
+msgstr "Identifiant requis!"
+
+#: ../templates/default/ldap/login.html:40
+#, fuzzy
+msgid "Username or password is empty."
+msgstr "L'identifiant ou le mot de passe est incorrect."
+
+#: ../templates/default/ldap/login.html:44
+msgid "Authentication failed."
+msgstr ""
+
+#: ../templates/default/ldap/login.html:55
+#, fuzzy
+msgid ""
+"All fields labelled <strong><em>(Required)</em></strong> must be "
+"completed before the form is submitted."
+msgstr ""
+"Tous les champs <em>(Requis)</em> doivent être complétés avant les "
+"validation du formulaire."
+
+#: ../templates/default/ldap/login.html:62
+msgid "Username"
+msgstr "Nom d'utilisateur"
+
+#: ../templates/default/ldap/login.html:62
+#, fuzzy
+msgid "Must be a valid domain admin email address."
+msgstr "Doit être une adresse email valide."
+
+#: ../templates/default/ldap/login.html:69
+msgid "Password"
+msgstr "Mot de Passe"
+
+#: ../templates/default/ldap/login.html:77
+msgid "Remember me"
+msgstr "Se souvenir de moi"
+
+#: ../templates/default/ldap/login.html:77
 msgid "Log me in automatically each time I visit."
 msgstr "Connectez-moi automatiquement à chaque visite."
 
-#: ../templates/punbb/ldap/maillists.html:6
-#: ../templates/punbb/ldap/submenus.html:10
-msgid "Mail lists"
-msgstr "Lists de diffusion"
+#: ../templates/default/ldap/login.html:83
+msgid "Login"
+msgstr "Connexion"
 
-#: ../templates/punbb/ldap/preferences.html:9
-msgid "Change your preferences."
-msgstr "Modifier vos préférences."
+#: ../templates/default/ldap/macros.html:7
+msgid "Status:"
+msgstr "Statut:"
 
-#: ../templates/punbb/ldap/preferences.html:36
-msgid "Current password"
-msgstr "Mot de passe actuel"
+#: ../templates/default/ldap/macros.html:48
+#: ../templates/default/ldap/user_profile.html:100
+#: ../templates/default/ldap/users.html:65
+msgid "Employee ID"
+msgstr "ID d'employé"
 
-#: ../templates/punbb/ldap/preferences.html:41
+#: ../templates/default/ldap/macros.html:57
+#: ../templates/default/ldap/macros.html:61
+#: ../templates/default/ldap/macros.html:67
+msgid "Telephone Number"
+msgstr "Numéro de Téléphone"
+
+#: ../templates/default/ldap/macros.html:80
+msgid "Default language"
+msgstr "Langage par défaut"
+
+#: ../templates/default/ldap/macros.html:101
+#, fuzzy
+msgid "Enable this domain"
+msgstr "Supprimer ce domaine"
+
+#: ../templates/default/ldap/macros.html:103
+#, fuzzy
+msgid "Enable this account"
+msgstr "Supprimer ce groupe"
+
+#: ../templates/default/ldap/macros.html:114
+#: ../templates/default/ldap/macros.html:116
+msgid "Backup MX"
+msgstr "MX de Secours"
+
+#: ../templates/default/ldap/macros.html:120
+#, fuzzy
+msgid "Enabled"
+msgstr "Autoriser"
+
+#: ../templates/default/ldap/macros.html:124
+msgid "Disabled"
+msgstr "Désactivé"
+
+#: ../templates/default/ldap/macros.html:134
+#, fuzzy
+msgid "Domain admin assignment"
+msgstr "Administrateurs du Domaine"
+
+#: ../templates/default/ldap/macros.html:134
+msgid "If no admin assigned, you can manage it with global admin."
+msgstr ""
+
+#: ../templates/default/ldap/macros.html:146
+#, python-format
+msgid "%s (%s)"
+msgstr ""
+
+#: ../templates/default/ldap/macros.html:150
+#, fuzzy
+msgid "(Global Admin)"
+msgstr "Administrateur Global"
+
+#: ../templates/default/ldap/macros.html:163
+#: ../templates/default/ldap/macros.html:166
+msgid "MTA transport"
+msgstr ""
+
+#: ../templates/default/ldap/macros.html:166
+#, python-format
+msgid "Default is <strong>%s</strong>."
+msgstr ""
+
+#: ../templates/default/ldap/macros.html:167
+msgid "Leave it empty to use default transport."
+msgstr ""
+
+#: ../templates/default/ldap/macros.html:178
+#, python-format
+msgid "New password must contain at least <strong>%s</strong> characters."
+msgstr ""
+
+#: ../templates/default/ldap/macros.html:182
+#, python-format
+msgid ""
+"New password must <strong>NOT</strong> contain more than "
+"<strong>%s</strong> characters."
+msgstr ""
+
+#: ../templates/default/ldap/macros.html:195
+#, fuzzy
+msgid "Old password"
+msgstr "Nouveau mot de passe"
+
+#: ../templates/default/ldap/macros.html:203
 msgid "New password"
 msgstr "Nouveau mot de passe"
 
-#: ../templates/punbb/ldap/preferences.html:46
-msgid "Retype new password"
-msgstr "Confirmer le nouveau mot de passe"
+#: ../templates/default/ldap/macros.html:211
+#, fuzzy
+msgid "Confirm new password"
+msgstr "Nouveau mot de passe"
 
-#: ../templates/punbb/ldap/submenus.html:6
-#, python-format
-msgid "%s"
-msgstr "%s"
+#: ../templates/default/ldap/macros.html:211
+msgid "Re-enter your password exactly as before."
+msgstr ""
 
-#: ../templates/punbb/ldap/submenus.html:12
-msgid "Add"
-msgstr "Ajouter"
+#: ../templates/default/ldap/macros.html:223
+#, fuzzy
+msgid "Mail quota (in MB)"
+msgstr "Taille maximum du quota(en KB)"
 
-#: ../templates/punbb/ldap/user_profile.html:36
-msgid "User profile"
-msgstr "Profil de l'utilisateur"
+#: ../templates/default/ldap/macros.html:224
+#, fuzzy
+msgid "Current quota:"
+msgstr "Taille actuelle du quota:"
 
-#: ../templates/punbb/ldap/user_profile.html:45
+#: ../templates/default/ldap/macros.html:224
+#: ../templates/default/ldap/users.html:100
+msgid "Unlimited"
+msgstr "Illimité"
+
+#: ../templates/default/ldap/msgHandlers.html:5
+msgid "Domain was created."
+msgstr ""
+
+#: ../templates/default/ldap/msgHandlers.html:9
+msgid "Selected domains were deleted."
+msgstr ""
+
+#: ../templates/default/ldap/msgHandlers.html:11
+msgid "Selected domains were diabled."
+msgstr ""
+
+#: ../templates/default/ldap/msgHandlers.html:13
+msgid "Selected domains were enabled."
+msgstr ""
+
+#: ../templates/default/ldap/msgHandlers.html:17
+#, fuzzy
+msgid "Domain name is empty."
+msgstr "Nom de domaine"
+
+#: ../templates/default/ldap/msgHandlers.html:19
+#, fuzzy
+msgid "Server-side size limit exceeded."
+msgstr "Taille limité dépassée."
+
+#: ../templates/default/ldap/msgHandlers.html:21
+#, fuzzy
+msgid "Permission denied."
+msgstr "Permission refusée."
+
+#: ../templates/default/ldap/msgHandlers.html:23
+msgid "No such domain."
+msgstr ""
+
+#: ../templates/default/ldap/msgHandlers.html:25
+msgid "Incorrect profile type."
+msgstr ""
+
+#: ../templates/default/ldap/msgHandlers.html:27
+msgid "Submited domain name is incorrect."
+msgstr ""
+
+#: ../templates/default/ldap/user_create.html:14
+#: ../templates/default/ldap/user_create.html:19
+#: ../templates/default/ldap/users.html:25
+#, fuzzy
+msgid "Create new mail user"
+msgstr "Créer de nouveaux utilisateurs"
+
+#: ../templates/default/ldap/user_create.html:27
+msgid "Account already exists, please choose another username."
+msgstr ""
+
+#: ../templates/default/ldap/user_profile.html:19
+#: ../templates/default/ldap/users.html:92
+msgid "Edit user profile"
+msgstr "Editer le profil de l'utilisateur"
+
+#: ../templates/default/ldap/user_profile.html:27
+#, fuzzy
+msgid "Reset Password"
+msgstr "Mot de passe actuel"
+
+#: ../templates/default/ldap/user_profile.html:31
+msgid "Back to user list"
+msgstr ""
+
+#: ../templates/default/ldap/user_profile.html:44
+#, fuzzy
+msgid "Profile updated success."
+msgstr "Ajouté avec succès."
+
+#: ../templates/default/ldap/user_profile.html:48
+msgid "Profile updated failed."
+msgstr ""
+
+#: ../templates/default/ldap/user_profile.html:57
+#, fuzzy
+msgid "Password is empty."
+msgstr "L'ancien mot de passe est incorrect."
+
+#: ../templates/default/ldap/user_profile.html:95
 msgid "No avatar available."
 msgstr "Pas d'avatar disponible"
 
-#: ../templates/punbb/ldap/user_profile.html:48
-msgid "Username:"
-msgstr "Nom d'utilisateur:"
-
-#: ../templates/punbb/ldap/user_profile.html:49
-msgid "Mail:"
-msgstr "Messagerie:"
-
-#: ../templates/punbb/ldap/user_profile.html:50
-msgid "Employee ID:"
-msgstr "ID d'employé:"
-
-#: ../templates/punbb/ldap/user_profile.html:51
-msgid "Creation date:"
-msgstr "Date de création:"
-
-#: ../templates/punbb/ldap/user_profile.html:52
-msgid "Last modify date:"
-msgstr "Date de dernière modification:"
-
-#: ../templates/punbb/ldap/user_profile.html:67
-msgid "Mail address"
-msgstr "Adresse de messagerie"
-
-#: ../templates/punbb/ldap/user_profile.html:67
-msgid "Warning: Change mail address won't cause mailbox location changed."
-msgstr "Attention: Le changement d'adresse de messagerie ne modifiera pas l'emplacement de la boite aux lettres."
-
-#: ../templates/punbb/ldap/user_profile.html:102
-msgid "Displayed in address book"
-msgstr "Afficher dans le carnet d'adresses"
-
-#: ../templates/punbb/ldap/user_profile.html:121
-msgid "Fetch mails via POP3"
-msgstr "Recevoir des messages via POP3"
-
-#: ../templates/punbb/ldap/user_profile.html:126
-msgid "Fetch mails via IMAP"
-msgstr "Recevoir des messages via IMAP"
-
-#: ../templates/punbb/ldap/user_profile.html:131
-msgid "Send mail via SMTP"
-msgstr "Envoyer des messages via SMTP"
-
-#: ../templates/punbb/ldap/user_profile.html:136
-msgid "Allow to receive mails"
-msgstr "Permettre la réception de messages"
-
-#: ../templates/punbb/ldap/user_profile.html:141
-msgid "Customize mail filter rule"
-msgstr "Personnaliser la règle de filtrage des messages"
-
-#: ../templates/punbb/ldap/user_profile.html:149
-#: ../templates/punbb/ldap/user_profile.html:151
-msgid "Member of mail lists"
-msgstr "Membre de la liste de diffusion"
-
-#: ../templates/punbb/ldap/users.html:6
-msgid "Mail users"
+#: ../templates/default/ldap/users.html:7
+#, fuzzy
+msgid "Mail Users"
 msgstr "Utilisateurs de messagerie"
+
+#: ../templates/default/ldap/users.html:12
+#, fuzzy
+msgid "View users under domain:"
+msgstr "Tous les utilisateurs du domaine %s:"
+
+#: ../templates/default/ldap/users.html:15
+#, fuzzy
+msgid "Select one domain"
+msgstr "Supprimer ce domaine"
+
+#: ../templates/default/ldap/users.html:27
+#, fuzzy
+msgid "View/Update domain profile"
+msgstr "Editer le profi du domaine"
+
+#: ../templates/default/ldap/users.html:44
+#, python-format
+msgid "Invalid profile type: %s."
+msgstr ""
+
+#: ../templates/default/ldap/users.html:46
+#, fuzzy
+msgid "No mail domain available."
+msgstr "Pas d'avatar disponible"
+
+#: ../templates/default/ldap/users.html:66
+msgid "Quota"
+msgstr "Quota"
 

@@ -1,4 +1,4 @@
-# Translations template for PROJECT.
+# Vietnamese (Vietnam) translations for PROJECT.
 # Copyright (C) 2009 ORGANIZATION
 # This file is distributed under the same license as the PROJECT project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
@@ -9,9 +9,10 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: michaelbibby@gmail.com\n"
 "POT-Creation-Date: 2009-10-02 01:16+0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2009-10-03 23:43+0800\n"
 "Last-Translator: Lâm Minh Thông <lmthong@gmail.com>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language-Team: vi_VN <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -101,8 +102,8 @@ msgid ""
 "Account created success. Would you like to <a "
 "href=\"%s/create/admin\">add one more</a>?"
 msgstr ""
-"Tài khoàn đã được tạo. Bạn có muốn <a "
-"href=\"%s/create/admin\">tạo thêm</a>?"
+"Tài khoàn đã được tạo. Bạn có muốn <a href=\"%s/create/admin\">tạo "
+"thêm</a>?"
 
 #: ../templates/default/ldap/admin_profile.html:38
 #: ../templates/default/ldap/msgHandlers.html:7
@@ -234,7 +235,7 @@ msgid "Software update"
 msgstr "Cập nhật"
 
 #: ../templates/default/ldap/checknew.html:14
-#: ../templates/default/ldap/dashboard.html:46
+#: ../templates/default/ldap/dashboard.html:63
 msgid "Check new version"
 msgstr "Kiểm tra phiên bản mới"
 
@@ -267,7 +268,7 @@ msgid "Error while check new version"
 msgstr "Lỗi trong quá trình kiểm tra phiên bản mới"
 
 #: ../templates/default/ldap/dashboard.html:8
-#: ../templates/default/ldap/layout.html:87
+#: ../templates/default/ldap/layout.html:86
 msgid "Dashboard"
 msgstr "Thông tin tóm tắt"
 
@@ -291,32 +292,66 @@ msgstr "Quản trị tên miền"
 msgid "Mail User"
 msgstr "Tài khoản thư"
 
+#: ../templates/default/ldap/dashboard.html:36
+msgid "Need more features?"
+msgstr ""
+
+#: ../templates/default/ldap/dashboard.html:38
+msgid ""
+"Purchase Full-featured Edition to get more features and support iRedMail "
+"project."
+msgstr ""
+
 #: ../templates/default/ldap/dashboard.html:39
+msgid "For example:"
+msgstr ""
+
+#: ../templates/default/ldap/dashboard.html:42
+msgid "Unlimited number of mail lists"
+msgstr ""
+
+#: ../templates/default/ldap/dashboard.html:43
+msgid "Unlimited number of mail aliases"
+msgstr ""
+
+#: ../templates/default/ldap/dashboard.html:44
+msgid "Admin type control (Global/Normal Admin)"
+msgstr ""
+
+#: ../templates/default/ldap/dashboard.html:45
+msgid "Per-user service control"
+msgstr ""
+
+#: ../templates/default/ldap/dashboard.html:46
+msgid "Per-user MTA transport control"
+msgstr ""
+
+#: ../templates/default/ldap/dashboard.html:56
 msgid "System info"
 msgstr "Thông tin hệ thống"
 
-#: ../templates/default/ldap/dashboard.html:45
+#: ../templates/default/ldap/dashboard.html:62
 msgid "iRedAdmin version"
 msgstr "Phiên bản iRedMail"
 
-#: ../templates/default/ldap/dashboard.html:50
+#: ../templates/default/ldap/dashboard.html:67
 msgid "Hostname"
 msgstr "Tên máy chủ"
 
-#: ../templates/default/ldap/dashboard.html:56
+#: ../templates/default/ldap/dashboard.html:73
 msgid "Uptime"
 msgstr "Thời gian chạy"
 
-#: ../templates/default/ldap/dashboard.html:57
+#: ../templates/default/ldap/dashboard.html:74
 #, python-format
 msgid "%s days, %s hours, %s minutes."
 msgstr "%s ngày, %s giờ, %s phút."
 
-#: ../templates/default/ldap/dashboard.html:62
+#: ../templates/default/ldap/dashboard.html:79
 msgid "Server load"
 msgstr "Trạng thái tải của máy chủ"
 
-#: ../templates/default/ldap/dashboard.html:72
+#: ../templates/default/ldap/dashboard.html:89
 msgid "Network interfaces"
 msgstr "Giao tiếp mạng"
 
@@ -339,7 +374,7 @@ msgstr "Sửa thông tin tên miền."
 
 #: ../templates/default/ldap/domain_profile.html:24
 #: ../templates/default/ldap/domains.html:31
-#: ../templates/default/ldap/layout.html:89
+#: ../templates/default/ldap/layout.html:88
 msgid "Users"
 msgstr "Danh sách tài khoản"
 
@@ -388,28 +423,28 @@ msgstr "Không tìm thấy trang (%s)."
 msgid "Error:"
 msgstr "Lỗi:"
 
-#: ../templates/default/ldap/layout.html:76
+#: ../templates/default/ldap/layout.html:75
 msgid "Preferences"
 msgstr "Tuỳ chọn"
 
-#: ../templates/default/ldap/layout.html:77
+#: ../templates/default/ldap/layout.html:76
 msgid "Logout"
 msgstr "Đăng xuất"
 
-#: ../templates/default/ldap/layout.html:81
+#: ../templates/default/ldap/layout.html:80
 msgid "iRedMail Management"
 msgstr "Quản trị iRedMail"
 
-#: ../templates/default/ldap/layout.html:88
+#: ../templates/default/ldap/layout.html:87
 msgid "Domains"
 msgstr "Danh sách Tên miền"
 
-#: ../templates/default/ldap/layout.html:92
+#: ../templates/default/ldap/layout.html:91
 msgid "Admins"
 msgstr "Danh sách Quản trị viên"
 
-#: ../templates/default/ldap/layout.html:114
-#: ../templates/default/ldap/layout.html:116
+#: ../templates/default/ldap/layout.html:113
+#: ../templates/default/ldap/layout.html:115
 msgid "Get support"
 msgstr "Trợ giúp"
 
@@ -439,12 +474,13 @@ msgid "Authentication failed."
 msgstr "Không thể xác thực"
 
 #: ../templates/default/ldap/login.html:55
+#, fuzzy
 msgid ""
-"All fields labelled <em>(Required)</em> must be completed before the form"
-" is submitted."
+"All fields labelled <strong><em>(Required)</em></strong> must be "
+"completed before the form is submitted."
 msgstr ""
-"Các trường đánh dấu <em>(Bắt buộc)</em> phải được hoàn chỉnh"
-" trước khi nạp."
+"Các trường đánh dấu <em>(Bắt buộc)</em> phải được hoàn chỉnh trước khi "
+"nạp."
 
 #: ../templates/default/ldap/login.html:62
 msgid "Username"
@@ -517,7 +553,9 @@ msgstr "Chỉ định tài khoản quan trị"
 
 #: ../templates/default/ldap/macros.html:134
 msgid "If no admin assigned, you can manage it with global admin."
-msgstr "Nếu không chỉ định tài khoản quản trị, tài khoản quan trị chung sẽ được dùng"
+msgstr ""
+"Nếu không chỉ định tài khoản quản trị, tài khoản quan trị chung sẽ được "
+"dùng"
 
 #: ../templates/default/ldap/macros.html:146
 #, python-format
@@ -552,9 +590,7 @@ msgstr "Mật khẩu mới phải chứa tối thiểu <strong>%s</strong> ký t
 msgid ""
 "New password must <strong>NOT</strong> contain more than "
 "<strong>%s</strong> characters."
-msgstr ""
-"Mật khẩu phải <strong>KHÔNG</strong> vướt quá "
-"<strong>%s</strong> ký tự."
+msgstr "Mật khẩu phải <strong>KHÔNG</strong> vướt quá <strong>%s</strong> ký tự."
 
 #: ../templates/default/ldap/macros.html:195
 msgid "Old password"
