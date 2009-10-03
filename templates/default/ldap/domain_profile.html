@@ -5,9 +5,10 @@
         set_account_status_img,
         display_cn,
         display_account_status,
+        with context
         %}
 
-{% from "msgHandlers.html" import domainMsgHandler %}
+{% from "msgHandlers.html" import domainMsgHandler with context %}
 
 {% block js %}{% endblock js %}
 {% block js_tablesorter %}{% endblock js_tablesorter %}

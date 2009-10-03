@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 
-{% from "macros.html" import set_account_status_img %}
+{% from "macros.html" import set_account_status_img with context %}
 
 {% block title %}{{ _('Domain Admins') }}{% endblock %}
 {% block navlinks_active_admins %}active{% endblock %}

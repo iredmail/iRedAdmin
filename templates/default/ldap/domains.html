@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
-{% from "macros.html" import set_account_status_img, %}
-{% from "msgHandlers.html" import domainMsgHandler %}
+{% from "macros.html" import set_account_status_img, with context %}
+{% from "msgHandlers.html" import domainMsgHandler with context %}
 
 {% block title %}{{ _('Mail Domains') }}{% endblock %}
 {% block navlinks_active_domains %}active{% endblock %}

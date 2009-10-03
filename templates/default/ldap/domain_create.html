@@ -1,8 +1,8 @@
 {# Defined: domain, profile, mtaTransport #}
 
 {% extends "layout.html" %}
-{% from "macros.html" import display_cn, %}
-{% from "msgHandlers.html" import domainMsgHandler %}
+{% from "macros.html" import display_cn, with context %}
+{% from "msgHandlers.html" import domainMsgHandler with context %}
 
 {% block js %}{% endblock js %}
 {% block js_tablesorter %}{% endblock %}
