@@ -434,7 +434,7 @@ msgstr "iRedMail 管理平台"
 
 #: ../templates/default/ldap/layout.html:87
 msgid "Domains"
-msgstr "管理员"
+msgstr "域名"
 
 #: ../templates/default/ldap/layout.html:91
 msgid "Admins"
