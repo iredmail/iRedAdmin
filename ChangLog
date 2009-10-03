@@ -1,4 +1,5 @@
 = 0.1.1 =
+    * Add new translation: vi_VN (Vietnamese).
     * Fixed: use 'ENINGE=' instead of 'TYPE='. Thanks peterpp @forum.
     * Show accountStatus image while view/update account profile.
     * Add ou=Externals by default.

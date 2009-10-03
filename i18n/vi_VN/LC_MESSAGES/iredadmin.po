@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: michaelbibby@gmail.com\n"
-"POT-Creation-Date: 2009-10-03 12:35+0800\n"
+"POT-Creation-Date: 2009-10-02 01:16+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Last-Translator: Lâm Minh Thông <lmthong@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -22,19 +22,19 @@ msgstr ""
 #: ../templates/default/ldap/admins.html:13
 #: ../templates/default/ldap/macros.html:156
 msgid "Create new mail admin"
-msgstr ""
+msgstr "Tạo tài khoản quản trị mới"
 
 #: ../templates/default/ldap/admin_create.html:29
 #: ../templates/default/ldap/admin_profile.html:49
 #: ../templates/default/ldap/user_create.html:29
 #: ../templates/default/ldap/user_profile.html:55
 msgid "New passwords are not match."
-msgstr ""
+msgstr "Mật khẩu mới không hợp lệ"
 
 #: ../templates/default/ldap/admin_create.html:31
 #: ../templates/default/ldap/user_create.html:31
 msgid "EMPTY password is NOT allowed."
-msgstr ""
+msgstr "KHÔNG chấp nhận mật khẩu TRỔNG."
 
 #: ../templates/default/ldap/admin_create.html:33
 #: ../templates/default/ldap/admin_profile.html:47
@@ -42,14 +42,14 @@ msgstr ""
 #: ../templates/default/ldap/user_profile.html:59
 #, python-format
 msgid "New password must contain at least %s characters."
-msgstr ""
+msgstr "Mật khẩu mới phải chứa tối thiểu %s ký tự."
 
 #: ../templates/default/ldap/admin_create.html:35
 #: ../templates/default/ldap/user_create.html:35
 #: ../templates/default/ldap/user_profile.html:61
 #, python-format
 msgid "New password must NOT contain more than %s characters."
-msgstr ""
+msgstr "Mật khẩu mới phải KHÔNG quá %s ký tự."
 
 #: ../templates/default/ldap/admin_create.html:56
 #: ../templates/default/ldap/admin_create.html:59
@@ -59,7 +59,7 @@ msgstr ""
 #: ../templates/default/ldap/user_profile.html:99
 #: ../templates/default/ldap/users.html:64
 msgid "Mail Address"
-msgstr ""
+msgstr "Địa chỉ hộp thư"
 
 #: ../templates/default/ldap/admin_create.html:59
 #: ../templates/default/ldap/domain_create.html:30
@@ -70,30 +70,30 @@ msgstr ""
 #: ../templates/default/ldap/macros.html:211
 #: ../templates/default/ldap/user_create.html:55
 msgid "(Required)"
-msgstr ""
+msgstr "(Bắt buộc)"
 
 #: ../templates/default/ldap/admin_create.html:71
 #: ../templates/default/ldap/domain_create.html:40
 #: ../templates/default/ldap/user_create.html:80
 msgid "Create"
-msgstr ""
+msgstr "Tạo"
 
 #: ../templates/default/ldap/admin_profile.html:16
 msgid "Edit admin profile"
-msgstr ""
+msgstr "Sửa tài khoản quản trị"
 
 #: ../templates/default/ldap/admin_profile.html:20
 #: ../templates/default/ldap/user_profile.html:26
 msgid "General"
-msgstr ""
+msgstr "Thông tin chung"
 
 #: ../templates/default/ldap/admin_profile.html:21
 msgid "Reset password"
-msgstr ""
+msgstr "Khởi tạo mật khẩu"
 
 #: ../templates/default/ldap/admin_profile.html:26
 msgid "Back to admin list"
-msgstr ""
+msgstr "Quay về danh sách quản trị viên"
 
 #: ../templates/default/ldap/admin_profile.html:36
 #, python-format
@@ -101,19 +101,21 @@ msgid ""
 "Account created success. Would you like to <a "
 "href=\"%s/create/admin\">add one more</a>?"
 msgstr ""
+"Tài khoàn đã được tạo. Bạn có muốn <a "
+"href=\"%s/create/admin\">tạo thêm</a>?"
 
 #: ../templates/default/ldap/admin_profile.html:38
 #: ../templates/default/ldap/msgHandlers.html:7
 msgid "Profile update success."
-msgstr ""
+msgstr "Tài khoản đã được cập nhật"
 
 #: ../templates/default/ldap/admin_profile.html:42
 msgid "You are NOT permited to view/update other's profile."
-msgstr ""
+msgstr "Bạn KHÔNG được phép xem/sửa tài khoản khác"
 
 #: ../templates/default/ldap/admin_profile.html:45
 msgid "Current password is incorrect."
-msgstr ""
+msgstr "Mật khẩu hiện tại không đúng"
 
 #: ../templates/default/ldap/admin_profile.html:70
 #: ../templates/default/ldap/admin_profile.html:71
@@ -123,7 +125,7 @@ msgstr ""
 #: ../templates/default/ldap/user_profile.html:100
 #: ../templates/default/ldap/user_profile.html:101
 msgid ":"
-msgstr ""
+msgstr ":"
 
 #: ../templates/default/ldap/admin_profile.html:70
 #: ../templates/default/ldap/admins.html:47
@@ -131,417 +133,419 @@ msgstr ""
 #: ../templates/default/ldap/user_profile.html:98
 #: ../templates/default/ldap/users.html:63
 msgid "Display Name"
-msgstr ""
+msgstr "Tên hiễn thị"
 
 #: ../templates/default/ldap/admin_profile.html:72
 #: ../templates/default/ldap/domain_profile.html:61
 #: ../templates/default/ldap/user_profile.html:101
 #: ../templates/default/ldap/users.html:67
 msgid "Created Date"
-msgstr ""
+msgstr "Ngày tạo"
 
 #: ../templates/default/ldap/admin_profile.html:108
 #: ../templates/default/ldap/domain_profile.html:76
 #: ../templates/default/ldap/user_profile.html:126
 msgid "Save changes"
-msgstr ""
+msgstr "Lưu"
 
 #: ../templates/default/ldap/admins.html:5
 msgid "Domain Admins"
-msgstr ""
+msgstr "Các quản trị viên"
 
 #: ../templates/default/ldap/admins.html:9
 msgid "All mail administrators."
-msgstr ""
+msgstr "Tất cả các quản trị viên"
 
 #: ../templates/default/ldap/admins.html:9
 #: ../templates/default/ldap/domains.html:10
 #: ../templates/default/ldap/users.html:21
 #, python-format
 msgid "Total: %s."
-msgstr ""
+msgstr "Tổng cộng: %s."
 
 #: ../templates/default/ldap/admins.html:21
 #: ../templates/default/ldap/users.html:36
 msgid "Selected accounts were deleted."
-msgstr ""
+msgstr "Các tài khoản đã được xoá."
 
 #: ../templates/default/ldap/admins.html:23
 #: ../templates/default/ldap/users.html:38
 msgid "Selected accounts were disabled."
-msgstr ""
+msgstr "Các tài khoản đã được vô hiệu."
 
 #: ../templates/default/ldap/admins.html:25
 #: ../templates/default/ldap/users.html:40
 msgid "Selected accounts were enabled."
-msgstr ""
+msgstr "Các tài khoản đã được kích hoạt."
 
 #: ../templates/default/ldap/admins.html:29
 msgid "No account selected."
-msgstr ""
+msgstr "Không có tài khoản nào được chọn."
 
 #: ../templates/default/ldap/admins.html:49
 msgid "Global Admin"
-msgstr ""
+msgstr "Tài khoản quản trị chung"
 
 #: ../templates/default/ldap/admins.html:71
 msgid "Edit admin profile."
-msgstr ""
+msgstr "Sửa thông tin tài khoản quãn trị"
 
 #: ../templates/default/ldap/admins.html:84
 #: ../templates/default/ldap/domains.html:63
 #: ../templates/default/ldap/users.html:111
 msgid "Select/Unselect all"
-msgstr ""
+msgstr "Chọn/Bỏ chọn tất cả"
 
 #: ../templates/default/ldap/admins.html:85
 #: ../templates/default/ldap/domains.html:64
 #: ../templates/default/ldap/users.html:112
 msgid "Delete"
-msgstr ""
+msgstr "Xoá"
 
 #: ../templates/default/ldap/admins.html:85
 #: ../templates/default/ldap/users.html:112
 msgid "Are you sure want to delete selected account(s)?"
-msgstr ""
+msgstr "Bạn có chắc muốn xoá các tài khoản đã chọn?"
 
 #: ../templates/default/ldap/admins.html:86
 #: ../templates/default/ldap/domains.html:65
 #: ../templates/default/ldap/users.html:113
 msgid "Disable"
-msgstr ""
+msgstr "Vô hiệu"
 
 #: ../templates/default/ldap/admins.html:86
 #: ../templates/default/ldap/users.html:113
 msgid "Are you sure want to disable selected account(s)?"
-msgstr ""
+msgstr "Bạn có chắc muốn vô hiệu các tài khoản đã chọn?"
 
 #: ../templates/default/ldap/admins.html:87
 #: ../templates/default/ldap/domains.html:66
 #: ../templates/default/ldap/users.html:114
 msgid "Enable"
-msgstr ""
+msgstr "Kích hoạt"
 
 #: ../templates/default/ldap/admins.html:87
 #: ../templates/default/ldap/users.html:114
 msgid "Are you sure want to enable selected account(s)?"
-msgstr ""
+msgstr "Bạn có chắc muốn kích hoạt các tài khoản đã chọn?"
 
 #: ../templates/default/ldap/checknew.html:7
 msgid "Software update"
-msgstr ""
+msgstr "Cập nhật"
 
 #: ../templates/default/ldap/checknew.html:14
 #: ../templates/default/ldap/dashboard.html:46
 msgid "Check new version"
-msgstr ""
+msgstr "Kiểm tra phiên bản mới"
 
 #: ../templates/default/ldap/checknew.html:20
 msgid "Current iRedAdmin version"
-msgstr ""
+msgstr "Phiên bản iRedMail hiện tại"
 
 #: ../templates/default/ldap/checknew.html:26
 msgid "New version available"
-msgstr ""
+msgstr "Có phiên bản mới"
 
 #: ../templates/default/ldap/checknew.html:27
 msgid "Release note"
-msgstr ""
+msgstr "Thông tin phiên bản"
 
 #: ../templates/default/ldap/checknew.html:27
 msgid "Download"
-msgstr ""
+msgstr "Tải về"
 
 #: ../templates/default/ldap/checknew.html:29
 msgid "Version status"
-msgstr ""
+msgstr "Tình trạng phiên bản"
 
 #: ../templates/default/ldap/checknew.html:30
 msgid "Your iRedAdmin is up to date."
-msgstr ""
+msgstr "Phiên bản iRedMail hiện tại là mới nhất."
 
 #: ../templates/default/ldap/checknew.html:33
 msgid "Error while check new version"
-msgstr ""
+msgstr "Lỗi trong quá trình kiểm tra phiên bản mới"
 
 #: ../templates/default/ldap/dashboard.html:8
-#: ../templates/default/ldap/layout.html:86
+#: ../templates/default/ldap/layout.html:87
 msgid "Dashboard"
-msgstr ""
+msgstr "Thông tin tóm tắt"
 
 #: ../templates/default/ldap/dashboard.html:17
 msgid "Available operations"
-msgstr ""
+msgstr "Các thao tác"
 
 #: ../templates/default/ldap/dashboard.html:23
 msgid "Create new"
-msgstr ""
+msgstr "Tạo mới"
 
 #: ../templates/default/ldap/dashboard.html:26
 msgid "Mail Domain"
-msgstr ""
+msgstr "Tên miền"
 
 #: ../templates/default/ldap/dashboard.html:27
 msgid "Domain Admin"
-msgstr ""
+msgstr "Quản trị tên miền"
 
 #: ../templates/default/ldap/dashboard.html:29
 msgid "Mail User"
-msgstr ""
+msgstr "Tài khoản thư"
 
 #: ../templates/default/ldap/dashboard.html:39
 msgid "System info"
-msgstr ""
+msgstr "Thông tin hệ thống"
 
 #: ../templates/default/ldap/dashboard.html:45
 msgid "iRedAdmin version"
-msgstr ""
+msgstr "Phiên bản iRedMail"
 
 #: ../templates/default/ldap/dashboard.html:50
 msgid "Hostname"
-msgstr ""
+msgstr "Tên máy chủ"
 
 #: ../templates/default/ldap/dashboard.html:56
 msgid "Uptime"
-msgstr ""
+msgstr "Thời gian chạy"
 
 #: ../templates/default/ldap/dashboard.html:57
 #, python-format
 msgid "%s days, %s hours, %s minutes."
-msgstr ""
+msgstr "%s ngày, %s giờ, %s phút."
 
 #: ../templates/default/ldap/dashboard.html:62
 msgid "Server load"
-msgstr ""
+msgstr "Trạng thái tải của máy chủ"
 
 #: ../templates/default/ldap/dashboard.html:72
 msgid "Network interfaces"
-msgstr ""
+msgstr "Giao tiếp mạng"
 
 #: ../templates/default/ldap/domain_create.html:12
 #: ../templates/default/ldap/domain_create.html:17
 #: ../templates/default/ldap/domains.html:15
 msgid "Create new mail domain"
-msgstr ""
+msgstr "Tạo tên miền mới"
 
 #: ../templates/default/ldap/domain_create.html:27
 #: ../templates/default/ldap/domain_create.html:30
 #: ../templates/default/ldap/domain_profile.html:50
 #: ../templates/default/ldap/domains.html:30
 msgid "Domain Name"
-msgstr ""
+msgstr "Tên miền"
 
 #: ../templates/default/ldap/domain_profile.html:16
 msgid "Edit domain profile."
-msgstr ""
+msgstr "Sửa thông tin tên miền."
 
 #: ../templates/default/ldap/domain_profile.html:24
 #: ../templates/default/ldap/domains.html:31
-#: ../templates/default/ldap/layout.html:88
+#: ../templates/default/ldap/layout.html:89
 msgid "Users"
-msgstr ""
+msgstr "Danh sách tài khoản"
 
 #: ../templates/default/ldap/domain_profile.html:60
 #: ../templates/default/ldap/macros.html:33
 msgid "Company/Organization"
-msgstr ""
+msgstr "Công ty/Tổ chức"
 
 #: ../templates/default/ldap/domains.html:6
 msgid "Mail Domains"
-msgstr ""
+msgstr "Danh sách tên miền"
 
 #: ../templates/default/ldap/domains.html:10
 msgid "All domains under your control."
-msgstr ""
+msgstr "Bạn có thể quản lý tất cả các tên miền."
 
 #: ../templates/default/ldap/domains.html:48
 msgid "Edit domain profile"
-msgstr ""
+msgstr "Sửa thông tin tên miền"
 
 #: ../templates/default/ldap/domains.html:54
 msgid "List all mail users."
-msgstr ""
+msgstr "Danh sách tài khoản."
 
 #: ../templates/default/ldap/domains.html:64
 msgid "Are you sure want to delete selected domain(s) and accounts under it?"
-msgstr ""
+msgstr "Bạn muốn xoá tên miền đã chọn và các tài khoản trong đó?"
 
 #: ../templates/default/ldap/domains.html:65
 msgid "Are you sure want to disable selected domain(s)?"
-msgstr ""
+msgstr "Bạn muốn vô hiệu tên miền đã chọn?"
 
 #: ../templates/default/ldap/domains.html:66
 msgid "Are you sure want to enable selected domain(s)?"
-msgstr ""
+msgstr "Bạn muốn kích hoạt tên miền đã chọn?"
 
 #: ../templates/default/ldap/error404.html:8
 #: ../templates/default/ldap/error404.html:14
 #, python-format
 msgid "Page not found (%s)."
-msgstr ""
+msgstr "Không tìm thấy trang (%s)."
 
 #: ../templates/default/ldap/error404.html:8
 #: ../templates/default/ldap/error404.html:14
 #: ../templates/default/ldap/login.html:32
 msgid "Error:"
-msgstr ""
-
-#: ../templates/default/ldap/layout.html:75
-msgid "Preferences"
-msgstr ""
+msgstr "Lỗi:"
 
 #: ../templates/default/ldap/layout.html:76
+msgid "Preferences"
+msgstr "Tuỳ chọn"
+
+#: ../templates/default/ldap/layout.html:77
 msgid "Logout"
-msgstr ""
+msgstr "Đăng xuất"
 
-#: ../templates/default/ldap/layout.html:80
+#: ../templates/default/ldap/layout.html:81
 msgid "iRedMail Management"
-msgstr ""
+msgstr "Quản trị iRedMail"
 
-#: ../templates/default/ldap/layout.html:87
+#: ../templates/default/ldap/layout.html:88
 msgid "Domains"
-msgstr ""
+msgstr "Danh sách Tên miền"
 
-#: ../templates/default/ldap/layout.html:91
+#: ../templates/default/ldap/layout.html:92
 msgid "Admins"
-msgstr ""
+msgstr "Danh sách Quản trị viên"
 
-#: ../templates/default/ldap/layout.html:113
-#: ../templates/default/ldap/layout.html:115
+#: ../templates/default/ldap/layout.html:114
+#: ../templates/default/ldap/layout.html:116
 msgid "Get support"
-msgstr ""
+msgstr "Trợ giúp"
 
 #: ../templates/default/ldap/login.html:3
 #: ../templates/default/ldap/login.html:26
 msgid "Login to manage your mail domains & users"
-msgstr ""
+msgstr "Đăng nhập quản trị tên miền và tài khoản"
 
 #: ../templates/default/ldap/login.html:34
 msgid "Username or password is incorrect."
-msgstr ""
+msgstr "Tên tài khoản hoặc mật khẩu không đúng."
 
 #: ../templates/default/ldap/login.html:36
 msgid "Username must be an valid email address."
-msgstr ""
+msgstr "Tên tài khoản phải là một địa chỉ email hợp lệ."
 
 #: ../templates/default/ldap/login.html:38
 msgid "Login required"
-msgstr ""
+msgstr "Yêu cầu đăng nhập."
 
 #: ../templates/default/ldap/login.html:40
 msgid "Username or password is empty."
-msgstr ""
+msgstr "Tên tài khoản hoặc mật khẩu rỗng."
 
 #: ../templates/default/ldap/login.html:44
 msgid "Authentication failed."
-msgstr ""
+msgstr "Không thể xác thực"
 
 #: ../templates/default/ldap/login.html:55
 msgid ""
-"All fields labelled <strong><em>(Required)</em></strong> must be "
-"completed before the form is submitted."
+"All fields labelled <em>(Required)</em> must be completed before the form"
+" is submitted."
 msgstr ""
+"Các trường đánh dấu <em>(Bắt buộc)</em> phải được hoàn chỉnh"
+" trước khi nạp."
 
 #: ../templates/default/ldap/login.html:62
 msgid "Username"
-msgstr ""
+msgstr "Tên tài khoản"
 
 #: ../templates/default/ldap/login.html:62
 msgid "Must be a valid domain admin email address."
-msgstr ""
+msgstr "Phải là một tài khoản quản trị hợp lệ."
 
 #: ../templates/default/ldap/login.html:69
 msgid "Password"
-msgstr ""
+msgstr "Mật khẩu"
 
 #: ../templates/default/ldap/login.html:77
 msgid "Remember me"
-msgstr ""
+msgstr "Ghi nhớ tài khoản này"
 
 #: ../templates/default/ldap/login.html:77
 msgid "Log me in automatically each time I visit."
-msgstr ""
+msgstr "Giúp tôi tự động đăng nhập."
 
 #: ../templates/default/ldap/login.html:83
 msgid "Login"
-msgstr ""
+msgstr "Đăng nhập"
 
 #: ../templates/default/ldap/macros.html:7
 msgid "Status:"
-msgstr ""
+msgstr "Tình trạng:"
 
 #: ../templates/default/ldap/macros.html:48
 #: ../templates/default/ldap/user_profile.html:100
 #: ../templates/default/ldap/users.html:65
 msgid "Employee ID"
-msgstr ""
+msgstr "Mã nhân viên"
 
 #: ../templates/default/ldap/macros.html:57
 #: ../templates/default/ldap/macros.html:61
 #: ../templates/default/ldap/macros.html:67
 msgid "Telephone Number"
-msgstr ""
+msgstr "Số điện thoại"
 
 #: ../templates/default/ldap/macros.html:80
 msgid "Default language"
-msgstr ""
+msgstr "Ngôn ngữ mặc định"
 
 #: ../templates/default/ldap/macros.html:101
 msgid "Enable this domain"
-msgstr ""
+msgstr "Kích hoạt tên miền này"
 
 #: ../templates/default/ldap/macros.html:103
 msgid "Enable this account"
-msgstr ""
+msgstr "Kích hoạt tài khoản này"
 
 #: ../templates/default/ldap/macros.html:114
 #: ../templates/default/ldap/macros.html:116
 msgid "Backup MX"
-msgstr ""
+msgstr "MX dự phòng"
 
 #: ../templates/default/ldap/macros.html:120
 msgid "Enabled"
-msgstr ""
+msgstr "Kích hoạt"
 
 #: ../templates/default/ldap/macros.html:124
 msgid "Disabled"
-msgstr ""
+msgstr "Vô hiệu"
 
 #: ../templates/default/ldap/macros.html:134
 msgid "Domain admin assignment"
-msgstr ""
+msgstr "Chỉ định tài khoản quan trị"
 
 #: ../templates/default/ldap/macros.html:134
 msgid "If no admin assigned, you can manage it with global admin."
-msgstr ""
+msgstr "Nếu không chỉ định tài khoản quản trị, tài khoản quan trị chung sẽ được dùng"
 
 #: ../templates/default/ldap/macros.html:146
 #, python-format
 msgid "%s (%s)"
-msgstr ""
+msgstr "%s (%s)"
 
 #: ../templates/default/ldap/macros.html:150
 msgid "(Global Admin)"
-msgstr ""
+msgstr "(Tài khoản quản trị chung)"
 
 #: ../templates/default/ldap/macros.html:163
 #: ../templates/default/ldap/macros.html:166
 msgid "MTA transport"
-msgstr ""
+msgstr "MTA transport"
 
 #: ../templates/default/ldap/macros.html:166
 #, python-format
 msgid "Default is <strong>%s</strong>."
-msgstr ""
+msgstr "Mặc định là <strong>%s</strong>."
 
 #: ../templates/default/ldap/macros.html:167
 msgid "Leave it empty to use default transport."
-msgstr ""
+msgstr "Để trống nếu dùng giá trị mặc định."
 
 #: ../templates/default/ldap/macros.html:178
 #, python-format
 msgid "New password must contain at least <strong>%s</strong> characters."
-msgstr ""
+msgstr "Mật khẩu mới phải chứa tối thiểu <strong>%s</strong> ký tự."
 
 #: ../templates/default/ldap/macros.html:182
 #, python-format
@@ -549,141 +553,143 @@ msgid ""
 "New password must <strong>NOT</strong> contain more than "
 "<strong>%s</strong> characters."
 msgstr ""
+"Mật khẩu phải <strong>KHÔNG</strong> vướt quá "
+"<strong>%s</strong> ký tự."
 
 #: ../templates/default/ldap/macros.html:195
 msgid "Old password"
-msgstr ""
+msgstr "Mật khẩu cũ"
 
 #: ../templates/default/ldap/macros.html:203
 msgid "New password"
-msgstr ""
+msgstr "Mật khẩu mới"
 
 #: ../templates/default/ldap/macros.html:211
 msgid "Confirm new password"
-msgstr ""
+msgstr "Nhập lại mật khẩu mới"
 
 #: ../templates/default/ldap/macros.html:211
 msgid "Re-enter your password exactly as before."
-msgstr ""
+msgstr "Nhập lại mật khẩu."
 
 #: ../templates/default/ldap/macros.html:223
 msgid "Mail quota (in MB)"
-msgstr ""
+msgstr "Kích thước hộp thư (MB)"
 
 #: ../templates/default/ldap/macros.html:224
 msgid "Current quota:"
-msgstr ""
+msgstr "Quota hiện tại:"
 
 #: ../templates/default/ldap/macros.html:224
 #: ../templates/default/ldap/users.html:100
 msgid "Unlimited"
-msgstr ""
+msgstr "Không giới hạn"
 
 #: ../templates/default/ldap/msgHandlers.html:5
 msgid "Domain was created."
-msgstr ""
+msgstr "Tên miền đã được tạo."
 
 #: ../templates/default/ldap/msgHandlers.html:9
 msgid "Selected domains were deleted."
-msgstr ""
+msgstr "Tên miền đã bị xoá."
 
 #: ../templates/default/ldap/msgHandlers.html:11
 msgid "Selected domains were diabled."
-msgstr ""
+msgstr "Tên miền đã ngừng kích hoạt."
 
 #: ../templates/default/ldap/msgHandlers.html:13
 msgid "Selected domains were enabled."
-msgstr ""
+msgstr "Tên miền đã được kích hoạt."
 
 #: ../templates/default/ldap/msgHandlers.html:17
 msgid "Domain name is empty."
-msgstr ""
+msgstr "Tên miền rỗng"
 
 #: ../templates/default/ldap/msgHandlers.html:19
 msgid "Server-side size limit exceeded."
-msgstr ""
+msgstr "Kích thước vượt giới hạn của máy chủ."
 
 #: ../templates/default/ldap/msgHandlers.html:21
 msgid "Permission denied."
-msgstr ""
+msgstr "Không có quyền truy cập."
 
 #: ../templates/default/ldap/msgHandlers.html:23
 msgid "No such domain."
-msgstr ""
+msgstr "Không có tên miền."
 
 #: ../templates/default/ldap/msgHandlers.html:25
 msgid "Incorrect profile type."
-msgstr ""
+msgstr "Thông tin không hợp lệ."
 
 #: ../templates/default/ldap/msgHandlers.html:27
 msgid "Submited domain name is incorrect."
-msgstr ""
+msgstr "Tên miền không hợp lệ."
 
 #: ../templates/default/ldap/user_create.html:14
 #: ../templates/default/ldap/user_create.html:19
 #: ../templates/default/ldap/users.html:25
 msgid "Create new mail user"
-msgstr ""
+msgstr "Tạo tài khoản thư mới"
 
 #: ../templates/default/ldap/user_create.html:27
 msgid "Account already exists, please choose another username."
-msgstr ""
+msgstr "Tài khoản này đã tồn tại, xin chọn tên khác."
 
 #: ../templates/default/ldap/user_profile.html:19
 #: ../templates/default/ldap/users.html:92
 msgid "Edit user profile"
-msgstr ""
+msgstr "Sửa thông tin tài khoản"
 
 #: ../templates/default/ldap/user_profile.html:27
 msgid "Reset Password"
-msgstr ""
+msgstr "Khởi tạo lại mật khẩu"
 
 #: ../templates/default/ldap/user_profile.html:31
 msgid "Back to user list"
-msgstr ""
+msgstr "Quay lại danh sách tài khoản"
 
 #: ../templates/default/ldap/user_profile.html:44
 msgid "Profile updated success."
-msgstr ""
+msgstr "Cập nhật thông tin thành công."
 
 #: ../templates/default/ldap/user_profile.html:48
 msgid "Profile updated failed."
-msgstr ""
+msgstr "Cập nhật thông tin không thành công."
 
 #: ../templates/default/ldap/user_profile.html:57
 msgid "Password is empty."
-msgstr ""
+msgstr "Mật khẩu rỗng."
 
 #: ../templates/default/ldap/user_profile.html:95
 msgid "No avatar available."
-msgstr ""
+msgstr "Không có hình đại diện nào."
 
 #: ../templates/default/ldap/users.html:7
 msgid "Mail Users"
-msgstr ""
+msgstr "Các tài khoản thư"
 
 #: ../templates/default/ldap/users.html:12
 msgid "View users under domain:"
-msgstr ""
+msgstr "Xem các tài khoản trong domain:"
 
 #: ../templates/default/ldap/users.html:15
 msgid "Select one domain"
-msgstr ""
+msgstr "Chọn một tên miền"
 
 #: ../templates/default/ldap/users.html:27
 msgid "View/Update domain profile"
-msgstr ""
+msgstr "Xem/Cập nhật thông tin tên miền"
 
 #: ../templates/default/ldap/users.html:44
 #, python-format
 msgid "Invalid profile type: %s."
-msgstr ""
+msgstr "Kiểu thông tin không hợp lệ: %s."
 
 #: ../templates/default/ldap/users.html:46
 msgid "No mail domain available."
-msgstr ""
+msgstr "Không tồn tại tên miền nào."
 
 #: ../templates/default/ldap/users.html:66
 msgid "Quota"
-msgstr ""
+msgstr "Quota"
 

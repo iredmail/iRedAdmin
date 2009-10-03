@@ -39,6 +39,7 @@ class Admin(core.LDAPWrap):
                 for v in os.listdir(cfg.get('rootdir')+'i18n')
                 if v in languages.langmaps
                 ]
+        self.available_langs.sort()
 
         # Get language maps.
         self.languagemaps = {}
