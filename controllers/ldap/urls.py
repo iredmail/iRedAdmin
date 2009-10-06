@@ -37,9 +37,6 @@
 # * Create new account:
 #   - /create/{accountType}[/domain]
 #
-# * Delete accounts:
-#   - /delete/{accountType}/{account}
-#
 # * List all accounts:
 #   - /domains
 #   - /admins
@@ -57,7 +54,7 @@
 #
 
 # Regular expressions.
-re_email = '[\w\-][\w\-\.]*@[\w\-][\w\-\.]+[a-zA-Z]{1,4}'
+re_email = r'[\w\-][\w\-\.]*@[\w\-][\w\-\.]+[a-zA-Z]{1,4}'
 re_domain = '[\w\-][\w\-\.]*[a-zA-Z]{1,4}'
 
 urls = (
@@ -84,7 +81,6 @@ urls = (
         #'/profile/domain/(advanced)/(%s)' % re_domain,  'controllers.ldap.domain.profile',
         '/profile/domain/(%s)' % re_domain,             'controllers.ldap.domain.profile',
         '/create/domain',                               'controllers.ldap.domain.create',
-        '/delete/domain',                               'controllers.ldap.domain.delete',
 
         # Admin related.
         '/admins',                                      'controllers.ldap.admin.list',
@@ -92,7 +88,6 @@ urls = (
         '/profile/admin/(password)/(%s)' % re_email,    'controllers.ldap.admin.profile',
         '/profile/admin/(domains)/(%s)' % re_email,     'controllers.ldap.admin.profile',
         '/create/admin',                                'controllers.ldap.admin.create',
-        '/delete/admin',                                'controllers.ldap.admin.delete',
 
         # User related.
         # /domain.ltd/users
@@ -109,24 +104,5 @@ urls = (
         '/profile/user/(%s)' % re_email,                'controllers.ldap.user.profile',
         '/create/user/(%s)' % re_domain,                'controllers.ldap.user.create',
         '/create/user',                                 'controllers.ldap.user.create',
-        '/delete/user',                                 'controllers.ldap.user.delete',
 
-        # Group related.
-        '/maillists',                                   'controllers.ldap.maillist.list',
-        '/profile/maillist/general/(%s)' % re_email,    'controllers.ldap.maillist.profile',
-        '/profile/maillist/members/(%s)' % re_email,    'controllers.ldap.maillist.members',
-        '/profile/maillist/members/(%s)/(current)' % re_email,    'controllers.ldap.maillist.members',
-        '/profile/maillist/members/(%s)/(addnew)' % re_email,    'controllers.ldap.maillist.members',
-        '/maillists/(%s)' % re_domain,                  'controllers.ldap.maillist.list',
-        '/create/maillist/(%s)' % re_domain,            'controllers.ldap.maillist.create',
-        '/create/maillist',                             'controllers.ldap.maillist.create',
-        '/delete/maillist',                             'controllers.ldap.maillist.delete',
-
-        # Alias related.
-        '/aliases',                         'controllers.ldap.alias.list',
-        '/aliases/(%s)' % re_domain,        'controllers.ldap.alias.list',
-        '/profile/alias/(%s)' % re_email,   'controllers.ldap.alias.profile',
-        '/create/alias/(%s)' % re_domain,   'controllers.ldap.alias.create',
-        '/create/alias',                    'controllers.ldap.alias.create',
-        '/delete/alias',                    'controllers.ldap.alias.delete',
         )

@@ -32,7 +32,7 @@ import web
 cfg = web.iredconfig
 
 # Regular expression.
-pEmail = '[\w\-][\w\-\.]*@[\w\-][\w\-\.]+[a-zA-Z]{1,4}'
+pEmail = r'[\w\-][\w\-\.]*@[\w\-][\w\-\.]+[a-zA-Z]{1,4}'
 pQuota = '\d+'
 
 regEmail = re.compile(pEmail)
