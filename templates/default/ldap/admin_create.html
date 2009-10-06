@@ -31,6 +31,7 @@
         display_preferredLanguage,
         with context
         %}
+{% from "msgHandlers.html" import adminMsgHandler with context %}
 
 {% block js %}{% endblock js %}
 {% block js_tablesorter %}{% endblock %}
@@ -45,24 +46,8 @@
     <h2 class="hn"><span>{{ _('Create new mail admin') }}</span></h2>
 </div>
 
-{# message #}
-{% if msg is defined and msg is not sameas none %}
-<div class="ct-box info-box">
-    <div class="error">
-        {% if msg == 'PW_MISMATCH' %}
-            {{ _('New passwords are not match.') }}
-        {% elif msg == 'PW_EMPTY' %}
-            {{ _('EMPTY password is NOT allowed.') }}
-        {% elif msg == 'PW_LESS_THAN_MIN_LENGTH' %}
-            {{ _('New password must contain at least %s characters.') |format(min_passwd_length) }}
-        {% elif msg == 'PW_GREATER_THAN_MAX_LENGTH' %}
-            {{ _('New password must NOT contain more than %s characters.') |format(max_passwd_length) }}
-        {% else %}
-            {{ msg }}
-        {% endif %}
-    </div>
-</div>
-{% endif %}
+{# Show system message #}
+{{ adminMsgHandler(msg) }}
 
 {# Display input field for adding new domain. #}
 <div class="main-frm">

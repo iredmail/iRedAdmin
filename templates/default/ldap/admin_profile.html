@@ -32,6 +32,7 @@
                 display_reset_password,
                 with context
                 %}
+{% from "msgHandlers.html" import adminMsgHandler with context %}
 
 {% block js %}{% endblock js %}
 {% block js_tablesorter %}{% endblock js_tablesorter %}
@@ -53,32 +54,8 @@
 
 {% block main %}
 
-{# Show message #}
-{% if msg is defined and msg is not sameas none %}
-    <div class="ct-box info-box">
-    {% if msg == 'ADMIN_CREATED_SUCCESS' %}
-        <div class="success">{{ _('Account created success. Would you like to <a href="%s/create/admin">add one more</a>?') |format(ctx.homepath) }}</div>
-    {% elif msg == 'ADMIN_PROFILE_UPDATED_SUCCESS' %}
-        <div class="success">{{ _('Profile update success.') }}</div>
-    {% else %}
-        <div class="error">
-            {% if msg == 'PERMISSION_DENIED' %}
-                {{ _("You are NOT permited to view/update other's profile.") }}
-            {# Password related #}
-            {% elif msg == 'INCORRECT_OLDPW' %}
-                {{ _('Current password is incorrect.') }}
-            {% elif msg == 'PW_LESS_THAN_MIN_LENGTH' %}
-                {{ _('New password must contain at least %s characters.') |format(min_passwd_length) }}
-            {% elif msg == 'PW_MISMATCH' %}
-                {{ _('New passwords are not match.') }}
-            {% else %}
-                {# Catch-all #}
-                {{ msg }}
-            {% endif %}
-        </div>
-    {% endif %}
-    </div>
-{% endif %}
+{# Show system message #}
+{{ adminMsgHandler(msg) }}
 
 {% set entry = profile[0][1] %}
 {% set cn = entry.get('cn', [''])[0].decode('utf-8') %}

@@ -88,13 +88,13 @@ class list(dbinit):
         self.mails = i.get('mail', [])
         if i.has_key('delete'):
             result = userLib.delete(domain=self.domain, mails=self.mails,)
-            msg = 'USER_DELETED_SUCCESS'
+            msg = 'DELETED_SUCCESS'
         elif i.has_key('disable'):
             result = userLib.enableOrDisableAccount(domain=self.domain, mails=self.mails, value='disabled',)
-            msg = 'USER_DISABLED_SUCCESS'
+            msg = 'DISABLED_SUCCESS'
         elif i.has_key('enable'):
             result = userLib.enableOrDisableAccount(domain=self.domain, mails=self.mails, value='active',)
-            msg = 'USER_ENABLED_SUCCESS'
+            msg = 'ENABLED_SUCCESS'
         else:
             msg = i.get('msg', None)
 
@@ -147,7 +147,7 @@ class profile(dbinit):
                 data=i,
                 )
         if result[0] is True:
-            web.seeother('/profile/user/%s/%s?msg=USER_PROFILE_UPDATED_SUCCESS' % (self.profile_type, self.mail))
+            web.seeother('/profile/user/%s/%s?msg=PROFILE_UPDATED_SUCCESS' % (self.profile_type, self.mail))
         else:
             web.seeother('/profile/user/%s/%s?' % (self.profile_type, self.mail) + result[1])
 
@@ -182,7 +182,7 @@ class create(dbinit):
 
         result = userLib.add(domain=self.domain, data=i)
         if result[0] is True:
-            web.seeother('/profile/user/general/%s?msg=USER_CREATED_SUCCESS' % (self.username + '@' + self.domain))
+            web.seeother('/profile/user/general/%s?msg=CREATED_SUCCESS' % (self.username + '@' + self.domain))
         else:
             self.cn = i.get('cn', '')
             self.quota = i.get('quota', domainLib.getDomainDefaultUserQuota(self.domain))

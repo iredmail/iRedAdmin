@@ -55,13 +55,13 @@ class list(dbinit):
         self.mails = i.get('mail', [])
         if i.has_key('delete'):
             result = adminLib.delete(mails=self.mails,)
-            msg = 'ADMIN_DELETED_SUCCESS'
+            msg = 'DELETED_SUCCESS'
         elif i.has_key('disable'):
             result = adminLib.enableOrDisableAccount(mails=self.mails, value='disabled',)
-            msg = 'ADMIN_DISABLED_SUCCESS'
+            msg = 'DISABLED_SUCCESS'
         elif i.has_key('enable'):
             result = adminLib.enableOrDisableAccount(mails=self.mails, value='active',)
-            msg = 'ADMIN_ENABLED_SUCCESS'
+            msg = 'ENABLED_SUCCESS'
         else:
             msg = i.get('msg', None)
 
@@ -90,7 +90,7 @@ class create(dbinit):
         result = adminLib.add(data=i)
 
         if result[0] is True:
-            web.seeother('/profile/admin/general/%s?msg=ADMIN_CREATED_SUCCESS' % self.mail)
+            web.seeother('/profile/admin/general/%s?msg=CREATED_SUCCESS' % self.mail)
         else:
             web.seeother('/create/admin?' + result[1])
 
@@ -154,6 +154,6 @@ class profile(dbinit):
                 data=i,
                 )
         if result[0] is True:
-            web.seeother('/profile/admin/%s/%s?msg=ADMIN_PROFILE_UPDATED_SUCCESS' % (self.profile_type, self.mail))
+            web.seeother('/profile/admin/%s/%s?msg=PROFILE_UPDATED_SUCCESS' % (self.profile_type, self.mail))
         else:
             web.seeother('/profile/admin/%s/%s?' % (self.profile_type, self.mail) + result[1])

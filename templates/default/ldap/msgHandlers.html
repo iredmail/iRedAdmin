@@ -1,71 +1,166 @@
-{#
-#---------------------------------------------------------------------
-# This file is part of iRedAdmin-OSE, which is official web-based admin
-# panel (Open Source Edition) for iRedMail.
-#
-# iRedMail is an open source mail server solution for Red Hat(R)
-# Enterprise Linux, CentOS, Debian and Ubuntu.
-#
-# iRedAdmin-OSE is free software: you can redistribute it and/or modify
-# it under the terms of the GNU General Public License as published by
-# the Free Software Foundation, either version 3 of the License, or
-# (at your option) any later version.
-#
-# iRedAdmin-OSE is distributed in the hope that it will be useful,
-# but WITHOUT ANY WARRANTY; without even the implied warranty of
-# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-# GNU General Public License for more details.
-#
-# You should have received a copy of the GNU General Public License
-# along with iRedAdmin-OSE.  If not, see <http://www.gnu.org/licenses/>.
-#---------------------------------------------------------------------
-#}
+{% macro _successInfo(msg) -%}
+    <div class="ct-box info-box">
+        <div class="success"><span>{{ msg }}</span></div>
+    </div>
+{%- endmacro %}
+
+{% macro _errorInfo(msg) -%}
+    <div class="ct-box info-box">
+        <div class="error"><span class="important"><strong>{{ _('Error:') }}</strong> {{ msg }}</span></div>
+    </div>
+{%- endmacro %}
+
+{% macro _warningInfo(msg) -%}
+    <div class="ct-box info-box">
+        <div class="warning"><span>{{ msg }}</span></div>
+    </div>
+{%- endmacro %}
+
+{% macro _generalInfo(msg) -%}
+    <div class="ct-box info-box">
+        <div class="info"><span>{{ msg }}</span></div>
+    </div>
+{%- endmacro %}
+
+{% macro loginMsgHandler(msg) -%}
+{% if msg is defined and msg is not sameas none %}
+    {% if msg == 'INVALID_CREDENTIALS' %}
+        {{ _errorInfo( _('Username or password is incorrect.') ) }}
+    {% elif msg == 'INVALID_USERNAME' %}
+        {{ _errorInfo( _('Username must be an valid email address.') ) }}
+    {% elif msg == 'loginRequired' %}
+        {{ _errorInfo( _('Login required') ) }}
+    {% elif msg == 'EMPTY_USER_PW' %}
+        {{ _errorInfo( _('Username or password is empty.') ) }}
+    {% elif msg == 'SERVER_DOWN' %}
+        {{ _errorInfo( _('Server is down, Please contact <a href="mailto:%s">webmaster</a> to solve it.' % webmaster ) ) }}
+    {% elif msg is sameas false %}
+        {{ _errorInfo( ('Authentication failed.') ) }}
+
+    {# Catch-all. displayed as a 'warning' msg. #}
+    {% else %}
+        {{ _warningInfo( msg ) }}
+    {% endif %}
+{% endif %}
+{%- endmacro %}
 
 {% macro domainMsgHandler(msg=none) -%}
 {% if msg is defined and msg is not sameas none %}
-    <div class="ct-box info-box">
-        {% if msg == 'DOMAIN_CREATED_SUCCESS' %}
-            <div class='success'>{{ _('Domain was created.') }}</div>
-        {% elif msg == 'DOMAIN_PROFILE_UPDATED_SUCCESS' %}
-            <div class="success">{{ _('Profile update success.') }}</div>
-        {% elif msg == 'DOMAIN_DELETED_SUCCESS' %}
-            <div class="success">{{ _('Selected domains were deleted.') }}</div>
-        {% elif msg == 'DOMAIN_DISABLED_SUCCESS' %}
-            <div class="success">{{ _('Selected domains were diabled.') }}</div>
-        {% elif msg == 'DOMAIN_ENABLED_SUCCESS' %}
-            <div class="success">{{ _('Selected domains were enabled.') }}</div>
+    {% if msg == 'DOMAIN_CREATED_SUCCESS' %}
+        {{ _successInfo( _('Domain was created.') ) }}
+    {% elif msg == 'DOMAIN_PROFILE_UPDATED_SUCCESS' %}
+        {{ _successInfo( _('Profile update success.') ) }}
+    {% elif msg == 'DOMAIN_DELETED_SUCCESS' %}
+        {{ _successInfo( _('Selected domains were deleted.') ) }}
+    {% elif msg == 'DOMAIN_DISABLED_SUCCESS' %}
+        {{ _successInfo( _('Selected domains were diabled.') ) }}
+    {% elif msg == 'DOMAIN_ENABLED_SUCCESS' %}
+        {{ _successInfo( _('Selected domains were enabled.') ) }}
 
-        {# Error handler #}
-        {% elif msg == 'EMPTY_DOMAIN' %}
-            <div class="error">{{ _('Domain name is empty.') }}</div>
-        {% elif msg == 'SIZELIMIT_EXCEEDED' %}
-            <div class="error">{{ _('Server-side size limit exceeded.') }}</div>
-        {% elif msg == 'PERMISSION_DENIED' %}
-            <div class="error">{{ _('Permission denied.') }}</div>
-        {% elif msg == 'NO_SUCH_OBJECT' %}
-            <div class="error">{{ _('No such domain.') }}</div>
-        {% elif msg == 'INCORRECT_PROFILE_TYPE' %}
-            <div class="error">{{ _('Incorrect profile type.') }}</div>
-        {% elif msg == 'DOMAIN_NAME_MISMATCH' %}
-            <div class="error">{{ _('Submited domain name is incorrect.') }}</div>
-        {% else %}
-            {# Catch-all #}
-            <div class="warning">{{msg}}</div>
-        {% endif %}
-    </div>
+    {# Error handler #}
+    {% elif msg == 'EMPTY_DOMAIN' %}
+        {{ _errorInfo( _('Domain name is empty.') ) }}
+    {% elif msg == 'SIZELIMIT_EXCEEDED' %}
+        {{ _errorInfo( _('Server-side size limit exceeded. Please increase "sizelimit" in your LDAP server.') ) }}
+    {% elif msg == 'PERMISSION_DENIED' %}
+        {{ _errorInfo( _('Permission denied.') ) }}
+    {% elif msg == 'NO_SUCH_OBJECT' %}
+        {{ _errorInfo( _('No such domain.') ) }}
+    {% elif msg == 'INCORRECT_PROFILE_TYPE' %}
+        {{ _errorInfo( _('Incorrect profile type.') ) }}
+    {% elif msg == 'DOMAIN_NAME_MISMATCH' %}
+        {{ _errorInfo( _('Submited domain name is incorrect.') ) }}
+
+    {# Catch-all. displayed as a 'warning' msg. #}
+    {% else %}
+        {{ _warningInfo( msg ) }}
+    {% endif %}
+{% endif %}
+{%- endmacro %}
+
+{% macro userMsgHandler(msg) -%}
+{% if msg is defined and msg is not sameas none %}
+    {% if msg == 'PROFILE_UPDATED_SUCCESS' %}
+        {{ _successInfo( _('Profile updated success.') ) }}
+    {% elif msg == 'UPDATED_FAILED' %}
+        {{ _errorInfo( _('Profile updated failed.') ) }}
+    {% elif msg == 'CREATED_SUCCESS' %}
+        {{ _successInfo( _('User created. Would you like to <a href="%s/create/user/%s">add one more</a>?' |format(ctx.homepath, mail.split('@', 1)[1] )) ) }}
+    {% elif msg == 'NO_DOMAIN_AVAILABLE' %}
+        {{ _errorInfo( _('No domain under control.') ) }}
+
+    {# Delete, disable, enable accounts #}
+    {% elif msg == 'DELETED_SUCCESS' %}
+        {{ _successInfo( _('Selected accounts were deleted.') ) }}
+    {% elif msg == 'DISABLED_SUCCESS' %}
+        {{ _successInfo( _('Selected accounts were disabled.') ) }}
+    {% elif msg == 'ENABLED_SUCCESS' %}
+        {{ _successInfo( _('Selected accounts were enabled.') ) }}
+    {% elif msg == 'INVALID_PROFILE_TYPE' %}
+        {{ _errorInfo( _('Invalid profile type: %s.') |format(profile_type) ) }}
+
+    {# Password related msg #}
+    {% elif msg == 'INCORRECT_OLDPW' %}
+        {{ _errorInfo( _('Current password is incorrect.') ) }}
+    {% elif msg == 'PW_MISMATCH' %}
+        {{ _errorInfo( _('New passwords are not match.') ) }}
+    {% elif msg == 'PW_EMPTY' %}
+        {{ _errorInfo( _('Password is empty.') ) }}
+    {% elif msg == 'PW_LESS_THAN_MIN_LENGTH' %}
+        {{ _errorInfo( _('New password must contain at least %s characters.') |format(min_passwd_length) ) }}
+    {% elif msg == 'PW_GREATER_THAN_MAX_LENGTH' %}
+        {{ _errorInfo( _('New password must NOT contain more than %s characters.') |format(max_passwd_length) ) }}
+
+    {% elif msg == 'ALREADY_EXISTS' %}
+        {{ _('Account already exists, please choose another username.') }}
+    {% else %}
+        {{ _warningInfo( msg ) }}
+    {% endif %}
+{% endif %}
+
+{%- endmacro %}
+
+{% macro adminMsgHandler(msg) -%}
+{% if msg is defined and msg is not sameas none %}
+    {% if msg == 'CREATED_SUCCESS' %}
+        {{ _successInfo( _('Account created success. Would you like to <a href="%s/create/admin">add one more</a>?') |format(ctx.homepath) ) }}
+    {% elif msg == 'PROFILE_UPDATED_SUCCESS' %}
+        {{ _successInfo( _('Profile update success.') ) }}
+    {% elif msg == 'PERMISSION_DENIED' %}
+        {{ _("You are NOT permited to view/update other's profile.") }}
+
+    {# Delete, disable, enable accounts #}
+    {% elif msg == 'DELETED_SUCCESS' %}
+        {{ _successInfo( _('Selected accounts were deleted.') ) }}
+    {% elif msg == 'DISABLED_SUCCESS' %}
+        {{ _successInfo( _('Selected accounts were disabled.') ) }}
+    {% elif msg == 'ENABLED_SUCCESS' %}
+        {{ _successInfo( _('Selected accounts were enabled.') ) }}
+    {% elif msg == 'NO_ACCOUNT_SELECTED' %}
+        {{ _errorInfo( _('No account selected.') ) }}
+
+    {# Password related msg #}
+    {% elif msg == 'INCORRECT_OLDPW' %}
+        {{ _errorInfo( _('Current password is incorrect.') ) }}
+    {% elif msg == 'PW_MISMATCH' %}
+        {{ _errorInfo( _('New passwords are not match.') ) }}
+    {% elif msg == 'PW_EMPTY' %}
+        {{ _errorInfo( _('Password is empty.') ) }}
+    {% elif msg == 'PW_LESS_THAN_MIN_LENGTH' %}
+        {{ _errorInfo( _('New password must contain at least %s characters.') |format(min_passwd_length) ) }}
+    {% elif msg == 'PW_GREATER_THAN_MAX_LENGTH' %}
+        {{ _errorInfo( _('New password must NOT contain more than %s characters.') |format(max_passwd_length) ) }}
+
+    {% elif msg == 'ALREADY_EXISTS' %}
+        {{ _('Account already exists, please choose another username.') }}
+    {# Catch-all. displayed as a 'warning' msg. #}
+    {% else %}
+        {{ _warningInfo( msg ) }}
+    {% endif %}
 {% endif %}
 {%- endmacro %}
 
 {#
-{% macro domainMsgHandler(msg) -%}
-{%- endmacro %}
-
-{% macro domainMsgHandler(msg) -%}
-{%- endmacro %}
-
-{% macro domainMsgHandler(msg) -%}
-{%- endmacro %}
-
 {% macro domainMsgHandler(msg) -%}
 {%- endmacro %}
 #}

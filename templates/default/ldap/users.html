@@ -26,6 +26,7 @@
 {% extends "layout.html" %}
 
 {% from "macros.html" import set_account_status_img, display_quota, with context %}
+{% from "msgHandlers.html" import userMsgHandler with context %}
 
 {% block title %}{{ _('Mail Users') }}{% endblock %}
 {% block navlinks_active_users %}active{% endblock %}
@@ -53,27 +54,7 @@
 
 {% block main %}
 {# Show system message #}
-{% if msg is defined and msg is not sameas none %}
-<div class="ct-box info-box">
-    {% if msg == 'USER_DELETED_SUCCESS' %}
-        <div class="success">{{ _('Selected accounts were deleted.') }}</div>
-    {% elif msg == 'USER_DISABLED_SUCCESS' %}
-        <div class="success">{{ _('Selected accounts were disabled.') }}</div>
-    {% elif msg == 'USER_ENABLED_SUCCESS' %}
-        <div class="success">{{ _('Selected accounts were enabled.') }}</div>
-    {% else %}
-        <div class="error">
-            {% if msg == 'INVALID_PROFILE_TYPE' %}
-                {{ _('Invalid profile type: %s.') |format(profile_type) }}
-            {% elif msg == 'NO_DOMAIN_AVAILABLE' %}
-                {{ _('No mail domain available.') }}
-            {% else %}
-                {{ msg }}
-            {% endif %}
-        </div>
-    {% endif %}
-</div>
-{% endif %}
+{{ userMsgHandler(msg) }}
 
 {% if users is defined %}
     {# List all users. #}

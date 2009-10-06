@@ -23,6 +23,8 @@
 
 {% extends "layout.html" %}
 
+{% from "msgHandlers.html" import loginMsgHandler with context %}
+
 {% block title %}{{ _('Login to manage your mail domains & users') |title }}{% endblock %}
 {% block js %}{% endblock %}
 {% block js_tablesorter %}{% endblock %}
@@ -49,38 +51,14 @@
         <h2 class="hn"><span>{{ _('Login to manage your mail domains & users') |title }}</span></h2>
     </div>
 
-    {# Show error msg if available #}
-    {% if msg is defined and msg is not sameas none %}
-    <div class="ct-box warn-box">
-        <div class="error"><strong>{{ _('Error:') }}</strong>
-        {% if msg == 'INVALID_CREDENTIALS' %}
-            {{ _('Username or password is incorrect.') }}
-        {% elif msg == 'INVALID_USERNAME' %}
-            {{ _('Username must be an valid email address.') }}
-        {% elif msg == 'loginRequired' %}
-            {{ _('Login required') }}
-        {% elif msg == 'EMPTY_USER_PW' %}
-            {{ _('Username or password is empty.') }}
-        {% elif msg == 'SERVER_DOWN' %}
-            {{ _('Server is down, Please contact <a href="mailto:%s">webmaster</a> to solve it.' % webmaster ) }}
-        {% elif msg is sameas false %}
-            {{ _('Authentication failed.') }}
-        {% else %}
-            {{msg}}
-        {% endif %}
-        </div>
-    </div>
-    {% endif %}
+    {# Show system message #}
+    {{ loginMsgHandler(msg) }}
 
     {# Show login form #}
     <div class="main-frm">
-        <div class="content-head">
-            <p class="important">{{ _('All fields labelled <strong><em>(Required)</em></strong> must be completed before the form is submitted.') }}</p>
-        </div>
-
         <form class="frm-form" method="post" action="{{ctx.homepath}}/login">
-            <div class="frm-group">
-                <div class="sf-set">
+            <div class="frm-group group1">
+                <div class="sf-set set1">
                     <div class="sf-box text required">
                         <label><span>{{ _('Username')}} <em>{{ _('(Required)')}}</em></span><small>{{ _('Must be a valid domain admin email address.') }}</small></label><br />
                         <span class="fld-input"><input type="text" name="username" size="35" /></span>
