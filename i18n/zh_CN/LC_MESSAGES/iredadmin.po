@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: michaelbibby@gmail.com\n"
 "POT-Creation-Date: 2009-06-26 11:33+0400\n"
-"PO-Revision-Date: 2009-10-08 20:34+0800\n"
+"PO-Revision-Date: 2009-10-09 21:38+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: zh_CN <michaelbibby@gmail.com>\n"
 "Plural-Forms: nplurals=1; plural=0\n"
@@ -199,7 +199,7 @@ msgid "Error while check new version"
 msgstr "检查新版本时发生错误"
 
 #: ../templates/default/ldap/dashboard.html:31
-#: ../templates/default/ldap/layout.html:109
+#: ../templates/default/ldap/layout.html:63
 msgid "Dashboard"
 msgstr "控制台"
 
@@ -229,8 +229,8 @@ msgstr "需要更多功能？"
 
 #: ../templates/default/ldap/dashboard.html:61
 msgid ""
-"Purchase Full-featured Edition to get more features and support iRedMail "
-"project."
+"Purchase Full-featured Edition to support iRedMail project and get more "
+"features."
 msgstr "购买全功能的版本以获取更多功能并支持 iRedMail 项目。"
 
 #: ../templates/default/ldap/dashboard.html:62
@@ -239,7 +239,7 @@ msgstr "例如："
 
 #: ../templates/default/ldap/dashboard.html:65
 msgid "Unlimited number of mail lists"
-msgstr "无限数量的的邮件列表"
+msgstr "无限数量的邮件列表"
 
 #: ../templates/default/ldap/dashboard.html:66
 msgid "Unlimited number of mail aliases"
@@ -305,7 +305,7 @@ msgstr "编辑域属性"
 
 #: ../templates/default/ldap/domain_profile.html:48
 #: ../templates/default/ldap/domains.html:54
-#: ../templates/default/ldap/layout.html:111
+#: ../templates/default/ldap/layout.html:65
 msgid "Users"
 msgstr "用户"
 
@@ -354,28 +354,28 @@ msgstr "页面未找到。"
 msgid "Error:"
 msgstr "错误："
 
-#: ../templates/default/ldap/layout.html:98
+#: ../templates/default/ldap/layout.html:52
 msgid "Preferences"
 msgstr "偏好设置"
 
-#: ../templates/default/ldap/layout.html:99
+#: ../templates/default/ldap/layout.html:53
 msgid "Logout"
 msgstr "退出登录"
 
-#: ../templates/default/ldap/layout.html:103
+#: ../templates/default/ldap/layout.html:57
 msgid "iRedMail Management"
 msgstr "iRedMail 管理平台"
 
-#: ../templates/default/ldap/layout.html:110
+#: ../templates/default/ldap/layout.html:64
 msgid "Domains"
 msgstr "域名"
 
-#: ../templates/default/ldap/layout.html:114
+#: ../templates/default/ldap/layout.html:68
 msgid "Admins"
 msgstr "管理员"
 
-#: ../templates/default/ldap/layout.html:136
-#: ../templates/default/ldap/layout.html:138
+#: ../templates/default/ldap/layout.html:90
+#: ../templates/default/ldap/layout.html:92
 msgid "Get support"
 msgstr "获取支持"
 

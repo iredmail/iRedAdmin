@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: michaelbibby@gmail.com\n"
 "POT-Creation-Date: 2009-10-04 00:45+0800\n"
-"PO-Revision-Date: 2009-10-08 20:34+0800\n"
+"PO-Revision-Date: 2009-10-09 21:38+0800\n"
 "Last-Translator: Mael LE SAOUT <mael.lesaout@gmail.com>\n"
 "Language-Team: fr_FR <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -198,7 +198,7 @@ msgid "Error while check new version"
 msgstr "Erreur pendant la vérification des nouvelles versions"
 
 #: ../templates/default/ldap/dashboard.html:31
-#: ../templates/default/ldap/layout.html:109
+#: ../templates/default/ldap/layout.html:63
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
@@ -227,9 +227,10 @@ msgid "Need more features?"
 msgstr "Besoin de plus de fonctionnalités?"
 
 #: ../templates/default/ldap/dashboard.html:61
+#, fuzzy
 msgid ""
-"Purchase Full-featured Edition to get more features and support iRedMail "
-"project."
+"Purchase Full-featured Edition to support iRedMail project and get more "
+"features."
 msgstr ""
 "Acheter l'Edition Complète pour obtenir plus de fonctionnalités et de "
 "support sur le projet iRedMail."
@@ -306,7 +307,7 @@ msgstr "Modifier le profil du domaine."
 
 #: ../templates/default/ldap/domain_profile.html:48
 #: ../templates/default/ldap/domains.html:54
-#: ../templates/default/ldap/layout.html:111
+#: ../templates/default/ldap/layout.html:65
 msgid "Users"
 msgstr "Utilisateurs"
 
@@ -356,28 +357,28 @@ msgstr "Page introuvable."
 msgid "Error:"
 msgstr "Erreur:"
 
-#: ../templates/default/ldap/layout.html:98
+#: ../templates/default/ldap/layout.html:52
 msgid "Preferences"
 msgstr "Préférences"
 
-#: ../templates/default/ldap/layout.html:99
+#: ../templates/default/ldap/layout.html:53
 msgid "Logout"
 msgstr "Déconnexion"
 
-#: ../templates/default/ldap/layout.html:103
+#: ../templates/default/ldap/layout.html:57
 msgid "iRedMail Management"
 msgstr "Management iRedMail"
 
-#: ../templates/default/ldap/layout.html:110
+#: ../templates/default/ldap/layout.html:64
 msgid "Domains"
 msgstr "Domaines"
 
-#: ../templates/default/ldap/layout.html:114
+#: ../templates/default/ldap/layout.html:68
 msgid "Admins"
 msgstr "Administrateurs"
 
-#: ../templates/default/ldap/layout.html:136
-#: ../templates/default/ldap/layout.html:138
+#: ../templates/default/ldap/layout.html:90
+#: ../templates/default/ldap/layout.html:92
 msgid "Get support"
 msgstr "Obtenir du support"
 
