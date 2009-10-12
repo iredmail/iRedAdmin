@@ -23,7 +23,7 @@
 {%- endmacro %}
 
 {% macro loginMsgHandler(msg) -%}
-{% if msg is not sameas none and msg|string != '' %}
+{% if msg is defined and msg is not sameas none and msg|string != '' %}
     {% if msg == 'INVALID_CREDENTIALS' %}
         {{ _errorInfo( _('Username or password is incorrect.') ) }}
     {% elif msg == 'INVALID_USERNAME' %}
@@ -45,16 +45,16 @@
 {%- endmacro %}
 
 {% macro domainMsgHandler(msg=none) -%}
-{% if msg is not sameas none and msg|string != '' %}
-    {% if msg == 'DOMAIN_CREATED_SUCCESS' %}
+{% if msg is defined and msg is not sameas none and msg|string != '' %}
+    {% if msg == 'CREATED_SUCCESS' %}
         {{ _successInfo( _('Domain was created.') ) }}
-    {% elif msg == 'DOMAIN_PROFILE_UPDATED_SUCCESS' %}
+    {% elif msg == 'PROFILE_UPDATED_SUCCESS' %}
         {{ _successInfo( _('Profile update success.') ) }}
-    {% elif msg == 'DOMAIN_DELETED_SUCCESS' %}
+    {% elif msg == 'DELETED_SUCCESS' %}
         {{ _successInfo( _('Selected domains were deleted.') ) }}
-    {% elif msg == 'DOMAIN_DISABLED_SUCCESS' %}
+    {% elif msg == 'DISABLED_SUCCESS' %}
         {{ _successInfo( _('Selected domains were diabled.') ) }}
-    {% elif msg == 'DOMAIN_ENABLED_SUCCESS' %}
+    {% elif msg == 'ENABLED_SUCCESS' %}
         {{ _successInfo( _('Selected domains were enabled.') ) }}
 
     {# Error handler #}
@@ -79,7 +79,7 @@
 {%- endmacro %}
 
 {% macro userMsgHandler(msg) -%}
-{% if msg is not sameas none and msg|string != '' %}
+{% if msg is defined and msg is not sameas none and msg|string != '' %}
     {% if msg == 'PROFILE_UPDATED_SUCCESS' %}
         {{ _successInfo( _('Profile updated success.') ) }}
     {% elif msg == 'UPDATED_FAILED' %}
@@ -121,7 +121,7 @@
 {%- endmacro %}
 
 {% macro adminMsgHandler(msg) -%}
-{% if msg is not sameas none and msg|string != '' %}
+{% if msg is defined and msg is not sameas none and msg|string != '' %}
     {% if msg == 'CREATED_SUCCESS' %}
         {{ _successInfo( _('Account created success. Would you like to <a href="%s/create/admin">add one more</a>?') |format(ctx.homepath) ) }}
     {% elif msg == 'PROFILE_UPDATED_SUCCESS' %}

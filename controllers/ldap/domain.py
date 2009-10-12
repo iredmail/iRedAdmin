@@ -59,13 +59,13 @@ class list(dbinit):
         domainName = i.get('domainName', None)
         if i.has_key('delete'):
             result = domainLib.delete(domains=domainName)
-            msg = 'DOMAIN_DELETED_SUCCESS'
+            msg = 'DELETED_SUCCESS'
         elif i.has_key('disable'):
             result = domainLib.enableOrDisableAccount(domains=domainName, value='disabled',)
-            msg = 'DOMAIN_DISABLED_SUCCESS'
+            msg = 'DISABLED_SUCCESS'
         elif i.has_key('enable'):
             result = domainLib.enableOrDisableAccount(domains=domainName, value='active',)
-            msg = 'DOMAIN_ENABLED_SUCCESS'
+            msg = 'ENABLED_SUCCESS'
         else:
             msg = i.get('msg', None)
 
@@ -123,7 +123,7 @@ class profile(dbinit):
                 data=i,
                 )
         if result[0] is True:
-            web.seeother('/profile/domain/%s/%s?msg=DOMAIN_PROFILE_UPDATED_SUCCESS' % (self.profile_type, self.domain) )
+            web.seeother('/profile/domain/%s/%s?msg=PROFILE_UPDATED_SUCCESS' % (self.profile_type, self.domain) )
         elif result[0] is False:
             web.seeother('/profile/domain/%s/%s?' % (self.profile_type, self.domain) + result[1])
 
@@ -139,6 +139,6 @@ class create(dbinit):
     def POST(self):
         result = domainLib.add(data=i)
         if result[0] is True:
-            web.seeother('/domains?msg=DOMAIN_CREATED_SUCCESS')
+            web.seeother('/domains?msg=CREATED_SUCCESS')
         else:
             web.seeother('/create/domain?' + result[1])

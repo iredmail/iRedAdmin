@@ -1,17 +1,34 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # =========================================================
 # Author:    Zhang Huangbin (michaelbibby@gmail.com)
 # =========================================================
 
-ACTION="$1"
+# Available actions: [all, LANG].
+ACTIONORLANG="$1"
+
+if [ -z "${ACTIONORLANG}" ]; then
+    cat <<EOF
+
+Usage: $0 [all, LANGUAGE]
+
+Example:
+
+    $ $0 all
+    $ $0 zh_CN
+    $ $0 fr_Fr
+
+EOF
+    exit 255
+fi
 
 DOMAIN="iredadmin"
 POFILE="${DOMAIN}.po"
 AVAILABLE_LANGS="$(ls -d *_*)"
 
-if [ X"${ACTION}" == X"extract" ]; then
-    # Extract.
+extractLastest()
+{
+    # Extract strings from template files.
     echo "* Extract localizable messages from template files to ${POFILE}..."
     pybabel -v extract -F babel.cfg \
         --charset=utf-8 \
@@ -19,29 +36,38 @@ if [ X"${ACTION}" == X"extract" ]; then
         --msgid-bugs-address=michaelbibby@gmail.com \
         -o ${POFILE} \
         .. >/dev/null
+}
 
-elif [ X"${ACTION}" == X"update" ]; then
-    # Update.
+updatePO()
+{
+    # Update PO files.
     echo "* Update existing new translations catalog based on ${POFILE}..."
-    for lang in ${AVAILABLE_LANGS}
+    for lang in ${LANGUAGES}
     do
+        [ -d ${lang}/LC_MESSAGES/ ] || mkdir -p ${lang}/LC_MESSAGES/
         pybabel update -i ${POFILE} \
             -D ${DOMAIN} \
             -d . \
             -l ${lang}
     done
+}
 
-elif [ X"${ACTION}" == X"convert" ]; then
+convertPO2MO()
+{
     echo "* Convert translation catalogs into binary MO files..."
-    for lang in ${AVAILABLE_LANGS}
+    for lang in ${LANGUAGES}
     do
         echo "  + Converting ${lang}..."
         python ./msgfmt.py ${lang}/LC_MESSAGES/${DOMAIN}.po
     done
-elif [ X"${ACTION}" == X"all" ]; then
-    bash $0 extract && \
-    bash $0 update && \
-    bash $0 convert
+}
+
+if [ X"${ACTIONORLANG}" == X"all" -o X"${ACTIONORLANG}" == X"" ]; then
+    export LANGUAGES="${AVAILABLE_LANGS}"
 else
-    :
+    export LANGUAGES="${ACTIONORLANG}"
 fi
+
+extractLastest && \
+updatePO && \
+convertPO2MO

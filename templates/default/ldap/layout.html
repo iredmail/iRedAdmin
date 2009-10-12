@@ -113,17 +113,6 @@
     {% block jquery_docoment_ready %}
     <script type="text/javascript">
         $(document).ready(function() {
-            $("#list_table :checkbox").change(function() {
-                var chkAll = this;
-                if (chkAll.id == "checkall") {
-                    $("#list_table :checkbox").each(function() {
-                        this.checked = chkAll.checked;
-                    });
-                } else {
-                    $("#checkall")[0].checked = false;
-                }
-            });
-
             $("a,input,img").ToolTipDemo('#8dbdd8');
             {% block jquery_snippet_sorter %}
                 $("#account_list").tablesorter( {sortList: [[0,0]]} );
@@ -134,6 +123,19 @@
     {% endblock jquery_docoment_ready %}
 
     <script type="text/javascript">
+        checked=false;
+        function checkAll(list_table) {
+            var aa= document.getElementById('list_table');
+            if (checked == false) {
+                checked = true
+            } else {
+                checked = false
+            }
+            for (var i =0; i < aa.elements.length; i++) {
+                aa.elements[i].checked = checked;
+            }
+        }
+
         function changeDomain(domain, baseurl) {
             if ( domain.options[domain.selectedIndex].value != 'none' ) {
                 location.href = baseurl + domain.options[domain.selectedIndex].value;
