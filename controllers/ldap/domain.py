@@ -137,6 +137,7 @@ class create(dbinit):
     @base.check_global_admin
     @base.protected
     def POST(self):
+        i = web.input()
         result = domainLib.add(data=i)
         if result[0] is True:
             web.seeother('/domains?msg=CREATED_SUCCESS')

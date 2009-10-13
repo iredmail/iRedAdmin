@@ -78,6 +78,7 @@ class login:
                 web.config.session_parameters['timeout'] = 600      # 10 minutes
 
             # Per-user i18n.
+            '''
             try:
                 adminLib = admin.Admin()
                 lang = adminLib.getPreferredLanguage(userdn)
@@ -86,6 +87,7 @@ class login:
                     session['lang'] = lang
             except:
                 pass
+            '''
 
             web.seeother('/dashboard')
         else:
