@@ -22,7 +22,7 @@ msgstr ""
 #: ../templates/default/ldap/admin_create.html:24
 #: ../templates/default/ldap/admins.html:14
 msgid "Create new mail admin"
-msgstr "新建管理员"
+msgstr "新建管理員"
 
 #: ../templates/default/ldap/admin_create.html:43
 #: ../templates/default/ldap/admin_create.html:46
@@ -40,7 +40,7 @@ msgstr "新建管理员"
 #: ../templates/default/ldap/user_profile.html:99
 #: ../templates/default/ldap/users.html:54
 msgid "Mail Address"
-msgstr "邮件地址"
+msgstr "郵件地址"
 
 #: ../templates/default/ldap/admin_create.html:46
 #: ../templates/default/ldap/alias_create.html:30
@@ -65,14 +65,14 @@ msgstr "新建"
 
 #: ../templates/default/ldap/admin_profile.html:27
 msgid "Edit admin profile"
-msgstr "编辑管理员属性"
+msgstr "編輯管理員屬性"
 
 #: ../templates/default/ldap/admin_profile.html:31
 #: ../templates/default/ldap/alias_profile.html:21
 #: ../templates/default/ldap/maillist_profile.html:20
 #: ../templates/default/ldap/user_profile.html:33
 msgid "General"
-msgstr "常用设置"
+msgstr "常用設置"
 
 #: ../templates/default/ldap/admin_profile.html:33
 msgid "Managed Domains"
@@ -80,11 +80,11 @@ msgstr "管理的域"
 
 #: ../templates/default/ldap/admin_profile.html:35
 msgid "Reset password"
-msgstr "重置密码"
+msgstr "重置密碼"
 
 #: ../templates/default/ldap/admin_profile.html:40
 msgid "Back to admin list"
-msgstr "返回到管理员列表"
+msgstr "返回到管理員列表"
 
 #: ../templates/default/ldap/admin_profile.html:59
 #: ../templates/default/ldap/admin_profile.html:60
@@ -113,7 +113,7 @@ msgstr "："
 #: ../templates/default/ldap/user_profile.html:98
 #: ../templates/default/ldap/users.html:53
 msgid "Display Name"
-msgstr "显示名称"
+msgstr "顯示名稱"
 
 #: ../templates/default/ldap/admin_profile.html:61
 #: ../templates/default/ldap/alias_profile.html:54
@@ -123,7 +123,7 @@ msgstr "显示名称"
 #: ../templates/default/ldap/user_profile.html:101
 #: ../templates/default/ldap/users.html:42
 msgid "Created Date"
-msgstr "创建日期"
+msgstr "創建日期"
 
 #: ../templates/default/ldap/admin_profile.html:108
 #: ../templates/default/ldap/alias_profile.html:120
@@ -135,11 +135,11 @@ msgstr "保存更改"
 
 #: ../templates/default/ldap/admins.html:6
 msgid "Domain Admins"
-msgstr "域管理员"
+msgstr "域管理員"
 
 #: ../templates/default/ldap/admins.html:10
 msgid "All mail administrators."
-msgstr "所有域管理员。"
+msgstr "所有域管理員。"
 
 #: ../templates/default/ldap/admins.html:10
 #: ../templates/default/ldap/aliases.html:21
@@ -148,15 +148,15 @@ msgstr "所有域管理员。"
 #: ../templates/default/ldap/users.html:22
 #, python-format
 msgid "Total: %s."
-msgstr "总共 %s 个。"
+msgstr "總共 %s 個。"
 
 #: ../templates/default/ldap/admins.html:32
 msgid "Global Admin"
-msgstr "全局管理员"
+msgstr "全局管理員"
 
 #: ../templates/default/ldap/admins.html:54
 msgid "Edit admin profile."
-msgstr "编辑管理员属性。"
+msgstr "編輯管理員屬性。"
 
 #: ../templates/default/ldap/admins.html:67
 #: ../templates/default/ldap/alias_profile.html:105
@@ -166,7 +166,7 @@ msgstr "编辑管理员属性。"
 #: ../templates/default/ldap/maillists.html:78
 #: ../templates/default/ldap/users.html:101
 msgid "Select/Unselect all"
-msgstr "全选/反选"
+msgstr "全選/反選"
 
 #: ../templates/default/ldap/admins.html:68
 #: ../templates/default/ldap/aliases.html:78
@@ -174,14 +174,14 @@ msgstr "全选/反选"
 #: ../templates/default/ldap/maillists.html:79
 #: ../templates/default/ldap/users.html:102
 msgid "Delete"
-msgstr "删除"
+msgstr "刪除"
 
 #: ../templates/default/ldap/admins.html:68
 #: ../templates/default/ldap/aliases.html:78
 #: ../templates/default/ldap/maillists.html:79
 #: ../templates/default/ldap/users.html:102
 msgid "Are you sure want to delete selected account(s)?"
-msgstr "您确定要删除选中的帐号吗？"
+msgstr "您確定要刪除選中的帳號嗎？"
 
 #: ../templates/default/ldap/admins.html:69
 #: ../templates/default/ldap/aliases.html:79
@@ -196,7 +196,7 @@ msgstr "禁用"
 #: ../templates/default/ldap/maillists.html:80
 #: ../templates/default/ldap/users.html:103
 msgid "Are you sure want to disable selected account(s)?"
-msgstr "您确定要禁用选中的帐号吗？"
+msgstr "您確定要禁用選中的帳號嗎？"
 
 #: ../templates/default/ldap/admins.html:70
 #: ../templates/default/ldap/aliases.html:80
@@ -204,39 +204,39 @@ msgstr "您确定要禁用选中的帐号吗？"
 #: ../templates/default/ldap/maillists.html:81
 #: ../templates/default/ldap/users.html:104
 msgid "Enable"
-msgstr "启用"
+msgstr "啟用"
 
 #: ../templates/default/ldap/admins.html:70
 #: ../templates/default/ldap/aliases.html:80
 #: ../templates/default/ldap/maillists.html:81
 #: ../templates/default/ldap/users.html:104
 msgid "Are you sure want to enable selected account(s)?"
-msgstr "您确定要启用选中的帐号吗？"
+msgstr "您確定要啟用選中的帳號嗎？"
 
 #: ../templates/default/ldap/alias_create.html:12
 #: ../templates/default/ldap/alias_create.html:17
 #: ../templates/default/ldap/aliases.html:25
 msgid "Create new mail alias"
-msgstr "新建邮件别名"
+msgstr "新建郵件別名"
 
 #: ../templates/default/ldap/alias_profile.html:14
 msgid "Edit mail alias profile"
-msgstr "编辑别名属性"
+msgstr "編輯別名屬性"
 
 #: ../templates/default/ldap/alias_profile.html:22
 #: ../templates/default/ldap/maillist_profile.html:21
 msgid "Members"
-msgstr "成员"
+msgstr "成員"
 
 #: ../templates/default/ldap/alias_profile.html:26
 msgid "Back to mail alias list"
-msgstr "返回别名列表"
+msgstr "返回別名列表"
 
 #: ../templates/default/ldap/alias_profile.html:69
 #: ../templates/default/ldap/maillist_profile.html:67
 #, fuzzy
 msgid "Current members"
-msgstr "当前成员"
+msgstr "當前成員"
 
 #: ../templates/default/ldap/alias_profile.html:69
 #: ../templates/default/ldap/maillist_profile.html:67
@@ -248,57 +248,57 @@ msgstr "（%s）"
 
 #: ../templates/default/ldap/alias_profile.html:70
 msgid "Add members"
-msgstr "添加成员"
+msgstr "添加成員"
 
 #: ../templates/default/ldap/alias_profile.html:106
 msgid "Remove from alias"
-msgstr "从别名中删除"
+msgstr "從別名中刪除"
 
 #: ../templates/default/ldap/alias_profile.html:106
 msgid "Are you sure want to remove selected account(s) from alias?"
-msgstr "您确定要从别名中删除选中的帐号吗？"
+msgstr "您確定要從別名中刪除選中的帳號嗎？"
 
 #: ../templates/default/ldap/alias_profile.html:110
 msgid "Assign to alias"
-msgstr "添加到别名中"
+msgstr "添加到別名中"
 
 #: ../templates/default/ldap/alias_profile.html:110
 msgid "Are you sure want to assign selected account(s) to alias?"
-msgstr "您确定要将选中的帐号添加到别名中吗？"
+msgstr "您確定要將選中的帳號添加到別名中嗎？"
 
 #: ../templates/default/ldap/aliases.html:7
 #: ../templates/default/ldap/domains.html:42
 msgid "Mail Aliases"
-msgstr "邮件别名"
+msgstr "郵件別名"
 
 #: ../templates/default/ldap/aliases.html:12
 msgid "View aliases under domain:"
-msgstr "查看域内的别名："
+msgstr "查看域內的別名："
 
 #: ../templates/default/ldap/aliases.html:15
 #: ../templates/default/ldap/maillists.html:15
 #: ../templates/default/ldap/users.html:16
 msgid "Select a domain"
-msgstr "选择一个域"
+msgstr "選擇一個域"
 
 #: ../templates/default/ldap/aliases.html:26
 #: ../templates/default/ldap/maillists.html:26
 #: ../templates/default/ldap/users.html:28
 msgid "View/Update domain profile"
-msgstr "查看、更新域属性"
+msgstr "查看、更新域屬性"
 
 #: ../templates/default/ldap/checknew.html:7
 msgid "Software update"
-msgstr "软件更新"
+msgstr "軟件更新"
 
 #: ../templates/default/ldap/checknew.html:14
 #: ../templates/default/ldap/dashboard.html:47
 msgid "Check new version"
-msgstr "检查新版本"
+msgstr "檢查新版本"
 
 #: ../templates/default/ldap/checknew.html:20
 msgid "Current iRedAdmin version"
-msgstr "当前 iRedAdmin 版本"
+msgstr "當前 iRedAdmin 版本"
 
 #: ../templates/default/ldap/checknew.html:26
 msgid "New version available"
@@ -306,32 +306,32 @@ msgstr "有新版本可供更新"
 
 #: ../templates/default/ldap/checknew.html:27
 msgid "Release note"
-msgstr "发布声明"
+msgstr "發布聲明"
 
 #: ../templates/default/ldap/checknew.html:27
 msgid "Download"
-msgstr "下载"
+msgstr "下載"
 
 #: ../templates/default/ldap/checknew.html:29
 msgid "Version status"
-msgstr "版本状态"
+msgstr "版本狀態"
 
 #: ../templates/default/ldap/checknew.html:30
 msgid "Your iRedAdmin is up to date."
-msgstr "您的 iRedAdmin 已经是最新的。"
+msgstr "您的 iRedAdmin 已經是最新的。"
 
 #: ../templates/default/ldap/checknew.html:33
 msgid "Error while check new version"
-msgstr "检查新版本时发生错误"
+msgstr "檢查新版本時發生錯誤"
 
 #: ../templates/default/ldap/dashboard.html:7
 #: ../templates/default/ldap/layout.html:62
 msgid "Dashboard"
-msgstr "控制台"
+msgstr "控制臺"
 
 #: ../templates/default/ldap/dashboard.html:16
 msgid "Available operations"
-msgstr "允许的操作"
+msgstr "允許的操作"
 
 #: ../templates/default/ldap/dashboard.html:22
 msgid "Create new"
@@ -339,19 +339,19 @@ msgstr "新建"
 
 #: ../templates/default/ldap/dashboard.html:25
 msgid "Mail Domain"
-msgstr "邮件域"
+msgstr "郵件域"
 
 #: ../templates/default/ldap/dashboard.html:26
 msgid "Domain Admin"
-msgstr "域管理员"
+msgstr "域管理員"
 
 #: ../templates/default/ldap/dashboard.html:28
 msgid "Mail User"
-msgstr "邮件帐号"
+msgstr "郵件帳號"
 
 #: ../templates/default/ldap/dashboard.html:40
 msgid "System info"
-msgstr "系统信息"
+msgstr "系統信息"
 
 #: ../templates/default/ldap/dashboard.html:46
 msgid "iRedAdmin version"
@@ -359,30 +359,30 @@ msgstr "iRedAdmin 版本"
 
 #: ../templates/default/ldap/dashboard.html:51
 msgid "Hostname"
-msgstr "主机名"
+msgstr "主機名"
 
 #: ../templates/default/ldap/dashboard.html:57
 msgid "Uptime"
-msgstr "运行时间"
+msgstr "運行時間"
 
 #: ../templates/default/ldap/dashboard.html:58
 #, python-format
 msgid "%s days, %s hours, %s minutes."
-msgstr "%s 天，%s 小时，%s 分钟。"
+msgstr "%s 天，%s 小時，%s 分鐘。"
 
 #: ../templates/default/ldap/dashboard.html:63
 msgid "Server load"
-msgstr "服务器负载"
+msgstr "服務器負載"
 
 #: ../templates/default/ldap/dashboard.html:73
 msgid "Network interfaces"
-msgstr "网络接口"
+msgstr "網絡接口"
 
 #: ../templates/default/ldap/domain_create.html:12
 #: ../templates/default/ldap/domain_create.html:17
 #: ../templates/default/ldap/domains.html:21
 msgid "Create new mail domain"
-msgstr "新建邮件域"
+msgstr "新建郵件域"
 
 #: ../templates/default/ldap/domain_create.html:27
 #: ../templates/default/ldap/domain_create.html:30
@@ -393,37 +393,37 @@ msgstr "域名"
 
 #: ../templates/default/ldap/domain_profile.html:25
 msgid "Edit domain profile."
-msgstr "编辑域属性"
+msgstr "編輯域屬性"
 
 #: ../templates/default/ldap/domain_profile.html:31
 msgid "Assigned Admins"
-msgstr "指派管理员"
+msgstr "指派管理員"
 
 #: ../templates/default/ldap/domain_profile.html:41
 #: ../templates/default/ldap/layout.html:64
 msgid "Users"
-msgstr "用户"
+msgstr "用戶"
 
 #: ../templates/default/ldap/domain_profile.html:42
 #: ../templates/default/ldap/domains.html:41
 #: ../templates/default/ldap/layout.html:65
 #: ../templates/default/ldap/maillists.html:7
 msgid "Mail Lists"
-msgstr "邮件列表"
+msgstr "郵件列表"
 
 #: ../templates/default/ldap/domain_profile.html:43
 #: ../templates/default/ldap/layout.html:66
 msgid "Aliases"
-msgstr "别名"
+msgstr "別名"
 
 #: ../templates/default/ldap/domain_profile.html:109
 #: ../templates/default/ldap/macros.html:33
 msgid "Company/Organization"
-msgstr "公司/组织名称"
+msgstr "公司/組織名稱"
 
 #: ../templates/default/ldap/domain_profile.html:128
 msgid "If no admin assigned for domain, you can also manage it with global admin."
-msgstr "如果没有指派管理员，您仍然可以使用全局管理员帐号进行管理。"
+msgstr "如果沒有指派管理員，您仍然可以使用全局管理員帳號進行管理。"
 
 #: ../templates/default/ldap/domain_profile.html:165
 msgid "WARNING!"
@@ -431,71 +431,71 @@ msgstr "警告！"
 
 #: ../templates/default/ldap/domain_profile.html:165
 msgid "Domain BCC setting will override per-user bcc settings."
-msgstr "域级别的 BCC 设置将会覆盖针对单个用户的 BCC 设置。"
+msgstr "域級別的 BCC 設置將會覆蓋針對單個用戶的 BCC 設置。"
 
 #: ../templates/default/ldap/domains.html:12
 msgid "Mail Domains"
-msgstr "邮件域"
+msgstr "郵件域"
 
 #: ../templates/default/ldap/domains.html:16
 msgid "All domains under your control."
-msgstr "您管理的所有邮件域。"
+msgstr "您管理的所有郵件域。"
 
 #: ../templates/default/ldap/domains.html:40
 #: ../templates/default/ldap/users.html:8
 msgid "Mail Users"
-msgstr "邮件用户"
+msgstr "郵件用戶"
 
 #: ../templates/default/ldap/domains.html:59
 msgid "Edit domain profile"
-msgstr "编辑域属性"
+msgstr "編輯域屬性"
 
 #: ../templates/default/ldap/domains.html:68
 msgid "List all mail users."
-msgstr "列出所有邮件用户。"
+msgstr "列出所有郵件用戶。"
 
 #: ../templates/default/ldap/domains.html:71
 msgid "List all mail lists."
-msgstr "列出所有邮件列表。"
+msgstr "列出所有郵件列表。"
 
 #: ../templates/default/ldap/domains.html:74
 msgid "List all mail aliases."
-msgstr "列出所有邮件别名。"
+msgstr "列出所有郵件別名。"
 
 #: ../templates/default/ldap/domains.html:84
 msgid "Are you sure want to delete selected domain(s) and accounts under it?"
-msgstr "您确定要删除选中的域和域内的帐号吗？"
+msgstr "您確定要刪除選中的域和域內的帳號嗎？"
 
 #: ../templates/default/ldap/domains.html:85
 msgid "Are you sure want to disable selected domain(s)?"
-msgstr "您确定要删除选中的域吗？"
+msgstr "您確定要刪除選中的域嗎？"
 
 #: ../templates/default/ldap/domains.html:86
 msgid "Are you sure want to enable selected domain(s)?"
-msgstr "您确定要启用选中的域吗？"
+msgstr "您確定要啟用選中的域嗎？"
 
 #: ../templates/default/ldap/error404.html:8
 #: ../templates/default/ldap/error404.html:14
 msgid "Page not found."
-msgstr "页面未找到。"
+msgstr "頁面未找到。"
 
 #: ../templates/default/ldap/error404.html:8
 #: ../templates/default/ldap/error404.html:14
 #: ../templates/default/ldap/msgHandlers.html:9
 msgid "Error:"
-msgstr "错误："
+msgstr "錯誤："
 
 #: ../templates/default/ldap/layout.html:51
 msgid "Preferences"
-msgstr "偏好设置"
+msgstr "偏好設置"
 
 #: ../templates/default/ldap/layout.html:52
 msgid "Logout"
-msgstr "退出登录"
+msgstr "退出登錄"
 
 #: ../templates/default/ldap/layout.html:56
 msgid "iRedMail Management"
-msgstr "iRedMail 管理平台"
+msgstr "iRedMail 管理平臺"
 
 #: ../templates/default/ldap/layout.html:63
 msgid "Domains"
@@ -503,73 +503,73 @@ msgstr "域名"
 
 #: ../templates/default/ldap/layout.html:69
 msgid "Admins"
-msgstr "管理员"
+msgstr "管理員"
 
 #: ../templates/default/ldap/layout.html:91
 msgid "Feature request & get support"
-msgstr "功能需求、获取技术支持"
+msgstr "功能需求、獲取技術支持"
 
 #: ../templates/default/ldap/layout.html:93
 msgid "Contact webmaster"
-msgstr "联系管理员"
+msgstr "聯系管理員"
 
 #: ../templates/default/ldap/login.html:5
 #: ../templates/default/ldap/login.html:29
 msgid "Login to manage your mail domains & users"
-msgstr "登录管理您的邮件域和用户"
+msgstr "登錄管理您的郵件域和用戶"
 
 #: ../templates/default/ldap/login.html:41
 msgid "Username"
-msgstr "用户名"
+msgstr "用戶名"
 
 #: ../templates/default/ldap/login.html:41
 msgid "Must be a valid domain admin email address."
-msgstr "必须是有效的邮件地址。"
+msgstr "必須是有效的郵件地址。"
 
 #: ../templates/default/ldap/login.html:48
 msgid "Password"
-msgstr "密码"
+msgstr "密碼"
 
 #: ../templates/default/ldap/login.html:56
 msgid "Remember me"
-msgstr "记住我"
+msgstr "記住我"
 
 #: ../templates/default/ldap/login.html:56
 msgid "Log me in automatically each time I visit."
-msgstr "每次访问时自动登录"
+msgstr "每次訪問時自動登錄"
 
 #: ../templates/default/ldap/login.html:62
 msgid "Login"
-msgstr "登录"
+msgstr "登錄"
 
 #: ../templates/default/ldap/macros.html:7
 msgid "Status:"
-msgstr "状态："
+msgstr "狀態："
 
 #: ../templates/default/ldap/macros.html:48
 #: ../templates/default/ldap/maillist_profile.html:93
 #: ../templates/default/ldap/user_profile.html:100
 #: ../templates/default/ldap/users.html:55
 msgid "Employee ID"
-msgstr "员工 ID"
+msgstr "員工 ID"
 
 #: ../templates/default/ldap/macros.html:57
 #: ../templates/default/ldap/macros.html:61
 #: ../templates/default/ldap/macros.html:67
 msgid "Telephone Number"
-msgstr "电话号码"
+msgstr "電話號碼"
 
 #: ../templates/default/ldap/macros.html:80
 msgid "Default language"
-msgstr "默认语言"
+msgstr "默認語言"
 
 #: ../templates/default/ldap/macros.html:96
 msgid "Display mail address in global LDAP address book"
-msgstr "在全局 LDAP 地址簿中显示该帐号的邮件地址"
+msgstr "在全局 LDAP 地址簿中顯示該帳號的郵件地址"
 
 #: ../templates/default/ldap/macros.html:103
 msgid "Mark as global admin"
-msgstr "标记为全局管理员"
+msgstr "標記為全局管理員"
 
 #: ../templates/default/ldap/macros.html:109
 #: ../templates/default/ldap/macros.html:114
@@ -577,54 +577,54 @@ msgstr "标记为全局管理员"
 #: ../templates/default/ldap/maillist_profile.html:127
 #: ../templates/default/ldap/users.html:90
 msgid "Unlimited"
-msgstr "无限制"
+msgstr "無限制"
 
 #: ../templates/default/ldap/macros.html:135
 msgid "Max quota size"
-msgstr "邮箱容量的最大值"
+msgstr "郵箱容量的最大值"
 
 #: ../templates/default/ldap/macros.html:138
 msgid "Max quota size (in MB)"
-msgstr "邮箱容量的最大值（单位：MB）"
+msgstr "郵箱容量的最大值（單位：MB）"
 
 #: ../templates/default/ldap/macros.html:140
 #, python-format
 msgid "Current quota size: <strong>%s</strong>."
-msgstr "当前的容量是 <strong>%s</strong>。"
+msgstr "當前的容量是 <strong>%s</strong>。"
 
 #: ../templates/default/ldap/macros.html:141
 #: ../templates/default/ldap/macros.html:149
 #: ../templates/default/ldap/macros.html:157
 #: ../templates/default/ldap/macros.html:165
 msgid "Tip: 0 means unlimited."
-msgstr "提示：0 表示无限制。"
+msgstr "提示：0 表示無限制。"
 
 #: ../templates/default/ldap/macros.html:146
 msgid "Max number of mail users"
-msgstr "邮件用户的最大数量"
+msgstr "郵件用戶的最大數量"
 
 #: ../templates/default/ldap/macros.html:148
 #: ../templates/default/ldap/macros.html:156
 #: ../templates/default/ldap/macros.html:164
 #, python-format
 msgid "Current number: <strong>%s</strong>."
-msgstr "当前数量是：<strong>%s</strong>。"
+msgstr "當前數量是：<strong>%s</strong>。"
 
 #: ../templates/default/ldap/macros.html:154
 msgid "Max number of mail lists"
-msgstr "邮件列表的最大数量"
+msgstr "郵件列表的最大數量"
 
 #: ../templates/default/ldap/macros.html:162
 msgid "Max number of mail aliases"
-msgstr "邮件别名的最大数量"
+msgstr "郵件別名的最大數量"
 
 #: ../templates/default/ldap/macros.html:181
 msgid "Enable this domain"
-msgstr "启用这个域"
+msgstr "啟用這個域"
 
 #: ../templates/default/ldap/macros.html:183
 msgid "Enable this account"
-msgstr "启用这个帐号"
+msgstr "啟用這個帳號"
 
 #: ../templates/default/ldap/macros.html:195
 #: ../templates/default/ldap/macros.html:197
@@ -633,7 +633,7 @@ msgstr "Backup MX"
 
 #: ../templates/default/ldap/macros.html:201
 msgid "Enabled"
-msgstr "已启用"
+msgstr "已啟用"
 
 #: ../templates/default/ldap/macros.html:205
 msgid "Disabled"
@@ -642,47 +642,47 @@ msgstr "已禁用"
 #: ../templates/default/ldap/macros.html:219
 #: ../templates/default/ldap/user_profile.html:37
 msgid "Service Control"
-msgstr "服务控制"
+msgstr "服務控制"
 
 #: ../templates/default/ldap/macros.html:221
 msgid "Services control"
-msgstr "服务控制"
+msgstr "服務控制"
 
 #: ../templates/default/ldap/macros.html:226
 msgid "Mail service."
-msgstr "邮件服务"
+msgstr "郵件服務"
 
 #: ../templates/default/ldap/macros.html:226
 msgid "Check this box in order to enable all mail related services."
-msgstr "勾选这个选项以启用所有邮件相关的服务"
+msgstr "勾選這個選項以啟用所有郵件相關的服務"
 
 #: ../templates/default/ldap/macros.html:232
 msgid "Fetch mails via POP3."
-msgstr "通过 POP3 协议收取邮件"
+msgstr "通過 POP3 協議收取郵件"
 
 #: ../templates/default/ldap/macros.html:237
 msgid "Fetch mails via IMAP."
-msgstr "通过 IMAP 协议收取邮件"
+msgstr "通過 IMAP 協議收取郵件"
 
 #: ../templates/default/ldap/macros.html:242
 msgid "Sending mail via SMTP."
-msgstr "通过 SMTP 协议发送邮件"
+msgstr "通過 SMTP 協議發送郵件"
 
 #: ../templates/default/ldap/macros.html:247
 msgid "Receiving mails."
-msgstr "允许接收外部发送过来的邮件"
+msgstr "允許接收外部發送過來的郵件"
 
 #: ../templates/default/ldap/macros.html:252
 msgid "Customize mail filter rule."
-msgstr "自定义邮件过滤规则"
+msgstr "自定義郵件過濾規則"
 
 #: ../templates/default/ldap/macros.html:260
 msgid "Display this account's mail address in global LDAP address book."
-msgstr "在全局 LDAP 地址簿中显示该帐号的邮件地址。"
+msgstr "在全局 LDAP 地址簿中顯示該帳號的郵件地址。"
 
 #: ../templates/default/ldap/macros.html:271
 msgid "Domain admin assignment"
-msgstr "为域指派管理员"
+msgstr "為域指派管理員"
 
 #: ../templates/default/ldap/macros.html:283
 #: ../templates/default/ldap/macros.html:465
@@ -692,7 +692,7 @@ msgstr "%s （%s）"
 
 #: ../templates/default/ldap/macros.html:287
 msgid "(Global Admin)"
-msgstr "（全局管理员）"
+msgstr "（全局管理員）"
 
 #: ../templates/default/ldap/macros.html:299
 #: ../templates/default/ldap/macros.html:302
@@ -702,123 +702,123 @@ msgstr "MTA transport"
 #: ../templates/default/ldap/macros.html:302
 #, python-format
 msgid "Default is <strong>%s</strong>."
-msgstr "默认是 <strong>%s</strong>。"
+msgstr "默認是 <strong>%s</strong>。"
 
 #: ../templates/default/ldap/macros.html:303
 msgid "Leave it empty to use default transport."
-msgstr "留空则使用默认的 transport。"
+msgstr "留空則使用默認的 transport。"
 
 #: ../templates/default/ldap/macros.html:314
 #, python-format
 msgid "New password must contain at least <strong>%s</strong> characters."
-msgstr "新密码必须至少包含 <strong>%s</strong> 个字符。"
+msgstr "新密碼必須至少包含 <strong>%s</strong> 個字符。"
 
 #: ../templates/default/ldap/macros.html:318
 #, python-format
 msgid ""
 "New password must <strong>NOT</strong> contain more than "
 "<strong>%s</strong> characters."
-msgstr "新密码长度<strong>不能</strong>超过 <strong>%s</strong> 个字符。"
+msgstr "新密碼長度<strong>不能</strong>超過 <strong>%s</strong> 個字符。"
 
 #: ../templates/default/ldap/macros.html:331
 msgid "Old password"
-msgstr "旧密码"
+msgstr "舊密碼"
 
 #: ../templates/default/ldap/macros.html:339
 msgid "New password"
-msgstr "新密码"
+msgstr "新密碼"
 
 #: ../templates/default/ldap/macros.html:347
 msgid "Confirm new password"
-msgstr "确认新密码"
+msgstr "確認新密碼"
 
 #: ../templates/default/ldap/macros.html:347
 msgid "Re-enter your password exactly as before."
-msgstr "重新输入上面的密码以进行确认"
+msgstr "重新輸入上面的密碼以進行確認"
 
 #: ../templates/default/ldap/macros.html:359
 msgid "Mail quota (in MB)"
-msgstr "邮箱容量（单位：MB）"
+msgstr "郵箱容量（單位：MB）"
 
 #: ../templates/default/ldap/macros.html:360
 msgid "Current quota:"
-msgstr "当前容量："
+msgstr "當前容量："
 
 #: ../templates/default/ldap/macros.html:372
 msgid "Enable recipient BCC"
-msgstr "对收下的邮件启用密送（BCC）功能"
+msgstr "對收下的郵件啟用密送（BCC）功能"
 
 #: ../templates/default/ldap/macros.html:378
 #: ../templates/default/ldap/macros.html:381
 msgid "Recipient BCC address"
-msgstr "将收下的邮件密送到以下地址"
+msgstr "將收下的郵件密送到以下地址"
 
 #: ../templates/default/ldap/macros.html:382
 #: ../templates/default/ldap/macros.html:407
 msgid "Multiple addresses are <strong>NOT</strong> supported."
-msgstr "<strong>不支持</strong>指定多个地址"
+msgstr "<strong>不支持</strong>指定多個地址"
 
 #: ../templates/default/ldap/macros.html:391
 msgid "Sender BCC"
-msgstr "发件密送"
+msgstr "發件密送"
 
 #: ../templates/default/ldap/macros.html:396
 msgid "Enable sender BCC"
-msgstr "对发送的邮件启用密送（BCC）功能"
+msgstr "對發送的郵件啟用密送（BCC）功能"
 
 #: ../templates/default/ldap/macros.html:401
 #: ../templates/default/ldap/macros.html:403
 #: ../templates/default/ldap/macros.html:406
 msgid "Sender BCC address"
-msgstr "将发送的邮件密送到以下地址"
+msgstr "將發送的郵件密送到以下地址"
 
 #: ../templates/default/ldap/macros.html:420
 msgid "Enable mail forwarding"
-msgstr "针对单个用户的邮件转发控制"
+msgstr "針對單個用戶的郵件轉發控制"
 
 #: ../templates/default/ldap/macros.html:424
 msgid "Save a copy in mailbox"
-msgstr "将转发的邮件保留一份在邮箱中"
+msgstr "將轉發的郵件保留一份在郵箱中"
 
 #: ../templates/default/ldap/macros.html:433
 msgid "Mail forwarding address"
-msgstr "转发地址"
+msgstr "轉發地址"
 
 #: ../templates/default/ldap/macros.html:435
 #: ../templates/default/ldap/macros.html:484
 msgid "One mail address per-line."
-msgstr "每行只能填一个邮件地址。"
+msgstr "每行只能填一個郵件地址。"
 
 #: ../templates/default/ldap/macros.html:453
 msgid "Domain assignment"
-msgstr "为管理员指派受管理的域"
+msgstr "為管理員指派受管理的域"
 
 #: ../templates/default/ldap/macros.html:482
 msgid "Add new alias members"
-msgstr "为别名添加新成员"
+msgstr "為別名添加新成員"
 
 #: ../templates/default/ldap/maillist_create.html:12
 #: ../templates/default/ldap/maillist_create.html:17
 #: ../templates/default/ldap/maillists.html:25
 msgid "Create new mail list"
-msgstr "新建邮件列表"
+msgstr "新建郵件列表"
 
 #: ../templates/default/ldap/maillist_profile.html:13
 msgid "Edit mail list profile"
-msgstr "编辑邮件列表属性"
+msgstr "編輯郵件列表屬性"
 
 #: ../templates/default/ldap/maillist_profile.html:28
 msgid "Back to maillist list"
-msgstr "返回邮件列表页面"
+msgstr "返回郵件列表頁面"
 
 #: ../templates/default/ldap/maillist_profile.html:68
 msgid "Add internal members"
-msgstr "添加本域内部成员"
+msgstr "添加本域內部成員"
 
 #: ../templates/default/ldap/maillist_profile.html:78
 #: ../templates/default/ldap/users.html:39
 msgid "Last Login Date"
-msgstr "最后登录时间"
+msgstr "最后登錄時間"
 
 #: ../templates/default/ldap/maillist_profile.html:94
 #: ../templates/default/ldap/users.html:56
@@ -829,15 +829,15 @@ msgstr "容量"
 #: ../templates/default/ldap/user_profile.html:26
 #: ../templates/default/ldap/users.html:82
 msgid "Edit user profile"
-msgstr "编辑用户属性"
+msgstr "編輯用戶屬性"
 
 #: ../templates/default/ldap/maillist_profile.html:140
 msgid "Remove from list"
-msgstr "从列表中删除"
+msgstr "從列表中刪除"
 
 #: ../templates/default/ldap/maillist_profile.html:140
 msgid "Are you sure want to remove selected account(s) from list?"
-msgstr "您确定要将选中的帐号从列表中删除吗？"
+msgstr "您確定要將選中的帳號從列表中刪除嗎？"
 
 #: ../templates/default/ldap/maillist_profile.html:144
 msgid "Assign to list"
@@ -845,67 +845,67 @@ msgstr "添加到列表"
 
 #: ../templates/default/ldap/maillist_profile.html:144
 msgid "Are you sure want to assign selected account(s) to list?"
-msgstr "您确定要将选中的帐号添加到列表吗？"
+msgstr "您確定要將選中的帳號添加到列表嗎？"
 
 #: ../templates/default/ldap/maillists.html:12
 msgid "View mail lists under domain:"
-msgstr "查看域内的邮件列表："
+msgstr "查看域內的郵件列表："
 
 #: ../templates/default/ldap/maillists.html:43
 msgid "Access Policy"
-msgstr "访问策略"
+msgstr "訪問策略"
 
 #: ../templates/default/ldap/msgHandlers.html:28
 msgid "Username or password is incorrect."
-msgstr "用户名或密码错误。"
+msgstr "用戶名或密碼錯誤。"
 
 #: ../templates/default/ldap/msgHandlers.html:30
 msgid "Username must be an valid email address."
-msgstr "用户名必须是有效的邮件地址。"
+msgstr "用戶名必須是有效的郵件地址。"
 
 #: ../templates/default/ldap/msgHandlers.html:32
 msgid "Login required"
-msgstr "必须先登录才能进行操作"
+msgstr "必須先登錄才能進行操作"
 
 #: ../templates/default/ldap/msgHandlers.html:34
 msgid "Username or password is empty."
-msgstr "用户名或密码为空。"
+msgstr "用戶名或密碼為空。"
 
 #: ../templates/default/ldap/msgHandlers.html:50
 msgid "Domain was created."
-msgstr "邮件域已成功创建。"
+msgstr "郵件域已成功創建。"
 
 #: ../templates/default/ldap/msgHandlers.html:52
 #: ../templates/default/ldap/msgHandlers.html:128
 #: ../templates/default/ldap/msgHandlers.html:200
 msgid "Profile update success."
-msgstr "属性更新成功。"
+msgstr "屬性更新成功。"
 
 #: ../templates/default/ldap/msgHandlers.html:54
 msgid "Selected domains were deleted."
-msgstr "已删除选定的域。"
+msgstr "已刪除選定的域。"
 
 #: ../templates/default/ldap/msgHandlers.html:56
 msgid "Selected domains were diabled."
-msgstr "已禁用选定的域。"
+msgstr "已禁用選定的域。"
 
 #: ../templates/default/ldap/msgHandlers.html:58
 msgid "Selected domains were enabled."
-msgstr "已启用选定的域。"
+msgstr "已啟用選定的域。"
 
 #: ../templates/default/ldap/msgHandlers.html:62
 msgid "Domain name is empty."
-msgstr "域名为空。"
+msgstr "域名為空。"
 
 #: ../templates/default/ldap/msgHandlers.html:64
 msgid ""
 "Server-side size limit exceeded. Please increase \"sizelimit\" in your "
 "LDAP server."
-msgstr "超出了服务器端的大小限制。请增大的 LDAP 服务器中的 \"sizelimit\" 数值。"
+msgstr "超出了服務器端的大小限制。請增大的 LDAP 服務器中的 \"sizelimit\" 數值。"
 
 #: ../templates/default/ldap/msgHandlers.html:66
 msgid "Permission denied."
-msgstr "拒绝访问。"
+msgstr "拒絕訪問。"
 
 #: ../templates/default/ldap/msgHandlers.html:68
 msgid "No such domain."
@@ -913,141 +913,141 @@ msgstr "域名不存在。"
 
 #: ../templates/default/ldap/msgHandlers.html:70
 msgid "Incorrect profile type."
-msgstr "错误的偏好类型。"
+msgstr "錯誤的偏好類型。"
 
 #: ../templates/default/ldap/msgHandlers.html:72
 msgid "Submited domain name is incorrect."
-msgstr "提交的域名不正确。"
+msgstr "提交的域名不正確。"
 
 #: ../templates/default/ldap/msgHandlers.html:84
 #: ../templates/default/ldap/msgHandlers.html:173
 #: ../templates/default/ldap/msgHandlers.html:214
 msgid "Profile updated success."
-msgstr "属性已成功更新。"
+msgstr "屬性已成功更新。"
 
 #: ../templates/default/ldap/msgHandlers.html:86
 #: ../templates/default/ldap/msgHandlers.html:175
 #: ../templates/default/ldap/msgHandlers.html:216
 msgid "Profile updated failed."
-msgstr "属性更新失败。"
+msgstr "屬性更新失敗。"
 
 #: ../templates/default/ldap/msgHandlers.html:90
 msgid "No domain under control."
-msgstr "没有受您管理的域。"
+msgstr "沒有受您管理的域。"
 
 #: ../templates/default/ldap/msgHandlers.html:94
 #: ../templates/default/ldap/msgHandlers.html:134
 #: ../templates/default/ldap/msgHandlers.html:178
 #: ../templates/default/ldap/msgHandlers.html:203
 msgid "Selected accounts were deleted."
-msgstr "已成功删除选中的帐号。"
+msgstr "已成功刪除選中的帳號。"
 
 #: ../templates/default/ldap/msgHandlers.html:96
 #: ../templates/default/ldap/msgHandlers.html:136
 #: ../templates/default/ldap/msgHandlers.html:180
 #: ../templates/default/ldap/msgHandlers.html:205
 msgid "Selected accounts were disabled."
-msgstr "已成功禁用选定的帐号。"
+msgstr "已成功禁用選定的帳號。"
 
 #: ../templates/default/ldap/msgHandlers.html:98
 #: ../templates/default/ldap/msgHandlers.html:138
 #: ../templates/default/ldap/msgHandlers.html:182
 #: ../templates/default/ldap/msgHandlers.html:207
 msgid "Selected accounts were enabled."
-msgstr "已成功启用选定的帐号。"
+msgstr "已成功啟用選定的帳號。"
 
 #: ../templates/default/ldap/msgHandlers.html:100
 #, python-format
 msgid "Invalid profile type: %s."
-msgstr "无效的偏好类型：%s。"
+msgstr "無效的偏好類型：%s。"
 
 #: ../templates/default/ldap/msgHandlers.html:104
 #: ../templates/default/ldap/msgHandlers.html:144
 msgid "Current password is incorrect."
-msgstr "当前密码不正确。"
+msgstr "當前密碼不正確。"
 
 #: ../templates/default/ldap/msgHandlers.html:106
 #: ../templates/default/ldap/msgHandlers.html:146
 msgid "New passwords are not match."
-msgstr "新密码不匹配。"
+msgstr "新密碼不匹配。"
 
 #: ../templates/default/ldap/msgHandlers.html:108
 #: ../templates/default/ldap/msgHandlers.html:148
 msgid "Password is empty."
-msgstr "密码为空。"
+msgstr "密碼為空。"
 
 #: ../templates/default/ldap/msgHandlers.html:110
 #: ../templates/default/ldap/msgHandlers.html:150
 #, python-format
 msgid "New password must contain at least %s characters."
-msgstr "新密码必须至少含有 %s 个字符。"
+msgstr "新密碼必須至少含有 %s 個字符。"
 
 #: ../templates/default/ldap/msgHandlers.html:112
 #: ../templates/default/ldap/msgHandlers.html:152
 #, python-format
 msgid "New password must NOT contain more than %s characters."
-msgstr "新密码长度不能超过 %s 个字符。"
+msgstr "新密碼長度不能超過 %s 個字符。"
 
 #: ../templates/default/ldap/msgHandlers.html:115
 #: ../templates/default/ldap/msgHandlers.html:155
 #: ../templates/default/ldap/msgHandlers.html:184
 #: ../templates/default/ldap/msgHandlers.html:198
 msgid "Account already exists, please choose another username."
-msgstr "帐号已存在，请选择另外一个用户名。"
+msgstr "帳號已存在，請選擇另外一個用戶名。"
 
 #: ../templates/default/ldap/msgHandlers.html:126
 #, python-format
 msgid ""
 "Account created success. Would you like to <a "
 "href=\"%s/create/admin\">add one more</a>?"
-msgstr "帐号已成功建立。您是否需要<a href=\"%s/create/admin\">再添加一个</a>？"
+msgstr "帳號已成功建立。您是否需要<a href=\"%s/create/admin\">再添加一個</a>？"
 
 #: ../templates/default/ldap/msgHandlers.html:130
 msgid "You are NOT permited to view/update other's profile."
-msgstr "不允许查看、更新他人的偏好设置。"
+msgstr "不允許查看、更新他人的偏好設置。"
 
 #: ../templates/default/ldap/msgHandlers.html:140
 msgid "No account selected."
-msgstr "没有选定帐号。"
+msgstr "沒有選定帳號。"
 
 #: ../templates/default/ldap/msgHandlers.html:169
 #: ../templates/default/ldap/msgHandlers.html:210
 msgid "Member assigned success."
-msgstr "已成功添加成员。"
+msgstr "已成功添加成員。"
 
 #: ../templates/default/ldap/msgHandlers.html:171
 #: ../templates/default/ldap/msgHandlers.html:212
 msgid "Member removed success."
-msgstr "已成功删除成员。"
+msgstr "已成功刪除成員。"
 
 #: ../templates/default/ldap/user_create.html:17
 #: ../templates/default/ldap/user_create.html:22
 #: ../templates/default/ldap/users.html:26
 msgid "Create new mail user"
-msgstr "新建邮件用户"
+msgstr "新建郵件用戶"
 
 #: ../templates/default/ldap/user_profile.html:36
 #: ../templates/default/ldap/user_profile.html:119
 msgid "Member of Mail Lists"
-msgstr "邮件列表成员"
+msgstr "郵件列表成員"
 
 #: ../templates/default/ldap/user_profile.html:38
 msgid "Mail Forwarding"
-msgstr "邮件转发"
+msgstr "郵件轉發"
 
 #: ../templates/default/ldap/user_profile.html:40
 msgid "Reset Rassword"
-msgstr "重置密码"
+msgstr "重置密碼"
 
 #: ../templates/default/ldap/user_profile.html:49
 msgid "Back to user list"
-msgstr "返回到用户列表"
+msgstr "返回到用戶列表"
 
 #: ../templates/default/ldap/user_profile.html:95
 msgid "No avatar available."
-msgstr "暂无头像"
+msgstr "暫無頭像"
 
 #: ../templates/default/ldap/users.html:13
 msgid "View users under domain:"
-msgstr "查看域内的用户："
+msgstr "查看域內的用戶："
 

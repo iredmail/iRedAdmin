@@ -1,4 +1,5 @@
 = 0.1.1 =
+    * Add new translations: zh_CN, zh_TW.
     * Add new translation: vi_VN (Vietnamese).
     * Fixed: use 'ENINGE=' instead of 'TYPE='. Thanks peterpp @forum.
     * Show accountStatus image while view/update account profile.
