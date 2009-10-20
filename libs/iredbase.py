@@ -111,7 +111,9 @@ render = render_jinja(
         )
 
 import iredutils
-render._lookup.filters['filesizeformat'] = iredutils.filesizeformat
+render._lookup.filters.update(
+        filesizeformat=iredutils.filesizeformat,
+        )
 render = iredutils.setRenderLang(render, lang)
 
 def notfound():

@@ -55,9 +55,13 @@ hashed_maildir = True
 # Default quota size (in MB). 0 means unlimited.
 default_quota = 1024
 
-# Default mta transport: dovecot.
+# Default mta transport.
 # Warning: Please DO use 'dovecot' as transport for iRedMail.
 mtaTransport = dovecot
+
+# Show user login date instead of created date: True, False.
+# Note: iRedAdmin open source edition doesn't support this feature now.
+show_login_date = False
 
 # Min/Max password length.
 #   - min_passwd_length: 0 means unlimited, but at least 1 character
@@ -72,8 +76,8 @@ max_passwd_length = 0
 dbn = mysql
 host = localhost
 port = 3306
-db = iredadmin_ose
-user = iredadmin_ose
+db = iredadmin
+user = iredadmin
 passwd = secret_passwd
 
 [ldap]
