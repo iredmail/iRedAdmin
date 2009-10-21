@@ -146,8 +146,10 @@ def ldif_mailuser(domain, username, cn, passwd, quota=cfg.general.get('default_q
         ('homeDirectory',       [homeDirectory]),
         ('accountStatus',       ['active']),
         ('mtaTransport',        ['dovecot']),
-        ('enabledService',      ['mail', 'smtp', 'pop3', 'imap', 'deliver', 'forward',
-                                'senderbcc', 'recipientbcc', 'managesieve',
+        ('enabledService',      ['mail', 'smtp', 'deliver',
+                                'pop3', 'pop3secured', 'imap', 'imapsecured',
+                                'managesieve', 'managesievesecured',
+                                'forward', 'senderbcc', 'recipientbcc',
                                 'displayedInGlobalAddressBook',]),
         ('memberOfGroup',       ['all@'+domain]), # Make all users belong to group 'all@domain.ltd'.
         ]
