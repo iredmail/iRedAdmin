@@ -80,6 +80,11 @@ def load_translations(lang):
     if translation is None:
         translation = get_translations(lang)
         cfg.allTranslations[lang] = translation
+
+        # Delete other translations.
+        for lk in cfg.allTranslations.keys():
+            if lk != lang:
+                del cfg.allTranslations[lk]
     return translation
 
 def ired_gettext(string):
@@ -138,3 +143,27 @@ def getNewPassword(newpw, confirmpw):
             return (False, 'msg=PW_GREATER_THAN_MAX_LENGTH')
 
     return (True, passwd)
+
+def split_path_safely(path):
+    """Splits up a path into individual components.  If one of the
+    components is unsafe on the file system, `None` is returned:
+
+    >>> split_path_safely("foo/bar/baz")
+    ['foo', 'bar', 'baz']
+    >>> split_path_safely("foo/bar/baz/../meh")
+    >>> split_path_safely("/meh/muh")
+    ['meh', 'muh']
+    >>> split_path_safely("/blafasel/.muh")
+    ['blafasel', '.muh']
+    >>> split_path_safely("/blafasel/./x")
+    ['blafasel', 'x']
+    """
+    pieces = []
+    for piece in path.split('/'):
+        if path.sep in piece \
+           or (path.altsep and path.altsep in piece) or \
+           piece == path.pardir:
+            return None
+        elif piece and piece != '.':
+            pieces.append(piece)
+    return pieces

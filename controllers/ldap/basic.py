@@ -42,7 +42,7 @@ class login:
 
             adminLib = admin.Admin()
             cur_lang = i.get('lang', cfg.general.get('lang', 'en_US'))
-            if cur_lang is not None:
+            if cur_lang is not None and cur_lang in adminLib.getLanguageMaps().keys():
                 session['lang'] = cur_lang
 
             # Show login page.
