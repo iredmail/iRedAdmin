@@ -73,6 +73,19 @@
                 </div>
 
                 <div class="sf-set">
+                    <div class="sf-box text required">
+                        <label><span>{{ _('Preferred language') }}</span></label><br />
+                        <span class="fld-input">
+                            <select id="selectLang" name="lang" onchange="changeUrl(this, baseurl='{{ctx.homepath}}/login?lang=');">
+                            {% for lang in languagemaps %}
+                                <option value="{{lang}}" {% if lang == cur_lang %}selected{%endif%}>{{languagemaps[lang]}}</option>
+                            {% endfor %}
+                            </select>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="sf-set">
                     <div class="sf-box checkbox">
                         <span class="fld-input"><input type="checkbox" name="save_pass" value="yes" /></span>
                         <label><span>{{ _('Remember me')}} </span>{{ _('Log me in automatically each time I visit.') }}</label>

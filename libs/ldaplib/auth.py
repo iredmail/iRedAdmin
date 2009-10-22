@@ -28,6 +28,7 @@ import web
 import ldap, ldap.filter
 
 cfg = web.iredconfig
+session = web.config.get('_session')
 
 # Used for user auth.
 def Auth(dn, pw, session=web.config.get('_session')):
@@ -52,6 +53,12 @@ def Auth(dn, pw, session=web.config.get('_session')):
                 if result.get('domainGlobalAdmin', 'no')[0].lower() == 'yes':
                     session['domainGlobalAdmin'] = 'yes'
                 else:
+                    pass
+
+                # Update preferred language.
+                try:
+                    conn.modify_s(dn, [( ldap.MOD_REPLACE, 'preferredlanguage', web.safestr(session.get('lang', 'en_US')) )])
+                except:
                     pass
 
                 return True

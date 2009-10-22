@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: iRedAdmin 0.1.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2009-10-13 14:15+0800\n"
-"PO-Revision-Date: 2009-10-22 20:24+0800\n"
+"PO-Revision-Date: 2009-10-22 21:53+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: zh_CN <LL@li.org>\n"
 "Plural-Forms: nplurals=1; plural=0\n"
@@ -238,22 +238,18 @@ msgid "For example:"
 msgstr ""
 
 #: ../templates/default/ldap/dashboard.html:65
-#, fuzzy
 msgid "Unlimited number of mail lists"
 msgstr "邮件列表的最大数量"
 
 #: ../templates/default/ldap/dashboard.html:66
-#, fuzzy
 msgid "Unlimited number of mail aliases"
 msgstr "邮件别名的最大数量"
 
 #: ../templates/default/ldap/dashboard.html:67
-#, fuzzy
 msgid "Per-user mail forwarding control"
 msgstr "针对单个用户的邮件转发控制"
 
 #: ../templates/default/ldap/dashboard.html:68
-#, fuzzy
 msgid "Per-user service control"
 msgstr "服务控制"
 
@@ -399,15 +395,20 @@ msgstr "必须是有效的邮件地址。"
 msgid "Password"
 msgstr "密码"
 
-#: ../templates/default/ldap/login.html:78
+#: ../templates/default/ldap/login.html:77
+#: ../templates/default/ldap/macros.html:103
+msgid "Preferred language"
+msgstr "偏好的语言"
+
+#: ../templates/default/ldap/login.html:91
 msgid "Remember me"
 msgstr "记住我"
 
-#: ../templates/default/ldap/login.html:78
+#: ../templates/default/ldap/login.html:91
 msgid "Log me in automatically each time I visit."
 msgstr "每次访问时自动登录"
 
-#: ../templates/default/ldap/login.html:84
+#: ../templates/default/ldap/login.html:97
 msgid "Login"
 msgstr "登录"
 
@@ -426,10 +427,6 @@ msgstr "员工 ID"
 #: ../templates/default/ldap/macros.html:90
 msgid "Telephone Number"
 msgstr "电话号码"
-
-#: ../templates/default/ldap/macros.html:103
-msgid "Default language"
-msgstr "默认语言"
 
 #: ../templates/default/ldap/macros.html:124
 msgid "Enable this domain"
@@ -457,7 +454,6 @@ msgid "Domain admin assignment"
 msgstr "为域指派管理员"
 
 #: ../templates/default/ldap/macros.html:157
-#, fuzzy
 msgid "If no admin assigned, you can manage it with global admin."
 msgstr "如果没有指派管理员，您仍然可以使用全局管理员帐号进行管理。"
 
@@ -679,7 +675,6 @@ msgid "Edit user profile"
 msgstr "编辑用户属性"
 
 #: ../templates/default/ldap/user_profile.html:52
-#, fuzzy
 msgid "Reset Password"
 msgstr "重置密码"
 
@@ -700,7 +695,6 @@ msgid "View users under domain:"
 msgstr "查看域内的用户："
 
 #: ../templates/default/ldap/users.html:39
-#, fuzzy
 msgid "Select one domain"
 msgstr "选择一个域"
 

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: iRedAdmin 0.1.1\n"
 "Report-Msgid-Bugs-To: michaelbibby@gmail.com\n"
 "POT-Creation-Date: 2009-10-02 01:16+0800\n"
-"PO-Revision-Date: 2009-10-22 20:24+0800\n"
+"PO-Revision-Date: 2009-10-22 21:53+0800\n"
 "Last-Translator: Lâm Minh Thông <lmthong@gmail.com>\n"
 "Language-Team: vi_VN <LL@li.org>\n"
 "Plural-Forms: nplurals=1; plural=0\n"
@@ -344,7 +344,6 @@ msgstr "Bạn muốn kích hoạt tên miền đã chọn?"
 
 #: ../templates/default/ldap/error404.html:31
 #: ../templates/default/ldap/error404.html:37
-#, fuzzy
 msgid "Page not found."
 msgstr "Không tìm thấy trang (%s)."
 
@@ -396,15 +395,20 @@ msgstr "Phải là một tài khoản quản trị hợp lệ."
 msgid "Password"
 msgstr "Mật khẩu"
 
-#: ../templates/default/ldap/login.html:78
+#: ../templates/default/ldap/login.html:77
+#: ../templates/default/ldap/macros.html:103
+msgid "Preferred language"
+msgstr "Ngôn ngữ mặc định"
+
+#: ../templates/default/ldap/login.html:91
 msgid "Remember me"
 msgstr "Ghi nhớ tài khoản này"
 
-#: ../templates/default/ldap/login.html:78
+#: ../templates/default/ldap/login.html:91
 msgid "Log me in automatically each time I visit."
 msgstr "Giúp tôi tự động đăng nhập."
 
-#: ../templates/default/ldap/login.html:84
+#: ../templates/default/ldap/login.html:97
 msgid "Login"
 msgstr "Đăng nhập"
 
@@ -423,10 +427,6 @@ msgstr "Mã nhân viên"
 #: ../templates/default/ldap/macros.html:90
 msgid "Telephone Number"
 msgstr "Số điện thoại"
-
-#: ../templates/default/ldap/macros.html:103
-msgid "Default language"
-msgstr "Ngôn ngữ mặc định"
 
 #: ../templates/default/ldap/macros.html:124
 msgid "Enable this domain"
@@ -595,7 +595,6 @@ msgid "Profile updated failed."
 msgstr "Cập nhật thông tin không thành công."
 
 #: ../templates/default/ldap/msgHandlers.html:90
-#, fuzzy
 msgid "No domain under control."
 msgstr "Bạn có thể quản lý tất cả các tên miền."
 

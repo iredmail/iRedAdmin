@@ -60,7 +60,7 @@ def get_translations(lang='en_US'):
     # Init translation.
     if cfg.allTranslations.has_key(lang):
         translation = cfg.allTranslations[lang]
-    elif lang == 'en_US' or lang is None:
+    elif lang is None:
         translation = gettext.NullTranslations()
     else:
         try:

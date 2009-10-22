@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: michaelbibby@gmail.com\n"
-"POT-Creation-Date: 2009-10-22 20:24+0800\n"
+"POT-Creation-Date: 2009-10-22 21:53+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -395,15 +395,20 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: ../templates/default/ldap/login.html:78
+#: ../templates/default/ldap/login.html:77
+#: ../templates/default/ldap/macros.html:103
+msgid "Preferred language"
+msgstr ""
+
+#: ../templates/default/ldap/login.html:91
 msgid "Remember me"
 msgstr ""
 
-#: ../templates/default/ldap/login.html:78
+#: ../templates/default/ldap/login.html:91
 msgid "Log me in automatically each time I visit."
 msgstr ""
 
-#: ../templates/default/ldap/login.html:84
+#: ../templates/default/ldap/login.html:97
 msgid "Login"
 msgstr ""
 
@@ -421,10 +426,6 @@ msgstr ""
 #: ../templates/default/ldap/macros.html:84
 #: ../templates/default/ldap/macros.html:90
 msgid "Telephone Number"
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:103
-msgid "Default language"
 msgstr ""
 
 #: ../templates/default/ldap/macros.html:124

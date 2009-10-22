@@ -66,7 +66,6 @@ lang = cfg.general.get('lang', 'en_US')
 
 web.config.session_parameters['cookie_name'] = 'iRedAdmin-OSE'
 web.config.session_parameters['cookie_domain'] = None
-web.config.session_parameters['timeout'] = 600  # 10 minutes
 web.config.session_parameters['ignore_expiry'] = False
 web.config.session_parameters['ignore_change_ip'] = False
 

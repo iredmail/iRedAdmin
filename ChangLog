@@ -1,5 +1,7 @@
 = 0.1.1 =
-    * Run-time language switch.
+    * Allow run-time language switch in login page, store selected
+      language in LDAP after success authentication.
+    * Add run-time language switch support.
     * Add enabledService={pop3secured,imapsecured,managesievesecured}.
     * Add new translation: vi_VN (Vietnamese), zh_CN, zh_TW.
     * Fixed: use 'ENINGE=' instead of 'TYPE='. Thanks peterpp @forum.

@@ -1,15 +1,14 @@
-# English (United States) translations for PROJECT.
+# English (United States) translations for iRedAdmin.
 # Copyright (C) 2009 ORGANIZATION
-# This file is distributed under the same license as the PROJECT project.
+# This file is distributed under the same license as the iRedAdmin project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: iRedAdmin 0.1.1\n"
 "Report-Msgid-Bugs-To: michaelbibby@gmail.com\n"
 "POT-Creation-Date: 2009-10-03 23:01+0800\n"
-"PO-Revision-Date: 2009-10-22 20:24+0800\n"
+"PO-Revision-Date: 2009-10-22 21:53+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -396,15 +395,20 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: ../templates/default/ldap/login.html:78
+#: ../templates/default/ldap/login.html:77
+#: ../templates/default/ldap/macros.html:103
+msgid "Preferred language"
+msgstr ""
+
+#: ../templates/default/ldap/login.html:91
 msgid "Remember me"
 msgstr ""
 
-#: ../templates/default/ldap/login.html:78
+#: ../templates/default/ldap/login.html:91
 msgid "Log me in automatically each time I visit."
 msgstr ""
 
-#: ../templates/default/ldap/login.html:84
+#: ../templates/default/ldap/login.html:97
 msgid "Login"
 msgstr ""
 
@@ -422,10 +426,6 @@ msgstr ""
 #: ../templates/default/ldap/macros.html:84
 #: ../templates/default/ldap/macros.html:90
 msgid "Telephone Number"
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:103
-msgid "Default language"
 msgstr ""
 
 #: ../templates/default/ldap/macros.html:124

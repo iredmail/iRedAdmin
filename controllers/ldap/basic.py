@@ -38,10 +38,18 @@ class login:
             web.seeother('/dashboard')
         else:
             i = web.input()
-            msg = i.get('msg', None)
+
+            adminLib = admin.Admin()
+            cur_lang = i.get('lang', cfg.general.get('lang', 'en_US'))
+            if cur_lang is not None:
+                session['lang'] = cur_lang
 
             # Show login page.
-            return render.login(msg=msg)
+            return render.login(
+                    cur_lang=cur_lang,
+                    languagemaps=adminLib.getLanguageMaps(),
+                    msg=i.get('msg'),
+                    )
 
     def POST(self):
         # Get username, password.
@@ -76,15 +84,6 @@ class login:
             else:
                 # Expire session when browser closed.
                 web.config.session_parameters['timeout'] = 600      # 10 minutes
-
-            # Per-user i18n.
-            try:
-                adminLib = admin.Admin()
-                lang = adminLib.getPreferredLanguage(userdn)
-                if lang is not False:
-                    session['lang'] = lang
-            except:
-                pass
 
             web.seeother('/dashboard')
         else:

@@ -1,5 +1,5 @@
 # Copyright (C) 2009 ORGANIZATION
-# This file is distributed under the same license as the PROJECT project.
+# This file is distributed under the same license as the iRedAdmin project.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
 #
 msgid ""
@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: iRedAdmin 0.1.1\n"
 "Report-Msgid-Bugs-To: michaelbibby@gmail.com\n"
 "POT-Creation-Date: 2009-10-04 00:45+0800\n"
-"PO-Revision-Date: 2009-10-22 20:24+0800\n"
+"PO-Revision-Date: 2009-10-22 21:53+0800\n"
 "Last-Translator: Mael LE SAOUT <mael.lesaout@gmail.com>\n"
 "Language-Team: fr_FR <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -227,7 +227,6 @@ msgid "Need more features?"
 msgstr "Besoin de plus de fonctionnalités?"
 
 #: ../templates/default/ldap/dashboard.html:61
-#, fuzzy
 msgid ""
 "Purchase Full-featured Edition to support iRedMail project and get more "
 "features."
@@ -399,15 +398,20 @@ msgstr "L'adresse de messagerie de l'administrateur du domaine doit être valide
 msgid "Password"
 msgstr "Mot de passe"
 
-#: ../templates/default/ldap/login.html:78
+#: ../templates/default/ldap/login.html:77
+#: ../templates/default/ldap/macros.html:103
+msgid "Preferred language"
+msgstr "Langage par défaut"
+
+#: ../templates/default/ldap/login.html:91
 msgid "Remember me"
 msgstr "Se souvenir de moi"
 
-#: ../templates/default/ldap/login.html:78
+#: ../templates/default/ldap/login.html:91
 msgid "Log me in automatically each time I visit."
 msgstr "Me connecter automatiquement à chaque fois que je visite."
 
-#: ../templates/default/ldap/login.html:84
+#: ../templates/default/ldap/login.html:97
 msgid "Login"
 msgstr "Connexion"
 
@@ -426,10 +430,6 @@ msgstr "ID d'employé"
 #: ../templates/default/ldap/macros.html:90
 msgid "Telephone Number"
 msgstr "Numéro de téléphone"
-
-#: ../templates/default/ldap/macros.html:103
-msgid "Default language"
-msgstr "Langage par défaut"
 
 #: ../templates/default/ldap/macros.html:124
 msgid "Enable this domain"
@@ -602,7 +602,6 @@ msgid "Profile updated failed."
 msgstr "La mise à jour du profil a échoué."
 
 #: ../templates/default/ldap/msgHandlers.html:90
-#, fuzzy
 msgid "No domain under control."
 msgstr "Tous les domaines sous votre controle."
 

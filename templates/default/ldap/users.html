@@ -35,7 +35,7 @@
 {% block id_welcome %}
 <span>{{ _('View users under domain:') }} </span>
 <span>
-    <select id="domainSelect" name="domainName" onchange="changeDomain(this, baseurl='{{ctx.homepath}}/users/');">
+    <select id="domainSelect" name="domainName" onchange="changeUrl(this, baseurl='{{ctx.homepath}}/users/');">
         <option value="none" {% if cur_domain is sameas none %}selected{%endif%}>{{ _('Select one domain') }}</option>
         {% for d in allDomains %}
             <option value="{{d[1].domainName[0]}}" {% if cur_domain == d[1].domainName[0] %}selected{%endif%}>{{d[1].domainName[0]}}</option>

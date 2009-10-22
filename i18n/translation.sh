@@ -53,7 +53,12 @@ updatePO()
             -D ${DOMAIN} \
             -d . \
             -l ${lang}
+
+        # Add project name and version number.
         perl -pi -e 's#(.*Project-Id-Version:).*#${1} iRedAdmin $ENV{version}\\n"#' ${lang}/LC_MESSAGES/${DOMAIN}.po
+
+        # Remove 'fuzzy' tag.
+        perl -pi -e 's/#, fuzzy//' ${lang}/LC_MESSAGES/${DOMAIN}.po
     done
 }
 
