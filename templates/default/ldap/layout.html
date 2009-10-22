@@ -97,6 +97,30 @@
     </div>
 
     {#
+        : Basic javascript functions.
+    #}
+    <script type="text/javascript">
+        checked=false;
+        function checkAll(list_table) {
+            var aa= document.getElementById('list_table');
+            if (checked == false) {
+                checked = true
+            } else {
+                checked = false
+            }
+            for (var i =0; i < aa.elements.length; i++) {
+                aa.elements[i].checked = checked;
+            }
+        }
+
+        function changeDomain(domain, baseurl) {
+            if ( domain.options[domain.selectedIndex].value != 'none' ) {
+                location.href = baseurl + domain.options[domain.selectedIndex].value;
+            }
+        }
+    </script>
+
+    {#
         Load javascript files.
         Placing javascript files at the bottom, make the page load as quickly as possible.
     #}
@@ -121,27 +145,6 @@
         });
     </script>
     {% endblock jquery_docoment_ready %}
-
-    <script type="text/javascript">
-        checked=false;
-        function checkAll(list_table) {
-            var aa= document.getElementById('list_table');
-            if (checked == false) {
-                checked = true
-            } else {
-                checked = false
-            }
-            for (var i =0; i < aa.elements.length; i++) {
-                aa.elements[i].checked = checked;
-            }
-        }
-
-        function changeDomain(domain, baseurl) {
-            if ( domain.options[domain.selectedIndex].value != 'none' ) {
-                location.href = baseurl + domain.options[domain.selectedIndex].value;
-            }
-        }
-    </script>
 
 </body>
 </html>
