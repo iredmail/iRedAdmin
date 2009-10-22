@@ -42,6 +42,10 @@ updatePO()
 {
     # Update PO files.
     echo "* Update existing new translations catalog based on ${POFILE}..."
+
+    # Get iRedAdmin version number.
+    export version=$(grep '__version__' ../libs/__init__.py | awk -F"'" '{print $2}')
+
     for lang in ${LANGUAGES}
     do
         [ -d ${lang}/LC_MESSAGES/ ] || mkdir -p ${lang}/LC_MESSAGES/
@@ -49,6 +53,7 @@ updatePO()
             -D ${DOMAIN} \
             -d . \
             -l ${lang}
+        perl -pi -e 's#(.*Project-Id-Version:).*#${1} iRedAdmin $ENV{version}\\n"#' ${lang}/LC_MESSAGES/${DOMAIN}.po
     done
 }
 
