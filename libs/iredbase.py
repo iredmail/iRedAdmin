@@ -66,7 +66,7 @@ lang = cfg.general.get('lang', 'en_US')
 
 web.config.session_parameters['cookie_name'] = 'iRedAdmin-OSE'
 web.config.session_parameters['cookie_domain'] = None
-#web.config.session_parameters['timeout'] = 600          # 10 minutes
+web.config.session_parameters['timeout'] = 600  # 10 minutes
 web.config.session_parameters['ignore_expiry'] = False
 web.config.session_parameters['ignore_change_ip'] = False
 
@@ -84,7 +84,6 @@ sessionStore = web.session.DBStore(sessionDB, 'sessions')
 session = web.session.Session(app, sessionStore,
         initializer={
             'webmaster': cfg.general.get('webmaster'),
-            'default_quota': cfg.general.get('default_quota', '1024'),
             'username': None,
             'logged': False,
             'failedTimes': 0,   # Integer.
@@ -98,6 +97,11 @@ tmpldir = rootdir + '/templates/' + \
         cfg.general.get('skin', 'default') +  '/' + \
         cfg.general.get('backend')
 
+# Object used to stored all translations.
+cfg.allTranslations = web.storage()
+
+import iredutils
+
 # init render
 render = render_jinja(
         tmpldir,                           # template dir.
@@ -105,16 +109,18 @@ render = render_jinja(
         encoding = 'utf-8',                 # Encoding.
         globals = {
             'skin': cfg.general.get('skin', 'default'), # Used for static files.
-            'session': web.config._session,  # Used for session.
-            'ctx': web.ctx,                  # Used to get 'homepath'.
+            'session': web.config._session,             # Used for session.
+            'ctx': web.ctx,                             # Used to get 'homepath'.
+            '_': iredutils.ired_gettext,                # Override _() which provided by Jinja2.
+            'gettext': iredutils.ired_gettext,
+            'ngettext': iredutils.ired_gettext,
             },
         )
 
-import iredutils
+# Add custom Jinja filters.
 render._lookup.filters.update(
         filesizeformat=iredutils.filesizeformat,
         )
-render = iredutils.setRenderLang(render, lang)
 
 def notfound():
     return web.notfound(render.error404())

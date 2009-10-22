@@ -1,4 +1,5 @@
 = 0.1.1 =
+    * Run-time language switch.
     * Add enabledService={pop3secured,imapsecured,managesievesecured}.
     * Add new translation: vi_VN (Vietnamese), zh_CN, zh_TW.
     * Fixed: use 'ENINGE=' instead of 'TYPE='. Thanks peterpp @forum.

@@ -145,8 +145,8 @@ class Admin(core.LDAPWrap):
         mod_attrs = []
         if self.profile_type == 'general':
             # Get preferredLanguage.
-            #self.lang = web.safestr(data.get('preferredLanguage', 'en_US'))
-            #mod_attrs += [ (ldap.MOD_REPLACE, 'preferredLanguage', self.lang) ]
+            self.lang = web.safestr(data.get('preferredLanguage', 'en_US'))
+            mod_attrs += [ (ldap.MOD_REPLACE, 'preferredLanguage', self.lang) ]
 
             cn = data.get('cn', None)
             mod_attrs += ldaputils.getSingleModAttr(attr='cn', value=cn, default=self.mail.split('@')[0],)
@@ -160,11 +160,8 @@ class Admin(core.LDAPWrap):
             try:
                 # Modify profiles.
                 self.conn.modify_s(self.dn, mod_attrs)
-                '''
                 if session.get('username') == self.mail:
-                    web.render = iredutils.setRenderLang(web.render, self.lang, oldlang=session.get('lang'),)
                     session['lang'] = self.lang
-                '''
                 return (True,)
             except ldap.LDAPError, e:
                 return (False, ldaputils.getExceptionDesc(e))

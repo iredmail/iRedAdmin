@@ -24,12 +24,14 @@
 # along with iRedAdmin-OSE.  If not, see <http://www.gnu.org/licenses/>.
 #---------------------------------------------------------------------
 
-import gettext
 import os
+import sys
+import gettext
 import re
 import web
 
 cfg = web.iredconfig
+session = web.config.get('_session')
 
 # Regular expression.
 pEmail = r'[\w\-][\w\-\.]*@[\w\-][\w\-\.]+[a-zA-Z]{1,4}'
@@ -54,29 +56,38 @@ def filesizeformat(value):
         return "%d MB" % (bytes / (base * base))
     return "%.1f GB" % (bytes / (base * base * base))
 
-def get_translation(lang):
-    # Init translations.
-    if lang == 'en_US':
-        translations = gettext.NullTranslations()
+def get_translations(lang='en_US'):
+    # Init translation.
+    if cfg.allTranslations.has_key(lang):
+        translation = cfg.allTranslations[lang]
+    elif lang == 'en_US' or lang is None:
+        translation = gettext.NullTranslations()
     else:
         try:
-            translations = gettext.translation(
+            translation = gettext.translation(
                     'iredadmin',
                     cfg['rootdir'] + 'i18n',
                     languages=[lang],
                     )
         except IOError:
-            translations = gettext.NullTranslations()
-    return translations
+            translation = gettext.NullTranslations()
+    return translation
 
-def setRenderLang(renderInst, lang, oldlang=None):
-    if oldlang is not None:
-        old_translation = get_translation(oldlang)
-        renderInst._lookup.uninstall_gettext_translations(old_translation)
+def load_translations(lang):
+    """Return the translations for the locale."""
+    lang = str(lang)
+    translation  = cfg.allTranslations.get(lang)
+    if translation is None:
+        translation = get_translations(lang)
+        cfg.allTranslations[lang] = translation
+    return translation
 
-    new_translations = get_translation(lang)
-    renderInst._lookup.install_gettext_translations(new_translations)
-    return renderInst
+def ired_gettext(string):
+    """Translate a given string to the language of the application."""
+    translation = load_translations(session.get('lang'))
+    if translation is None:
+        return unicode(string)
+    return translation.ugettext(string)
 
 def getServerUptime():
      try:

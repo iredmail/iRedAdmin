@@ -26,7 +26,7 @@
 
 import web, sys
 from libs import __version__, __url_iredadmin_lastest__, iredutils
-from libs.ldaplib import core, auth, domain, ldaputils
+from libs.ldaplib import core, admin, auth, domain, ldaputils
 from controllers.ldap import base
 
 session = web.config.get('_session')
@@ -78,16 +78,13 @@ class login:
                 web.config.session_parameters['timeout'] = 600      # 10 minutes
 
             # Per-user i18n.
-            '''
             try:
                 adminLib = admin.Admin()
                 lang = adminLib.getPreferredLanguage(userdn)
                 if lang is not False:
-                    web.render = iredutils.setRenderLang(web.render, lang, oldlang=session.get('lang'),)
                     session['lang'] = lang
             except:
                 pass
-            '''
 
             web.seeother('/dashboard')
         else:
