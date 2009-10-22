@@ -29,6 +29,7 @@ from libs import __version__, __url_iredadmin_lastest__, iredutils
 from libs.ldaplib import core, admin, auth, domain, ldaputils
 from controllers.ldap import base
 
+cfg = web.iredconfig
 session = web.config.get('_session')
 render = web.render
 
