@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: iRedAdmin 0.1.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2009-10-13 14:15+0800\n"
-"PO-Revision-Date: 2009-10-22 21:53+0800\n"
+"PO-Revision-Date: 2009-10-23 16:32+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: zh_CN <LL@li.org>\n"
 "Plural-Forms: nplurals=1; plural=0\n"
@@ -108,7 +108,6 @@ msgid "All mail administrators."
 msgstr "所有域管理员。"
 
 #: ../templates/default/ldap/admins.html:33
-#: ../templates/default/ldap/domains.html:33
 #: ../templates/default/ldap/users.html:45
 #, python-format
 msgid "Total: %s."
@@ -322,6 +321,10 @@ msgstr "邮件域"
 msgid "All domains under your control."
 msgstr "您管理的所有邮件域。"
 
+#: ../templates/default/ldap/domains.html:33
+msgid "Total:"
+msgstr "总共 %s 个。"
+
 #: ../templates/default/ldap/domains.html:71
 msgid "Edit domain profile"
 msgstr "编辑域属性"
@@ -352,6 +355,11 @@ msgstr "页面未找到。"
 #: ../templates/default/ldap/msgHandlers.html:9
 msgid "Error:"
 msgstr "错误："
+
+#: ../templates/default/ldap/layout.html:51
+#, python-format
+msgid "Logged in as %s."
+msgstr "登录帐号：%s。"
 
 #: ../templates/default/ldap/layout.html:52
 msgid "Preferences"

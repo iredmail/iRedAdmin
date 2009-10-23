@@ -48,7 +48,7 @@
             {# Header #}
             <div id="brd-head" class="gen-content">
                 <p class="options">
-                    <span>{{ _("Logged in as %s." |format(session.get('username'))) }}</span>
+                    <span>{{ _('Logged in as %s.') |format(session.get('username')) }}</span>
                     <span><a href="{{ctx.homepath}}/profile/admin/general/{{session.get('username')}}">{{ _('Preferences') }}</a></span>
                     <span><a href="{{ctx.homepath}}/logout">{{ _('Logout') }}</a></span>
                 </p>
