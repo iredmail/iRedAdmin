@@ -104,19 +104,20 @@ import iredutils
 # init render
 render = render_jinja(
         tmpldir,                           # template dir.
-        extensions = ['jinja2.ext.i18n'],   # Jinja2 extensions.
         encoding = 'utf-8',                 # Encoding.
-        globals = {
-            'skin': cfg.general.get('skin', 'default'), # Used for static files.
-            'session': web.config._session,             # Used for session.
-            'ctx': web.ctx,                             # Used to get 'homepath'.
-            '_': iredutils.ired_gettext,                # Override _() which provided by Jinja2.
-            'gettext': iredutils.ired_gettext,
-            'ngettext': iredutils.ired_gettext,
-            },
         )
 
-# Add custom Jinja filters.
+# Add/override global functions.
+render._lookup.globals.update(
+        skin=cfg.general.get('skin', 'default'), # Used for static files.
+        session=web.config._session,  # Used for session.
+        ctx=web.ctx,                  # Used to get 'homepath'.
+        _=iredutils.ired_gettext,     # Override _() which provided by Jinja2.
+        #gettext=iredutils.ired_gettext,
+        #ngettext=iredutils.ired_gettext,
+        )
+
+# Add/override custom Jinja filters.
 render._lookup.filters.update(
         filesizeformat=iredutils.filesizeformat,
         )
