@@ -101,6 +101,9 @@ cfg.allTranslations = web.storage()
 
 import iredutils
 
+# Load i18n hook.
+app.add_processor(web.loadhook(iredutils.i18n_loadhook))
+
 # init render
 render = render_jinja(
         tmpldir,                           # template dir.

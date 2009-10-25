@@ -56,6 +56,9 @@ def filesizeformat(value):
         return "%d MB" % (bytes / (base * base))
     return "%.1f GB" % (bytes / (base * base * base))
 
+def i18n_loadhook():
+    web.ctx.lang = web.input(lang=None, _method="GET").lang or session.get('lang')
+
 def get_translations(lang='en_US'):
     # Init translation.
     if cfg.allTranslations.has_key(lang):
@@ -89,7 +92,8 @@ def load_translations(lang):
 
 def ired_gettext(string):
     """Translate a given string to the language of the application."""
-    translation = load_translations(session.get('lang'))
+    lang = web.ctx.lang
+    translation = load_translations(lang)
     if translation is None:
         return unicode(string)
     return translation.ugettext(string)
