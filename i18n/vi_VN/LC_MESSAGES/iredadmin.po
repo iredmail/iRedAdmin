@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: iRedAdmin 0.1.1\n"
 "Report-Msgid-Bugs-To: michaelbibby@gmail.com\n"
 "POT-Creation-Date: 2009-10-02 01:16+0800\n"
-"PO-Revision-Date: 2009-10-23 16:32+0800\n"
+"PO-Revision-Date: 2009-10-25 11:13+0800\n"
 "Last-Translator: Lâm Minh Thông <lmthong@gmail.com>\n"
 "Language-Team: vi_VN <LL@li.org>\n"
 "Plural-Forms: nplurals=1; plural=0\n"
@@ -108,6 +108,7 @@ msgid "All mail administrators."
 msgstr "Tất cả các quản trị viên"
 
 #: ../templates/default/ldap/admins.html:33
+#: ../templates/default/ldap/domains.html:33
 #: ../templates/default/ldap/users.html:45
 #, python-format
 msgid "Total: %s."
@@ -321,10 +322,6 @@ msgstr "Danh sách tên miền"
 msgid "All domains under your control."
 msgstr "Bạn có thể quản lý tất cả các tên miền."
 
-#: ../templates/default/ldap/domains.html:33
-msgid "Total:"
-msgstr "Tổng cộng: %s."
-
 #: ../templates/default/ldap/domains.html:71
 msgid "Edit domain profile"
 msgstr "Sửa thông tin tên miền"
@@ -403,20 +400,15 @@ msgstr "Phải là một tài khoản quản trị hợp lệ."
 msgid "Password"
 msgstr "Mật khẩu"
 
-#: ../templates/default/ldap/login.html:77
-#: ../templates/default/ldap/macros.html:103
-msgid "Preferred language"
-msgstr "Ngôn ngữ mặc định"
-
-#: ../templates/default/ldap/login.html:91
+#: ../templates/default/ldap/login.html:78
 msgid "Remember me"
 msgstr "Ghi nhớ tài khoản này"
 
-#: ../templates/default/ldap/login.html:91
+#: ../templates/default/ldap/login.html:78
 msgid "Log me in automatically each time I visit."
 msgstr "Giúp tôi tự động đăng nhập."
 
-#: ../templates/default/ldap/login.html:97
+#: ../templates/default/ldap/login.html:84
 msgid "Login"
 msgstr "Đăng nhập"
 
@@ -435,6 +427,10 @@ msgstr "Mã nhân viên"
 #: ../templates/default/ldap/macros.html:90
 msgid "Telephone Number"
 msgstr "Số điện thoại"
+
+#: ../templates/default/ldap/macros.html:103
+msgid "Preferred language"
+msgstr "Ngôn ngữ mặc định"
 
 #: ../templates/default/ldap/macros.html:124
 msgid "Enable this domain"
@@ -717,4 +713,7 @@ msgstr "Xem/Cập nhật thông tin tên miền"
 #: ../templates/default/ldap/users.html:70
 msgid "Quota"
 msgstr "Quota"
+
+#~ msgid "Total:"
+#~ msgstr "Tổng cộng: %s."
 

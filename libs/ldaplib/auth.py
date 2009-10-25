@@ -55,12 +55,6 @@ def Auth(dn, pw, session=web.config.get('_session')):
                 else:
                     pass
 
-                # Update preferred language.
-                try:
-                    conn.modify_s(dn, [( ldap.MOD_REPLACE, 'preferredlanguage', web.safestr(session.get('lang', 'en_US')) )])
-                except:
-                    pass
-
                 return True
             else:
                 return False

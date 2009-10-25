@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: iRedAdmin 0.1.1\n"
 "Report-Msgid-Bugs-To: michaelbibby@gmail.com\n"
 "POT-Creation-Date: 2009-10-04 00:45+0800\n"
-"PO-Revision-Date: 2009-10-23 16:32+0800\n"
+"PO-Revision-Date: 2009-10-25 11:13+0800\n"
 "Last-Translator: Mael LE SAOUT <mael.lesaout@gmail.com>\n"
 "Language-Team: fr_FR <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -107,6 +107,7 @@ msgid "All mail administrators."
 msgstr "Tous les administrateurs de messagerie."
 
 #: ../templates/default/ldap/admins.html:33
+#: ../templates/default/ldap/domains.html:33
 #: ../templates/default/ldap/users.html:45
 #, python-format
 msgid "Total: %s."
@@ -322,10 +323,6 @@ msgstr "Domaines de Messagerie"
 msgid "All domains under your control."
 msgstr "Tous les domaines sous votre controle."
 
-#: ../templates/default/ldap/domains.html:33
-msgid "Total:"
-msgstr "Total: %s."
-
 #: ../templates/default/ldap/domains.html:71
 msgid "Edit domain profile"
 msgstr "Modifier le profil du domaine."
@@ -406,20 +403,15 @@ msgstr "L'adresse de messagerie de l'administrateur du domaine doit être valide
 msgid "Password"
 msgstr "Mot de passe"
 
-#: ../templates/default/ldap/login.html:77
-#: ../templates/default/ldap/macros.html:103
-msgid "Preferred language"
-msgstr "Langage par défaut"
-
-#: ../templates/default/ldap/login.html:91
+#: ../templates/default/ldap/login.html:78
 msgid "Remember me"
 msgstr "Se souvenir de moi"
 
-#: ../templates/default/ldap/login.html:91
+#: ../templates/default/ldap/login.html:78
 msgid "Log me in automatically each time I visit."
 msgstr "Me connecter automatiquement à chaque fois que je visite."
 
-#: ../templates/default/ldap/login.html:97
+#: ../templates/default/ldap/login.html:84
 msgid "Login"
 msgstr "Connexion"
 
@@ -438,6 +430,10 @@ msgstr "ID d'employé"
 #: ../templates/default/ldap/macros.html:90
 msgid "Telephone Number"
 msgstr "Numéro de téléphone"
+
+#: ../templates/default/ldap/macros.html:103
+msgid "Preferred language"
+msgstr "Langage par défaut"
 
 #: ../templates/default/ldap/macros.html:124
 msgid "Enable this domain"
@@ -724,4 +720,7 @@ msgstr "Afficher/Mettre à jour le profile du domaine"
 #: ../templates/default/ldap/users.html:70
 msgid "Quota"
 msgstr "Quota"
+
+#~ msgid "Total:"
+#~ msgstr "Total: %s."
 

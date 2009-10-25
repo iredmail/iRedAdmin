@@ -30,7 +30,7 @@
 {% block navlinks_active_domains %}active{% endblock %}
 
 {% block id_welcome %}
-<span>{{ _('All domains under your control.') }} {{ _('Total:') }} {{ allDomains|length }}</span>
+<span>{{ _('All domains under your control.') }} {{ _('Total: %s.') |format(allDomains|length) }}</span>
 {% endblock id_welcome %}
 
 {% block id_visit_links %}

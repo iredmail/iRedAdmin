@@ -26,7 +26,7 @@
 
 import web, sys
 from libs import __version__, __url_iredadmin_lastest__, iredutils
-from libs.ldaplib import core, admin, auth, domain, ldaputils
+from libs.ldaplib import core, auth, domain, ldaputils
 from controllers.ldap import base
 
 cfg = web.iredconfig
@@ -40,17 +40,8 @@ class login:
         else:
             i = web.input()
 
-            adminLib = admin.Admin()
-            cur_lang = i.get('lang', cfg.general.get('lang', 'en_US'))
-            if cur_lang is not None and cur_lang in adminLib.getLanguageMaps().keys():
-                session['lang'] = cur_lang
-
             # Show login page.
-            return render.login(
-                    cur_lang=cur_lang,
-                    languagemaps=adminLib.getLanguageMaps(),
-                    msg=i.get('msg'),
-                    )
+            return render.login(msg=i.get('msg'),)
 
     def POST(self):
         # Get username, password.
