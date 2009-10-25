@@ -77,6 +77,15 @@ class login:
                 # Expire session when browser closed.
                 web.config.session_parameters['timeout'] = 600      # 10 minutes
 
+            # Read preferred language from db.
+            try:
+                adminLib = admin.Admin()
+                lang = adminLib.getPreferredLanguage(userdn)
+                if lang is not False:
+                    session['lang'] = lang
+            except:
+                pass
+
             web.seeother('/dashboard')
         else:
             session['failedTimes'] += 1
