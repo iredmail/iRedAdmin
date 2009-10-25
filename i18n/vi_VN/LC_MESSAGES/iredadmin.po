@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: iRedAdmin 0.1.1\n"
 "Report-Msgid-Bugs-To: michaelbibby@gmail.com\n"
 "POT-Creation-Date: 2009-10-02 01:16+0800\n"
-"PO-Revision-Date: 2009-10-25 11:13+0800\n"
+"PO-Revision-Date: 2009-10-25 18:22+0800\n"
 "Last-Translator: Lâm Minh Thông <lmthong@gmail.com>\n"
 "Language-Team: vi_VN <LL@li.org>\n"
 "Plural-Forms: nplurals=1; plural=0\n"
@@ -419,7 +419,7 @@ msgstr "Tình trạng:"
 #: ../templates/default/ldap/macros.html:71
 #: ../templates/default/ldap/user_profile.html:89
 #: ../templates/default/ldap/users.html:69
-msgid "Employee ID"
+msgid "User ID"
 msgstr "Mã nhân viên"
 
 #: ../templates/default/ldap/macros.html:80
@@ -713,7 +713,4 @@ msgstr "Xem/Cập nhật thông tin tên miền"
 #: ../templates/default/ldap/users.html:70
 msgid "Quota"
 msgstr "Quota"
-
-#~ msgid "Total:"
-#~ msgstr "Tổng cộng: %s."
 

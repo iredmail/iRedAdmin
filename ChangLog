@@ -12,8 +12,8 @@
     * Fix incorrect maildir path: missing '/'.
     * Add French translation. Thanks Mael Lesaout (mael.lesaout@gmail).
     * Show multiple values of phone number (telephoneNumber).
-    * Show employee id while list users.
-    * Ability to modify user's employee id (employeeNumber).
+    * Show user id while list users.
+    * Ability to modify user id (employeeNumber).
     * Fix issue while submit empty display name (cn).
 
 = 0.1 =

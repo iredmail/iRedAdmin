@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: michaelbibby@gmail.com\n"
-"POT-Creation-Date: 2009-10-25 11:13+0800\n"
+"POT-Creation-Date: 2009-10-25 18:22+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -419,7 +419,7 @@ msgstr ""
 #: ../templates/default/ldap/macros.html:71
 #: ../templates/default/ldap/user_profile.html:89
 #: ../templates/default/ldap/users.html:69
-msgid "Employee ID"
+msgid "User ID"
 msgstr ""
 
 #: ../templates/default/ldap/macros.html:80
