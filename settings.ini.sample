@@ -95,11 +95,13 @@ protocol_version = 3
 trace_level = 0
 
 # LDAP suffix.
-suffix = dc=iredmail,dc=org
+# basedn: dn which contains virtual domains.
+# domainadmin_dn: dn which contains virtual domain admins.
 basedn = o=domains,dc=iredmail,dc=org
 domainadmin_dn = o=domainAdmins,dc=iredmail,dc=org
+
 # Bind dn and password.
-# Warning:
+# Note:
 #   - bind dn should have write privilege in LDAP.
 #   - bind pw is plain text, not encryped/hashed.
 bind_dn = cn=vmailadmin,dc=iredmail,dc=org
