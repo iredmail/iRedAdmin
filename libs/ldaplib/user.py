@@ -120,7 +120,7 @@ class User(core.LDAPWrap):
             self.conn.add_s(ldap.filter.escape_filter_chars(self.dn), ldif,)
             return (True,)
         except ldap.ALREADY_EXISTS:
-            return (False, 'msg=ALREADY_EXISTS')
+            return (False, 'ALREADY_EXISTS')
         except Exception, e:
             return (False, ldaputils.getExceptionDesc(e))
 

@@ -126,21 +126,21 @@ def getNewPassword(newpw, confirmpw):
     if newpw == confirmpw:
         passwd = newpw
     else:
-        return (False, 'msg=PW_MISMATCH')
+        return (False, 'PW_MISMATCH')
 
     if not len(passwd) > 0:
-        return (False, 'msg=PW_EMPTY')
+        return (False, 'PW_EMPTY')
 
     # Check password length.
     min_passwd_length = cfg.general.get('min_passwd_length', 1)
     max_passwd_length = cfg.general.get('max_passwd_length', 0)
 
     if not len(passwd) >= int(min_passwd_length):
-        return (False, 'msg=PW_LESS_THAN_MIN_LENGTH')
+        return (False, 'PW_LESS_THAN_MIN_LENGTH')
 
     if int(max_passwd_length) != 0:
         if not len(passwd) <= int(max_passwd_length):
-            return (False, 'msg=PW_GREATER_THAN_MAX_LENGTH')
+            return (False, 'PW_GREATER_THAN_MAX_LENGTH')
 
     return (True, passwd)
 

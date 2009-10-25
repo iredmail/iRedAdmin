@@ -92,7 +92,7 @@ class create(dbinit):
         if result[0] is True:
             web.seeother('/profile/admin/general/%s?msg=CREATED_SUCCESS' % self.mail)
         else:
-            web.seeother('/create/admin?' + result[1])
+            web.seeother('/create/admin?msg=' + result[1])
 
 class profile(dbinit):
     @base.protected
