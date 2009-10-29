@@ -87,6 +87,7 @@ session = web.session.Session(app, sessionStore,
             'logged': False,
             'failedTimes': 0,   # Integer.
             'lang': lang,
+            'pagesizelimit': 30,
             }
         )
 web.config._session = session
