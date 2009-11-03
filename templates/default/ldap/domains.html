@@ -35,7 +35,7 @@
 
 {% block id_visit_links %}
 {% if session.get('domainGlobalAdmin') == 'yes' %}
-<span><a href="{{ctx.homepath}}/create/domain">{{ _('Create new mail domain') }}</a></span>
+<span><a href="{{ctx.homepath}}/create/domain" class="add" >{{ _('Create new mail domain') }}</a></span>
 {% endif %}
 {% endblock id_visit_links %}
 

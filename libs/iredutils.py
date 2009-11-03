@@ -56,7 +56,7 @@ def filesizeformat(value):
         return "%d MB" % (bytes / (base * base))
     return "%.1f GB" % (bytes / (base * base * base))
 
-def i18n_loadhook():
+def hook_i18n():
     web.ctx.lang = web.input(lang=None, _method="GET").lang or session.get('lang')
 
 def get_translations(lang='en_US'):

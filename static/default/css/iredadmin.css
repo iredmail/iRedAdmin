@@ -1965,6 +1965,13 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
 }
 */
 
+.brd .add {
+    background-image: url(../images/add.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 1.5em;
+}
+
 .brd #footer {
     text-align: center;
     margin-top: 20px;

@@ -34,7 +34,7 @@
 {% block main %}
 <div class="ct-box info-box">
     <div class="error">
-        <span class="important"><strong>{{ _('Error:') }}</strong> {{ _('Page not found.') }} ({{ctx.fullpath}})</span>
+        <span class="important"><strong>{{ _('Error:') }}</strong> {{ _('Page not found.') }} ({{ctx.fullpath}}) {% if ctx.env.get('HTTP_REFERER') is not sameas none %}<a href="{{ ctx.env.get('HTTP_REFERER') }}">{{ _('Go back.') }}</a>{% endif %}</span>
     </div>
 </div>
 {% endblock main %}

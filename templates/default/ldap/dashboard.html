@@ -43,7 +43,7 @@
     <div class="ct-group">
         <div class="ct-set group-item1">
             <div class="ct-box">
-                <h3 class="ct-legend hn"><span>{{ _('Create new') }}</span></h3>
+                <h3 class="ct-legend hn"><span class="add" >{{ _('Create new') }}</span></h3>
                 <p>
                     {% if session.get('domainGlobalAdmin') == 'yes' %}
                     <span><a href="{{ctx.homepath}}/create/domain">{{ _('Mail Domain') }}</a></span>&nbsp;

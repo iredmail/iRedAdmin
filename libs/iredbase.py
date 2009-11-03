@@ -52,11 +52,17 @@ del ctx
 
 web.iredconfig['rootdir'] = rootdir
 
-# init urls
+backend = cfg.general.get('backend', 'ldap')
+skin = cfg.general.get('skin', 'default')
+
+# Import urls from backend.
 if cfg.general.get('backend') == 'ldap':
-    from controllers.ldap.urls import urls
+    from controllers.ldap.urls import urls as backendUrls
 else:
-    from controllers.mysql.urls import urls
+    from controllers.mysql.urls import urls as backendUrls
+
+# Merge urls.
+urls = tuple(list(backendUrls))
 
 # init app
 app = web.application(urls, globals(), autoreload=True)
@@ -93,9 +99,7 @@ session = web.session.Session(app, sessionStore,
 web.config._session = session
 
 # Use JinJa2 template.
-tmpldir = rootdir + '/templates/' + \
-        cfg.general.get('skin', 'default') +  '/' + \
-        cfg.general.get('backend')
+ldap_tmpldir = rootdir + 'templates/' + skin + '/' + backend
 
 # Object used to stored all translations.
 cfg.allTranslations = web.storage()
@@ -103,31 +107,35 @@ cfg.allTranslations = web.storage()
 import iredutils
 
 # Load i18n hook.
-app.add_processor(web.loadhook(iredutils.i18n_loadhook))
+app.add_processor(web.loadhook(iredutils.hook_i18n))
 
 # init render
 render = render_jinja(
-        tmpldir,                           # template dir.
-        encoding = 'utf-8',                 # Encoding.
+        ldap_tmpldir,           # template dir.
+        encoding = 'utf-8',     # Encoding.
         )
 
-# Add/override global functions.
-render._lookup.globals.update(
-        skin=cfg.general.get('skin', 'default'), # Used for static files.
-        session=web.config._session,  # Used for session.
-        ctx=web.ctx,                  # Used to get 'homepath'.
-        _=iredutils.ired_gettext,     # Override _() which provided by Jinja2.
-        #gettext=iredutils.ired_gettext,
-        #ngettext=iredutils.ired_gettext,
-        )
+# Custom Jinja2 global functions.
+render_globals = {
+        'skin': skin, # Used for static files.
+        'session': web.config._session,  # Used for session.
+        'ctx': web.ctx,                  # Used to get 'homepath'.
+        '_': iredutils.ired_gettext,     # Override _() which provided by Jinja2.
+        #'gettext': iredutils.ired_gettext,
+        #'ngettext': iredutils.ired_gettext,
+        }
 
-# Add/override custom Jinja filters.
-render._lookup.filters.update(
-        filesizeformat=iredutils.filesizeformat,
-        )
+# Custom Jinja filters.
+render_filters = {
+        'filesizeformat': iredutils.filesizeformat,
+        }
+
+# Add/Override Jinja2 global functions, filters.
+render._lookup.globals.update(render_globals)
+render._lookup.filters.update(render_filters)
+web.render = render
 
 def notfound():
     return web.notfound(render.error404())
 
 app.notfound = notfound
-web.render = render
