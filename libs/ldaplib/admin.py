@@ -24,7 +24,9 @@
 # along with iRedAdmin-OSE.  If not, see <http://www.gnu.org/licenses/>.
 #---------------------------------------------------------------------
 
-import os, sys
+import sys
+import os
+import glob
 import ldap, ldap.filter
 import web
 from libs import languages, iredutils
@@ -56,9 +58,13 @@ class Admin(core.LDAPWrap):
     # Get available languages.
     def getLanguageMaps(self):
         # Get available languages.
-        self.available_langs = [ web.safestr(v)
-                for v in os.listdir(cfg.get('rootdir')+'i18n')
-                if v in languages.langmaps
+        self.available_langs = [ web.safestr(os.path.basename(v))
+                for v in glob.glob(cfg.get('rootdir')+'i18n/[a-z][a-z]_[A-Z][A-Z]')
+                if os.path.basename(v) in languages.langmaps
+                ]
+        self.available_langs += [ web.safestr(os.path.basename(v))
+                for v in glob.glob(cfg.get('rootdir')+'i18n/[a-z][a-z]')
+                if os.path.basename(v) in languages.langmaps
                 ]
         self.available_langs.sort()
 
