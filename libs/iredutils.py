@@ -49,7 +49,7 @@ def filesizeformat(value):
     bytes = float(value)
     base = 1024
     if bytes < base:
-        return "%d Bytes" % (bytes, bytes != 1 and 's' or '')
+        return "%d Bytes" % (bytes)
     elif bytes < base * base:
         return "%d KB" % (bytes / base)
     elif bytes < base * base * base:
