@@ -28,7 +28,7 @@ import sys
 import web
 from web import render
 from controllers.ldap.basic import dbinit
-from controllers.ldap import base
+from controllers import base
 from libs.ldaplib import admin, ldaputils, iredldif
 
 cfg = web.iredconfig
@@ -40,16 +40,16 @@ adminLib = admin.Admin()
 # Admin related.
 #
 class list(dbinit):
-    @base.check_global_admin
-    @base.protected
+    @base.require_global_admin
+    @base.require_login
     def GET(self):
         i = web.input()
         self.admins = adminLib.list()
         return render.admins(admins=self.admins, msg=i.get('msg', None))
 
     # Delete, disable, enable admin accounts.
-    @base.check_global_admin
-    @base.protected
+    @base.require_global_admin
+    @base.require_login
     def POST(self):
         i = web.input(_unicode=False, mail=[])
         self.mails = i.get('mail', [])
@@ -71,8 +71,8 @@ class list(dbinit):
             web.seeother('/admins?' + result[1])
 
 class create(dbinit):
-    @base.check_global_admin
-    @base.protected
+    @base.require_global_admin
+    @base.require_login
     def GET(self):
         return render.admin_create(
                 languagemaps=adminLib.getLanguageMaps(),
@@ -80,8 +80,8 @@ class create(dbinit):
                 max_passwd_length=cfg.general.get('max_passwd_length'),
                 )
 
-    @base.check_global_admin
-    @base.protected
+    @base.require_global_admin
+    @base.require_login
     def POST(self):
         i = web.input()
         self.username = web.safestr(i.get('username'))
@@ -95,7 +95,7 @@ class create(dbinit):
             web.seeother('/create/admin?msg=' + result[1])
 
 class profile(dbinit):
-    @base.protected
+    @base.require_login
     def GET(self, profile_type, mail):
         self.mail = web.safestr(mail)
         self.profile_type = web.safestr(profile_type)
@@ -138,7 +138,7 @@ class profile(dbinit):
                     msg=i.get('msg', None),
                     )
 
-    @base.protected
+    @base.require_login
     def POST(self, profile_type, mail):
         self.profile_type = web.safestr(profile_type)
         self.mail = web.safestr(mail)

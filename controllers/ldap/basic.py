@@ -27,7 +27,7 @@
 import web, sys
 from libs import __version__, __url_iredadmin_lastest__, iredutils
 from libs.ldaplib import core, auth, domain, ldaputils
-from controllers.ldap import base
+from controllers import base
 
 cfg = web.iredconfig
 session = web.config.get('_session')
@@ -97,7 +97,7 @@ class logout:
         web.seeother('/login')
 
 class dashboard:
-    @base.protected
+    @base.require_login
     def GET(self):
         from socket import getfqdn
         import os
@@ -121,8 +121,8 @@ class dashboard:
                 )
 
 class checknew:
-    @base.check_global_admin
-    @base.protected
+    @base.require_global_admin
+    @base.require_login
     def GET(self):
         import urllib2
         try:

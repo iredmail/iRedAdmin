@@ -294,6 +294,14 @@ body {
     color: yellow;
     }
 
+#brd-visit #welcome span a.active {
+    color: #b42000;
+    }
+
+.brd .posting span a.active {
+    color: #b42000;
+    }
+
 /* Logo and Headings
 ----------------------------------------------------------------*/
 

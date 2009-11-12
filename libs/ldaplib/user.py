@@ -41,7 +41,7 @@ class User(core.LDAPWrap):
         pass
 
     # List all users under one domain.
-    @LDAPDecorators.check_domain_access
+    @LDAPDecorators.require_domain_access
     def list(self, domain):
         self.domain = domain
         self.domainDN = ldaputils.convDomainToDN(self.domain)
@@ -68,7 +68,7 @@ class User(core.LDAPWrap):
             return (False, ldaputils.getExceptionDesc(e))
 
     # Get values of user dn.
-    @LDAPDecorators.check_domain_access
+    @LDAPDecorators.require_domain_access
     def profile(self, domain, mail):
         self.mail = web.safestr(mail)
         self.dn = ldaputils.convEmailToUserDN(self.mail)
@@ -84,7 +84,7 @@ class User(core.LDAPWrap):
             return (False, ldaputils.getExceptionDesc(e))
 
 
-    @LDAPDecorators.check_domain_access
+    @LDAPDecorators.require_domain_access
     def add(self, domain, data):
         # Get domain name, username, cn.
         self.domain = web.safestr(data.get('domainName')).lower()
@@ -124,7 +124,7 @@ class User(core.LDAPWrap):
         except Exception, e:
             return (False, ldaputils.getExceptionDesc(e))
 
-    @LDAPDecorators.check_domain_access
+    @LDAPDecorators.require_domain_access
     def delete(self, domain, mails=[]):
         if mails is None or len(mails) == 0: return False
 
@@ -143,7 +143,7 @@ class User(core.LDAPWrap):
         else:
             return (False, ldaputils.getExceptionDesc(result))
 
-    @LDAPDecorators.check_domain_access
+    @LDAPDecorators.require_domain_access
     def enableOrDisableAccount(self, domain, mails, value, attr='accountStatus',):
         if mails is None or len(mails) == 0: return (False, 'msg=NO_ACCOUNT_SELECTED')
 
@@ -166,7 +166,7 @@ class User(core.LDAPWrap):
         else:
             return (False, ldaputils.getExceptionDesc(result))
 
-    @LDAPDecorators.check_domain_access
+    @LDAPDecorators.require_domain_access
     def update(self, profile_type, mail, data):
         self.profile_type = web.safestr(profile_type)
         self.mail = web.safestr(mail)

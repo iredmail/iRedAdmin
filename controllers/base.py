@@ -35,10 +35,14 @@ class redirect:
     def GET(self, path):
         web.redirect('/' + str(path))
 
+class img:
+    def GET(self, encoded_img):
+        web.header('Content-Type', 'image/jpeg')
+        return encoded_img.decode('base64')
 #
 # Decorators
 #
-def protected(func):
+def require_login(func):
     def proxyfunc(self, *args, **kw):
         if session.get('username') != None and session.get('logged') == True:
             return func(self, *args, **kw)
@@ -47,7 +51,7 @@ def protected(func):
             web.seeother('/login?msg=loginRequired')
     return proxyfunc
 
-def check_global_admin(func):
+def require_global_admin(func):
     def proxyfunc(self, *args, **kw):
         if session.get('domainGlobalAdmin') == 'yes':
             return func(self, *args, **kw)

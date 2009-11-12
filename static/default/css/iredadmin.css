@@ -614,12 +614,12 @@ D - COMMON INTERFACE ELEMENTS
     }
 
 .brd .paging {
-    float: left;
+    float: right;
     }
 
 .brd .posting {
     text-align: right;
-    float: right;
+    float: left;
     }
 
 .brd .paging, .brd .paging * {
@@ -633,12 +633,18 @@ D - COMMON INTERFACE ELEMENTS
     float: left;
     }
 
+.brd .paging a.noborder {
+    padding: 0;
+    border: 0;
+    float: none;
+    }
+
 .brd .paging .first-item, .brd .paging span.pages {
     border-left: 0;
     padding-left: 0;
     }
 
-.brd .posting .newpost {
+.brd .posting .newpost, .posting .active {
     font-size: 1.084em;
     font-weight: bold;
     }

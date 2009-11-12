@@ -59,10 +59,10 @@ re_domain = '[\w\-][\w\-\.]*[a-zA-Z]{1,4}'
 
 urls = (
         # Make url ending with or without '/' going to the same class.
-        '/(.*)/',                           'controllers.ldap.base.redirect',
+        '/(.*)/',                           'controllers.base.redirect',
 
         # used to display jpegPhoto.
-        '/img/(.*)',                        'controllers.utils.img',
+        '/img/(.*)',                        'controllers.base.img',
 
         '/',                                'controllers.ldap.basic.login',
         '/login',                           'controllers.ldap.basic.login',

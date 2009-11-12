@@ -28,7 +28,7 @@ import sys
 import web
 from web import render
 from web import iredconfig as cfg
-from controllers.ldap import base
+from controllers import base
 from controllers.ldap.basic import dbinit
 from libs.ldaplib import core, admin, domain, attrs
 
@@ -42,7 +42,7 @@ domainLib = domain.Domain()
 #
 class list(dbinit):
     '''List all virtual mail domains.'''
-    @base.protected
+    @base.require_login
     def GET(self):
         i = web.input()
         result = domainLib.list()
@@ -52,8 +52,8 @@ class list(dbinit):
             return result
         return render.domains(allDomains=allDomains, msg=i.get('msg', None))
 
-    @base.check_global_admin
-    @base.protected
+    @base.require_global_admin
+    @base.require_login
     def POST(self):
         i = web.input(domainName=[])
         domainName = i.get('domainName', None)
@@ -75,7 +75,7 @@ class list(dbinit):
             web.seeother('/domains?' + result[1])
 
 class profile(dbinit):
-    @base.protected
+    @base.require_login
     def GET(self, profile_type, domain):
         i = web.input()
         self.domain = web.safestr(domain.split('/', 1)[0])
@@ -110,7 +110,7 @@ class profile(dbinit):
         else:
             web.seeother('/domains?' + result[1])
 
-    @base.protected
+    @base.require_login
     def POST(self, profile_type, domain):
         self.profile_type = web.safestr(profile_type)
         self.domain = web.safestr(domain)
@@ -128,14 +128,14 @@ class profile(dbinit):
             web.seeother('/profile/domain/%s/%s?' % (self.profile_type, self.domain) + result[1])
 
 class create(dbinit):
-    @base.check_global_admin
-    @base.protected
+    @base.require_global_admin
+    @base.require_login
     def GET(self):
         i = web.input()
         return render.domain_create(msg=i.get('msg'))
 
-    @base.check_global_admin
-    @base.protected
+    @base.require_global_admin
+    @base.require_login
     def POST(self):
         i = web.input()
         result = domainLib.add(data=i)

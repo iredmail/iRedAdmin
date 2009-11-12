@@ -37,7 +37,7 @@ class Domain(core.LDAPWrap):
     def __del__(self):
         pass
 
-    @LDAPDecorators.check_global_admin
+    @LDAPDecorators.require_global_admin
     def add(self, data):
         # msg: {key: value}
         msg = {}
@@ -124,7 +124,7 @@ class Domain(core.LDAPWrap):
             return cfg.general.get('default_quota', '1024')
 
     # Delete domain.
-    @LDAPDecorators.check_global_admin
+    @LDAPDecorators.require_global_admin
     def delete(self, domains=[]):
         if domains is None or len(domains) == 0: return False
         
@@ -140,7 +140,7 @@ class Domain(core.LDAPWrap):
         if msg == {}: return (True,)
         else: return (False, ldaputils.getExceptionDesc(msg))
 
-    @LDAPDecorators.check_global_admin
+    @LDAPDecorators.require_global_admin
     def enableOrDisableAccount(self, domains, value, attr='accountStatus',):
         if domains is None or len(domains) == 0: return (False, 'msg=NO_DOMAIN_SELECTED')
 
@@ -164,7 +164,7 @@ class Domain(core.LDAPWrap):
             return (False, ldaputils.getExceptionDesc(result))
 
     # Get domain attributes & values.
-    @LDAPDecorators.check_domain_access
+    @LDAPDecorators.require_domain_access
     def profile(self, domain):
         self.domain = web.safestr(domain)
         self.dn = ldaputils.convDomainToDN(self.domain)

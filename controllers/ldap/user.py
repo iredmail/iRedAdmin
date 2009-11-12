@@ -28,7 +28,7 @@ import types, sys
 import web
 from web import render
 from web import iredconfig as cfg
-from controllers.ldap import base
+from controllers import base
 from controllers.ldap.basic import dbinit
 from libs.ldaplib import domain, user, attrs, iredldif, ldaputils
 
@@ -44,7 +44,7 @@ class list(dbinit):
     def __del__(self):
         pass
 
-    @base.protected
+    @base.require_login
     def GET(self, domain=''):
         domain = web.safestr(domain.split('/', 1)[0])
         i = web.input()
@@ -81,7 +81,7 @@ class list(dbinit):
             else:
                 web.seeother('/domains?' + result[1])
 
-    @base.protected
+    @base.require_login
     def POST(self, domain):
         i = web.input(_unicode=False, mail=[])
         self.domain = web.safestr(domain)
@@ -104,7 +104,7 @@ class list(dbinit):
             web.seeother('/users/%s?' % (self.domain) + result[1])
 
 class profile(dbinit):
-    @base.protected
+    @base.require_login
     def GET(self, profile_type, mail):
         i = web.input(
                 enabledService=[],
@@ -135,7 +135,7 @@ class profile(dbinit):
         else:
             web.seeother('/users/%s?' % (self.domain) + result[1])
 
-    @base.protected
+    @base.require_login
     def POST(self, profile_type, mail):
         i = web.input(enabledService=[],telephoneNumber=[],mailForwardingAddress=[],)
         self.profile_type = web.safestr(profile_type)
@@ -152,7 +152,7 @@ class profile(dbinit):
             web.seeother('/profile/user/%s/%s?' % (self.profile_type, self.mail) + result[1])
 
 class create(dbinit):
-    @base.protected
+    @base.require_login
     def GET(self, domainName=None):
         if domainName is None:
             self.domain = ''
@@ -172,7 +172,7 @@ class create(dbinit):
                 max_passwd_length=cfg.general.get('max_passwd_length'),
                 )
 
-    @base.protected
+    @base.require_login
     def POST(self):
         i = web.input()
 

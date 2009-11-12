@@ -117,7 +117,7 @@ class LDAPDecorators(LDAPWrap):
     def __del__(self):
         pass
 
-    def check_global_admin(self, func):
+    def require_global_admin(self, func):
         def proxyfunc(self, *args, **kw):
             if session.get('domainGlobalAdmin') == 'yes':
                 return func(self, *args, **kw)
@@ -125,7 +125,7 @@ class LDAPDecorators(LDAPWrap):
                 return False
         return proxyfunc
 
-    def check_domain_access(self, func):
+    def require_domain_access(self, func):
         def proxyfunc(self, *args, **kw):
             if kw.has_key('mail'):
                 self.domain = web.safestr(kw['mail']).split('@', 1)[1]

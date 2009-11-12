@@ -196,7 +196,7 @@ class Admin(core.LDAPWrap):
             else:
                 return result
 
-    @LDAPDecorators.check_global_admin
+    @LDAPDecorators.require_global_admin
     def delete(self, mails):
         if mails is None or len(mails) == 0: return (False, 'msg=NO_ACCOUNT_SELECTED')
 
@@ -216,7 +216,7 @@ class Admin(core.LDAPWrap):
         else:
             return (False, ldaputils.getExceptionDesc(result))
 
-    @LDAPDecorators.check_global_admin
+    @LDAPDecorators.require_global_admin
     def enableOrDisableAccount(self, mails, value, attr='accountStatus',):
         if mails is None or len(mails) == 0: return (False, 'msg=NO_ACCOUNT_SELECTED')
 
