@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: iRedAdmin 0.1.1\n"
 "Report-Msgid-Bugs-To: michaelbibby@gmail.com\n"
 "POT-Creation-Date: 2009-10-03 23:01+0800\n"
-"PO-Revision-Date: 2009-10-25 18:22+0800\n"
+"PO-Revision-Date: 2009-12-03 13:20+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: en_US <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -351,6 +351,10 @@ msgstr ""
 #: ../templates/default/ldap/error404.html:37
 #: ../templates/default/ldap/msgHandlers.html:9
 msgid "Error:"
+msgstr ""
+
+#: ../templates/default/ldap/error404.html:37
+msgid "Go back."
 msgstr ""
 
 #: ../templates/default/ldap/layout.html:51
@@ -709,7 +713,4 @@ msgstr ""
 #: ../templates/default/ldap/users.html:70
 msgid "Quota"
 msgstr ""
-
-#~ msgid "Employee ID"
-#~ msgstr ""
 

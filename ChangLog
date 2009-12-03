@@ -1,5 +1,6 @@
 = 0.2.0 =
-    * Add new translation: hu_HU (Hungarian). Thanks zolikusz@gmail.
+    * New translation: pt_BR (Brazilian Portuguese). Thanks giorgiolago@gmail.
+    * New translation: hu_HU (Hungarian). Thanks zolikusz@gmail.
 
 = 0.1.1 =
     * Add run-time language switch support.

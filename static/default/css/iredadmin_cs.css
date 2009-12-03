@@ -294,7 +294,7 @@ body {
     color: yellow;
     }
 
-#brd-visit #welcome span a.active {
+#brd-visit #welcome span a.active, #brd-visit #visit-links span a.active {
     color: #b42000;
     }
 
@@ -403,14 +403,10 @@ body {
     background: #EDF1F5;
     }
 
-.brd .disabled {
+.brd .disabled, .brd .warningmsg {
     background: #FFFFE1;
     }
 
 .brd .even {
-    background: #F4F9FD;
-    }
-
-.brd table tr:hover {
     background: #F4F9FD;
     }

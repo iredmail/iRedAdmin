@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: iRedAdmin 0.1.1\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2009-10-13 14:15+0800\n"
-"PO-Revision-Date: 2009-10-25 18:22+0800\n"
+"PO-Revision-Date: 2009-12-03 13:20+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: zh_CN <LL@li.org>\n"
 "Plural-Forms: nplurals=1; plural=0\n"
@@ -352,6 +352,10 @@ msgstr "页面未找到。"
 #: ../templates/default/ldap/msgHandlers.html:9
 msgid "Error:"
 msgstr "错误："
+
+#: ../templates/default/ldap/error404.html:37
+msgid "Go back."
+msgstr ""
 
 #: ../templates/default/ldap/layout.html:51
 #, python-format

@@ -1,17 +1,18 @@
-# English (United States) translations for iRedAdmin.
+# Portuguese (Brazil) translations for PROJECT.
 # Copyright (C) 2009 ORGANIZATION
-# This file is distributed under the same license as the iRedAdmin project.
-# FIRST AUTHOR <zolikusz@gmail.com>, 2009.10.16.
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
 #
+
 msgid ""
 msgstr ""
 "Project-Id-Version: iRedAdmin 0.1.1\n"
 "Report-Msgid-Bugs-To: michaelbibby@gmail.com\n"
-"POT-Creation-Date: 2009-11-02 12:10+0100\n"
+"POT-Creation-Date: 2009-12-01 22:00+0300\n"
 "PO-Revision-Date: 2009-12-03 13:20+0800\n"
-"Last-Translator: Sinkovicz Zoltan <zolikusz@gmail.com>\n"
-"Language-Team: Hungarian <HU@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Last-Translator: Giorgio Emanuel Neres Lago <giorgiolago@gmail.com>\n"
+"Language-Team: pt_BR <PT_BR@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n > 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -22,7 +23,7 @@ msgstr ""
 #: ../templates/default/ldap/admins.html:37
 #: ../templates/default/ldap/macros.html:179
 msgid "Create new mail admin"
-msgstr "Új e-mail admin létrehozása"
+msgstr "Criar um novo administrador do domínio"
 
 #: ../templates/default/ldap/admin_create.html:65
 #: ../templates/default/ldap/admin_create.html:68
@@ -32,7 +33,7 @@ msgstr "Új e-mail admin létrehozása"
 #: ../templates/default/ldap/user_profile.html:88
 #: ../templates/default/ldap/users.html:68
 msgid "Mail Address"
-msgstr "E-mail cím"
+msgstr "Endereço de Email"
 
 #: ../templates/default/ldap/admin_create.html:68
 #: ../templates/default/ldap/domain_create.html:53
@@ -43,30 +44,30 @@ msgstr "E-mail cím"
 #: ../templates/default/ldap/macros.html:234
 #: ../templates/default/ldap/user_create.html:63
 msgid "(Required)"
-msgstr "(Kötelező)"
+msgstr "(Obrigatório)"
 
 #: ../templates/default/ldap/admin_create.html:80
 #: ../templates/default/ldap/domain_create.html:63
 #: ../templates/default/ldap/user_create.html:88
 msgid "Create"
-msgstr "Létrehoz"
+msgstr "Criar"
 
 #: ../templates/default/ldap/admin_profile.html:41
 msgid "Edit admin profile"
-msgstr "Admin profil szerkesztése"
+msgstr "Editar o perfil do administrador"
 
 #: ../templates/default/ldap/admin_profile.html:45
 #: ../templates/default/ldap/user_profile.html:51
 msgid "General"
-msgstr "Általános"
+msgstr "Geral"
 
 #: ../templates/default/ldap/admin_profile.html:46
 msgid "Reset password"
-msgstr "Új jelszó"
+msgstr "Redefinir senha"
 
 #: ../templates/default/ldap/admin_profile.html:51
 msgid "Back to admin list"
-msgstr "Vissza az admin listához"
+msgstr "Voltar para lista de administradores"
 
 #: ../templates/default/ldap/admin_profile.html:71
 #: ../templates/default/ldap/admin_profile.html:72
@@ -84,276 +85,276 @@ msgstr ":"
 #: ../templates/default/ldap/user_profile.html:87
 #: ../templates/default/ldap/users.html:67
 msgid "Display Name"
-msgstr "Megjelenítési név"
+msgstr "Nome do usuário"
 
 #: ../templates/default/ldap/admin_profile.html:73
 #: ../templates/default/ldap/domain_profile.html:85
 #: ../templates/default/ldap/user_profile.html:90
 #: ../templates/default/ldap/users.html:71
 msgid "Created Date"
-msgstr "Létrehozás dátuma"
+msgstr "Data de Criação"
 
 #: ../templates/default/ldap/admin_profile.html:109
 #: ../templates/default/ldap/domain_profile.html:100
 #: ../templates/default/ldap/user_profile.html:115
 msgid "Save changes"
-msgstr "Változások mentése"
+msgstr "Salvar mudanças"
 
 #: ../templates/default/ldap/admins.html:29
 msgid "Domain Admins"
-msgstr "Domain Adminok"
+msgstr "Administradores do domínio"
 
 #: ../templates/default/ldap/admins.html:33
 msgid "All mail administrators."
-msgstr "Összes e-mail admin"
+msgstr "Todos os administradores de Email."
 
 #: ../templates/default/ldap/admins.html:33
 #: ../templates/default/ldap/domains.html:33
 #: ../templates/default/ldap/users.html:45
 #, python-format
 msgid "Total: %s."
-msgstr "Összes: %s."
+msgstr ""
 
 #: ../templates/default/ldap/admins.html:55
 msgid "Global Admin"
-msgstr "Globális Admin"
+msgstr "Administrador Global"
 
 #: ../templates/default/ldap/admins.html:77
 msgid "Edit admin profile."
-msgstr "Admin profil szerkesztése."
+msgstr "Modificar o perfil do administrador."
 
 #: ../templates/default/ldap/admins.html:90
 #: ../templates/default/ldap/domains.html:86
 #: ../templates/default/ldap/users.html:115
 msgid "Select/Unselect all"
-msgstr "Mind kijelőlése/Kijelőlés törlése"
+msgstr "Selecionar/De-selecionar tudo"
 
 #: ../templates/default/ldap/admins.html:91
 #: ../templates/default/ldap/domains.html:87
 #: ../templates/default/ldap/users.html:116
 msgid "Delete"
-msgstr "Törlés"
+msgstr "Apagar"
 
 #: ../templates/default/ldap/admins.html:91
 #: ../templates/default/ldap/users.html:116
 msgid "Are you sure want to delete selected account(s)?"
-msgstr "Biztos, hogy törölni kívánod a kiválasztott felhasználó(t/kat)?"
+msgstr "Tem certeza que deseja excluir a conta selecionada(s)?"
 
 #: ../templates/default/ldap/admins.html:92
 #: ../templates/default/ldap/domains.html:88
 #: ../templates/default/ldap/users.html:117
 msgid "Disable"
-msgstr "Tiltás"
+msgstr "Desativar"
 
 #: ../templates/default/ldap/admins.html:92
 #: ../templates/default/ldap/users.html:117
 msgid "Are you sure want to disable selected account(s)?"
-msgstr "Biztos, hogy le akarod tiltani a kiválasztott felhasználó(t/kat)?"
+msgstr "Tem certeza que deseja desativar a conta selecionada(s)"
 
 #: ../templates/default/ldap/admins.html:93
 #: ../templates/default/ldap/domains.html:89
 #: ../templates/default/ldap/users.html:118
 msgid "Enable"
-msgstr "Engedélyezés"
+msgstr "Ativar"
 
 #: ../templates/default/ldap/admins.html:93
 #: ../templates/default/ldap/users.html:118
 msgid "Are you sure want to enable selected account(s)?"
-msgstr "Biztos, hogy engedélyezni akarod a kiválasztott felhasználó(t/kat)?"
+msgstr "Tem certeza que desejar habilitar a conta selecionada(s)"
 
 #: ../templates/default/ldap/checknew.html:30
 msgid "Software update"
-msgstr "Software frissítés"
+msgstr "Atualização do Software"
 
 #: ../templates/default/ldap/checknew.html:37
 #: ../templates/default/ldap/dashboard.html:86
 msgid "Check new version"
-msgstr "Új verzió keresése"
+msgstr "Verificar uma nova versão"
 
 #: ../templates/default/ldap/checknew.html:43
 msgid "Current iRedAdmin version"
-msgstr "Aktuális iRedAdmin verzió"
+msgstr "Versão atual do iRedAdmin"
 
 #: ../templates/default/ldap/checknew.html:49
 msgid "New version available"
-msgstr "Új verzió elérhető"
+msgstr "Nova versão disponível"
 
 #: ../templates/default/ldap/checknew.html:50
 msgid "Release note"
-msgstr "Release jegyzet"
+msgstr "Notas de lançamento"
 
 #: ../templates/default/ldap/checknew.html:50
 msgid "Download"
-msgstr "Letöltés"
+msgstr "Download"
 
 #: ../templates/default/ldap/checknew.html:52
 msgid "Version status"
-msgstr "Verzió status"
+msgstr "Status da versão"
 
 #: ../templates/default/ldap/checknew.html:53
 msgid "Your iRedAdmin is up to date."
-msgstr "Az iRedAdmin naprakész."
+msgstr "Seu iRedAdmin está atualizado."
 
 #: ../templates/default/ldap/checknew.html:56
 msgid "Error while check new version"
-msgstr "Hiba történt új verzió keresése közben"
+msgstr "Ocorreu um Erro enquanto verificava por novas versões."
 
 #: ../templates/default/ldap/dashboard.html:31
 #: ../templates/default/ldap/layout.html:63
 msgid "Dashboard"
-msgstr "InfoPanel"
+msgstr "Painel de Gerenciamento"
 
 #: ../templates/default/ldap/dashboard.html:40
 msgid "Available operations"
-msgstr "Rendelkezésre álló műveletek"
+msgstr "Operações disponíveis"
 
 #: ../templates/default/ldap/dashboard.html:46
 msgid "Create new"
-msgstr "Új létrehozása"
+msgstr "Criar um novo"
 
 #: ../templates/default/ldap/dashboard.html:49
 msgid "Mail Domain"
-msgstr "E-mail Domain"
+msgstr "Domínio de Email"
 
 #: ../templates/default/ldap/dashboard.html:50
 msgid "Domain Admin"
-msgstr "Domain Admin"
+msgstr "Administrador do Domínio"
 
 #: ../templates/default/ldap/dashboard.html:52
 msgid "Mail User"
-msgstr "E-mail Felhasználó"
+msgstr "Usuário de Email"
 
 #: ../templates/default/ldap/dashboard.html:59
 msgid "Need more features?"
-msgstr "Szükség van további funkciókra?"
+msgstr "Precisa de mais caracteristicas?"
 
 #: ../templates/default/ldap/dashboard.html:61
 msgid ""
 "Purchase Full-featured Edition to support iRedMail project and get more "
 "features."
-msgstr "Vedd meg az iRedMail fizetős verzióját a további funkciókért."
+msgstr ""
 
 #: ../templates/default/ldap/dashboard.html:62
 msgid "For example:"
-msgstr "Például:"
+msgstr ""
 
 #: ../templates/default/ldap/dashboard.html:65
 msgid "Unlimited number of mail lists"
-msgstr "Korlátlan számú e-mail listák"
+msgstr ""
 
 #: ../templates/default/ldap/dashboard.html:66
 msgid "Unlimited number of mail aliases"
-msgstr "Korlátlan számú e-mail aliasok"
+msgstr ""
 
 #: ../templates/default/ldap/dashboard.html:67
 msgid "Per-user mail forwarding control"
-msgstr "Felhasználónkénti e-mail továbbítás szabályozása"
+msgstr ""
 
 #: ../templates/default/ldap/dashboard.html:68
 msgid "Per-user service control"
-msgstr "Felhasználónkénti szolgáltatás szabályozás"
+msgstr ""
 
 #: ../templates/default/ldap/dashboard.html:69
 msgid "Admin type control (Global/Normal Admin)"
-msgstr "Adminok szabályozása (Globális/Domain Admin)"
+msgstr ""
 
 #: ../templates/default/ldap/dashboard.html:79
 msgid "System info"
-msgstr "Rendszer információ"
+msgstr "Informações sobre o sistema"
 
 #: ../templates/default/ldap/dashboard.html:85
 msgid "iRedAdmin version"
-msgstr "iRedAdmin verziója"
+msgstr "Versão do iRedAdmin"
 
 #: ../templates/default/ldap/dashboard.html:90
 msgid "Hostname"
-msgstr "Hostnév"
+msgstr "Nome do host"
 
 #: ../templates/default/ldap/dashboard.html:96
 msgid "Uptime"
-msgstr "Üzemidő"
+msgstr "Uptime"
 
 #: ../templates/default/ldap/dashboard.html:97
 #, python-format
 msgid "%s days, %s hours, %s minutes."
-msgstr "%s nap, %s óra, %s perc."
+msgstr "%s dias, %s horas, %s minutos."
 
 #: ../templates/default/ldap/dashboard.html:102
 msgid "Server load"
-msgstr "Szerver terhelés"
+msgstr "Carga do servidor"
 
 #: ../templates/default/ldap/dashboard.html:112
 msgid "Network interfaces"
-msgstr "Hálózati csatolók"
+msgstr "Interfaces de Rede"
 
 #: ../templates/default/ldap/domain_create.html:35
 #: ../templates/default/ldap/domain_create.html:40
 #: ../templates/default/ldap/domains.html:38
 msgid "Create new mail domain"
-msgstr "Új e-mail domain"
+msgstr "Criar Novo domínio de email"
 
 #: ../templates/default/ldap/domain_create.html:50
 #: ../templates/default/ldap/domain_create.html:53
 #: ../templates/default/ldap/domain_profile.html:74
 #: ../templates/default/ldap/domains.html:53
 msgid "Domain Name"
-msgstr "Domain Neve"
+msgstr "Nome do Domínio"
 
 #: ../templates/default/ldap/domain_profile.html:40
 msgid "Edit domain profile."
-msgstr "Domain szerkesztése."
+msgstr "Modificar o perfil do domínio."
 
 #: ../templates/default/ldap/domain_profile.html:48
 #: ../templates/default/ldap/domains.html:54
 #: ../templates/default/ldap/layout.html:65
 msgid "Users"
-msgstr "Felhasználók"
+msgstr "Usuários"
 
 #: ../templates/default/ldap/domain_profile.html:84
 #: ../templates/default/ldap/macros.html:56
 msgid "Company/Organization"
-msgstr "Vállalat/Szervezet"
+msgstr "Compania/Organização"
 
 #: ../templates/default/ldap/domains.html:29
 msgid "Mail Domains"
-msgstr "E-mail Domainek"
+msgstr "Domínios de Email"
 
 #: ../templates/default/ldap/domains.html:33
 msgid "All domains under your control."
-msgstr "Az összes domain szabályozása."
+msgstr "Todos os domínios sob o seu controle."
 
 #: ../templates/default/ldap/domains.html:71
 msgid "Edit domain profile"
-msgstr "Domain profil szerkesztése"
+msgstr "Editar perfil do domínio."
 
 #: ../templates/default/ldap/domains.html:77
 msgid "List all mail users."
-msgstr "Összes e-mail felhasználó listázása"
+msgstr "Listar todos os emails dos usuários."
 
 #: ../templates/default/ldap/domains.html:87
 msgid "Are you sure want to delete selected domain(s) and accounts under it?"
 msgstr ""
-"Biztos, hogy törölni akarod a kiválasztott domain(t/eket) és a "
-"felhasználóit?"
+"Tem certeza que deseja excluir o domínio selecionado(s) e todas as contas"
+" nele contido?"
 
 #: ../templates/default/ldap/domains.html:88
 msgid "Are you sure want to disable selected domain(s)?"
-msgstr "Biztos, hogy le akarod tiltani a kiválasztott domain(t/okat)?"
+msgstr "Tem certeza que deseja desativar o domínio selecionado(s)?"
 
 #: ../templates/default/ldap/domains.html:89
 msgid "Are you sure want to enable selected domain(s)?"
-msgstr "Biztos, hogy engedélyezni akarod a kiválasztott domain(t/okat)?"
+msgstr "Tem certeza que deseja ativar o domínio selecionado(s)"
 
 #: ../templates/default/ldap/error404.html:31
 #: ../templates/default/ldap/error404.html:37
 msgid "Page not found."
-msgstr "Oldal nem található."
+msgstr "Pagina não encontrada."
 
 #: ../templates/default/ldap/error404.html:31
 #: ../templates/default/ldap/error404.html:37
 #: ../templates/default/ldap/msgHandlers.html:9
 msgid "Error:"
-msgstr "Hiba:"
+msgstr "Erro:"
 
 #: ../templates/default/ldap/error404.html:37
 msgid "Go back."
@@ -362,89 +363,89 @@ msgstr ""
 #: ../templates/default/ldap/layout.html:51
 #, python-format
 msgid "Logged in as %s."
-msgstr "Bejelentkezve mint %s"
+msgstr "Logado como %s."
 
 #: ../templates/default/ldap/layout.html:52
 msgid "Preferences"
-msgstr "Beállítások"
+msgstr "Preferências"
 
 #: ../templates/default/ldap/layout.html:53
 msgid "Logout"
-msgstr "Kilépés"
+msgstr "Sair"
 
 #: ../templates/default/ldap/layout.html:57
 msgid "iRedMail Management"
-msgstr "iRedMail Adminisztráció"
+msgstr "Gereciamento do iRedMail"
 
 #: ../templates/default/ldap/layout.html:64
 msgid "Domains"
-msgstr "Domainek"
+msgstr "Domínios"
 
 #: ../templates/default/ldap/layout.html:68
 msgid "Admins"
-msgstr "Adminok"
+msgstr "Administradores"
 
 #: ../templates/default/ldap/layout.html:90
 #: ../templates/default/ldap/layout.html:92
 msgid "Get support"
-msgstr "Támogatás kérése"
+msgstr "Aderir ao suporte"
 
 #: ../templates/default/ldap/login.html:28
 #: ../templates/default/ldap/login.html:51
 msgid "Login to manage your mail domains & users"
-msgstr "Belépés az e-mail domainek és felhasználók kezeléséhez"
+msgstr "Conectar-se para gerenciar seus domínios de email & usuários"
 
 #: ../templates/default/ldap/login.html:63
 msgid "Username"
-msgstr "Felhasználó"
+msgstr "Nome de usúario"
 
 #: ../templates/default/ldap/login.html:63
 msgid "Must be a valid domain admin email address."
-msgstr "Kell egy érvényes domain admin e-mail cím."
+msgstr "Necessita ser um email de administrador do domínio válido."
 
 #: ../templates/default/ldap/login.html:70
 msgid "Password"
-msgstr "Jelszó"
+msgstr "Senha"
 
 #: ../templates/default/ldap/login.html:78
 msgid "Remember me"
-msgstr "Emlékezzen rám"
+msgstr "Lembre-me"
 
 #: ../templates/default/ldap/login.html:78
 msgid "Log me in automatically each time I visit."
-msgstr "Maradjak belépve!"
+msgstr "Deixe-me logado toda vez que eu visitar."
 
 #: ../templates/default/ldap/login.html:84
 msgid "Login"
-msgstr "Belépés"
+msgstr "Login"
 
 #: ../templates/default/ldap/macros.html:30
 msgid "Status:"
-msgstr "Státusz:"
+msgstr ""
 
 #: ../templates/default/ldap/macros.html:71
 #: ../templates/default/ldap/user_profile.html:89
 #: ../templates/default/ldap/users.html:69
 msgid "User ID"
-msgstr "Felhasználó ID"
+msgstr "ID de Uśuario"
 
 #: ../templates/default/ldap/macros.html:80
 #: ../templates/default/ldap/macros.html:84
 #: ../templates/default/ldap/macros.html:90
 msgid "Telephone Number"
-msgstr "Telefonszám"
+msgstr "Numero de telefone"
 
 #: ../templates/default/ldap/macros.html:103
 msgid "Preferred language"
-msgstr "Alapértelmezett nyelv"
+msgstr "Linguagem preferencial"
 
 #: ../templates/default/ldap/macros.html:124
 msgid "Enable this domain"
-msgstr "Domain engedélyezése"
+msgstr "Ativar este domínio"
 
 #: ../templates/default/ldap/macros.html:126
 msgid "Enable this account"
-msgstr "Felhasználó engedélyezése"
+msgstr "Ativar esta conta"
 
 #: ../templates/default/ldap/macros.html:137
 #: ../templates/default/ldap/macros.html:139
@@ -453,19 +454,21 @@ msgstr "Backup MX"
 
 #: ../templates/default/ldap/macros.html:143
 msgid "Enabled"
-msgstr "Engedélyezve"
+msgstr "Ativado"
 
 #: ../templates/default/ldap/macros.html:147
 msgid "Disabled"
-msgstr "Letiltva"
+msgstr "Desativado"
 
 #: ../templates/default/ldap/macros.html:157
 msgid "Domain admin assignment"
-msgstr "Domain admin kijelőlése"
+msgstr "Atribuição do administrador do domínio"
 
 #: ../templates/default/ldap/macros.html:157
 msgid "If no admin assigned, you can manage it with global admin."
-msgstr "Ha nincs domain admin kijelőlve, akkor a globális adminnal kezelhető."
+msgstr ""
+"Se nenhum administrador for atribuído, você pode gerenciar usando o "
+"administrador global."
 
 #: ../templates/default/ldap/macros.html:169
 #, python-format
@@ -474,7 +477,7 @@ msgstr "%s (%s)"
 
 #: ../templates/default/ldap/macros.html:173
 msgid "(Global Admin)"
-msgstr "(Globális Admin)"
+msgstr "(Administrador Global)"
 
 #: ../templates/default/ldap/macros.html:186
 #: ../templates/default/ldap/macros.html:189
@@ -484,18 +487,16 @@ msgstr "MTA transport"
 #: ../templates/default/ldap/macros.html:189
 #, python-format
 msgid "Default is <strong>%s</strong>."
-msgstr "Alapértelmezett: <strong>%s</strong>."
+msgstr "O padrão é<strong>%s</strong>."
 
 #: ../templates/default/ldap/macros.html:190
 msgid "Leave it empty to use default transport."
-msgstr "Hagyjd üresen az alapértelmezett használatához."
+msgstr "Deixe isto vázio para se usar o tranport padrão."
 
 #: ../templates/default/ldap/macros.html:201
 #, python-format
 msgid "New password must contain at least <strong>%s</strong> characters."
-msgstr ""
-"Az új jelszónak tartalmaznia kell legalább <strong>% s </ strong> "
-"karaktert."
+msgstr "Nova senha necessita conter no mínimo <strong>%s</strong> characteres."
 
 #: ../templates/default/ldap/macros.html:205
 #, python-format
@@ -503,166 +504,166 @@ msgid ""
 "New password must <strong>NOT</strong> contain more than "
 "<strong>%s</strong> characters."
 msgstr ""
-"Az új jelszó <strong> nem </ strong> tartalmaz többet mint<strong>%s "
-"</strong> karakter."
+"A nova senha <strong>NÃO</strong> pode mais que  <strong>%s</strong> "
+"characteres."
 
 #: ../templates/default/ldap/macros.html:218
 msgid "Old password"
-msgstr "Régi jelszó"
+msgstr "Senha antiga"
 
 #: ../templates/default/ldap/macros.html:226
 msgid "New password"
-msgstr "Új jelszó"
+msgstr "Nova senha"
 
 #: ../templates/default/ldap/macros.html:234
 msgid "Confirm new password"
-msgstr "Jelszó megismétlése"
+msgstr "Confirmar nova senha"
 
 #: ../templates/default/ldap/macros.html:234
 msgid "Re-enter your password exactly as before."
-msgstr "Írd be pontosan az új jelszót."
+msgstr "Re-digite sua senha exatamente como anteriormente"
 
 #: ../templates/default/ldap/macros.html:246
 msgid "Mail quota (in MB)"
-msgstr "E-mail kvóta (MB-okban)"
+msgstr "Cota de Email (em MB)"
 
 #: ../templates/default/ldap/macros.html:247
 msgid "Current quota:"
-msgstr "Aktuális kvóta"
+msgstr "Cota Atual:"
 
 #: ../templates/default/ldap/macros.html:247
 #: ../templates/default/ldap/users.html:104
 msgid "Unlimited"
-msgstr "Korlátlan"
+msgstr "Ilimitada"
 
 #: ../templates/default/ldap/msgHandlers.html:28
 msgid "Username or password is incorrect."
-msgstr "A felhasználó vagy a jelszó nem megfelelő."
+msgstr "Nome de usuário ou senha incorretos"
 
 #: ../templates/default/ldap/msgHandlers.html:30
 msgid "Username must be an valid email address."
-msgstr "Felhasználónak kell egy érvényes e-mail."
+msgstr "Nome de usuário precisa ser um endereço de email válido"
 
 #: ../templates/default/ldap/msgHandlers.html:32
 msgid "Login required"
-msgstr "Belépés kötelező"
+msgstr "Login necessário"
 
 #: ../templates/default/ldap/msgHandlers.html:34
 msgid "Username or password is empty."
-msgstr "A felhasználó vagy a jelszó hiányzik"
+msgstr "Nome de usuário ou senha estão vázios"
 
 #: ../templates/default/ldap/msgHandlers.html:50
 msgid "Domain was created."
-msgstr "Létrejött az új domain."
+msgstr "Domínio foi criado"
 
 #: ../templates/default/ldap/msgHandlers.html:52
 #: ../templates/default/ldap/msgHandlers.html:128
 msgid "Profile update success."
-msgstr "Beállítások frissitése sikerült."
+msgstr "Perfil atualizado com sucesso"
 
 #: ../templates/default/ldap/msgHandlers.html:54
 msgid "Selected domains were deleted."
-msgstr "A kijelölt domain törölve lett."
+msgstr "Domínios selecionados que serão apagados"
 
 #: ../templates/default/ldap/msgHandlers.html:56
 msgid "Selected domains were diabled."
-msgstr "A kijelölt domain le lett tiltva."
+msgstr "Domínios selecionados que serão desativados"
 
 #: ../templates/default/ldap/msgHandlers.html:58
 msgid "Selected domains were enabled."
-msgstr "A kijelölt domain engedélyezve lett."
+msgstr "Domínios selecionados que serão ativados"
 
 #: ../templates/default/ldap/msgHandlers.html:62
 msgid "Domain name is empty."
-msgstr "A domain neve hiányzik."
+msgstr "Nome de domínio está vázio"
 
 #: ../templates/default/ldap/msgHandlers.html:64
 msgid ""
 "Server-side size limit exceeded. Please increase \"sizelimit\" in your "
 "LDAP server."
 msgstr ""
-"A szerver oldali mérethatárt túllépted. Kérlek növeld \"sizelimit\" a "
-"saját LDAP szervered."
+"Server-side size limit exceeded. Please increase \"sizelimit\" in your "
+"LDAP server."
 
 #: ../templates/default/ldap/msgHandlers.html:66
 msgid "Permission denied."
-msgstr "Hozzáférés megtagadva."
+msgstr "Permissão Negada"
 
 #: ../templates/default/ldap/msgHandlers.html:68
 msgid "No such domain."
-msgstr " Nincs ilyen domain."
+msgstr "Domínio não encontrado"
 
 #: ../templates/default/ldap/msgHandlers.html:70
 msgid "Incorrect profile type."
-msgstr "Helytelen profil típus."
+msgstr "Tipo de perfil incorreto"
 
 #: ../templates/default/ldap/msgHandlers.html:72
 msgid "Submited domain name is incorrect."
-msgstr "Nem megfelelő domain név."
+msgstr "Domínio submetido é incorreto"
 
 #: ../templates/default/ldap/msgHandlers.html:84
 msgid "Profile updated success."
-msgstr "Az adatlap frissitése sikerült."
+msgstr "Perfil atualizado com sucesso."
 
 #: ../templates/default/ldap/msgHandlers.html:86
 msgid "Profile updated failed."
-msgstr "Az adatlap mentése meghiúsult."
+msgstr "Atualização de perfil falhou."
 
 #: ../templates/default/ldap/msgHandlers.html:90
 msgid "No domain under control."
-msgstr "Nincs szabályozandó domain"
+msgstr "Não há domínio sob o seu controle"
 
 #: ../templates/default/ldap/msgHandlers.html:94
 #: ../templates/default/ldap/msgHandlers.html:134
 msgid "Selected accounts were deleted."
-msgstr "A kijelölt felhasználó(k) törölve."
+msgstr "Contas selecionadas serão apagadas."
 
 #: ../templates/default/ldap/msgHandlers.html:96
 #: ../templates/default/ldap/msgHandlers.html:136
 msgid "Selected accounts were disabled."
-msgstr "A kijelölt felhasználó(k) letiltva."
+msgstr "Contas selecionadas serão desativadas."
 
 #: ../templates/default/ldap/msgHandlers.html:98
 #: ../templates/default/ldap/msgHandlers.html:138
 msgid "Selected accounts were enabled."
-msgstr "A kijelölt felhasználó(k) engedélyezve."
+msgstr "Contas selecionadas serão ativadas."
 
 #: ../templates/default/ldap/msgHandlers.html:100
 #, python-format
 msgid "Invalid profile type: %s."
-msgstr "Hibás profil típus: %s."
+msgstr "Tipo: %s de perfil inválido"
 
 #: ../templates/default/ldap/msgHandlers.html:104
 #: ../templates/default/ldap/msgHandlers.html:144
 msgid "Current password is incorrect."
-msgstr "Az aktuális jelszó nem egyezik."
+msgstr "Senha atual esta incorreta."
 
 #: ../templates/default/ldap/msgHandlers.html:106
 #: ../templates/default/ldap/msgHandlers.html:146
 msgid "New passwords are not match."
-msgstr "Az új jelszavak nem egyeznek."
+msgstr "Nova senha não confere"
 
 #: ../templates/default/ldap/msgHandlers.html:108
 #: ../templates/default/ldap/msgHandlers.html:148
 msgid "Password is empty."
-msgstr "A jelszó üres."
+msgstr "Senha está em branco"
 
 #: ../templates/default/ldap/msgHandlers.html:110
 #: ../templates/default/ldap/msgHandlers.html:150
 #, python-format
 msgid "New password must contain at least %s characters."
-msgstr "Az új jelszónak tartalmaznia kell legalább %s karaktert."
+msgstr "Nova senha necessita conter no mínimo %s characteres."
 
 #: ../templates/default/ldap/msgHandlers.html:112
 #: ../templates/default/ldap/msgHandlers.html:152
 #, python-format
 msgid "New password must NOT contain more than %s characters."
-msgstr "Az új jelszó NEM tartalmaz több mint %s karaktert."
+msgstr "Nova senha não pode conter mais que %s characteres."
 
 #: ../templates/default/ldap/msgHandlers.html:115
 #: ../templates/default/ldap/msgHandlers.html:155
 msgid "Account already exists, please choose another username."
-msgstr "A felhasználó már létezik, adj meg másik felhasználó nevet."
+msgstr "Conta existente!, por favor escolha outro nome de usuário. "
 
 #: ../templates/default/ldap/msgHandlers.html:126
 #, python-format
@@ -670,57 +671,57 @@ msgid ""
 "Account created success. Would you like to <a "
 "href=\"%s/create/admin\">add one more</a>?"
 msgstr ""
-"A felhasználó sikeresen létrehozva. Szeretnél <a "
-"href=\"%s/create/admin\"> hozzádni újabbat</a>?"
+"Conta criada com sucesso. gostaria de <a "
+"href=\"%s/create/admin\">adicionar mais uma</a>?"
 
 #: ../templates/default/ldap/msgHandlers.html:130
 msgid "You are NOT permited to view/update other's profile."
-msgstr "Nincs jogosultságod megnézni/modositani más profilját."
+msgstr "Você NÃO esta permitido a ver/atualizar outros perfis"
 
 #: ../templates/default/ldap/msgHandlers.html:140
 msgid "No account selected."
-msgstr "Nincs felhasználó kiválasztva."
+msgstr "não há conta selecionada"
 
 #: ../templates/default/ldap/user_create.html:40
 #: ../templates/default/ldap/user_create.html:45
 #: ../templates/default/ldap/users.html:49
 msgid "Create new mail user"
-msgstr "Új felhasználó"
+msgstr "Criar um novo usuários de Email"
 
 #: ../templates/default/ldap/user_profile.html:44
 #: ../templates/default/ldap/users.html:96
 msgid "Edit user profile"
-msgstr "Felhasználó profiljának szerkesztése"
+msgstr "Editar um perfil de usuário"
 
 #: ../templates/default/ldap/user_profile.html:52
 msgid "Reset Password"
-msgstr "Új jelszó"
+msgstr "Redefinir Senha"
 
 #: ../templates/default/ldap/user_profile.html:56
 msgid "Back to user list"
-msgstr "Vissza a felhasználókhoz"
+msgstr "Voltar para lista de usuários"
 
 #: ../templates/default/ldap/user_profile.html:84
 msgid "No avatar available."
-msgstr "A kép nem elérhető."
+msgstr "Não há identificação disponével"
 
 #: ../templates/default/ldap/users.html:31
 msgid "Mail Users"
-msgstr "E-mail felhasználók"
+msgstr "Usuários de Email"
 
 #: ../templates/default/ldap/users.html:36
 msgid "View users under domain:"
-msgstr "Domainhoz tartozó felhasználok:"
+msgstr "Ver usuários sob o domínio:"
 
 #: ../templates/default/ldap/users.html:39
 msgid "Select one domain"
-msgstr "Domain kiválasztása"
+msgstr "Selecionar um domínio"
 
 #: ../templates/default/ldap/users.html:51
 msgid "View/Update domain profile"
-msgstr "Domain Megtekintése/Módosítása"
+msgstr "Ver/Atualizar perfil de domínio"
 
 #: ../templates/default/ldap/users.html:70
 msgid "Quota"
-msgstr "Kvóta"
+msgstr "Cota"
 

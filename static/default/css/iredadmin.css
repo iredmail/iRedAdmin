@@ -592,7 +592,7 @@ D - COMMON INTERFACE ELEMENTS
     float: left;
     }
 
-#brd-visit #welcome span a.active {
+#brd-visit #welcome span a.active, #brd-visit #visit-links span a.active {
     text-decoration: none;
     font-weight: bold;
     }
@@ -1976,6 +1976,17 @@ table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSo
     background-repeat: no-repeat;
     background-position: left center;
     padding-left: 1.5em;
+}
+
+.brd .import {
+    background-image: url(../images/download.png);
+    background-repeat: no-repeat;
+    background-position: left center;
+    padding-left: 1.5em;
+}
+
+.brd .errormsg {
+    background-color: #FFBABA;
 }
 
 .brd #footer {

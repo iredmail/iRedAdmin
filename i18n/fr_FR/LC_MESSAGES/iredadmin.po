@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: iRedAdmin 1.0\n"
+"Project-Id-Version: iRedAdmin 0.1.1\n"
 "Report-Msgid-Bugs-To: michaelbibby@gmail.com\n"
 "POT-Creation-Date: 2009-10-04 00:45+0800\n"
-"PO-Revision-Date: 2009-10-29 00:24+0800\n"
+"PO-Revision-Date: 2009-12-03 13:20+0800\n"
 "Last-Translator: Mael LE SAOUT <mael.lesaout@gmail.com>\n"
 "Language-Team: fr_FR <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
@@ -16,720 +16,494 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.4\n"
 
-#: ../templates/default/ldap/admin_create.html:19
-#: ../templates/default/ldap/admin_create.html:24
-#: ../templates/default/ldap/admins.html:14
+#: ../templates/default/ldap/admin_create.html:41
+#: ../templates/default/ldap/admin_create.html:46
+#: ../templates/default/ldap/admins.html:37
+#: ../templates/default/ldap/macros.html:179
 msgid "Create new mail admin"
 msgstr "Créer un nouvel administrateur du domaine"
 
-#: ../templates/default/ldap/admin_create.html:43
-#: ../templates/default/ldap/admin_create.html:46
-#: ../templates/default/ldap/admin_profile.html:60
-#: ../templates/default/ldap/admins.html:31
-#: ../templates/default/ldap/alias_create.html:30
-#: ../templates/default/ldap/alias_profile.html:53
-#: ../templates/default/ldap/alias_profile.html:81
-#: ../templates/default/ldap/aliases.html:42
-#: ../templates/default/ldap/maillist_create.html:30
-#: ../templates/default/ldap/maillist_profile.html:51
-#: ../templates/default/ldap/maillist_profile.html:92
-#: ../templates/default/ldap/maillists.html:42
-#: ../templates/default/ldap/user_create.html:40
-#: ../templates/default/ldap/user_profile.html:99
-#: ../templates/default/ldap/users.html:54
+#: ../templates/default/ldap/admin_create.html:65
+#: ../templates/default/ldap/admin_create.html:68
+#: ../templates/default/ldap/admin_profile.html:72
+#: ../templates/default/ldap/admins.html:54
+#: ../templates/default/ldap/user_create.html:63
+#: ../templates/default/ldap/user_profile.html:88
+#: ../templates/default/ldap/users.html:68
 msgid "Mail Address"
 msgstr "Adresse de Messagerie"
 
-#: ../templates/default/ldap/admin_create.html:46
-#: ../templates/default/ldap/alias_create.html:30
-#: ../templates/default/ldap/domain_create.html:30
-#: ../templates/default/ldap/login.html:46
-#: ../templates/default/ldap/login.html:53
-#: ../templates/default/ldap/macros.html:331
-#: ../templates/default/ldap/macros.html:339
-#: ../templates/default/ldap/macros.html:347
-#: ../templates/default/ldap/maillist_create.html:30
-#: ../templates/default/ldap/user_create.html:40
+#: ../templates/default/ldap/admin_create.html:68
+#: ../templates/default/ldap/domain_create.html:53
+#: ../templates/default/ldap/login.html:63
+#: ../templates/default/ldap/login.html:70
+#: ../templates/default/ldap/macros.html:218
+#: ../templates/default/ldap/macros.html:226
+#: ../templates/default/ldap/macros.html:234
+#: ../templates/default/ldap/user_create.html:63
 msgid "(Required)"
 msgstr "(Requis)"
 
-#: ../templates/default/ldap/admin_create.html:60
-#: ../templates/default/ldap/alias_create.html:46
-#: ../templates/default/ldap/domain_create.html:40
-#: ../templates/default/ldap/maillist_create.html:46
-#: ../templates/default/ldap/user_create.html:65
+#: ../templates/default/ldap/admin_create.html:80
+#: ../templates/default/ldap/domain_create.html:63
+#: ../templates/default/ldap/user_create.html:88
 msgid "Create"
 msgstr "Créer"
 
-#: ../templates/default/ldap/admin_profile.html:27
+#: ../templates/default/ldap/admin_profile.html:41
 msgid "Edit admin profile"
 msgstr "Editer le profil administrateur"
 
-#: ../templates/default/ldap/admin_profile.html:31
-#: ../templates/default/ldap/alias_profile.html:21
-#: ../templates/default/ldap/maillist_profile.html:20
-#: ../templates/default/ldap/user_profile.html:33
+#: ../templates/default/ldap/admin_profile.html:45
+#: ../templates/default/ldap/user_profile.html:51
 msgid "General"
 msgstr "Général"
 
-#: ../templates/default/ldap/admin_profile.html:33
-msgid "Managed Domains"
-msgstr "Activer ce domaine"
-
-#: ../templates/default/ldap/admin_profile.html:35
+#: ../templates/default/ldap/admin_profile.html:46
 msgid "Reset password"
 msgstr "Réinitialiser le mot de passe"
 
-#: ../templates/default/ldap/admin_profile.html:40
+#: ../templates/default/ldap/admin_profile.html:51
 msgid "Back to admin list"
 msgstr "Retour à la liste des administrateurs"
 
-#: ../templates/default/ldap/admin_profile.html:59
-#: ../templates/default/ldap/admin_profile.html:60
-#: ../templates/default/ldap/admin_profile.html:61
-#: ../templates/default/ldap/alias_profile.html:52
-#: ../templates/default/ldap/alias_profile.html:53
-#: ../templates/default/ldap/alias_profile.html:54
-#: ../templates/default/ldap/maillist_profile.html:50
-#: ../templates/default/ldap/maillist_profile.html:51
-#: ../templates/default/ldap/maillist_profile.html:52
-#: ../templates/default/ldap/user_profile.html:98
-#: ../templates/default/ldap/user_profile.html:99
-#: ../templates/default/ldap/user_profile.html:100
-#: ../templates/default/ldap/user_profile.html:101
+#: ../templates/default/ldap/admin_profile.html:71
+#: ../templates/default/ldap/admin_profile.html:72
+#: ../templates/default/ldap/admin_profile.html:73
+#: ../templates/default/ldap/user_profile.html:87
+#: ../templates/default/ldap/user_profile.html:88
+#: ../templates/default/ldap/user_profile.html:89
+#: ../templates/default/ldap/user_profile.html:90
 msgid ":"
 msgstr ":"
 
-#: ../templates/default/ldap/admin_profile.html:59
-#: ../templates/default/ldap/admins.html:30
-#: ../templates/default/ldap/alias_profile.html:52
-#: ../templates/default/ldap/aliases.html:41
-#: ../templates/default/ldap/macros.html:35
-#: ../templates/default/ldap/maillist_profile.html:50
-#: ../templates/default/ldap/maillist_profile.html:91
-#: ../templates/default/ldap/maillists.html:41
-#: ../templates/default/ldap/user_profile.html:98
-#: ../templates/default/ldap/users.html:53
+#: ../templates/default/ldap/admin_profile.html:71
+#: ../templates/default/ldap/admins.html:53
+#: ../templates/default/ldap/macros.html:58
+#: ../templates/default/ldap/user_profile.html:87
+#: ../templates/default/ldap/users.html:67
 msgid "Display Name"
 msgstr "Nom Affiché"
 
-#: ../templates/default/ldap/admin_profile.html:61
-#: ../templates/default/ldap/alias_profile.html:54
-#: ../templates/default/ldap/domain_profile.html:110
-#: ../templates/default/ldap/maillist_profile.html:52
-#: ../templates/default/ldap/maillist_profile.html:81
-#: ../templates/default/ldap/user_profile.html:101
-#: ../templates/default/ldap/users.html:42
+#: ../templates/default/ldap/admin_profile.html:73
+#: ../templates/default/ldap/domain_profile.html:85
+#: ../templates/default/ldap/user_profile.html:90
+#: ../templates/default/ldap/users.html:71
 msgid "Created Date"
 msgstr "Date de Création"
 
-#: ../templates/default/ldap/admin_profile.html:108
-#: ../templates/default/ldap/alias_profile.html:120
-#: ../templates/default/ldap/domain_profile.html:173
-#: ../templates/default/ldap/maillist_profile.html:155
-#: ../templates/default/ldap/user_profile.html:168
+#: ../templates/default/ldap/admin_profile.html:109
+#: ../templates/default/ldap/domain_profile.html:100
+#: ../templates/default/ldap/user_profile.html:115
 msgid "Save changes"
 msgstr "Sauvegarder les changements"
 
-#: ../templates/default/ldap/admins.html:6
+#: ../templates/default/ldap/admins.html:29
 msgid "Domain Admins"
 msgstr "Administrateurs du Domaine"
 
-#: ../templates/default/ldap/admins.html:10
+#: ../templates/default/ldap/admins.html:33
 msgid "All mail administrators."
 msgstr "Tous les administrateurs de messagerie."
 
-#: ../templates/default/ldap/admins.html:10
-#: ../templates/default/ldap/aliases.html:21
-#: ../templates/default/ldap/domains.html:16
-#: ../templates/default/ldap/maillists.html:21
-#: ../templates/default/ldap/users.html:22
+#: ../templates/default/ldap/admins.html:33
+#: ../templates/default/ldap/domains.html:33
+#: ../templates/default/ldap/users.html:45
 #, python-format
 msgid "Total: %s."
 msgstr "Total: %s."
 
-#: ../templates/default/ldap/admins.html:32
+#: ../templates/default/ldap/admins.html:55
 msgid "Global Admin"
 msgstr "Administrateur Global"
 
-#: ../templates/default/ldap/admins.html:54
+#: ../templates/default/ldap/admins.html:77
 msgid "Edit admin profile."
 msgstr "Modifier un profil administrateur."
 
-#: ../templates/default/ldap/admins.html:67
-#: ../templates/default/ldap/alias_profile.html:105
-#: ../templates/default/ldap/aliases.html:77
-#: ../templates/default/ldap/domains.html:83
-#: ../templates/default/ldap/maillist_profile.html:138
-#: ../templates/default/ldap/maillists.html:78
-#: ../templates/default/ldap/users.html:101
+#: ../templates/default/ldap/admins.html:90
+#: ../templates/default/ldap/domains.html:86
+#: ../templates/default/ldap/users.html:115
 msgid "Select/Unselect all"
 msgstr "Sélectionner/Désélectionnner tout"
 
-#: ../templates/default/ldap/admins.html:68
-#: ../templates/default/ldap/aliases.html:78
-#: ../templates/default/ldap/domains.html:84
-#: ../templates/default/ldap/maillists.html:79
-#: ../templates/default/ldap/users.html:102
+#: ../templates/default/ldap/admins.html:91
+#: ../templates/default/ldap/domains.html:87
+#: ../templates/default/ldap/users.html:116
 msgid "Delete"
 msgstr "Supprimer"
 
-#: ../templates/default/ldap/admins.html:68
-#: ../templates/default/ldap/aliases.html:78
-#: ../templates/default/ldap/maillists.html:79
-#: ../templates/default/ldap/users.html:102
+#: ../templates/default/ldap/admins.html:91
+#: ../templates/default/ldap/users.html:116
 msgid "Are you sure want to delete selected account(s)?"
 msgstr "Êtes-vous sur de vouloir supprimer le(s) compte(s) sélectionné(s)?"
 
-#: ../templates/default/ldap/admins.html:69
-#: ../templates/default/ldap/aliases.html:79
-#: ../templates/default/ldap/domains.html:85
-#: ../templates/default/ldap/maillists.html:80
-#: ../templates/default/ldap/users.html:103
+#: ../templates/default/ldap/admins.html:92
+#: ../templates/default/ldap/domains.html:88
+#: ../templates/default/ldap/users.html:117
 msgid "Disable"
 msgstr "Désactiver"
 
-#: ../templates/default/ldap/admins.html:69
-#: ../templates/default/ldap/aliases.html:79
-#: ../templates/default/ldap/maillists.html:80
-#: ../templates/default/ldap/users.html:103
+#: ../templates/default/ldap/admins.html:92
+#: ../templates/default/ldap/users.html:117
 msgid "Are you sure want to disable selected account(s)?"
 msgstr "Êtes-vous sur de vouloir désactiver le(s) compte(s) sélectionné(s)?"
 
-#: ../templates/default/ldap/admins.html:70
-#: ../templates/default/ldap/aliases.html:80
-#: ../templates/default/ldap/domains.html:86
-#: ../templates/default/ldap/maillists.html:81
-#: ../templates/default/ldap/users.html:104
+#: ../templates/default/ldap/admins.html:93
+#: ../templates/default/ldap/domains.html:89
+#: ../templates/default/ldap/users.html:118
 msgid "Enable"
 msgstr "Activer"
 
-#: ../templates/default/ldap/admins.html:70
-#: ../templates/default/ldap/aliases.html:80
-#: ../templates/default/ldap/maillists.html:81
-#: ../templates/default/ldap/users.html:104
+#: ../templates/default/ldap/admins.html:93
+#: ../templates/default/ldap/users.html:118
 msgid "Are you sure want to enable selected account(s)?"
 msgstr "Êtes-vous sur de vouloir activer le(s) compte(s) sélectionné(s)?"
 
-#: ../templates/default/ldap/alias_create.html:12
-#: ../templates/default/ldap/alias_create.html:17
-#: ../templates/default/ldap/aliases.html:25
-msgid "Create new mail alias"
-msgstr "Créer un nouvel administrateur du domaine"
-
-#: ../templates/default/ldap/alias_profile.html:14
-msgid "Edit mail alias profile"
-msgstr "Modifier le profil du domaine."
-
-#: ../templates/default/ldap/alias_profile.html:22
-#: ../templates/default/ldap/maillist_profile.html:21
-msgid "Members"
-msgstr "Se souvenir de moi"
-
-#: ../templates/default/ldap/alias_profile.html:26
-msgid "Back to mail alias list"
-msgstr "Retour à la liste des administrateurs"
-
-#: ../templates/default/ldap/alias_profile.html:69
-#: ../templates/default/ldap/maillist_profile.html:67
-msgid "Current members"
-msgstr "Version actuelle d'iRedAdmin"
-
-#: ../templates/default/ldap/alias_profile.html:69
-#: ../templates/default/ldap/maillist_profile.html:67
-#: ../templates/default/ldap/maillist_profile.html:68
-#: ../templates/default/ldap/user_profile.html:130
-#, python-format
-msgid "(%s)"
-msgstr "%s (%s)"
-
-#: ../templates/default/ldap/alias_profile.html:70
-msgid "Add members"
-msgstr ""
-
-#: ../templates/default/ldap/alias_profile.html:106
-msgid "Remove from alias"
-msgstr ""
-
-#: ../templates/default/ldap/alias_profile.html:106
-msgid "Are you sure want to remove selected account(s) from alias?"
-msgstr "Êtes-vous sur de vouloir activer le(s) compte(s) sélectionné(s)?"
-
-#: ../templates/default/ldap/alias_profile.html:110
-msgid "Assign to alias"
-msgstr ""
-
-#: ../templates/default/ldap/alias_profile.html:110
-msgid "Are you sure want to assign selected account(s) to alias?"
-msgstr "Êtes-vous sur de vouloir activer le(s) compte(s) sélectionné(s)?"
-
-#: ../templates/default/ldap/aliases.html:7
-#: ../templates/default/ldap/domains.html:42
-msgid "Mail Aliases"
-msgstr "Utilisateurs de Messagerie"
-
-#: ../templates/default/ldap/aliases.html:12
-msgid "View aliases under domain:"
-msgstr "Afficher les utilisateurs du domaine:"
-
-#: ../templates/default/ldap/aliases.html:15
-#: ../templates/default/ldap/maillists.html:15
-#: ../templates/default/ldap/users.html:16
-msgid "Select a domain"
-msgstr "Sélectionner un domaine"
-
-#: ../templates/default/ldap/aliases.html:26
-#: ../templates/default/ldap/maillists.html:26
-#: ../templates/default/ldap/users.html:28
-msgid "View/Update domain profile"
-msgstr "Afficher/Mettre à jour le profile du domaine"
-
-#: ../templates/default/ldap/checknew.html:7
+#: ../templates/default/ldap/checknew.html:30
 msgid "Software update"
 msgstr "Mise à jour du logiciel"
 
-#: ../templates/default/ldap/checknew.html:14
-#: ../templates/default/ldap/dashboard.html:47
+#: ../templates/default/ldap/checknew.html:37
+#: ../templates/default/ldap/dashboard.html:86
 msgid "Check new version"
 msgstr "Vérifier les nouvelles versions"
 
-#: ../templates/default/ldap/checknew.html:20
+#: ../templates/default/ldap/checknew.html:43
 msgid "Current iRedAdmin version"
 msgstr "Version actuelle d'iRedAdmin"
 
-#: ../templates/default/ldap/checknew.html:26
+#: ../templates/default/ldap/checknew.html:49
 msgid "New version available"
 msgstr "Nouvelle version disponible"
 
-#: ../templates/default/ldap/checknew.html:27
+#: ../templates/default/ldap/checknew.html:50
 msgid "Release note"
 msgstr "Note de version"
 
-#: ../templates/default/ldap/checknew.html:27
+#: ../templates/default/ldap/checknew.html:50
 msgid "Download"
 msgstr "Télécharger"
 
-#: ../templates/default/ldap/checknew.html:29
+#: ../templates/default/ldap/checknew.html:52
 msgid "Version status"
 msgstr "Statut de la version"
 
-#: ../templates/default/ldap/checknew.html:30
+#: ../templates/default/ldap/checknew.html:53
 msgid "Your iRedAdmin is up to date."
 msgstr "Votre iRedAdmin est à jour."
 
-#: ../templates/default/ldap/checknew.html:33
+#: ../templates/default/ldap/checknew.html:56
 msgid "Error while check new version"
 msgstr "Erreur pendant la vérification des nouvelles versions"
 
-#: ../templates/default/ldap/dashboard.html:7
-#: ../templates/default/ldap/layout.html:40
+#: ../templates/default/ldap/dashboard.html:31
+#: ../templates/default/ldap/layout.html:63
 msgid "Dashboard"
 msgstr "Tableau de bord"
 
-#: ../templates/default/ldap/dashboard.html:16
+#: ../templates/default/ldap/dashboard.html:40
 msgid "Available operations"
 msgstr "Opérations disponibles"
 
-#: ../templates/default/ldap/dashboard.html:22
+#: ../templates/default/ldap/dashboard.html:46
 msgid "Create new"
 msgstr "Créer un nouveau"
 
-#: ../templates/default/ldap/dashboard.html:25
+#: ../templates/default/ldap/dashboard.html:49
 msgid "Mail Domain"
 msgstr "Domaine de Messagerie"
 
-#: ../templates/default/ldap/dashboard.html:26
+#: ../templates/default/ldap/dashboard.html:50
 msgid "Domain Admin"
 msgstr "Administrateur de Domaine"
 
-#: ../templates/default/ldap/dashboard.html:28
+#: ../templates/default/ldap/dashboard.html:52
 msgid "Mail User"
 msgstr "Utilidateur de Messagerie"
 
-#: ../templates/default/ldap/dashboard.html:29
-msgid "Mail List"
+#: ../templates/default/ldap/dashboard.html:59
+msgid "Need more features?"
 msgstr ""
 
-#: ../templates/default/ldap/dashboard.html:30
-msgid "Mail Alias"
-msgstr "Domaines de Messagerie"
+#: ../templates/default/ldap/dashboard.html:61
+msgid ""
+"Purchase Full-featured Edition to support iRedMail project and get more "
+"features."
+msgstr ""
 
-#: ../templates/default/ldap/dashboard.html:40
+#: ../templates/default/ldap/dashboard.html:62
+msgid "For example:"
+msgstr ""
+
+#: ../templates/default/ldap/dashboard.html:65
+
+msgid "Unlimited number of mail lists"
+msgstr "Nombre illimité de listes de messagerie"
+
+#: ../templates/default/ldap/dashboard.html:66
+
+msgid "Unlimited number of mail aliases"
+msgstr "Nombre illimité d'alias de messagerie"
+
+#: ../templates/default/ldap/dashboard.html:67
+
+msgid "Per-user mail forwarding control"
+msgstr "Contrôle du transfert de messages par utilisateurs"
+
+#: ../templates/default/ldap/dashboard.html:68
+
+msgid "Per-user service control"
+msgstr "Contrôle des services par utilisateurs"
+
+#: ../templates/default/ldap/dashboard.html:69
+msgid "Admin type control (Global/Normal Admin)"
+msgstr ""
+
+#: ../templates/default/ldap/dashboard.html:79
 msgid "System info"
 msgstr "Informations Systèmes"
 
-#: ../templates/default/ldap/dashboard.html:46
+#: ../templates/default/ldap/dashboard.html:85
 msgid "iRedAdmin version"
 msgstr "Version d'iRedAdmin"
 
-#: ../templates/default/ldap/dashboard.html:51
+#: ../templates/default/ldap/dashboard.html:90
 msgid "Hostname"
 msgstr "Nom d'hôte"
 
-#: ../templates/default/ldap/dashboard.html:57
+#: ../templates/default/ldap/dashboard.html:96
 msgid "Uptime"
 msgstr "Uptime"
 
-#: ../templates/default/ldap/dashboard.html:58
+#: ../templates/default/ldap/dashboard.html:97
 #, python-format
 msgid "%s days, %s hours, %s minutes."
 msgstr "%s jours, %s heures, %s minutes."
 
-#: ../templates/default/ldap/dashboard.html:63
+#: ../templates/default/ldap/dashboard.html:102
 msgid "Server load"
 msgstr "Charge du serveur"
 
-#: ../templates/default/ldap/dashboard.html:73
+#: ../templates/default/ldap/dashboard.html:112
 msgid "Network interfaces"
 msgstr "Interfaces réseau"
 
-#: ../templates/default/ldap/domain_create.html:12
-#: ../templates/default/ldap/domain_create.html:17
-#: ../templates/default/ldap/domains.html:21
+#: ../templates/default/ldap/domain_create.html:35
+#: ../templates/default/ldap/domain_create.html:40
+#: ../templates/default/ldap/domains.html:38
 msgid "Create new mail domain"
 msgstr "Créer un nouveau domaine de messagerie"
 
-#: ../templates/default/ldap/domain_create.html:27
-#: ../templates/default/ldap/domain_create.html:30
-#: ../templates/default/ldap/domain_profile.html:98
-#: ../templates/default/ldap/domains.html:36
+#: ../templates/default/ldap/domain_create.html:50
+#: ../templates/default/ldap/domain_create.html:53
+#: ../templates/default/ldap/domain_profile.html:74
+#: ../templates/default/ldap/domains.html:53
 msgid "Domain Name"
 msgstr "Nom de Domaine"
 
-#: ../templates/default/ldap/domain_profile.html:25
+#: ../templates/default/ldap/domain_profile.html:40
 msgid "Edit domain profile."
 msgstr "Modifier le profil du domaine."
 
-#: ../templates/default/ldap/domain_profile.html:31
-msgid "Assigned Admins"
-msgstr "Administrateurs du Domaine"
-
-#: ../templates/default/ldap/domain_profile.html:41
-#: ../templates/default/ldap/layout.html:42
+#: ../templates/default/ldap/domain_profile.html:48
+#: ../templates/default/ldap/domains.html:54
+#: ../templates/default/ldap/layout.html:65
 msgid "Users"
 msgstr "Utilisateurs"
 
-#: ../templates/default/ldap/domain_profile.html:42
-#: ../templates/default/ldap/domains.html:41
-#: ../templates/default/ldap/layout.html:43
-#: ../templates/default/ldap/maillists.html:7
-msgid "Mail Lists"
-msgstr "Utilisateurs de Messagerie"
-
-#: ../templates/default/ldap/domain_profile.html:43
-#: ../templates/default/ldap/layout.html:44
-msgid "Aliases"
-msgstr ""
-
-#: ../templates/default/ldap/domain_profile.html:109
-#: ../templates/default/ldap/macros.html:33
+#: ../templates/default/ldap/domain_profile.html:84
+#: ../templates/default/ldap/macros.html:56
 msgid "Company/Organization"
 msgstr "Compagnie/Organisation"
 
-#: ../templates/default/ldap/domain_profile.html:128
-msgid "If no admin assigned for domain, you can also manage it with global admin."
-msgstr ""
-"Si aucun administrateur n'a été affecté, vous pouvez l'administrater avec"
-" un compte administrateur global."
-
-#: ../templates/default/ldap/domain_profile.html:165
-msgid "WARNING!"
-msgstr ""
-
-#: ../templates/default/ldap/domain_profile.html:165
-msgid "Domain BCC setting will override per-user bcc settings."
-msgstr ""
-
-#: ../templates/default/ldap/domains.html:12
+#: ../templates/default/ldap/domains.html:29
 msgid "Mail Domains"
 msgstr "Domaines de Messagerie"
 
-#: ../templates/default/ldap/domains.html:16
+#: ../templates/default/ldap/domains.html:33
 msgid "All domains under your control."
 msgstr "Tous les domaines sous votre controle."
 
-#: ../templates/default/ldap/domains.html:40
-#: ../templates/default/ldap/users.html:8
-msgid "Mail Users"
-msgstr "Utilisateurs de Messagerie"
-
-#: ../templates/default/ldap/domains.html:59
+#: ../templates/default/ldap/domains.html:71
 msgid "Edit domain profile"
 msgstr "Modifier le profil du domaine."
 
-#: ../templates/default/ldap/domains.html:68
+#: ../templates/default/ldap/domains.html:77
 msgid "List all mail users."
 msgstr "Afficher tous les utilisateurs de messagerie."
 
-#: ../templates/default/ldap/domains.html:71
-msgid "List all mail lists."
-msgstr "Afficher tous les utilisateurs de messagerie."
-
-#: ../templates/default/ldap/domains.html:74
-msgid "List all mail aliases."
-msgstr "Afficher tous les utilisateurs de messagerie."
-
-#: ../templates/default/ldap/domains.html:84
+#: ../templates/default/ldap/domains.html:87
 msgid "Are you sure want to delete selected domain(s) and accounts under it?"
 msgstr ""
 "Êtes-vous sûr de vouloir supprimer le(s) domaine(s) sélectionné(s) et les"
 " comptes qui en dépendent?"
 
-#: ../templates/default/ldap/domains.html:85
+#: ../templates/default/ldap/domains.html:88
 msgid "Are you sure want to disable selected domain(s)?"
 msgstr "Êtes-vous sûr de vouloir désactiver le(s) domaine(s) sélectionné(s)?"
 
-#: ../templates/default/ldap/domains.html:86
+#: ../templates/default/ldap/domains.html:89
 msgid "Are you sure want to enable selected domain(s)?"
 msgstr "Êtes-vous sûr de vouloir activer le(s) domaine(s) sélectionné(s)?"
 
-#: ../templates/default/ldap/error404.html:8
-#: ../templates/default/ldap/error404.html:14
+#: ../templates/default/ldap/error404.html:31
+#: ../templates/default/ldap/error404.html:37
 msgid "Page not found."
 msgstr "Page introuvable."
 
-#: ../templates/default/ldap/error404.html:8
-#: ../templates/default/ldap/error404.html:14
+#: ../templates/default/ldap/error404.html:31
+#: ../templates/default/ldap/error404.html:37
 #: ../templates/default/ldap/msgHandlers.html:9
 msgid "Error:"
 msgstr "Erreur:"
 
-#: ../templates/default/ldap/layout.html:28
+#: ../templates/default/ldap/error404.html:37
+msgid "Go back."
+msgstr ""
+
+#: ../templates/default/ldap/layout.html:51
 #, python-format
 msgid "Logged in as %s."
 msgstr "Connecté en tant que %s."
 
-#: ../templates/default/ldap/layout.html:29
+#: ../templates/default/ldap/layout.html:52
 msgid "Preferences"
 msgstr "Préférences"
 
-#: ../templates/default/ldap/layout.html:30
+#: ../templates/default/ldap/layout.html:53
 msgid "Logout"
 msgstr "Déconnexion"
 
-#: ../templates/default/ldap/layout.html:34
+#: ../templates/default/ldap/layout.html:57
 msgid "iRedMail Management"
 msgstr "Management iRedMail"
 
-#: ../templates/default/ldap/layout.html:41
+#: ../templates/default/ldap/layout.html:64
 msgid "Domains"
 msgstr "Domaines"
 
-#: ../templates/default/ldap/layout.html:47
+#: ../templates/default/ldap/layout.html:68
 msgid "Admins"
 msgstr "Administrateurs"
 
-#: ../templates/default/ldap/layout.html:69
-msgid "Feature request & get support"
+#: ../templates/default/ldap/layout.html:90
+#: ../templates/default/ldap/layout.html:92
+msgid "Get support"
 msgstr ""
 
-#: ../templates/default/ldap/layout.html:71
-msgid "Contact webmaster"
-msgstr ""
-
-#: ../templates/default/ldap/login.html:10
-#: ../templates/default/ldap/login.html:34
+#: ../templates/default/ldap/login.html:28
+#: ../templates/default/ldap/login.html:51
 msgid "Login to manage your mail domains & users"
 msgstr "Connectez-vous pour gérer votre domaine de messagerie & vos utilisateurs"
 
-#: ../templates/default/ldap/login.html:46
+#: ../templates/default/ldap/login.html:63
 msgid "Username"
 msgstr "Nom d'utilisateur"
 
-#: ../templates/default/ldap/login.html:46
+#: ../templates/default/ldap/login.html:63
 msgid "Must be a valid domain admin email address."
 msgstr "L'adresse de messagerie de l'administrateur du domaine doit être valide."
 
-#: ../templates/default/ldap/login.html:53
+#: ../templates/default/ldap/login.html:70
 msgid "Password"
 msgstr "Mot de passe"
 
-#: ../templates/default/ldap/login.html:61
+#: ../templates/default/ldap/login.html:78
 msgid "Remember me"
 msgstr "Se souvenir de moi"
 
-#: ../templates/default/ldap/login.html:61
+#: ../templates/default/ldap/login.html:78
 msgid "Log me in automatically each time I visit."
 msgstr "Me connecter automatiquement à chaque fois que je visite."
 
-#: ../templates/default/ldap/login.html:67
+#: ../templates/default/ldap/login.html:84
 msgid "Login"
 msgstr "Connexion"
 
-#: ../templates/default/ldap/macros.html:7
+#: ../templates/default/ldap/macros.html:30
 msgid "Status:"
 msgstr "Statut:"
 
-#: ../templates/default/ldap/macros.html:48
-#: ../templates/default/ldap/maillist_profile.html:93
-#: ../templates/default/ldap/user_profile.html:100
-#: ../templates/default/ldap/users.html:55
+#: ../templates/default/ldap/macros.html:71
+#: ../templates/default/ldap/user_profile.html:89
+#: ../templates/default/ldap/users.html:69
 msgid "User ID"
 msgstr "ID d'employé"
 
-#: ../templates/default/ldap/macros.html:57
-#: ../templates/default/ldap/macros.html:61
-#: ../templates/default/ldap/macros.html:67
+#: ../templates/default/ldap/macros.html:80
+#: ../templates/default/ldap/macros.html:84
+#: ../templates/default/ldap/macros.html:90
 msgid "Telephone Number"
 msgstr "Numéro de téléphone"
 
-#: ../templates/default/ldap/macros.html:80
+#: ../templates/default/ldap/macros.html:103
 msgid "Preferred language"
 msgstr "Langage par défaut"
 
-#: ../templates/default/ldap/macros.html:96
-msgid "Display mail address in global LDAP address book"
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:103
-msgid "Mark as global admin"
-msgstr "Administrateur Global"
-
-#: ../templates/default/ldap/macros.html:109
-#: ../templates/default/ldap/macros.html:114
-#: ../templates/default/ldap/macros.html:360
-#: ../templates/default/ldap/maillist_profile.html:127
-#: ../templates/default/ldap/users.html:90
-msgid "Unlimited"
-msgstr "Illimité"
-
-#: ../templates/default/ldap/macros.html:135
-msgid "Max quota size"
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:138
-msgid "Max quota size (in MB)"
-msgstr "Quota de messagerie (en MB)"
-
-#: ../templates/default/ldap/macros.html:140
-#, python-format
-msgid "Current quota size: <strong>%s</strong>."
-msgstr "La valeur par défaut est <strong>%s</strong>."
-
-#: ../templates/default/ldap/macros.html:141
-#: ../templates/default/ldap/macros.html:149
-#: ../templates/default/ldap/macros.html:157
-#: ../templates/default/ldap/macros.html:165
-msgid "Tip: 0 means unlimited."
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:146
-msgid "Max number of mail users"
-msgstr "Nombre illimité d'alias de messagerie"
-
-#: ../templates/default/ldap/macros.html:148
-#: ../templates/default/ldap/macros.html:156
-#: ../templates/default/ldap/macros.html:164
-#, python-format
-msgid "Current number: <strong>%s</strong>."
-msgstr "La valeur par défaut est <strong>%s</strong>."
-
-#: ../templates/default/ldap/macros.html:154
-msgid "Max number of mail lists"
-msgstr "Nombre illimité de listes de messagerie"
-
-#: ../templates/default/ldap/macros.html:162
-msgid "Max number of mail aliases"
-msgstr "Nombre illimité d'alias de messagerie"
-
-#: ../templates/default/ldap/macros.html:181
+#: ../templates/default/ldap/macros.html:124
 msgid "Enable this domain"
 msgstr "Activer ce domaine"
 
-#: ../templates/default/ldap/macros.html:183
+#: ../templates/default/ldap/macros.html:126
 msgid "Enable this account"
 msgstr "Activer ce compte"
 
-#: ../templates/default/ldap/macros.html:195
-#: ../templates/default/ldap/macros.html:197
+#: ../templates/default/ldap/macros.html:137
+#: ../templates/default/ldap/macros.html:139
 msgid "Backup MX"
 msgstr "MX de secours"
 
-#: ../templates/default/ldap/macros.html:201
+#: ../templates/default/ldap/macros.html:143
 msgid "Enabled"
 msgstr "Activer"
 
-#: ../templates/default/ldap/macros.html:205
+#: ../templates/default/ldap/macros.html:147
 msgid "Disabled"
 msgstr "Désactiver"
 
-#: ../templates/default/ldap/macros.html:219
-#: ../templates/default/ldap/user_profile.html:37
-msgid "Service Control"
-msgstr "Contrôle des services par utilisateurs"
-
-#: ../templates/default/ldap/macros.html:221
-msgid "Services control"
-msgstr "Contrôle des services par utilisateurs"
-
-#: ../templates/default/ldap/macros.html:226
-msgid "Mail service."
-msgstr "Utilidateur de Messagerie"
-
-#: ../templates/default/ldap/macros.html:226
-msgid "Check this box in order to enable all mail related services."
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:232
-msgid "Fetch mails via POP3."
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:237
-msgid "Fetch mails via IMAP."
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:242
-msgid "Sending mail via SMTP."
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:247
-msgid "Receiving mails."
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:252
-msgid "Customize mail filter rule."
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:260
-msgid "Display this account's mail address in global LDAP address book."
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:271
+#: ../templates/default/ldap/macros.html:157
 msgid "Domain admin assignment"
 msgstr "Affectation d'un administrateur à un domaine"
 
-#: ../templates/default/ldap/macros.html:283
-#: ../templates/default/ldap/macros.html:465
+#: ../templates/default/ldap/macros.html:157
+
+msgid "If no admin assigned, you can manage it with global admin."
+msgstr ""
+"Si aucun administrateur n'a été affecté, vous pouvez l'administrater avec"
+" un compte administrateur global."
+
+#: ../templates/default/ldap/macros.html:169
 #, python-format
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: ../templates/default/ldap/macros.html:287
+#: ../templates/default/ldap/macros.html:173
 msgid "(Global Admin)"
 msgstr "(Administrateur Global)"
 
-#: ../templates/default/ldap/macros.html:299
-#: ../templates/default/ldap/macros.html:302
+#: ../templates/default/ldap/macros.html:186
+#: ../templates/default/ldap/macros.html:189
 msgid "MTA transport"
 msgstr "MTA transport"
 
-#: ../templates/default/ldap/macros.html:302
+#: ../templates/default/ldap/macros.html:189
 #, python-format
 msgid "Default is <strong>%s</strong>."
 msgstr "La valeur par défaut est <strong>%s</strong>."
 
-#: ../templates/default/ldap/macros.html:303
+#: ../templates/default/ldap/macros.html:190
 msgid "Leave it empty to use default transport."
 msgstr "Laisser le vide pour utiliser le transport par défaut."
 
-#: ../templates/default/ldap/macros.html:314
+#: ../templates/default/ldap/macros.html:201
 #, python-format
 msgid "New password must contain at least <strong>%s</strong> characters."
 msgstr ""
 "Le nouveau mot de passe doit contenir au moins <strong>%s</strong> "
 "caractères."
 
-#: ../templates/default/ldap/macros.html:318
+#: ../templates/default/ldap/macros.html:205
 #, python-format
 msgid ""
 "New password must <strong>NOT</strong> contain more than "
@@ -738,140 +512,34 @@ msgstr ""
 "Le nouveau mot de passe <strong>NE</strong> doit <strong>PAS</strong> "
 "contenir plus de <strong>%s</strong> caractères."
 
-#: ../templates/default/ldap/macros.html:331
+#: ../templates/default/ldap/macros.html:218
 msgid "Old password"
 msgstr "Ancien mot de passe"
 
-#: ../templates/default/ldap/macros.html:339
+#: ../templates/default/ldap/macros.html:226
 msgid "New password"
 msgstr "Nouveau mot de passe"
 
-#: ../templates/default/ldap/macros.html:347
+#: ../templates/default/ldap/macros.html:234
 msgid "Confirm new password"
 msgstr "Confirmer le nouveau mot de passe"
 
-#: ../templates/default/ldap/macros.html:347
+#: ../templates/default/ldap/macros.html:234
 msgid "Re-enter your password exactly as before."
 msgstr "Re-entrer votre mot de passe exactement comme avant."
 
-#: ../templates/default/ldap/macros.html:359
+#: ../templates/default/ldap/macros.html:246
 msgid "Mail quota (in MB)"
 msgstr "Quota de messagerie (en MB)"
 
-#: ../templates/default/ldap/macros.html:360
+#: ../templates/default/ldap/macros.html:247
 msgid "Current quota:"
 msgstr "Quota actuel:"
 
-#: ../templates/default/ldap/macros.html:372
-msgid "Enable recipient BCC"
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:378
-#: ../templates/default/ldap/macros.html:381
-msgid "Recipient BCC address"
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:382
-#: ../templates/default/ldap/macros.html:407
-msgid "Multiple addresses are <strong>NOT</strong> supported."
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:391
-msgid "Sender BCC"
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:396
-msgid "Enable sender BCC"
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:401
-#: ../templates/default/ldap/macros.html:403
-#: ../templates/default/ldap/macros.html:406
-msgid "Sender BCC address"
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:420
-msgid "Enable mail forwarding"
-msgstr "Contrôle du transfert de messages par utilisateurs"
-
-#: ../templates/default/ldap/macros.html:424
-msgid "Save a copy in mailbox"
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:433
-msgid "Mail forwarding address"
-msgstr "Contrôle du transfert de messages par utilisateurs"
-
-#: ../templates/default/ldap/macros.html:435
-#: ../templates/default/ldap/macros.html:484
-msgid "One mail address per-line."
-msgstr ""
-
-#: ../templates/default/ldap/macros.html:453
-msgid "Domain assignment"
-msgstr "Affectation d'un administrateur à un domaine"
-
-#: ../templates/default/ldap/macros.html:482
-msgid "Add new alias members"
-msgstr ""
-
-#: ../templates/default/ldap/maillist_create.html:12
-#: ../templates/default/ldap/maillist_create.html:17
-#: ../templates/default/ldap/maillists.html:25
-msgid "Create new mail list"
-msgstr "Créer un nouveau utilisateur de messagerie"
-
-#: ../templates/default/ldap/maillist_profile.html:13
-msgid "Edit mail list profile"
-msgstr "Modifier le profil du domaine."
-
-#: ../templates/default/ldap/maillist_profile.html:28
-msgid "Back to maillist list"
-msgstr "Retour à la liste des administrateurs"
-
-#: ../templates/default/ldap/maillist_profile.html:68
-msgid "Add internal members"
-msgstr ""
-
-#: ../templates/default/ldap/maillist_profile.html:78
-#: ../templates/default/ldap/users.html:39
-msgid "Last Login Date"
-msgstr ""
-
-#: ../templates/default/ldap/maillist_profile.html:94
-#: ../templates/default/ldap/users.html:56
-msgid "Quota"
-msgstr "Quota"
-
-#: ../templates/default/ldap/maillist_profile.html:119
-#: ../templates/default/ldap/user_profile.html:26
-#: ../templates/default/ldap/users.html:82
-msgid "Edit user profile"
-msgstr "Modifier le profil de l'utilisateur"
-
-#: ../templates/default/ldap/maillist_profile.html:140
-msgid "Remove from list"
-msgstr ""
-
-#: ../templates/default/ldap/maillist_profile.html:140
-msgid "Are you sure want to remove selected account(s) from list?"
-msgstr "Êtes-vous sur de vouloir activer le(s) compte(s) sélectionné(s)?"
-
-#: ../templates/default/ldap/maillist_profile.html:144
-msgid "Assign to list"
-msgstr ""
-
-#: ../templates/default/ldap/maillist_profile.html:144
-msgid "Are you sure want to assign selected account(s) to list?"
-msgstr "Êtes-vous sur de vouloir activer le(s) compte(s) sélectionné(s)?"
-
-#: ../templates/default/ldap/maillists.html:12
-msgid "View mail lists under domain:"
-msgstr "Afficher les utilisateurs du domaine:"
-
-#: ../templates/default/ldap/maillists.html:43
-msgid "Access Policy"
-msgstr ""
+#: ../templates/default/ldap/macros.html:247
+#: ../templates/default/ldap/users.html:104
+msgid "Unlimited"
+msgstr "Illimité"
 
 #: ../templates/default/ldap/msgHandlers.html:28
 msgid "Username or password is incorrect."
@@ -895,7 +563,6 @@ msgstr "Le domaine a été créé."
 
 #: ../templates/default/ldap/msgHandlers.html:52
 #: ../templates/default/ldap/msgHandlers.html:128
-#: ../templates/default/ldap/msgHandlers.html:200
 msgid "Profile update success."
 msgstr "Profil mis à jour avec succès."
 
@@ -940,14 +607,10 @@ msgid "Submited domain name is incorrect."
 msgstr "Le nom de domaine soumis est incorrect."
 
 #: ../templates/default/ldap/msgHandlers.html:84
-#: ../templates/default/ldap/msgHandlers.html:173
-#: ../templates/default/ldap/msgHandlers.html:214
 msgid "Profile updated success."
 msgstr "Profil mis à jour avec succès."
 
 #: ../templates/default/ldap/msgHandlers.html:86
-#: ../templates/default/ldap/msgHandlers.html:175
-#: ../templates/default/ldap/msgHandlers.html:216
 msgid "Profile updated failed."
 msgstr "La mise à jour du profil a échoué."
 
@@ -957,22 +620,16 @@ msgstr "Tous les domaines sous votre controle."
 
 #: ../templates/default/ldap/msgHandlers.html:94
 #: ../templates/default/ldap/msgHandlers.html:134
-#: ../templates/default/ldap/msgHandlers.html:178
-#: ../templates/default/ldap/msgHandlers.html:203
 msgid "Selected accounts were deleted."
 msgstr "Le(s) compte(s) sélectionné(s) a(ont) été supprimé(s)."
 
 #: ../templates/default/ldap/msgHandlers.html:96
 #: ../templates/default/ldap/msgHandlers.html:136
-#: ../templates/default/ldap/msgHandlers.html:180
-#: ../templates/default/ldap/msgHandlers.html:205
 msgid "Selected accounts were disabled."
 msgstr "Le(s) compte(s) sélectionné(s) a(ont) été désactivé(s)."
 
 #: ../templates/default/ldap/msgHandlers.html:98
 #: ../templates/default/ldap/msgHandlers.html:138
-#: ../templates/default/ldap/msgHandlers.html:182
-#: ../templates/default/ldap/msgHandlers.html:207
 msgid "Selected accounts were enabled."
 msgstr "Le(s) compte(s) sélectionné(s) a(ont) été activé(s)."
 
@@ -1010,8 +667,6 @@ msgstr "Le nouveau mot de passe DOIT contenir plus de %s caractères."
 
 #: ../templates/default/ldap/msgHandlers.html:115
 #: ../templates/default/ldap/msgHandlers.html:155
-#: ../templates/default/ldap/msgHandlers.html:184
-#: ../templates/default/ldap/msgHandlers.html:198
 msgid "Account already exists, please choose another username."
 msgstr "Le compte existe déjà, veuillez choisir un autre nom d'utilisateur."
 
@@ -1032,44 +687,255 @@ msgstr "Vous n'êtes pas autorisés à voir/mettre à jour d'autres profils."
 msgid "No account selected."
 msgstr "Pas de compte sélectionné."
 
-#: ../templates/default/ldap/msgHandlers.html:169
-#: ../templates/default/ldap/msgHandlers.html:210
-msgid "Member assigned success."
-msgstr ""
-
-#: ../templates/default/ldap/msgHandlers.html:171
-#: ../templates/default/ldap/msgHandlers.html:212
-msgid "Member removed success."
-msgstr ""
-
-#: ../templates/default/ldap/user_create.html:17
-#: ../templates/default/ldap/user_create.html:22
-#: ../templates/default/ldap/users.html:26
+#: ../templates/default/ldap/user_create.html:40
+#: ../templates/default/ldap/user_create.html:45
+#: ../templates/default/ldap/users.html:49
 msgid "Create new mail user"
 msgstr "Créer un nouveau utilisateur de messagerie"
 
-#: ../templates/default/ldap/user_profile.html:36
-#: ../templates/default/ldap/user_profile.html:119
-msgid "Member of Mail Lists"
-msgstr "Nombre illimité de listes de messagerie"
+#: ../templates/default/ldap/user_profile.html:44
+#: ../templates/default/ldap/users.html:96
+msgid "Edit user profile"
+msgstr "Modifier le profil de l'utilisateur"
 
-#: ../templates/default/ldap/user_profile.html:38
-msgid "Mail Forwarding"
-msgstr "Contrôle du transfert de messages par utilisateurs"
+#: ../templates/default/ldap/user_profile.html:52
 
-#: ../templates/default/ldap/user_profile.html:40
-msgid "Reset Rassword"
+msgid "Reset Password"
 msgstr "Réinitialiser le mot de passe"
 
-#: ../templates/default/ldap/user_profile.html:49
+#: ../templates/default/ldap/user_profile.html:56
 msgid "Back to user list"
 msgstr "Retour à la liste des utilisateurs"
 
-#: ../templates/default/ldap/user_profile.html:95
+#: ../templates/default/ldap/user_profile.html:84
 msgid "No avatar available."
 msgstr "Pas d'avatar disponible."
 
-#: ../templates/default/ldap/users.html:13
+#: ../templates/default/ldap/users.html:31
+msgid "Mail Users"
+msgstr "Utilisateurs de Messagerie"
+
+#: ../templates/default/ldap/users.html:36
 msgid "View users under domain:"
 msgstr "Afficher les utilisateurs du domaine:"
+
+#: ../templates/default/ldap/users.html:39
+
+msgid "Select one domain"
+msgstr "Sélectionner un domaine"
+
+#: ../templates/default/ldap/users.html:51
+msgid "View/Update domain profile"
+msgstr "Afficher/Mettre à jour le profile du domaine"
+
+#: ../templates/default/ldap/users.html:70
+msgid "Quota"
+msgstr "Quota"
+
+#~ msgid "Managed Domains"
+#~ msgstr "Activer ce domaine"
+
+#~ msgid "Create new mail alias"
+#~ msgstr "Créer un nouvel administrateur du domaine"
+
+#~ msgid "Edit mail alias profile"
+#~ msgstr "Modifier le profil du domaine."
+
+#~ msgid "Members"
+#~ msgstr "Se souvenir de moi"
+
+#~ msgid "Back to mail alias list"
+#~ msgstr "Retour à la liste des administrateurs"
+
+#~ msgid "Current members"
+#~ msgstr "Version actuelle d'iRedAdmin"
+
+#~ msgid "(%s)"
+#~ msgstr "%s (%s)"
+
+#~ msgid "Add members"
+#~ msgstr ""
+
+#~ msgid "Remove from alias"
+#~ msgstr ""
+
+#~ msgid "Are you sure want to remove selected account(s) from alias?"
+#~ msgstr "Êtes-vous sur de vouloir activer le(s) compte(s) sélectionné(s)?"
+
+#~ msgid "Assign to alias"
+#~ msgstr ""
+
+#~ msgid "Are you sure want to assign selected account(s) to alias?"
+#~ msgstr "Êtes-vous sur de vouloir activer le(s) compte(s) sélectionné(s)?"
+
+#~ msgid "Mail Aliases"
+#~ msgstr "Utilisateurs de Messagerie"
+
+#~ msgid "View aliases under domain:"
+#~ msgstr "Afficher les utilisateurs du domaine:"
+
+#~ msgid "Mail List"
+#~ msgstr ""
+
+#~ msgid "Mail Alias"
+#~ msgstr "Domaines de Messagerie"
+
+#~ msgid "Assigned Admins"
+#~ msgstr "Administrateurs du Domaine"
+
+#~ msgid "Mail Lists"
+#~ msgstr "Utilisateurs de Messagerie"
+
+#~ msgid "Aliases"
+#~ msgstr ""
+
+#~ msgid "WARNING!"
+#~ msgstr ""
+
+#~ msgid "Domain BCC setting will override per-user bcc settings."
+#~ msgstr ""
+
+#~ msgid "List all mail lists."
+#~ msgstr "Afficher tous les utilisateurs de messagerie."
+
+#~ msgid "List all mail aliases."
+#~ msgstr "Afficher tous les utilisateurs de messagerie."
+
+#~ msgid "Feature request & get support"
+#~ msgstr ""
+
+#~ msgid "Contact webmaster"
+#~ msgstr ""
+
+#~ msgid "Display mail address in global LDAP address book"
+#~ msgstr ""
+
+#~ msgid "Mark as global admin"
+#~ msgstr "Administrateur Global"
+
+#~ msgid "Max quota size"
+#~ msgstr ""
+
+#~ msgid "Max quota size (in MB)"
+#~ msgstr "Quota de messagerie (en MB)"
+
+#~ msgid "Current quota size: <strong>%s</strong>."
+#~ msgstr "La valeur par défaut est <strong>%s</strong>."
+
+#~ msgid "Tip: 0 means unlimited."
+#~ msgstr ""
+
+#~ msgid "Max number of mail users"
+#~ msgstr "Nombre illimité d'alias de messagerie"
+
+#~ msgid "Current number: <strong>%s</strong>."
+#~ msgstr "La valeur par défaut est <strong>%s</strong>."
+
+#~ msgid "Service Control"
+#~ msgstr "Contrôle des services par utilisateurs"
+
+#~ msgid "Mail service."
+#~ msgstr "Utilidateur de Messagerie"
+
+#~ msgid "Check this box in order to enable all mail related services."
+#~ msgstr ""
+
+#~ msgid "Fetch mails via POP3."
+#~ msgstr ""
+
+#~ msgid "Fetch mails via IMAP."
+#~ msgstr ""
+
+#~ msgid "Sending mail via SMTP."
+#~ msgstr ""
+
+#~ msgid "Receiving mails."
+#~ msgstr ""
+
+#~ msgid "Customize mail filter rule."
+#~ msgstr ""
+
+#~ msgid "Display this account's mail address in global LDAP address book."
+#~ msgstr ""
+
+#~ msgid "Enable recipient BCC"
+#~ msgstr ""
+
+#~ msgid "Recipient BCC address"
+#~ msgstr ""
+
+#~ msgid "Multiple addresses are <strong>NOT</strong> supported."
+#~ msgstr ""
+
+#~ msgid "Sender BCC"
+#~ msgstr ""
+
+#~ msgid "Enable sender BCC"
+#~ msgstr ""
+
+#~ msgid "Sender BCC address"
+#~ msgstr ""
+
+#~ msgid "Save a copy in mailbox"
+#~ msgstr ""
+
+#~ msgid "Mail forwarding address"
+#~ msgstr "Contrôle du transfert de messages par utilisateurs"
+
+#~ msgid "One mail address per-line."
+#~ msgstr ""
+
+#~ msgid "Domain assignment"
+#~ msgstr "Affectation d'un administrateur à un domaine"
+
+#~ msgid "Add new alias members"
+#~ msgstr ""
+
+#~ msgid "Create new mail list"
+#~ msgstr "Créer un nouveau utilisateur de messagerie"
+
+#~ msgid "Edit mail list profile"
+#~ msgstr "Modifier le profil du domaine."
+
+#~ msgid "Back to maillist list"
+#~ msgstr "Retour à la liste des administrateurs"
+
+#~ msgid "Add internal members"
+#~ msgstr ""
+
+#~ msgid "Last Login Date"
+#~ msgstr ""
+
+#~ msgid "Remove from list"
+#~ msgstr ""
+
+#~ msgid "Are you sure want to remove selected account(s) from list?"
+#~ msgstr "Êtes-vous sur de vouloir activer le(s) compte(s) sélectionné(s)?"
+
+#~ msgid "Assign to list"
+#~ msgstr ""
+
+#~ msgid "Are you sure want to assign selected account(s) to list?"
+#~ msgstr "Êtes-vous sur de vouloir activer le(s) compte(s) sélectionné(s)?"
+
+#~ msgid "View mail lists under domain:"
+#~ msgstr "Afficher les utilisateurs du domaine:"
+
+#~ msgid "Access Policy"
+#~ msgstr ""
+
+#~ msgid "Member assigned success."
+#~ msgstr ""
+
+#~ msgid "Member removed success."
+#~ msgstr ""
+
+#~ msgid "Member of Mail Lists"
+#~ msgstr "Nombre illimité de listes de messagerie"
+
+#~ msgid "Mail Forwarding"
+#~ msgstr "Contrôle du transfert de messages par utilisateurs"
+
+#~ msgid "Reset Rassword"
+#~ msgstr "Réinitialiser le mot de passe"
 
