@@ -21,6 +21,10 @@
 #---------------------------------------------------------------------
 #}
 
+{#
+    @languagemaps   language maps
+#}
+
 {% extends "layout.html" %}
 
 {% from "msgHandlers.html" import loginMsgHandler with context %}
@@ -39,7 +43,7 @@
     #brd-wrap {
         margin-left: auto;
         margin-right: auto;
-        width: 40em;
+        width: 45em;
         text-align: left;
     }
 </style>
@@ -48,10 +52,19 @@
 {% block main %}
 <div id="brd-main">
     <div class="main-head">
-        <h2 class="hn"><span>{{ _('Login to manage your mail domains & users') |title }}</span></h2>
+        <h2 class="hn">
+            <span>{{ _('Login to manage your mail domains & users') |title }}</span>
+            <span>
+                <select name="lang" onchange="changeUrl(this, baseurl='{{ctx.homepath}}/login?lang=');">
+                    {% for lang in languagemaps %}
+                        <option value="{{lang}}" {% if ctx.lang == lang %}selected{%endif%}>{{languagemaps[lang]}}</option>
+                    {% endfor %}
+                </select>
+            </span>
+        </h2>
     </div>
 
-    {# Show system message #}
+    {# Show system message if available #}
     {{ loginMsgHandler(msg) }}
 
     {# Show login form #}

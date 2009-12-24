@@ -26,12 +26,14 @@
 
 import web, sys
 from libs import __version__, __url_iredadmin_lastest__, iredutils
-from libs.ldaplib import core, auth, domain, ldaputils
+from libs.ldaplib import core, auth, admin, domain, ldaputils
 from controllers import base
 
 cfg = web.iredconfig
 session = web.config.get('_session')
 render = web.render
+
+adminLib = admin.Admin()
 
 class login:
     def GET(self):
@@ -41,7 +43,10 @@ class login:
             i = web.input()
 
             # Show login page.
-            return render.login(msg=i.get('msg'),)
+            return render.login(
+                    languagemaps=adminLib.getLanguageMaps(),
+                    msg=i.get('msg'),
+                    )
 
     def POST(self):
         # Get username, password.

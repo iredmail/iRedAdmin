@@ -3,6 +3,7 @@ syntax: glob
 *.py[co]
 *.svn
 settings.ini
+settings.ini.bak
 .project
 .pydevproject
 .settings
