@@ -52,7 +52,7 @@ class Admin(core.LDAPWrap):
         if self.lang[0][1].has_key('preferredLanguage'):
             lang = self.lang[0][1]['preferredLanguage'][0]
         else:
-            lang = session.get('lang')
+            lang = web.ctx.lang
         return lang
 
     # Get available languages.

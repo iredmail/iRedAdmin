@@ -1,4 +1,6 @@
 = 0.2.0 =
+    * New translation: es_ES. Thanks yrjc2004@gmail.
+    * New: Allow to switch language in login page.
     * New translation: pt_BR (Brazilian Portuguese). Thanks giorgiolago@gmail.
     * New translation: hu_HU (Hungarian). Thanks zolikusz@gmail.
 
