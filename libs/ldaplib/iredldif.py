@@ -150,8 +150,7 @@ def ldif_mailuser(domain, username, cn, passwd, quota=cfg.general.get('default_q
                                 'pop3', 'pop3secured', 'imap', 'imapsecured',
                                 'managesieve', 'managesievesecured',
                                 'forward', 'senderbcc', 'recipientbcc',
-                                'shadowaddress', 'displayedInGlobalAddressBook',
-                                'jabber', ]),
+                                'shadowaddress', 'displayedInGlobalAddressBook', ]),
         ('memberOfGroup',       ['all@'+domain]), # Make all users belong to group 'all@domain.ltd'.
         ]
 
