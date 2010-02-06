@@ -149,6 +149,7 @@ def ldif_mailuser(domain, username, cn, passwd, quota=cfg.general.get('default_q
         ('enabledService',      ['mail', 'smtp', 'deliver',
                                 'pop3', 'pop3secured', 'imap', 'imapsecured',
                                 'managesieve', 'managesievesecured',
+                                'sieve', 'sievesecured',    # ManageService name In dovecot-1.2.
                                 'forward', 'senderbcc', 'recipientbcc',
                                 'shadowaddress', 'displayedInGlobalAddressBook', ]),
         ('memberOfGroup',       ['all@'+domain]), # Make all users belong to group 'all@domain.ltd'.

@@ -1,6 +1,8 @@
-= 0.2.0 =
-    * New translation: es_ES. Thanks yrjc2004@gmail.
+= 0.1.2 =
+    * Add enabledService: sieve, sievesecured. Used for Dovecot-1.2.
     * New: Allow to switch language in login page.
+    * New translation: de_DE (Deutsch). Thanks Jan Zude (caparcona <at> web.de).
+    * New translation: es_ES. Thanks yrjc2004@gmail.
     * New translation: pt_BR (Brazilian Portuguese). Thanks giorgiolago@gmail.
     * New translation: hu_HU (Hungarian). Thanks zolikusz@gmail.
 
