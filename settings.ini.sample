@@ -39,7 +39,14 @@ backend = ldap
 # Base directory used to store all mail data.
 # You can find it via command:
 #   $ sudo postconf virtual_mailbox_base
-storage_base_directory = /var/vmail/vmail01
+storage_base_directory = /var/vmail
+
+# Storage node. Example: vmail1, vmail2, vmail3.
+# Useful to serve large amount of accounts, store mailboxes on multiple
+# hard disks.
+# Full mailbox base directory will be:
+#   ${storage_base_directory}/${storage_node}
+storage_node = vmail1
 
 # Mailbox type: maildir, mbox.
 # maildir is recommend for better performance.

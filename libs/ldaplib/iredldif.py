@@ -130,7 +130,7 @@ def ldif_mailuser(domain, username, cn, passwd, quota=cfg.general.get('default_q
     else:
         mailMessageStore = "%s/%s-%s/" % (domain, username, DATE,)
 
-    mailMessageStore = mailMessageStore.lower()
+    mailMessageStore =  cfg.general.get('storage_node').lower() + '/' + mailMessageStore.lower()
     storageBaseDirectory = cfg.general.get('storage_base_directory').lower()
     homeDirectory = storageBaseDirectory + '/' + mailMessageStore
 
