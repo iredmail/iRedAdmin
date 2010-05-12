@@ -1,4 +1,5 @@
 = 0.1.3 =
+    * Add 'enabledService: internal'.
     * Add storage_node in settings.ini, required in iRedMail-0.6.0.
 
 = 0.1.2 =

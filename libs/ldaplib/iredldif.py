@@ -147,12 +147,11 @@ def ldif_mailuser(domain, username, cn, passwd, quota=cfg.general.get('default_q
         ('accountStatus',       ['active']),
         ('mtaTransport',        ['dovecot']),
         ('enabledService',      ['mail', 'smtp', 'deliver',
-                                'pop3', 'pop3secured', 'imap', 'imapsecured',
-                                'managesieve', 'managesievesecured',
-                                'sieve', 'sievesecured',    # ManageService name In dovecot-1.2.
-                                'forward', 'senderbcc', 'recipientbcc',
-                                'shadowaddress', 'displayedInGlobalAddressBook', ]),
-        ('memberOfGroup',       ['all@'+domain]), # Make all users belong to group 'all@domain.ltd'.
+                                 'pop3', 'pop3secured', 'imap', 'imapsecured',
+                                 'managesieve', 'managesievesecured',
+                                 'sieve', 'sievesecured', 'internal',
+                                 'forward', 'senderbcc', 'recipientbcc',
+                                 'shadowaddress', 'displayedInGlobalAddressBook', ]),
         ]
 
     ldif += ldaputils.getSingleLDIF(attr='cn', value=cn, default=username)
