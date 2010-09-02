@@ -754,7 +754,7 @@ D - COMMON INTERFACE ELEMENTS
 
 .brd a.feed {
     padding-left: 22px;
-    background: url(feed-icon.png) center left no-repeat;
+    background: url(../images/feed-icon.png) center left no-repeat;
     }
 
 .brd .content-options, .brd .ct-options {

@@ -84,10 +84,10 @@
 
         {% block footer %}
         <div id="footer">
-            &copy 2009
-            | <a href="http://www.iredmail.org/">iRedMail Project</a>
+            &copy 2010 <a href="http://www.iredmail.org/" target="_blank">iRedMail Project</a>
             {% if session.get('domainGlobalAdmin') == 'yes' %}
-                | <a href="mailto:michaelbibby@gmail.com">{{ _('Get support') }}</a>
+                | <a href="http://www.iredmail.org/forum/feed-rss-forum4.xml" target="_blank"><img src="{{ctx.homepath}}/static/{{skin}}/images/feed-icon.png" style="vertical-align: middle;" /></a>&nbsp;<a href="http://www.iredmail.org/forum/forum4-news-announcements.html" target="_blank">{{ _('News & Announments') }}</a>
+                | <a href="mailto:zhb@iredmail.org">{{ _('Get support') }}</a>
             {% else %}
                 | <a href="mailto:{{session.get('webmaster')}}">{{ _('Get support') }}</a>
             {% endif %}
