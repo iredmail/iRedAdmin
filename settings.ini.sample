@@ -48,17 +48,6 @@ storage_base_directory = /var/vmail
 #   ${storage_base_directory}/${storage_node}
 storage_node = vmail1
 
-# Mailbox type: maildir, mbox.
-# maildir is recommend for better performance.
-mailbox_type = maildir
-
-# Hashed maildir: True, False.
-# Example:
-#   - hashed: domain.ltd/u/us/use/username-2009.09.04.12.05.33/
-#   - non-hashed: domain.ltd/username-2009.09.04.12.05.33/
-# hashed maildir is RECOMMEND for better performance.
-hashed_maildir = True
-
 # Default quota size (in MB). 0 means unlimited.
 default_quota = 1024
 

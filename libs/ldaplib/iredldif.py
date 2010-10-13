@@ -99,7 +99,7 @@ def ldif_mailadmin(mail, passwd, cn, preferredLanguage='en_US', domainGlobalAdmi
     return ldif
 
 # Define and return LDIF structure of mail user.
-def ldif_mailuser(domain, username, cn, passwd, quota=cfg.general.get('default_quota')):
+def ldif_mailuser(domain, username, cn, passwd, quota=cfg.general.get('default_quota'), hashed_maildir=True,):
     DATE = time.strftime('%Y.%m.%d.%H.%M.%S')
     domain = str(domain).lower()
     quota = int(quota) * 1024 * 1024
@@ -107,7 +107,7 @@ def ldif_mailuser(domain, username, cn, passwd, quota=cfg.general.get('default_q
     mail = username + '@' + domain
     #dn = convEmailToUserDN(mail)
 
-    if eval(cfg.general.get('hashed_maildir', True)) is True:
+    if hashed_maildir is True:
         if len(username) >= 3:
             maildir_user = "%s/%s/%s/%s-%s/" % (username[:1], username[:2], username[:3], username, DATE,)
         elif len(username) == 2:

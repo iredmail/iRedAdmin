@@ -19,7 +19,7 @@
 # along with iRedAdmin-OSE.  If not, see <http://www.gnu.org/licenses/>.
 #---------------------------------------------------------------------
 
-__version__ = '0.1.3'
+__version__ = '0.1.4'
 __author__ = 'Zhang Huangbin'
-__author_mail__ = 'michaelbibby@gmail.com'
-__url_iredadmin_lastest__ = 'http://iredmail.org/iredadmin_ose_lastest'
+__author_mail__ = 'zhb@iredmail.org'
+__url_iredadmin_lastest__ = 'http://iredmail.org/version/check.py/ose?v=%s' % (__version__,)
