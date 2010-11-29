@@ -58,7 +58,7 @@ msgstr "Editar perfil del administrador"
 #: ../templates/default/ldap/admin_profile.html:45
 #: ../templates/default/ldap/user_profile.html:51
 msgid "General"
-msgstr ""
+msgstr "General"
 
 #: ../templates/default/ldap/admin_profile.html:46
 msgid "Reset password"

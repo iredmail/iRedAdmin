@@ -357,7 +357,7 @@ msgstr "Hiba:"
 
 #: ../templates/default/ldap/error404.html:37
 msgid "Go back."
-msgstr ""
+msgstr "Go back."
 
 #: ../templates/default/ldap/layout.html:51
 #, python-format

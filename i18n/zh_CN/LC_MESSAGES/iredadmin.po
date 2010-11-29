@@ -9,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2009-10-13 14:15+0800\n"
 "PO-Revision-Date: 2009-12-03 13:20+0800\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Last-Translator: Zhang Huangbin <zhb@iredmail.org>\n"
 "Language-Team: zh_CN <LL@li.org>\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 "MIME-Version: 1.0\n"
@@ -225,17 +225,17 @@ msgstr "邮件帐号"
 
 #: ../templates/default/ldap/dashboard.html:59
 msgid "Need more features?"
-msgstr ""
+msgstr "需要更多功能？"
 
 #: ../templates/default/ldap/dashboard.html:61
 msgid ""
 "Purchase Full-featured Edition to support iRedMail project and get more "
 "features."
-msgstr ""
+msgstr "购买功能完整版可以得到更多功能并支持 iRedMail 项目发展。"
 
 #: ../templates/default/ldap/dashboard.html:62
 msgid "For example:"
-msgstr ""
+msgstr "例如："
 
 #: ../templates/default/ldap/dashboard.html:65
 msgid "Unlimited number of mail lists"
@@ -255,7 +255,7 @@ msgstr "服务控制"
 
 #: ../templates/default/ldap/dashboard.html:69
 msgid "Admin type control (Global/Normal Admin)"
-msgstr ""
+msgstr "管理员类型（全局、普通管理员）"
 
 #: ../templates/default/ldap/dashboard.html:79
 msgid "System info"
@@ -355,7 +355,7 @@ msgstr "错误："
 
 #: ../templates/default/ldap/error404.html:37
 msgid "Go back."
-msgstr ""
+msgstr "返回。"
 
 #: ../templates/default/ldap/layout.html:51
 #, python-format
@@ -385,7 +385,7 @@ msgstr "管理员"
 #: ../templates/default/ldap/layout.html:90
 #: ../templates/default/ldap/layout.html:92
 msgid "Get support"
-msgstr ""
+msgstr "获取技术支持"
 
 #: ../templates/default/ldap/login.html:28
 #: ../templates/default/ldap/login.html:51
