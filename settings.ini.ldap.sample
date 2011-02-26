@@ -1,0 +1,72 @@
+[general]
+# Site webmaster's mail address.
+webmaster = zhb@iredmail.org
+
+# Mail detail message of '500 internal server error' to webmaster: True, False.
+# If set to True, iredadmin will mail detail error to webmaster when
+# it catches 'internal server error' via LOCAL mail server to aid
+# in debugging production servers.
+mail_error_to_webmaster = False
+
+# Debug mode: True, False.
+# Warning: Do *NOT* enable debug in product server.
+debug = False
+
+# Default language.
+lang = en_US
+
+# Database backend: ldap.
+backend = ldap
+
+# Base directory used to store all mail data.
+# iRedMail uses '/var/vmail/vmail1' as default storage directory.
+# Tip: You can set a per-domain storage directory in domain profile page.
+storage_base_directory = /var/vmail/vmail1
+
+# Default mta transport.
+# iRedMail uses 'dovecot' as defualt transport.
+# Tip: You can set a per-domain or per-user transport in domain or user
+#      profile page.
+mtaTransport = dovecot
+
+# Show user login date instead of created date: True, False.
+# Please refer to iRedAdmin FAQ if you don't know how to track user last
+# login data: http://www.iredmail.org/admin_faq.html
+show_login_date = False
+
+# Min/Max admin password length.
+#   - min_passwd_length: 0 means unlimited, but at least 1 character
+#                        is required.
+#   - max_passwd_length: 0 means unlimited.
+# User password length is controlled in domain profile.
+min_passwd_length = 0
+max_passwd_length = 0
+
+[iredadmin]
+# Database used to store iRedAdmin data. e.g. sessions, log.
+host = 127.0.0.1
+port = 3306
+db = iredadmin
+user = iredadmin
+passwd = secret_passwd
+
+############################################################################
+# Settings used for LDAP backend.
+#
+[ldap]
+
+# LDAP server uri.
+# Use 'ldaps://127.0.0.1' for SSL/TLS-based secure connection.
+uri = ldap://127.0.0.1
+
+# LDAP suffix.
+# basedn: dn which contains virtual domains.
+# domainadmin_dn: dn which contains virtual domain admins.
+basedn = o=domains,dc=iredmail,dc=org
+domainadmin_dn = o=domainAdmins,dc=iredmail,dc=org
+
+# Bind dn and password.
+#   - bind dn should have write privilege in LDAP.
+#   - bind pw is plain text, not encryped/hashed.
+bind_dn = cn=vmailadmin,dc=iredmail,dc=org
+bind_pw = passwd
