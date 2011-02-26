@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="imagetoolbar" content="no"/>
+    <title>{{ _('Login to manage your mail domains & accounts') |title }}</title>
+
+    <link rel="stylesheet" type="text/css" href="{{ctx.homepath}}/static/{{skin}}/css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="{{ctx.homepath}}/static/{{skin}}/css/screen.css" />
+
+    <style type="text/css">
+        html { background: #333333; }
+    </style>
+
+    <script type="text/javascript">
+        function changeUrl(domain, baseurl) {
+            if ( domain.options[domain.selectedIndex].value != 'none' ) {
+                location.href = baseurl + domain.options[domain.selectedIndex].value;
+            }
+        }
+    </script>
+</head>
+
+{#
+    @languagemaps   language maps
+#}
+
+{% from "macros/msgHandlers.html" import loginMsgHandler with context %}
+
+<body class="login">
+
+    <div class="login-box">
+        <div class="login-border">
+            <div class="login-style">
+                <div class="login-header">
+                    <div class="logo clear">
+                        {#
+                        <img src="{{ctx.homepath}}/static/{{skin}}/images/logo_earth_bw.png" alt="" class="picture" />
+                        #}
+                        <span class="textlogo">
+                            <span class="title">{{ _('Login to manage your mail domains & accounts') |title }}</span>
+                        </span>
+                    </div>
+                </div>
+
+                {# Show system message if available #}
+                {{ loginMsgHandler(msg) }}
+
+
+                <form method="post" action="{{ctx.homepath}}/login">
+                    <div class="login-inside">
+                        <div class="login-data">
+                            <div class="row clear">
+                                <label class="size-80 fl-space">{{ _('Username')}}</label>
+                                <input type="text" name="username" size="25" class="text" id="user" />
+                            </div>
+
+                            <div class="row clear">
+                                <label class="size-80 fl-space">{{ _('Password') }}</label>
+                                <input type="password" name="password" size="25" class="text" id="password" />
+                            </div>
+
+                            <input type="submit" class="button green" value="{{ _('Login') }}" />
+                        </div>
+                        <p></p>
+                    </div>
+
+                    <div class="login-footer clear">
+                        <span class="remember">
+                            <input type="checkbox" class="checkbox" name="save_pass" value="yes" />
+                            <label>{{ _('Remember me')}}</label>
+                        </span>
+                        <span class="text fr-space">
+                            <select name="lang" onchange="changeUrl(this, baseurl='{{ctx.homepath}}/login?lang=');">
+                                {% for lang in languagemaps %}
+                                    <option value="{{lang}}" {% if ctx.lang == lang %}selected{%endif%}>{{languagemaps[lang]}}</option>
+                                {% endfor %}
+                            </select>
+                        </span>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,115 @@
+{% extends "layout.html" %}
+
+{% from "macros/general.html" import
+        display_subnav,
+        set_account_status_img,
+        display_input_cn,
+        display_quota,
+        display_input_employeeid,
+        display_input_jobtitle,
+        display_input_mobile,
+        display_input_phone,
+        display_account_status,
+        display_reset_password,
+        display_button_submit,
+        with context
+        %}
+
+{% from "macros/msgHandlers.html" import userMsgHandler with context %}
+
+{% block title %}{{ _('Edit account profile') }}{% endblock %}
+{% block navlinks_active_domains %}class="active"{% endblock %}
+
+{% block breadcrumb %}
+    {% set crumbs = [
+            (ctx.homepath + '/domains', _('All domains'),),
+            (ctx.homepath + '/profile/domain/general/' + cur_domain, cur_domain,),
+            (ctx.homepath + '/users/' + cur_domain, _('Users'),),
+            (None, _('Profile of user:') + '&nbsp;' + mail,),
+            ]
+            %}
+    {{ display_subnav(crumbs) }}
+{% endblock %}
+
+{% block main %}
+
+{#-- Show system message --#}
+{{ userMsgHandler(msg) }}
+
+{% set navlinks = [
+            ('general', _('General'), [true,]),
+            ('password', _('Password'), [true,]),
+            ]
+            %}
+
+<div class="content-box">
+    <div class="box-body">
+        <div class="box-header clear">
+            <ul class="tabs clear">
+                {% for nav in navlinks %}
+                    {% if not false in nav[2] and not none in nav[2] %}
+                        <li><a href="#profile_{{nav[0]}}">{{ nav[1] }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+
+            <h2>{{ _('Profile of user:') }} {{ mail }}</h2>
+        </div>
+
+        <div class="box-wrap clear">
+            <div id="profile_general">
+                <form method="post" action="{{ctx.homepath}}/profile/user/general/{{mail}}">
+                    <div class="columns clear">
+                        <div class="col2-3">
+                            {{ display_account_status(profile.active) }}
+
+                            <div class="bt-space10"></div>
+                            {{ display_input_cn(profile.name) }}
+                            {{ display_quota(value=profile.quota, show_value_in_input='yes', used_quota=profile.bytes) }}
+
+                            <div class="bt-space10"></div>
+                            {{ display_input_employeeid(profile.employeeid) }}
+                            {#
+                            {{ display_input_jobtitle(jobtitle) }}
+
+                            <div class="bt-space10"></div>
+                            {{ display_input_mobile(value=mobile) }}
+                            {{ display_input_phone(value=telephoneNumber) }}
+                            #}
+                        </div>{#-- .col2-3 --#}
+                    </div>{#-- .columns --#}
+
+                    <div class="rule"></div>
+
+                    {{ display_button_submit() }}
+                </form>
+            </div>{# #profile_general #}
+
+            <div id="profile_password">
+                <form method="post" action="{{ctx.homepath}}/profile/user/password/{{mail}}">
+                    {# Password length #}
+                    {#
+                    {% set minPasswordLength = domainAccountSetting.get('minPasswordLength', '0') %}
+                    {% set maxPasswordLength = domainAccountSetting.get('maxPasswordLength', '0') %}
+
+                    {{ display_reset_password(
+                        min_passwd_length=minPasswordLength,
+                        max_passwd_length=maxPasswordLength,
+                        show_confirmpw=true,
+                        )
+                        }}
+                    #}
+
+                    {{ display_reset_password(
+                            show_confirmpw=true,
+                            )
+                            }}
+
+                    {{ display_button_submit() }}
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock main %}

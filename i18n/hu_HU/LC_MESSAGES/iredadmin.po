@@ -1,0 +1,1218 @@
+# Hungarian (Hungary) translations for iRedAdmin.
+# Copyright (C) 2009 ORGANIZATION
+# This file is distributed under the same license as the iRedAdmin project.
+# FIRST AUTHOR <zolikusz@gmail.com>, 2009.11.04.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: iRedAdmin-Pro-0.1.4\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2009-11-04 09:10+0100\n"
+"PO-Revision-Date: 2011-02-26 19:35+0800\n"
+"Last-Translator: Sinkovicz Zoltan <zolikusz@gmail.com>\n"
+"Language-Team: Hungarian <HU@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 0.9.4\n"
+
+#: ../templates/default/ldap/search.html:159
+#, python-format
+msgid "%d mail alias(es) found."
+msgstr ""
+
+#: ../templates/default/ldap/search.html:106
+#, python-format
+msgid "%d mail list(s) found."
+msgstr ""
+
+#: ../templates/default/ldap/search.html:46
+#, python-format
+msgid "%d user(s) found."
+msgstr ""
+
+#: ../templates/default/macros/ldap.html:17
+#, python-format
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#: ../templates/default/dashboard.html:64
+#, python-format
+msgid "%s days, %s hours, %s minutes."
+msgstr "%s nap, %s óra, %s perc."
+
+#: ../templates/default/macros/general.html:560
+#, python-format
+msgid "<a href='%s'>Domain and sub-domain users</a>"
+msgstr ""
+
+#: ../templates/default/macros/general.html:558
+#, python-format
+msgid "<a href='%s'>Domain users</a>"
+msgstr ""
+
+#: ../templates/default/macros/general.html:562
+#, python-format
+msgid "<a href='%s'>Members</a>"
+msgstr ""
+
+#: ../templates/default/macros/general.html:566
+#, python-format
+msgid "<a href='%s'>Members</a> and <a href='%s'>moderators</a>"
+msgstr ""
+
+#: ../templates/default/macros/general.html:564
+#, python-format
+msgid "<a href='%s'>Moderators</a>"
+msgstr ""
+
+#: ../templates/default/macros/msgHandlers.html:152
+msgid "Account already exists, please choose another username."
+msgstr ""
+
+#: ../templates/default/macros/general.html:162
+msgid "Account is active."
+msgstr "Nincs felhasználó kiválasztva."
+
+#: ../templates/default/macros/general.html:164
+#: ../templates/default/macros/general.html:165
+msgid "Account is disabled."
+msgstr "A kijelölt felhasználó(k) letiltva."
+
+#: ../templates/default/macros/general.html:699
+msgid "Active account"
+msgstr "Felhasználó engedélyezése"
+
+#: ../templates/default/ldap/user/create.html:150
+#: ../templates/default/macros/general.html:532
+#: ../templates/default/macros/general.html:548
+#: ../templates/default/mysql/user/create.html:125
+msgid "Add"
+msgstr ""
+
+#: ../templates/default/layout.html:66
+#: ../templates/default/macros/general.html:693
+msgid "Add account"
+msgstr "Létrehozás dátuma"
+
+#: ../templates/default/ldap/admin/create.html:19
+#: ../templates/default/ldap/admin/create.html:31
+#: ../templates/default/ldap/admin/create.html:34
+#: ../templates/default/ldap/admin/list.html:30
+#: ../templates/default/mysql/admin/create.html:19
+#: ../templates/default/mysql/admin/create.html:31
+#: ../templates/default/mysql/admin/create.html:34
+#: ../templates/default/mysql/admin/list.html:30
+msgid "Add admin"
+msgstr ""
+
+#: ../templates/default/ldap/domain/create.html:9
+#: ../templates/default/ldap/domain/create.html:22
+#: ../templates/default/ldap/domain/create.html:26
+#: ../templates/default/ldap/domain/list.html:35
+#: ../templates/default/macros/general.html:540
+#: ../templates/default/macros/ldap.html:33
+#: ../templates/default/macros/mysql.html:32
+#: ../templates/default/mysql/domain/create.html:9
+#: ../templates/default/mysql/domain/create.html:22
+#: ../templates/default/mysql/domain/create.html:26
+#: ../templates/default/mysql/domain/list.html:35
+msgid "Add domain"
+msgstr "Domain kiválasztása"
+
+#: ../templates/default/ldap/domain/list.html:183
+#: ../templates/default/ldap/user/list.html:142
+#: ../templates/default/mysql/domain/list.html:135
+#: ../templates/default/mysql/user/list.html:126
+msgid "Add one"
+msgstr ""
+
+#: ../templates/default/ldap/user/create.html:21
+#: ../templates/default/ldap/user/create.html:29
+#: ../templates/default/mysql/user/create.html:17
+#: ../templates/default/mysql/user/create.html:25
+msgid "Add user"
+msgstr ""
+
+#: ../templates/default/ldap/user/create.html:108
+#: ../templates/default/mysql/user/create.html:84
+msgid "Add user under domain:"
+msgstr "Domainhoz tartozó felhasználok:"
+
+#: ../templates/default/layout.html:70 ../templates/default/panel/log.html:81
+msgid "Admin"
+msgstr "Adminok"
+
+#: ../templates/default/layout.html:62 ../templates/default/panel/log.html:21
+#: ../templates/default/panel/log.html:32
+#: ../templates/default/panel/log.html:39
+msgid "Admin Log"
+msgstr ""
+
+#: ../templates/default/macros/msgHandlers.html:158
+#, python-format
+msgid ""
+"Admin created. Would you like to <a href=\"%s/create/admin\">add one "
+"more</a>?"
+msgstr ""
+
+#: ../templates/default/macros/general.html:691
+msgid "Admin login"
+msgstr ""
+
+#: ../templates/default/macros/msgHandlers.html:153
+msgid "Admin not exist."
+msgstr ""
+
+#: ../templates/default/layout.html:58
+#: ../templates/default/ldap/domain/list.html:61
+#: ../templates/default/panel/log.html:56
+msgid "Admins"
+msgstr "Adminok"
+
+#: ../templates/default/ldap/user/create.html:105
+#: ../templates/default/ldap/user/list.html:62
+#: ../templates/default/mysql/user/create.html:81
+msgid "Alias"
+msgstr "E-mail alias"
+
+#: ../templates/default/macros/ldap.html:97
+msgid "Alias account"
+msgstr "Felhasználó engedélyezése"
+
+#: ../templates/default/ldap/domain/list.html:59
+#: ../templates/default/ldap/user/create.html:102
+#: ../templates/default/ldap/user/list.html:31
+#: ../templates/default/ldap/user/list.html:59
+#: ../templates/default/macros/general.html:576
+#: ../templates/default/mysql/domain/list.html:58
+#: ../templates/default/mysql/domain/profile.html:27
+#: ../templates/default/mysql/user/create.html:79
+msgid "Aliases"
+msgstr "Aliasok"
+
+#: ../templates/default/ldap/admin/create.html:30
+#: ../templates/default/ldap/admin/list.html:28
+#: ../templates/default/ldap/admin/profile.html:38
+#: ../templates/default/mysql/admin/create.html:30
+#: ../templates/default/mysql/admin/list.html:28
+#: ../templates/default/mysql/admin/profile.html:34
+msgid "All admins"
+msgstr "Megjelőlés Globális Adminnak"
+
+#: ../templates/default/ldap/domain/create.html:20
+#: ../templates/default/ldap/domain/list.html:33
+#: ../templates/default/ldap/user/create.html:26
+#: ../templates/default/ldap/user/list.html:27
+#: ../templates/default/ldap/user/profile.html:71
+#: ../templates/default/mysql/domain/create.html:20
+#: ../templates/default/mysql/domain/list.html:33
+#: ../templates/default/mysql/domain/profile.html:24
+#: ../templates/default/mysql/user/create.html:22
+#: ../templates/default/mysql/user/list.html:27
+#: ../templates/default/mysql/user/profile.html:25
+msgid "All domains"
+msgstr "E-mail Domainek"
+
+#: ../templates/default/ldap/domain/list.html:40
+#: ../templates/default/mysql/domain/list.html:40
+msgid "All domains under your control."
+msgstr "Az összes domain szabályozása."
+
+#: ../templates/default/ldap/admin/list.html:34
+#: ../templates/default/mysql/admin/list.html:34
+msgid "All mail administrators."
+msgstr "Összes e-mail admin"
+
+#: ../templates/default/mysql/domain/list.html:89
+#: ../templates/default/mysql/domain/list.html:91
+#: ../templates/default/mysql/domain/list.html:97
+#: ../templates/default/mysql/domain/list.html:99
+#: ../templates/default/mysql/user/list.html:114
+msgid "Allocated"
+msgstr ""
+
+#: ../templates/default/ldap/user/create.html:74
+#: ../templates/default/mysql/user/create.html:43
+#, python-format
+msgid "Already exceed max number of account limit (%s)."
+msgstr ""
+
+#: ../templates/default/ldap/search.html:95
+#: ../templates/default/ldap/search.html:149
+#: ../templates/default/ldap/search.html:199
+#: ../templates/default/ldap/admin/list.html:86
+#: ../templates/default/ldap/domain/list.html:202
+#: ../templates/default/ldap/user/list.html:158
+#: ../templates/default/mysql/admin/list.html:88
+#: ../templates/default/mysql/domain/list.html:155
+#: ../templates/default/mysql/user/list.html:142
+#: ../templates/default/panel/log.html:111
+msgid "Apply"
+msgstr ""
+
+#: ../templates/default/macros/general.html:364
+#, python-format
+msgid "At least %s characters, but no more than %s."
+msgstr ""
+
+#: ../templates/default/macros/general.html:366
+#, python-format
+msgid "At least %s characters."
+msgstr ""
+"Az új jelszónak tartalmaznia kell legalább <strong>% s </ strong> "
+"karaktert."
+
+#: ../templates/default/macros/general.html:415
+msgid "Available quota:"
+msgstr "Rendelkezésre álló műveletek"
+
+#: ../templates/default/macros/general.html:463
+msgid "BCC incoming emails to single address"
+msgstr "E-mail továbbítási cím"
+
+#: ../templates/default/macros/ldap.html:100
+msgid "BCC incoming mails to other address"
+msgstr "E-mail továbbítási cím"
+
+#: ../templates/default/macros/ldap.html:83
+msgid "BCC incoming mails to other addresses"
+msgstr "E-mail továbbítási cím"
+
+#: ../templates/default/macros/general.html:475
+msgid "BCC outgoing emails to single address"
+msgstr "E-mail továbbítási cím"
+
+#: ../templates/default/macros/ldap.html:101
+msgid "BCC outgoing mails to other address"
+msgstr "E-mail továbbítási cím"
+
+#: ../templates/default/macros/ldap.html:84
+msgid "BCC outgoing mails to other addresses"
+msgstr "E-mail továbbítási cím"
+
+#: ../templates/default/macros/ldap.html:113
+msgid "Check this box in order to enable other mail related services."
+msgstr "Jelöljd be minden kapcsolódó e-mail szolgáltatás engedélyezéséhez."
+
+#: ../templates/default/ldap/search.html:90
+#: ../templates/default/ldap/search.html:144
+#: ../templates/default/ldap/search.html:194
+#: ../templates/default/ldap/admin/list.html:81
+#: ../templates/default/ldap/domain/list.html:197
+#: ../templates/default/ldap/user/list.html:153
+#: ../templates/default/mysql/admin/list.html:83
+#: ../templates/default/mysql/domain/list.html:150
+#: ../templates/default/mysql/user/list.html:137
+#: ../templates/default/panel/log.html:108
+msgid "Choose Action"
+msgstr ""
+
+#: ../templates/default/macros/general.html:504
+msgid "Company/Organization Name"
+msgstr "Vállalat/Szervezet"
+
+#: ../templates/default/macros/general.html:388
+msgid "Confirm new password"
+msgstr "Jelszó megismétlése"
+
+#: ../templates/default/layout.html:112
+msgid "Contact webmaster"
+msgstr "Kapcsolat a webmesterrel"
+
+#: ../templates/default/ldap/search.html:58
+#: ../templates/default/ldap/search.html:116
+#: ../templates/default/ldap/search.html:168
+#: ../templates/default/ldap/admin/list.html:49
+#: ../templates/default/ldap/domain/list.html:63
+#: ../templates/default/ldap/user/list.html:48
+#: ../templates/default/mysql/admin/list.html:49
+#: ../templates/default/mysql/domain/list.html:59
+#: ../templates/default/mysql/user/list.html:46
+msgid "Created"
+msgstr "Létrehoz"
+
+#: ../templates/default/macros/msgHandlers.html:113
+#: ../templates/default/macros/msgHandlers.html:147
+#: ../templates/default/macros/msgHandlers.html:148
+msgid "Current password is incorrect."
+msgstr ""
+
+#: ../templates/default/macros/ldap.html:98
+#: ../templates/default/macros/mysql.html:74
+msgid "Customize mail filter rule"
+msgstr "E-mail szűrő szabályok testreszabása."
+
+#: ../templates/default/macros/ldap.html:99
+#: ../templates/default/macros/mysql.html:75
+msgid "Customize mail filter rule over TLS/SSL"
+msgstr "E-mail szűrő szabályok testreszabása TLS/SSL felett."
+
+#: ../templates/default/dashboard.html:5 ../templates/default/layout.html:54
+msgid "Dashboard"
+msgstr "InfoPanel"
+
+#: ../templates/default/ldap/search.html:93
+#: ../templates/default/ldap/search.html:147
+#: ../templates/default/ldap/search.html:197
+#: ../templates/default/ldap/admin/list.html:84
+#: ../templates/default/ldap/domain/list.html:200
+#: ../templates/default/ldap/user/list.html:156
+#: ../templates/default/mysql/admin/list.html:86
+#: ../templates/default/mysql/domain/list.html:153
+#: ../templates/default/mysql/user/list.html:140
+#: ../templates/default/panel/log.html:109
+msgid "Delete"
+msgstr "Törlés"
+
+#: ../templates/default/macros/general.html:695
+msgid "Delete account"
+msgstr "Felhasználó engedélyezése"
+
+#: ../templates/default/ldap/search.html:92
+#: ../templates/default/ldap/search.html:146
+#: ../templates/default/ldap/search.html:196
+#: ../templates/default/ldap/admin/list.html:83
+#: ../templates/default/ldap/domain/list.html:199
+#: ../templates/default/ldap/user/list.html:155
+#: ../templates/default/mysql/admin/list.html:85
+#: ../templates/default/mysql/domain/list.html:152
+#: ../templates/default/mysql/user/list.html:139
+msgid "Disable"
+msgstr "Tiltás"
+
+#: ../templates/default/macros/general.html:697
+msgid "Disable account"
+msgstr "Felhasználó engedélyezése"
+
+#: ../templates/default/ldap/search.html:53
+#: ../templates/default/ldap/search.html:113
+#: ../templates/default/ldap/search.html:166
+#: ../templates/default/ldap/admin/list.html:46
+#: ../templates/default/ldap/user/list.html:79
+#: ../templates/default/macros/general.html:506
+#: ../templates/default/mysql/admin/list.html:46
+#: ../templates/default/mysql/user/list.html:74
+msgid "Display Name"
+msgstr "Megjelenítési név"
+
+#: ../templates/default/macros/ldap.html:102
+#: ../templates/default/macros/ldap.html:106
+msgid "Display mail address in global LDAP address book"
+msgstr "Az E-mail cím megjelenítése a globális LDAP címjegyzékben"
+
+#: ../templates/default/macros/general.html:308
+msgid "Displayed in Global LDAP Address Book"
+msgstr "Az E-mail cím megjelenítése a globális LDAP címjegyzékben"
+
+#: ../templates/default/layout.html:69
+#: ../templates/default/ldap/domain/list.html:54
+#: ../templates/default/mysql/domain/list.html:54
+msgid "Domain"
+msgstr "Domainek"
+
+#: ../templates/default/ldap/admin/list.html:12
+#: ../templates/default/macros/ldap.html:42
+#: ../templates/default/macros/mysql.html:41
+#: ../templates/default/mysql/admin/list.html:12
+msgid "Domain Admins"
+msgstr "Domain Adminok"
+
+#: ../templates/default/macros/general.html:491
+msgid "Domain Name"
+msgstr "Domain Neve"
+
+#: ../templates/default/macros/ldap.html:82
+msgid "Domain alias"
+msgstr "Domain Adminok"
+
+#: ../templates/default/macros/msgHandlers.html:76
+msgid "Domain already exists. Please check both primary or alias domains."
+msgstr ""
+
+#: ../templates/default/macros/msgHandlers.html:87
+msgid "Domain created."
+msgstr "Domain Neve"
+
+#: ../templates/default/macros/msgHandlers.html:74
+msgid "Domain name is empty."
+msgstr ""
+
+#: ../templates/default/macros/msgHandlers.html:106
+msgid "Domain name or username is missed."
+msgstr ""
+
+#: ../templates/default/mysql/domain/profile.html:89
+msgid "Domain quota size"
+msgstr "Maximális E-mail kvóta"
+
+#: ../templates/default/macros/msgHandlers.html:108
+msgid ""
+"Domain quota size exceeded. Please contact your administrator or service "
+"provider to increase it."
+msgstr ""
+
+#: ../templates/default/panel/log.html:48
+msgid "Domains"
+msgstr "Domainek"
+
+#: ../templates/default/layout.html:55
+#: ../templates/default/ldap/domain/list.html:21
+#: ../templates/default/mysql/domain/list.html:21
+msgid "Domains and Accounts"
+msgstr "Felhasználó engedélyezése"
+
+#: ../templates/default/ldap/search.html:70
+#: ../templates/default/ldap/search.html:130
+#: ../templates/default/ldap/search.html:180
+#: ../templates/default/ldap/admin/list.html:66
+#: ../templates/default/ldap/admin/profile.html:29
+#: ../templates/default/ldap/domain/list.html:108
+#: ../templates/default/ldap/user/list.html:108
+#: ../templates/default/ldap/user/profile.html:39
+#: ../templates/default/mysql/admin/list.html:58
+#: ../templates/default/mysql/admin/profile.html:29
+#: ../templates/default/mysql/domain/list.html:72
+#: ../templates/default/mysql/domain/profile.html:19
+#: ../templates/default/mysql/user/list.html:91
+#: ../templates/default/mysql/user/profile.html:20
+msgid "Edit account profile"
+msgstr "Admin profil szerkesztése"
+
+#: ../templates/default/ldap/domain/list.html:124
+#: ../templates/default/ldap/domain/list.html:133
+#: ../templates/default/ldap/user/list.html:127
+#: ../templates/default/mysql/domain/list.html:89
+#: ../templates/default/mysql/domain/list.html:97
+#: ../templates/default/mysql/user/list.html:113
+msgid "Edit quota setting"
+msgstr ""
+
+#: ../templates/default/layout.html:27
+msgid "Edit your profile"
+msgstr "Admin profil szerkesztése"
+
+#: ../templates/default/mysql/user/list.html:114
+msgid "Emails"
+msgstr "Domainek"
+
+#: ../templates/default/macros/msgHandlers.html:45
+msgid "Empty password is not allowed."
+msgstr ""
+
+#: ../templates/default/ldap/search.html:91
+#: ../templates/default/ldap/search.html:145
+#: ../templates/default/ldap/search.html:195
+#: ../templates/default/ldap/admin/list.html:82
+#: ../templates/default/ldap/domain/list.html:198
+#: ../templates/default/ldap/user/list.html:154
+#: ../templates/default/mysql/admin/list.html:84
+#: ../templates/default/mysql/domain/list.html:151
+#: ../templates/default/mysql/user/list.html:138
+msgid "Enable"
+msgstr "Engedélyezés"
+
+#: ../templates/default/macros/general.html:352
+msgid "Enable this account"
+msgstr "Felhasználó engedélyezése"
+
+#: ../templates/default/macros/general.html:350
+msgid "Enable this domain"
+msgstr "Domain engedélyezése"
+
+#: ../templates/default/macros/ldap.html:110
+#: ../templates/default/macros/mysql.html:81
+msgid "Enabled Services"
+msgstr "Mail szolgáltatások."
+
+#: ../templates/default/dashboard.html:50
+#, python-format
+msgid "Error while checking new version: %s"
+msgstr ""
+
+#: ../templates/default/error404.html:4 ../templates/default/error404.html:9
+#: ../templates/default/ldap/user/create.html:80
+#: ../templates/default/macros/msgHandlers.html:15
+#: ../templates/default/mysql/user/create.html:56
+msgid "Error:"
+msgstr "Hiba:"
+
+#: ../templates/default/macros/general.html:689
+msgid "Events"
+msgstr ""
+
+#: ../templates/default/macros/msgHandlers.html:109
+msgid ""
+"Exceeded domain account limit. Please contact your administrator or "
+"service provider to increase it."
+msgstr ""
+
+#: ../templates/default/macros/ldap.html:93
+#: ../templates/default/macros/mysql.html:72
+msgid "Fetching mails via IMAP"
+msgstr "E-mailek lekérése POP3-on keresztül."
+
+#: ../templates/default/macros/ldap.html:94
+#: ../templates/default/macros/mysql.html:73
+msgid "Fetching mails via IMAP over TLS/SSL"
+msgstr "E-mailek lekérése POP3S-en keresztül (POP3 TLS/SSL felett)."
+
+#: ../templates/default/macros/ldap.html:91
+#: ../templates/default/macros/mysql.html:70
+msgid "Fetching mails via POP3"
+msgstr "E-mailek lekérése POP3-on keresztül."
+
+#: ../templates/default/macros/ldap.html:92
+#: ../templates/default/macros/mysql.html:71
+msgid "Fetching mails via POP3 over TLS/SSL"
+msgstr "E-mailek lekérése POP3S-en keresztül (POP3 TLS/SSL felett)."
+
+#: ../templates/default/panel/log.html:46
+msgid "Filter:"
+msgstr ""
+
+#: ../templates/default/macros/general.html:600
+msgid "First Page"
+msgstr ""
+
+#: ../templates/default/macros/ldap.html:96
+msgid "Forwarding mails to other addresses"
+msgstr "E-mail továbbítási cím"
+
+#: ../templates/default/ldap/admin/profile.html:52
+#: ../templates/default/ldap/user/profile.html:86
+#: ../templates/default/mysql/admin/profile.html:48
+#: ../templates/default/mysql/domain/profile.html:41
+#: ../templates/default/mysql/user/profile.html:40
+msgid "General"
+msgstr "Általános"
+
+#: ../templates/default/ldap/admin/list.html:48
+#: ../templates/default/macros/ldap.html:52
+#: ../templates/default/mysql/admin/list.html:48
+msgid "Global Admin"
+msgstr "Globális Admin"
+
+#: ../templates/default/error404.html:9
+msgid "Go back."
+msgstr ""
+
+#: ../templates/default/dashboard.html:57
+msgid "Hostname"
+msgstr "Hostnév"
+
+#: ../templates/default/panel/log.html:82
+msgid "IP Address"
+msgstr "Címzett BCC e-mail címe"
+
+#: ../templates/default/mysql/user/create.html:61
+msgid "Increase it now?"
+msgstr ""
+
+#: ../templates/default/macros/msgHandlers.html:73
+msgid "Invalid action."
+msgstr ""
+
+#: ../templates/default/macros/msgHandlers.html:72
+msgid "Invalid domain name."
+msgstr "Új e-mail csoport létrehozása"
+
+#: ../templates/default/macros/msgHandlers.html:107
+#: ../templates/default/macros/msgHandlers.html:151
+msgid "Invalid mail address."
+msgstr "Felhasználónak kell egy érvényes e-mail."
+
+#: ../templates/default/macros/general.html:171
+msgid "Is a global admin."
+msgstr "Megjelőlés Globális Adminnak"
+
+#: ../templates/default/ldap/search.html:56
+#: ../templates/default/ldap/user/list.html:82
+msgid "Job Title"
+msgstr ""
+
+#: ../templates/default/macros/general.html:251
+msgid "Job Title/Responsibility"
+msgstr ""
+
+#: ../templates/default/macros/general.html:679
+msgid "Last Page"
+msgstr ""
+
+#: ../templates/default/ldap/user/list.html:45
+#: ../templates/default/mysql/user/list.html:43
+msgid "Last Signed In"
+msgstr ""
+
+#: ../templates/default/ldap/domain/list.html:163
+#: ../templates/default/mysql/domain/list.html:121
+#: ../templates/default/mysql/domain/list.html:124
+msgid "List all mail aliases."
+msgstr "Összes e-mail alias listázása"
+
+#: ../templates/default/ldap/domain/list.html:154
+msgid "List all mail lists."
+msgstr "Összes e-mail csoport listázása"
+
+#: ../templates/default/ldap/domain/list.html:145
+#: ../templates/default/ldap/domain/list.html:148
+#: ../templates/default/mysql/domain/list.html:109
+#: ../templates/default/mysql/domain/list.html:112
+msgid "List all mail users."
+msgstr "Összes e-mail felhasználó listázása"
+
+#: ../templates/default/ldap/domain/list.html:172
+msgid "List assigned domain admins"
+msgstr "E-mail Domainek"
+
+#: ../templates/default/ldap/domain/list.html:58
+msgid "Lists"
+msgstr "E-mail listák"
+
+#: ../templates/default/layout.html:33
+#, python-format
+msgid "Logged in as %s"
+msgstr "Bejelentkezve mint %s"
+
+#: ../templates/default/login.html:64
+msgid "Login"
+msgstr "Belépés"
+
+#: ../templates/default/macros/msgHandlers.html:42
+msgid "Login required"
+msgstr ""
+
+#: ../templates/default/login.html:7 ../templates/default/login.html:42
+msgid "Login to manage your mail domains & accounts"
+msgstr "Belépés az e-mail domainek és felhasználók kezeléséhez"
+
+#: ../templates/default/layout.html:28
+msgid "Logout"
+msgstr "Kilépés"
+
+#: ../templates/default/ldap/search.html:54
+#: ../templates/default/ldap/search.html:114
+#: ../templates/default/ldap/search.html:167
+#: ../templates/default/ldap/admin/list.html:47
+#: ../templates/default/ldap/user/create.html:115
+#: ../templates/default/ldap/user/list.html:80
+#: ../templates/default/macros/general.html:484
+#: ../templates/default/mysql/admin/list.html:47
+#: ../templates/default/mysql/user/create.html:90
+#: ../templates/default/mysql/user/list.html:75
+msgid "Mail Address"
+msgstr "E-mail cím"
+
+#: ../templates/default/ldap/search.html:115
+msgid "Mail Deliver Restriction"
+msgstr ""
+
+#: ../templates/default/ldap/user/create.html:104
+#: ../templates/default/ldap/user/list.html:61
+#: ../templates/default/macros/msgHandlers.html:87
+msgid "Mail List"
+msgstr "E-mail listák"
+
+#: ../templates/default/ldap/user/create.html:101
+#: ../templates/default/ldap/user/list.html:30
+#: ../templates/default/ldap/user/list.html:58
+#: ../templates/default/macros/general.html:575
+msgid "Mail Lists"
+msgstr "E-mail listák"
+
+#: ../templates/default/ldap/user/list.html:22
+#: ../templates/default/mysql/user/list.html:22
+msgid "Mail Users"
+msgstr "E-mail felhasználók"
+
+#: ../templates/default/macros/msgHandlers.html:118
+msgid "Mail address already exists, please choose another one."
+msgstr ""
+
+#: ../templates/default/macros/ldap.html:113
+msgid "Mail service"
+msgstr "Mail szolgáltatások."
+
+#: ../templates/default/macros/general.html:405
+msgid "Mailbox Quota"
+msgstr ""
+
+#: ../templates/default/macros/ldap.html:5
+#: ../templates/default/macros/mysql.html:5
+msgid "Managed Domains"
+msgstr "Domainek kezelése"
+
+#: ../templates/default/macros/general.html:317
+msgid "Mark as global admin"
+msgstr "Megjelőlés Globális Adminnak"
+
+#: ../templates/default/panel/log.html:83
+msgid "Message"
+msgstr ""
+
+#: ../templates/default/macros/general.html:258
+msgid "Mobile"
+msgstr ""
+
+#: ../templates/default/ldap/domain/list.html:55
+#: ../templates/default/mysql/domain/list.html:55
+msgid "Name"
+msgstr "Felhasználó"
+
+#: ../templates/default/ldap/admin/create.html:51
+#: ../templates/default/mysql/admin/create.html:51
+msgid "Need a random password?"
+msgstr ""
+
+#: ../templates/default/dashboard.html:77
+msgid "Network"
+msgstr ""
+
+#: ../templates/default/macros/general.html:381
+msgid "New password"
+msgstr "Új jelszó"
+
+#: ../templates/default/macros/msgHandlers.html:162
+#, python-format
+msgid "New password must NOT contain more than %s characters."
+msgstr ""
+
+#: ../templates/default/macros/msgHandlers.html:160
+#, python-format
+msgid "New password must contain at least %s characters."
+msgstr ""
+
+#: ../templates/default/macros/msgHandlers.html:114
+#: ../templates/default/macros/msgHandlers.html:149
+msgid "New passwords are not match."
+msgstr ""
+
+#: ../templates/default/layout.html:109
+msgid "News & Announments"
+msgstr ""
+
+#: ../templates/default/macros/general.html:675
+msgid "Next Page"
+msgstr ""
+
+#: ../templates/default/macros/msgHandlers.html:146
+msgid "No account selected."
+msgstr "Nincs felhasználó kiválasztva."
+
+#: ../templates/default/ldap/domain/list.html:182
+#: ../templates/default/ldap/domain/list.html:186
+#: ../templates/default/mysql/domain/list.html:134
+#: ../templates/default/mysql/domain/list.html:138
+msgid "No domain available."
+msgstr "Új e-mail csoport létrehozása"
+
+#: ../templates/default/macros/msgHandlers.html:120
+msgid "No domain name available."
+msgstr "Új e-mail csoport létrehozása"
+
+#: ../templates/default/macros/msgHandlers.html:81
+#: ../templates/default/macros/msgHandlers.html:105
+msgid "No domain under control."
+msgstr "Az összes domain szabályozása."
+
+#: ../templates/default/ldap/user/create.html:69
+#: ../templates/default/mysql/user/create.html:48
+msgid "No free domain quota left."
+msgstr "Maximális E-mail kvóta"
+
+#: ../templates/default/macros/general.html:368
+#, python-format
+msgid "No more than %s characters."
+msgstr ""
+"Az új jelszónak tartalmaznia kell legalább <strong>% s </ strong> "
+"karaktert."
+
+#: ../templates/default/macros/msgHandlers.html:119
+msgid "No password while importing accounts."
+msgstr ""
+
+#: ../templates/default/macros/msgHandlers.html:79
+msgid "No such domain."
+msgstr "Domain engedélyezése"
+
+#: ../templates/default/ldap/user/list.html:142
+#: ../templates/default/mysql/user/list.html:126
+msgid "No user available."
+msgstr ""
+
+#: ../templates/default/macros/general.html:173
+msgid "Not a global admin."
+msgstr "Megjelőlés Globális Adminnak"
+
+#: ../templates/default/dashboard.html:20
+msgid "Number of domains"
+msgstr "E-mail felhasználók maximális száma"
+
+#: ../templates/default/dashboard.html:25
+msgid "Number of users"
+msgstr "E-mail felhasználók maximális száma"
+
+#: ../templates/default/macros/general.html:375
+msgid "Old password"
+msgstr "Régi jelszó"
+
+#: ../templates/default/macros/general.html:707
+msgid "One record one line."
+msgstr "Nincs felhasználó kiválasztva."
+
+#: ../templates/default/macros/msgHandlers.html:87
+msgid "Or create other mail accounts:"
+msgstr ""
+
+#: ../templates/default/error404.html:4 ../templates/default/error404.html:9
+msgid "Page not found."
+msgstr "Oldal nem található."
+
+#: ../templates/default/login.html:60
+#: ../templates/default/ldap/admin/profile.html:53
+#: ../templates/default/ldap/user/profile.html:87
+#: ../templates/default/mysql/admin/profile.html:49
+#: ../templates/default/mysql/user/profile.html:41
+msgid "Password"
+msgstr "Jelszó"
+
+#: ../templates/default/macros/msgHandlers.html:115
+#: ../templates/default/macros/msgHandlers.html:150
+msgid "Password is empty."
+msgstr ""
+
+#: ../templates/default/macros/msgHandlers.html:117
+msgid "Password is too long."
+msgstr ""
+
+#: ../templates/default/macros/msgHandlers.html:116
+msgid "Password is too short."
+msgstr ""
+
+#: ../templates/default/macros/general.html:450
+msgid ""
+"Per-user relay setting will override per-domain relay setting you set in "
+"this page."
+msgstr ""
+
+#: ../templates/default/macros/msgHandlers.html:77
+msgid "Permission denied."
+msgstr ""
+
+#: ../templates/default/macros/msgHandlers.html:121
+msgid "Please select at least one account."
+msgstr ""
+
+#: ../templates/default/macros/msgHandlers.html:80
+msgid "Please select at least one domain to apply action."
+msgstr ""
+
+#: ../templates/default/layout.html:27
+msgid "Preferences"
+msgstr "Beállítások"
+
+#: ../templates/default/macros/general.html:297
+msgid "Preferred language"
+msgstr "Alapértelmezett nyelv"
+
+#: ../templates/default/macros/general.html:604
+msgid "Previous Page"
+msgstr ""
+
+#: ../templates/default/ldap/admin/profile.html:39
+#: ../templates/default/ldap/admin/profile.html:68
+#: ../templates/default/mysql/admin/profile.html:35
+#: ../templates/default/mysql/admin/profile.html:64
+msgid "Profile of admin:"
+msgstr "Összes e-mail csoport listázása"
+
+#: ../templates/default/mysql/domain/profile.html:25
+#: ../templates/default/mysql/domain/profile.html:57
+msgid "Profile of domain:"
+msgstr "Összes e-mail csoport listázása"
+
+#: ../templates/default/ldap/user/profile.html:74
+#: ../templates/default/ldap/user/profile.html:102
+#: ../templates/default/mysql/user/profile.html:28
+#: ../templates/default/mysql/user/profile.html:56
+msgid "Profile of user:"
+msgstr "Összes e-mail csoport listázása"
+
+#: ../templates/default/macros/msgHandlers.html:104
+msgid "Profile updated failed."
+msgstr ""
+
+#: ../templates/default/macros/msgHandlers.html:67
+#: ../templates/default/macros/msgHandlers.html:103
+#: ../templates/default/macros/msgHandlers.html:141
+msgid "Profile updated success."
+msgstr ""
+
+#: ../templates/default/ldap/search.html:57
+#: ../templates/default/ldap/domain/list.html:56
+#: ../templates/default/ldap/user/list.html:83
+#: ../templates/default/mysql/domain/list.html:56
+#: ../templates/default/mysql/user/list.html:80
+msgid "Quota"
+msgstr "Kvóta"
+
+#: ../templates/default/macros/ldap.html:95
+#: ../templates/default/macros/mysql.html:67
+msgid "Receiving mails for this account on mail server"
+msgstr ""
+
+#: ../templates/default/macros/msgHandlers.html:176
+msgid "Records were deleted."
+msgstr ""
+
+#: ../templates/default/macros/general.html:440
+msgid "Relay/Transport Setting"
+msgstr ""
+
+#: ../templates/default/login.html:72
+msgid "Remember me"
+msgstr "Emlékezzen rám"
+
+#: ../templates/default/macros/general.html:451
+msgid "Sample"
+msgstr "Tiltás"
+
+#: ../templates/default/macros/general.html:195
+msgid "Save changes"
+msgstr "Változások mentése"
+
+#: ../templates/default/ldap/search.html:15
+#: ../templates/default/ldap/search.html:28
+msgid "Search"
+msgstr "Felhasználók"
+
+#: ../templates/default/ldap/search.html:26
+msgid "Search account display name or email"
+msgstr ""
+
+#: ../templates/default/ldap/search.html:39
+msgid "Search results."
+msgstr ""
+
+#: ../templates/default/macros/msgHandlers.html:110
+#: ../templates/default/macros/msgHandlers.html:143
+msgid "Selected accounts were deleted."
+msgstr ""
+
+#: ../templates/default/macros/msgHandlers.html:111
+#: ../templates/default/macros/msgHandlers.html:144
+msgid "Selected accounts were disabled."
+msgstr "A kijelölt felhasználó(k) letiltva."
+
+#: ../templates/default/macros/msgHandlers.html:112
+#: ../templates/default/macros/msgHandlers.html:145
+msgid "Selected accounts were enabled."
+msgstr ""
+
+#: ../templates/default/macros/msgHandlers.html:68
+msgid "Selected domains were deleted."
+msgstr ""
+
+#: ../templates/default/macros/msgHandlers.html:69
+msgid "Selected domains were disabled."
+msgstr ""
+
+#: ../templates/default/macros/msgHandlers.html:70
+msgid "Selected domains were enabled."
+msgstr ""
+
+#: ../templates/default/macros/ldap.html:89
+#: ../templates/default/macros/mysql.html:68
+msgid "Sending mails via SMTP"
+msgstr "E-mail küldése SMTP-n."
+
+#: ../templates/default/macros/ldap.html:90
+#: ../templates/default/macros/mysql.html:69
+msgid "Sending mails via SMTP over TLS/SSL"
+msgstr "E-mailek lekérése POP3S-en keresztül (POP3 TLS/SSL felett)."
+
+#: ../templates/default/dashboard.html:69
+msgid "Server load"
+msgstr "Szerver terhelés"
+
+#: ../templates/default/macros/msgHandlers.html:75
+msgid ""
+"Server-side size limit exceeded. Please increase \"sizelimit\" in your "
+"LDAP server."
+msgstr ""
+
+#: ../templates/default/macros/msgHandlers.html:46
+msgid "Session expired, please re-login."
+msgstr ""
+
+#: ../templates/default/macros/general.html:418
+msgid "Set to 0 for unlimited."
+msgstr "Tipp: A 0 azt korlátlan."
+
+#: ../templates/default/mysql/domain/profile.html:103
+msgid "Set value to 0 or leave it empty for unlimited."
+msgstr "Tipp: A 0 azt korlátlan."
+
+#: ../templates/default/mysql/user/list.html:114
+msgid "Stored"
+msgstr ""
+
+#: ../templates/default/panel/log.html:69
+msgid "Submit"
+msgstr ""
+
+#: ../templates/default/macros/msgHandlers.html:78
+msgid "Submited domain name is incorrect."
+msgstr ""
+
+#: ../templates/default/layout.html:110
+msgid "Support"
+msgstr ""
+
+#: ../templates/default/layout.html:60
+msgid "System"
+msgstr ""
+
+#: ../templates/default/dashboard.html:12
+msgid "System Information"
+msgstr "Rendszer információ"
+
+#: ../templates/default/macros/general.html:266
+#: ../templates/default/macros/general.html:275
+msgid "Telephone Number"
+msgstr "Telefonszám"
+
+#: ../templates/default/panel/log.html:80
+msgid "Time"
+msgstr "Üzemidő"
+
+#: ../templates/default/mysql/domain/list.html:89
+#: ../templates/default/mysql/domain/list.html:91
+#: ../templates/default/mysql/domain/list.html:99
+msgid "Total"
+msgstr "Összes: %s."
+
+#: ../templates/default/ldap/search.html:79
+#: ../templates/default/ldap/domain/list.html:133
+#: ../templates/default/ldap/domain/list.html:135
+#: ../templates/default/ldap/user/list.html:120
+#: ../templates/default/macros/general.html:330
+#: ../templates/default/mysql/domain/list.html:97
+#: ../templates/default/mysql/domain/list.html:99
+#: ../templates/default/mysql/user/list.html:108
+msgid "Unlimited"
+msgstr "Korlátlan"
+
+#: ../templates/default/macros/general.html:556
+#: ../templates/default/macros/general.html:568
+msgid "Unrestricted"
+msgstr "Mail szolgáltatások."
+
+#: ../templates/default/dashboard.html:46
+#, python-format
+msgid "Update available: <a href='%s' target='_blank'>v%s</a>."
+msgstr ""
+
+#: ../templates/default/dashboard.html:63
+msgid "Uptime"
+msgstr "Üzemidő"
+
+#: ../templates/default/macros/general.html:426
+#: ../templates/default/mysql/domain/list.html:89
+#: ../templates/default/mysql/domain/list.html:91
+#: ../templates/default/mysql/domain/list.html:97
+#: ../templates/default/mysql/domain/list.html:99
+msgid "Used"
+msgstr ""
+
+#: ../templates/default/layout.html:73
+#: ../templates/default/ldap/user/create.html:103
+#: ../templates/default/ldap/user/list.html:60
+#: ../templates/default/macros/msgHandlers.html:87
+#: ../templates/default/mysql/user/create.html:80
+#: ../templates/default/mysql/user/list.html:56
+msgid "User"
+msgstr "Felhasználók"
+
+#: ../templates/default/ldap/search.html:55
+#: ../templates/default/ldap/user/list.html:81
+#: ../templates/default/macros/general.html:244
+#: ../templates/default/mysql/user/list.html:76
+msgid "User ID"
+msgstr "Felhasználó ID"
+
+#: ../templates/default/login.html:55
+msgid "Username"
+msgstr "Felhasználó"
+
+#: ../templates/default/macros/msgHandlers.html:44
+msgid "Username must be an valid email address."
+msgstr ""
+
+#: ../templates/default/macros/msgHandlers.html:43
+msgid "Username or password is incorrect."
+msgstr ""
+
+#: ../templates/default/ldap/domain/list.html:57
+#: ../templates/default/ldap/user/create.html:28
+#: ../templates/default/ldap/user/create.html:100
+#: ../templates/default/ldap/user/list.html:29
+#: ../templates/default/ldap/user/list.html:57
+#: ../templates/default/ldap/user/profile.html:73
+#: ../templates/default/macros/general.html:574
+#: ../templates/default/mysql/domain/list.html:57
+#: ../templates/default/mysql/domain/profile.html:26
+#: ../templates/default/mysql/user/create.html:24
+#: ../templates/default/mysql/user/create.html:78
+#: ../templates/default/mysql/user/list.html:29
+#: ../templates/default/mysql/user/list.html:55
+#: ../templates/default/mysql/user/profile.html:27
+msgid "Users"
+msgstr "Felhasználók"
+
+#: ../templates/default/ldap/user/list.html:66
+#: ../templates/default/mysql/user/list.html:60
+#, python-format
+msgid "Users under domain: %s"
+msgstr ""
+
+#: ../templates/default/ldap/search.html:129
+msgid "View members"
+msgstr "Új tag hozzáadása"
+
+#: ../templates/default/macros/msgHandlers.html:24
+msgid "Warning:"
+msgstr "E-mail továbbítás "
+
+#: ../templates/default/macros/msgHandlers.html:142
+msgid "You are NOT permited to view/update other's profile."
+msgstr ""
+
+#: ../templates/default/macros/general.html:129
+msgid "You are here:"
+msgstr ""
+
+#: ../templates/default/ldap/user/create.html:80
+#: ../templates/default/mysql/user/create.html:56
+#, python-format
+msgid "You can NOT create more users under domain %s."
+msgstr ""
+
+#: ../templates/default/ldap/user/create.html:88
+#: ../templates/default/mysql/user/create.html:68
+#, python-format
+msgid "You can create <strong>%d</strong> more mail user(s) under domain %s."
+msgstr ""
+
+#: ../templates/default/ldap/search.html:205
+msgid "Your search returned no hits."
+msgstr ""
+
+#: ../templates/default/macros/msgHandlers.html:87
+msgid "add one more"
+msgstr ""
+
+#: ../templates/default/layout.html:46
+msgid "iRedMail Admin Panel"
+msgstr "Domain admin kijelőlése"

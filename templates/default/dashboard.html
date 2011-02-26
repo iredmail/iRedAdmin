@@ -1,0 +1,93 @@
+{# version, hostname, uptime, loadavg, #}
+
+{% extends "layout.html" %}
+
+{% block title %} {{ _('Dashboard') }} {% endblock %}
+{% block navlinks_active_dashboard %}class="active"{% endblock %}
+
+{% block main %}
+
+<div class="columns clear">
+    <div class="col1-3">
+        <h2>{{ _('System Information') }}</h2>
+        <div class="box-wrap clear">
+            <table class="basic" cellspacing="0">
+                <tbody>
+
+                    {# Show number of total domains, users, aliases #}
+                    {% if backend == 'mysql' %}
+                        <tr>
+                            <th>{{ _('Number of domains') }}</th>
+                            <td class="full"><a href="{{ctx.homepath}}/domains">{{ numberOfDomains }}</a></td>
+                        </tr>
+
+                        <tr>
+                            <th>{{ _('Number of users') }}</th>
+                            <td class="full">{{ numberOfUsers }}</td>
+                        </tr>
+                    {% endif %}
+
+                {% if session.get('domainGlobalAdmin') is sameas true %}
+                    <tr>
+                        <th>iRedAdmin</th>
+                        <td>v{{ version }}
+                            {% if backend == 'mysql' %}
+                                (MySQL)
+                            {% elif backend == 'mysql' %}
+                                (LDAP)
+                            {% endif %}
+
+                            {% if newVersionInfo[0] is sameas none %}
+                                {# Already checked today. #}
+                                &nbsp;
+                            {% elif newVersionInfo[0] is sameas true %}
+                                {# New version available #}
+                                {% if newVersionInfo[1].version > version %}
+                                    <strong>{{ _("Update available: <a href='%s' target='_blank'>v%s</a>.") |format(newVersionInfo[1].url, newVersionInfo[0].version,) }}</strong>
+                                {% endif %}
+                            {% else %}
+                                {# Error while checking #}
+                                <strong class="red">{{ _('Error while checking new version: %s') |format(newVersionInfo[1]) }}</strong>
+                            {% endif %}
+                        </td>
+                    </tr>
+
+                    {# ---- System Information ---- #}
+                    <tr>
+                        <th>{{ _('Hostname') }}</th>
+                        <td>{{ hostname }}</td>
+                    </tr>
+
+                    {% if uptime is not sameas none and uptime|length == 3 %}
+                    <tr>
+                        <th>{{ _('Uptime') }}</th>
+                        <td>{{ _('%s days, %s hours, %s minutes.') |format(uptime[0], uptime[1], uptime[2]) }}</td>
+                    </tr>
+                    {% endif %}
+
+                    <tr>
+                        <th>{{ _('Server load') }}</th>
+                        <td>{{ '%s, %s, %s.' |format(loadavg[0], loadavg[1], loadavg[2]) }}</td>
+                    </tr>
+
+                    {# ---- Network interfaces and IP info ---- #}
+                    {% for netif in netif_data.items() %}
+                        {% if netif[0] != 'lo' %}
+                        <tr>
+                            <th>{{ _('Network') }} ({{ netif[0] }})</th>
+                            <td>{{ netif[1]['addr'] }}<span class="grey">/{{ netif[1]['netmask'] }}</span></td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}{# global admin #}
+                </tbody>
+            </table>
+        </div> {# .box-wrap #}
+    </div>{# .col1-3 #}
+</div>{# .columns #}
+
+{% endblock main %}
+
+{% block js %}
+    {{ load_jquery(['tablesorter'], sortFirstCol=false) }}
+{% endblock js %}

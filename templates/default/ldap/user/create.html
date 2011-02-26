@@ -1,0 +1,158 @@
+{#
+    @allDomains     LDAP query result set
+    @cur_domain     Current domain name.
+    @defaultUserQuota   Default user quota
+    @domainAccountSetting
+    @numberOfCurrentAccounts
+    [username, newpw, confirmpw, msg, ]
+#}
+
+{% extends "layout.html" %}
+
+{% from "macros/general.html" import
+        display_subnav,
+        display_input_cn, 
+        display_reset_password,
+        display_quota,
+        with context
+        %}
+{% from "macros/msgHandlers.html" import userMsgHandler with context %}
+
+{% block title %}{{ _('Add user') }}{% endblock title %}
+{% block navlinks_active_create %}class="active"{% endblock %}
+
+{% block breadcrumb %}
+    {% set crumbs = [
+            (ctx.homepath + '/domains', _('All domains'),),
+            (ctx.homepath + '/profile/domain/general/' + cur_domain, cur_domain,),
+            (ctx.homepath + '/users/' + cur_domain, _('Users'),),
+            (None, _('Add user'),),
+            ]
+            %}
+    {{ display_subnav(crumbs) }}
+{% endblock %}
+
+{% block main %}
+{# Show system message #}
+{{ userMsgHandler(msg) }}
+
+{# Get domain quota size & unit #}
+{% set domainQuota = domainAccountSetting.get('domainQuota', '0:GB') %}
+{% set domainQuotaSize, domainQuotaUnit = domainQuota.split(':') %}
+
+{# -1 means temporary error. Don't allow to create new user. #}
+{% set domainSpareQuotaSize = -1 %}
+{% set domainQuotaBytes = 0 %}
+
+{% if domainQuotaSize |int > 0 %}
+    {% if domainQuotaUnit == 'GB' %}
+        {% set domainQuotaBytes = domainQuotaSize |int * 1024 * 1024 * 1024 %}
+    {% elif domainQuotaUnit == 'MB' %}
+        {% set domainQuotaBytes = domainQuotaSize |int * 1024 * 1024 %}
+    {% endif %}
+
+    {% set domainSpareQuotaSize = domainQuotaBytes - domainCurrentQuotaSize %}
+{% endif %}
+
+{# Number of accounts #}
+{% set numberOfAccounts = domainAccountSetting.get('numberOfUsers', '0') %}
+
+{# Password length #}
+{% set minPasswordLength = domainAccountSetting.get('minPasswordLength', '0') %}
+{% set maxPasswordLength = domainAccountSetting.get('maxPasswordLength', '0') %}
+
+{# -- Allow to create new account --#}
+{% set createNewAccount = true %}
+
+{% if domainQuotaBytes > 0 and domainSpareQuotaSize <= 0 %}
+    {% set createNewAccount = false %}
+    {% set whyDisabledCreation = _('No free domain quota left.') %}
+{% endif %}
+
+{% if numberOfCurrentAccounts >= numberOfAccounts |int %}
+    {% set createNewAccount = false %}
+    {% set whyDisabledCreation = _('Already exceed max number of account limit (%s).') |format(numberOfAccounts) %}
+{% endif %}
+
+{% if createNewAccount is sameas false %}
+        <div class="notification note-error">
+            <p>
+                <strong>{{ _('Error:') }}</strong> {{ _('You can NOT create more users under domain %s.') |format('<a href="' + ctx.homepath + '/profile/domain/general/' + cur_domain + '"><strong>' + cur_domain + '</strong></a>') }}
+                {{ whyDisabledCreation }}
+            </p>
+        </div>
+{% else %}
+    {% if numberOfAccounts != '0' %}
+        {% if numberOfCurrentAccounts < numberOfAccounts |int %}
+            <div class="notification note-info">
+                <p>{{ _('You can create <strong>%d</strong> more mail user(s) under domain %s.') |format(numberOfAccounts |int - numberOfCurrentAccounts, '<a href="' + ctx.homepath + '/profile/domain/general/' + cur_domain + '"><strong>' + cur_domain + '</strong></a>') }}</p>
+            </div>
+            <div class="bt-space0"></div>
+        {% endif %}
+    {% endif %}
+{% endif %}
+
+    {# Display input field for adding new user. #}
+    <div class="content-box">
+        <div class="box-body">
+            <div class="box-header clear">
+                <ul class="tabs clear">
+                    <li><a href="{{ctx.homepath}}/users/{{cur_domain}}">{{ _('Users') }}</a></li>
+                    <li><a href="{{ctx.homepath}}/maillists/{{cur_domain}}">{{ _('Mail Lists') }}</a></li>
+                    <li><a href="{{ctx.homepath}}/aliases/{{cur_domain}}">{{ _('Aliases') }}</a></li>
+                    <li class="active"><a href="#user_add"><img src="{{ctx.homepath}}/static/{{skin}}/images/ico_add_12.png" /> {{ _('User') }}</a>
+                    <li><a href="{{ctx.homepath}}/create/maillist/{{cur_domain}}"><img src="{{ctx.homepath}}/static/{{skin}}/images/ico_add_12.png" /> {{ _('Mail List') }}</a>
+                    <li><a href="{{ctx.homepath}}/create/alias/{{cur_domain}}"><img src="{{ctx.homepath}}/static/{{skin}}/images/ico_add_12.png" /> {{ _('Alias') }}</a>
+                </ul>
+
+                <h2>{{ _('Add user under domain:') }} {{cur_domain}}.</h2>
+            </div>
+
+            <div id="user_add" class="box-wrap clear">
+
+                <form method="post" action="{{ctx.homepath}}/create/user/{{cur_domain}}">
+        <div class="form-field clear">
+            <h4 class="size-250 fl-space">{{ _('Mail Address') }} <span class="required">*</span></h4>
+            <span class="clean-padding">
+                <input type="text" size="35" name="username" value="{{username}}" class="text fl-space" {% if createNewAccount is sameas false %}disabled{% endif %}/>@
+                <select name="domainName" onchange="changeUrl(this, baseurl='{{ctx.homepath}}/create/user/');">
+                    {% for d in allDomains %}
+                        <option value="{{ d[1].domainName[0] }}" {% if d[1].domainName[0] == cur_domain %}selected{%endif%}>{{ d[1].domainName[0]}}</option>
+                    {% endfor %}
+                </select>
+            </span>
+        </div>
+
+        <div class="bt-space5">&nbsp;</div>
+
+        {{ display_reset_password(
+                    min_passwd_length=minPasswordLength,
+                    max_passwd_length=maxPasswordLength,
+                    )
+                    }}
+
+        <div class="bt-space5">&nbsp;</div>
+
+            {{ display_input_cn(cn=cn, accountType='user') }}
+            {{ display_quota(
+                            value=defaultUserQuota,
+                            spare_quota_bytes=domainSpareQuotaSize,
+                            show_spare_quota='yes',
+                            show_value_in_input='yes',
+                            show_used_quota=false,
+                            )
+            }}
+
+        <div class="rule2"></div>
+        <div class="form-field clear">
+            <h4 class="size-250 fl-space">&nbsp;</h4>
+            <span>
+                <input type="submit" value="{{ _('Add') }}" {% if createNewAccount is sameas false %}class="button grey" disabled{% else %}class="button green"{% endif %} />
+            </span>
+        </div>
+
+    </form>
+    </div>{# -- End box-wrap -- #}
+</div>{# -- End content-box -- #}
+</div>{# -- End box-body -- #}
+{% endblock main %}

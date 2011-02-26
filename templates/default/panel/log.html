@@ -1,0 +1,129 @@
+{#
+    @total:         number of total entries.
+    @entries:       all entries.
+    @cur_page:      current page number (The same as offset in SQL query).
+    @event:         Event type.
+    @domain:        Domain name.
+#}
+
+{% extends "layout.html" %}
+{% from "macros/general.html" import
+            show_pages,
+            show_event_name,
+            with context
+            %}
+
+{% from "macros/msgHandlers.html" import
+            logMsgHandler,
+            with context
+            %}
+
+{% block title %}{{ _('Admin Log') }}{% endblock %}
+{% block navlinks_active_system %}class="active"{% endblock %}
+
+{% block main %}
+
+{{ logMsgHandler(msg) }}
+
+<div class="content-box">
+    <div class="box-body">
+        <div class="box-header clear">
+                <h2>
+                    {{ _('Admin Log') }}
+                    {% if total > 0 %}
+                        ({{ (cur_page-1)*session.pageSizeLimit + 1 }}-{{ (cur_page-1)*session.pageSizeLimit + (entries |length) }}/{{ total }})
+                    {% endif %}
+                </h2>
+
+            <ul class="tabs clear">
+                <li class="active"><a href="{{ctx.homepath}}/system/log">{{ _('Admin Log') }}</a></li>
+            </ul>
+        </div>
+
+{# List all pages. #}
+<div class="clear">
+    <form method="get" action="{{ctx.homepath}}/system/log">
+    {{ _('Filter:') }}
+    <select name="domain">
+        <option value="all">{{ _('Domains') }}</option>
+        {% for d in allDomains %}
+            <option value="{{d}}" {% if d == domain %}selected{% endif %}>{{ d }}</option>
+        {% endfor %}
+    </select>
+
+    {% if session.get('domainGlobalAdmin') is sameas true %}
+        <select name="admin">
+            <option value="all">{{ _('Admins') }}</option>
+            {% for a in allAdmins %}
+                <option value="{{a}}" {% if a == admin %}selected{% endif %}>{{ a }}</option>
+            {% endfor %}
+        </select>
+    {% endif %}
+
+    <select name="event">
+        {% for e in allEvents %}
+            <option value="{{e}}" {% if e == event %}selected{% endif %}>{{ show_event_name(event=e) }}</option>
+        {% endfor %}
+    </select>
+
+    <input type="submit" value="{{ _('Submit') }}" class="button" />
+    </form>
+</div>
+
+    <form id="list_table" method="post" action="{{ctx.homepath}}/system/log">
+    <table class="style1" cellspacing="0">
+        <thead>
+        <tr>
+            {% if session.get('domainGlobalAdmin') is sameas true %}
+                <th class="checkbox"><input type="checkbox" class="checkbox select-all" /></th>
+            {% endif %}
+            <th>{{ _('Time') }}</th>
+            <th>{{ _('Admin') }}</th>
+            <th>{{ _('IP Address') }}</th>
+            <th>{{ _('Message') }}</th>
+        </tr>
+        </thead>
+
+        {# List domain attributes/avalues. #}
+        <tbody>
+        {% for log in entries %}
+            <tr>
+                {% if session.get('domainGlobalAdmin') is sameas true %}
+                    <td class="checkbox"><input type="checkbox" name="id" value="{{log.id}}" class="checkbox" /></td>
+                {% endif %}
+                <td>{{ log.timestamp |setDatetimeFormat }}</td>
+                <td><a href="{{ctx.homepath}}/profile/admin/general/{{log.admin}}">{{ log.admin }}</a></td>
+                <td>{{ log.ip }}</td>
+                <td class="{{log.event}}_{{log.loglevel}}">{{ log.msg }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    {% if session.get('domainGlobalAdmin') is sameas true %}
+        <div class="tab-footer clear f1">
+            {% if session.get('domainGlobalAdmin') is sameas true %}
+                <div class="fl">
+                    <select name="action" class="fl-space">
+                        <option>{{ _('Choose Action') }}</option>
+                        <option value="delete">{{ _('Delete') }}</option>
+                    </select>
+                    <input type="submit" value="{{ _('Apply') }}" class="button fl-space" />
+                </div>
+            {% endif %}
+
+            {% set pages = show_pages(
+                  baseurl=ctx.homepath + '/system/log?domain=' + domain + '&event=' + event + '&admin=' + admin,
+                  total=total,
+                  cur_page=cur_page,
+                  sep='&page=',
+                  )
+                  %}
+
+            {{ pages }}
+        </div>
+    {% endif %}
+</form>
+</div>
+</div>
+{% endblock main %}

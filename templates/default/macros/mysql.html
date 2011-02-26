@@ -1,0 +1,100 @@
+{% macro display_all_domains(managedDomains=[], allDomains=[]) -%}
+<div class="columns clear">
+    <div class="col2-3">
+        <div class="form-field clear">
+            <h4 class="size-250 fl-space">{{ _('Managed Domains') }}</h4>
+            <div class="checklist clear">
+                <fieldset>
+                    {% for r in allDomains %}
+                    <div class="clear">
+                    <div class="checklist-item">
+                        <span class="fl-space">
+                            <input type="checkbox" name="domainName" value="{{ r.domain }}" {% if r.domain in managedDomains %}checked{%endif%} />
+                        </span>
+                        <label>
+                            {% if r.description |length > 0 %}
+                                {{ r.domain }} ({{ r.description |cutString |e }})
+                            {% else %}
+                                {{ r.domain }}
+                            {% endif %}
+                        </label>
+                    </div>
+                    </div>
+                    {% endfor %}
+                </fieldset>
+            </div>
+        </div>
+    </div>{#-- .col2-3 --#}
+
+    <div class="col1-3 lastcol">
+        <div class="mark_blue bt-space10">
+            <ul class="standard clean-padding bt-space10">
+                <li class="bt-space5"><a href="{{ctx.homepath}}/create/domain" class="action_add">{{ _('Add domain') }}</a></li>
+            </ul>
+        </div>
+    </div>
+</div>{#-- .columns --#}
+{%- endmacro %}
+
+{% macro display_all_admins(domainAdmins=[], allAdmins=[]) -%}
+    <div class="form-field clear">
+        <h4 class="size-250 fl-space">{{ _('Domain Admins') }}</h4>
+        <div class="checklist clear">
+            <fieldset>
+            {% for admin in allAdmins %}
+                <div class="clear">
+                    <div class="checklist-item">
+                        <span class="fl-space"><input type="checkbox" name="domainAdmin" value="{{ admin.username }}" {% if admin.username in domainAdmins %}checked{%endif%} class="checkbox" rel="checkboxhorizont" /></span>
+                        <label>
+                            {% if admin.name not in ['', none,] %}
+                                {{ admin.name }}
+                            {% else %}
+                                {{ admin.username.split('@',1)[0] }}
+                            {% endif %}
+                            (<a href="{{ctx.homepath}}/profile/admin/general/{{ admin.username }}" target="_blank">{{ admin.username }}</a>)
+                        </label>
+                    </div>
+                </div>
+            {% endfor %}
+            </fieldset>
+        </div>
+    </div>
+{%- endmacro %}
+
+{% macro display_enabled_services(accountType, profile) -%}
+    {% if accountType == 'user' %}
+        {% set available_services = [
+                ('checkbox', 'enabledeliver', _('Receiving mails for this account on mail server')),
+                ('checkbox', 'enablesmtp', _('Sending mails via SMTP')),
+                ('checkbox', 'enablesmtpsecured', _('Sending mails via SMTP over TLS/SSL')),
+                ('checkbox', 'enablepop3', _('Fetching mails via POP3')),
+                ('checkbox', 'enablepop3secured', _('Fetching mails via POP3 over TLS/SSL')),
+                ('checkbox', 'enableimap', _('Fetching mails via IMAP')),
+                ('checkbox', 'enableimapsecured', _('Fetching mails via IMAP over TLS/SSL')),
+                ('checkbox', 'enablemanagesieve', _('Customize mail filter rule')),
+                ('checkbox', 'enablemanagesievesecured', _('Customize mail filter rule over TLS/SSL')),
+                ('hidden', 'enableinternal', ''),
+                ] %}
+    {% endif %}
+
+<div class="form-field clear">
+    <h4 class="size-250 fl-space">{{ _('Enabled Services') }}</h4>
+
+    {% for srv in available_services %}
+        {% if not loop.first and srv[0] != 'hidden' %}
+            <h4 class="size-250 fl-space">&nbsp;</h4>
+        {% endif %}
+
+        <div class="form-checkbox-item clear">
+            <input type="{{ srv[0] }}" name="enabledService" value="{{ srv[1] }}" class="{{ srv[0] }}" rel="checkboxhorizont"
+                {% if srv[1] in profile.keys() %}
+                    {% if profile.__getattr__(srv[1]) == 1 %}
+                        checked
+                    {% endif %}
+                {% endif %}
+            />
+            <label>{{ srv[2] }}</label>
+        </div>
+    {% endfor %}
+</div>
+{%- endmacro %}

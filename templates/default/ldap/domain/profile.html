@@ -1,0 +1,80 @@
+{% extends "layout.html" %}
+
+{% from "macros/general.html" import
+        display_subnav,
+        nav_links_of_account_types,
+        set_account_status_img,
+        display_button_submit,
+        display_input_cn,
+        display_account_status,
+        with context
+        %}
+
+{% from "macros/msgHandlers.html" import domainMsgHandler with context %}
+
+{% block title %}{{ _('Edit account profile') }}{% endblock %}
+{% block navlinks_active_domains %}class="active"{% endblock %}
+
+{% set p = profile[0] %}
+{% set dn = p[0] %}
+{% set entries = p[1] %}
+{% set domainName = entries.get('domainName')[0] %}
+{% set cn = entries.get('cn', [domainName])[0].decode('utf-8') %}
+{% set accountStatus = entries.get('accountStatus', ['disabled'])[0] |lower %}
+
+{% block breadcrumb %}
+    {% set crumbs = [
+            (ctx.homepath + '/domains', _('All domains'),),
+            (None, _('Profile of domain:') + '&nbsp;' + cur_domain,),
+            (ctx.homepath + '/users/' + cur_domain, _('Users'),),
+            ]
+            %}
+    {{ display_subnav(crumbs) }}
+{% endblock %}
+
+
+{# Domain profile. #}
+{% block main %}
+
+{# Show system message #}
+{{ domainMsgHandler(msg) }}
+
+{% set navlinks = [
+                ('general', _('General'), [true,]),
+                ]
+                %}
+<div class="content-box">
+    <div class="box-body">
+        <div class="box-header clear">
+            <ul class="tabs clear">
+                {% for nav in navlinks %}
+                    {% if not false in nav[2] and not none in nav[2] %}
+                        <li {% if profile_type == nav[0] %}class="active"{% endif %}><a href="{{ctx.homepath}}/profile/domain/{{nav[0]}}/{{cur_domain}}">{{ nav[1] }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <h2>{{ _('Profile of domain:') }} {{ cur_domain }}</h2>
+        </div>
+
+        <div class="box-wrap clear">
+            <form method="post" action="{{ctx.homepath}}/profile/domain/{{profile_type}}/{{cur_domain}}">
+                <input type="hidden" name="domainName" value="{{cur_domain}}" />
+                {% if profile_type == 'general' %}
+                    <div class="columns clear">
+                        <div class="col2-3 ">
+                            {% if session.get('domainGlobalAdmin') is sameas true %}
+                                {{ display_account_status(accountStatus, accountType='domain') }}
+                            {% endif %}
+
+                            {{ display_input_cn(cn, accountType='domain') }}
+                        </div>{# .col2-3 #}
+                    </div>{# .columns #}
+                {% endif %}
+
+                {{ display_button_submit() }}
+            </form>
+
+        </div>{# .box-wrap #}
+    </div>{# .box-body #}
+</div>{# .content-box #}
+{% endblock main %}

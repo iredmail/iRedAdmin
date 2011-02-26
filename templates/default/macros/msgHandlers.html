@@ -1,0 +1,181 @@
+{% macro successInfo(msg, removable=true) -%}
+    <div class="notification note-success">
+        {% if removable is not sameas false %}
+            <a href="#" class="close">Close</a>
+        {% endif %}
+        <p>{{msg}}</p>
+    </div>
+{%- endmacro %}
+
+{% macro errorInfo(msg, removable=false) -%}
+    <div class="notification note-error">
+        {% if removable is not sameas false %}
+            <a href="#" class="close">Close</a>
+        {% endif %}
+        <p><strong>{{ _('Error:') }}</strong> {{msg }}</p>
+    </div>
+{%- endmacro %}
+
+{% macro warningInfo(msg, removable=false) -%}
+    <div class="notification note-attention">
+        {% if removable is not sameas false %}
+            <a href="#" class="close">Close</a>
+        {% endif %}
+        <p><strong>{{ _('Warning:') }}</strong> {{ msg }}</p>
+    </div>
+    
+{%- endmacro %}
+
+{% macro generalInfo(msg, removable=true) -%}
+    <div class="notification note-info">
+        {% if removable is not sameas false %}
+            <a href="#" class="close">Close</a>
+        {% endif %}
+        <p>{{ msg }}</p>
+    </div>
+    
+{%- endmacro %}
+
+{% macro loginMsgHandler(msg) -%}
+{% if msg is defined and msg is not sameas none and msg|string != '' %}
+    {% set handlers = {
+        'loginRequired': errorInfo(_('Login required')),
+        'INVALID_CREDENTIALS': errorInfo(_('Username or password is incorrect.')),
+        'INVALID_USERNAME': errorInfo(_('Username must be an valid email address.')),
+        'EMPTY_PASSWORD': errorInfo(_('Empty password is not allowed.')),
+        'SESSION_EXPIRED': errorInfo(_('Session expired, please re-login.')),
+    }
+    %}
+
+    {% if msg == 'SERVER_DOWN' %}
+        {{ errorInfo(_('Server is down, Please contact <a href="mailto:%s">webmaster</a> to solve it.' % webmaster )) }}
+    {% elif msg is sameas false %}
+        {{ errorInfo( ('Authentication failed.') ) }}
+    {% else %}
+        {% if msg in handlers %}
+            {{ handlers[msg] }}
+        {% else %}
+            {{ errorInfo( msg ) }}
+        {% endif %}
+    {% endif %}
+{% endif %}
+{%- endmacro %}
+
+{% macro domainMsgHandler(msg=none) -%}
+{% if msg is defined and msg is not sameas none and msg|string != '' %}
+    {% set handlers = {
+        'PROFILE_UPDATED_SUCCESS': successInfo(_('Profile updated success.')),
+        'DELETED_SUCCESS': successInfo(_('Selected domains were deleted.')),
+        'DISABLED_SUCCESS': successInfo(_('Selected domains were disabled.')),
+        'ENABLED_SUCCESS': successInfo(_('Selected domains were enabled.')),
+
+        'INVALID_DOMAIN_NAME': errorInfo(_('Invalid domain name.')),
+        'INVALID_ACTION': errorInfo(_('Invalid action.')),
+        'EMPTY_DOMAIN': errorInfo(_('Domain name is empty.')),
+        'EXCEEDED_LDAP_SERVER_SIZELIMIT': errorInfo(_('Server-side size limit exceeded. Please increase "sizelimit" in your LDAP server.')),
+        'ALREADY_EXISTS': errorInfo(_('Domain already exists. Please check both primary or alias domains.')),
+        'PERMISSION_DENIED': errorInfo(_('Permission denied.')),
+        'DOMAIN_NAME_MISMATCH': errorInfo(_('Submited domain name is incorrect.')),
+        'NO_SUCH_OBJECT': errorInfo(_('No such domain.')),
+        'NO_DOMAIN_SELECTED': errorInfo(_('Please select at least one domain to apply action.')),
+        'NO_DOMAIN_AVAILABLE': generalInfo(_('No domain under control.')),
+    }
+    %}
+
+    {% if msg == 'CREATED_SUCCESS' %}
+        <div class='notification note-success'><a href='#' class='close'></a>
+            <p>{{ _('Domain created.') }} <a href='{{ctx.homepath}}/create/domain'>{{ _('add one more') }}</a>? {{ _('Or create other mail accounts:') }} <a href='{{ctx.homepath}}/create/user/{{cur_domain}}'>{{ _('User') }}</a>, <a href='{{ctx.homepath}}/create/maillist/{{cur_domain}}'>{{ _('Mail List') }}</a>.</p>
+        </div>
+    {% else %}
+        {% if msg in handlers %}
+            {{ handlers[msg] }}
+        {% else %}
+            {{ errorInfo( msg ) }}
+        {% endif %}
+    {% endif %}
+
+{% endif %}
+{%- endmacro %}
+
+{% macro userMsgHandler(msg) -%}
+{% if msg is defined and msg is not sameas none and msg|string != '' %}
+    {% set handlers = {
+        'PROFILE_UPDATED_SUCCESS': successInfo(_('Profile updated success.')),
+        'UPDATED_FAILED':  errorInfo( _('Profile updated failed.')),
+        'NO_DOMAIN_AVAILABLE': generalInfo( _('No domain under control.') ),
+        'MISSING_DOMAIN_OR_USERNAME': errorInfo( _('Domain name or username is missed.') ),
+        'INVALID_MAIL': errorInfo( _('Invalid mail address.') ),
+        'EXCEEDED_DOMAIN_QUOTA_SIZE': errorInfo( _('Domain quota size exceeded. Please contact your administrator or service provider to increase it.') ),
+        'EXCEEDED_DOMAIN_ACCOUNT_LIMIT': errorInfo( _('Exceeded domain account limit. Please contact your administrator or service provider to increase it.') ),
+        'DELETED_SUCCESS': successInfo( _('Selected accounts were deleted.') ),
+        'DISABLED_SUCCESS': successInfo( _('Selected accounts were disabled.') ),
+        'ENABLED_SUCCESS': successInfo( _('Selected accounts were enabled.') ),
+        'INCORRECT_OLDPW': errorInfo( _('Current password is incorrect.') ),
+        'PW_MISMATCH': errorInfo( _('New passwords are not match.') ),
+        'PW_EMPTY': errorInfo( _('Password is empty.') ),
+        'PW_LESS_THAN_MIN_LENGTH': errorInfo( _('Password is too short.') ),
+        'PW_GREATER_THAN_MAX_LENGTH': errorInfo( _('Password is too long.') ),
+        'ALREADY_EXISTS': errorInfo(_('Mail address already exists, please choose another one.')),
+        'NO_INIT_PASSWD': errorInfo(_('No password while importing accounts.')),
+        'NO_DOMAIN': errorInfo(_('No domain name available.')),
+        'NO_ACCOUNT_SELECTED': errorInfo(_('Please select at least one account.')),
+        }
+    %}
+
+    {% if msg == 'CREATED_SUCCESS' %}
+        {{ successInfo( _('User created. Would you like to <a href="%s/create/user/%s">add one more</a>?' |format(ctx.homepath, mail.split('@', 1)[1] )) ) }}
+    {% else %}
+        {% if msg in handlers %}
+            {{ handlers[msg] }}
+        {% else %}
+            {{ errorInfo(msg) }}
+        {% endif %}
+    {% endif %}
+{% endif %}
+
+{%- endmacro %}
+
+{% macro adminMsgHandler(msg) -%}
+{% if msg is defined and msg is not sameas none and msg|string != '' %}
+    {% set handlers = {
+        'PROFILE_UPDATED_SUCCESS': successInfo(_('Profile updated success.')),
+        'PERMISSION_DENIED': errorInfo(_("You are NOT permited to view/update other's profile.")),
+        'DELETED_SUCCESS': successInfo(_('Selected accounts were deleted.')),
+        'DISABLED_SUCCESS': successInfo(_('Selected accounts were disabled.')),
+        'ENABLED_SUCCESS': successInfo(_('Selected accounts were enabled.')),
+        'NO_ACCOUNT_SELECTED': errorInfo(_('No account selected.')),
+        'INCORRECT_OLDPW': errorInfo(_('Current password is incorrect.')),
+        'INVALID_CREDENTIALS': errorInfo(_('Current password is incorrect.')),
+        'PW_MISMATCH': errorInfo(_('New passwords are not match.')),
+        'PW_EMPTY': errorInfo(_('Password is empty.')),
+        'INVALID_MAIL': errorInfo(_('Invalid mail address.')),
+        'ALREADY_EXISTS': errorInfo(_('Account already exists, please choose another username.')),
+        'NO_SUCH_OBJECT': errorInfo(_('Admin not exist.')),
+        }
+    %}
+
+    {% if msg == 'CREATED_SUCCESS' %}
+        {{ successInfo( _('Admin created. Would you like to <a href="%s/create/admin">add one more</a>?') |format(ctx.homepath) ) }}
+    {% elif msg == 'PW_LESS_THAN_MIN_LENGTH' %}
+        {{ errorInfo( _('New password must contain at least %s characters.') |format(min_passwd_length) ) }}
+    {% elif msg == 'PW_GREATER_THAN_MAX_LENGTH' %}
+        {{ errorInfo( _('New password must NOT contain more than %s characters.') |format(max_passwd_length) ) }}
+    {% else %}
+        {% if msg in handlers %}
+            {{ handlers[msg] }}
+        {% else %}
+            {{ errorInfo(msg) }}
+        {% endif %}
+    {% endif %}
+{% endif %}
+{%- endmacro %}
+
+{% macro logMsgHandler(msg) -%}
+{% if msg is defined and msg is not sameas none and msg|string != '' %}
+    {% if msg == 'DELETED' %}
+        {{ successInfo( _('Records were deleted.') ) }}
+    {% else %}
+        {{ errorInfo( msg ) }}
+    {% endif %}
+{% endif %}
+{%- endmacro %}

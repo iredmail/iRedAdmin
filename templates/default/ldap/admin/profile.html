@@ -1,0 +1,113 @@
+{#
+    @profile_type   arguments
+
+    all             mail, profile_type, [msg,]
+    @general        profile, languagemaps,
+    @domains        allDomains, managedDomains,
+    @password       min_passwd_length, max_passwd_length,
+#}
+{% extends "layout.html" %}
+{% from "macros/general.html" import
+                display_subnav,
+                set_account_status_img,
+                display_account_status,
+                display_input_cn,
+                display_preferredLanguage,
+                display_reset_password,
+                display_input_global_admin,
+                display_button_submit,
+                with context
+                %}
+
+{% from "macros/ldap.html" import
+                display_all_domains,
+                with context
+                %}
+
+{% from "macros/msgHandlers.html" import adminMsgHandler with context %}
+
+{% block title %}{{ _('Edit account profile') }}{% endblock %}
+{% block navlinks_active_admins %}class="active"{% endblock %}
+
+{% set entry = profile[0][1] %}
+{% set cn = entry.get('cn', [''])[0].decode('utf-8') %}
+{% set accountStatus = entry.get('accountStatus', ['disabled'])[0] %}
+
+{% block breadcrumb %}
+    {% set crumbs = [
+            (ctx.homepath + '/admins', _('All admins'),),
+            (None, _('Profile of admin:') + '&nbsp;' + mail,),
+            ]
+            %}
+    {{ display_subnav(crumbs) }}
+{% endblock %}
+
+
+{% block main %}
+
+{# Show system message #}
+{{ adminMsgHandler(msg) }}
+
+{% set navlinks = [
+                ('general', _('General'), []),
+                ('password', _('Password'), []),
+                ]
+                %}
+
+<div class="content-box">
+    <div class="box-body">
+        <div class="box-header clear">
+            <ul class="tabs clear">
+                {% for nav in navlinks %}
+                    {% if not false in nav[2] and not none in nav[2] %}
+                        <li {% if profile_type == nav[0] %}class="active"{% endif %}><a href="{{ctx.homepath}}/profile/admin/{{nav[0]}}/{{mail}}">{{ nav[1] }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+
+            <h2>{{ _('Profile of admin:') }} {{ mail }}</h2>
+        </div>
+
+        <div class="box-wrap clear">
+            <form method="post" action="{{ctx.homepath}}/profile/admin/{{profile_type}}/{{mail}}">
+                {% if profile_type == 'general' %}
+                    {% set preferredLanguage = entry.get('preferredLanguage', ['en_US'])[0] |string %}
+
+                    <div class="columns clear">
+                        <div class="col2-3">
+                            {% if session.get('domainGlobalAdmin') is sameas true %}
+                                {{ display_account_status(accountStatus) }}
+                                <div class="bt-space0">&nbsp;</div>
+                            {% endif %}
+
+                            {{ display_input_cn(cn=cn, accountType='admin') }}
+                            {{ display_preferredLanguage(value=preferredLanguage, languagemaps=languagemaps) }}
+                        </div>
+
+                    </div>{# .columns #}
+
+                {% elif profile_type == 'password' %}
+                    {% if session.get('domainGlobalAdmin') is sameas true %}
+                        {{ display_reset_password(
+                                min_passwd_length=min_passwd_length,
+                                max_passwd_length=max_passwd_length,
+                                show_confirmpw=true,
+                                )
+                                }}
+                    {% else %}
+                        {{ display_reset_password(
+                                min_passwd_length=min_passwd_length,
+                                max_passwd_length=max_passwd_length,
+                                show_oldpw=true,
+                                show_confirmpw=true,
+                                )
+                                }}
+                    {% endif %}
+                {% endif %}{# profile_type #}
+
+                {{ display_button_submit() }}
+            </form>
+        </div>{# .box-wrap #}
+    </div>{# .box-body #}
+</div>{#-- .content-box --#}
+{% endblock main %}

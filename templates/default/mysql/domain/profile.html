@@ -1,0 +1,115 @@
+{% extends "layout.html" %}
+
+{% from "macros/general.html" import
+        display_subnav,
+        nav_links_of_account_types,
+        set_account_status_img,
+        display_button_submit,
+        display_input_cn,
+        display_account_status,
+        display_domain_transport,
+        display_enabled_services,
+        display_recipient_bcc,
+        display_sender_bcc,
+        with context
+        %}
+
+{% from "macros/msgHandlers.html" import domainMsgHandler with context %}
+
+{% block title %}{{ _('Edit account profile') }}{% endblock %}
+{% block navlinks_active_domains %}class="active"{% endblock %}
+
+{% block breadcrumb %}
+    {% set crumbs = [
+            (ctx.homepath + '/domains', _('All domains'),),
+            (None, _('Profile of domain:') + '&nbsp;' + cur_domain,),
+            (ctx.homepath + '/users/' + cur_domain, _('Users'),),
+            (ctx.homepath + '/aliases/' + cur_domain, _('Aliases'),),
+            ]
+            %}
+    {{ display_subnav(crumbs) }}
+{% endblock %}
+
+
+{# Domain profile. #}
+{% block main %}
+
+{# Show system message #}
+{{ domainMsgHandler(msg) }}
+
+{% set navlinks = [
+                ('general', _('General'), [true,]),
+                ]
+                %}
+
+<div class="content-box">
+    <div class="box-body">
+
+        {#-- Links --#}
+        <div class="box-header clear">
+            <ul class="tabs clear">
+                {% for nav in navlinks %}
+                    {% if not false in nav[2] and not none in nav[2] %}
+                        <li><a href="#profile_{{ nav[0] }}">{{ nav[1] }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <h2>{{ _('Profile of domain:') }} {{ cur_domain }}</h2>
+        </div>{# .box-header #}
+
+        <div class="box-wrap clear">
+            {# profile_type: general #}
+            <div id="profile_general">
+                <form method="post" action="{{ctx.homepath}}/profile/domain/general/{{cur_domain}}">
+                    <div class="columns clear">
+                        <div class="col2-3 ">
+                            {% if session.get('domainGlobalAdmin') is sameas true %}
+                                {{ display_account_status(profile.active, accountType='domain') }}
+                            {% endif %}
+
+                            {{ display_input_cn(profile.description, accountType='domain') }}
+                        </div>{# .col2-3 #}
+                    </div>
+
+                    <div class="columns clear">
+                        <div class="col2-3 ">
+                            <div class="bt-space0">&nbsp;</div>
+                            {% if session.get('domainGlobalAdmin') is sameas true %}
+                                {% if profile.maxquota >= (1024 * 1024) %}
+                                    {% set domainQuota = profile.maxquota / (1024*1024) %}
+                                    {% set domainQuotaUnit = 'TB' %}
+                                {% elif 1024*1024 > profile.maxquota >= 1024 %}
+                                    {% set domainQuota = profile.maxquota / 1024 %}
+                                    {% set domainQuotaUnit = 'GB' %}
+                                {% else %}
+                                    {% set domainQuota = profile.maxquota %}
+                                    {% set domainQuotaUnit = 'MB' %}
+                                {% endif %}
+                                <div class="form-field clear">
+                                    <h4 class="size-250 fl-space">{{ _('Domain quota size') }}</h4>
+                                    <input type="text" name="domainQuota" value="{{ domainQuota |int }}" size="10" class="text fl-space" />
+                                    <select name="domainQuotaUnit">
+                                        {% for unit in ['TB', 'GB', 'MB'] %}
+                                            <option value="{{ unit }}" {% if domainQuotaUnit == unit %}selected{% endif %}>{{ unit }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            {% endif %}
+                        </div>{# .col2-3 #}
+
+                        <div class="col1-3 lastcol">
+                            <div class="mark_blue bt-space10">
+                                <ul class="standard clean-padding bt-space10">
+                                    <li class="bt-space5">{{ _('Set value to 0 or leave it empty for unlimited.') }}</li>
+                                </ul>
+                            </div>
+                        </div>{#-- .col1-3 --#}
+                    </div>{# .columns #}
+
+                    {{ display_button_submit() }}
+                </form>
+            </div>
+        </div>{# .box-wrap #}
+    </div>{# .box-body #}
+</div>{# .content-box #}
+{% endblock main %}

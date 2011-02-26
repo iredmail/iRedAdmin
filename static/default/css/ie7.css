@@ -1,0 +1,6 @@
+.clear 			{ _height: 1%; min-height: 1%; }
+.logo .title	{ position: relative; top: 2px; left: -1px; }
+.logo .text		{ position: relative; top: -1px; }
+
+.dataTables_wrapper .dataTables_paginate	{padding-bottom: 0px;}
+.tab-footer					{padding-bottom: 0px;}

@@ -1,0 +1,228 @@
+{#
+    @allDomains
+    @allAccountSettings
+    @msg
+#}
+
+{% extends "layout.html" %}
+
+{% from "macros/general.html" import
+        load_jquery,
+        set_account_status_img,
+        display_number_of_account_limited,
+        display_progress_bar,
+        display_add_domain,
+        show_pages,
+        with context
+        %}
+
+{% from "macros/msgHandlers.html" import domainMsgHandler, with context %}
+
+{% block title %}{{ _('Domains and Accounts') }}{% endblock %}
+{% block navlinks_active_domains %}class="active"{% endblock %}
+
+{% block main %}
+{# Show system message #}
+{{ domainMsgHandler(msg) }}
+
+{# List all domains under control. #}
+    <div class="content-box">
+        <div class="box-body">
+            <div class="box-header clear">
+                <ul class="tabs clear">
+                    <li class="active"><a href="{{ctx.homepath}}/domains">{{ _('All domains') }}</a></li>
+                    {% if session.get('domainGlobalAdmin') is sameas true %}
+                        <li><a href="{{ctx.homepath}}/create/domain"><img src="{{ctx.homepath}}/static/{{skin}}/images/ico_add_12.png" /> {{ _('Add domain') }}</a></li>
+                    {% endif %}
+                </ul>
+
+                <h2>
+                    {{ _('All domains under your control.') }}
+                    {% if total is defined and allDomains|length > 0 %}
+                        ({{ (cur_page-1) * session['pageSizeLimit'] + 1 }}-{{ (cur_page-1) * session['pageSizeLimit'] + allDomains|length}}/{{ total }})
+                    {% endif %}
+                </h2>
+            </div>
+
+            <form id="list_table" method="post" action="{{ctx.homepath}}/domains">
+            <table class="style1 tablesorter" cellspacing="0">
+                <thead>
+                <tr>
+                    {% if session.get('domainGlobalAdmin') is sameas true %}
+                        <th class="checkbox"><input type="checkbox" class="checkbox select-all" /></th>
+                    {% endif %}
+                    <th>{{ _('Domain') }}</th>
+                    <th>{{ _('Name') }}</th>
+                    <th>{{ _('Quota') }}</th>
+                    <th>{{ _('Users') }}</th>
+                    <th>{{ _('Lists') }}</th>
+                    <th>{{ _('Aliases') }}</th>
+                    {% if session.get('domainGlobalAdmin') is sameas true %}
+                        <th>{{ _('Admins') }}</th>
+                    {% endif %}
+                    <th>{{ _('Created') }}</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% if allDomains is not string and allDomains |length != 0 %}
+                    {# List domain attributes/avalues. #}
+                    {% for d in allDomains %}
+                        {% set entries = d[1] %}
+                        {% set domain = entries.get('domainName')[0] |string%}
+                        {% set cn = entries.get('cn', [domain])[0].decode('utf-8') %}
+                        {% set accountStatus = entries.get('accountStatus', ['disabled'])[0] %}
+                        {% set accountSetting = allAccountSettings.get(domain, {}) %}
+
+                        {# Get account limits. #}
+                        {% set numberOfUsers = accountSetting.get('numberOfUsers', '0') |int %}
+                        {% set numberOfLists = accountSetting.get('numberOfLists', '0') |int %}
+                        {% set numberOfAliases = accountSetting.get('numberOfAliases', '0') |int %}
+
+                        {# Get number of current accounts #}
+                        {% set domainCurrentUserNumber = entries.get('domainCurrentUserNumber', ['0'])[0] |int %}
+                        {% set domainCurrentListNumber = entries.get('domainCurrentListNumber', ['0'])[0] |int %}
+                        {% set domainCurrentAliasNumber = entries.get('domainCurrentAliasNumber', ['0'])[0] |int %}
+
+                        {% set timestamp = entries.get('createTimestamp', ['--------------'])[0] %}
+
+                        {# Get domain quota size & unit #}
+                        {% set domainQuota = accountSetting.get('domainQuota', '0:GB') %}
+                        {% set domainQuotaSize, domainQuotaUnit = domainQuota.split(':') %}
+
+                        {% set domainCurrentQuotaSize = entries.get('domainCurrentQuotaSize', ['0'])[0] |int %}
+
+                        {% if domainQuotaUnit == 'TB' %}
+                            {% set domainQuotaBytes = domainQuotaSize |int * 1024 * 1024 * 1024 * 1024 %}
+                        {% elif domainQuotaUnit == 'GB' %}
+                            {% set domainQuotaBytes = domainQuotaSize |int * 1024 * 1024 * 1024 %}
+                        {% else %}
+                            {% set domainQuotaBytes = domainQuotaSize |int * 1024 * 1024 %}
+                        {% endif %}
+
+                        <tr class="{{ accountStatus |lower }}">
+                            {% if session.get('domainGlobalAdmin') is sameas true %}
+                                <td class="checkbox"><input type="checkbox" class="checkbox " name="domainName" value="{{domain}}" /></td>
+                            {% endif %}
+                            <td class="vcenter">
+                                <a href="{{ctx.homepath}}/profile/domain/general/{{domain}}"><img src="{{ctx.homepath}}/static/{{skin}}/images/action_edit.png" title="{{ _('Edit account profile') }}" class="fr-space"/></a>
+                                {{ set_account_status_img(accountStatus) }}
+                                {{ domain }}
+                            </td>
+
+                            <td class="vcenter">{% if cn != '' and cn != domain %}{{ cn |cutString }}{% endif %}</td>
+
+                            {# Domain quota#}
+                            <td class="vcenter">
+                                {% if domainQuotaBytes > 0 %}
+                                    {% set percentOfDomainQuotaBytes = domainCurrentQuotaSize |getPercentage(domainQuotaBytes) %}
+                                    <div>
+                                        <span>{{ percentOfDomainQuotaBytes }}%</span>
+
+                                        {# Add link to domain profile page #}
+                                        {% if session.get('domainGlobalAdmin') is sameas true %}
+                                            <span class="grey">(<a href="{{ctx.homepath}}/profile/domain/advanced/{{domain}}#domainQuota" title="{{ _('Edit quota setting') }}" alt="{{ _('Edit quota setting') }}" style="text-decoration: none;">{{ domainCurrentQuotaSize |filesizeformat }}/{{ domainQuotaBytes |filesizeformat }}</a>)</span>
+                                        {% else %}
+                                            <span class="grey">({{ domainCurrentQuotaSize |filesizeformat }}/{{ domainQuotaBytes |filesizeformat }})</span>
+                                        {% endif %}
+                                    </div>
+
+                                    {{ display_progress_bar(percentOfDomainQuotaBytes, show_zero=true, width="60%", style='thin') }}
+                                {% else %}
+                                    {% if session.get('domainGlobalAdmin') is sameas true %}
+                                        <a href="{{ctx.homepath}}/profile/domain/advanced/{{domain}}#domainQuota" title="{{ _('Edit quota setting') }}" alt="{{ _('Edit quota setting') }}" style="text-decoration: none;">{{ _('Unlimited') }}</a>
+                                    {% else %}
+                                        {{ _('Unlimited') }}
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+
+                            {# Mail user count #}
+                            <td class="vcenter">
+                                {% if numberOfUsers > 0 %}
+                                    {% set percentOfNumberOfUsers = domainCurrentUserNumber |getPercentage(numberOfUsers) %}
+
+                                    <a href="{{ctx.homepath}}/users/{{domain}}" title="{{ _('List all mail users.') }}" style="text-decoration: none;">{{ percentOfNumberOfUsers }}% <span class="grey">({{domainCurrentUserNumber}} {{ display_number_of_account_limited(numberOfUsers) }})</span></a>
+                                    {{ display_progress_bar(percentOfNumberOfUsers, style='thin') }}
+                                {% else %}
+                                    <a href="{{ctx.homepath}}/users/{{domain}}" title="{{ _('List all mail users.') }}" style="text-decoration: none;">{{domainCurrentUserNumber}}</a>
+                                {% endif %}
+                            </td>
+
+                            {# Mail list count #}
+                            <td class="vcenter">
+                                <a href="{{ctx.homepath}}/maillists/{{domain}}" title="{{ _('List all mail lists.') }}" style="text-decoration: none;">{{domainCurrentListNumber}} {{ display_number_of_account_limited(numberOfLists) }}</a>
+                                {% if numberOfLists > 0 %}
+                                    {% set percentOfNumberOfLists = domainCurrentListNumber |getPercentage(numberOfLists) %}
+                                    {{ display_progress_bar(percentOfNumberOfLists, style='thin') }}
+                                {% endif %}
+                            </td>
+
+                            {# Mail alias count #}
+                            <td class="vcenter">
+                                <a href="{{ctx.homepath}}/aliases/{{domain}}" title="{{ _('List all mail aliases.') }}" style="text-decoration: none;">{{domainCurrentAliasNumber}} {{display_number_of_account_limited(numberOfAliases)}}</a>
+                                {% if numberOfAliases > 0 %}
+                                    {% set percentOfNumberOfAliases = domainCurrentAliasNumber |getPercentage(numberOfAliases) %}
+                                    {{ display_progress_bar(percentOfNumberOfAliases, style='thin') }}
+                                {% endif %}
+                            </td>
+
+                            {# Show number of domain admins #}
+                            {% if session.get('domainGlobalAdmin') is sameas true %}
+                                <td class="vcenter"><a href="{{ctx.homepath}}/profile/domain/general/{{domain}}" style="text-decoration: none;" title="{{ _('List assigned domain admins') }}">{{ entries.get('domainAdmin', []) |length }}</a></td>
+                            {% endif %}
+
+                            <td class="vcenter">{{ timestamp |setDatetimeFormat(hour=False) }}</td>
+                        </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                    {% if session.get('domainGlobalAdmin') is sameas true %}
+                        <td class="checkbox"></td>
+                        <td class="vcenter" colspan="8">{{ _('No domain available.') }}
+                            <a href="{{ctx.homepath}}/create/domain">{{ _('Add one') }}</a>?
+                        </td>
+                    {% else %}
+                        <td class="vcenter" colspan="8">{{ _('No domain available.') }}</td>
+                    {% endif %}
+                    </tr>
+                {% endif %}
+                </tbody>
+            </table>
+
+                <div class="tab-footer clear f1">
+                    {% if session.get('domainGlobalAdmin') is sameas true %}
+                        <div class="fl">
+                            <select name="action" class="fl-space">
+                                <option>{{ _('Choose Action') }}</option>
+                                <option value="enable">{{ _('Enable') }}</option>
+                                <option value="disable">{{ _('Disable') }}</option>
+                                <option value="delete">{{ _('Delete') }}</option>
+                            </select>
+                            <input type="submit" value="{{ _('Apply') }}" class="button fl-space" />
+                        </div>
+                    {% endif %}
+
+                    {% set pages = show_pages(
+                              baseurl=ctx.homepath + '/domains',
+                              total=total,
+                              cur_page=cur_page)
+                              %}
+
+                    {{ pages }}
+                </div>
+            </form>
+        </div>
+    </div>
+
+{% endblock main %}
+
+{% block js %}
+    {% if session.get('domainGlobalAdmin') is sameas true %}
+        {% set sortFirstCol = false %}
+    {% else %}
+        {% set sortFirstCol = true %}
+    {% endif %}
+
+    {{ load_jquery(['tablesorter'], sortFirstCol=sortFirstCol) }}
+{% endblock js %}

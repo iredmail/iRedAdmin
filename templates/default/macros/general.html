@@ -1,0 +1,715 @@
+{# ------------ Load JS files ------------- #}
+{% macro load_jquery(plugins=[], sortFirstCol=False, defaultPlugins=['tooltip', 'idtabs', 'fancybox']) -%}
+    {#
+        Available jQuery plugins:
+        [idtabs, jeditable, visualize, fancybox, idtabs, ui, jcarousel, validate,]
+
+        excanvas.js,
+        cufon.js,
+    #}
+    <script type="text/javascript" src="{{ctx.homepath}}/static/js/jquery-1.4.2.min.js"></script>
+
+    {% for p in defaultPlugins %}
+        <script type="text/javascript" src="{{ctx.homepath}}/static/js/jquery.{{p}}.js"></script>
+    {% endfor %}
+
+    {% for p in plugins %}
+        <script type="text/javascript" src="{{ctx.homepath}}/static/js/jquery.{{p}}.js"></script>
+    {% endfor %}
+
+    {#
+    <script type="text/javascript" src="{{ctx.homepath}}/static/js/cufon.js"></script>
+    <script type="text/javascript" src="{{ctx.homepath}}/static/js/Zurich_Condensed_Lt_Bd.js"></script>
+    #}
+
+    <script type="text/javascript">
+
+    {# Addition JS/jQuery functions #}
+    $(document).ready(function() {
+        {# -- Menus -- #}
+        $('.menu li').hover(function () {
+            $(this).find('ul:first').css({'visibility': 'visible', 'display': 'none'}).slideDown();
+        }, function () {
+            $(this).find('ul:first').css({visibility: "hidden"});
+        });
+
+        {#-- Content Boxes --#}
+        $('.content-box .select-all').click(function () {
+            if ($(this).is(':checked'))
+                $(this).parent().parent().parent().parent().find(':checkbox').attr('checked', true);
+            else
+                $(this).parent().parent().parent().parent().find(':checkbox').attr('checked', false);
+        });
+
+        /* Tabs */
+        $('.content-box .tabs').idTabs();
+
+        {# Notifications #}
+        $('.notification .close').click(function () {
+            $(this).parent().fadeOut(300);
+            return false;
+        });
+
+        {# tooltip #}
+        $("a[title], img[title], span[title]").tooltip({
+            position: "top center",
+            offset: [-5, 0],
+            predelay: 300,
+            delay: 100,
+            effect: "fade",
+            opacity: 1
+        });
+
+        $("input[title]").tooltip({
+            position: "center right",
+            offset: [-2, 10],
+            delay: 100,
+            effect: "fade",
+            opacity: 1
+        });
+
+        {% if 'tablesorter' in plugins %}
+            $(".tablesorter").tablesorter(
+                {% if sortFirstCol is sameas false %}
+                    { headers: { 0: {sorter: false} } }
+                {% endif %}
+            );
+        {% endif %}
+
+        $('.onFocusEmpty').focus(function () {
+            $(this).val('');
+        });
+
+        {# -- Fancybox -- #}
+        $('.modal-link').fancybox({
+            'modal'                 : false,
+            'hideOnOverlayClick'    : true,
+            'hideOnContentClick'    : false,
+            'enableEscapeButton'    : true,
+            'showCloseButton'       : true
+        });
+        $("a[href$='gif']").fancybox();
+        $("a[href$='jpg']").fancybox();
+        $("a[href$='png']").fancybox();
+
+        {# -- Cufon -- #}
+        {#
+        Cufon.replace('.logo .title', { fontFamily: 'Zurich Cn BT', color: '-linear-gradient(#FFFFFF, #FFFFFF, #c0c0c0, rgb(200, 200, 200))', textShadow: '#FFFFFF 0px 1px'});
+        Cufon.replace('.user-detail .name', { fontFamily: 'Zurich Cn BT' });
+        Cufon.replace('.visualize-title', { fontFamily: 'Zurich Cn BT' });
+        Cufon.replace('table caption', { fontFamily: 'Zurich Cn BT' });
+
+        Cufon.replace('h1', { fontFamily: 'Zurich LtCn BT' });
+        Cufon.replace('h2', { fontFamily: 'Zurich Cn BT' });
+        Cufon.replace('h3', { fontFamily: 'Zurich LtCn BT' });
+        Cufon.replace('h4', { fontFamily: 'Zurich Cn BT' });
+        Cufon.replace('h5', { fontFamily: 'Zurich Cn BT' });
+        Cufon.replace('h6', { fontFamily: 'Zurich LtCn BT' });
+        Cufon.replace('h1 .label', { fontFamily: 'Zurich Cn BT' });
+        #}
+    });
+    </script>
+
+{%- endmacro %}
+{# ------------ END Load JS files ------------- #}
+
+{% macro load_jquery_quicksearch() -%}
+    $("input.quickSearch").quicksearch("table.dataList tbody tr");
+{%- endmacro %}
+
+{# ------------ END Load jQuery $(document).read() functions ------------- #}
+
+
+{%- macro display_subnav(crumbs) -%}
+    {#-- crumbs = [(link, label), (link, label)] --#}
+    {% if crumbs | length > 0 %}
+    <div class="breadcrumb">
+        <div class="bread-links pagesize">
+            <ul class="clear">
+                <li class="first">{{ _('You are here:') }}</li>
+                {% for crb in crumbs %}
+                    <li class="link{{loop.index}}">
+
+                    {% if loop.index != 1 %}
+                        &gt;&nbsp;&nbsp;
+                    {% endif %}
+
+                    {% if crb[0] is not sameas none %}
+                        <a href="{{ crb[0] }}">{{ crb[1] }}</a>{% if not loop.last %}{% endif %}
+                    {% else %}
+                        {{ crb[1] }}
+                    {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+{%- endmacro -%}
+
+{% macro set_account_status_img(status, float="right", tooltip=true, vcenter=true) -%}
+    {% if float == 'right' %}
+        {% set imgfloat = 'fr-space' %}
+    {% elif float == 'left' %}
+        {% set imgfloat = 'fl-space' %}
+    {% elif float == 'center' %}
+        {% set imgfloat = 'fl-space' %}
+    {% else %}
+        {% set imgfloat = '' %}
+    {% endif %}
+
+    {% if status == 'active' or status |string == '1' %}
+        <img src="{{ctx.homepath}}/static/{{skin}}/images/enabled.png" class="{{ imgfloat }}" {% if tooltip is sameas true %}title="{{ _('Account is active.') }}"{% endif %} {% if vcenter is sameas true %}style="vertical-align: middle;"{% endif %}/>
+    {% else %}
+        {% set tooltip = _('Account is disabled.') %}
+        <img src="{{ctx.homepath}}/static/{{skin}}/images/ball_grey_16.png" class="{{ imgfloat }}" {% if tooltip is sameas true %}title="{{ _('Account is disabled.') }}"{% endif %} {% if vcenter is sameas true %}style="vertical-align: middle;"{% endif %}/>
+    {% endif %}
+{%- endmacro %}
+
+{% macro set_admin_type_img(value) -%}
+    {% if value == 'yes' %}
+        <img src="{{ctx.homepath}}/static/{{skin}}/images/enabled.png" class="block" title="{{ _('Is a global admin.') }}" alt="" />
+    {% else %}
+        <img src="{{ctx.homepath}}/static/{{skin}}/images/ball_grey_16.png" class="block" title="{{ _('Not a global admin.') }}" alt="" />
+    {% endif %}
+{%- endmacro %}
+
+{% macro set_status_img(status) -%}
+    {% if status == 'active' or status == 'yes' %}
+        {% set img = "enabled.png" %}
+    {% else %}
+        {% set img = "disabled.png" %}
+    {% endif %}
+    <img title="{{status |title }}" src="{{ctx.homepath}}/static/{{skin}}/images/{{img}}">
+{%- endmacro %}
+
+{% macro display_input_img(image="", alt="") -%}
+    <input type="image" src="{{ctx.homepath}}/static/{{skin}}/images/{{image}}" alt="{{alt}}">
+{%- endmacro %}
+
+{% macro display_button_submit(label=none, color='green') -%}
+    <div class="rule2"></div>
+    <div class="form-field clear">
+        <h4 class="size-250 fl-space">&nbsp;</h4>
+        <span>
+            <input type="submit" value="{% if label is not sameas none %}{{ label }}{% else %}{{ _('Save changes') }}{% endif %}" class="button {{color}}" />
+        </span>
+    </div>
+{%- endmacro %}
+
+{% macro display_progress_bar(percent, tooltip=none, show_zero=false, style='normal', width='100%') -%}
+    {% set percent = percent |int %}
+    {% if percent < 0 %}
+        {% set percent = 0 %}
+    {% elif percent > 100 %}
+        {% set percent = 100 %}
+    {% endif %}
+
+    {% if tooltip is sameas none %}
+        {% set tooltip = percent |string + '%' %}
+    {% endif %}
+
+    {% if style == 'thin' %}
+        {% set height = '3px' %}
+    {% else %}
+        {% set height = '1.1em' %}
+    {% endif %}
+
+    {% if percent < 80 %}
+        {% set bgcolor = '#ACE97C' %}
+    {% elif 80 <= percent < 90 %}
+        {% set bgcolor = 'yellow' %}
+    {% elif 90 <= percent < 99 %}
+        {% set bgcolor = '#F76541' %}
+    {% else %}
+        {% set bgcolor = '#F62217' %}
+    {% endif %}
+
+    {% if percent > 0 or show_zero is sameas true %}
+        <div class="progress-container" title="{{tooltip}}" style="width: {{width}}; height: {{height}};">
+            <div class="progress-bar" style="height: {{height}}; width: {{percent}}%; background-color: {{bgcolor}};"></div>
+        </div>
+    {% endif %}
+{%- endmacro %}
+
+{% macro input_hidden(name, value) -%}
+    <input type="hidden" name="{{ name }}" value="{{ value }}">
+{%- endmacro %}
+
+{% macro display_input_employeeid(value='') -%}
+    {% if value is sameas none %}
+        {% set value = '' %}
+    {% endif %}
+    <div class="form-field clear">
+        <h4 class="size-250 fl-space">{{ _('User ID') }}</h4>
+        <span class="clean-padding bt-space20"><input type="text" name="employeeNumber" value="{% if value != 'None' %}{{value}}{% endif %}" size="35" class="text" /></span>
+    </div>
+{%- endmacro %}
+
+{% macro display_input_jobtitle(value='') -%}
+    <div class="form-field clear">
+        <h4 class="size-250 fl-space">{{ _('Job Title/Responsibility') }}</h4>
+        <span class="clean-padding bt-space20"><input type="text" name="title" value="{% if value != 'None' %}{{value}}{% endif %}" size="35" class="text" /></span>
+    </div>
+{%- endmacro %}
+
+{% macro display_input_mobile(value) -%}
+    <div class="form-field clear">
+        <h4 class="size-250 fl-space">{{ _('Mobile') }}</h4>
+        <span class="clean-padding bt-space20"><input type="text" name="mobile" value="{{value}}" size="35" class="text" /></span>
+    </div>
+{%- endmacro %}
+
+{% macro display_input_phone(value=[]) -%}
+    {% if value |length == 0 %}
+    <div class="form-field clear">
+        <h4 class="size-250 fl-space">{{ _('Telephone Number') }}</h4>
+        <span class="clean-padding bt-space20">
+            <input type="text" name="telephoneNumber" value="" size="35" class="text" />
+        </span>
+    </div>
+    {% else %}
+        {% for phone in value %}
+        <div class="form-field clear">
+            {% if loop.first %}
+                <h4 class="size-250 fl-space">{{ _('Telephone Number') }}</h4>
+            {% else %}
+                <h4 class="size-250 fl-space">&nbsp;</h4>
+            {% endif %}
+            <span class="clean-padding bt-space20">
+                <input type="text" name="telephoneNumber" value="{{phone}}" size="35" class="text" />
+            </span>
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    {#-- Always display one more field to input new value --#}
+    <div class="form-field clear">
+        <h4 class="size-250 fl-space">&nbsp;</h4>
+        <span class="clean-padding bt-space20">
+            <input type="text" name="telephoneNumber" value="" size="35" class="text" />
+        </span>
+    </div>
+{%- endmacro %}
+
+{% macro display_preferredLanguage(value='', languagemaps=['en_US',]) -%}
+<div class="form-field clear">
+    <h4 class="size-250 fl-space">{{ _('Preferred language') }}</h4>
+    <select name="preferredLanguage">
+        {% for lang in languagemaps %}
+            <option value="{{lang}}" {% if value == lang %}selected{%endif%}>{{languagemaps[lang]}}</option>
+        {% endfor %}
+    </select>
+</div>
+{%- endmacro %}
+
+{% macro displayedInGlobalAddressBook(enabledService=[]) %}
+    <div class="form-field clear">
+        <h4 class="size-250 fl-space">{{ _("Displayed in Global LDAP Address Book") }}</h4>
+        <div class="form-checkbox-item clear">
+            <input name="displayedInGlobalAddressBook" {% if 'displayedInGlobalAddressBook' in enabledService %}checked{% endif %} type="checkbox" rel="checkboxhorizont" class="checkbox" />
+        </div>
+    </div>
+{%- endmacro %}
+
+{% macro display_input_global_admin(value='no') %}
+<div class="form-field clear">
+    <h4 class="size-250 fl-space">{{ _('Mark as global admin') }}</h4>
+    <div class="form-checkbox-item clear">
+        {#
+            ldap: yes, no
+            mysql: true, false
+        #}
+        <span class="clean-padding bt-space20"><input class="checkbox" name="domainGlobalAdmin" value="yes" type="checkbox" {% if value in ['yes', true,] %}checked{%endif%} /></span>
+    </div>
+</div>
+{%- endmacro %}
+
+{# Used to display domainMaxXXXNumber #}
+{% macro display_number_of_account_limited(value, hide_unlimited=true) -%}
+    {% if value == '0' or value == 0 or value == 'None' %}{% if hide_unlimited is not sameas true %}<span class="grey">/<em>{{ _('Unlimited') }}</em></span>{% endif %}{%else%}<span class="grey">/ <em>{{value}}</em></span>{%endif%}
+{%- endmacro %}
+
+{%- macro display_quota_usage_percent(current, total) -%}
+    {% set percent = (current |int * 100) // total |int %}
+    {% if percent > 80 %}
+        <span class="important"><strong>{{percent}}%</strong></span>
+    {% else %}
+        <span>{{percent}}%</span>
+    {% endif %}
+{%- endmacro -%}
+
+{# Display accountStatus #}
+{% macro display_account_status(accountStatus, accountType='user') %}
+    {% if accountStatus is sameas none %}
+        {% set accountStatus = none %}
+    {% endif %}
+
+    <div class="form-field clear">
+        {% if accountType == 'domain' %}
+            <h4 class="size-250 fl-space">{{ _('Enable this domain') }}</h4>
+        {% else %}
+            <h4 class="size-250 fl-space">{{ _('Enable this account') }}</h4>
+        {% endif %}
+
+        <div class="form-checkbox-item clear fl-space2">
+            <input name="accountStatus" value="active" type="checkbox" rel="checkboxhorizont" class="checkbox fl-space" {% if accountStatus in ['active', 1, '1',] %}checked{%endif%} />
+        </div>
+    </div>
+{%- endmacro %}
+
+{% macro display_reset_password(oldpw='', newpw='', confirmpw='', show_oldpw=false, show_confirmpw=true, min_passwd_length='6', max_passwd_length='0') -%}
+
+    {% if min_passwd_length != '0' and max_passwd_length != '0'%}
+        {% set tooltip = _('At least %s characters, but no more than %s.') |format(min_passwd_length, max_passwd_length) %}
+    {% elif min_passwd_length != '0' and max_passwd_length == '0' %}
+        {% set tooltip = _('At least %s characters.') |format(min_passwd_length) %}
+    {% elif max_passwd_length == '0' and max_passwd_length != '0' %}
+        {% set tooltip = _('No more than %s characters.') |format(max_passwd_length) %}
+    {% else %}
+        {% set tooltip = '' %}
+    {% endif %}
+
+<div class="form-field clear">
+    {% if show_oldpw is sameas true %}
+        <h4 class="size-250 fl-space">{{ _('Old password') }} <span class="required">*</span></h4>
+        <span class="clean-padding bt-space20"><input type="password" name="oldpw" value="{{ oldpw }}" size="35" class="text" /></span>
+    {% endif %}
+</div>
+
+<div class="form-field clear">
+    <h4 class="size-250 fl-space">{{ _('New password') }} <span class="required">*</span></h4>
+    <span class="clean-padding bt-space20"><input type="password" name="newpw" value="{{ newpw }}" size="35" title="{{ tooltip }}" class="text" />
+    </span>
+</div>
+
+<div class="form-field clear">
+    {% if show_confirmpw is sameas true %}
+        <h4 class="size-250 fl-space">{{ _('Confirm new password') }} <span class="required">*</span></h4>
+        <span class="clean-padding bt-space20"><input type="password" name="confirmpw" value="{{confirmpw}}" size="35" title="{{ tooltip }}" class="text" /></span>
+    {% endif %}
+</div>
+{%- endmacro %}
+
+{% macro display_quota(value='', label='', comment='', used_quota=none, spare_quota_bytes=0, show_spare_quota='no', show_value_in_input='no', hide_zero='yes', show_used_quota=true) -%}
+    {# Convert to string #}
+    {% set value = value |string %}
+    {% set used_quota = used_quota |string %}
+
+    {% if hide_zero == 'yes' and value == '0' %}
+        {% set value = '' %}
+    {% endif %}
+
+    <div class="form-field clear">
+        {% if label == '' %}
+            <h4 class="size-250 fl-space">{{ _('Mailbox Quota') }}</h4>
+        {% else %}
+            <h4 class="size-250 fl-space">{{ label }}</h4>
+        {% endif %}
+
+        <span class="clean-padding fl-space2">
+            <input type="text" name="mailQuota" value="{% if show_value_in_input == 'yes' %}{{ value }}{% endif %}" size="10" class="text fl-space" /> <label class="fl-space">MB {{ comment }}</label>
+
+            {% if spare_quota_bytes |int >= 0 %}
+                {% if show_spare_quota == 'yes' and spare_quota_bytes > 0 %}
+                    <label class="fl-space">{{ _('Available quota:') }} {{spare_quota_bytes | filesizeformat}}</label>
+                {% endif %}
+            {% elif spare_quota_bytes |int == -1 %}
+                {% set comment = _('Set to 0 for unlimited.') %}
+            {% endif %}
+
+            {% if show_used_quota is sameas true %}
+                {% if session.get('enableShowUsedQuota') is sameas true and value.isdigit() and used_quota.isdigit() %}
+                    {% set percent = used_quota |getPercentage(value |int * 1024 * 1024) %}
+                    <label class="fl-space"><em style="color: black; font-style: normal;">
+                        {{ display_progress_bar(percent, show_zero=true, width='80px') }}&nbsp;
+                        {{ _('Used') }}&nbsp;{{ used_quota |filesizeformat }}.&nbsp;({{ percent }}%)
+                    </em></label>
+                {% endif %}
+            {% endif %}
+        </span>
+
+        <span><input type="hidden" name="oldMailQuota" value="{{value}}" /></span>
+    </div>
+{%- endmacro %}
+
+{% macro display_domain_transport(transport='') -%}
+<div class="columns clear">
+    <div class="col2-3 ">
+        <div class="form-field clear">
+            <h4 class="size-250 fl-space">{{ _('Relay/Transport Setting') }}</h4>
+            <div class="clear">
+                <input type="text" name="mtaTransport" value="{% if transport not in ['', none] %}{{ transport }}{% endif %}" size="35" class="text" />
+            </div>
+        </div>
+    </div>{#-- .col2-3 --#}
+
+    <div class="col1-3 lastcol">
+        <div class="mark_blue bt-space10">
+            <ul class="standard clean-padding bt-space10">
+                <li class="bt-space5">{{ _('Per-user relay setting will override per-domain relay setting you set in this page.') }}</li>
+                <li class="bt-space5"><a href="http://www.postfix.org/transport.5.html" target="_blank">{{ _('Sample') }}</a></li>
+            </ul>
+        </div>
+    </div>{#-- .col1-3 --#}
+</div>{#-- .columns --#}
+{%- endmacro %}
+
+{% macro display_recipient_bcc(address='') -%}
+    {% if address is sameas none %}
+        {% set address = '' %}
+    {% endif %}
+    <div class="form-field clear">
+        <h4 class="size-250 fl-space">{{ _('BCC incoming emails to single address') }}</h4>
+        <span class="clean-padding">
+            <input type="text" name="recipientBccAddress" value="{{address}}" size="35" class="text" />
+        </span>
+    </div>
+{%- endmacro %}
+
+{% macro display_sender_bcc(address='') -%}
+    {% if address is sameas none %}
+        {% set address = '' %}
+    {% endif %}
+    <div class="form-field clear">
+        <h4 class="size-250 fl-space">{{ _('BCC outgoing emails to single address') }}</h4>
+        <span class="clean-padding">
+            <input type="text" name="senderBccAddress" value="{{address}}" size="35" class="text" />
+        </span>
+    </div>
+{%- endmacro %}
+
+{% macro display_input_mail(mail='', name='mail', required=false) -%}
+<div class="form-field clear">
+    <h4 class="size-250 fl-space">{{ _('Mail Address') }} {% if required is sameas true %}<span class="required">*</span>{% endif %}</h4>
+    <span class="clean-padding bt-space20"><input type="text" name="{{ name }}" value="{{ mail }}" size="35" class="text" /></span>
+</div>
+{%- endmacro %}
+
+{% macro display_input_domain(domain='', name='domainName', required=false) -%}
+<div class="form-field clear">
+    <h4 class="size-250 fl-space">{{ _('Domain Name') }} {% if required is sameas true %}<span class="required">*</span>{% endif %}</h4>
+    <span class="clean-padding bt-space20"><input type="text" name="{{ name }}" value="{{ domain }}" size="35" class="text" /></span>
+</div>
+{%- endmacro %}
+
+
+{% macro display_input_cn(cn='', name='cn', accountType='user', tooltip='', size="size-250") -%}
+    {% if cn is sameas none %}
+        {% set cn = '' %}
+    {% endif %}
+
+<div class="form-field clear">
+    {% if accountType == 'domain' %}
+        <h4 class="{{ size }} fl-space">{{ _('Company/Organization Name') }}</h4>
+    {% else %}
+        <h4 class="{{ size }} fl-space">{{ _('Display Name') }}</h4>
+    {% endif %}
+    <span class="clean-padding bt-space20"><input type="text" name="cn" value="{{cn}}" size="35" class="text" {% if tooltip != '' %}title="{{ tooltip }}"{% endif %} /></span>
+</div>
+{%- endmacro %}
+
+
+{% macro display_add_admin(min_passwd_length='0', max_passwd_length='0', lang='en_US', languagemaps=['en_US',]) -%}
+    <div id="admin_add" class="box-wrap clear">
+        <form method="post" action="{{ctx.homepath}}/create/admin">
+            {{ display_input_mail(required=true) }}
+
+            <div class="bt-space5">&nbsp;</div>
+
+            {{ display_reset_password(
+                        show_confirmpw=true,
+                        min_passwd_length=min_passwd_length,
+                        max_passwd_length=max_passwd_length,
+                        ) }}
+
+            <div class="bt-space5">&nbsp;</div>
+
+            {{ display_input_cn() }}
+            {{ display_preferredLanguage(lang, languagemaps) }}
+
+            {{ display_button_submit(label=_('Add')) }}
+        </form>
+    </div>
+{%- endmacro %}
+
+{% macro display_add_domain(label=false) -%}
+    <div id="domain_add" class="box-wrap clear">
+        {% if label is sameas true %}
+            <h3>{{ _('Add domain') }}</h3>
+        {% endif %}
+        <form method="post" action="{{ctx.homepath}}/create/domain">
+
+            {{ display_input_domain(required=true) }}
+            {{ display_input_cn(accountType='domain') }}
+
+            <h4 class="size-250 fl-space">&nbsp;</h4>
+            <span class="clean-padding bt-space20"><input type="submit" class="button green" value="{{ _('Add') }}" /></span>
+        </form>
+    </div>
+{%- endmacro %}
+
+{% macro display_maillist_restrictions(policy, maillist_email) -%}
+    {% set policy = policy.lower() %}
+    {% if policy == 'open' %}
+        {{ _('Unrestricted') }}
+    {% elif policy == 'domain' %}
+        {{ _("<a href='%s'>Domain users</a>") |format(ctx.homepath + '/users/' + maillist_email.split('@')[-1] ) }}
+    {% elif policy == 'subdomain' %}
+        {{ _("<a href='%s'>Domain and sub-domain users</a>") |format(ctx.homepath + '/users/' + maillist_email.split('@')[-1] ) }}
+    {% elif policy == 'membersonly' %}
+        {{ _("<a href='%s'>Members</a>") |format(ctx.homepath + '/profile/maillist/members/' + maillist_email) }}
+    {% elif policy == 'allowedonly' %}
+    {{ _("<a href='%s'>Moderators</a>") |format(ctx.homepath + '/profile/maillist/moderators/' + maillist_email) }}
+    {% elif policy == 'membersandmoderatorsonly' %}
+    {{ _("<a href='%s'>Members</a> and <a href='%s'>moderators</a>") |format(ctx.homepath + '/profile/maillist/members/' + maillist_email, ctx.homepath + '/profile/maillist/moderators/' + maillist_email) }}
+    {% else %}
+        {{ _('Unrestricted') }}
+    {% endif %}
+{% endmacro %}
+
+{% macro nav_links_of_account_types(domain, active='users') -%}
+    {% set links = [
+                    ('users', _('Users')),
+                    ('maillists', _('Mail Lists')),
+                    ('aliases', _('Aliases')),
+                    ]
+    %}
+    <span>&raquo;</span>
+    {% for url, label in links %}
+        <span class="important"><a href="{{ctx.homepath}}/{{url}}/{{domain}}" class="menu-item {% if url == active %}active{% endif %}">{{ label }}</a></span>{% if not loop.last %}&nbsp;&raquo;&nbsp;{% endif %}
+    {% endfor %}
+{%- endmacro %}
+
+{% macro highlight_username_in_mail(mail) -%}
+    <span><strong>{{ mail.split('@')[0] }}</strong></span><span class="grey"><em>@{{ mail.split('@')[-1] }}</em></span>
+{% endmacro %}
+
+{% macro show_pages(baseurl, total, cur_page, near_pages=2, sep='/page/') -%}
+    {% if total % session.pageSizeLimit > 0 %}
+        {% set total_pages = total // session.pageSizeLimit + 1 %}
+    {% else %}
+        {% set total_pages = total // session.pageSizeLimit %}
+    {% endif %}
+
+    <div class="pager fr">
+        {% if total_pages > 0 %}
+        <span class="nav">
+            {% if total_pages != 1 %}
+                <a href="{{baseurl}}{{sep}}1" class="first" title="{{ _('First Page') }}"><span>{{ _('First Page') }}</span></a>
+            {% endif %}
+
+            {% if cur_page != 1 and cur_page != 0 %}
+                <a href="{{baseurl}}{{sep}}{{cur_page - 1}}" class="previous" title="{{ _('Previous Page') }}" ><span>{{ _('Previous Page') }}</span></a>
+            {% endif %}
+        </span>
+        {% endif %}
+
+        <span class="pages">
+        {% if total_pages <= 4 %}
+            {# Show all cur_page numbers if total pages is less than or equal to 4 pages.#}
+            {% for page_no in range(1, total_pages+1) %}
+                <a href="{{baseurl}}{{sep}}{{page_no}}" {% if page_no == cur_page %}class="active"{% endif %}><span>{{page_no}}</span></a>
+            {% endfor %}
+        {% else %}
+            {# Show current cur_page number and near numbers.#}
+            {% if cur_page <= 3 %}
+                {# Show near pages. #}
+                {% if total_pages - cur_page <= near_pages %}
+                    {% set end_page = cur_page + (total_pages - cur_page) %}
+                {% else %}
+                    {% set end_page = cur_page + near_pages %}
+                {% endif %}
+
+                {% for page_no in range(1, end_page) %}
+                    {% if page_no != cur_page %}
+                        <a href="{{baseurl}}{{sep}}{{page_no}}"><span>{{page_no}}</span></a>
+                    {% else %}
+                        <a href="#" class="active"><span>{{ cur_page }}</span></a>
+                    {% endif %}
+                {% endfor %}
+
+                {# Show last page. #}
+                {% if cur_page + near_pages < total_pages %}
+                    {% if cur_page + near_pages <= total_pages - 1 %}<a href="#"><span>...</span></a>{% endif %}
+                {% endif %}
+                <a href="{{baseurl}}{{sep}}{{total_pages}}"><span>{{total_pages}}</span></a>
+            {% else %}
+                {# Show first page number. #}
+                <a href="{{baseurl}}{{sep}}1"><span>1</span></a>
+                {% if cur_page - near_pages >= 2 %}
+                    <a href="#"><span>...</span></a>
+                {% endif %}
+
+                {# Show nearby pages which number larger than cur_page. #}
+                {% if total_pages - cur_page < near_pages %}
+                    {% set end_page = cur_page + (total_pages - cur_page) %}
+                {% else %}
+                    {% set end_page = cur_page + near_pages %}
+                {% endif %}
+
+                {% for page_no in range((cur_page-near_pages), end_page + 1) %}
+                    {% if page_no != cur_page %}
+                        <a href="{{baseurl}}{{sep}}{{page_no}}" ><span>{{page_no}}</span></a>
+                    {% else %}
+                        <a href="#" class="active"><span>{{ cur_page }}</span></a>
+                    {% endif %}
+                {% endfor %}
+
+                {% if total_pages - cur_page > near_pages and total_pages - cur_page != near_pages + 1 %}
+                    <a href="#"><span>...</span></a>
+                {% endif %}
+
+                {% if end_page < total_pages %}
+                    <a href="{{baseurl}}{{sep}}{{total_pages}}" ><span>{{total_pages}}</span></a>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+        </span>
+
+        {# -- Show 'Next' and 'Last' -- #}
+        {% if total_pages > 0 %}
+        <span class="nav">
+            {% if cur_page < total_pages and cur_page != 0 %}
+                <a href="{{ baseurl }}{{ sep }}{{ cur_page + 1 }}" class="next" title="{{ _('Next Page') }}"><span>{{ _('Next Page') }}</span></a>
+            {% endif %}
+
+            {% if total_pages != 1 %}
+                <a href="{{ baseurl }}{{ sep }}{{ total_pages }}" class="last" title="{{ _('Last Page') }}"><span>{{ _('Last Page') }}</span></a>
+            {% endif %}
+        </span>
+        {% endif %}
+    </div>
+{%- endmacro %}
+
+{# Convert event code to event name #}
+{% macro show_event_name(event) -%}
+    {% if event == 'all' %}
+        {{ _('Events') }}
+    {% elif event == 'login' %}
+        {{ _('Admin login') }}
+    {% elif event == 'create' %}
+        {{ _('Add account') }}
+    {% elif event == 'delete' %}
+        {{ _('Delete account') }}
+    {% elif event == 'disable' %}
+        {{ _('Disable account') }}
+    {% elif event == 'active' %}
+        {{ _('Active account') }}
+    {% endif %}
+{%- endmacro %}
+
+{# iRedAPD: per-user wblist #}
+{% macro display_per_user_wblist(values=[], htmlInputName, label) -%}
+    <div class="form-field clear">
+        <h4 class="size-250 fl-space">{{ label }}</h4>
+        <small>{{ _('One record one line.') }}</small>
+
+        {% if values |length == 0 %}
+            <textarea name="{{ htmlInputName }}" rows="6" class="textarea"></textarea>
+        {% else %}
+            <textarea name="{{ htmlInputName }}" rows="6" class="textarea">{% for v in values %}{{ v }}
+{% endfor %}</textarea>
+        {% endif %}
+    </div>
+{%- endmacro %}

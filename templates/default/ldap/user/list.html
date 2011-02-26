@@ -1,0 +1,173 @@
+{#
+    @users              LDIF of all users
+    @cur_domain         Current domain
+    @allDomains         All domain info (domainName only)
+    @showLoginDate      Show login date or not
+    @msg
+#}
+
+{% extends "layout.html" %}
+
+{% from "macros/general.html" import
+        display_subnav,
+        set_account_status_img,
+        highlight_username_in_mail,
+        nav_links_of_account_types,
+        display_progress_bar,
+        show_pages,
+        with context %}
+
+{% from "macros/msgHandlers.html" import userMsgHandler with context %}
+
+{% block title %}{{ _('Mail Users') }}{% endblock %}
+{% block navlinks_active_domains %}class="active"{% endblock %}
+
+{% block breadcrumb %}
+    {% set crumbs = [
+            (ctx.homepath + '/domains', _('All domains'),),
+            (ctx.homepath + '/profile/domain/general/' + cur_domain, cur_domain,),
+            (None, _('Users'),),
+            ]
+            %}
+    {{ display_subnav(crumbs) }}
+{% endblock %}
+
+
+{% block main %}
+
+{# Show system message #}
+{{ userMsgHandler(msg) }}
+
+{% if users is defined %}
+    {% if showLoginDate is sameas true %}
+        {% set time_title = _('Last Signed In') %}
+        {% set time_var = 'lastLoginDate' %}
+    {% else %}
+        {% set time_title = _('Created') %}
+        {% set time_var = 'createTimestamp' %}
+    {% endif %}
+
+    {# List all users. #}
+    <div class="content-box">
+        <div class="box-body">
+            <div class="box-header clear">
+                <ul class="tabs clear">
+                    <li class="active"><a href="{{ctx.homepath}}/users/{{cur_domain}}">{{ _('Users') }}</a></li>
+                    <li><a href="{{ctx.homepath}}/create/user/{{cur_domain}}"><img src="{{ctx.homepath}}/static/{{skin}}/images/ico_add_12.png" /> {{ _('User') }}</a>
+                </ul>
+
+                <h2>
+                    {{ _('Users under domain: %s') |format(cur_domain) }}
+                    {% if total is defined and users|length > 0 %}
+                        ({{ (cur_page-1) * session['pageSizeLimit'] + 1 }}-{{ (cur_page-1) * session['pageSizeLimit'] + users|length}}/{{ total }})
+                    {% endif %}
+                </h2>
+            </div>
+
+            <div id="user_list">
+    <form id="account_list" method="post" action="{{ctx.homepath}}/users/{{cur_domain}}">
+    <table class="style1 tablesorter" cellspacing="0">
+        <thead>
+        <tr>
+            <th class="checkbox"><input type="checkbox" class="checkbox select-all" /></th>
+            <th>{{ _('Display Name') }}</th>
+            <th>{{ _('Mail Address') }}</th>
+            <th>{{ _('User ID') }}</th>
+            <th>{{ _('Job Title') }}</th>
+            <th>{{ _('Quota') }}</th>
+            <th>{{ time_title }}</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% if users|length > 0 %}
+            {% for i in users %}
+                {% set entries = i[1] %}
+                {% set mail = entries.get('mail')[0] |string %}
+                {% set cn = entries.get('cn', [''])[0].decode('utf-8') %}
+                {% set employeeid = entries.get('employeeNumber', [''])[0].decode('utf-8') %}
+                {% set jobTitle = entries.get('title', [''])[0].decode('utf-8') %}
+
+                {### If accountStatus is not present, mark as 'disabled'. #}
+                {% set accountStatus = entries.get('accountStatus', ['disabled'])[0] %}
+
+                {% set mailQuota = entries.get('mailQuota', ['0'])[0] %}
+                {% set shadowAddresses = entries.get('shadowAddress', []) %}
+                {% set memberOfGroups = entries.get('memberOfGroup', []) %}
+                {% set timestamp = entries.get(time_var, ['--------------'])[0] %}
+
+                <tr class="{{ accountStatus |lower }}">
+                    <td class="checkbox"><input type="checkbox" name="mail" value="{{mail}}" /></td>
+                    <td class="vcenter">
+                        <a href="{{ctx.homepath}}/profile/user/general/{{mail}}"><img src="{{ctx.homepath}}/static/{{skin}}/images/action_edit.png" title="{{ _('Edit account profile') }}" class="fr-space"/></a>
+                        {{ set_account_status_img(accountStatus) }}
+                        {{ cn |cutString }}
+                    </td>
+                    <td class="vcenter">{{ highlight_username_in_mail(mail) }}</td>
+                    <td class="vcenter">{{ employeeid }}</td>
+                    <td class="vcenter">{{ jobTitle }}</td>
+
+                    {### mail quota #}
+                    {% set usedQuota = accountUsedQuota.get(mail, {}).get('bytes', 0) %}
+
+                    {% if mailQuota == '0' %}
+                        <td class="vcenter">{{ _('Unlimited') }}</td>
+                    {% else %}
+                        {% if session.get('enableShowUsedQuota') is sameas true %}
+                            {% set percent = usedQuota |getPercentage(mailQuota) %}
+                            <td class="vcenter">
+                                <div>
+                                    <span>{{ percent }}%</span>
+                                    <span class="grey">(<a href="{{ctx.homepath}}/profile/user/general/{{mail}}#mailQuota" title="{{ _('Edit quota setting') }}">{{ usedQuota |filesizeformat }}/{{ mailQuota |filesizeformat }}</a>)</span>
+                                </div>
+                                {{ display_progress_bar(percent, tooltip='', show_zero=true, width='60%', style='thin') }}
+                            </td>
+                        {% else %}
+                            <td class="vcenter">{{ mailQuota |filesizeformat }}</td>
+                        {% endif %}
+                    {% endif %}
+
+                    <td class="vcenter">{{ timestamp |setDatetimeFormat(hour=False) }}</td>
+                </tr>
+            {% endfor %}
+        {% else %}
+            <tr>
+                <td class="checkbox"></td>
+                <td colspan="7">{{ _('No user available.') }} <a href="{{ctx.homepath}}/create/user/{{ cur_domain }}">{{ _('Add one') }}</a>?</td>
+            </tr>
+        {% endif %}
+        </tbody>
+    </table>
+
+    <input type="hidden" name="cur_page" value="{{cur_page}}" />
+
+    <div class="tab-footer clear f1">
+        <div class="fl">
+            <select name="action" class="fl-space">
+                <option>{{ _('Choose Action') }}</option>
+                <option value="enable">{{ _('Enable') }}</option>
+                <option value="disable">{{ _('Disable') }}</option>
+                <option value="delete">{{ _('Delete') }}</option>
+            </select>
+            <input type="submit" value="{{ _('Apply') }}" class="button fl-space" />
+        </div>
+
+        {% set pages = show_pages(
+                  baseurl=ctx.homepath + '/users/' + cur_domain,
+                  total=total,
+                  cur_page=cur_page)
+                  %}
+
+        {{ pages }}
+    </div>
+
+    </div>
+</form>
+</div>{# -- End id=user_list -- #}
+</div>
+{% endif %}
+{% endblock main %}
+
+{% block js %}
+    {{ load_jquery(['tablesorter'], sortFirstCol=false) }}
+{% endblock js %}
