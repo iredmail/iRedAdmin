@@ -142,6 +142,8 @@ class Profile:
         if not iredutils.isEmail(self.mail):
             return web.seeother('/domains?msg=INVALID_USER')
 
+        domainAccountSetting = {}
+        
         userLib = user.User()
         result = userLib.profile(domain=self.cur_domain, mail=self.mail)
         if result[0] is True:

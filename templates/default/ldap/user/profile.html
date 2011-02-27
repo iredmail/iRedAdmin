@@ -6,9 +6,6 @@
     @nonExistListEmails     Mail list addresses which already assigned but not exist
     @aliases                All mail list accounts under same domain.
 
-    # profile_type == 'password'
-    @domainAccountSetting
-
     # profile_type == 'throttle'
     @throttleOfSender
     @throttleOfRecipient
@@ -60,10 +57,6 @@
     {% set mobile = entries.get('mobile', [''])[0] %}
     {% set telephoneNumber = entries.get('telephoneNumber', []) %}
     {% set mailQuota = '%d' % (entries.get('mailQuota', [0])[0] |int /1024/1024) %}
-    {% set usedQuota = accountUsedQuota.get(mail, {}).get('bytes', 0) %}
-
-    {#-- Member of Groups --#}
-    {% set memberOfGroup = entries.get('memberOfGroup', []) %}
 {% endif %}
 
 {% block breadcrumb %}
@@ -103,7 +96,7 @@
             </div>
 
             <div class="box-wrap clear">
-            
+
 <form method="post" action="{{ctx.homepath}}/profile/user/{{profile_type}}/{{mail}}">
 
     {% if profile_type == 'general' %}
@@ -114,7 +107,7 @@
 
                 <div class="bt-space10"></div>
                 {{ display_input_cn(cn) }}
-                {{ display_quota(value=mailQuota, show_value_in_input='yes', used_quota=usedQuota) }}
+                {{ display_quota(value=mailQuota, show_value_in_input='yes') }}
 
                 <div class="bt-space10"></div>
                 {{ display_input_employeeid(employeeNumber) }}
@@ -130,9 +123,6 @@
         <div class="rule"></div>
 
     {% elif profile_type == 'password' %}
-        {# Password length #}
-        {% set minPasswordLength = domainAccountSetting.get('minPasswordLength', '0') %}
-        {% set maxPasswordLength = domainAccountSetting.get('maxPasswordLength', '0') %}
 
         {{ display_reset_password(
                 min_passwd_length=minPasswordLength,

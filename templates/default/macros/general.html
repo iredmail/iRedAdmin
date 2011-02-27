@@ -391,7 +391,7 @@
 </div>
 {%- endmacro %}
 
-{% macro display_quota(value='', label='', comment='', used_quota=none, spare_quota_bytes=0, show_spare_quota='no', show_value_in_input='no', hide_zero='yes', show_used_quota=true) -%}
+{% macro display_quota(value='', label='', comment='', used_quota=none, spare_quota_bytes=0, show_spare_quota='no', show_value_in_input='no', hide_zero='yes', show_used_quota=false) -%}
     {# Convert to string #}
     {% set value = value |string %}
     {% set used_quota = used_quota |string %}
