@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: iRedAdmin-Pro-0.1.4\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2009-10-22 17:33+0800\n"
-"PO-Revision-Date: 2011-02-26 19:35+0800\n"
+"PO-Revision-Date: 2011-02-27 17:14+0800\n"
 "Last-Translator: Zhang Huangbin <michaelbibby@gmail.com>\n"
 "Language-Team: zh_CN <LL@li.org>\n"
 "Plural-Forms: nplurals=1; plural=0\n"
@@ -15,21 +15,6 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 0.9.4\n"
-
-#: ../templates/default/ldap/search.html:159
-#, python-format
-msgid "%d mail alias(es) found."
-msgstr "已找到 %d 郵件別名。"
-
-#: ../templates/default/ldap/search.html:106
-#, python-format
-msgid "%d mail list(s) found."
-msgstr "已找到 %d 個郵寄清單"
-
-#: ../templates/default/ldap/search.html:46
-#, python-format
-msgid "%d user(s) found."
-msgstr "已找到 %d 個用戶"
 
 #: ../templates/default/macros/ldap.html:17
 #, python-format
@@ -41,27 +26,27 @@ msgstr "%s （%s）"
 msgid "%s days, %s hours, %s minutes."
 msgstr "%s 天，%s 小時，%s 分鐘。"
 
-#: ../templates/default/macros/general.html:560
+#: ../templates/default/macros/general.html:559
 #, python-format
 msgid "<a href='%s'>Domain and sub-domain users</a>"
 msgstr "<a href=\"%s\">域名及子域名用戶</a>"
 
-#: ../templates/default/macros/general.html:558
+#: ../templates/default/macros/general.html:557
 #, python-format
 msgid "<a href='%s'>Domain users</a>"
 msgstr "<a href=\"%s\">域名用戶</a>"
 
-#: ../templates/default/macros/general.html:562
+#: ../templates/default/macros/general.html:561
 #, python-format
 msgid "<a href='%s'>Members</a>"
 msgstr "<a href=\"%s\">成員</a>"
 
-#: ../templates/default/macros/general.html:566
+#: ../templates/default/macros/general.html:565
 #, python-format
 msgid "<a href='%s'>Members</a> and <a href='%s'>moderators</a>"
 msgstr "<a href=\"%s\">成員</a>及<a href=\"%s\">moderators</a>"
 
-#: ../templates/default/macros/general.html:564
+#: ../templates/default/macros/general.html:563
 #, python-format
 msgid "<a href='%s'>Moderators</a>"
 msgstr "<a href=\"%s\">仲裁員</a>"
@@ -79,26 +64,26 @@ msgstr "帳號已生效。"
 msgid "Account is disabled."
 msgstr "帳號已被禁用。"
 
-#: ../templates/default/macros/general.html:699
+#: ../templates/default/macros/general.html:698
 msgid "Active account"
 msgstr "啟用這個帳號"
 
 #: ../templates/default/ldap/user/create.html:150
-#: ../templates/default/macros/general.html:532
-#: ../templates/default/macros/general.html:548
+#: ../templates/default/macros/general.html:531
+#: ../templates/default/macros/general.html:547
 #: ../templates/default/mysql/user/create.html:125
 msgid "Add"
 msgstr ""
 
 #: ../templates/default/layout.html:66
-#: ../templates/default/macros/general.html:693
+#: ../templates/default/macros/general.html:692
 msgid "Add account"
 msgstr "創建帳號"
 
 #: ../templates/default/ldap/admin/create.html:19
 #: ../templates/default/ldap/admin/create.html:31
 #: ../templates/default/ldap/admin/create.html:34
-#: ../templates/default/ldap/admin/list.html:30
+#: ../templates/default/ldap/admin/list.html:29
 #: ../templates/default/mysql/admin/create.html:19
 #: ../templates/default/mysql/admin/create.html:31
 #: ../templates/default/mysql/admin/create.html:34
@@ -110,7 +95,7 @@ msgstr ""
 #: ../templates/default/ldap/domain/create.html:22
 #: ../templates/default/ldap/domain/create.html:26
 #: ../templates/default/ldap/domain/list.html:35
-#: ../templates/default/macros/general.html:540
+#: ../templates/default/macros/general.html:539
 #: ../templates/default/macros/ldap.html:33
 #: ../templates/default/macros/mysql.html:32
 #: ../templates/default/mysql/domain/create.html:9
@@ -121,7 +106,7 @@ msgid "Add domain"
 msgstr "選擇一個域"
 
 #: ../templates/default/ldap/domain/list.html:183
-#: ../templates/default/ldap/user/list.html:142
+#: ../templates/default/ldap/user/list.html:136
 #: ../templates/default/mysql/domain/list.html:135
 #: ../templates/default/mysql/user/list.html:126
 msgid "Add one"
@@ -156,7 +141,7 @@ msgid ""
 "more</a>?"
 msgstr ""
 
-#: ../templates/default/macros/general.html:691
+#: ../templates/default/macros/general.html:690
 msgid "Admin login"
 msgstr "管理員登錄"
 
@@ -171,7 +156,6 @@ msgid "Admins"
 msgstr "管理員"
 
 #: ../templates/default/ldap/user/create.html:105
-#: ../templates/default/ldap/user/list.html:62
 #: ../templates/default/mysql/user/create.html:81
 msgid "Alias"
 msgstr "郵件別名"
@@ -182,9 +166,7 @@ msgstr "啟用這個帳號"
 
 #: ../templates/default/ldap/domain/list.html:59
 #: ../templates/default/ldap/user/create.html:102
-#: ../templates/default/ldap/user/list.html:31
-#: ../templates/default/ldap/user/list.html:59
-#: ../templates/default/macros/general.html:576
+#: ../templates/default/macros/general.html:575
 #: ../templates/default/mysql/domain/list.html:58
 #: ../templates/default/mysql/domain/profile.html:27
 #: ../templates/default/mysql/user/create.html:79
@@ -192,7 +174,7 @@ msgid "Aliases"
 msgstr "別名"
 
 #: ../templates/default/ldap/admin/create.html:30
-#: ../templates/default/ldap/admin/list.html:28
+#: ../templates/default/ldap/admin/list.html:27
 #: ../templates/default/ldap/admin/profile.html:38
 #: ../templates/default/mysql/admin/create.html:30
 #: ../templates/default/mysql/admin/list.html:28
@@ -202,6 +184,7 @@ msgstr "標記為全域管理員。"
 
 #: ../templates/default/ldap/domain/create.html:20
 #: ../templates/default/ldap/domain/list.html:33
+#: ../templates/default/ldap/domain/profile.html:27
 #: ../templates/default/ldap/user/create.html:26
 #: ../templates/default/ldap/user/list.html:27
 #: ../templates/default/ldap/user/profile.html:71
@@ -219,7 +202,7 @@ msgstr "郵件域"
 msgid "All domains under your control."
 msgstr "您管理的所有郵件域。"
 
-#: ../templates/default/ldap/admin/list.html:34
+#: ../templates/default/ldap/admin/list.html:33
 #: ../templates/default/mysql/admin/list.html:34
 msgid "All mail administrators."
 msgstr "所有域管理員。"
@@ -238,12 +221,9 @@ msgstr ""
 msgid "Already exceed max number of account limit (%s)."
 msgstr "已超過了最大帳號數量限制(%s)。"
 
-#: ../templates/default/ldap/search.html:95
-#: ../templates/default/ldap/search.html:149
-#: ../templates/default/ldap/search.html:199
-#: ../templates/default/ldap/admin/list.html:86
+#: ../templates/default/ldap/admin/list.html:85
 #: ../templates/default/ldap/domain/list.html:202
-#: ../templates/default/ldap/user/list.html:158
+#: ../templates/default/ldap/user/list.html:152
 #: ../templates/default/mysql/admin/list.html:88
 #: ../templates/default/mysql/domain/list.html:155
 #: ../templates/default/mysql/user/list.html:142
@@ -293,12 +273,9 @@ msgstr "轉發地址"
 msgid "Check this box in order to enable other mail related services."
 msgstr "選取這個選項以啟用所有郵件相關的服務。"
 
-#: ../templates/default/ldap/search.html:90
-#: ../templates/default/ldap/search.html:144
-#: ../templates/default/ldap/search.html:194
-#: ../templates/default/ldap/admin/list.html:81
+#: ../templates/default/ldap/admin/list.html:80
 #: ../templates/default/ldap/domain/list.html:197
-#: ../templates/default/ldap/user/list.html:153
+#: ../templates/default/ldap/user/list.html:147
 #: ../templates/default/mysql/admin/list.html:83
 #: ../templates/default/mysql/domain/list.html:150
 #: ../templates/default/mysql/user/list.html:137
@@ -314,16 +291,13 @@ msgstr "公司/組織名稱"
 msgid "Confirm new password"
 msgstr "確認新密碼"
 
-#: ../templates/default/layout.html:112
+#: ../templates/default/layout.html:106
 msgid "Contact webmaster"
 msgstr "聯繫管理員"
 
-#: ../templates/default/ldap/search.html:58
-#: ../templates/default/ldap/search.html:116
-#: ../templates/default/ldap/search.html:168
-#: ../templates/default/ldap/admin/list.html:49
+#: ../templates/default/ldap/admin/list.html:48
 #: ../templates/default/ldap/domain/list.html:63
-#: ../templates/default/ldap/user/list.html:48
+#: ../templates/default/ldap/user/list.html:46
 #: ../templates/default/mysql/admin/list.html:49
 #: ../templates/default/mysql/domain/list.html:59
 #: ../templates/default/mysql/user/list.html:46
@@ -350,12 +324,9 @@ msgstr "自訂郵件過濾規則（使用 TLS/SSL 加密傳輸）"
 msgid "Dashboard"
 msgstr "控制台"
 
-#: ../templates/default/ldap/search.html:93
-#: ../templates/default/ldap/search.html:147
-#: ../templates/default/ldap/search.html:197
-#: ../templates/default/ldap/admin/list.html:84
+#: ../templates/default/ldap/admin/list.html:83
 #: ../templates/default/ldap/domain/list.html:200
-#: ../templates/default/ldap/user/list.html:156
+#: ../templates/default/ldap/user/list.html:150
 #: ../templates/default/mysql/admin/list.html:86
 #: ../templates/default/mysql/domain/list.html:153
 #: ../templates/default/mysql/user/list.html:140
@@ -363,31 +334,25 @@ msgstr "控制台"
 msgid "Delete"
 msgstr "刪除"
 
-#: ../templates/default/macros/general.html:695
+#: ../templates/default/macros/general.html:694
 msgid "Delete account"
 msgstr "刪除這個帳號"
 
-#: ../templates/default/ldap/search.html:92
-#: ../templates/default/ldap/search.html:146
-#: ../templates/default/ldap/search.html:196
-#: ../templates/default/ldap/admin/list.html:83
+#: ../templates/default/ldap/admin/list.html:82
 #: ../templates/default/ldap/domain/list.html:199
-#: ../templates/default/ldap/user/list.html:155
+#: ../templates/default/ldap/user/list.html:149
 #: ../templates/default/mysql/admin/list.html:85
 #: ../templates/default/mysql/domain/list.html:152
 #: ../templates/default/mysql/user/list.html:139
 msgid "Disable"
 msgstr "禁用"
 
-#: ../templates/default/macros/general.html:697
+#: ../templates/default/macros/general.html:696
 msgid "Disable account"
 msgstr "禁用這個帳號"
 
-#: ../templates/default/ldap/search.html:53
-#: ../templates/default/ldap/search.html:113
-#: ../templates/default/ldap/search.html:166
-#: ../templates/default/ldap/admin/list.html:46
-#: ../templates/default/ldap/user/list.html:79
+#: ../templates/default/ldap/admin/list.html:45
+#: ../templates/default/ldap/user/list.html:73
 #: ../templates/default/macros/general.html:506
 #: ../templates/default/mysql/admin/list.html:46
 #: ../templates/default/mysql/user/list.html:74
@@ -460,13 +425,11 @@ msgstr "域名"
 msgid "Domains and Accounts"
 msgstr "禁用這個帳號"
 
-#: ../templates/default/ldap/search.html:70
-#: ../templates/default/ldap/search.html:130
-#: ../templates/default/ldap/search.html:180
-#: ../templates/default/ldap/admin/list.html:66
+#: ../templates/default/ldap/admin/list.html:65
 #: ../templates/default/ldap/admin/profile.html:29
 #: ../templates/default/ldap/domain/list.html:108
-#: ../templates/default/ldap/user/list.html:108
+#: ../templates/default/ldap/domain/profile.html:15
+#: ../templates/default/ldap/user/list.html:102
 #: ../templates/default/ldap/user/profile.html:39
 #: ../templates/default/mysql/admin/list.html:58
 #: ../templates/default/mysql/admin/profile.html:29
@@ -479,7 +442,7 @@ msgstr "編輯屬性"
 
 #: ../templates/default/ldap/domain/list.html:124
 #: ../templates/default/ldap/domain/list.html:133
-#: ../templates/default/ldap/user/list.html:127
+#: ../templates/default/ldap/user/list.html:121
 #: ../templates/default/mysql/domain/list.html:89
 #: ../templates/default/mysql/domain/list.html:97
 #: ../templates/default/mysql/user/list.html:113
@@ -498,12 +461,9 @@ msgstr "域名"
 msgid "Empty password is not allowed."
 msgstr ""
 
-#: ../templates/default/ldap/search.html:91
-#: ../templates/default/ldap/search.html:145
-#: ../templates/default/ldap/search.html:195
-#: ../templates/default/ldap/admin/list.html:82
+#: ../templates/default/ldap/admin/list.html:81
 #: ../templates/default/ldap/domain/list.html:198
-#: ../templates/default/ldap/user/list.html:154
+#: ../templates/default/ldap/user/list.html:148
 #: ../templates/default/mysql/admin/list.html:84
 #: ../templates/default/mysql/domain/list.html:151
 #: ../templates/default/mysql/user/list.html:138
@@ -535,7 +495,7 @@ msgstr "檢查新版本 %s 時發生錯誤"
 msgid "Error:"
 msgstr "錯誤："
 
-#: ../templates/default/macros/general.html:689
+#: ../templates/default/macros/general.html:688
 msgid "Events"
 msgstr "所有事件"
 
@@ -569,7 +529,7 @@ msgstr "通過 POP3 協議收取郵件（使用 TLS/SSL 加密傳輸）。"
 msgid "Filter:"
 msgstr "過濾："
 
-#: ../templates/default/macros/general.html:600
+#: ../templates/default/macros/general.html:599
 msgid "First Page"
 msgstr ""
 
@@ -578,6 +538,7 @@ msgid "Forwarding mails to other addresses"
 msgstr "轉發地址"
 
 #: ../templates/default/ldap/admin/profile.html:52
+#: ../templates/default/ldap/domain/profile.html:43
 #: ../templates/default/ldap/user/profile.html:86
 #: ../templates/default/mysql/admin/profile.html:48
 #: ../templates/default/mysql/domain/profile.html:41
@@ -585,7 +546,7 @@ msgstr "轉發地址"
 msgid "General"
 msgstr "常用設置"
 
-#: ../templates/default/ldap/admin/list.html:48
+#: ../templates/default/ldap/admin/list.html:47
 #: ../templates/default/macros/ldap.html:52
 #: ../templates/default/mysql/admin/list.html:48
 msgid "Global Admin"
@@ -624,8 +585,7 @@ msgstr "無效的郵件地址。"
 msgid "Is a global admin."
 msgstr "標記為全域管理員。"
 
-#: ../templates/default/ldap/search.html:56
-#: ../templates/default/ldap/user/list.html:82
+#: ../templates/default/ldap/user/list.html:76
 msgid "Job Title"
 msgstr "職位名稱"
 
@@ -633,11 +593,11 @@ msgstr "職位名稱"
 msgid "Job Title/Responsibility"
 msgstr "職位名稱 / 職責"
 
-#: ../templates/default/macros/general.html:679
+#: ../templates/default/macros/general.html:678
 msgid "Last Page"
 msgstr ""
 
-#: ../templates/default/ldap/user/list.html:45
+#: ../templates/default/ldap/user/list.html:43
 #: ../templates/default/mysql/user/list.html:43
 msgid "Last Signed In"
 msgstr ""
@@ -688,12 +648,9 @@ msgstr "登錄管理您的郵件域和用戶"
 msgid "Logout"
 msgstr "退出登錄"
 
-#: ../templates/default/ldap/search.html:54
-#: ../templates/default/ldap/search.html:114
-#: ../templates/default/ldap/search.html:167
-#: ../templates/default/ldap/admin/list.html:47
+#: ../templates/default/ldap/admin/list.html:46
 #: ../templates/default/ldap/user/create.html:115
-#: ../templates/default/ldap/user/list.html:80
+#: ../templates/default/ldap/user/list.html:74
 #: ../templates/default/macros/general.html:484
 #: ../templates/default/mysql/admin/list.html:47
 #: ../templates/default/mysql/user/create.html:90
@@ -701,20 +658,13 @@ msgstr "退出登錄"
 msgid "Mail Address"
 msgstr "電郵地址"
 
-#: ../templates/default/ldap/search.html:115
-msgid "Mail Deliver Restriction"
-msgstr "郵件傳送限制"
-
 #: ../templates/default/ldap/user/create.html:104
-#: ../templates/default/ldap/user/list.html:61
 #: ../templates/default/macros/msgHandlers.html:87
 msgid "Mail List"
 msgstr "郵寄清單"
 
 #: ../templates/default/ldap/user/create.html:101
-#: ../templates/default/ldap/user/list.html:30
-#: ../templates/default/ldap/user/list.html:58
-#: ../templates/default/macros/general.html:575
+#: ../templates/default/macros/general.html:574
 msgid "Mail Lists"
 msgstr "郵寄清單"
 
@@ -785,11 +735,11 @@ msgstr ""
 msgid "New passwords are not match."
 msgstr ""
 
-#: ../templates/default/layout.html:109
+#: ../templates/default/layout.html:103
 msgid "News & Announments"
 msgstr ""
 
-#: ../templates/default/macros/general.html:675
+#: ../templates/default/macros/general.html:674
 msgid "Next Page"
 msgstr ""
 
@@ -831,7 +781,7 @@ msgstr ""
 msgid "No such domain."
 msgstr "啟用這個域"
 
-#: ../templates/default/ldap/user/list.html:142
+#: ../templates/default/ldap/user/list.html:136
 #: ../templates/default/mysql/user/list.html:126
 msgid "No user available."
 msgstr ""
@@ -852,7 +802,7 @@ msgstr "郵件用戶的最大數量"
 msgid "Old password"
 msgstr "舊密碼"
 
-#: ../templates/default/macros/general.html:707
+#: ../templates/default/macros/general.html:706
 msgid "One record one line."
 msgstr "每行只能填一個帳戶。"
 
@@ -911,7 +861,7 @@ msgstr "偏好設置"
 msgid "Preferred language"
 msgstr "偏好的語言"
 
-#: ../templates/default/macros/general.html:604
+#: ../templates/default/macros/general.html:603
 msgid "Previous Page"
 msgstr ""
 
@@ -922,6 +872,8 @@ msgstr ""
 msgid "Profile of admin:"
 msgstr ""
 
+#: ../templates/default/ldap/domain/profile.html:28
+#: ../templates/default/ldap/domain/profile.html:56
 #: ../templates/default/mysql/domain/profile.html:25
 #: ../templates/default/mysql/domain/profile.html:57
 msgid "Profile of domain:"
@@ -944,9 +896,8 @@ msgstr ""
 msgid "Profile updated success."
 msgstr ""
 
-#: ../templates/default/ldap/search.html:57
 #: ../templates/default/ldap/domain/list.html:56
-#: ../templates/default/ldap/user/list.html:83
+#: ../templates/default/ldap/user/list.html:77
 #: ../templates/default/mysql/domain/list.html:56
 #: ../templates/default/mysql/user/list.html:80
 msgid "Quota"
@@ -976,19 +927,6 @@ msgstr "樣本"
 #: ../templates/default/macros/general.html:195
 msgid "Save changes"
 msgstr "保存更改"
-
-#: ../templates/default/ldap/search.html:15
-#: ../templates/default/ldap/search.html:28
-msgid "Search"
-msgstr "搜尋"
-
-#: ../templates/default/ldap/search.html:26
-msgid "Search account display name or email"
-msgstr "顯示名稱/電郵地址"
-
-#: ../templates/default/ldap/search.html:39
-msgid "Search results."
-msgstr "搜尋結果"
 
 #: ../templates/default/macros/msgHandlers.html:110
 #: ../templates/default/macros/msgHandlers.html:143
@@ -1061,7 +999,7 @@ msgstr "提交"
 msgid "Submited domain name is incorrect."
 msgstr ""
 
-#: ../templates/default/layout.html:110
+#: ../templates/default/layout.html:104
 msgid "Support"
 msgstr ""
 
@@ -1088,10 +1026,9 @@ msgstr "運行時間"
 msgid "Total"
 msgstr "總共 %s 個。"
 
-#: ../templates/default/ldap/search.html:79
 #: ../templates/default/ldap/domain/list.html:133
 #: ../templates/default/ldap/domain/list.html:135
-#: ../templates/default/ldap/user/list.html:120
+#: ../templates/default/ldap/user/list.html:114
 #: ../templates/default/macros/general.html:330
 #: ../templates/default/mysql/domain/list.html:97
 #: ../templates/default/mysql/domain/list.html:99
@@ -1099,8 +1036,8 @@ msgstr "總共 %s 個。"
 msgid "Unlimited"
 msgstr "無限制"
 
-#: ../templates/default/macros/general.html:556
-#: ../templates/default/macros/general.html:568
+#: ../templates/default/macros/general.html:555
+#: ../templates/default/macros/general.html:567
 msgid "Unrestricted"
 msgstr "沒有限制"
 
@@ -1123,15 +1060,14 @@ msgstr ""
 
 #: ../templates/default/layout.html:73
 #: ../templates/default/ldap/user/create.html:103
-#: ../templates/default/ldap/user/list.html:60
+#: ../templates/default/ldap/user/list.html:56
 #: ../templates/default/macros/msgHandlers.html:87
 #: ../templates/default/mysql/user/create.html:80
 #: ../templates/default/mysql/user/list.html:56
 msgid "User"
 msgstr "用戶"
 
-#: ../templates/default/ldap/search.html:55
-#: ../templates/default/ldap/user/list.html:81
+#: ../templates/default/ldap/user/list.html:75
 #: ../templates/default/macros/general.html:244
 #: ../templates/default/mysql/user/list.html:76
 msgid "User ID"
@@ -1150,12 +1086,13 @@ msgid "Username or password is incorrect."
 msgstr ""
 
 #: ../templates/default/ldap/domain/list.html:57
+#: ../templates/default/ldap/domain/profile.html:29
 #: ../templates/default/ldap/user/create.html:28
 #: ../templates/default/ldap/user/create.html:100
 #: ../templates/default/ldap/user/list.html:29
-#: ../templates/default/ldap/user/list.html:57
+#: ../templates/default/ldap/user/list.html:55
 #: ../templates/default/ldap/user/profile.html:73
-#: ../templates/default/macros/general.html:574
+#: ../templates/default/macros/general.html:573
 #: ../templates/default/mysql/domain/list.html:57
 #: ../templates/default/mysql/domain/profile.html:26
 #: ../templates/default/mysql/user/create.html:24
@@ -1166,15 +1103,11 @@ msgstr ""
 msgid "Users"
 msgstr "用戶"
 
-#: ../templates/default/ldap/user/list.html:66
+#: ../templates/default/ldap/user/list.html:60
 #: ../templates/default/mysql/user/list.html:60
 #, python-format
 msgid "Users under domain: %s"
 msgstr ""
-
-#: ../templates/default/ldap/search.html:129
-msgid "View members"
-msgstr "查看成員"
 
 #: ../templates/default/macros/msgHandlers.html:24
 msgid "Warning:"
@@ -1200,10 +1133,6 @@ msgstr "您不能再在域 %s 新增更多郵件別名。"
 msgid "You can create <strong>%d</strong> more mail user(s) under domain %s."
 msgstr ""
 
-#: ../templates/default/ldap/search.html:205
-msgid "Your search returned no hits."
-msgstr "找不到所提供之搜尋資料。"
-
 #: ../templates/default/macros/msgHandlers.html:87
 msgid "add one more"
 msgstr ""
@@ -1211,4 +1140,31 @@ msgstr ""
 #: ../templates/default/layout.html:46
 msgid "iRedMail Admin Panel"
 msgstr "為域指派管理員"
+
+#~ msgid "%d mail alias(es) found."
+#~ msgstr "已找到 %d 郵件別名。"
+
+#~ msgid "%d mail list(s) found."
+#~ msgstr "已找到 %d 個郵寄清單"
+
+#~ msgid "%d user(s) found."
+#~ msgstr "已找到 %d 個用戶"
+
+#~ msgid "Mail Deliver Restriction"
+#~ msgstr "郵件傳送限制"
+
+#~ msgid "Search"
+#~ msgstr "搜尋"
+
+#~ msgid "Search account display name or email"
+#~ msgstr "顯示名稱/電郵地址"
+
+#~ msgid "Search results."
+#~ msgstr "搜尋結果"
+
+#~ msgid "View members"
+#~ msgstr "查看成員"
+
+#~ msgid "Your search returned no hits."
+#~ msgstr "找不到所提供之搜尋資料。"
 
