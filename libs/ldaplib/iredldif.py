@@ -61,7 +61,7 @@ def ldif_mailadmin(mail, passwd, cn, preferredLanguage='en_US', domainGlobalAdmi
             ('userPassword',    [str(passwd)]),
             ('accountStatus',   ['active']),
             ('preferredLanguage', [web.safestr(preferredLanguage)]),
-            ('domainGlobalAdmin',   [web.safestr(domainGlobalAdmin)]),
+            ('domainGlobalAdmin',   ['yes']),
             ]
 
     ldif += ldaputils.getLdifOfSingleAttr(attr='cn', value=cn, default=mail.split('@', 1)[0],)
