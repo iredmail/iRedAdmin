@@ -34,6 +34,11 @@ mtaTransport = dovecot
 # login data: http://www.iredmail.org/admin_faq.html
 show_login_date = False
 
+# Show percentage of mailbox quota usage.
+# Make sure you have correct dovecot setting by following this tutorial:
+# http://iredmail.org/wiki/index.php?title=IRedMail/FAQ/Store.Realtime.Quota.In.MySQL
+show_used_quota = False
+
 # Min/Max admin password length.
 #   - min_passwd_length: 0 means unlimited, but at least 1 character
 #                        is required.
@@ -70,3 +75,63 @@ domainadmin_dn = o=domainAdmins,dc=iredmail,dc=org
 #   - bind pw is plain text, not encryped/hashed.
 bind_dn = cn=vmailadmin,dc=iredmail,dc=org
 bind_pw = passwd
+
+############################################################################
+# Settings used for Policyd (1.8.x) integration. Provides global
+# white-/blacklist, sender/recipient throttling, etc.
+#
+[policyd]
+
+# Enable policyd integration: True, False.
+enabled = False
+
+# SQL Database used to store policyd data, eg. whitelist, blacklist.
+# You can find related information in policyd config files:
+#   - On RHEL/CentOS:   /etc/policyd.conf
+#   - On Debian/Ubuntu: /etc/postfix-policyd.conf
+#   - On FreeBSD:       /usr/local/etc/policyd.conf
+# Related parameters:
+#   host    -> MYSQLHOST
+#   port    -> 3306 (Default)
+#   db      -> MYSQLDBASE
+#   user    -> MYSQLUSER
+#   passwd  -> MYSQLPASS
+host = 127.0.0.1
+port = 3306
+db = policyd
+user = policyd
+passwd = passwd
+
+##############################################################################
+# Settings used for Amavisd-new integration. Provides spam/virus quaranting,
+# releasing, etc.
+#
+[amavisd]
+
+# #### Quarantining ####
+# Release quarantined SPAM/Virus mails: True, False.
+# iRedAdmin-Pro will connect to @quarantine_server to release quarantined mails.
+# How to enable quarantining in Amavisd-new:
+quarantine = False
+
+# Amavisd server address.
+server = 127.0.0.1
+
+# Port of 'AM.PDP-INET'. Default is 9998.
+quarantine_port = 9998
+
+########### Logging into SQL (@storage_sql_dsn) ##########
+# Logging into SQL: True, False.
+# Log info of incoming/outgoing emails into SQL.
+# It's @storage_sql_dsn setting in amavisd. You can find this setting
+# in amavisd-new config files:
+#   - On RHEL/CentOS:   /etc/amavisd.conf
+#   - On Debian/Ubuntu: /etc/amavis/conf.d/50-user.conf
+#   - On FreeBSD:       /usr/local/etc/amavisd.conf
+logging_into_sql = False
+
+host = 127.0.0.1
+port = 3306
+db = amavisd
+user = amavisd
+passwd = passwd
