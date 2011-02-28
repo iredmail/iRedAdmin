@@ -165,21 +165,11 @@ class Admin(core.LDAPWrap):
 
             mod_attrs += [ (ldap.MOD_REPLACE, 'accountStatus', accountStatus) ]
 
-            # Get domainGlobalAdmin.
-            if 'domainGlobalAdmin' in data.keys():
-                self.domainGlobalAdmin = 'yes'
-            else:
-                self.domainGlobalAdmin = 'no'
-            mod_attrs += [(ldap.MOD_REPLACE, 'domainGlobalAdmin', self.domainGlobalAdmin)]
-
             try:
                 # Modify profiles.
                 self.conn.modify_s(self.dn, mod_attrs)
                 if session.get('username') == self.mail:
                     session['lang'] = self.lang
-
-                    if self.domainGlobalAdmin == 'no':
-                        session['domainGlobalAdmin'] = False
             except ldap.LDAPError, e:
                 return (False, ldaputils.getExceptionDesc(e))
 
