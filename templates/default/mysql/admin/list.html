@@ -53,7 +53,7 @@
         <tbody>
             {% for r in admins %}
                 <tr>
-                    <td class="checkbox"><input type="checkbox" name="mail" value="{{ r.username |e }}"/></td>
+                    <td class="checkbox"><input type="checkbox" name="mail" value="{{ r.username |e }}" {% if r.username == session.get('username') %}disabled{% endif %}/></td>
                     <td>
                         <a href="{{ctx.homepath}}/profile/admin/general/{{ r.username }}"><img src="{{ctx.homepath}}/static/{{skin}}/images/action_edit.png" title="{{ _('Edit account profile') }}" class="fr-space"/></a>
                         {{ set_account_status_img(r.active) }}

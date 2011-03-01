@@ -60,7 +60,7 @@
                         {% set timestamp = entry.get('createTimestamp', ['--------------'])[0] %}
 
                         <tr class="{{ accountStatus }}">
-                            <td><input type="checkbox" class="checkbox " name="mail" value="{{mail}}" /></td>
+                            <td><input type="checkbox" class="checkbox " name="mail" value="{{mail}}" {% if mail == session.get('username') %}disabled{% endif %}/></td>
                             <td>
                                 <a href="{{ctx.homepath}}/profile/admin/general/{{mail}}"><img src="{{ctx.homepath}}/static/{{skin}}/images/action_edit.png" title="{{ _('Edit account profile') }}" class="fr-space"/></a>
                                 {{ set_account_status_img(accountStatus) }}
