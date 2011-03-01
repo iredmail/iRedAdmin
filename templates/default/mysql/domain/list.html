@@ -113,17 +113,6 @@
                                 {% endif %}
                             </td>
 
-                            {#-- Aliases --#}
-                            <td class="vcenter">
-                                {% if r.aliases > 0 %}
-                                    {% set percentOfNumberOfAliases = r.alias_count |getPercentage(r.aliases) %}
-
-                                    <a href="{{ctx.homepath}}/aliases/{{r.domain}}" title="{{ _('List all mail aliases.') }}" style="text-decoration: none;">{{ percentOfNumberOfAliases }}% <span class="grey">({{ r.alias_count }} {{ display_number_of_account_limited(r.aliases) }})</span></a>
-                                    {{ display_progress_bar(percentOfNumberOfAliases, style='thin') }}
-                                {% else %}
-                                    <a href="{{ctx.homepath}}/aliases/{{r.domain}}" title="{{ _('List all mail aliases.') }}" style="text-decoration: none;">{{ r.alias_count }}</a>
-                                {% endif %}
-                            </td>
                             <td class="vcenter">{{ r.created |setDatetimeFormat(hour=False) }}</td>
                         </tr>
                         {% endfor %}
