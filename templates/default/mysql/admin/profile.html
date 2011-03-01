@@ -77,7 +77,6 @@
                         <div class="col2-3">
                             {% if session.get('domainGlobalAdmin') is sameas true %}
                                 {{ display_account_status(profile.active) }}
-                                {{ display_input_global_admin(value=domainGlobalAdmin) }}
                                 <div class="bt-space0">&nbsp;</div>
                             {% endif %}
 
@@ -85,11 +84,6 @@
                             {{ display_preferredLanguage(value=preferredLanguage, languagemaps=languagemaps) }}
                         </div>
                     </div>{# .columns #}
-
-                    {% if session.get('domainGlobalAdmin') is sameas true %}
-                        <div class="bt-space0">&nbsp;</div>
-                        {{ display_all_domains(managedDomains=managedDomains, allDomains=allDomains) }}
-                    {% endif %}
 
                     {{ display_button_submit() }}
                 </form>
