@@ -14,19 +14,6 @@
             <table class="basic" cellspacing="0">
                 <tbody>
 
-                    {# Show number of total domains, users, aliases #}
-                    {% if backend == 'mysql' %}
-                        <tr>
-                            <th>{{ _('Number of domains') }}</th>
-                            <td class="full"><a href="{{ctx.homepath}}/domains">{{ numberOfDomains }}</a></td>
-                        </tr>
-
-                        <tr>
-                            <th>{{ _('Number of users') }}</th>
-                            <td class="full">{{ numberOfUsers }}</td>
-                        </tr>
-                    {% endif %}
-
                 {% if session.get('domainGlobalAdmin') is sameas true %}
                     <tr>
                         <th>iRedAdmin</th>
