@@ -272,9 +272,7 @@ class Admin(core.MySQLWrap):
         # Check domain exist.
 
         # Get domainGlobalAdmin setting.
-        self.domainGlobalAdmin = web.safestr(data.get('domainGlobalAdmin', 'no'))
-        if self.domainGlobalAdmin not in ['yes', 'no',]:
-            self.domainGlobalAdmin = 'no'
+        self.domainGlobalAdmin == 'yes'
 
         # Get language setting.
         self.preferredLanguage = web.safestr(data.get('preferredLanguage', 'en_US'))
