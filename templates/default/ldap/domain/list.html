@@ -55,11 +55,6 @@
                     <th>{{ _('Name') }}</th>
                     <th>{{ _('Quota') }}</th>
                     <th>{{ _('Users') }}</th>
-                    <th>{{ _('Lists') }}</th>
-                    <th>{{ _('Aliases') }}</th>
-                    {% if session.get('domainGlobalAdmin') is sameas true %}
-                        <th>{{ _('Admins') }}</th>
-                    {% endif %}
                     <th>{{ _('Created') }}</th>
                 </tr>
                 </thead>
@@ -76,13 +71,9 @@
 
                         {# Get account limits. #}
                         {% set numberOfUsers = accountSetting.get('numberOfUsers', '0') |int %}
-                        {% set numberOfLists = accountSetting.get('numberOfLists', '0') |int %}
-                        {% set numberOfAliases = accountSetting.get('numberOfAliases', '0') |int %}
 
                         {# Get number of current accounts #}
                         {% set domainCurrentUserNumber = entries.get('domainCurrentUserNumber', ['0'])[0] |int %}
-                        {% set domainCurrentListNumber = entries.get('domainCurrentListNumber', ['0'])[0] |int %}
-                        {% set domainCurrentAliasNumber = entries.get('domainCurrentAliasNumber', ['0'])[0] |int %}
 
                         {% set timestamp = entries.get('createTimestamp', ['--------------'])[0] %}
 
@@ -146,24 +137,6 @@
                                     {{ display_progress_bar(percentOfNumberOfUsers, style='thin') }}
                                 {% else %}
                                     <a href="{{ctx.homepath}}/users/{{domain}}" title="{{ _('List all mail users.') }}" style="text-decoration: none;">{{domainCurrentUserNumber}}</a>
-                                {% endif %}
-                            </td>
-
-                            {# Mail list count #}
-                            <td class="vcenter">
-                                <a href="{{ctx.homepath}}/maillists/{{domain}}" title="{{ _('List all mail lists.') }}" style="text-decoration: none;">{{domainCurrentListNumber}} {{ display_number_of_account_limited(numberOfLists) }}</a>
-                                {% if numberOfLists > 0 %}
-                                    {% set percentOfNumberOfLists = domainCurrentListNumber |getPercentage(numberOfLists) %}
-                                    {{ display_progress_bar(percentOfNumberOfLists, style='thin') }}
-                                {% endif %}
-                            </td>
-
-                            {# Mail alias count #}
-                            <td class="vcenter">
-                                <a href="{{ctx.homepath}}/aliases/{{domain}}" title="{{ _('List all mail aliases.') }}" style="text-decoration: none;">{{domainCurrentAliasNumber}} {{display_number_of_account_limited(numberOfAliases)}}</a>
-                                {% if numberOfAliases > 0 %}
-                                    {% set percentOfNumberOfAliases = domainCurrentAliasNumber |getPercentage(numberOfAliases) %}
-                                    {{ display_progress_bar(percentOfNumberOfAliases, style='thin') }}
                                 {% endif %}
                             </td>
 
