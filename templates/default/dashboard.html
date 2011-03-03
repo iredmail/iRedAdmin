@@ -14,7 +14,6 @@
             <table class="basic" cellspacing="0">
                 <tbody>
 
-                {% if session.get('domainGlobalAdmin') is sameas true %}
                     <tr>
                         <th>iRedAdmin</th>
                         <td>v{{ version }}
@@ -66,12 +65,31 @@
                         </tr>
                         {% endif %}
                     {% endfor %}
-                {% endif %}{# global admin #}
                 </tbody>
             </table>
-        </div> {# .box-wrap #}
-    </div>{# .col1-3 #}
-</div>{# .columns #}
+        </div><!-- .box-wrap -->
+    </div><!-- .col1-3 -->
+
+    <div class="col2-4">
+        <h2><a href="http://www.iredmail.org/admin_panel.html">Purchase iRedAdmin-Pro to get more features</a></h2>
+        <div class="box-wrap clear">
+            <ul class="standard clean-padding bt-space10">
+                <li>Unlimited number of mail lists/aliases</li>
+                <li>Policyd integration: blacklist, whitelist</li>
+                <li>Amavisd integration:
+                    <ul class="standard clean-padding bt-space10">
+                        <li>view log of received and sent mail</li>
+                        <li>Quarantine and manage SPAM mails</li>
+                    </ul>
+                </li>
+                <li>Per-user real-time quota usage report</li>
+                <li>Alias domain support</li>
+                <li>Per-domain bcc, relay, catch-all, account limit control</li>
+                <li>Per-domain and per-user service restrictions</li>
+            </ul>
+        </div>
+    </div><!-- .col2-4 -->
+</div><!-- .columns -->
 
 {% endblock main %}
 
