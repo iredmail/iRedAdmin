@@ -53,7 +53,6 @@
                     {% endif %}
                     <th>{{ _('Domain') }}</th>
                     <th>{{ _('Name') }}</th>
-                    <th>{{ _('Quota') }}</th>
                     <th>{{ _('Users') }}</th>
                     <th>{{ _('Created') }}</th>
                 </tr>
@@ -77,28 +76,6 @@
                             {% else %}
                                 <td class="vcenter">{{ r.description |cutString |e }}</td>
                             {% endif %}
-
-                            {#-- Domain Quota --#}
-                            <td class="vcenter">
-                                {% if r.maxquota > 0 %}
-                                    {% set percentOfDomainQuota = r.quota_count |getPercentage(r.maxquota) %}
-
-                                    {% if session.get('domainGlobalAdmin') is sameas true %}
-                                        {#-- Link to domain profile page. --#}
-                                        <a href="{{ctx.homepath}}/profile/domain/general/{{r.domain}}" style="text-decoration: none;"><span title="{{ _('Edit quota setting') }}">{{ percentOfDomainQuota }}%</span> <span class="grey"><span title="{{ _('Used') }}">({{ r.stored_quota |filesizeformat }}</span> / <span title="{{ _('Allocated') }}">{{ r.quota_count |filesizeformat(baseMB=True) }}</span>) <span title="{{ _('Total') }}">{{ display_number_of_account_limited(r.maxquota |filesizeformat(baseMB=True)) }}</span></span></a>
-                                    {% else %}
-                                        <span>{{ percentOfDomainQuota }}%</span> <span class="grey"><span title="{{ _('Used') }}">({{ r.stored_quota |filesizeformat }}</span> / <span title="{{ _('Allocated') }}">{{ r.quota_count |filesizeformat(baseMB=True) }}</span>) <span title="{{ _('Total') }}">{{ display_number_of_account_limited(r.maxquota |filesizeformat(baseMB=True)) }}</span></span>
-                                    {% endif %}
-
-                                    {{ display_progress_bar(percentOfDomainQuota, style='thin') }}
-                                {% else %}
-                                    {% if session.get('domainGlobalAdmin') is sameas true %}
-                                        <span title="{{ _('Used') }}">{{ r.stored_quota |filesizeformat }}</span> / <span title="{{ _('Allocated') }}">{{ r.quota_count |filesizeformat(baseMB=True) }}</span> / <a href="{{ctx.homepath}}/profile/domain/general/{{r.domain}}" title="{{ _('Edit quota setting') }}" style="text-decoration: none;">{{ _('Unlimited') }}</a>
-                                    {% else %}
-                                        <span title="{{ _('Used') }}">{{ r.stored_quota |filesizeformat }}</span> / <span title="{{ _('Allocated') }}">{{ r.quota_count |filesizeformat(baseMB=True) }}</span> <span title="{{ _('Total') }}">{{ _('Unlimited') }}</span>
-                                    {% endif %}
-                                {% endif %}
-                            </td>
 
                             {#-- Users --#}
                             <td class="vcenter">

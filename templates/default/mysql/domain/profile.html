@@ -70,41 +70,6 @@
                         </div>{# .col2-3 #}
                     </div>
 
-                    <div class="columns clear">
-                        <div class="col2-3 ">
-                            <div class="bt-space0">&nbsp;</div>
-                            {% if session.get('domainGlobalAdmin') is sameas true %}
-                                {% if profile.maxquota >= (1024 * 1024) %}
-                                    {% set domainQuota = profile.maxquota / (1024*1024) %}
-                                    {% set domainQuotaUnit = 'TB' %}
-                                {% elif 1024*1024 > profile.maxquota >= 1024 %}
-                                    {% set domainQuota = profile.maxquota / 1024 %}
-                                    {% set domainQuotaUnit = 'GB' %}
-                                {% else %}
-                                    {% set domainQuota = profile.maxquota %}
-                                    {% set domainQuotaUnit = 'MB' %}
-                                {% endif %}
-                                <div class="form-field clear">
-                                    <h4 class="size-250 fl-space">{{ _('Domain quota size') }}</h4>
-                                    <input type="text" name="domainQuota" value="{{ domainQuota |int }}" size="10" class="text fl-space" />
-                                    <select name="domainQuotaUnit">
-                                        {% for unit in ['TB', 'GB', 'MB'] %}
-                                            <option value="{{ unit }}" {% if domainQuotaUnit == unit %}selected{% endif %}>{{ unit }}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                            {% endif %}
-                        </div>{# .col2-3 #}
-
-                        <div class="col1-3 lastcol">
-                            <div class="mark_blue bt-space10">
-                                <ul class="standard clean-padding bt-space10">
-                                    <li class="bt-space5">{{ _('Set value to 0 or leave it empty for unlimited.') }}</li>
-                                </ul>
-                            </div>
-                        </div>{#-- .col1-3 --#}
-                    </div>{# .columns #}
-
                     {{ display_button_submit() }}
                 </form>
             </div>

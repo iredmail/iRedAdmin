@@ -361,18 +361,7 @@ class Domain(core.MySQLWrap):
                 else:
                     updates['active'] = 0
 
-                # Get domain quota size.
-                domainQuota = str(data.get('domainQuota'))
-                domainQuotaUnit = str(data.get('domainQuotaUnit', 'MB'))
-                if domainQuota.isdigit():
-                    domainQuota = int(domainQuota)
-
-                    if domainQuotaUnit == 'GB':
-                        domainQuota = domainQuota * 1024
-                    elif domainQuotaUnit == 'TB':
-                        domainQuota = domainQuota * 1024 * 1024
-
-                    updates['maxquota'] = domainQuota
+                updates['maxquota'] = 0
 
                 # Update SQL db with columns: maxquota, active.
                 try:

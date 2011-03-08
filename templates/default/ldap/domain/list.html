@@ -53,7 +53,6 @@
                     {% endif %}
                     <th>{{ _('Domain') }}</th>
                     <th>{{ _('Name') }}</th>
-                    <th>{{ _('Quota') }}</th>
                     <th>{{ _('Users') }}</th>
                     <th>{{ _('Created') }}</th>
                 </tr>
@@ -102,32 +101,6 @@
                             </td>
 
                             <td class="vcenter">{% if cn != '' and cn != domain %}{{ cn |cutString }}{% endif %}</td>
-
-                            {# Domain quota#}
-                            <td class="vcenter">
-                                {% if domainQuotaBytes > 0 %}
-                                    {% set percentOfDomainQuotaBytes = domainCurrentQuotaSize |getPercentage(domainQuotaBytes) %}
-                                    <div>
-                                        <span>{{ percentOfDomainQuotaBytes }}%</span>
-
-                                        {# Add link to domain profile page #}
-                                        {% if session.get('domainGlobalAdmin') is sameas true %}
-                                            <span class="grey">(<a href="{{ctx.homepath}}/profile/domain/advanced/{{domain}}#domainQuota" title="{{ _('Edit quota setting') }}" alt="{{ _('Edit quota setting') }}" style="text-decoration: none;">{{ domainCurrentQuotaSize |filesizeformat }}/{{ domainQuotaBytes |filesizeformat }}</a>)</span>
-                                        {% else %}
-                                            <span class="grey">({{ domainCurrentQuotaSize |filesizeformat }}/{{ domainQuotaBytes |filesizeformat }})</span>
-                                        {% endif %}
-                                    </div>
-
-                                    {{ display_progress_bar(percentOfDomainQuotaBytes, show_zero=true, width="60%", style='thin') }}
-                                {% else %}
-                                    {% if session.get('domainGlobalAdmin') is sameas true %}
-                                        <a href="{{ctx.homepath}}/profile/domain/advanced/{{domain}}#domainQuota" title="{{ _('Edit quota setting') }}" alt="{{ _('Edit quota setting') }}" style="text-decoration: none;">{{ _('Unlimited') }}</a>
-                                    {% else %}
-                                        {{ _('Unlimited') }}
-                                    {% endif %}
-                                {% endif %}
-                            </td>
-
                             {# Mail user count #}
                             <td class="vcenter">
                                 {% if numberOfUsers > 0 %}
@@ -139,11 +112,6 @@
                                     <a href="{{ctx.homepath}}/users/{{domain}}" title="{{ _('List all mail users.') }}" style="text-decoration: none;">{{domainCurrentUserNumber}}</a>
                                 {% endif %}
                             </td>
-
-                            {# Show number of domain admins #}
-                            {% if session.get('domainGlobalAdmin') is sameas true %}
-                                <td class="vcenter"><a href="{{ctx.homepath}}/profile/domain/general/{{domain}}" style="text-decoration: none;" title="{{ _('List assigned domain admins') }}">{{ entries.get('domainAdmin', []) |length }}</a></td>
-                            {% endif %}
 
                             <td class="vcenter">{{ timestamp |setDatetimeFormat(hour=False) }}</td>
                         </tr>

@@ -84,7 +84,7 @@
 
     {% if msg == 'CREATED_SUCCESS' %}
         <div class='notification note-success'><a href='#' class='close'></a>
-            <p>{{ _('Domain created.') }} <a href='{{ctx.homepath}}/create/domain'>{{ _('add one more') }}</a>? {{ _('Or create other mail accounts:') }} <a href='{{ctx.homepath}}/create/user/{{cur_domain}}'>{{ _('User') }}</a>, <a href='{{ctx.homepath}}/create/maillist/{{cur_domain}}'>{{ _('Mail List') }}</a>.</p>
+            <p>{{ _('Domain created.') }} <a href='{{ctx.homepath}}/create/domain'>{{ _('add one more') }}</a>? {{ _('Or create other mail accounts:') }} <a href='{{ctx.homepath}}/create/user/{{cur_domain}}'>{{ _('User') }}</a>.</p>
         </div>
     {% else %}
         {% if msg in handlers %}
