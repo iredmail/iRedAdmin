@@ -1,16 +1,16 @@
 [general]
 # Site webmaster's mail address.
-webmaster = zhb@iredmail.org
+webmaster = webmaster@your_domain.com
+
+# Debug mode: True, False.
+# Warning: Do *NOT* enable debug in product server.
+debug = False
 
 # Mail detail message of '500 internal server error' to webmaster: True, False.
 # If set to True, iredadmin will mail detail error to webmaster when
 # it catches 'internal server error' via LOCAL mail server to aid
 # in debugging production servers.
 mail_error_to_webmaster = False
-
-# Debug mode: True, False.
-# Warning: Do *NOT* enable debug in product server.
-debug = False
 
 # Default language.
 lang = en_US

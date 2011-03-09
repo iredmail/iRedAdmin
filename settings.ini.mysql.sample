@@ -1,6 +1,6 @@
 [general]
 # Site webmaster's mail address.
-webmaster = zhb@iredmail.org
+webmaster = webmaster@your_domain.com
 
 # Debug mode: True, False.
 # Warning: Do *NOT* enable debug in product server.
