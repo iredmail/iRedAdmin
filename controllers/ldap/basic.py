@@ -9,7 +9,7 @@ from urllib import urlencode
 from controllers import base
 from libs import __url_iredadmin_ldap_latest__, __version__
 from libs import iredutils, languages
-from libs.ldaplib import auth, admin as adminlib, ldaputils, connUtils, attrs
+from libs.ldaplib import auth, admin as adminlib, ldaputils
 
 cfg = web.iredconfig
 session = web.config.get('_session')
@@ -132,6 +132,7 @@ class Dashboard:
                         'a': cfg.general.get('webmaster', session.get('username', '')),
                         'v': __version__,
                         'host': getfqdn(),
+                        'backend': cfg.general.get('backend', ''),
                     }
 
                     url = __url_iredadmin_ldap_latest__ + '?' + urlencode(urlInfo)

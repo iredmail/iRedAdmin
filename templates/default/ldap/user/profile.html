@@ -26,7 +26,6 @@
         display_input_phone,
         display_account_status,
         display_reset_password,
-        displayedInGlobalAddressBook,
         display_button_submit,
         with context
         %}
@@ -103,7 +102,6 @@
         <div class="columns clear">
             <div class="col2-3">
                 {{ display_account_status(accountStatus) }}
-                {{ displayedInGlobalAddressBook(enabledService=enabledService) }}
 
                 <div class="bt-space10"></div>
                 {{ display_input_cn(cn) }}
@@ -119,8 +117,6 @@
             </div>{#-- .col2-3 --#}
 
         </div>{#-- .columns --#}
-
-        <div class="rule"></div>
 
     {% elif profile_type == 'password' %}
 

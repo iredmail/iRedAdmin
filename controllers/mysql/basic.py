@@ -8,7 +8,7 @@ from urllib import urlencode
 import web
 from libs import __url_iredadmin_mysql_latest__, __version__
 from libs import iredutils, languages
-from libs.mysql import core, decorators, admin as adminlib
+from libs.mysql import core, decorators
 
 cfg = web.iredconfig
 session = web.config.get('_session')
@@ -105,6 +105,7 @@ class Dashboard:
                         'a': cfg.general.get('webmaster', session.get('username', '')),
                         'v': __version__,
                         'host': getfqdn(),
+                        'backend': cfg.general.get('backend', ''),
                     }
 
                     url = __url_iredadmin_mysql_latest__ + '?' + urlencode(urlInfo)
