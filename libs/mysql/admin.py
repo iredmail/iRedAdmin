@@ -6,7 +6,7 @@ import sys
 import types
 import web
 from libs import iredutils
-from libs.mysql import core, decorators
+from libs.mysql import core, decorators, connUtils
 
 cfg = web.iredconfig
 session = web.config.get('_session')
@@ -269,7 +269,10 @@ class Admin(core.MySQLWrap):
         if not iredutils.isEmail(self.mail):
             return (False, 'INVALID_MAIL')
 
-        # Check domain exist.
+        # Check admin exist.
+        connutils = connUtils.Utils()
+        if connutils.isAdminExists(self.mail):
+            return (False, 'ALREADY_EXISTS')
 
         # Get domainGlobalAdmin setting.
         self.domainGlobalAdmin = 'yes'

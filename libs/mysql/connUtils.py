@@ -12,7 +12,7 @@ class Utils(core.MySQLWrap):
 
     def isDomainExists(self, domain):
         if not iredutils.isDomain(domain):
-            return False
+            return True
 
         try:
             result = self.conn.select(
@@ -24,7 +24,7 @@ class Utils(core.MySQLWrap):
 
             if len(result) > 0:
                 # Exists.
-                return False
+                return True
 
             result = self.conn.select(
                 'alias_domain',
@@ -35,6 +35,31 @@ class Utils(core.MySQLWrap):
 
             if len(result) > 0:
                 # Alias domain exists.
+                return True
+            else:
+                return False
+        except:
+            # Return True as exist to not allow to create new domain/account.
+            return True
+
+    def isAdminExists(self, mail):
+        # Return True if account is invalid or exist.
+        mail = str(mail)
+        if not iredutils.isEmail(mail):
+            return True
+
+        try:
+            result = self.conn.select(
+                'admin',
+                what='username',
+                where='username = %s' % web.sqlquote(mail),
+                limit=1,
+            )
+
+            if len(result) > 0:
+                # Exists.
+                return True
+            else:
                 return False
         except:
             # Return True as exist to not allow to create new domain/account.
