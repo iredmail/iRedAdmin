@@ -363,9 +363,7 @@ class Admin(core.MySQLWrap):
                     return (False, str(e))
 
                 # Update global admin.
-                self.domainGlobalAdmin = False
-                if 'domainGlobalAdmin' in data.keys():
-                    self.domainGlobalAdmin = True
+                self.domainGlobalAdmin = True
 
                 if self.domainGlobalAdmin is True:
                     try:
