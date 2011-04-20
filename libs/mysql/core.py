@@ -9,22 +9,15 @@ session = web.config.get('_session')
 
 class MySQLWrap:
     def __init__(self, app=web.app, session=session, **settings):
-        # Get MySQL settings.
-        self.host = str(cfg.vmaildb.get('host', '127.0.0.1'))
-        self.port = int(cfg.vmaildb.get('port', 3306))
-        self.binduser = str(cfg.vmaildb.get('user', 'vmailadmin'))
-        self.bindpw = str(cfg.vmaildb.get('passwd', ''))
-        self.vmaildbname = str(cfg.vmaildb.get('db', 'vmail'))
-
         # Create DB connection and cursor.
         try:
             self.conn = web.database(
                 dbn='mysql',
-                host=self.host,
-                port=self.port,
-                user=self.binduser,
-                pw=self.bindpw,
-                db=self.vmaildbname,
+                host=str(cfg.vmaildb.get('host', '127.0.0.1')),
+                port=int(cfg.vmaildb.get('port', 3306)),
+                user=str(cfg.vmaildb.get('user', 'vmailadmin')),
+                pw=str(cfg.vmaildb.get('passwd', '')),
+                db=str(cfg.vmaildb.get('db', 'vmail')),
             )
             self.conn.supports_multiple_insert = True
         except:
