@@ -152,10 +152,6 @@ def render_template(template_name, **context):
 
     return jinja_env.get_template(template_name).render(context)
 
-# Define 404 page.
-def notfound():
-    return web.notfound(render_template('error404.html'))
-
 class sessionExpired(web.HTTPError):
     def __init__(self, message):
         message = web.seeother('/login?msg=SESSION_EXPIRED')
@@ -181,7 +177,6 @@ def logIntoSQL(msg, admin='', domain='', username='', event='', loglevel='info',
         pass
 
 app.add_processor(web.loadhook(hook_lang))
-app.notfound = notfound
 
 # Mail 500 error to webmaster.
 if cfg.general.get('mail_error_to_webmaster', 'False').lower() == 'true':
