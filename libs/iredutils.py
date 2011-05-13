@@ -88,7 +88,9 @@ INVALID_DOMAIN_CHARS = '~!#$%^&*()+\\/\ '
 
 def isEmail(s):
     s = str(s)
-    if len(set(s) & set(INVALID_EMAIL_CHARS)) > 0:
+    if len(set(s) & set(INVALID_EMAIL_CHARS)) > 0 \
+       or '.' not in s \
+       or s.count('@') != 1:
         return False
 
     reCompEmail = re.compile(reEmail, re.IGNORECASE)
