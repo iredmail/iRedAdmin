@@ -3,7 +3,7 @@
         {% if removable is not sameas false %}
             <a href="#" class="close">Close</a>
         {% endif %}
-        <p>{{msg}}</p>
+        <p>{{ msg |e }}</p>
     </div>
 {%- endmacro %}
 
@@ -12,7 +12,7 @@
         {% if removable is not sameas false %}
             <a href="#" class="close">Close</a>
         {% endif %}
-        <p><strong>{{ _('Error:') }}</strong> {{msg }}</p>
+        <p><strong>{{ _('Error:') }}</strong> {{ msg |e }}</p>
     </div>
 {%- endmacro %}
 
@@ -21,7 +21,7 @@
         {% if removable is not sameas false %}
             <a href="#" class="close">Close</a>
         {% endif %}
-        <p><strong>{{ _('Warning:') }}</strong> {{ msg }}</p>
+        <p><strong>{{ _('Warning:') }}</strong> {{ msg |e }}</p>
     </div>
     
 {%- endmacro %}
@@ -31,7 +31,7 @@
         {% if removable is not sameas false %}
             <a href="#" class="close">Close</a>
         {% endif %}
-        <p>{{ msg }}</p>
+        <p>{{ msg |e }}</p>
     </div>
     
 {%- endmacro %}
