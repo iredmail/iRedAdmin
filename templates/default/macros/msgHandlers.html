@@ -1,18 +1,28 @@
-{% macro successInfo(msg, removable=true) -%}
+{% macro successInfo(msg, removable=true, trusted=false) -%}
     <div class="notification note-success">
         {% if removable is not sameas false %}
             <a href="#" class="close">Close</a>
         {% endif %}
-        <p>{{ msg |e }}</p>
+
+        {% if trusted is sameas false %}
+            <p>{{ msg |e }}</p>
+        {% else %}
+            <p>{{ msg }}</p>
+        {% endif %}
     </div>
 {%- endmacro %}
 
-{% macro errorInfo(msg, removable=false) -%}
+{% macro errorInfo(msg, removable=false, trusted=false) -%}
     <div class="notification note-error">
         {% if removable is not sameas false %}
             <a href="#" class="close">Close</a>
         {% endif %}
-        <p><strong>{{ _('Error:') }}</strong> {{ msg |e }}</p>
+
+        {% if trusted is sameas false %}
+            <p><strong>{{ _('Error:') }}</strong> {{ msg |e }}</p>
+        {% else %}
+            <p><strong>{{ _('Error:') }}</strong> {{ msg }}</p>
+        {% endif %}
     </div>
 {%- endmacro %}
 
@@ -21,9 +31,13 @@
         {% if removable is not sameas false %}
             <a href="#" class="close">Close</a>
         {% endif %}
-        <p><strong>{{ _('Warning:') }}</strong> {{ msg |e }}</p>
+
+        {% if trusted is sameas false %}
+            <p><strong>{{ _('Warning') }}</strong>: {{ msg |e }}</p>
+        {% else %}
+            <p><strong>{{ _('Warning') }}</strong>: {{ msg }}</p>
+        {% endif %}
     </div>
-    
 {%- endmacro %}
 
 {% macro generalInfo(msg, removable=true) -%}
@@ -31,9 +45,13 @@
         {% if removable is not sameas false %}
             <a href="#" class="close">Close</a>
         {% endif %}
-        <p>{{ msg |e }}</p>
+
+        {% if trusted is sameas false %}
+            <p>{{ msg |e }}</p>
+        {% else %}
+            <p>{{ msg |e }}</p>
+        {% endif %}
     </div>
-    
 {%- endmacro %}
 
 {% macro loginMsgHandler(msg) -%}
@@ -48,7 +66,7 @@
     %}
 
     {% if msg == 'SERVER_DOWN' %}
-        {{ errorInfo(_('Server is down, Please contact <a href="mailto:%s">webmaster</a> to solve it.' % webmaster )) }}
+        {{ errorInfo(_('Server is down, Please contact <a href="mailto:%s">webmaster</a> to solve it.' % webmaster ), trusted=true) }}
     {% elif msg is sameas false %}
         {{ errorInfo( ('Authentication failed.') ) }}
     {% else %}
@@ -123,7 +141,7 @@
     %}
 
     {% if msg == 'CREATED_SUCCESS' %}
-        {{ successInfo( _('User created. Would you like to <a href="%s/create/user/%s">add one more</a>?' |format(ctx.homepath, mail.split('@', 1)[1] )) ) }}
+        {{ successInfo( _('User created. Would you like to <a href="%s/create/user/%s">add one more</a>?' |format(ctx.homepath, mail.split('@', 1)[1] )), trusted=true) }}
     {% else %}
         {% if msg in handlers %}
             {{ handlers[msg] }}
@@ -155,7 +173,7 @@
     %}
 
     {% if msg == 'CREATED_SUCCESS' %}
-        {{ successInfo( _('Admin created. Would you like to <a href="%s/create/admin">add one more</a>?') |format(ctx.homepath) ) }}
+        {{ successInfo( _('Admin created. Would you like to <a href="%s/create/admin">add one more</a>?') |format(ctx.homepath), trusted=true) }}
     {% elif msg == 'PW_LESS_THAN_MIN_LENGTH' %}
         {{ errorInfo( _('New password must contain at least %s characters.') |format(min_passwd_length) ) }}
     {% elif msg == 'PW_GREATER_THAN_MAX_LENGTH' %}
