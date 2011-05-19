@@ -65,10 +65,10 @@ SQL_DEFAULT_PASSWD_SCHEME = 'MD5'
 # Regular expressions.
 #
 # Email.
-reEmail = r"""[\w\-][\w\-\.]*@[\w\-][\w\-\.]+[a-zA-Z]{1,4}"""
+reEmail = r"""[\w\-][\w\-\.]*@[\w\-][\w\-\.]+[a-zA-Z]{2,6}"""
 
 # Domain.
-reDomain = r"""[\w\-][\w\-\.]*\.[a-z]{1,4}"""
+reDomain = r"""[\w\-][\w\-\.]*\.[a-z]{2,6}"""
 
 # End Regular expressions.
 ####

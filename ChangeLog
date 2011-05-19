@@ -1,3 +1,7 @@
+= 0.1.5 =
+    * Allow to use domain names which end with 2-6 chars.
+      Thanks Julian P. <@consistency.at>.
+
 = 0.1.4 =
     * Based on iRedAdmin-Pro-LDAP-1.4.0, iRedAdmin-Pro-MySQL-1.0.
     * Removed settings: mailbox_type, hashed_maildir.

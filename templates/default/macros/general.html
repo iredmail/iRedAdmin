@@ -183,10 +183,6 @@
     <img title="{{status |title }}" src="{{ctx.homepath}}/static/{{skin}}/images/{{img}}">
 {%- endmacro %}
 
-{% macro display_input_img(image="", alt="") -%}
-    <input type="image" src="{{ctx.homepath}}/static/{{skin}}/images/{{image}}" alt="{{alt}}">
-{%- endmacro %}
-
 {% macro display_button_submit(label=none, color='green') -%}
     <div class="rule2"></div>
     <div class="form-field clear">
