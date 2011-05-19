@@ -174,15 +174,6 @@
     {% endif %}
 {%- endmacro %}
 
-{% macro set_status_img(status) -%}
-    {% if status == 'active' or status == 'yes' %}
-        {% set img = "enabled.png" %}
-    {% else %}
-        {% set img = "disabled.png" %}
-    {% endif %}
-    <img title="{{status |title }}" src="{{ctx.homepath}}/static/{{skin}}/images/{{img}}">
-{%- endmacro %}
-
 {% macro display_button_submit(label=none, color='green') -%}
     <div class="rule2"></div>
     <div class="form-field clear">
@@ -226,10 +217,6 @@
             <div class="progress-bar" style="height: {{height}}; width: {{percent}}%; background-color: {{bgcolor}};"></div>
         </div>
     {% endif %}
-{%- endmacro %}
-
-{% macro input_hidden(name, value) -%}
-    <input type="hidden" name="{{ name }}" value="{{ value }}">
 {%- endmacro %}
 
 {% macro display_input_employeeid(value='') -%}
@@ -288,7 +275,7 @@
     </div>
 {%- endmacro %}
 
-{% macro display_preferredLanguage(value='', languagemaps=['en_US',]) -%}
+{% macro display_preferred_language(value='', languagemaps=['en_US',]) -%}
 <div class="form-field clear">
     <h4 class="size-250 fl-space">{{ _('Preferred language') }}</h4>
     <select name="preferredLanguage">
@@ -299,14 +286,6 @@
 </div>
 {%- endmacro %}
 
-{% macro displayedInGlobalAddressBook(enabledService=[]) %}
-    <div class="form-field clear">
-        <h4 class="size-250 fl-space">{{ _("Displayed in Global LDAP Address Book") }}</h4>
-        <div class="form-checkbox-item clear">
-            <input name="displayedInGlobalAddressBook" {% if 'displayedInGlobalAddressBook' in enabledService %}checked{% endif %} type="checkbox" rel="checkboxhorizont" class="checkbox" />
-        </div>
-    </div>
-{%- endmacro %}
 
 {% macro display_input_global_admin(value='no') %}
 <div class="form-field clear">
@@ -326,14 +305,6 @@
     {% if value == '0' or value == 0 or value == 'None' %}{% if hide_unlimited is not sameas true %}<span class="grey">/<em>{{ _('Unlimited') }}</em></span>{% endif %}{%else%}<span class="grey">/ <em>{{value}}</em></span>{%endif%}
 {%- endmacro %}
 
-{%- macro display_quota_usage_percent(current, total) -%}
-    {% set percent = (current |int * 100) // total |int %}
-    {% if percent > 80 %}
-        <span class="important"><strong>{{percent}}%</strong></span>
-    {% else %}
-        <span>{{percent}}%</span>
-    {% endif %}
-{%- endmacro -%}
 
 {# Display accountStatus #}
 {% macro display_account_status(accountStatus, accountType='user') %}
@@ -522,7 +493,7 @@
             <div class="bt-space5">&nbsp;</div>
 
             {{ display_input_cn() }}
-            {{ display_preferredLanguage(lang, languagemaps) }}
+            {{ display_preferred_language(lang, languagemaps) }}
 
             {{ display_button_submit(label=_('Add')) }}
         </form>
@@ -545,37 +516,6 @@
     </div>
 {%- endmacro %}
 
-{% macro display_maillist_restrictions(policy, maillist_email) -%}
-    {% set policy = policy.lower() %}
-    {% if policy == 'open' %}
-        {{ _('Unrestricted') }}
-    {% elif policy == 'domain' %}
-        {{ _("<a href='%s'>Domain users</a>") |format(ctx.homepath + '/users/' + maillist_email.split('@')[-1] ) }}
-    {% elif policy == 'subdomain' %}
-        {{ _("<a href='%s'>Domain and sub-domain users</a>") |format(ctx.homepath + '/users/' + maillist_email.split('@')[-1] ) }}
-    {% elif policy == 'membersonly' %}
-        {{ _("<a href='%s'>Members</a>") |format(ctx.homepath + '/profile/maillist/members/' + maillist_email) }}
-    {% elif policy == 'allowedonly' %}
-    {{ _("<a href='%s'>Moderators</a>") |format(ctx.homepath + '/profile/maillist/moderators/' + maillist_email) }}
-    {% elif policy == 'membersandmoderatorsonly' %}
-    {{ _("<a href='%s'>Members</a> and <a href='%s'>moderators</a>") |format(ctx.homepath + '/profile/maillist/members/' + maillist_email, ctx.homepath + '/profile/maillist/moderators/' + maillist_email) }}
-    {% else %}
-        {{ _('Unrestricted') }}
-    {% endif %}
-{% endmacro %}
-
-{% macro nav_links_of_account_types(domain, active='users') -%}
-    {% set links = [
-                    ('users', _('Users')),
-                    ('maillists', _('Mail Lists')),
-                    ('aliases', _('Aliases')),
-                    ]
-    %}
-    <span>&raquo;</span>
-    {% for url, label in links %}
-        <span class="important"><a href="{{ctx.homepath}}/{{url}}/{{domain}}" class="menu-item {% if url == active %}active{% endif %}">{{ label }}</a></span>{% if not loop.last %}&nbsp;&raquo;&nbsp;{% endif %}
-    {% endfor %}
-{%- endmacro %}
 
 {% macro highlight_username_in_mail(mail) -%}
     <span><strong>{{ mail.split('@')[0] }}</strong></span><span class="grey"><em>@{{ mail.split('@')[-1] }}</em></span>

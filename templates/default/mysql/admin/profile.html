@@ -12,7 +12,7 @@
                 set_account_status_img,
                 display_account_status,
                 display_input_cn,
-                display_preferredLanguage,
+                display_preferred_language,
                 display_reset_password,
                 display_button_submit,
                 with context
@@ -75,7 +75,7 @@
                             {% endif %}
 
                             {{ display_input_cn(cn=profile.name, accountType='admin') }}
-                            {{ display_preferredLanguage(value=preferredLanguage, languagemaps=languagemaps) }}
+                            {{ display_preferred_language(value=preferredLanguage, languagemaps=languagemaps) }}
                         </div>
                     </div>{# .columns #}
 
