@@ -1,6 +1,5 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
-import sys
 import ldap
 import web
 from libs import iredutils

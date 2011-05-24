@@ -1,9 +1,8 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
-import sys
 import types
 import web
-import ldap, ldif
+import ldap
 from ldap.filter import escape_filter_chars
 from libs import iredutils
 from libs.ldaplib import core, ldaputils, decorators, attrs, deltree

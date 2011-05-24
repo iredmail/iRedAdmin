@@ -2,7 +2,6 @@
 
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
-import sys
 import web
 from libs import languages, iredutils
 from libs.mysql import decorators, admin as adminlib, domain as domainlib

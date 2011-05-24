@@ -1,6 +1,5 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
-import sys
 import types
 import ldap
 import ldap.filter

@@ -1,10 +1,9 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
-import sys
 import web
 from controllers import base
 from libs import iredutils
-from libs.mysql import decorators, domain as domainlib, admin as adminlib
+from libs.mysql import domain as domainlib
 
 cfg = web.iredconfig
 session = web.config.get('_session')

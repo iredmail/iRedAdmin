@@ -1,6 +1,5 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
-import sys
 import web
 from libs import iredutils, md5crypt
 

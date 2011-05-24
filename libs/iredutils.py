@@ -1,7 +1,6 @@
 # encoding: utf-8
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
-import sys
 import gettext
 import re
 import time
