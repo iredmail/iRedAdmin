@@ -34,10 +34,10 @@ mtaTransport = dovecot
 # login data: http://www.iredmail.org/admin_faq.html
 show_login_date = False
 
-# Show percentage of mailbox quota usage.
+# Show percentage of mailbox quota usage. Used in LDAP backend.
 # Make sure you have correct dovecot setting by following this tutorial:
 # http://iredmail.org/wiki/index.php?title=IRedMail/FAQ/Store.Realtime.Quota.In.MySQL
-show_used_quota = False
+show_used_quota = True
 
 # Min/Max admin password length.
 #   - min_passwd_length: 0 means unlimited, but at least 1 character
