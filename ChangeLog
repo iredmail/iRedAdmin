@@ -1,4 +1,5 @@
 = 0.1.5 =
+    * Escape untrusted variables in template files.
     * Allow to use domain names which end with 2-6 chars.
       Thanks Julian P. <@consistency.at>.
 

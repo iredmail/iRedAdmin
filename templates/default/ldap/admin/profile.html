@@ -36,7 +36,7 @@
 {% block breadcrumb %}
     {% set crumbs = [
             (ctx.homepath + '/admins', _('All admins'),),
-            (None, _('Profile of admin:') + '&nbsp;' + mail,),
+            (None, _('Profile of admin:') + ' ' + mail,),
             ]
             %}
     {{ display_subnav(crumbs) }}
