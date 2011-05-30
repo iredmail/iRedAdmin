@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: zhb@iredmail.org\n"
-"POT-Creation-Date: 2011-02-27 17:14+0800\n"
+"POT-Creation-Date: 2011-05-30 13:54+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -22,37 +22,12 @@ msgstr ""
 msgid "%s (%s)"
 msgstr ""
 
-#: ../templates/default/dashboard.html:64
+#: ../templates/default/dashboard.html:50
 #, python-format
 msgid "%s days, %s hours, %s minutes."
 msgstr ""
 
-#: ../templates/default/macros/general.html:559
-#, python-format
-msgid "<a href='%s'>Domain and sub-domain users</a>"
-msgstr ""
-
-#: ../templates/default/macros/general.html:557
-#, python-format
-msgid "<a href='%s'>Domain users</a>"
-msgstr ""
-
-#: ../templates/default/macros/general.html:561
-#, python-format
-msgid "<a href='%s'>Members</a>"
-msgstr ""
-
-#: ../templates/default/macros/general.html:565
-#, python-format
-msgid "<a href='%s'>Members</a> and <a href='%s'>moderators</a>"
-msgstr ""
-
-#: ../templates/default/macros/general.html:563
-#, python-format
-msgid "<a href='%s'>Moderators</a>"
-msgstr ""
-
-#: ../templates/default/macros/msgHandlers.html:152
+#: ../templates/default/macros/msgHandlers.html:170
 msgid "Account already exists, please choose another username."
 msgstr ""
 
@@ -65,19 +40,19 @@ msgstr ""
 msgid "Account is disabled."
 msgstr ""
 
-#: ../templates/default/macros/general.html:698
+#: ../templates/default/macros/general.html:613
 msgid "Active account"
 msgstr ""
 
-#: ../templates/default/ldap/user/create.html:150
-#: ../templates/default/macros/general.html:531
-#: ../templates/default/macros/general.html:547
-#: ../templates/default/mysql/user/create.html:125
+#: ../templates/default/ldap/user/create.html:95
+#: ../templates/default/macros/general.html:474
+#: ../templates/default/macros/general.html:490
+#: ../templates/default/mysql/user/create.html:123
 msgid "Add"
 msgstr ""
 
 #: ../templates/default/layout.html:66
-#: ../templates/default/macros/general.html:692
+#: ../templates/default/macros/general.html:607
 msgid "Add account"
 msgstr ""
 
@@ -96,9 +71,9 @@ msgstr ""
 #: ../templates/default/ldap/domain/create.html:22
 #: ../templates/default/ldap/domain/create.html:26
 #: ../templates/default/ldap/domain/list.html:35
-#: ../templates/default/macros/general.html:539
+#: ../templates/default/macros/general.html:482
 #: ../templates/default/macros/ldap.html:33
-#: ../templates/default/macros/mysql.html:32
+#: ../templates/default/macros/mysql.html:33
 #: ../templates/default/mysql/domain/create.html:9
 #: ../templates/default/mysql/domain/create.html:22
 #: ../templates/default/mysql/domain/create.html:26
@@ -106,9 +81,9 @@ msgstr ""
 msgid "Add domain"
 msgstr ""
 
-#: ../templates/default/ldap/domain/list.html:183
-#: ../templates/default/ldap/user/list.html:136
-#: ../templates/default/mysql/domain/list.html:135
+#: ../templates/default/ldap/domain/list.html:123
+#: ../templates/default/ldap/user/list.html:132
+#: ../templates/default/mysql/domain/list.html:101
 #: ../templates/default/mysql/user/list.html:126
 msgid "Add one"
 msgstr ""
@@ -120,8 +95,8 @@ msgstr ""
 msgid "Add user"
 msgstr ""
 
-#: ../templates/default/ldap/user/create.html:108
-#: ../templates/default/mysql/user/create.html:84
+#: ../templates/default/ldap/user/create.html:55
+#: ../templates/default/mysql/user/create.html:82
 msgid "Add user under domain:"
 msgstr ""
 
@@ -135,43 +110,23 @@ msgstr ""
 msgid "Admin Log"
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:158
+#: ../templates/default/macros/msgHandlers.html:176
 #, python-format
 msgid ""
 "Admin created. Would you like to <a href=\"%s/create/admin\">add one "
 "more</a>?"
 msgstr ""
 
-#: ../templates/default/macros/general.html:690
+#: ../templates/default/macros/general.html:605
 msgid "Admin login"
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:153
+#: ../templates/default/macros/msgHandlers.html:171
 msgid "Admin not exist."
 msgstr ""
 
-#: ../templates/default/layout.html:58
-#: ../templates/default/ldap/domain/list.html:61
-#: ../templates/default/panel/log.html:56
+#: ../templates/default/layout.html:58 ../templates/default/panel/log.html:56
 msgid "Admins"
-msgstr ""
-
-#: ../templates/default/ldap/user/create.html:105
-#: ../templates/default/mysql/user/create.html:81
-msgid "Alias"
-msgstr ""
-
-#: ../templates/default/macros/ldap.html:97
-msgid "Alias account"
-msgstr ""
-
-#: ../templates/default/ldap/domain/list.html:59
-#: ../templates/default/ldap/user/create.html:102
-#: ../templates/default/macros/general.html:575
-#: ../templates/default/mysql/domain/list.html:58
-#: ../templates/default/mysql/domain/profile.html:27
-#: ../templates/default/mysql/user/create.html:79
-msgid "Aliases"
 msgstr ""
 
 #: ../templates/default/ldap/admin/create.html:30
@@ -179,21 +134,21 @@ msgstr ""
 #: ../templates/default/ldap/admin/profile.html:38
 #: ../templates/default/mysql/admin/create.html:30
 #: ../templates/default/mysql/admin/list.html:28
-#: ../templates/default/mysql/admin/profile.html:34
+#: ../templates/default/mysql/admin/profile.html:28
 msgid "All admins"
 msgstr ""
 
 #: ../templates/default/ldap/domain/create.html:20
 #: ../templates/default/ldap/domain/list.html:33
-#: ../templates/default/ldap/domain/profile.html:27
+#: ../templates/default/ldap/domain/profile.html:26
 #: ../templates/default/ldap/user/create.html:26
-#: ../templates/default/ldap/user/list.html:27
-#: ../templates/default/ldap/user/profile.html:71
+#: ../templates/default/ldap/user/list.html:26
+#: ../templates/default/ldap/user/profile.html:63
 #: ../templates/default/mysql/domain/create.html:20
 #: ../templates/default/mysql/domain/list.html:33
-#: ../templates/default/mysql/domain/profile.html:24
+#: ../templates/default/mysql/domain/profile.html:20
 #: ../templates/default/mysql/user/create.html:22
-#: ../templates/default/mysql/user/list.html:27
+#: ../templates/default/mysql/user/list.html:26
 #: ../templates/default/mysql/user/profile.html:25
 msgid "All domains"
 msgstr ""
@@ -208,87 +163,54 @@ msgstr ""
 msgid "All mail administrators."
 msgstr ""
 
-#: ../templates/default/mysql/domain/list.html:89
-#: ../templates/default/mysql/domain/list.html:91
-#: ../templates/default/mysql/domain/list.html:97
-#: ../templates/default/mysql/domain/list.html:99
 #: ../templates/default/mysql/user/list.html:114
 msgid "Allocated"
 msgstr ""
 
-#: ../templates/default/ldap/user/create.html:74
 #: ../templates/default/mysql/user/create.html:43
 #, python-format
 msgid "Already exceed max number of account limit (%s)."
 msgstr ""
 
 #: ../templates/default/ldap/admin/list.html:85
-#: ../templates/default/ldap/domain/list.html:202
-#: ../templates/default/ldap/user/list.html:152
-#: ../templates/default/mysql/admin/list.html:88
-#: ../templates/default/mysql/domain/list.html:155
+#: ../templates/default/ldap/domain/list.html:142
+#: ../templates/default/ldap/user/list.html:148
+#: ../templates/default/mysql/admin/list.html:91
+#: ../templates/default/mysql/domain/list.html:121
 #: ../templates/default/mysql/user/list.html:142
 #: ../templates/default/panel/log.html:111
 msgid "Apply"
 msgstr ""
 
-#: ../templates/default/macros/general.html:364
+#: ../templates/default/macros/general.html:331
 #, python-format
 msgid "At least %s characters, but no more than %s."
 msgstr ""
 
-#: ../templates/default/macros/general.html:366
+#: ../templates/default/macros/general.html:333
 #, python-format
 msgid "At least %s characters."
 msgstr ""
 
-#: ../templates/default/macros/general.html:415
+#: ../templates/default/macros/general.html:382
 msgid "Available quota:"
 msgstr ""
 
-#: ../templates/default/macros/general.html:463
-msgid "BCC incoming emails to single address"
-msgstr ""
-
-#: ../templates/default/macros/ldap.html:100
-msgid "BCC incoming mails to other address"
-msgstr ""
-
-#: ../templates/default/macros/ldap.html:83
-msgid "BCC incoming mails to other addresses"
-msgstr ""
-
-#: ../templates/default/macros/general.html:475
-msgid "BCC outgoing emails to single address"
-msgstr ""
-
-#: ../templates/default/macros/ldap.html:101
-msgid "BCC outgoing mails to other address"
-msgstr ""
-
-#: ../templates/default/macros/ldap.html:84
-msgid "BCC outgoing mails to other addresses"
-msgstr ""
-
-#: ../templates/default/macros/ldap.html:113
-msgid "Check this box in order to enable other mail related services."
-msgstr ""
-
 #: ../templates/default/ldap/admin/list.html:80
-#: ../templates/default/ldap/domain/list.html:197
-#: ../templates/default/ldap/user/list.html:147
-#: ../templates/default/mysql/admin/list.html:83
-#: ../templates/default/mysql/domain/list.html:150
+#: ../templates/default/ldap/domain/list.html:137
+#: ../templates/default/ldap/user/list.html:143
+#: ../templates/default/mysql/admin/list.html:86
+#: ../templates/default/mysql/domain/list.html:116
 #: ../templates/default/mysql/user/list.html:137
 #: ../templates/default/panel/log.html:108
 msgid "Choose Action"
 msgstr ""
 
-#: ../templates/default/macros/general.html:504
+#: ../templates/default/macros/general.html:447
 msgid "Company/Organization Name"
 msgstr ""
 
-#: ../templates/default/macros/general.html:388
+#: ../templates/default/macros/general.html:355
 msgid "Confirm new password"
 msgstr ""
 
@@ -297,28 +219,18 @@ msgid "Contact webmaster"
 msgstr ""
 
 #: ../templates/default/ldap/admin/list.html:48
-#: ../templates/default/ldap/domain/list.html:63
-#: ../templates/default/ldap/user/list.html:46
+#: ../templates/default/ldap/domain/list.html:57
+#: ../templates/default/ldap/user/list.html:45
 #: ../templates/default/mysql/admin/list.html:49
-#: ../templates/default/mysql/domain/list.html:59
-#: ../templates/default/mysql/user/list.html:46
+#: ../templates/default/mysql/domain/list.html:57
+#: ../templates/default/mysql/user/list.html:45
 msgid "Created"
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:113
-#: ../templates/default/macros/msgHandlers.html:147
-#: ../templates/default/macros/msgHandlers.html:148
+#: ../templates/default/macros/msgHandlers.html:131
+#: ../templates/default/macros/msgHandlers.html:165
+#: ../templates/default/macros/msgHandlers.html:166
 msgid "Current password is incorrect."
-msgstr ""
-
-#: ../templates/default/macros/ldap.html:98
-#: ../templates/default/macros/mysql.html:74
-msgid "Customize mail filter rule"
-msgstr ""
-
-#: ../templates/default/macros/ldap.html:99
-#: ../templates/default/macros/mysql.html:75
-msgid "Customize mail filter rule over TLS/SSL"
 msgstr ""
 
 #: ../templates/default/dashboard.html:5 ../templates/default/layout.html:54
@@ -326,47 +238,38 @@ msgid "Dashboard"
 msgstr ""
 
 #: ../templates/default/ldap/admin/list.html:83
-#: ../templates/default/ldap/domain/list.html:200
-#: ../templates/default/ldap/user/list.html:150
-#: ../templates/default/mysql/admin/list.html:86
-#: ../templates/default/mysql/domain/list.html:153
+#: ../templates/default/ldap/domain/list.html:140
+#: ../templates/default/ldap/user/list.html:146
+#: ../templates/default/mysql/admin/list.html:89
+#: ../templates/default/mysql/domain/list.html:119
 #: ../templates/default/mysql/user/list.html:140
 #: ../templates/default/panel/log.html:109
 msgid "Delete"
 msgstr ""
 
-#: ../templates/default/macros/general.html:694
+#: ../templates/default/macros/general.html:609
 msgid "Delete account"
 msgstr ""
 
 #: ../templates/default/ldap/admin/list.html:82
-#: ../templates/default/ldap/domain/list.html:199
-#: ../templates/default/ldap/user/list.html:149
-#: ../templates/default/mysql/admin/list.html:85
-#: ../templates/default/mysql/domain/list.html:152
+#: ../templates/default/ldap/domain/list.html:139
+#: ../templates/default/ldap/user/list.html:145
+#: ../templates/default/mysql/admin/list.html:88
+#: ../templates/default/mysql/domain/list.html:118
 #: ../templates/default/mysql/user/list.html:139
 msgid "Disable"
 msgstr ""
 
-#: ../templates/default/macros/general.html:696
+#: ../templates/default/macros/general.html:611
 msgid "Disable account"
 msgstr ""
 
 #: ../templates/default/ldap/admin/list.html:45
-#: ../templates/default/ldap/user/list.html:73
-#: ../templates/default/macros/general.html:506
+#: ../templates/default/ldap/user/list.html:72
+#: ../templates/default/macros/general.html:449
 #: ../templates/default/mysql/admin/list.html:46
-#: ../templates/default/mysql/user/list.html:74
+#: ../templates/default/mysql/user/list.html:73
 msgid "Display Name"
-msgstr ""
-
-#: ../templates/default/macros/ldap.html:102
-#: ../templates/default/macros/ldap.html:106
-msgid "Display mail address in global LDAP address book"
-msgstr ""
-
-#: ../templates/default/macros/general.html:308
-msgid "Displayed in Global LDAP Address Book"
 msgstr ""
 
 #: ../templates/default/layout.html:69
@@ -377,40 +280,32 @@ msgstr ""
 
 #: ../templates/default/ldap/admin/list.html:12
 #: ../templates/default/macros/ldap.html:42
-#: ../templates/default/macros/mysql.html:41
+#: ../templates/default/macros/mysql.html:42
 #: ../templates/default/mysql/admin/list.html:12
 msgid "Domain Admins"
 msgstr ""
 
-#: ../templates/default/macros/general.html:491
+#: ../templates/default/macros/general.html:434
 msgid "Domain Name"
 msgstr ""
 
-#: ../templates/default/macros/ldap.html:82
-msgid "Domain alias"
-msgstr ""
-
-#: ../templates/default/macros/msgHandlers.html:76
+#: ../templates/default/macros/msgHandlers.html:94
 msgid "Domain already exists. Please check both primary or alias domains."
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:87
+#: ../templates/default/macros/msgHandlers.html:105
 msgid "Domain created."
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:74
+#: ../templates/default/macros/msgHandlers.html:92
 msgid "Domain name is empty."
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:106
+#: ../templates/default/macros/msgHandlers.html:124
 msgid "Domain name or username is missed."
 msgstr ""
 
-#: ../templates/default/mysql/domain/profile.html:89
-msgid "Domain quota size"
-msgstr ""
-
-#: ../templates/default/macros/msgHandlers.html:108
+#: ../templates/default/macros/msgHandlers.html:126
 msgid ""
 "Domain quota size exceeded. Please contact your administrator or service "
 "provider to increase it."
@@ -428,24 +323,20 @@ msgstr ""
 
 #: ../templates/default/ldap/admin/list.html:65
 #: ../templates/default/ldap/admin/profile.html:29
-#: ../templates/default/ldap/domain/list.html:108
-#: ../templates/default/ldap/domain/profile.html:15
-#: ../templates/default/ldap/user/list.html:102
-#: ../templates/default/ldap/user/profile.html:39
-#: ../templates/default/mysql/admin/list.html:58
-#: ../templates/default/mysql/admin/profile.html:29
-#: ../templates/default/mysql/domain/list.html:72
-#: ../templates/default/mysql/domain/profile.html:19
+#: ../templates/default/ldap/domain/list.html:97
+#: ../templates/default/ldap/domain/profile.html:14
+#: ../templates/default/ldap/user/list.html:98
+#: ../templates/default/ldap/user/profile.html:35
+#: ../templates/default/mysql/admin/list.html:61
+#: ../templates/default/mysql/admin/profile.html:23
+#: ../templates/default/mysql/domain/list.html:71
+#: ../templates/default/mysql/domain/profile.html:15
 #: ../templates/default/mysql/user/list.html:91
 #: ../templates/default/mysql/user/profile.html:20
 msgid "Edit account profile"
 msgstr ""
 
-#: ../templates/default/ldap/domain/list.html:124
-#: ../templates/default/ldap/domain/list.html:133
-#: ../templates/default/ldap/user/list.html:121
-#: ../templates/default/mysql/domain/list.html:89
-#: ../templates/default/mysql/domain/list.html:97
+#: ../templates/default/ldap/user/list.html:117
 #: ../templates/default/mysql/user/list.html:113
 msgid "Edit quota setting"
 msgstr ""
@@ -458,106 +349,72 @@ msgstr ""
 msgid "Emails"
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:45
+#: ../templates/default/macros/msgHandlers.html:63
 msgid "Empty password is not allowed."
 msgstr ""
 
 #: ../templates/default/ldap/admin/list.html:81
-#: ../templates/default/ldap/domain/list.html:198
-#: ../templates/default/ldap/user/list.html:148
-#: ../templates/default/mysql/admin/list.html:84
-#: ../templates/default/mysql/domain/list.html:151
+#: ../templates/default/ldap/domain/list.html:138
+#: ../templates/default/ldap/user/list.html:144
+#: ../templates/default/mysql/admin/list.html:87
+#: ../templates/default/mysql/domain/list.html:117
 #: ../templates/default/mysql/user/list.html:138
 msgid "Enable"
 msgstr ""
 
-#: ../templates/default/macros/general.html:352
+#: ../templates/default/macros/general.html:319
 msgid "Enable this account"
 msgstr ""
 
-#: ../templates/default/macros/general.html:350
+#: ../templates/default/macros/general.html:317
 msgid "Enable this domain"
 msgstr ""
 
-#: ../templates/default/macros/ldap.html:110
-#: ../templates/default/macros/mysql.html:81
-msgid "Enabled Services"
-msgstr ""
-
-#: ../templates/default/dashboard.html:50
+#: ../templates/default/dashboard.html:36
 #, python-format
 msgid "Error while checking new version: %s"
 msgstr ""
 
-#: ../templates/default/error404.html:4 ../templates/default/error404.html:9
-#: ../templates/default/ldap/user/create.html:80
-#: ../templates/default/macros/msgHandlers.html:15
+#: ../templates/default/macros/msgHandlers.html:22
+#: ../templates/default/macros/msgHandlers.html:24
 #: ../templates/default/mysql/user/create.html:56
 msgid "Error:"
 msgstr ""
 
-#: ../templates/default/macros/general.html:688
+#: ../templates/default/macros/general.html:603
 msgid "Events"
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:109
+#: ../templates/default/macros/msgHandlers.html:127
 msgid ""
 "Exceeded domain account limit. Please contact your administrator or "
 "service provider to increase it."
-msgstr ""
-
-#: ../templates/default/macros/ldap.html:93
-#: ../templates/default/macros/mysql.html:72
-msgid "Fetching mails via IMAP"
-msgstr ""
-
-#: ../templates/default/macros/ldap.html:94
-#: ../templates/default/macros/mysql.html:73
-msgid "Fetching mails via IMAP over TLS/SSL"
-msgstr ""
-
-#: ../templates/default/macros/ldap.html:91
-#: ../templates/default/macros/mysql.html:70
-msgid "Fetching mails via POP3"
-msgstr ""
-
-#: ../templates/default/macros/ldap.html:92
-#: ../templates/default/macros/mysql.html:71
-msgid "Fetching mails via POP3 over TLS/SSL"
 msgstr ""
 
 #: ../templates/default/panel/log.html:46
 msgid "Filter:"
 msgstr ""
 
-#: ../templates/default/macros/general.html:599
+#: ../templates/default/macros/general.html:514
 msgid "First Page"
 msgstr ""
 
-#: ../templates/default/macros/ldap.html:96
-msgid "Forwarding mails to other addresses"
-msgstr ""
-
 #: ../templates/default/ldap/admin/profile.html:52
-#: ../templates/default/ldap/domain/profile.html:43
-#: ../templates/default/ldap/user/profile.html:86
-#: ../templates/default/mysql/admin/profile.html:48
-#: ../templates/default/mysql/domain/profile.html:41
+#: ../templates/default/ldap/domain/profile.html:42
+#: ../templates/default/ldap/user/profile.html:78
+#: ../templates/default/mysql/admin/profile.html:42
+#: ../templates/default/mysql/domain/profile.html:36
 #: ../templates/default/mysql/user/profile.html:40
 msgid "General"
 msgstr ""
 
 #: ../templates/default/ldap/admin/list.html:47
-#: ../templates/default/macros/ldap.html:52
+#: ../templates/default/macros/ldap.html:51
 #: ../templates/default/mysql/admin/list.html:48
 msgid "Global Admin"
 msgstr ""
 
-#: ../templates/default/error404.html:9
-msgid "Go back."
-msgstr ""
-
-#: ../templates/default/dashboard.html:57
+#: ../templates/default/dashboard.html:43
 msgid "Hostname"
 msgstr ""
 
@@ -569,16 +426,16 @@ msgstr ""
 msgid "Increase it now?"
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:73
+#: ../templates/default/macros/msgHandlers.html:91
 msgid "Invalid action."
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:72
+#: ../templates/default/macros/msgHandlers.html:90
 msgid "Invalid domain name."
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:107
-#: ../templates/default/macros/msgHandlers.html:151
+#: ../templates/default/macros/msgHandlers.html:125
+#: ../templates/default/macros/msgHandlers.html:169
 msgid "Invalid mail address."
 msgstr ""
 
@@ -586,46 +443,28 @@ msgstr ""
 msgid "Is a global admin."
 msgstr ""
 
-#: ../templates/default/ldap/user/list.html:76
+#: ../templates/default/ldap/user/list.html:75
 msgid "Job Title"
 msgstr ""
 
-#: ../templates/default/macros/general.html:251
+#: ../templates/default/macros/general.html:234
 msgid "Job Title/Responsibility"
 msgstr ""
 
-#: ../templates/default/macros/general.html:678
+#: ../templates/default/macros/general.html:593
 msgid "Last Page"
 msgstr ""
 
-#: ../templates/default/ldap/user/list.html:43
-#: ../templates/default/mysql/user/list.html:43
+#: ../templates/default/ldap/user/list.html:42
+#: ../templates/default/mysql/user/list.html:42
 msgid "Last Signed In"
 msgstr ""
 
-#: ../templates/default/ldap/domain/list.html:163
-#: ../templates/default/mysql/domain/list.html:121
-#: ../templates/default/mysql/domain/list.html:124
-msgid "List all mail aliases."
-msgstr ""
-
-#: ../templates/default/ldap/domain/list.html:154
-msgid "List all mail lists."
-msgstr ""
-
-#: ../templates/default/ldap/domain/list.html:145
-#: ../templates/default/ldap/domain/list.html:148
-#: ../templates/default/mysql/domain/list.html:109
-#: ../templates/default/mysql/domain/list.html:112
+#: ../templates/default/ldap/domain/list.html:108
+#: ../templates/default/ldap/domain/list.html:111
+#: ../templates/default/mysql/domain/list.html:86
+#: ../templates/default/mysql/domain/list.html:89
 msgid "List all mail users."
-msgstr ""
-
-#: ../templates/default/ldap/domain/list.html:172
-msgid "List assigned domain admins"
-msgstr ""
-
-#: ../templates/default/ldap/domain/list.html:58
-msgid "Lists"
 msgstr ""
 
 #: ../templates/default/layout.html:33
@@ -637,7 +476,7 @@ msgstr ""
 msgid "Login"
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:42
+#: ../templates/default/macros/msgHandlers.html:60
 msgid "Login required"
 msgstr ""
 
@@ -650,39 +489,25 @@ msgid "Logout"
 msgstr ""
 
 #: ../templates/default/ldap/admin/list.html:46
-#: ../templates/default/ldap/user/create.html:115
-#: ../templates/default/ldap/user/list.html:74
-#: ../templates/default/macros/general.html:484
+#: ../templates/default/ldap/user/create.html:62
+#: ../templates/default/ldap/user/list.html:73
+#: ../templates/default/macros/general.html:427
 #: ../templates/default/mysql/admin/list.html:47
-#: ../templates/default/mysql/user/create.html:90
-#: ../templates/default/mysql/user/list.html:75
+#: ../templates/default/mysql/user/create.html:88
+#: ../templates/default/mysql/user/list.html:74
 msgid "Mail Address"
 msgstr ""
 
-#: ../templates/default/ldap/user/create.html:104
-#: ../templates/default/macros/msgHandlers.html:87
-msgid "Mail List"
-msgstr ""
-
-#: ../templates/default/ldap/user/create.html:101
-#: ../templates/default/macros/general.html:574
-msgid "Mail Lists"
-msgstr ""
-
-#: ../templates/default/ldap/user/list.html:22
-#: ../templates/default/mysql/user/list.html:22
+#: ../templates/default/ldap/user/list.html:21
+#: ../templates/default/mysql/user/list.html:21
 msgid "Mail Users"
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:118
+#: ../templates/default/macros/msgHandlers.html:136
 msgid "Mail address already exists, please choose another one."
 msgstr ""
 
-#: ../templates/default/macros/ldap.html:113
-msgid "Mail service"
-msgstr ""
-
-#: ../templates/default/macros/general.html:405
+#: ../templates/default/macros/general.html:372
 msgid "Mailbox Quota"
 msgstr ""
 
@@ -691,7 +516,7 @@ msgstr ""
 msgid "Managed Domains"
 msgstr ""
 
-#: ../templates/default/macros/general.html:317
+#: ../templates/default/macros/general.html:292
 msgid "Mark as global admin"
 msgstr ""
 
@@ -699,7 +524,7 @@ msgstr ""
 msgid "Message"
 msgstr ""
 
-#: ../templates/default/macros/general.html:258
+#: ../templates/default/macros/general.html:241
 msgid "Mobile"
 msgstr ""
 
@@ -713,26 +538,26 @@ msgstr ""
 msgid "Need a random password?"
 msgstr ""
 
-#: ../templates/default/dashboard.html:77
+#: ../templates/default/dashboard.html:63
 msgid "Network"
 msgstr ""
 
-#: ../templates/default/macros/general.html:381
+#: ../templates/default/macros/general.html:348
 msgid "New password"
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:162
+#: ../templates/default/macros/msgHandlers.html:180
 #, python-format
 msgid "New password must NOT contain more than %s characters."
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:160
+#: ../templates/default/macros/msgHandlers.html:178
 #, python-format
 msgid "New password must contain at least %s characters."
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:114
-#: ../templates/default/macros/msgHandlers.html:149
+#: ../templates/default/macros/msgHandlers.html:132
+#: ../templates/default/macros/msgHandlers.html:167
 msgid "New passwords are not match."
 msgstr ""
 
@@ -740,49 +565,48 @@ msgstr ""
 msgid "News & Announments"
 msgstr ""
 
-#: ../templates/default/macros/general.html:674
+#: ../templates/default/macros/general.html:589
 msgid "Next Page"
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:146
+#: ../templates/default/macros/msgHandlers.html:164
 msgid "No account selected."
 msgstr ""
 
-#: ../templates/default/ldap/domain/list.html:182
-#: ../templates/default/ldap/domain/list.html:186
-#: ../templates/default/mysql/domain/list.html:134
-#: ../templates/default/mysql/domain/list.html:138
+#: ../templates/default/ldap/domain/list.html:122
+#: ../templates/default/ldap/domain/list.html:126
+#: ../templates/default/mysql/domain/list.html:100
+#: ../templates/default/mysql/domain/list.html:104
 msgid "No domain available."
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:120
+#: ../templates/default/macros/msgHandlers.html:138
 msgid "No domain name available."
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:81
-#: ../templates/default/macros/msgHandlers.html:105
+#: ../templates/default/macros/msgHandlers.html:99
+#: ../templates/default/macros/msgHandlers.html:123
 msgid "No domain under control."
 msgstr ""
 
-#: ../templates/default/ldap/user/create.html:69
 #: ../templates/default/mysql/user/create.html:48
 msgid "No free domain quota left."
 msgstr ""
 
-#: ../templates/default/macros/general.html:368
+#: ../templates/default/macros/general.html:335
 #, python-format
 msgid "No more than %s characters."
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:119
+#: ../templates/default/macros/msgHandlers.html:137
 msgid "No password while importing accounts."
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:79
+#: ../templates/default/macros/msgHandlers.html:97
 msgid "No such domain."
 msgstr ""
 
-#: ../templates/default/ldap/user/list.html:136
+#: ../templates/default/ldap/user/list.html:132
 #: ../templates/default/mysql/user/list.html:126
 msgid "No user available."
 msgstr ""
@@ -791,66 +615,50 @@ msgstr ""
 msgid "Not a global admin."
 msgstr ""
 
-#: ../templates/default/dashboard.html:20
-msgid "Number of domains"
-msgstr ""
-
-#: ../templates/default/dashboard.html:25
-msgid "Number of users"
-msgstr ""
-
-#: ../templates/default/macros/general.html:375
+#: ../templates/default/macros/general.html:342
 msgid "Old password"
 msgstr ""
 
-#: ../templates/default/macros/general.html:706
-msgid "One record one line."
-msgstr ""
-
-#: ../templates/default/macros/msgHandlers.html:87
+#: ../templates/default/macros/msgHandlers.html:105
 msgid "Or create other mail accounts:"
-msgstr ""
-
-#: ../templates/default/error404.html:4 ../templates/default/error404.html:9
-msgid "Page not found."
 msgstr ""
 
 #: ../templates/default/login.html:60
 #: ../templates/default/ldap/admin/profile.html:53
-#: ../templates/default/ldap/user/profile.html:87
-#: ../templates/default/mysql/admin/profile.html:49
+#: ../templates/default/ldap/user/profile.html:79
+#: ../templates/default/mysql/admin/profile.html:43
 #: ../templates/default/mysql/user/profile.html:41
 msgid "Password"
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:115
-#: ../templates/default/macros/msgHandlers.html:150
+#: ../templates/default/macros/msgHandlers.html:133
+#: ../templates/default/macros/msgHandlers.html:168
 msgid "Password is empty."
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:117
+#: ../templates/default/macros/msgHandlers.html:135
 msgid "Password is too long."
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:116
+#: ../templates/default/macros/msgHandlers.html:134
 msgid "Password is too short."
 msgstr ""
 
-#: ../templates/default/macros/general.html:450
+#: ../templates/default/macros/general.html:417
 msgid ""
 "Per-user relay setting will override per-domain relay setting you set in "
 "this page."
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:77
+#: ../templates/default/macros/msgHandlers.html:95
 msgid "Permission denied."
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:121
+#: ../templates/default/macros/msgHandlers.html:139
 msgid "Please select at least one account."
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:80
+#: ../templates/default/macros/msgHandlers.html:98
 msgid "Please select at least one domain to apply action."
 msgstr ""
 
@@ -858,62 +666,55 @@ msgstr ""
 msgid "Preferences"
 msgstr ""
 
-#: ../templates/default/macros/general.html:297
+#: ../templates/default/macros/general.html:280
 msgid "Preferred language"
 msgstr ""
 
-#: ../templates/default/macros/general.html:603
+#: ../templates/default/macros/general.html:518
 msgid "Previous Page"
 msgstr ""
 
 #: ../templates/default/ldap/admin/profile.html:39
 #: ../templates/default/ldap/admin/profile.html:68
-#: ../templates/default/mysql/admin/profile.html:35
-#: ../templates/default/mysql/admin/profile.html:64
+#: ../templates/default/mysql/admin/profile.html:29
+#: ../templates/default/mysql/admin/profile.html:58
 msgid "Profile of admin:"
 msgstr ""
 
-#: ../templates/default/ldap/domain/profile.html:28
-#: ../templates/default/ldap/domain/profile.html:56
-#: ../templates/default/mysql/domain/profile.html:25
-#: ../templates/default/mysql/domain/profile.html:57
+#: ../templates/default/ldap/domain/profile.html:27
+#: ../templates/default/ldap/domain/profile.html:55
+#: ../templates/default/mysql/domain/profile.html:21
+#: ../templates/default/mysql/domain/profile.html:52
 msgid "Profile of domain:"
 msgstr ""
 
-#: ../templates/default/ldap/user/profile.html:74
-#: ../templates/default/ldap/user/profile.html:102
+#: ../templates/default/ldap/user/profile.html:66
+#: ../templates/default/ldap/user/profile.html:94
 #: ../templates/default/mysql/user/profile.html:28
 #: ../templates/default/mysql/user/profile.html:56
 msgid "Profile of user:"
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:104
+#: ../templates/default/macros/msgHandlers.html:122
 msgid "Profile updated failed."
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:67
-#: ../templates/default/macros/msgHandlers.html:103
-#: ../templates/default/macros/msgHandlers.html:141
+#: ../templates/default/macros/msgHandlers.html:85
+#: ../templates/default/macros/msgHandlers.html:121
+#: ../templates/default/macros/msgHandlers.html:159
 msgid "Profile updated success."
 msgstr ""
 
-#: ../templates/default/ldap/domain/list.html:56
-#: ../templates/default/ldap/user/list.html:77
-#: ../templates/default/mysql/domain/list.html:56
-#: ../templates/default/mysql/user/list.html:80
+#: ../templates/default/ldap/user/list.html:76
+#: ../templates/default/mysql/user/list.html:79
 msgid "Quota"
 msgstr ""
 
-#: ../templates/default/macros/ldap.html:95
-#: ../templates/default/macros/mysql.html:67
-msgid "Receiving mails for this account on mail server"
-msgstr ""
-
-#: ../templates/default/macros/msgHandlers.html:176
+#: ../templates/default/macros/msgHandlers.html:194
 msgid "Records were deleted."
 msgstr ""
 
-#: ../templates/default/macros/general.html:440
+#: ../templates/default/macros/general.html:407
 msgid "Relay/Transport Setting"
 msgstr ""
 
@@ -921,71 +722,57 @@ msgstr ""
 msgid "Remember me"
 msgstr ""
 
-#: ../templates/default/macros/general.html:451
+#: ../templates/default/macros/general.html:418
 msgid "Sample"
 msgstr ""
 
-#: ../templates/default/macros/general.html:195
+#: ../templates/default/macros/general.html:182
 msgid "Save changes"
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:110
-#: ../templates/default/macros/msgHandlers.html:143
+#: ../templates/default/macros/msgHandlers.html:128
+#: ../templates/default/macros/msgHandlers.html:161
 msgid "Selected accounts were deleted."
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:111
-#: ../templates/default/macros/msgHandlers.html:144
+#: ../templates/default/macros/msgHandlers.html:129
+#: ../templates/default/macros/msgHandlers.html:162
 msgid "Selected accounts were disabled."
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:112
-#: ../templates/default/macros/msgHandlers.html:145
+#: ../templates/default/macros/msgHandlers.html:130
+#: ../templates/default/macros/msgHandlers.html:163
 msgid "Selected accounts were enabled."
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:68
+#: ../templates/default/macros/msgHandlers.html:86
 msgid "Selected domains were deleted."
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:69
+#: ../templates/default/macros/msgHandlers.html:87
 msgid "Selected domains were disabled."
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:70
+#: ../templates/default/macros/msgHandlers.html:88
 msgid "Selected domains were enabled."
 msgstr ""
 
-#: ../templates/default/macros/ldap.html:89
-#: ../templates/default/macros/mysql.html:68
-msgid "Sending mails via SMTP"
-msgstr ""
-
-#: ../templates/default/macros/ldap.html:90
-#: ../templates/default/macros/mysql.html:69
-msgid "Sending mails via SMTP over TLS/SSL"
-msgstr ""
-
-#: ../templates/default/dashboard.html:69
+#: ../templates/default/dashboard.html:55
 msgid "Server load"
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:75
+#: ../templates/default/macros/msgHandlers.html:93
 msgid ""
 "Server-side size limit exceeded. Please increase \"sizelimit\" in your "
 "LDAP server."
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:46
+#: ../templates/default/macros/msgHandlers.html:64
 msgid "Session expired, please re-login."
 msgstr ""
 
-#: ../templates/default/macros/general.html:418
+#: ../templates/default/macros/general.html:385
 msgid "Set to 0 for unlimited."
-msgstr ""
-
-#: ../templates/default/mysql/domain/profile.html:103
-msgid "Set value to 0 or leave it empty for unlimited."
 msgstr ""
 
 #: ../templates/default/mysql/user/list.html:114
@@ -996,7 +783,7 @@ msgstr ""
 msgid "Submit"
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:78
+#: ../templates/default/macros/msgHandlers.html:96
 msgid "Submited domain name is incorrect."
 msgstr ""
 
@@ -1012,8 +799,8 @@ msgstr ""
 msgid "System Information"
 msgstr ""
 
-#: ../templates/default/macros/general.html:266
-#: ../templates/default/macros/general.html:275
+#: ../templates/default/macros/general.html:249
+#: ../templates/default/macros/general.html:258
 msgid "Telephone Number"
 msgstr ""
 
@@ -1021,56 +808,37 @@ msgstr ""
 msgid "Time"
 msgstr ""
 
-#: ../templates/default/mysql/domain/list.html:89
-#: ../templates/default/mysql/domain/list.html:91
-#: ../templates/default/mysql/domain/list.html:99
-msgid "Total"
-msgstr ""
-
-#: ../templates/default/ldap/domain/list.html:133
-#: ../templates/default/ldap/domain/list.html:135
-#: ../templates/default/ldap/user/list.html:114
-#: ../templates/default/macros/general.html:330
-#: ../templates/default/mysql/domain/list.html:97
-#: ../templates/default/mysql/domain/list.html:99
+#: ../templates/default/ldap/user/list.html:110
+#: ../templates/default/macros/general.html:305
 #: ../templates/default/mysql/user/list.html:108
 msgid "Unlimited"
 msgstr ""
 
-#: ../templates/default/macros/general.html:555
-#: ../templates/default/macros/general.html:567
-msgid "Unrestricted"
-msgstr ""
-
-#: ../templates/default/dashboard.html:46
+#: ../templates/default/dashboard.html:32
 #, python-format
 msgid "Update available: <a href='%s' target='_blank'>v%s</a>."
 msgstr ""
 
-#: ../templates/default/dashboard.html:63
+#: ../templates/default/dashboard.html:49
 msgid "Uptime"
 msgstr ""
 
-#: ../templates/default/macros/general.html:426
-#: ../templates/default/mysql/domain/list.html:89
-#: ../templates/default/mysql/domain/list.html:91
-#: ../templates/default/mysql/domain/list.html:97
-#: ../templates/default/mysql/domain/list.html:99
+#: ../templates/default/macros/general.html:393
 msgid "Used"
 msgstr ""
 
 #: ../templates/default/layout.html:73
-#: ../templates/default/ldap/user/create.html:103
-#: ../templates/default/ldap/user/list.html:56
-#: ../templates/default/macros/msgHandlers.html:87
-#: ../templates/default/mysql/user/create.html:80
-#: ../templates/default/mysql/user/list.html:56
+#: ../templates/default/ldap/user/create.html:52
+#: ../templates/default/ldap/user/list.html:55
+#: ../templates/default/macros/msgHandlers.html:105
+#: ../templates/default/mysql/user/create.html:79
+#: ../templates/default/mysql/user/list.html:55
 msgid "User"
 msgstr ""
 
-#: ../templates/default/ldap/user/list.html:75
-#: ../templates/default/macros/general.html:244
-#: ../templates/default/mysql/user/list.html:76
+#: ../templates/default/ldap/user/list.html:74
+#: ../templates/default/macros/general.html:227
+#: ../templates/default/mysql/user/list.html:75
 msgid "User ID"
 msgstr ""
 
@@ -1078,43 +846,43 @@ msgstr ""
 msgid "Username"
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:44
+#: ../templates/default/macros/msgHandlers.html:62
 msgid "Username must be an valid email address."
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:43
+#: ../templates/default/macros/msgHandlers.html:61
 msgid "Username or password is incorrect."
 msgstr ""
 
-#: ../templates/default/ldap/domain/list.html:57
-#: ../templates/default/ldap/domain/profile.html:29
+#: ../templates/default/ldap/domain/list.html:56
+#: ../templates/default/ldap/domain/profile.html:28
 #: ../templates/default/ldap/user/create.html:28
-#: ../templates/default/ldap/user/create.html:100
-#: ../templates/default/ldap/user/list.html:29
-#: ../templates/default/ldap/user/list.html:55
-#: ../templates/default/ldap/user/profile.html:73
-#: ../templates/default/macros/general.html:573
-#: ../templates/default/mysql/domain/list.html:57
-#: ../templates/default/mysql/domain/profile.html:26
+#: ../templates/default/ldap/user/create.html:51
+#: ../templates/default/ldap/user/list.html:28
+#: ../templates/default/ldap/user/list.html:54
+#: ../templates/default/ldap/user/profile.html:65
+#: ../templates/default/mysql/domain/list.html:56
+#: ../templates/default/mysql/domain/profile.html:22
 #: ../templates/default/mysql/user/create.html:24
 #: ../templates/default/mysql/user/create.html:78
-#: ../templates/default/mysql/user/list.html:29
-#: ../templates/default/mysql/user/list.html:55
+#: ../templates/default/mysql/user/list.html:28
+#: ../templates/default/mysql/user/list.html:54
 #: ../templates/default/mysql/user/profile.html:27
 msgid "Users"
 msgstr ""
 
-#: ../templates/default/ldap/user/list.html:60
-#: ../templates/default/mysql/user/list.html:60
+#: ../templates/default/ldap/user/list.html:59
+#: ../templates/default/mysql/user/list.html:59
 #, python-format
 msgid "Users under domain: %s"
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:24
-msgid "Warning:"
+#: ../templates/default/macros/msgHandlers.html:36
+#: ../templates/default/macros/msgHandlers.html:38
+msgid "Warning"
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:142
+#: ../templates/default/macros/msgHandlers.html:160
 msgid "You are NOT permited to view/update other's profile."
 msgstr ""
 
@@ -1122,19 +890,17 @@ msgstr ""
 msgid "You are here:"
 msgstr ""
 
-#: ../templates/default/ldap/user/create.html:80
 #: ../templates/default/mysql/user/create.html:56
 #, python-format
 msgid "You can NOT create more users under domain %s."
 msgstr ""
 
-#: ../templates/default/ldap/user/create.html:88
 #: ../templates/default/mysql/user/create.html:68
 #, python-format
 msgid "You can create <strong>%d</strong> more mail user(s) under domain %s."
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:87
+#: ../templates/default/macros/msgHandlers.html:105
 msgid "add one more"
 msgstr ""
 
