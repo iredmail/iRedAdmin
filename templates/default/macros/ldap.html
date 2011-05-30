@@ -10,13 +10,13 @@
                     <div class="clear">
                     <div class="checklist-item">
                         <span class="fl-space">
-                            <input type="checkbox" name="domainName" value="{{ domainName }}" {% if domainName in managedDomains %}checked{%endif%} />
+                            <input type="checkbox" name="domainName" value="{{ domainName |e }}" {% if domainName in managedDomains %}checked{%endif%} />
                         </span>
                         <label>
                             {% if domain[1].has_key('cn') %}
-                                {{ _("%s (%s)") |format( domainName, domain[1].get('cn')[0].decode('utf-8') ) }}
+                                {{ _("%s (%s)") |format(domainName |e, domain[1].get('cn')[0].decode('utf-8') |e) }}
                             {% else %}
-                                {{ domainName }}
+                                {{ domainName |e }}
                             {% endif %}
                         </label>
                     </div>
@@ -42,14 +42,13 @@
         <h4 class="size-250 fl-space">{{ _('Domain Admins') }}</h4>
         <div class="checklist clear">
             <fieldset>
-            {% for admin in allAdmins %}
-                {% set entry = admin[1] %}
-                {% set adminMail = entry.get('mail')[0] %}
+            {% for (dn, entry) in allAdmins %}
+                {% set mail = entry.get('mail')[0] |e %}
                 <div class="clear">
                 <div class="checklist-item">
-                    <span class="fl-space"><input type="checkbox" name="domainAdmin" value="{{ adminMail }}" {% if adminMail in domainAdmins %}checked{%endif%} class="checkbox" rel="checkboxhorizont" /></span>
+                    <span class="fl-space"><input type="checkbox" name="domainAdmin" value="{{ mail }}" {% if mail in domainAdmins %}checked{%endif%} class="checkbox" rel="checkboxhorizont" /></span>
                     <label>
-                        {{ entry.get('cn')[0].decode('utf-8') }} (<a href="{{ctx.homepath}}/profile/admin/general/{{ adminMail }}" target="_blank">{{ adminMail }}</a>{% if 'yes' in entry.get('domainGlobalAdmin', []) %}, {{ _('Global Admin') }}{% endif %})
+                        {{ entry.get('cn')[0].decode('utf-8') }} (<a href="{{ctx.homepath}}/profile/admin/general/{{ mail }}" target="_blank">{{ mail }}</a>{% if 'yes' in entry.get('domainGlobalAdmin', []) %}, {{ _('Global Admin') }}{% endif %})
                     </label>
                 </div>
                 </div>
@@ -57,70 +56,5 @@
             </fieldset>
         </div>
     </div>
-{%- endmacro %}
-
-{#
-Display enabledService
-    - accountType: domain, admin, user, maillist, alias.
-    - enabledService: list of all enabled services.
-#}
-{% macro display_enabled_services(accountType, enabledService) -%}
-    {# Set list of available services for different account types.
-        Format:
-            [
-                ('type_of_input', 'value_of_enabledService', 'label'),
-                ...
-            ]
-
-        @type_of_input: value of attribute "type" in HTML <input> tag.
-                        Available: hidden, checkbox.
-                        Note: This is an OPTIONAL.
-    #}
-
-    {% if accountType == 'domain' %}
-        {% set available_services = [
-                ('checkbox', 'domainalias', _('Domain alias')),
-                ('checkbox', 'recipientbcc', _('BCC incoming mails to other addresses')),
-                ('checkbox', 'senderbcc', _('BCC outgoing mails to other addresses')),
-                ] %}
-    {% elif accountType == 'user' %}
-        {% set available_services = [
-                ('hidden', 'internal', ''),
-                ('checkbox', 'smtp', _('Sending mails via SMTP')),
-                ('checkbox', 'smtpsecured', _('Sending mails via SMTP over TLS/SSL')),
-                ('checkbox', 'pop3', _('Fetching mails via POP3')),
-                ('checkbox', 'pop3secured', _('Fetching mails via POP3 over TLS/SSL')),
-                ('checkbox', 'imap', _('Fetching mails via IMAP')),
-                ('checkbox', 'imapsecured', _('Fetching mails via IMAP over TLS/SSL')),
-                ('checkbox', 'deliver', _('Receiving mails for this account on mail server')),
-                ('checkbox', 'forward', _('Forwarding mails to other addresses')),
-                ('checkbox', 'shadowaddress', _('Alias account')),
-                ('checkbox', 'managesieve', _('Customize mail filter rule')),
-                ('checkbox', 'managesievesecured', _('Customize mail filter rule over TLS/SSL')),
-                ('checkbox', 'recipientbcc', _('BCC incoming mails to other address')),
-                ('checkbox', 'senderbcc', _('BCC outgoing mails to other address')),
-                ('checkbox', 'displayedInGlobalAddressBook', _('Display mail address in global LDAP address book')),
-                ] %}
-    {% elif accountType == 'alias' %}
-        {% set available_services = [
-                ('checkbox', 'displayedInGlobalAddressBook', _('Display mail address in global LDAP address book')),
-                ] %}
-    {% endif %}
-
-    <h4 class="size-250 fl-space">{{ _('Enabled Services') }}</h4>
-    <div class="form-checkbox-item clear">
-        <input type="checkbox" name="enabledService" value="mail" {% if 'mail' in enabledService %}checked{%endif%} class="checkbox fl-space" rel="checkboxhorizont" />
-        <label>{{ _('Mail service') }} <span style="color: red;"><em>{{ _('Check this box in order to enable other mail related services.') }}</em></span></label>
-    </div>
-
-        {% for srv in available_services %}
-            {% if srv[0] != 'hidden' %}
-                <h4 class="size-250 fl-space">&nbsp;</h4>
-            {% endif %}
-            <div class="form-checkbox-item clear">
-                <input type="{{ srv[0] }}" name="enabledService" value="{{ srv[1] }}" {% if srv[1] in enabledService %}checked{%endif%} class="{{ srv[0] }} fl-space" rel="checkboxhorizont" />
-                <label>{{ srv[2] }}</label>
-            </div>
-        {% endfor %}
 {%- endmacro %}
 

@@ -53,11 +53,11 @@
                     {% for admin in admins %}
                         {% set entry = admin[1] %}
 
-                        {% set mail = entry.get('mail')[0] %}
-                        {% set cn = entry.get('cn', [''])[0].decode('utf-8') %}
-                        {% set accountStatus = entry.get('accountStatus', ['disabled'])[0] |lower %}
-                        {% set domainGlobalAdmin = entry.get('domainGlobalAdmin', ['no'])[0] %}
-                        {% set timestamp = entry.get('createTimestamp', ['--------------'])[0] %}
+                        {% set mail = entry.get('mail')[0] |e %}
+                        {% set cn = entry.get('cn', [''])[0].decode('utf-8') |e %}
+                        {% set accountStatus = entry.get('accountStatus', ['disabled'])[0] |lower |e %}
+                        {% set domainGlobalAdmin = entry.get('domainGlobalAdmin', ['no'])[0] |e %}
+                        {% set timestamp = entry.get('createTimestamp', ['--------------'])[0] |e %}
 
                         <tr class="{{ accountStatus }}">
                             <td><input type="checkbox" class="checkbox " name="mail" value="{{mail}}" {% if mail == session.get('username') %}disabled{% endif %}/></td>

@@ -47,7 +47,7 @@
     <select name="domain">
         <option value="all">{{ _('Domains') }}</option>
         {% for d in allDomains %}
-            <option value="{{d}}" {% if d == domain %}selected{% endif %}>{{ d }}</option>
+            <option value="{{ d |e }}" {% if d == domain %}selected{% endif %}>{{ d |e }}</option>
         {% endfor %}
     </select>
 
@@ -55,14 +55,14 @@
         <select name="admin">
             <option value="all">{{ _('Admins') }}</option>
             {% for a in allAdmins %}
-                <option value="{{a}}" {% if a == admin %}selected{% endif %}>{{ a }}</option>
+                <option value="{{ a |e }}" {% if a == admin %}selected{% endif %}>{{ a |e }}</option>
             {% endfor %}
         </select>
     {% endif %}
 
     <select name="event">
-        {% for e in allEvents %}
-            <option value="{{e}}" {% if e == event %}selected{% endif %}>{{ show_event_name(event=e) }}</option>
+        {% for evt in allEvents %}
+            <option value="{{ evt |e }}" {% if evt == event %}selected{% endif %}>{{ show_event_name(event=evt) }}</option>
         {% endfor %}
     </select>
 
@@ -92,9 +92,9 @@
                     <td class="checkbox"><input type="checkbox" name="id" value="{{log.id}}" class="checkbox" /></td>
                 {% endif %}
                 <td>{{ log.timestamp |setDatetimeFormat }}</td>
-                <td><a href="{{ctx.homepath}}/profile/admin/general/{{log.admin}}">{{ log.admin }}</a></td>
-                <td>{{ log.ip }}</td>
-                <td class="{{log.event}}_{{log.loglevel}}">{{ log.msg }}</td>
+                <td><a href="{{ctx.homepath}}/profile/admin/general/{{ log.admin |e }}">{{ log.admin |e }}</a></td>
+                <td>{{ log.ip |e }}</td>
+                <td class="{{ log.event |e }}_{{ log.loglevel |e }}">{{ log.msg |e }}</td>
             </tr>
         {% endfor %}
         </tbody>

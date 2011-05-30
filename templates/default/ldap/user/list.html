@@ -80,20 +80,17 @@
 
         <tbody>
         {% if users|length > 0 %}
-            {% for i in users %}
-                {% set entries = i[1] %}
-                {% set mail = entries.get('mail')[0] |string %}
-                {% set cn = entries.get('cn', [''])[0].decode('utf-8') %}
-                {% set employeeid = entries.get('employeeNumber', [''])[0].decode('utf-8') %}
-                {% set jobTitle = entries.get('title', [''])[0].decode('utf-8') %}
+            {% for (dn, entries) in users %}
+                {% set mail = entries.get('mail')[0] |string |e %}
+                {% set cn = entries.get('cn', [''])[0].decode('utf-8') |e %}
+                {% set employeeid = entries.get('employeeNumber', [''])[0].decode('utf-8') |e %}
+                {% set jobTitle = entries.get('title', [''])[0].decode('utf-8') |e %}
 
                 {### If accountStatus is not present, mark as 'disabled'. #}
-                {% set accountStatus = entries.get('accountStatus', ['disabled'])[0] %}
+                {% set accountStatus = entries.get('accountStatus', ['disabled'])[0] |e %}
 
-                {% set mailQuota = entries.get('mailQuota', ['0'])[0] %}
-                {% set shadowAddresses = entries.get('shadowAddress', []) %}
-                {% set memberOfGroups = entries.get('memberOfGroup', []) %}
-                {% set timestamp = entries.get(time_var, ['--------------'])[0] %}
+                {% set mailQuota = entries.get('mailQuota', ['0'])[0] |e %}
+                {% set timestamp = entries.get(time_var, ['--------------'])[0] |e %}
 
                 <tr class="{{ accountStatus |lower }}">
                     <td class="checkbox"><input type="checkbox" name="mail" value="{{mail}}" /></td>

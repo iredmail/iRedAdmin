@@ -61,15 +61,16 @@
                 <tbody>
                     {% if allDomains |length > 0 %}
                         {% for r in allDomains %}
+                            {% set domain = r.domain |e %}
                         <tr>
                             {% if session.get('domainGlobalAdmin') is sameas true %}
-                                <td class="checkbox"><input type="checkbox" class="checkbox " name="domainName" value="{{ r.domain }}" /></td>
+                                <td class="checkbox"><input type="checkbox" class="checkbox " name="domainName" value="{{ domain }}" /></td>
                             {% endif %}
 
                             <td class="vcenter">
-                                <a href="{{ctx.homepath}}/profile/domain/general/{{ r.domain }}"><img src="{{ctx.homepath}}/static/{{skin}}/images/action_edit.png" title="{{ _('Edit account profile') }}" class="fr-space"/></a>
+                                <a href="{{ctx.homepath}}/profile/domain/general/{{ domain }}"><img src="{{ctx.homepath}}/static/{{skin}}/images/action_edit.png" title="{{ _('Edit account profile') }}" class="fr-space"/></a>
                                 {{ set_account_status_img(r.active) }}
-                                {{ r.domain }}
+                                {{ domain }}
                             </td>
                             {% if r.description is sameas none %}
                                 <td class="vcenter">&nbsp;</td>
@@ -82,10 +83,10 @@
                                 {% if r.mailboxes > 0 %}
                                     {% set percentOfNumberOfUsers = r.mailbox_count |getPercentage(r.mailboxes) %}
 
-                                    <a href="{{ctx.homepath}}/users/{{r.domain}}" title="{{ _('List all mail users.') }}" style="text-decoration: none;">{{ percentOfNumberOfUsers }}% <span class="grey">({{ r.mailbox_count }} {{ display_number_of_account_limited(r.mailboxes) }})</span></a>
+                                    <a href="{{ctx.homepath}}/users/{{domain}}" title="{{ _('List all mail users.') }}" style="text-decoration: none;">{{ percentOfNumberOfUsers }}% <span class="grey">({{ r.mailbox_count }} {{ display_number_of_account_limited(r.mailboxes) }})</span></a>
                                     {{ display_progress_bar(percentOfNumberOfUsers, style='thin') }}
                                 {% else %}
-                                    <a href="{{ctx.homepath}}/users/{{r.domain}}" title="{{ _('List all mail users.') }}" style="text-decoration: none;">{{ r.mailbox_count }}</a>
+                                    <a href="{{ctx.homepath}}/users/{{domain}}" title="{{ _('List all mail users.') }}" style="text-decoration: none;">{{ r.mailbox_count }}</a>
                                 {% endif %}
                             </td>
 

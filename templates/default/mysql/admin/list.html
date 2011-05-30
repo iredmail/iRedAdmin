@@ -52,21 +52,24 @@
 
         <tbody>
             {% for r in admins %}
+                {% set username = r.username |e %}
+                {% set name = r.name |e %}
+
                 <tr>
-                    <td class="checkbox"><input type="checkbox" name="mail" value="{{ r.username |e }}" {% if r.username == session.get('username') %}disabled{% endif %}/></td>
+                    <td class="checkbox"><input type="checkbox" name="mail" value="{{ username }}" {% if username == session.get('username') %}disabled{% endif %}/></td>
                     <td>
-                        <a href="{{ctx.homepath}}/profile/admin/general/{{ r.username }}"><img src="{{ctx.homepath}}/static/{{skin}}/images/action_edit.png" title="{{ _('Edit account profile') }}" class="fr-space"/></a>
+                        <a href="{{ctx.homepath}}/profile/admin/general/{{ username }}"><img src="{{ctx.homepath}}/static/{{skin}}/images/action_edit.png" title="{{ _('Edit account profile') }}" class="fr-space"/></a>
                         {{ set_account_status_img(r.active) }}
 
                         {# -- Show name -- #}
-                        {% if r.name == '' %}
-                            {{ r.username.split('@', 1)[0] }}
+                        {% if name == '' %}
+                            {{ username.split('@', 1)[0] }}
                         {% else %}
-                            {{ r.name |cutString |e }}
+                            {{ name |cutString }}
                         {% endif %}
                     </td>
-                    <td>{{ r.username |e }}</td>
-                    {% if r.username in allGlobalAdmins %}
+                    <td>{{ username }}</td>
+                    {% if username in allGlobalAdmins %}
                         <td>{{ set_admin_type_img('yes') }}</td>
                     {% else %}
                         <td>{{ set_admin_type_img('no') }}</td>

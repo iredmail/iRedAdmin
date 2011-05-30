@@ -40,11 +40,11 @@
 {% set user = user_profile[0] %}
 {% set entries = user[1] %}
 
-{% set mail = entries.get('mail')[0] %}
-{% set cn = entries.get('cn', [ mail.split('@')[0] ])[0].decode('utf-8') %}
+{% set mail = entries.get('mail')[0] |e %}
+{% set cn = entries.get('cn', [ mail.split('@')[0] ])[0].decode('utf-8') |e %}
 {% set username, cur_domain = mail.split('@', 1) %}
-{% set employeeNumber = entries.get('employeeNumber', [''])[0].decode('utf-8') %}
-{% set accountStatus = entries.get('accountStatus', ['disabled'])[0] %}
+{% set employeeNumber = entries.get('employeeNumber', [''])[0].decode('utf-8') |e %}
+{% set accountStatus = entries.get('accountStatus', ['disabled'])[0] |e %}
 
 {# Get enabledService #}
 {% if profile_type in ['general',] %}
@@ -52,8 +52,8 @@
 {% endif %}
 
 {% if profile_type == 'general' %}
-    {% set jobtitle = entries.get('title', [''])[0].decode('utf-8') %}
-    {% set mobile = entries.get('mobile', [''])[0] %}
+    {% set jobtitle = entries.get('title', [''])[0].decode('utf-8') |e %}
+    {% set mobile = entries.get('mobile', [''])[0] |e %}
     {% set telephoneNumber = entries.get('telephoneNumber', []) %}
     {% set mailQuota = '%d' % (entries.get('mailQuota', [0])[0] |int /1024/1024) %}
 {% endif %}

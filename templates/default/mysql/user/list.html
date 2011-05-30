@@ -84,19 +84,20 @@
         <tbody>
         {% if users|length > 0 %}
             {% for r in users %}
+                {% set username = r.username |e %}
                 <tr>
-                    <td class="checkbox"><input type="checkbox" name="username" value="{{r.username}}" /></td>
+                    <td class="checkbox"><input type="checkbox" name="username" value="{{username}}" /></td>
                     <td class="vcenter">
-                        <a href="{{ctx.homepath}}/profile/user/general/{{r.username}}"><img src="{{ctx.homepath}}/static/{{skin}}/images/action_edit.png" title="{{ _('Edit account profile') }}" class="fr-space"/></a>
+                        <a href="{{ctx.homepath}}/profile/user/general/{{username}}"><img src="{{ctx.homepath}}/static/{{skin}}/images/action_edit.png" title="{{ _('Edit account profile') }}" class="fr-space"/></a>
                         {{ set_account_status_img(r.active) }}
                         {% if r.name %}
                             {{ r.name |cutString |e }}
                         {% else %}
-                            {{ r.username.split('@', 1)[0] }}
+                            {{ username.split('@', 1)[0] }}
                         {% endif %}
                     </td>
-                    <td class="vcenter">{{ highlight_username_in_mail(r.username) }}</td>
-                    <td class="vcenter">{% if r.employeeid %}{{ r.employeeid }}{% endif %}</td>
+                    <td class="vcenter">{{ highlight_username_in_mail(username) }}</td>
+                    <td class="vcenter">{% if r.employeeid %}{{ r.employeeid |e }}{% endif %}</td>
                     {#
                     <td class="vcenter">{{ jobTitle }}</td>
                     #}
@@ -109,7 +110,7 @@
                         {% set percent = r.bytes |getPercentage(r.quota * 1024 * 1024) %}
                         <td class="vcenter">
                             <div>
-                                <span title="{{ _('Edit quota setting') }}"><a href="{{ctx.homepath}}/profile/user/general/{{r.username}}">{{ percent }}%</a></span>
+                                <span title="{{ _('Edit quota setting') }}"><a href="{{ctx.homepath}}/profile/user/general/{{username}}">{{ percent }}%</a></span>
                                 <span class="grey">(<span title="{{ _('Stored') }}">{{ r.messages }} {{_('Emails') }}/{{ r.bytes |filesizeformat }}</span>)/<span title="{{ _('Allocated') }}">{{ r.quota |filesizeformat(baseMB=True) }}</span></span>
                             </div>
                             {{ display_progress_bar(percent, show_zero=true, width='60%', style='thin') }}

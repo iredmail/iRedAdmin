@@ -179,7 +179,7 @@
     <div class="form-field clear">
         <h4 class="size-250 fl-space">&nbsp;</h4>
         <span>
-            <input type="submit" value="{% if label is not sameas none %}{{ label }}{% else %}{{ _('Save changes') }}{% endif %}" class="button {{color}}" />
+            <input type="submit" value="{% if label is not sameas none %}{{ label |e }}{% else %}{{ _('Save changes') }}{% endif %}" class="button {{ color |e }}" />
         </span>
     </div>
 {%- endmacro %}
@@ -213,7 +213,7 @@
     {% endif %}
 
     {% if percent > 0 or show_zero is sameas true %}
-        <div class="progress-container" title="{{tooltip}}" style="width: {{width}}; height: {{height}};">
+        <div class="progress-container" title="{{ tooltip |e }}" style="width: {{ width |e }}; height: {{height}};">
             <div class="progress-bar" style="height: {{height}}; width: {{percent}}%; background-color: {{bgcolor}};"></div>
         </div>
     {% endif %}
@@ -225,21 +225,21 @@
     {% endif %}
     <div class="form-field clear">
         <h4 class="size-250 fl-space">{{ _('User ID') }}</h4>
-        <span class="clean-padding bt-space20"><input type="text" name="employeeNumber" value="{% if value != 'None' %}{{value}}{% endif %}" size="35" class="text" /></span>
+        <span class="clean-padding bt-space20"><input type="text" name="employeeNumber" value="{% if value != 'None' %}{{ value |e }}{% endif %}" size="35" class="text" /></span>
     </div>
 {%- endmacro %}
 
 {% macro display_input_jobtitle(value='') -%}
     <div class="form-field clear">
         <h4 class="size-250 fl-space">{{ _('Job Title/Responsibility') }}</h4>
-        <span class="clean-padding bt-space20"><input type="text" name="title" value="{% if value != 'None' %}{{value}}{% endif %}" size="35" class="text" /></span>
+        <span class="clean-padding bt-space20"><input type="text" name="title" value="{% if value != 'None' %}{{ value |e }}{% endif %}" size="35" class="text" /></span>
     </div>
 {%- endmacro %}
 
 {% macro display_input_mobile(value) -%}
     <div class="form-field clear">
         <h4 class="size-250 fl-space">{{ _('Mobile') }}</h4>
-        <span class="clean-padding bt-space20"><input type="text" name="mobile" value="{{value}}" size="35" class="text" /></span>
+        <span class="clean-padding bt-space20"><input type="text" name="mobile" value="{{ value |e }}" size="35" class="text" /></span>
     </div>
 {%- endmacro %}
 
@@ -260,7 +260,7 @@
                 <h4 class="size-250 fl-space">&nbsp;</h4>
             {% endif %}
             <span class="clean-padding bt-space20">
-                <input type="text" name="telephoneNumber" value="{{phone}}" size="35" class="text" />
+                <input type="text" name="telephoneNumber" value="{{ phone |e }}" size="35" class="text" />
             </span>
         </div>
         {% endfor %}
@@ -280,7 +280,7 @@
     <h4 class="size-250 fl-space">{{ _('Preferred language') }}</h4>
     <select name="preferredLanguage">
         {% for lang in languagemaps %}
-            <option value="{{lang}}" {% if value == lang %}selected{%endif%}>{{languagemaps[lang]}}</option>
+            <option value="{{ lang |e }}" {% if value == lang %}selected{%endif%}>{{ languagemaps[lang] |e }}</option>
         {% endfor %}
     </select>
 </div>
@@ -302,7 +302,7 @@
 
 {# Used to display domainMaxXXXNumber #}
 {% macro display_number_of_account_limited(value, hide_unlimited=true) -%}
-    {% if value == '0' or value == 0 or value == 'None' %}{% if hide_unlimited is not sameas true %}<span class="grey">/<em>{{ _('Unlimited') }}</em></span>{% endif %}{%else%}<span class="grey">/ <em>{{value}}</em></span>{%endif%}
+    {% if value == '0' or value == 0 or value == 'None' %}{% if hide_unlimited is not sameas true %}<span class="grey">/<em>{{ _('Unlimited') }}</em></span>{% endif %}{%else%}<span class="grey">/ <em>{{ value |e }}</em></span>{%endif%}
 {%- endmacro %}
 
 
@@ -371,15 +371,15 @@
         {% if label == '' %}
             <h4 class="size-250 fl-space">{{ _('Mailbox Quota') }}</h4>
         {% else %}
-            <h4 class="size-250 fl-space">{{ label }}</h4>
+            <h4 class="size-250 fl-space">{{ label |e }}</h4>
         {% endif %}
 
         <span class="clean-padding fl-space2">
-            <input type="text" name="mailQuota" value="{% if show_value_in_input == 'yes' %}{{ value }}{% endif %}" size="10" class="text fl-space" /> <label class="fl-space">MB {{ comment }}</label>
+            <input type="text" name="mailQuota" value="{% if show_value_in_input == 'yes' %}{{ value |e }}{% endif %}" size="10" class="text fl-space" /> <label class="fl-space">MB {{ comment |e }}</label>
 
             {% if spare_quota_bytes |int >= 0 %}
                 {% if show_spare_quota == 'yes' and spare_quota_bytes > 0 %}
-                    <label class="fl-space">{{ _('Available quota:') }} {{spare_quota_bytes | filesizeformat}}</label>
+                    <label class="fl-space">{{ _('Available quota:') }} {{ spare_quota_bytes |filesizeformat |e }}</label>
                 {% endif %}
             {% elif spare_quota_bytes |int == -1 %}
                 {% set comment = _('Set to 0 for unlimited.') %}
@@ -396,7 +396,7 @@
             {% endif %}
         </span>
 
-        <span><input type="hidden" name="oldMailQuota" value="{{value}}" /></span>
+        <span><input type="hidden" name="oldMailQuota" value="{{ value |e }}" /></span>
     </div>
 {%- endmacro %}
 
@@ -406,7 +406,7 @@
         <div class="form-field clear">
             <h4 class="size-250 fl-space">{{ _('Relay/Transport Setting') }}</h4>
             <div class="clear">
-                <input type="text" name="mtaTransport" value="{% if transport not in ['', none] %}{{ transport }}{% endif %}" size="35" class="text" />
+                <input type="text" name="mtaTransport" value="{% if transport not in ['', none] %}{{ transport |e }}{% endif %}" size="35" class="text" />
             </div>
         </div>
     </div>{#-- .col2-3 --#}
@@ -422,41 +422,17 @@
 </div>{#-- .columns --#}
 {%- endmacro %}
 
-{% macro display_recipient_bcc(address='') -%}
-    {% if address is sameas none %}
-        {% set address = '' %}
-    {% endif %}
-    <div class="form-field clear">
-        <h4 class="size-250 fl-space">{{ _('BCC incoming emails to single address') }}</h4>
-        <span class="clean-padding">
-            <input type="text" name="recipientBccAddress" value="{{address}}" size="35" class="text" />
-        </span>
-    </div>
-{%- endmacro %}
-
-{% macro display_sender_bcc(address='') -%}
-    {% if address is sameas none %}
-        {% set address = '' %}
-    {% endif %}
-    <div class="form-field clear">
-        <h4 class="size-250 fl-space">{{ _('BCC outgoing emails to single address') }}</h4>
-        <span class="clean-padding">
-            <input type="text" name="senderBccAddress" value="{{address}}" size="35" class="text" />
-        </span>
-    </div>
-{%- endmacro %}
-
 {% macro display_input_mail(mail='', name='mail', required=false) -%}
 <div class="form-field clear">
     <h4 class="size-250 fl-space">{{ _('Mail Address') }} {% if required is sameas true %}<span class="required">*</span>{% endif %}</h4>
-    <span class="clean-padding bt-space20"><input type="text" name="{{ name }}" value="{{ mail }}" size="35" class="text" /></span>
+    <span class="clean-padding bt-space20"><input type="text" name="{{ name |e }}" value="{{ mail |e }}" size="35" class="text" /></span>
 </div>
 {%- endmacro %}
 
 {% macro display_input_domain(domain='', name='domainName', required=false) -%}
 <div class="form-field clear">
     <h4 class="size-250 fl-space">{{ _('Domain Name') }} {% if required is sameas true %}<span class="required">*</span>{% endif %}</h4>
-    <span class="clean-padding bt-space20"><input type="text" name="{{ name }}" value="{{ domain }}" size="35" class="text" /></span>
+    <span class="clean-padding bt-space20"><input type="text" name="{{ name |e }}" value="{{ domain |e }}" size="35" class="text" /></span>
 </div>
 {%- endmacro %}
 
@@ -472,7 +448,7 @@
     {% else %}
         <h4 class="{{ size }} fl-space">{{ _('Display Name') }}</h4>
     {% endif %}
-    <span class="clean-padding bt-space20"><input type="text" name="cn" value="{{cn}}" size="35" class="text" {% if tooltip != '' %}title="{{ tooltip }}"{% endif %} /></span>
+    <span class="clean-padding bt-space20"><input type="text" name="{{ name |e }}" value="{{ cn |e }}" size="35" class="text" {% if tooltip != '' %}title="{{ tooltip |e }}"{% endif %} /></span>
 </div>
 {%- endmacro %}
 
@@ -518,7 +494,7 @@
 
 
 {% macro highlight_username_in_mail(mail) -%}
-    <span><strong>{{ mail.split('@')[0] }}</strong></span><span class="grey"><em>@{{ mail.split('@')[-1] }}</em></span>
+    <span><strong>{{ mail.split('@')[0] |e }}</strong></span><span class="grey"><em>@{{ mail.split('@')[-1] |e }}</em></span>
 {% endmacro %}
 
 {% macro show_pages(baseurl, total, cur_page, near_pages=2, sep='/page/') -%}
@@ -527,6 +503,9 @@
     {% else %}
         {% set total_pages = total // session.pageSizeLimit %}
     {% endif %}
+
+    {% set baseurl = baseurl |e %}
+    {% set sep = sep |e %}
 
     <div class="pager fr">
         {% if total_pages > 0 %}
@@ -632,20 +611,8 @@
         {{ _('Disable account') }}
     {% elif event == 'active' %}
         {{ _('Active account') }}
+    {% else %}
+        {{ event |e }}
     {% endif %}
 {%- endmacro %}
 
-{# iRedAPD: per-user wblist #}
-{% macro display_per_user_wblist(values=[], htmlInputName, label) -%}
-    <div class="form-field clear">
-        <h4 class="size-250 fl-space">{{ label }}</h4>
-        <small>{{ _('One record one line.') }}</small>
-
-        {% if values |length == 0 %}
-            <textarea name="{{ htmlInputName }}" rows="6" class="textarea"></textarea>
-        {% else %}
-            <textarea name="{{ htmlInputName }}" rows="6" class="textarea">{% for v in values %}{{ v }}
-{% endfor %}</textarea>
-        {% endif %}
-    </div>
-{%- endmacro %}

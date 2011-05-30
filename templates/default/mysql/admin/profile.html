@@ -62,7 +62,7 @@
             <div id="profile_general">
                 <form method="post" action="{{ctx.homepath}}/profile/admin/general/{{mail}}">
                     {% if profile.language != '' %}
-                        {% set preferredLanguage = profile.language |string %}
+                        {% set preferredLanguage = profile.language |string |e %}
                     {% else %}
                         {% set preferredLanguage = 'en_US' %}
                     {% endif %}

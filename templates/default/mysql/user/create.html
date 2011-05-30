@@ -90,7 +90,7 @@
                             <input type="text" size="35" name="username" value="" class="text fl-space" {% if createNewAccount is sameas false %}disabled{% endif %}/>@
                             <select name="domainName" onchange="changeUrl(this, baseurl='{{ctx.homepath}}/create/user/');">
                                 {% for d in allDomains %}
-                                    <option value="{{ d.domain |string }}" {% if d.domain == cur_domain %}selected{%endif%}>{{ d.domain }}</option>
+                                    <option value="{{ d.domain |string |e }}" {% if d.domain == cur_domain %}selected{%endif%}>{{ d.domain |e }}</option>
                                 {% endfor %}
                             </select>
                         </span>

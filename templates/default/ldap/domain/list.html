@@ -61,11 +61,10 @@
                 <tbody>
                 {% if allDomains is not string and allDomains |length != 0 %}
                     {# List domain attributes/avalues. #}
-                    {% for d in allDomains %}
-                        {% set entries = d[1] %}
-                        {% set domain = entries.get('domainName')[0] |string%}
-                        {% set cn = entries.get('cn', [domain])[0].decode('utf-8') %}
-                        {% set accountStatus = entries.get('accountStatus', ['disabled'])[0] %}
+                    {% for (dn, entries) in allDomains %}
+                        {% set domain = entries.get('domainName')[0] |string |e %}
+                        {% set cn = entries.get('cn', [domain])[0].decode('utf-8') |e %}
+                        {% set accountStatus = entries.get('accountStatus', ['disabled'])[0] |e %}
                         {% set accountSetting = allAccountSettings.get(domain, {}) %}
 
                         {# Get account limits. #}
@@ -77,7 +76,7 @@
                         {% set timestamp = entries.get('createTimestamp', ['--------------'])[0] %}
 
                         {# Get domain quota size & unit #}
-                        {% set domainQuota = accountSetting.get('domainQuota', '0:GB') %}
+                        {% set domainQuota = accountSetting.get('domainQuota', '0:GB') |e %}
                         {% set domainQuotaSize, domainQuotaUnit = domainQuota.split(':') %}
 
                         {% set domainCurrentQuotaSize = entries.get('domainCurrentQuotaSize', ['0'])[0] |int %}

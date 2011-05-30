@@ -61,10 +61,10 @@
         <div class="form-field clear">
             <h4 class="size-250 fl-space">{{ _('Mail Address') }} <span class="required">*</span></h4>
             <span class="clean-padding">
-                <input type="text" size="35" name="username" value="{{username}}" class="text fl-space" {% if createNewAccount is sameas false %}disabled{% endif %}/>@
+                <input type="text" size="35" name="username" value="{{ username |e }}" class="text fl-space" {% if createNewAccount is sameas false %}disabled{% endif %}/>@
                 <select name="domainName" onchange="changeUrl(this, baseurl='{{ctx.homepath}}/create/user/');">
                     {% for d in allDomains %}
-                        <option value="{{ d[1].domainName[0] }}" {% if d[1].domainName[0] == cur_domain %}selected{%endif%}>{{ d[1].domainName[0]}}</option>
+                        <option value="{{ d[1].domainName[0] |e }}" {% if d[1].domainName[0] == cur_domain %}selected{%endif%}>{{ d[1].domainName[0] |e }}</option>
                     {% endfor %}
                 </select>
             </span>

@@ -71,7 +71,7 @@
         <div class="box-wrap clear">
             <form method="post" action="{{ctx.homepath}}/profile/admin/{{profile_type}}/{{mail}}">
                 {% if profile_type == 'general' %}
-                    {% set preferredLanguage = entry.get('preferredLanguage', ['en_US'])[0] |string %}
+                    {% set preferredLanguage = entry.get('preferredLanguage', ['en_US'])[0] |string |e %}
 
                     <div class="columns clear">
                         <div class="col2-3">
