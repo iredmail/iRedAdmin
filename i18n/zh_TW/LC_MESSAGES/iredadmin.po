@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: iRedAdmin-Pro-0.1.4\n"
+"Project-Id-Version:  iRedAdmin-Pro-0.1.4\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2009-10-22 17:33+0800\n"
-"PO-Revision-Date: 2011-05-30 13:54+0800\n"
+"PO-Revision-Date: 2011-05-30 13:56+0800\n"
 "Last-Translator: Zhang Huangbin <michaelbibby@gmail.com>\n"
 "Language-Team: zh_CN <LL@li.org>\n"
 "Plural-Forms: nplurals=1; plural=0\n"

@@ -1,10 +1,10 @@
 
 msgid ""
 msgstr ""
-"Project-Id-Version: iRedAdmin-Pro-0.1.4\n"
+"Project-Id-Version:  iRedAdmin-Pro-\n"
 "Report-Msgid-Bugs-To: alessia.micarelli@ictvalleumbra.it\n"
 "POT-Creation-Date: 2009-11-28 17:33+0500\n"
-"PO-Revision-Date: 2011-05-30 13:54+0800\n"
+"PO-Revision-Date: 2011-05-30 13:56+0800\n"
 "Last-Translator: \n"
 "Language-Team: it_IT <salamacchine@ictvalleumbra.it>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -89,7 +89,7 @@ msgstr "Aggiungi uno"
 #: ../templates/default/mysql/user/create.html:17
 #: ../templates/default/mysql/user/create.html:25
 msgid "Add user"
-msgstr "Aggiungi utente"
+msgstr "Aggiungi ancora"
 
 #: ../templates/default/ldap/user/create.html:55
 #: ../templates/default/mysql/user/create.html:82
@@ -712,7 +712,7 @@ msgstr "Quota"
 
 #: ../templates/default/macros/msgHandlers.html:194
 msgid "Records were deleted."
-msgstr "I Record sono cancellati."
+msgstr "Account cancellati."
 
 #: ../templates/default/macros/general.html:407
 msgid "Relay/Transport Setting"
@@ -890,7 +890,7 @@ msgstr ""
 
 #: ../templates/default/macros/general.html:129
 msgid "You are here:"
-msgstr "Tu sei qui:"
+msgstr ""
 
 #: ../templates/default/mysql/user/create.html:56
 #, python-format

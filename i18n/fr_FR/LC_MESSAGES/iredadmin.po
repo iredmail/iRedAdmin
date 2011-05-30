@@ -4,11 +4,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: iRedAdmin-Pro-0.1.4\n"
+"Project-Id-Version:  iRedAdmin-Pro\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
 "POT-Creation-Date: 2009-10-04 00:45+0800\n"
-"PO-Revision-Date: 2011-05-30 13:54+0800\n"
-"Last-Translator: Olivier PLOIX<olivier.ploix@gmail.com>\n"
+"PO-Revision-Date: 2011-05-30 13:56+0800\n"
+"Last-Translator: Olivier PLOIX <olivier.ploix@gmail.com>\n"
 "Language-Team: fr_FR <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n > 1)\n"
 "MIME-Version: 1.0\n"
@@ -32,12 +32,12 @@ msgstr "Le compte existe déjà, merci de choisir un autre nom d'utilisateur."
 
 #: ../templates/default/macros/general.html:162
 msgid "Account is active."
-msgstr "LE compte est actif."
+msgstr "Compte actif."
 
 #: ../templates/default/macros/general.html:164
 #: ../templates/default/macros/general.html:165
 msgid "Account is disabled."
-msgstr "Le est inactif."
+msgstr "Compte désactivé."
 
 #: ../templates/default/macros/general.html:613
 msgid "Active account"
@@ -92,12 +92,12 @@ msgstr "Ajouter un"
 #: ../templates/default/mysql/user/create.html:17
 #: ../templates/default/mysql/user/create.html:25
 msgid "Add user"
-msgstr "Ajouter un compte"
+msgstr "ajouter un de plus"
 
 #: ../templates/default/ldap/user/create.html:55
 #: ../templates/default/mysql/user/create.html:82
 msgid "Add user under domain:"
-msgstr "Ajouter un compte au domaine :"
+msgstr "Ajouter un utilisateur au domaine :"
 
 #: ../templates/default/layout.html:70 ../templates/default/panel/log.html:81
 msgid "Admin"
@@ -137,7 +137,7 @@ msgstr "Administrateurs"
 #: ../templates/default/mysql/admin/list.html:28
 #: ../templates/default/mysql/admin/profile.html:28
 msgid "All admins"
-msgstr "Administrateur global"
+msgstr "Tous les administrateurs"
 
 #: ../templates/default/ldap/domain/create.html:20
 #: ../templates/default/ldap/domain/list.html:33
@@ -166,7 +166,7 @@ msgstr "Tous les administrateurs de messagerie."
 
 #: ../templates/default/mysql/user/list.html:114
 msgid "Allocated"
-msgstr ""
+msgstr "Alloué"
 
 #: ../templates/default/mysql/user/create.html:43
 #, python-format
@@ -263,7 +263,7 @@ msgstr "Inactif"
 
 #: ../templates/default/macros/general.html:611
 msgid "Disable account"
-msgstr "Compte inactif"
+msgstr "Inactiver le compte"
 
 #: ../templates/default/ldap/admin/list.html:45
 #: ../templates/default/ldap/user/list.html:72
@@ -292,7 +292,9 @@ msgstr "Nom de Domaine"
 
 #: ../templates/default/macros/msgHandlers.html:94
 msgid "Domain already exists. Please check both primary or alias domains."
-msgstr "Le compte existe déjà, merci de choisir un autre nom d'utilisateur."
+msgstr ""
+"Le compte existe déjà. Merci vérifier à la fois le domaine principal ou "
+"l'alias."
 
 #: ../templates/default/macros/msgHandlers.html:105
 msgid "Domain created."
@@ -442,11 +444,11 @@ msgstr "Nom de domaine invalide."
 #: ../templates/default/macros/msgHandlers.html:125
 #: ../templates/default/macros/msgHandlers.html:169
 msgid "Invalid mail address."
-msgstr "L'adresse mail est invalide."
+msgstr "L'adresse mail invalide."
 
 #: ../templates/default/macros/general.html:171
 msgid "Is a global admin."
-msgstr "Administrateur global."
+msgstr "Est administrateur global."
 
 #: ../templates/default/ldap/user/list.html:75
 msgid "Job Title"
@@ -506,11 +508,11 @@ msgstr "Adresse mail"
 #: ../templates/default/ldap/user/list.html:21
 #: ../templates/default/mysql/user/list.html:21
 msgid "Mail Users"
-msgstr "Comptes mail"
+msgstr "Utilisateurs mail"
 
 #: ../templates/default/macros/msgHandlers.html:136
 msgid "Mail address already exists, please choose another one."
-msgstr "Le compte existe déjà, merci de choisir un autre nom d'utilisateur."
+msgstr "L'adresse mail existe déjà, merci de choisir une autre."
 
 #: ../templates/default/macros/general.html:372
 msgid "Mailbox Quota"
@@ -519,19 +521,19 @@ msgstr "Quota de boite mail"
 #: ../templates/default/macros/ldap.html:5
 #: ../templates/default/macros/mysql.html:5
 msgid "Managed Domains"
-msgstr "Domaines Gérés"
+msgstr "Domaines gérés"
 
 #: ../templates/default/macros/general.html:292
 msgid "Mark as global admin"
-msgstr "Marqué comme administrateur global"
+msgstr "Marquer comme administrateur global"
 
 #: ../templates/default/panel/log.html:83
 msgid "Message"
-msgstr ""
+msgstr "Message"
 
 #: ../templates/default/macros/general.html:241
 msgid "Mobile"
-msgstr ""
+msgstr "Mobile"
 
 #: ../templates/default/ldap/domain/list.html:55
 #: ../templates/default/mysql/domain/list.html:55
@@ -592,7 +594,7 @@ msgstr "Pas de domaine disponible."
 #: ../templates/default/macros/msgHandlers.html:99
 #: ../templates/default/macros/msgHandlers.html:123
 msgid "No domain under control."
-msgstr "Aucun domaine sous votre contrôle."
+msgstr "Aucun domaine contrôlé."
 
 #: ../templates/default/mysql/user/create.html:48
 msgid "No free domain quota left."
@@ -626,7 +628,7 @@ msgstr "Ancien mot de passe"
 
 #: ../templates/default/macros/msgHandlers.html:105
 msgid "Or create other mail accounts:"
-msgstr "Ou créer d'autre comptes mail :"
+msgstr "Ou créer d'autres comptes mail :"
 
 #: ../templates/default/login.html:60
 #: ../templates/default/ldap/admin/profile.html:53
@@ -700,7 +702,7 @@ msgstr "Profil du domaine :"
 #: ../templates/default/mysql/user/profile.html:28
 #: ../templates/default/mysql/user/profile.html:56
 msgid "Profile of user:"
-msgstr "Profil du compte :"
+msgstr "Profil de l'utilisateur :"
 
 #: ../templates/default/macros/msgHandlers.html:122
 msgid "Profile updated failed."
@@ -719,11 +721,11 @@ msgstr "Quota"
 
 #: ../templates/default/macros/msgHandlers.html:194
 msgid "Records were deleted."
-msgstr "Les enregistrements ont été effacés."
+msgstr "Les logs sélectionnés ont été supprimés."
 
 #: ../templates/default/macros/general.html:407
 msgid "Relay/Transport Setting"
-msgstr "Paramètres de relay/transport"
+msgstr "Paramètres de relais/transport"
 
 #: ../templates/default/login.html:72
 msgid "Remember me"
@@ -762,7 +764,7 @@ msgstr "Les domaines sélectionnés ont été désactivés."
 
 #: ../templates/default/macros/msgHandlers.html:88
 msgid "Selected domains were enabled."
-msgstr "Les domaines sélectionés ont été activés."
+msgstr "Les domaines sélectionnés ont été activés."
 
 #: ../templates/default/dashboard.html:55
 msgid "Server load"
@@ -782,11 +784,11 @@ msgstr "La session a expérié, merci de vous identifier à nouveau."
 
 #: ../templates/default/macros/general.html:385
 msgid "Set to 0 for unlimited."
-msgstr "0 pour illimité."
+msgstr "Définir à 0 pour illimité."
 
 #: ../templates/default/mysql/user/list.html:114
 msgid "Stored"
-msgstr "Utilisé"
+msgstr "Stocké"
 
 #: ../templates/default/panel/log.html:69
 msgid "Submit"
@@ -889,7 +891,7 @@ msgstr "Utilisateurs du domaine : %s"
 #: ../templates/default/macros/msgHandlers.html:36
 #: ../templates/default/macros/msgHandlers.html:38
 msgid "Warning"
-msgstr "Attention :"
+msgstr "Attention"
 
 #: ../templates/default/macros/msgHandlers.html:160
 msgid "You are NOT permited to view/update other's profile."
@@ -897,7 +899,7 @@ msgstr ""
 
 #: ../templates/default/macros/general.html:129
 msgid "You are here:"
-msgstr "Vous êtes ici :"
+msgstr ""
 
 #: ../templates/default/mysql/user/create.html:56
 #, python-format

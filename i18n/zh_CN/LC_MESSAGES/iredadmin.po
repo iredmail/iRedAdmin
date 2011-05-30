@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: iRedAdmin-Pro-0.1.4\n"
+"Project-Id-Version:  iRedAdmin-Pro-1.6.0\n"
 "Report-Msgid-Bugs-To: zhb@iredmail.org\n"
 "POT-Creation-Date: 2009-10-22 17:33+0800\n"
-"PO-Revision-Date: 2011-05-30 13:54+0800\n"
+"PO-Revision-Date: 2011-05-30 13:56+0800\n"
 "Last-Translator: Zhang Huangbin <zhb@iredmail.org>\n"
 "Language-Team: zh_CN <zhb@iredmail.org>\n"
 "Plural-Forms: nplurals=1; plural=0\n"
@@ -25,7 +25,7 @@ msgstr "%s （%s）"
 #: ../templates/default/dashboard.html:50
 #, python-format
 msgid "%s days, %s hours, %s minutes."
-msgstr "%s天，%s小时，%s分钟。"
+msgstr "%s 天，%s 小时，%s 分钟。"
 
 #: ../templates/default/macros/msgHandlers.html:170
 msgid "Account already exists, please choose another username."
@@ -93,7 +93,7 @@ msgstr "添加一个"
 #: ../templates/default/mysql/user/create.html:17
 #: ../templates/default/mysql/user/create.html:25
 msgid "Add user"
-msgstr "添加用户"
+msgstr "添加一个"
 
 #: ../templates/default/ldap/user/create.html:55
 #: ../templates/default/mysql/user/create.html:82
@@ -151,7 +151,7 @@ msgstr "所有管理员"
 #: ../templates/default/mysql/user/list.html:26
 #: ../templates/default/mysql/user/profile.html:25
 msgid "All domains"
-msgstr "域的别名"
+msgstr "所有域"
 
 #: ../templates/default/ldap/domain/list.html:40
 #: ../templates/default/mysql/domain/list.html:40
@@ -185,12 +185,12 @@ msgstr "应用"
 #: ../templates/default/macros/general.html:331
 #, python-format
 msgid "At least %s characters, but no more than %s."
-msgstr "至少<strong>%s</strong>个字符，但不多于<strong>%s</strong>个。"
+msgstr "必须是 %s - %s 个字符。"
 
 #: ../templates/default/macros/general.html:333
 #, python-format
 msgid "At least %s characters."
-msgstr "至少 <strong>%s</strong> 个字符。"
+msgstr "至少 %s 个字符。"
 
 #: ../templates/default/macros/general.html:382
 msgid "Available quota:"
@@ -291,11 +291,11 @@ msgstr "域名"
 
 #: ../templates/default/macros/msgHandlers.html:94
 msgid "Domain already exists. Please check both primary or alias domains."
-msgstr "帐号已存在，请选择另一个用户名。"
+msgstr "帐号已存在，请检查域名和域别名。"
 
 #: ../templates/default/macros/msgHandlers.html:105
 msgid "Domain created."
-msgstr "域名"
+msgstr "域已建立。"
 
 #: ../templates/default/macros/msgHandlers.html:92
 msgid "Domain name is empty."
@@ -343,7 +343,7 @@ msgstr "调整容量限制"
 
 #: ../templates/default/layout.html:27
 msgid "Edit your profile"
-msgstr "编辑帐号属性"
+msgstr "编辑您的偏好设置"
 
 #: ../templates/default/mysql/user/list.html:114
 msgid "Emails"
@@ -432,12 +432,12 @@ msgstr "无效的操作。"
 
 #: ../templates/default/macros/msgHandlers.html:90
 msgid "Invalid domain name."
-msgstr "启用邮件别名"
+msgstr "无效的域名。"
 
 #: ../templates/default/macros/msgHandlers.html:125
 #: ../templates/default/macros/msgHandlers.html:169
 msgid "Invalid mail address."
-msgstr "发件人邮件地址"
+msgstr "无效的邮件地址。"
 
 #: ../templates/default/macros/general.html:171
 msgid "Is a global admin."
@@ -549,12 +549,12 @@ msgstr "新密码"
 #: ../templates/default/macros/msgHandlers.html:180
 #, python-format
 msgid "New password must NOT contain more than %s characters."
-msgstr "新密码不得长于 %s 个字符。"
+msgstr "新密码不得多于 %s 个字符。"
 
 #: ../templates/default/macros/msgHandlers.html:178
 #, python-format
 msgid "New password must contain at least %s characters."
-msgstr "新密码至少 %s 个字符。"
+msgstr "新密码必须包含至少 %s 个字符。"
 
 #: ../templates/default/macros/msgHandlers.html:132
 #: ../templates/default/macros/msgHandlers.html:167
@@ -571,7 +571,7 @@ msgstr "下一页"
 
 #: ../templates/default/macros/msgHandlers.html:164
 msgid "No account selected."
-msgstr "帐号已启用。"
+msgstr "未选中任何帐号。"
 
 #: ../templates/default/ldap/domain/list.html:122
 #: ../templates/default/ldap/domain/list.html:126
@@ -596,15 +596,15 @@ msgstr "没有空闲的邮箱容量可用。"
 #: ../templates/default/macros/general.html:335
 #, python-format
 msgid "No more than %s characters."
-msgstr "不多于 <strong>%s</strong> 个字符。"
+msgstr "不多于 %s 个字符。"
 
 #: ../templates/default/macros/msgHandlers.html:137
 msgid "No password while importing accounts."
-msgstr "导入帐号时没有指定密码"
+msgstr "导入帐号时没有指定密码。"
 
 #: ../templates/default/macros/msgHandlers.html:97
 msgid "No such domain."
-msgstr "启用这个域"
+msgstr "没有这个域。"
 
 #: ../templates/default/ldap/user/list.html:132
 #: ../templates/default/mysql/user/list.html:126
@@ -648,7 +648,7 @@ msgstr "密码太短。"
 msgid ""
 "Per-user relay setting will override per-domain relay setting you set in "
 "this page."
-msgstr "针对单个用户的转发设置将会覆盖本页中针对单个域的设置。"
+msgstr "针对单个用户的中继转发设置将会覆盖本页中针对单个域的设置。"
 
 #: ../templates/default/macros/msgHandlers.html:95
 msgid "Permission denied."
@@ -656,7 +656,7 @@ msgstr "访问受限。"
 
 #: ../templates/default/macros/msgHandlers.html:139
 msgid "Please select at least one account."
-msgstr "请至少选择一个域名进行操作。"
+msgstr "请至少选择一个帐号进行操作。"
 
 #: ../templates/default/macros/msgHandlers.html:98
 msgid "Please select at least one domain to apply action."
@@ -712,7 +712,7 @@ msgstr "邮箱容量"
 
 #: ../templates/default/macros/msgHandlers.html:194
 msgid "Records were deleted."
-msgstr "记录已删除。"
+msgstr "选择的帐号已删除。"
 
 #: ../templates/default/macros/general.html:407
 msgid "Relay/Transport Setting"
@@ -733,29 +733,29 @@ msgstr "保存更改"
 #: ../templates/default/macros/msgHandlers.html:128
 #: ../templates/default/macros/msgHandlers.html:161
 msgid "Selected accounts were deleted."
-msgstr "选择的帐号已删除。"
+msgstr "选定的帐号已删除。"
 
 #: ../templates/default/macros/msgHandlers.html:129
 #: ../templates/default/macros/msgHandlers.html:162
 msgid "Selected accounts were disabled."
-msgstr "帐号已禁用。"
+msgstr "选定的帐号已禁用。"
 
 #: ../templates/default/macros/msgHandlers.html:130
 #: ../templates/default/macros/msgHandlers.html:163
 msgid "Selected accounts were enabled."
-msgstr "选择的帐号已启用。"
+msgstr "选定的帐号已启用。"
 
 #: ../templates/default/macros/msgHandlers.html:86
 msgid "Selected domains were deleted."
-msgstr "选择的域已经删除。"
+msgstr "选定的域已经删除。"
 
 #: ../templates/default/macros/msgHandlers.html:87
 msgid "Selected domains were disabled."
-msgstr "选择的域已禁用。"
+msgstr "选定的域已禁用。"
 
 #: ../templates/default/macros/msgHandlers.html:88
 msgid "Selected domains were enabled."
-msgstr "选择的域已启用。"
+msgstr "选定的域已启用。"
 
 #: ../templates/default/dashboard.html:55
 msgid "Server load"
@@ -789,7 +789,7 @@ msgstr "提交的域名不正确。"
 
 #: ../templates/default/layout.html:104
 msgid "Support"
-msgstr "支持"
+msgstr "技术支持"
 
 #: ../templates/default/layout.html:60
 msgid "System"
@@ -880,7 +880,7 @@ msgstr "域 %s 的用户"
 #: ../templates/default/macros/msgHandlers.html:36
 #: ../templates/default/macros/msgHandlers.html:38
 msgid "Warning"
-msgstr "警告："
+msgstr "警告"
 
 #: ../templates/default/macros/msgHandlers.html:160
 msgid "You are NOT permited to view/update other's profile."

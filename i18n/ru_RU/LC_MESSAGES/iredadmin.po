@@ -5,10 +5,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: iRedAdmin-Pro-0.1.4\n"
+"Project-Id-Version:  iRedAdmin-Pro-\n"
 "Report-Msgid-Bugs-To: suds77@gmail.com\n"
 "POT-Creation-Date: 2009-10-22 21:56+0800\n"
-"PO-Revision-Date: 2011-05-30 13:54+0800\n"
+"PO-Revision-Date: 2011-05-30 13:56+0800\n"
 "Last-Translator: Dmitry Sukharev <suds77@gmail.com>\n"
 "Language-Team: ru_RU <suds77@gmail.com>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -93,7 +93,7 @@ msgstr "Добавить"
 #: ../templates/default/mysql/user/create.html:17
 #: ../templates/default/mysql/user/create.html:25
 msgid "Add user"
-msgstr "Добавить пользователя"
+msgstr "Добавить еще"
 
 #: ../templates/default/ldap/user/create.html:55
 #: ../templates/default/mysql/user/create.html:82
@@ -720,7 +720,7 @@ msgstr "Квота"
 
 #: ../templates/default/macros/msgHandlers.html:194
 msgid "Records were deleted."
-msgstr "Записей было удалено."
+msgstr "Выбранные аккаунты были удалены."
 
 #: ../templates/default/macros/general.html:407
 msgid "Relay/Transport Setting"
@@ -898,7 +898,7 @@ msgstr ""
 
 #: ../templates/default/macros/general.html:129
 msgid "You are here:"
-msgstr "Сейчас Вы тут:"
+msgstr ""
 
 #: ../templates/default/mysql/user/create.html:56
 #, python-format

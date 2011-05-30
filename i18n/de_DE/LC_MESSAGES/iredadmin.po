@@ -6,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: iRedAdmin-Pro-0.1.4\n"
+"Project-Id-Version:  iRedAdmin-Pro-\n"
 "Report-Msgid-Bugs-To: michaelbibby@gmail.com\n"
 "POT-Creation-Date: 2010-02-05 00:01+0800\n"
-"PO-Revision-Date: 2011-05-30 13:54+0800\n"
+"PO-Revision-Date: 2011-05-30 13:56+0800\n"
 "Last-Translator: Norman Schemel <norman@schemel.eu>\n"
 "Language-Team: de_DE <zhb@iredmail.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
@@ -96,7 +96,7 @@ msgstr "Liste anlegen"
 #: ../templates/default/mysql/user/create.html:17
 #: ../templates/default/mysql/user/create.html:25
 msgid "Add user"
-msgstr "Benutzer hinzufügen"
+msgstr "eine weitere anlegen"
 
 #: ../templates/default/ldap/user/create.html:55
 #: ../templates/default/mysql/user/create.html:82
@@ -727,7 +727,7 @@ msgstr "Quota"
 
 #: ../templates/default/macros/msgHandlers.html:194
 msgid "Records were deleted."
-msgstr "Einträge wurden entfernt."
+msgstr "Die ausgewählten Konten wurden gelöscht."
 
 #: ../templates/default/macros/general.html:407
 msgid "Relay/Transport Setting"
@@ -903,7 +903,7 @@ msgstr ""
 
 #: ../templates/default/macros/general.html:129
 msgid "You are here:"
-msgstr "Sie befinden sich hier:"
+msgstr ""
 
 #: ../templates/default/mysql/user/create.html:56
 #, python-format
