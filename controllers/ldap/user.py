@@ -52,27 +52,6 @@ class List:
 
             accountList = sl.get('accountList', [])
 
-            ############################
-            # Get real-time used quota.
-            #
-            # Pre-defined dict of account used quota.
-            accountUsedQuota = {}
-
-            if session.get('enableShowUsedQuota', False) is True:
-                # Get email address list.
-                accountEmailLists = []
-                for tmpuser in accountList:
-                    accountEmailLists += tmpuser[1].get('mail', [])
-
-                if len(accountEmailLists) > 0:
-                    try:
-                        accountUsedQuota = iredutils.getAccountUsedQuota(accountEmailLists)
-                    except Exception, e:
-                        pass
-            #
-            # END. Get real-time used quota.
-            ################################
-
             if cur_page > sl.get('totalPages'):
                 cur_page = sl.get('totalPages')
 
@@ -90,7 +69,7 @@ class List:
                 cur_domain=domain,
                 allDomains=allDomains,
                 showLoginDate=showLoginDate,
-                accountUsedQuota=accountUsedQuota,
+                accountUsedQuota={},
                 msg=i.get('msg'),
             )
         else:
@@ -146,15 +125,7 @@ class Profile:
         userLib = user.User()
         result = userLib.profile(domain=self.cur_domain, mail=self.mail)
         if result[0] is True:
-            if self.profile_type == 'general':
-                # Get account used quota.
-                if session.get('enableShowUsedQuota') is True:
-                    try:
-                        accountUsedQuota = iredutils.getAccountUsedQuota([self.mail])
-                    except Exception, e:
-                        pass
-
-            elif self.profile_type == 'password':
+            if self.profile_type == 'password':
                 # Get accountSetting of current domain.
                 domainLib = domainlib.Domain()
                 result_setting = domainLib.getDomainAccountSetting(domain=self.cur_domain)

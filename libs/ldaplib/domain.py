@@ -140,20 +140,6 @@ class Domain(core.LDAPWrap):
             except ldap.LDAPError, e:
                 msg[domain] = str(e)
 
-            # Delete records from SQL database: real-time used quota.
-            if session.get('enableShowUsedQuota', False) is True:
-                try:
-                    # SQL: DELETE FROM table WHERE username LIKE '%@domain.ltd'
-                    web.admindb.delete(
-                        models.UsedQuota.__table__,
-                        where='%s LIKE %s' % (
-                            models.UsedQuota.username,
-                            web.sqlquote('%%@'+domain),
-                        ),
-                    )
-                except Exception, e:
-                    pass
-
         if msg == {}:
             return (True,)
         else:

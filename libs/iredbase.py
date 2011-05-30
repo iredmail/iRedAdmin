@@ -57,22 +57,6 @@ cfg.allTranslations = web.storage()
 # Get global language setting.
 lang = cfg.general.get('lang', 'en_US')
 
-#####################################
-# Store all 'true/false' in session.
-#
-# Get value of 'show_used_quota' in [general].
-if backend == 'mysql':
-    enableShowUsedQuota = True
-else:
-    if cfg.general.get('show_used_quota', 'False').lower() in ['true',]:
-        enableShowUsedQuota = True
-    else:
-        enableShowUsedQuota = False
-
-#
-# END.
-########################
-
 # Set session parameters.
 web.config.session_parameters['cookie_name'] = 'iRedAdmin'
 web.config.session_parameters['cookie_domain'] = None
@@ -110,7 +94,7 @@ session = web.session.Session(
         'pageSizeLimit': 50,
 
         # Show used quota.
-        'enableShowUsedQuota': enableShowUsedQuota,
+        'enableShowUsedQuota': False,
     }
 )
 

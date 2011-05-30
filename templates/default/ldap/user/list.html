@@ -109,18 +109,7 @@
                     {% if mailQuota == '0' %}
                         <td class="vcenter">{{ _('Unlimited') }}</td>
                     {% else %}
-                        {% if session.get('enableShowUsedQuota') is sameas true %}
-                            {% set percent = usedQuota |getPercentage(mailQuota) %}
-                            <td class="vcenter">
-                                <div>
-                                    <span>{{ percent }}%</span>
-                                    <span class="grey">(<a href="{{ctx.homepath}}/profile/user/general/{{mail}}#mailQuota" title="{{ _('Edit quota setting') }}">{{ usedQuota |filesizeformat }}/{{ mailQuota |filesizeformat }}</a>)</span>
-                                </div>
-                                {{ display_progress_bar(percent, tooltip='', show_zero=true, width='60%', style='thin') }}
-                            </td>
-                        {% else %}
-                            <td class="vcenter">{{ mailQuota |filesizeformat }}</td>
-                        {% endif %}
+                        <td class="vcenter">{{ mailQuota |filesizeformat }}</td>
                     {% endif %}
 
                     <td class="vcenter">{{ timestamp |setDatetimeFormat(hour=False) }}</td>

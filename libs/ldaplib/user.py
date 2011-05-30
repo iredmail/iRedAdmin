@@ -313,13 +313,6 @@ class User(core.LDAPWrap):
             if deleteFromGroups:
                 self.deleteSingleUserFromGroups(self.mail)
 
-            # Delete record from SQL database: real-time used quota.
-            if session.get('enableShowUsedQuota', False) is True:
-                try:
-                    iredutils.deleteAccountFromUsedQuota([self.mail])
-                except:
-                    pass
-
             # Log delete action.
             web.logger(
                     msg="Delete user: %s." % (self.mail),
