@@ -12,7 +12,6 @@
         display_subnav,
         set_account_status_img,
         highlight_username_in_mail,
-        display_progress_bar,
         show_pages,
         with context %}
 
@@ -105,16 +104,9 @@
                     {### mail quota #}
 
                     {% if r.quota == 0 %}
-                        <td class="vcenter">{{ r.bytes |filesizeformat(baseMB=True) }} / {{ _('Unlimited') }}</td>
+                        <td class="vcenter">{{ _('Unlimited') }}</td>
                     {% else %}
-                        {% set percent = r.bytes |getPercentage(r.quota * 1024 * 1024) %}
-                        <td class="vcenter">
-                            <div>
-                                <span title="{{ _('Edit quota setting') }}"><a href="{{ctx.homepath}}/profile/user/general/{{username}}">{{ percent }}%</a></span>
-                                <span class="grey">(<span title="{{ _('Stored') }}">{{ r.messages }} {{_('Emails') }}/{{ r.bytes |filesizeformat }}</span>)/<span title="{{ _('Allocated') }}">{{ r.quota |filesizeformat(baseMB=True) }}</span></span>
-                            </div>
-                            {{ display_progress_bar(percent, show_zero=true, width='60%', style='thin') }}
-                        </td>
+                        <td class="vcenter">{{ r.quota |filesizeformat(baseMB=True) }}</td>
                     {% endif %}
 
                     <td class="vcenter">{{ r.created |setDatetimeFormat(hour=False) }}</td>

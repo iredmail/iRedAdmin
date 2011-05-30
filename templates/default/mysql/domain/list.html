@@ -10,7 +10,6 @@
         load_jquery,
         set_account_status_img,
         display_number_of_account_limited,
-        display_progress_bar,
         display_add_domain,
         show_pages,
         with context
@@ -80,14 +79,7 @@
 
                             {#-- Users --#}
                             <td class="vcenter">
-                                {% if r.mailboxes > 0 %}
-                                    {% set percentOfNumberOfUsers = r.mailbox_count |getPercentage(r.mailboxes) %}
-
-                                    <a href="{{ctx.homepath}}/users/{{domain}}" title="{{ _('List all mail users.') }}" style="text-decoration: none;">{{ percentOfNumberOfUsers }}% <span class="grey">({{ r.mailbox_count }} {{ display_number_of_account_limited(r.mailboxes) }})</span></a>
-                                    {{ display_progress_bar(percentOfNumberOfUsers, style='thin') }}
-                                {% else %}
-                                    <a href="{{ctx.homepath}}/users/{{domain}}" title="{{ _('List all mail users.') }}" style="text-decoration: none;">{{ r.mailbox_count }}</a>
-                                {% endif %}
+                                <a href="{{ctx.homepath}}/users/{{domain}}" title="{{ _('List all mail users.') }}" style="text-decoration: none;">{{ r.mailbox_count }}</a>
                             </td>
 
                             <td class="vcenter">{{ r.created |setDatetimeFormat(hour=False) }}</td>

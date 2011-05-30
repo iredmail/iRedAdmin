@@ -184,40 +184,6 @@
     </div>
 {%- endmacro %}
 
-{% macro display_progress_bar(percent, tooltip=none, show_zero=false, style='normal', width='100%') -%}
-    {% set percent = percent |int %}
-    {% if percent < 0 %}
-        {% set percent = 0 %}
-    {% elif percent > 100 %}
-        {% set percent = 100 %}
-    {% endif %}
-
-    {% if tooltip is sameas none %}
-        {% set tooltip = percent |string + '%' %}
-    {% endif %}
-
-    {% if style == 'thin' %}
-        {% set height = '3px' %}
-    {% else %}
-        {% set height = '1.1em' %}
-    {% endif %}
-
-    {% if percent < 80 %}
-        {% set bgcolor = '#ACE97C' %}
-    {% elif 80 <= percent < 90 %}
-        {% set bgcolor = 'yellow' %}
-    {% elif 90 <= percent < 99 %}
-        {% set bgcolor = '#F76541' %}
-    {% else %}
-        {% set bgcolor = '#F62217' %}
-    {% endif %}
-
-    {% if percent > 0 or show_zero is sameas true %}
-        <div class="progress-container" title="{{ tooltip |e }}" style="width: {{ width |e }}; height: {{height}};">
-            <div class="progress-bar" style="height: {{height}}; width: {{percent}}%; background-color: {{bgcolor}};"></div>
-        </div>
-    {% endif %}
-{%- endmacro %}
 
 {% macro display_input_employeeid(value='') -%}
     {% if value is sameas none %}
@@ -383,16 +349,6 @@
                 {% endif %}
             {% elif spare_quota_bytes |int == -1 %}
                 {% set comment = _('Set to 0 for unlimited.') %}
-            {% endif %}
-
-            {% if show_used_quota is sameas true %}
-                {% if session.get('enableShowUsedQuota') is sameas true and value.isdigit() and used_quota.isdigit() %}
-                    {% set percent = used_quota |getPercentage(value |int * 1024 * 1024) %}
-                    <label class="fl-space"><em style="color: black; font-style: normal;">
-                        {{ display_progress_bar(percent, show_zero=true, width='80px') }}&nbsp;
-                        {{ _('Used') }}&nbsp;{{ used_quota |filesizeformat }}.&nbsp;({{ percent }}%)
-                    </em></label>
-                {% endif %}
             {% endif %}
         </span>
 

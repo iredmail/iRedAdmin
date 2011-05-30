@@ -10,7 +10,6 @@
         load_jquery,
         set_account_status_img,
         display_number_of_account_limited,
-        display_progress_bar,
         display_add_domain,
         show_pages,
         with context
@@ -75,20 +74,6 @@
 
                         {% set timestamp = entries.get('createTimestamp', ['--------------'])[0] %}
 
-                        {# Get domain quota size & unit #}
-                        {% set domainQuota = accountSetting.get('domainQuota', '0:GB') |e %}
-                        {% set domainQuotaSize, domainQuotaUnit = domainQuota.split(':') %}
-
-                        {% set domainCurrentQuotaSize = entries.get('domainCurrentQuotaSize', ['0'])[0] |int %}
-
-                        {% if domainQuotaUnit == 'TB' %}
-                            {% set domainQuotaBytes = domainQuotaSize |int * 1024 * 1024 * 1024 * 1024 %}
-                        {% elif domainQuotaUnit == 'GB' %}
-                            {% set domainQuotaBytes = domainQuotaSize |int * 1024 * 1024 * 1024 %}
-                        {% else %}
-                            {% set domainQuotaBytes = domainQuotaSize |int * 1024 * 1024 %}
-                        {% endif %}
-
                         <tr class="{{ accountStatus |lower }}">
                             {% if session.get('domainGlobalAdmin') is sameas true %}
                                 <td class="checkbox"><input type="checkbox" class="checkbox " name="domainName" value="{{domain}}" /></td>
@@ -102,14 +87,7 @@
                             <td class="vcenter">{% if cn != '' and cn != domain %}{{ cn |cutString }}{% endif %}</td>
                             {# Mail user count #}
                             <td class="vcenter">
-                                {% if numberOfUsers > 0 %}
-                                    {% set percentOfNumberOfUsers = domainCurrentUserNumber |getPercentage(numberOfUsers) %}
-
-                                    <a href="{{ctx.homepath}}/users/{{domain}}" title="{{ _('List all mail users.') }}" style="text-decoration: none;">{{ percentOfNumberOfUsers }}% <span class="grey">({{domainCurrentUserNumber}} {{ display_number_of_account_limited(numberOfUsers) }})</span></a>
-                                    {{ display_progress_bar(percentOfNumberOfUsers, style='thin') }}
-                                {% else %}
-                                    <a href="{{ctx.homepath}}/users/{{domain}}" title="{{ _('List all mail users.') }}" style="text-decoration: none;">{{domainCurrentUserNumber}}</a>
-                                {% endif %}
+                                <a href="{{ctx.homepath}}/users/{{domain}}" title="{{ _('List all mail users.') }}" style="text-decoration: none;">{{domainCurrentUserNumber}}</a>
                             </td>
 
                             <td class="vcenter">{{ timestamp |setDatetimeFormat(hour=False) }}</td>
