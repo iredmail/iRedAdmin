@@ -1,4 +1,4 @@
-__version__ = '0.1.4'
+__version__ = '0.1.5'
 __author__ = 'Zhang Huangbin'
 __author_mail__ = 'zhb@iredmail.org'
 __url_iredadmin_ldap_latest__ = 'http://iredmail.org/version/check.py/ose.xml'
