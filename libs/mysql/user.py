@@ -256,6 +256,16 @@ class User(core.MySQLWrap):
                     except:
                         pass
 
+            # Create an alias account: address=goto.
+            self.conn.insert(
+                'alias',
+                address=self.mail,
+                goto=self.mail,
+                domain=self.domain,
+                created=iredutils.sqlNOW,
+                active='1',
+            )
+
             web.logger(msg="Create user: %s." % (self.mail), domain=self.domain, event='create',)
             return (True,)
         except Exception, e:

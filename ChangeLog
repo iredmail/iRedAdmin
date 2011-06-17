@@ -1,3 +1,7 @@
+= 0.1.6 =
+    * Add an alias account for newly created mail user (address=goto). MySQL
+      backend special.
+
 = 0.1.5 =
     * Escape untrusted variables in template files.
     * Allow to use domain names which end with 2-6 chars.
