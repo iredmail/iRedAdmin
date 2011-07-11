@@ -1,4 +1,6 @@
 = 0.1.6 =
+    * Add enabledService=lda for newly created mail user. Required by
+      Dovecot 2.x.
     * Add an alias account for newly created mail user (address=goto). MySQL
       backend special.
 
