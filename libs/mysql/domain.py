@@ -135,25 +135,19 @@ class Domain(core.MySQLWrap):
         # RAW sql command used to get records.
         self.rawSQLOfRecords = """
             SELECT
-                domain.domain, domain.description, domain.aliases,
-                domain.mailboxes, domain.maxquota, domain.quota,
-                domain.transport, domain.backupmx, domain.created,
-                domain.active,
-                SUM(DISTINCT mailbox.bytes) AS stored_quota,
-                SUM(DISTINCT mailbox.quota) AS quota_count,
-                COUNT(DISTINCT mailbox.username) AS mailbox_count,
-                COUNT(DISTINCT alias.address) AS alias_count
-            FROM domain
-            LEFT JOIN domain_admins ON (domain.domain = domain_admins.domain)
-            LEFT JOIN mailbox ON (domain.domain = mailbox.domain)
-            LEFT JOIN alias ON (domain.domain = alias.domain AND alias.address <> alias.goto)
+                a.domain, a.description, a.aliases, a.mailboxes, a.maxquota, a.quota,
+                a.transport, a.backupmx, a.created, a.active,
+                IFNULL(b.alias_count,0) AS alias_count,
+                IFNULL(c.mailbox_count,0) AS mailbox_count,
+                IFNULL(c.stored_quota,0) AS stored_quota,
+                IFNULL(c.quota_count,0) AS quota_count
+            FROM domain AS a
+            LEFT JOIN (SELECT domain, COUNT(*) AS alias_count FROM alias GROUP BY domain) AS b ON (a.domain=b.domain)
+            LEFT JOIN (SELECT domain, SUM(mailbox.bytes) AS stored_quota, SUM(mailbox.quota) AS quota_count, COUNT(*) AS mailbox_count FROM mailbox GROUP BY domain) AS c ON (a.domain=c.domain)
+            LEFT JOIN domain_admins ON (domain_admins.domain=a.domain)
             %s
-            GROUP BY
-                domain.domain, domain.description, domain.aliases,
-                domain.mailboxes, domain.maxquota, domain.quota,
-                domain.transport, domain.backupmx, domain.created,
-                domain.active
-            ORDER BY domain.domain
+            GROUP BY a.domain
+            ORDER BY a.domain
             LIMIT %d
             OFFSET %d
         """ % (self.sql_where, session['pageSizeLimit'],

@@ -1,8 +1,9 @@
 = 0.1.6 =
-    * Add enabledService=lda for newly created mail user. Required by
+    * [MySQL] Better SQL performance while listing all domains.
+      Thanks atros <christian (at) eol.co.nz>.
+    * [LDAP] Add enabledService=lda for newly created mail user. Required by
       Dovecot 2.x.
-    * Add an alias account for newly created mail user (address=goto). MySQL
-      backend special.
+    * [MySQL] Add an alias account for newly created mail user (address=goto).
 
 = 0.1.5 =
     * Escape untrusted variables in template files.
