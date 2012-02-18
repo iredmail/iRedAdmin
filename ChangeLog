@@ -1,3 +1,6 @@
+= 0.1.7 =
+    * New translation: cs_CZ. Thanks Karel Hink <karel.hink@pretiko.cz>
+
 = 0.1.6 =
     * [MySQL] Better SQL performance while listing all domains.
       Thanks atros <christian (at) eol.co.nz>.
