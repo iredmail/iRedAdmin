@@ -18,8 +18,6 @@
 {{ userMsgHandler(msg) }}
 
 {% if users is defined %}
-    {% set time_title = _('Created') %}
-    {% set time_var = 'createTimestamp' %}
 
     {# List all users. #}
     <div class="content-box">
@@ -55,7 +53,6 @@
             <th>{{ _('Job Title') }}</th>
             #}
             <th>{{ _('Quota') }}</th>
-            <th>{{ time_title }}</th>
         </tr>
         </thead>
 
@@ -88,8 +85,6 @@
                             <span title="{{ _('Allocated') }}">{{ r.quota |filesizeformat(baseMB=True) }}</span>
                         </td>
                     {% endif %}
-
-                    <td class="vcenter">{{ r.created |setDatetimeFormat(hour=False) }}</td>
                 </tr>
             {% endfor %}
         {% else %}
