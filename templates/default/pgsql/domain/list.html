@@ -77,13 +77,13 @@
 
                                     {#-- Domain Quota --#}
                                     <td class="vcenter">
-                                        <span title="{{ _('Allocated') }}">{{ r.quota_count |filesizeformat(baseMB=True) }}</span> / <span title="{{ _('Total') }}">{{ display_number_of_account_limited(r.maxquota |filesizeformat(baseMB=True)) }}</span>
+                                        <span title="{{ _('Allocated') }}">{{ r.quota_count |filesizeformat(baseMB=True) }}</span> / <span title="{{ _('Total') }}">{{ display_number_of_account_limited(r.maxquota |filesizeformat(baseMB=True), hide_unlimited=false) }}</span>
                                     </td>
 
                                     {#-- Users --#}
                                     <td class="vcenter">
                                         {% if r.mailboxes > 0 %}
-                                            <a href="{{ctx.homepath}}/users/{{domain}}" title="{{ _('List all mail users.') }}" style="text-decoration: none;"><span>{% if r.mailbox_count is not sameas none %}{{ r.mailbox_count }}{% else %}0{% endif %} {{ display_number_of_account_limited(r.mailboxes) }})</span></a>
+                                            <a href="{{ctx.homepath}}/users/{{domain}}" title="{{ _('List all mail users.') }}" style="text-decoration: none;"><span>{% if r.mailbox_count is not sameas none %}{{ r.mailbox_count }}{% else %}0{% endif %} {{ display_number_of_account_limited(r.mailboxes, hide_unlimited=false) }})</span></a>
                                         {% elif r.mailboxes == -1 %}
                                             <span class="grey"><em>{{ _('DISABLED') }}</em></span>
                                         {% else %}
