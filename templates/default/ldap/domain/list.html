@@ -49,6 +49,7 @@
                     {% endif %}
                     <th>{{ _('Domain') }}</th>
                     <th>{{ _('Name') }}</th>
+                    <th>{{ _('Quota') }}</th>
                     <th>{{ _('Users') }}</th>
                 </tr>
                 </thead>
@@ -92,7 +93,7 @@
 
                             <td class="vcenter">{% if cn != '' and cn != domain %}{{ cn |cutString }}{% endif %}</td>
 
-                            <td class="vcenter"><span class="grey">{{ domainQuotaBytes |filesizeformat }})</span>
+                            <td class="vcenter">{{ _('Unlimited') }}</td>
                             {# Mail user count #}
                             <td class="vcenter">
                                  <a href="{{ctx.homepath}}/users/{{domain}}" title="{{ _('List all mail users.') }}" style="text-decoration: none;">{{domainCurrentUserNumber}}</a>
