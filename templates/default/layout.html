@@ -24,7 +24,7 @@
             <div class="head_top">
                 <div class="topbuts">
                     <ul class="clear">
-                        <li><a href="{{ctx.homepath}}/profile/admin/general/{{session.get('username')}}" title="{{ _('Edit your profile') }}">{{ _('Preferences') }}</a></li>
+                        <li><a href="{{ctx.homepath}}/profile/admin/general/{{session.get('username')}}">{{ _('Preferences') }}</a></li>
                         <li><a href="{{ctx.homepath}}/logout" class="red">{{ _('Logout') }}</a></li>
                     </ul>
 
@@ -36,7 +36,7 @@
                 </div>
 
                 <div class="logo clear">
-                    <a href="{{ctx.homepath}}/" title="View dashboard">
+                    <a href="{{ctx.homepath}}/">
                         {# -- Logo Image -- #}
                         {#
                         <img src="{{ctx.homepath}}/static/logo.png" alt="" class="picture" />
@@ -57,13 +57,13 @@
                     {% if session.get('domainGlobalAdmin') is sameas true %}
                         <li {% block navlinks_active_admins %}{% endblock %}><a href="{{ctx.homepath}}/admins">{{ _('Admins') }}</a></li>
                     {% endif %}
-                    <li {% block navlinks_active_system %}{% endblock %}><a href="#">{{ _('System') }}</a>
+                    <li {% block navlinks_active_system %}{% endblock %}><a href="{{ctx.homepath}}/system/log">{{ _('System') }}</a>
                         <ul>
                             <li><a href="{{ctx.homepath}}/system/log">{{ _('Admin Log') }}</a></li>
                         </ul>
                     </li>
                     <li {% block navlinks_active_create %}{% endblock %}>
-                        <a href="#"><img src="{{ctx.homepath}}/static/{{skin}}/images/ico_add_12.png" /> {{ _('Add account') }}</a>
+                        <a href="#"><img src="{{ctx.homepath}}/static/{{skin}}/images/ico_add_12.png" /> {{ _('Add') }}...</a>
                         <ul>
                             {% if session.get('domainGlobalAdmin') is sameas true %}
                             <li><a href="{{ctx.homepath}}/create/domain">{{ _('Domain') }}</a></li>
@@ -84,6 +84,7 @@
     <div class="main pagesize"> <!-- *** mainpage layout *** -->
         <div class="main-wrap">
             <div class="page clear">
+                {#-- float-right bar in sub-nav-bar. Used for exporting LDIF and account profile metadata. --#}
                 {% block crumb_top %}{% endblock %}
 
                 {#-- Main page content --#}
@@ -98,9 +99,9 @@
     <div class="footer">
         <div class="pagesize clear">
             <p class="bt-space0">
-                &copy 2010 <a target="_blank" href="http://www.iredmail.org/">iRedMail Project</a>
+                &copy 2012 <a target="_blank" href="http://www.iredmail.org/">iRedMail Project</a>
                 {% if session.get('domainGlobalAdmin') is sameas true %}
-                    | <a href="http://www.iredmail.org/forum/feed-rss-forum4.xml" target="_blank"><img src="{{ctx.homepath}}/static/{{skin}}/images/feed-icon.png" style="vertical-align: middle;" /></a>&nbsp;<a href="http://www.iredmail.org/forum/forum4-news-announcements.html" target="_blank">{{ _('News & Announments') }}</a>
+                    | <a href="http://www.iredmail.org/forum/forum4-news-announcements.html" target="_blank">{{ _('News & Announments') }}</a>
                     | <a target="_blank" href="http://www.iredmail.org/forum/">{{ _('Support') }}</a>
                 {% else %}
                     | <a href="mailto:{{session.get('webmaster')}}">{{ _('Contact webmaster') }}</a>

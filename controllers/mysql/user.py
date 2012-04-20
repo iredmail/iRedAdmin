@@ -4,10 +4,11 @@
 
 import web
 from libs import iredutils
-from libs.mysql import decorators, user as userlib, domain as domainlib
+from libs.mysql import decorators, user as userlib, domain as domainlib, connUtils
 
 cfg = web.iredconfig
 session = web.config.get('_session')
+
 
 class List:
     @decorators.require_login
@@ -16,7 +17,7 @@ class List:
         cur_page = int(cur_page)
 
         if not iredutils.isDomain(self.domain):
-            return web.seeother('/domains?msg=INVALID_DOMAIN_NAME')
+            raise web.seeother('/domains?msg=INVALID_DOMAIN_NAME')
 
         if cur_page == 0:
             cur_page = 1
@@ -35,21 +36,22 @@ class List:
                 msg=web.input().get('msg', None),
             )
         else:
-            return web.seeother('/domains?msg=%s' % result[1])
+            raise web.seeother('/domains?msg=%s' % web.urlquote(result[1]))
 
+    @decorators.csrf_protected
     @decorators.require_login
     def POST(self, domain):
-        i = web.input(_unicode=False, username=[])
+        i = web.input(_unicode=False, mail=[])
 
         self.domain = str(domain)
 
         if not iredutils.isDomain(self.domain):
-            return web.seeother('/domains?msg=INVALID_DOMAIN_NAME')
+            raise web.seeother('/domains?msg=INVALID_DOMAIN_NAME')
 
         self.mails = [str(v)
-                      for v in i.get('username', [])
+                      for v in i.get('mail', [])
                       if iredutils.isEmail(v)
-                      and str(v).endswith('@'+self.domain)
+                      and str(v).endswith('@' + self.domain)
                      ]
 
         self.action = i.get('action', None)
@@ -59,20 +61,21 @@ class List:
 
         if self.action == 'delete':
             result = userLib.delete(domain=self.domain, mails=self.mails,)
-            msg = 'DELETED_SUCCESS'
+            msg = 'DELETED'
         elif self.action == 'disable':
             result = userLib.enableOrDisableAccount(domain=self.domain, accounts=self.mails, active=False,)
-            msg = 'DISABLED_SUCCESS'
+            msg = 'DISABLED'
         elif self.action == 'enable':
             result = userLib.enableOrDisableAccount(domain=self.domain, accounts=self.mails, active=True,)
-            msg = 'ENABLED_SUCCESS'
+            msg = 'ENABLED'
         else:
             result = (False, 'INVALID_ACTION')
 
         if result[0] is True:
-            return web.seeother('/users/%s?msg=%s' % (self.domain, msg,))
+            raise web.seeother('/users/%s?msg=%s' % (self.domain, msg,))
         else:
-            return web.seeother('/users/%s?msg=%s' % (self.domain, result[1],))
+            raise web.seeother('/users/%s?msg=%s' % (self.domain, web.urlquote(result[1]),))
+
 
 class Profile:
     @decorators.require_login
@@ -84,20 +87,20 @@ class Profile:
 
         if self.mail.startswith('@') and iredutils.isDomain(self.cur_domain):
             # Catchall account.
-            return web.seeother('/profile/domain/catchall/%s' % (self.cur_domain))
+            raise web.seeother('/profile/domain/catchall/%s' % self.cur_domain)
 
         if not iredutils.isEmail(self.mail):
-            return web.seeother('/domains?msg=INVALID_USER')
+            raise web.seeother('/domains?msg=INVALID_USER')
 
         if not iredutils.isDomain(self.cur_domain):
-            return web.seeother('/domains?msg=INVALID_DOMAIN_NAME')
+            raise web.seeother('/domains?msg=INVALID_DOMAIN_NAME')
 
         userLib = userlib.User()
         qr = userLib.profile(domain=self.cur_domain, mail=self.mail)
         if qr[0] is True:
             self.profile = qr[1]
         else:
-            return web.seeother('/users/%s?msg=%s' % (self.cur_domain, qr[1]))
+            raise web.seeother('/users/%s?msg=%s' % (self.cur_domain, web.urlquote(qr[1])))
 
         return web.render(
             'mysql/user/profile.html',
@@ -108,11 +111,21 @@ class Profile:
             msg=i.get('msg'),
         )
 
+    @decorators.csrf_protected
     @decorators.require_login
     def POST(self, profile_type, mail):
         i = web.input(
             enabledService=[],
+            #mailForwardingAddress=[],
+            shadowAddress=[],
             telephoneNumber=[],
+            memberOfGroup=[],
+            oldMemberOfAlias=[],
+            memberOfAlias=[],
+            #whitelistSender=[],
+            #blacklistSender=[],
+            #whitelistRecipient=[],
+            #blacklistRecipient=[],
         )
         self.profile_type = web.safestr(profile_type)
         self.mail = str(mail).lower()
@@ -125,9 +138,9 @@ class Profile:
         )
 
         if result[0] is True:
-            return web.seeother('/profile/user/%s/%s?msg=PROFILE_UPDATED_SUCCESS' % (self.profile_type, self.mail))
+            raise web.seeother('/profile/user/%s/%s?msg=UPDATED' % (self.profile_type, self.mail))
         else:
-            return web.seeother('/profile/user/%s/%s?msg=%s' % (self.profile_type, self.mail, result[1]))
+            raise web.seeother('/profile/user/%s/%s?msg=%s' % (self.profile_type, self.mail, web.urlquote(result[1])))
 
 
 class Create:
@@ -138,59 +151,43 @@ class Create:
         else:
             self.cur_domain = str(domain)
             if not iredutils.isDomain(self.cur_domain):
-                return web.seeother('/domains?msg=INVALID_DOMAIN_NAME')
+                raise web.seeother('/domains?msg=INVALID_DOMAIN_NAME')
 
         i = web.input()
 
         # Get all managed domains.
-        domainLib = domainlib.Domain()
-        result = domainLib.getAllDomains(columns=[
-            'domain', 'description',
-            'maxquota', 'mailboxes', 'defaultuserquota',
-            'minpasswordlength', 'maxpasswordlength',
-        ])
+        connutils = connUtils.Utils()
+        qr = connutils.getManagedDomains(admin=session.get('username'), domainNameOnly=True,)
 
-        if result[0] is True:
-            allDomains=result[1]
+        if qr[0] is True:
+            allDomains = qr[1]
         else:
-            return web.seeother('/domains?msg=' % result[1])
+            raise web.seeother('/domains?msg=' % web.urlquote(qr[1]))
 
         # Set first domain as current domain.
         if self.cur_domain is None:
             if len(allDomains) > 0:
-                return web.seeother('/create/user/%s' % str(allDomains[0].domain))
+                raise web.seeother('/create/user/%s' % str(allDomains[0]))
             else:
-                return web.seeother('/domains?msg=NO_DOMAIN_AVAILABLE')
+                raise web.seeother('/domains?msg=NO_DOMAIN_AVAILABLE')
 
         # Get domain profile.
+        domainLib = domainlib.Domain()
         resultOfProfile = domainLib.profile(domain=self.cur_domain)
         if resultOfProfile[0] is True:
             self.profile = resultOfProfile[1]
         else:
-            return web.seeother('/domains?msg=%s' % resultOfProfile[1])
-
-        # Cet total number and allocated quota size of existing users under domain.
-        self.numberOfExistAccounts = 0
-        self.usedQuotaSize = 0
-
-        qr = domainLib.getCountsOfExistAccountsUnderDomain(
-            domain=self.cur_domain,
-            accountType='user',
-        )
-        if qr[0] is True:
-            self.numberOfExistAccounts = qr[1]
-            self.usedQuotaSize = qr[2]
+            raise web.seeother('/domains?msg=%s' % web.urlquote(resultOfProfile[1]))
 
         return web.render(
             'mysql/user/create.html',
             cur_domain=self.cur_domain,
             allDomains=allDomains,
             profile=self.profile,
-            numberOfExistAccounts=self.numberOfExistAccounts,
-            usedQuotaSize=self.usedQuotaSize,
             msg=i.get('msg'),
         )
 
+    @decorators.csrf_protected
     @decorators.require_login
     def POST(self, domain):
         i = web.input()
@@ -202,6 +199,6 @@ class Create:
         userLib = userlib.User()
         result = userLib.add(domain=self.cur_domain, data=i)
         if result[0] is True:
-            return web.seeother('/profile/user/general/%s@%s?msg=CREATED_SUCCESS' % (self.username, self.cur_domain))
+            raise web.seeother('/profile/user/general/%s@%s?msg=CREATED' % (self.username, self.cur_domain))
         else:
-            return web.seeother('/create/user/%s?msg=%s' % (self.cur_domain, result[1]))
+            raise web.seeother('/create/user/%s?msg=%s' % (self.cur_domain, web.urlquote(result[1])))

@@ -1,23 +1,8 @@
-{#
-    @profile_type
-    @mail
-    @user_profile
-    @maillists:             All mail list accounts under same domain.
-    @nonExistListEmails     Mail list addresses which already assigned but not exist
-    @aliases                All mail list accounts under same domain.
-
-    # profile_type == 'throttle'
-    @throttleOfSender
-    @throttleOfRecipient
-
-    @[msg,]
-#}
-
 {% extends "layout.html" %}
 
 {% from "macros/general.html" import
         display_subnav,
-        set_account_status_img,
+        display_csrf_token,
         display_input_cn,
         display_quota,
         display_input_employeeid,
@@ -26,6 +11,7 @@
         display_input_phone,
         display_account_status,
         display_reset_password,
+        display_random_password,
         display_button_submit,
         with context
         %}
@@ -47,7 +33,7 @@
 {% set accountStatus = entries.get('accountStatus', ['disabled'])[0] |e %}
 
 {# Get enabledService #}
-{% if profile_type in ['general',] %}
+{% if profile_type in ['general', 'forwarding', 'aliases', 'advanced',] %}
     {% set enabledService = entries.get('enabledService', ['']) %}
 {% endif %}
 
@@ -76,7 +62,6 @@
 
 {% set navlinks = [
             ('general', _('General'), [true,]),
-            ('password', _('Password'), [true,]),
             ]
             %}
 
@@ -95,8 +80,9 @@
             </div>
 
             <div class="box-wrap clear">
-
-<form method="post" action="{{ctx.homepath}}/profile/user/{{profile_type}}/{{mail}}">
+            
+<form name="{{profile_type}}" method="post" action="{{ctx.homepath}}/profile/user/{{profile_type}}/{{mail}}">
+    {{ display_csrf_token() }}
 
     {% if profile_type == 'general' %}
         <div class="columns clear">
@@ -105,7 +91,7 @@
 
                 <div class="bt-space10"></div>
                 {{ display_input_cn(cn) }}
-                {{ display_quota(value=mailQuota, show_value_in_input='yes') }}
+                {{ display_quota(value=mailQuota, show_value_in_input=true) }}
 
                 <div class="bt-space10"></div>
                 {{ display_input_employeeid(employeeNumber) }}
@@ -115,17 +101,27 @@
                 {{ display_input_mobile(value=mobile) }}
                 {{ display_input_phone(value=telephoneNumber) }}
             </div>{#-- .col2-3 --#}
-
         </div>{#-- .columns --#}
-
     {% elif profile_type == 'password' %}
+        <div class="columns clear">
+            <div class="col3-4">
+                {# Password length #}
+                {% set minPasswordLength = domainAccountSetting.get('minPasswordLength', '0') %}
+                {% set maxPasswordLength = domainAccountSetting.get('maxPasswordLength', '0') %}
 
-        {{ display_reset_password(
-                min_passwd_length=minPasswordLength,
-                max_passwd_length=maxPasswordLength,
-                show_confirmpw=true,
-                )
+                {{ display_reset_password(
+                        min_passwd_length=minPasswordLength,
+                        max_passwd_length=maxPasswordLength,
+                        show_confirmpw=true,
+                        store_in_plain=true,
+                        )
                 }}
+            </div>
+
+            <div class="col1-4 lastcol">
+                {{ display_random_password(maxPasswordLength) }}
+            </div>
+        </div>
     {% endif %}
 
     {{ display_button_submit() }}

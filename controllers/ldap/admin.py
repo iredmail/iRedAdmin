@@ -1,9 +1,8 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
 import web
-from controllers import base
-from libs import languages
-from libs.ldaplib import admin, domain as domainlib, connUtils
+from libs import languages, settings
+from libs.ldaplib import decorators, admin, domain as domainlib, connUtils
 
 cfg = web.iredconfig
 session = web.config.get('_session')
@@ -14,8 +13,8 @@ session = web.config.get('_session')
 
 
 class List:
-    @base.require_global_admin
-    @base.require_login
+    @decorators.require_global_admin
+    @decorators.require_login
     def GET(self, cur_page=1):
         i = web.input()
         cur_page = int(cur_page)
@@ -30,7 +29,7 @@ class List:
         sl = connutils.getSizelimitFromAccountLists(
             result[1],
             curPage=cur_page,
-            sizelimit=session['pageSizeLimit'],
+            sizelimit=settings.PAGE_SIZE_LIMIT,
         )
 
         if cur_page > sl.get('totalPages', 0):
@@ -45,8 +44,9 @@ class List:
         )
 
     # Delete, disable, enable admin accounts.
-    @base.require_global_admin
-    @base.require_login
+    @decorators.require_global_admin
+    @decorators.csrf_protected
+    @decorators.require_login
     def POST(self):
         i = web.input(_unicode=False, mail=[])
         self.mails = i.get('mail', [])
@@ -55,26 +55,26 @@ class List:
         adminLib = admin.Admin()
         if self.action == 'delete':
             result = adminLib.delete(mails=self.mails,)
-            msg = 'DELETED_SUCCESS'
+            msg = 'DELETED'
         elif self.action == 'disable':
             result = adminLib.enableOrDisableAccount(mails=self.mails, action='disable',)
-            msg = 'DISABLED_SUCCESS'
+            msg = 'DISABLED'
         elif self.action == 'enable':
             result = adminLib.enableOrDisableAccount(mails=self.mails, action='enable',)
-            msg = 'ENABLED_SUCCESS'
+            msg = 'ENABLED'
         else:
             result = (False, 'INVALID_ACTION')
             msg = i.get('msg', None)
 
         if result[0] is True:
-            return web.seeother('/admins?msg=%s' % msg)
+            raise web.seeother('/admins?msg=%s' % msg)
         else:
-            return web.seeother('/admins?msg=?' + result[1])
+            raise web.seeother('/admins?msg=' + result[1])
 
 
 class Create:
-    @base.require_global_admin
-    @base.require_login
+    @decorators.require_global_admin
+    @decorators.require_login
     def GET(self):
         i = web.input()
         return web.render('ldap/admin/create.html',
@@ -85,8 +85,9 @@ class Create:
                           msg=i.get('msg'),
                          )
 
-    @base.require_global_admin
-    @base.require_login
+    @decorators.require_global_admin
+    @decorators.csrf_protected
+    @decorators.require_login
     def POST(self):
         i = web.input()
         self.mail = web.safestr(i.get('mail'))
@@ -96,26 +97,26 @@ class Create:
 
         if result[0] is True:
             # Redirect to assign domains.
-            return web.seeother('/profile/admin/general/%s?msg=CREATED_SUCCESS' % self.mail)
+            raise web.seeother('/profile/admin/general/%s?msg=CREATED' % self.mail)
         else:
-            return web.seeother('/create/admin?msg=' + result[1])
+            raise web.seeother('/create/admin?msg=' + result[1])
 
 
 class Profile:
-    @base.require_login
+    @decorators.require_login
     def GET(self, profile_type, mail):
         self.mail = web.safestr(mail)
         self.profile_type = web.safestr(profile_type)
 
         if session.get('domainGlobalAdmin') is not True and session.get('username') != self.mail:
             # Don't allow to view/update other admins' profile.
-            return web.seeother('/profile/admin/general/%s?msg=PERMISSION_DENIED' % session.get('username'))
+            raise web.seeother('/profile/admin/general/%s?msg=PERMISSION_DENIED' % session.get('username'))
 
-        adminLib = admin.Admin()
         # Get admin profile.
+        adminLib = admin.Admin()
         result = adminLib.profile(self.mail)
         if result[0] is not True:
-            return web.seeother('/admins?msg=' + result[1])
+            raise web.seeother('/admins?msg=' + result[1])
         else:
             self.admin_profile = result[1]
 
@@ -130,7 +131,7 @@ class Profile:
 
                 # Check permission.
                 #if session.get('domainGlobalAdmin') is not True:
-                #    return web.seeother('/profile/admin/general/%s?msg=PERMISSION_DENIED' % self.mail)
+                #    raise web.seeother('/profile/admin/general/%s?msg=PERMISSION_DENIED' % self.mail)
 
                 # Get all domains.
                 domainLib = domainlib.Domain()
@@ -140,16 +141,6 @@ class Profile:
                 else:
                     return resultOfAllDomains
 
-                # Get domains under control.
-                resultOfManagedDomains = adminLib.getManagedDomains(mail=self.mail, attrs=['domainName', ])
-                if resultOfManagedDomains[0] is True:
-                    self.managedDomains = []
-                    for d in resultOfManagedDomains[1]:
-                        if 'domainName' in d[1].keys():
-                            self.managedDomains += d[1].get('domainName')
-                else:
-                    return resultOfManagedDomains
-
                 return web.render(
                     'ldap/admin/profile.html',
                     mail=self.mail,
@@ -157,11 +148,10 @@ class Profile:
                     profile=self.admin_profile,
                     languagemaps=languages.getLanguageMaps(),
                     allDomains=self.allDomains,
-                    managedDomains=self.managedDomains,
                     msg=i.get('msg', None),
                 )
             else:
-                return web.seeother('/profile/admin/%s/%s?msg=%s' % (self.profile_type, self.mail, result[1]))
+                raise web.seeother('/profile/admin/%s/%s?msg=%s' % (self.profile_type, self.mail, result[1]))
 
         elif self.profile_type == 'password':
             return web.render('ldap/admin/profile.html',
@@ -173,7 +163,8 @@ class Profile:
                               msg=i.get('msg', None),
                              )
 
-    @base.require_login
+    @decorators.csrf_protected
+    @decorators.require_login
     def POST(self, profile_type, mail):
         self.profile_type = web.safestr(profile_type)
         self.mail = web.safestr(mail)
@@ -181,7 +172,7 @@ class Profile:
 
         if session.get('domainGlobalAdmin') is not True and session.get('username') != self.mail:
             # Don't allow to view/update other admins' profile.
-            return web.seeother('/profile/admin/general/%s?msg=PERMISSION_DENIED' % session.get('username'))
+            raise web.seeother('/profile/admin/general/%s?msg=PERMISSION_DENIED' % session.get('username'))
 
         adminLib = admin.Admin()
         result = adminLib.update(
@@ -191,6 +182,6 @@ class Profile:
                 )
 
         if result[0] is True:
-            return web.seeother('/profile/admin/%s/%s?msg=PROFILE_UPDATED_SUCCESS' % (self.profile_type, self.mail))
+            raise web.seeother('/profile/admin/%s/%s?msg=UPDATED' % (self.profile_type, self.mail))
         else:
-            return web.seeother('/profile/admin/%s/%s?msg=%s' % (self.profile_type, self.mail, result[1]))
+            raise web.seeother('/profile/admin/%s/%s?msg=%s' % (self.profile_type, self.mail, result[1]))

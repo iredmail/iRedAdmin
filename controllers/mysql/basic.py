@@ -5,18 +5,18 @@ import time
 from socket import getfqdn
 from urllib import urlencode
 import web
-from libs import __url_iredadmin_mysql_latest__, __version__
-from libs import iredutils, languages
-from libs.mysql import core, decorators
+from libs import __url_latest_mysql__, __version_mysql__, __no__, __id__
+from libs import iredutils, settings, languages
+from libs.mysql import core, decorators, admin as adminlib, connUtils
+
 
 cfg = web.iredconfig
 session = web.config.get('_session')
 
+
 class Login:
     def GET(self):
-        if session.get('logged') is True:
-            return web.seeother('/dashboard')
-        else:
+        if session.get('logged') is False:
             i = web.input(_unicode=False)
 
             # Show login page.
@@ -25,6 +25,8 @@ class Login:
                 languagemaps=languages.getLanguageMaps(),
                 msg=i.get('msg'),
             )
+        else:
+            raise web.seeother('/dashboard')
 
     def POST(self):
         # Get username, password.
@@ -53,28 +55,26 @@ class Login:
                 web.config.session_parameters['timeout'] = 600      # 10 minutes
 
             web.logger(msg="Login success", event='login',)
-            return web.seeother('/dashboard/checknew')
+            raise web.seeother('/dashboard/checknew')
         else:
             session['failedTimes'] += 1
             web.logger(msg="Login failed.", admin=username, event='login', loglevel='error',)
-            return web.seeother('/login?msg=%s' % auth_result[1])
+            raise web.seeother('/login?msg=%s' % web.urlquote(auth_result[1]))
 
 
 class Logout:
     def GET(self):
         session.kill()
-        return web.seeother('/login')
+        raise web.seeother('/login')
 
 
 class Dashboard:
     @decorators.require_login
-    def GET(self, checknew=None):
+    def GET(self, checknew=False):
         i = web.input(_unicode=False,)
 
-        if checknew is not None:
-            self.checknew = True
-        else:
-            self.checknew = False
+        if checknew:
+            checknew = True
 
         # Get network interface related infomation.
         netif_data = {}
@@ -93,7 +93,8 @@ class Dashboard:
             pass
 
         # Check new version.
-        if session.get('domainGlobalAdmin') is True and self.checknew is True:
+        newVersionInfo = (None, )
+        if session.get('domainGlobalAdmin') is True and checknew is True:
             try:
                 curdate = time.strftime('%Y-%m-%d')
                 vars = dict(date=curdate)
@@ -102,12 +103,13 @@ class Dashboard:
                 if len(r) == 0:
                     urlInfo = {
                         'a': cfg.general.get('webmaster', session.get('username', '')),
-                        'v': __version__,
+                        'v': __version_mysql__,
+                        'o': __no__,
+                        'f': __id__,
                         'host': getfqdn(),
-                        'backend': cfg.general.get('backend', ''),
                     }
 
-                    url = __url_iredadmin_mysql_latest__ + '?' + urlencode(urlInfo)
+                    url = __url_latest_mysql__ + '?' + urlencode(urlInfo)
                     newVersionInfo = iredutils.getNewVersion(url)
 
                     # Always remove all old records, just keep the last one.
@@ -115,16 +117,12 @@ class Dashboard:
 
                     # Insert updating date.
                     web.admindb.insert('updatelog', date=curdate,)
-                else:
-                    newVersionInfo = (None, )
             except Exception, e:
                 newVersionInfo = (False, str(e))
-        else:
-            newVersionInfo = (None, )
 
         return web.render(
             'dashboard.html',
-            version=__version__,
+            version=__version_mysql__,
             hostname=getfqdn(),
             uptime=iredutils.getServerUptime(),
             loadavg=os.getloadavg(),

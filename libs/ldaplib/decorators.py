@@ -2,16 +2,21 @@
 
 import ldap
 import web
+from controllers import decorators as base_decorators
 from libs import iredutils
 from libs.ldaplib import core, ldaputils, attrs
 
 session = web.config.get('_session')
 
+require_login = base_decorators.require_login
+require_global_admin = base_decorators.require_global_admin
+csrf_protected = base_decorators.csrf_protected
+
 class Validator(core.LDAPWrap):
     def __del__(self):
         try:
             self.conn.unbind()
-        except Exception, e:
+        except Exception:
             pass
 
     def isDomainAdmin(self, domain, admin=session.get('username'),):
@@ -27,17 +32,9 @@ class Validator(core.LDAPWrap):
                 return True
             else:
                 return False
-        except Exception, e:
+        except Exception:
             return False
 
-    
-def require_global_admin(func):
-    def proxyfunc(*args, **kw):
-        if session.get('domainGlobalAdmin') is True:
-            return func(*args, **kw)
-        else:
-            return (False, 'PERMISSION_DENIED')
-    return proxyfunc
 
 def require_domain_access(func):
     def proxyfunc(*args, **kw):
@@ -59,3 +56,4 @@ def require_domain_access(func):
             else:
                 return (False, 'PERMISSION_DENIED')
     return proxyfunc
+

@@ -2,7 +2,7 @@
 
 import web
 import ldap
-from libs import iredutils
+from libs import settings
 from libs.ldaplib import attrs
 
 cfg = web.iredconfig
@@ -10,7 +10,7 @@ session = web.config.get('_session')
 
 
 class LDAPWrap:
-    def __init__(self, app=web.app, session=session, **settings):
+    def __init__(self, app=web.app, session=session,):
         # Get LDAP settings.
         self.basedn = cfg.ldap.get('basedn')
         self.domainadmin_dn = cfg.ldap.get('domainadmin_dn')
@@ -31,7 +31,7 @@ class LDAPWrap:
                 ldap.set_option(ldap.OPT_X_TLS_REQUIRE_CERT, ldap.OPT_X_TLS_NEVER)
 
             # Initialize connection.
-            self.conn = ldap.initialize(uri, trace_level=iredutils.LDAP_CONN_TRACE_LEVEL,)
+            self.conn = ldap.initialize(uri, trace_level=settings.LDAP_CONN_TRACE_LEVEL,)
 
             # Set LDAP protocol version: LDAP v3.
             self.conn.set_option(ldap.OPT_PROTOCOL_VERSION, ldap.VERSION3)

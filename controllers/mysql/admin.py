@@ -4,10 +4,11 @@
 
 import web
 from libs import languages, iredutils
-from libs.mysql import decorators, admin as adminlib, domain as domainlib
+from libs.mysql import decorators, admin as adminlib, domain as domainlib, connUtils
 
 cfg = web.iredconfig
 session = web.config.get('_session')
+
 
 class List:
     @decorators.require_global_admin
@@ -24,24 +25,18 @@ class List:
         if result[0] is True:
             (total, records) = (result[1], result[2])
 
-            # Get list of global admins.
-            allGlobalAdmins = []
-            qr = adminLib.getAllGlobalAdmins()
-            if qr[0] is True:
-                allGlobalAdmins = qr[1]
-
             return web.render(
                 'mysql/admin/list.html',
                 cur_page=cur_page,
                 total=total,
                 admins=records,
-                allGlobalAdmins=allGlobalAdmins,
                 msg=i.get('msg', None),
             )
         else:
-            return web.seeother('/domains?msg=%s' % result[1])
+            raise web.seeother('/domains?msg=%s' % web.urlquote(result[1]))
 
     @decorators.require_global_admin
+    @decorators.csrf_protected
     @decorators.require_login
     def POST(self):
         i = web.input(_unicode=False, mail=[])
@@ -54,20 +49,21 @@ class List:
 
         if self.action == 'delete':
             result = adminLib.delete(mails=self.mails,)
-            msg = 'DELETED_SUCCESS'
+            msg = 'DELETED'
         elif self.action == 'disable':
             result = adminLib.enableOrDisableAccount(accounts=self.mails, active=False,)
-            msg = 'DISABLED_SUCCESS'
+            msg = 'DISABLED'
         elif self.action == 'enable':
             result = adminLib.enableOrDisableAccount(accounts=self.mails, active=True,)
-            msg = 'ENABLED_SUCCESS'
+            msg = 'ENABLED'
         else:
             result = (False, 'INVALID_ACTION')
 
         if result[0] is True:
-            return web.seeother('/admins?msg=%s' % msg)
+            raise web.seeother('/admins?msg=%s' % msg)
         else:
-            return web.seeother('/admins?msg=?' + result[1])
+            raise web.seeother('/admins?msg=?' + web.urlquote(result[1]))
+
 
 class Profile:
     @decorators.require_login
@@ -77,11 +73,11 @@ class Profile:
         self.profile_type = web.safestr(profile_type)
 
         if not iredutils.isEmail(self.mail):
-            return web.seeother('/admins?msg=INVALID_MAIL')
+            raise web.seeother('/admins?msg=INVALID_MAIL')
 
         if session.get('domainGlobalAdmin') is not True and session.get('username') != self.mail:
             # Don't allow to view/update other admins' profile.
-            return web.seeother('/profile/admin/general/%s?msg=PERMISSION_DENIED' % session.get('username'))
+            raise web.seeother('/profile/admin/general/%s?msg=PERMISSION_DENIED' % session.get('username'))
 
         adminLib = adminlib.Admin()
         result = adminLib.profile(mail=self.mail)
@@ -97,13 +93,6 @@ class Profile:
             if resultOfAllDomains[0] is True:
                 self.allDomains = resultOfAllDomains[1]
 
-            # Get managed domains.
-            self.managedDomains = []
-
-            qr = adminLib.getManagedDomains(admin=self.mail, domainNameOnly=True, listedOnly=True,)
-            if qr[0] is True:
-                self.managedDomains += qr[1]
-
             return web.render(
                 'mysql/admin/profile.html',
                 mail=self.mail,
@@ -112,15 +101,14 @@ class Profile:
                 profile=profile,
                 languagemaps=languages.getLanguageMaps(),
                 allDomains=self.allDomains,
-                managedDomains=self.managedDomains,
                 min_passwd_length=cfg.general.get('min_passwd_length', '0'),
                 max_passwd_length=cfg.general.get('max_passwd_length', '0'),
                 msg=i.get('msg'),
             )
         else:
-            return web.seeother('/admins?msg=' + result[1])
+            raise web.seeother('/admins?msg=' + web.urlquote(result[1]))
 
-
+    @decorators.csrf_protected
     @decorators.require_login
     def POST(self, profile_type, mail):
         self.profile_type = web.safestr(profile_type)
@@ -129,7 +117,7 @@ class Profile:
 
         if session.get('domainGlobalAdmin') is not True and session.get('username') != self.mail:
             # Don't allow to view/update others' profile.
-            return web.seeother('/profile/admin/general/%s?msg=PERMISSION_DENIED' % session.get('username'))
+            raise web.seeother('/profile/admin/general/%s?msg=PERMISSION_DENIED' % session.get('username'))
 
         adminLib = adminlib.Admin()
         result = adminLib.update(
@@ -139,9 +127,9 @@ class Profile:
         )
 
         if result[0] is True:
-            return web.seeother('/profile/admin/%s/%s?msg=PROFILE_UPDATED_SUCCESS' % (self.profile_type, self.mail))
+            raise web.seeother('/profile/admin/%s/%s?msg=UPDATED' % (self.profile_type, self.mail))
         else:
-            return web.seeother('/profile/admin/%s/%s?msg=%s' % (self.profile_type, self.mail, result[1],))
+            raise web.seeother('/profile/admin/%s/%s?msg=%s' % (self.profile_type, self.mail, web.urlquote(result[1]),))
 
 
 class Create:
@@ -159,6 +147,7 @@ class Create:
         )
 
     @decorators.require_global_admin
+    @decorators.csrf_protected
     @decorators.require_login
     def POST(self):
         i = web.input()
@@ -169,8 +158,6 @@ class Create:
 
         if result[0] is True:
             # Redirect to assign domains.
-            return web.seeother('/profile/admin/general/%s?msg=CREATED_SUCCESS' % self.mail)
+            raise web.seeother('/profile/admin/general/%s?msg=CREATED' % self.mail)
         else:
-            return web.seeother('/create/admin?msg=' + result[1])
-
-
+            raise web.seeother('/create/admin?msg=' + web.urlquote(result[1]))

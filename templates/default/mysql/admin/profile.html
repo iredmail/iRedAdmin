@@ -1,19 +1,13 @@
-{#
-    @profile_type   arguments
-
-    all             mail, profile_type, [msg,]
-    @general        profile, languagemaps,
-    @domains        allDomains, managedDomains,
-    @password       min_passwd_length, max_passwd_length,
-#}
 {% extends "layout.html" %}
 {% from "macros/general.html" import
                 display_subnav,
                 set_account_status_img,
+                display_csrf_token,
                 display_account_status,
                 display_input_cn,
                 display_preferred_language,
                 display_reset_password,
+                display_random_password,
                 display_button_submit,
                 with context
                 %}
@@ -26,7 +20,7 @@
 {% block breadcrumb %}
     {% set crumbs = [
             (ctx.homepath + '/admins', _('All admins'),),
-            (None, _('Profile of admin:') + ' ' + mail,),
+            (None, _('Profile of admin:') + '&nbsp;' + mail,),
             ]
             %}
     {{ display_subnav(crumbs) }}
@@ -34,6 +28,8 @@
 
 
 {% block main %}
+
+{% set input_csrf_token = display_csrf_token() %}
 
 {# Show system message #}
 {{ adminMsgHandler(msg) }}
@@ -60,7 +56,8 @@
 
         <div class="box-wrap clear">
             <div id="profile_general">
-                <form method="post" action="{{ctx.homepath}}/profile/admin/general/{{mail}}">
+                <form name="general" method="post" action="{{ctx.homepath}}/profile/admin/general/{{mail}}">
+                    {{ input_csrf_token }}
                     {% if profile.language != '' %}
                         {% set preferredLanguage = profile.language |string |e %}
                     {% else %}
@@ -84,23 +81,32 @@
             </div>
 
             <div id="profile_password">
-                <form method="post" action="{{ctx.homepath}}/profile/admin/password/{{mail}}">
-                    {% if session.get('domainGlobalAdmin') is sameas true %}
-                        {{ display_reset_password(
-                                min_passwd_length=min_passwd_length,
-                                max_passwd_length=max_passwd_length,
-                                show_confirmpw=true,
-                                )
+                <form name="password" method="post" action="{{ctx.homepath}}/profile/admin/password/{{mail}}">
+                    {{ input_csrf_token }}
+                    <div class="columns clear">
+                        <div class="col3-4">
+                            {% if session.get('domainGlobalAdmin') is sameas true %}
+                                {{ display_reset_password(
+                                        min_passwd_length=min_passwd_length,
+                                        max_passwd_length=max_passwd_length,
+                                        show_confirmpw=true,
+                                        )
                                 }}
-                    {% else %}
-                        {{ display_reset_password(
-                                min_passwd_length=min_passwd_length,
-                                max_passwd_length=max_passwd_length,
-                                show_oldpw=true,
-                                show_confirmpw=true,
-                                )
+                            {% else %}
+                                {{ display_reset_password(
+                                        min_passwd_length=min_passwd_length,
+                                        max_passwd_length=max_passwd_length,
+                                        show_oldpw=true,
+                                        show_confirmpw=true,
+                                        )
                                 }}
-                    {% endif %}
+                            {% endif %}
+                        </div>
+
+                        <div class="col1-4 lastcol">
+                            {{ display_random_password(min_passwd_length) }}
+                        </div>
+                    </div>
 
                     {{ display_button_submit() }}
                 </form>

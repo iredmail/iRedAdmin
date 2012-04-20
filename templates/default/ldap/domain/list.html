@@ -1,14 +1,10 @@
-{#
-    @allDomains
-    @allAccountSettings
-    @msg
-#}
-
 {% extends "layout.html" %}
 
 {% from "macros/general.html" import
         load_jquery,
+        display_csrf_token,
         set_account_status_img,
+        display_csrf_token,
         display_number_of_account_limited,
         display_add_domain,
         show_pages,
@@ -38,12 +34,13 @@
                 <h2>
                     {{ _('All domains under your control.') }}
                     {% if total is defined and allDomains|length > 0 %}
-                        ({{ (cur_page-1) * session['pageSizeLimit'] + 1 }}-{{ (cur_page-1) * session['pageSizeLimit'] + allDomains|length}}/{{ total }})
+                        ({{ (cur_page-1) * pageSizeLimit + 1 }}-{{ (cur_page-1) * pageSizeLimit + allDomains|length}}/{{ total }})
                     {% endif %}
                 </h2>
             </div>
 
-            <form id="list_table" method="post" action="{{ctx.homepath}}/domains">
+            <form name="domains" id="list_table" method="post" action="{{ctx.homepath}}/domains">
+            {{ display_csrf_token() }}
             <table class="style1 tablesorter" cellspacing="0">
                 <thead>
                 <tr>
@@ -53,7 +50,6 @@
                     <th>{{ _('Domain') }}</th>
                     <th>{{ _('Name') }}</th>
                     <th>{{ _('Users') }}</th>
-                    <th>{{ _('Created') }}</th>
                 </tr>
                 </thead>
 
@@ -72,8 +68,6 @@
                         {# Get number of current accounts #}
                         {% set domainCurrentUserNumber = entries.get('domainCurrentUserNumber', ['0'])[0] |int %}
 
-                        {% set timestamp = entries.get('createTimestamp', ['--------------'])[0] %}
-
                         <tr class="{{ accountStatus |lower }}">
                             {% if session.get('domainGlobalAdmin') is sameas true %}
                                 <td class="checkbox"><input type="checkbox" class="checkbox " name="domainName" value="{{domain}}" /></td>
@@ -85,23 +79,22 @@
                             </td>
 
                             <td class="vcenter">{% if cn != '' and cn != domain %}{{ cn |cutString }}{% endif %}</td>
+
                             {# Mail user count #}
                             <td class="vcenter">
-                                <a href="{{ctx.homepath}}/users/{{domain}}" title="{{ _('List all mail users.') }}" style="text-decoration: none;">{{domainCurrentUserNumber}}</a>
+                                 <a href="{{ctx.homepath}}/users/{{domain}}" title="{{ _('List all mail users.') }}" style="text-decoration: none;">{{domainCurrentUserNumber}}</a>
                             </td>
-
-                            <td class="vcenter">{{ timestamp |setDatetimeFormat(hour=False) }}</td>
                         </tr>
                     {% endfor %}
                 {% else %}
                     <tr>
                     {% if session.get('domainGlobalAdmin') is sameas true %}
                         <td class="checkbox"></td>
-                        <td class="vcenter" colspan="8">{{ _('No domain available.') }}
+                        <td class="vcenter" colspan="7">{{ _('No mail domain available.') }}
                             <a href="{{ctx.homepath}}/create/domain">{{ _('Add one') }}</a>?
                         </td>
                     {% else %}
-                        <td class="vcenter" colspan="8">{{ _('No domain available.') }}</td>
+                        <td class="vcenter" colspan="6">{{ _('No mail domain available.') }}</td>
                     {% endif %}
                     </tr>
                 {% endif %}
@@ -121,13 +114,7 @@
                         </div>
                     {% endif %}
 
-                    {% set pages = show_pages(
-                              baseurl=ctx.homepath + '/domains',
-                              total=total,
-                              cur_page=cur_page)
-                              %}
-
-                    {{ pages }}
+                    {{ show_pages(baseurl=ctx.homepath + '/domains', total=total, cur_page=cur_page) }}
                 </div>
             </form>
         </div>
@@ -137,10 +124,10 @@
 
 {% block js %}
     {% if session.get('domainGlobalAdmin') is sameas true %}
-        {% set sortFirstCol = false %}
+        {% set nonSortedCols = [0] %}
     {% else %}
-        {% set sortFirstCol = true %}
+        {% set nonSortedCols = [] %}
     {% endif %}
 
-    {{ load_jquery(['tablesorter'], sortFirstCol=sortFirstCol) }}
+    {{ load_jquery(['tablesorter'], nonSortedCols=nonSortedCols) }}
 {% endblock js %}

@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 
-# =========================================================
-# Author:    Zhang Huangbin (michaelbibby@gmail.com)
-# =========================================================
+# Author:    Zhang Huangbin (zhb _at_ iredmail.org)
 
 #---------------------------------------------------------------------
 # This file is part of iRedAdmin-Pro, which is official web-based admin
@@ -48,7 +46,7 @@ extractLastest()
     echo "* Extract localizable messages from template files to ${POFILE}..."
 
         #--no-location \
-    pybabel -v extract -F babel.cfg \
+    pybabel extract -F babel.cfg \
         --sort-output \
         --charset=utf-8 \
         --msgid-bugs-address=zhb@iredmail.org \
@@ -61,9 +59,6 @@ updatePO()
     # Update PO files.
     echo "* Update existing new translations catalog based on ${POFILE}..."
 
-    # Get iRedAdmin version number.
-    export version=$(grep '^__version__' ../libs/__init__.py | awk -F"'" '{print $2}')
-
     for lang in ${LANGUAGES}
     do
         [ -d ${lang}/LC_MESSAGES/ ] || mkdir -p ${lang}/LC_MESSAGES/
@@ -72,11 +67,11 @@ updatePO()
             -d . \
             -l ${lang}
 
-        # Add project name and version number.
-        perl -pi -e 's#(.*Project-Id-Version:).*#${1} iRedAdmin-Pro-$ENV{version}\\n"#' ${lang}/LC_MESSAGES/${DOMAIN}.po
-
         # Remove 'fuzzy' tag.
         perl -pi -e 's/#, fuzzy//' ${lang}/LC_MESSAGES/${DOMAIN}.po
+
+        # Comment ', python-format'.
+        perl -pi -e 's/^(, python-format.*)/#${1}/' ${lang}/LC_MESSAGES/${DOMAIN}.po
     done
 }
 
@@ -87,6 +82,7 @@ convertPO2MO()
     do
         echo "  + Converting ${lang}..."
         msgfmt --statistics -c ${lang}/LC_MESSAGES/${DOMAIN}.po -o ${lang}/LC_MESSAGES/${DOMAIN}.mo
+        #python msgfmt.py ${lang}/LC_MESSAGES/${DOMAIN}.po
     done
 }
 

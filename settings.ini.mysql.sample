@@ -1,6 +1,6 @@
 [general]
 # Site webmaster's mail address.
-webmaster = webmaster@your_domain.com
+webmaster = zhb@iredmail.org
 
 # Debug mode: True, False.
 # Warning: Do *NOT* enable debug in product server.
@@ -34,11 +34,6 @@ mtaTransport = dovecot
 # login data: http://www.iredmail.org/admin_faq.html
 show_login_date = False
 
-# Show percentage of mailbox quota usage. Used in LDAP backend.
-# Make sure you have correct dovecot setting by following this tutorial:
-# http://iredmail.org/wiki/index.php?title=IRedMail/FAQ/Store.Realtime.Quota.In.MySQL
-show_used_quota = True
-
 # Min/Max admin password length.
 #   - min_passwd_length: 0 means unlimited, but at least 1 character
 #                        is required.
@@ -64,10 +59,6 @@ port = 3306
 db = vmail
 user = vmailadmin
 passwd = secret_passwd
-
-#################################################################
-# Below settings are used in iRedAdmin-Pro.
-#################################################################
 
 #################################################################
 # Settings used for Policyd (1.8.x) integration. Provides global
@@ -123,11 +114,8 @@ passwd = passwd
 # Release quarantined SPAM/Virus mails: True, False.
 # iRedAdmin-Pro will connect to @quarantine_server to release quarantined mails.
 # How to enable quarantining in Amavisd-new:
-# http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Quarantining.Messages
+# http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Quarantining.SPAM
 quarantine = True
 
-# Amavisd server address.
-server = 127.0.0.1
-
-# Port of 'AM.PDP-INET'. Default is 9998.
+# Port of Amavisd protocol 'AM.PDP-INET'. Default is 9998.
 quarantine_port = 9998

@@ -1,6 +1,6 @@
 [general]
 # Site webmaster's mail address.
-webmaster = webmaster@your_domain.com
+webmaster = zhb@iredmail.org
 
 # Debug mode: True, False.
 # Warning: Do *NOT* enable debug in product server.
@@ -83,7 +83,7 @@ bind_pw = passwd
 [policyd]
 
 # Enable policyd integration: True, False.
-enabled = False
+enabled = True
 
 # SQL Database used to store policyd data, eg. whitelist, blacklist.
 # You can find related information in policyd config files:
@@ -108,18 +108,6 @@ passwd = passwd
 #
 [amavisd]
 
-# #### Quarantining ####
-# Release quarantined SPAM/Virus mails: True, False.
-# iRedAdmin-Pro will connect to @quarantine_server to release quarantined mails.
-# How to enable quarantining in Amavisd-new:
-quarantine = False
-
-# Amavisd server address.
-server = 127.0.0.1
-
-# Port of 'AM.PDP-INET'. Default is 9998.
-quarantine_port = 9998
-
 ########### Logging into SQL (@storage_sql_dsn) ##########
 # Logging into SQL: True, False.
 # Log info of incoming/outgoing emails into SQL.
@@ -128,10 +116,21 @@ quarantine_port = 9998
 #   - On RHEL/CentOS:   /etc/amavisd.conf
 #   - On Debian/Ubuntu: /etc/amavis/conf.d/50-user.conf
 #   - On FreeBSD:       /usr/local/etc/amavisd.conf
-logging_into_sql = False
+logging_into_sql = True
 
 host = 127.0.0.1
 port = 3306
-db = amavisd
+db = amavisd 
 user = amavisd
 passwd = passwd
+
+# #### Quarantining ####
+# Release quarantined SPAM/Virus mails: True, False.
+#
+# iRedAdmin-Pro will connect to @quarantine_server to release quarantined mails.
+# How to enable quarantining in Amavisd-new:
+# http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Quarantining.SPAM
+quarantine = True
+
+# Port of Amavisd protocol 'AM.PDP-INET'. Default is 9998.
+quarantine_port = 9998

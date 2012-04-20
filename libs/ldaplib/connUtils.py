@@ -1,8 +1,8 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
-import types
 import web
 import ldap
+import ldif
 from ldap.filter import escape_filter_chars
 from libs import iredutils
 from libs.ldaplib import core, ldaputils, decorators, attrs, deltree
@@ -31,27 +31,35 @@ class Utils(core.LDAPWrap):
         @action: add, delete.
         """
         self.dn = escape_filter_chars(dn)
+        if isinstance(value, list):
+            values = value
+        else:
+            values = [value]
+
+        msg = ''
         if action == 'add' or action == 'assign':
-            try:
-                self.conn.modify_s(self.dn, [(ldap.MOD_ADD, attr, value)])
-                return (True,)
-            except ldap.NO_SUCH_OBJECT:
-                return (True,)
-                #return (False, 'OBJECT_NOT_EXIST')
-            except ldap.TYPE_OR_VALUE_EXISTS:
-                return (True,)
-            except Exception, e:
-                return (False, ldaputils.getExceptionDesc(e))
+            for v in values:
+                try:
+                    self.conn.modify_s(self.dn, [(ldap.MOD_ADD, attr, v)])
+                except (ldap.NO_SUCH_OBJECT, ldap.TYPE_OR_VALUE_EXISTS):
+                    pass
+                except Exception, e:
+                    msg += str(e)
         elif action == 'delete' or action == 'remove':
-            try:
-                self.conn.modify_s(self.dn, [(ldap.MOD_DELETE, attr, value)])
-                return (True,)
-            except ldap.NO_SUCH_ATTRIBUTE:
-                return (True,)
-            except Exception, e:
-                return (False, ldaputils.getExceptionDesc(e))
+            for v in values:
+                try:
+                    self.conn.modify_s(self.dn, [(ldap.MOD_DELETE, attr, v)])
+                except ldap.NO_SUCH_ATTRIBUTE:
+                    pass
+                except Exception, e:
+                    msg += str(e)
         else:
             return (False, 'UNKNOWN_ACTION')
+
+        if len(msg) == 0:
+            return (True,)
+        else:
+            return (False, msg)
 
     # Change password.
     def changePasswd(self, dn, cur_passwd, newpw):
@@ -76,59 +84,12 @@ class Utils(core.LDAPWrap):
         except Exception, e:
             return (False, ldaputils.getExceptionDesc(e))
 
-    # Search LDAP with display name (cn), email, shadowAddress.
-    def search(self, s):
-        # Escape search string.
-        s = escape_filter_chars(s)
-
-        filter = """(&(|(objectClass=mailDomain)(objectClass=mailUser)(objectClass=mailList)(objectClass=mailAlias))(|(cn=*%s*)(mail=*%s*)(shadowAddress=*%s*)))""" % (s, s, s,)
-        searchAttrs = ['objectClass', 'cn', 'mail', 'accountStatus',
-                       'domainName',    # Domain.
-                       'shadowAddress', 'employeeNumber', 'mailQuota',  # User
-                       'accessPolicy',  # Mail list.
-                       'createTimestamp',
-                      ]
-
-        # Define search dn. Must be a list.
-        basedn = []
-        if session.get('domainGlobalAdmin') is True:
-            # Search whole LDAP server if admin is domainGlobalAdmin.
-            basedn += [self.basedn]
-        else:
-            # Search all domains which under control. 
-            # - Get all domains.
-            # - Convert domains to list of dn.
-            allDomains = self.getAllDomains(attrs=['domainName',],)
-            if allDomains[0] is True:
-                for d in allDomains[1]:
-                    basedn += [d[0]]
-
-        result = []
-        msg = {}
-        for dn in basedn:
-            try:
-                res = self.conn.search_s(
-                    dn,
-                    ldap.SCOPE_SUBTREE,
-                    filter,
-                    searchAttrs,
-                )
-                result += res
-            except Exception, e:
-                #msg[dn] = str(e)
-                pass
-
-        if len(result) > 0:
-            return (True, result)
-        else:
-            return (False, [])
-
     # Get number of current accounts.
     def getNumberOfCurrentAccountsUnderDomain(self, domain, accountType='user', filter=None):
         # accountType in ['user', 'list', 'alias',]
         self.domain = web.safestr(domain)
         self.domaindn = ldaputils.convKeywordToDN(self.domain, accountType='domain')
-        
+
         if filter is not None:
             self.searchdn = self.domaindn
             self.filter = filter
@@ -136,9 +97,6 @@ class Utils(core.LDAPWrap):
             if accountType == 'user':
                 self.searchdn = attrs.DN_BETWEEN_USER_AND_DOMAIN + self.domaindn
                 self.filter = '(&(objectClass=mailUser)(!(mail=@%s)))' % self.domain
-            elif accountType == 'maillist':
-                self.searchdn = attrs.DN_BETWEEN_MAILLIST_AND_DOMAIN + self.domaindn
-                self.filter = '(objectClass=mailList)'
             else:
                 self.searchdn = self.domaindn
                 self.filter = '(&(objectClass=mailUser)(!(mail=@%s)))' % self.domain
@@ -148,7 +106,7 @@ class Utils(core.LDAPWrap):
                 self.searchdn,
                 ldap.SCOPE_SUBTREE,
                 self.filter,
-                ['dn',],
+                ['dn', ],
             )
             return (True, len(result))
         except Exception, e:
@@ -170,7 +128,7 @@ class Utils(core.LDAPWrap):
                 cfg.ldap.get('basedn'),
                 ldap.SCOPE_ONELEVEL,
                 '(|(domainName=%s)(domainAliasName=%s))' % (self.domain, self.domain),
-                ['domainName', 'domainAliasName',],
+                ['domainName', 'domainAliasName', ],
             )
             if len(result) > 0:
                 # Domain name exist.
@@ -181,16 +139,32 @@ class Utils(core.LDAPWrap):
             return True
 
     # Check whether account exist or not.
-    def isAccountExists(self, domain, filter=None,):
+    def isAccountExists(self, domain, mail,):
         # Return True if account is invalid or exist.
-        self.domain = web.safestr(domain)
+        self.domain = str(domain)
+        self.mail = str(mail)
+
         if not iredutils.isDomain(self.domain):
             return True
+
+        if not iredutils.isEmail(self.mail):
+            return True
+
+        # Check whether mail address ends with domain name or alias domain name.
+        self.mail_domain = self.mail.split('@', 1)[-1]
+        qr_domain_and_aliases = self.getAvailableDomainNames(self.domain)
+        if qr_domain_and_aliases[0] is True:
+            if self.mail_domain not in qr_domain_and_aliases[1]:
+                # Mail address is invalid.
+                return True
+
+        # Filter used to search mail accounts.
+        ldap_filter = '(&(|(objectClass=mailUser)(objectClass=mailList)(objectClass=mailAlias))(|(mail=%s)(shadowAddress=%s)))' % (self.mail, self.mail)
 
         try:
             self.number = self.getNumberOfCurrentAccountsUnderDomain(
                 domain=self.domain,
-                filter=filter,
+                filter=ldap_filter,
             )
 
             if self.number[0] is True and self.number[1] == 0:
@@ -209,7 +183,7 @@ class Utils(core.LDAPWrap):
         self.dn = escape_filter_chars(web.safestr(dn))
 
         # Validate operation action.
-        if action in ['enable', 'disable',]:
+        if action in ['enable', 'disable', ]:
             self.action = action
         else:
             return (False, 'INVALID_ACTION')
@@ -238,7 +212,6 @@ class Utils(core.LDAPWrap):
         except ldap.LDAPError, e:
             return (False, ldaputils.getExceptionDesc(e))
 
-
     @decorators.require_domain_access
     def deleteObjWithDN(self, domain, dn, account, accountType,):
         self.domain = web.safestr(domain)
@@ -249,12 +222,11 @@ class Utils(core.LDAPWrap):
 
         # Used for logger.
         self.account = web.safestr(account)
-        self.accountType = web.safestr(accountType)
 
         try:
             deltree.DelTree(self.conn, self.dn, ldap.SCOPE_SUBTREE)
             web.logger(
-                msg="Delete %s: %s." % (accountType, self.account),
+                msg="Delete %s: %s." % (str(accountType), self.account),
                 domain=self.domain,
                 event='delete',
             )
@@ -262,7 +234,6 @@ class Utils(core.LDAPWrap):
             return (True,)
         except Exception, e:
             return (False, ldaputils.getExceptionDesc(e))
-
 
     def getSizelimitFromAccountLists(self, accountList, sizelimit=50, curPage=1, domain=None, accountType=None,):
         # Return a dict which contains:
@@ -295,7 +266,7 @@ class Utils(core.LDAPWrap):
             curPage = totalPages
 
         # Sort accounts in place.
-        if isinstance(accountList, types.ListType):
+        if isinstance(accountList, list):
             accountList.sort()
         else:
             pass
@@ -323,10 +294,10 @@ class Utils(core.LDAPWrap):
                     pass
 
         # Get account list used to display in current page.
-        if totalAccounts > sizelimit and totalAccounts < (curPage-1)*sizelimit:
+        if totalAccounts > sizelimit and totalAccounts < (curPage - 1) * sizelimit:
             accountList = accountList[-1:-sizelimit]
         else:
-            accountList = accountList[(curPage-1)*sizelimit: (curPage-1)*sizelimit+sizelimit]
+            accountList = accountList[(curPage - 1) * sizelimit: (curPage - 1) * sizelimit + sizelimit]
         result['accountList'] = accountList
 
         return result
@@ -377,17 +348,17 @@ class Utils(core.LDAPWrap):
         >>> getAvailableDomainNames(domain='example.com')
         (True, ['example.com', 'aliasdomain01.com', 'aliasdomain02.com', ...])
         '''
-        self.domain = web.safestr(domain).strip().lower()
-        if not iredutils.isDomain(self.domain):
+        domain = web.safestr(domain).strip().lower()
+        if not iredutils.isDomain(domain):
             return (False, 'INVALID_DOMAIN_NAME')
 
-        self.dnOfDomain = ldaputils.convKeywordToDN(self.domain, accountType='domain')
+        dn = ldaputils.convKeywordToDN(domain, accountType='domain')
 
         try:
             result = self.conn.search_s(
-                self.dnOfDomain,
+                dn,
                 ldap.SCOPE_BASE,
-                '(&(objectClass=mailDomain)(domainName=%s))' % self.domain,
+                '(&(objectClass=mailDomain)(domainName=%s))' % domain,
                 ['domainName', 'domainAliasName'],
             )
             return (True, result[0][1].get('domainName', []) + result[0][1].get('domainAliasName', []))
@@ -421,3 +392,30 @@ class Utils(core.LDAPWrap):
         else:
             # Unsupported accountType.
             return False
+
+    # Get domains under control.
+    def getManagedDomains(self, mail, attrs=attrs.ADMIN_ATTRS_ALL, listedOnly=False):
+        self.mail = web.safestr(mail)
+        if not iredutils.isEmail(self.mail):
+            return (False, 'INCORRECT_USERNAME')
+
+        # Pre-defined filter.
+        filter = '(&(objectClass=mailDomain)(domainAdmin=%s))' % self.mail
+        if session.get('domainGlobalAdmin') is True and listedOnly is False:
+            filter = '(objectClass=mailDomain)'
+
+        try:
+            self.managedDomains = self.conn.search_s(
+                self.basedn,
+                ldap.SCOPE_ONELEVEL,
+                filter,
+                attrs,
+            )
+            if listedOnly:
+                domains = []
+                for qr in self.managedDomains:
+                    domains += qr[1]['domainName']
+                self.managedDomains = domains
+            return (True, self.managedDomains)
+        except Exception, e:
+            return (False, ldaputils.getExceptionDesc(e))

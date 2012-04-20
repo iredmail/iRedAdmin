@@ -48,7 +48,7 @@
                 {{ loginMsgHandler(msg) }}
 
 
-                <form method="post" action="{{ctx.homepath}}/login">
+                <form name="login" method="post" action="{{ctx.homepath}}/login">
                     <div class="login-inside">
                         <div class="login-data">
                             <div class="row clear">
@@ -61,7 +61,7 @@
                                 <input type="password" name="password" size="25" class="text" id="password" />
                             </div>
 
-                            <input type="submit" class="button green" value="{{ _('Login') }}" />
+                            <input name="login" type="submit" class="button green" value="{{ _('Login') }}" />
                         </div>
                         <p></p>
                     </div>
@@ -74,7 +74,7 @@
                         <span class="text fr-space">
                             <select name="lang" onchange="changeUrl(this, baseurl='{{ctx.homepath}}/login?lang=');">
                                 {% for lang in languagemaps %}
-                                    <option value="{{lang}}" {% if ctx.lang == lang %}selected{%endif%}>{{languagemaps[lang]}}</option>
+                                    <option value="{{ lang |e }}" {% if ctx.lang == lang %}selected{%endif%}>{{ languagemaps[lang] |e }}</option>
                                 {% endfor %}
                             </select>
                         </span>

@@ -1,9 +1,8 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
 import ldap
-import types
 import web
-from libs import iredutils, models
+from libs import iredutils
 from libs.ldaplib import core, attrs, iredldif, ldaputils, deltree, connUtils, decorators
 
 cfg = web.iredconfig
@@ -33,6 +32,8 @@ class Domain(core.LDAPWrap):
             return (False, 'ALREADY_EXISTS')
 
         self.dn = ldaputils.convKeywordToDN(self.domain, accountType='domain')
+        if self.dn[0] is False:
+            return self.dn
 
         self.cn = data.get('cn', None)
         ldif = iredldif.ldif_maildomain(domain=self.domain, cn=self.cn,)
@@ -70,6 +71,9 @@ class Domain(core.LDAPWrap):
     def getDomainAdmins(self, domain):
         domain = web.safestr(domain)
         dn = ldaputils.convKeywordToDN(domain, accountType='domain')
+        if dn[0] is False:
+            return dn
+
         try:
             self.domainAdmins = self.conn.search_s(
                     dn,
@@ -97,6 +101,8 @@ class Domain(core.LDAPWrap):
         # Return 0 as unlimited.
         self.domain = web.safestr(domain)
         self.dn = ldaputils.convKeywordToDN(self.domain, accountType='domain')
+        if self.dn[0] is False:
+            return self.dn
 
         if domainAccountSetting is not None:
             if 'defaultQuota' in domainAccountSetting.keys():
@@ -118,13 +124,13 @@ class Domain(core.LDAPWrap):
                     return int(settings[self.domain]['defaultQuota'])
                 else:
                     return 0
-            except Exception, e:
+            except Exception:
                 return 0
 
     # Delete domain.
     @decorators.require_global_admin
     def delete(self, domains=[]):
-        if not isinstance(domains, types.ListType):
+        if not isinstance(domains, list):
             return (False, 'INVALID_DOMAIN_NAME')
 
         msg = {}
@@ -133,7 +139,9 @@ class Domain(core.LDAPWrap):
                 continue
 
             dn = ldaputils.convKeywordToDN(web.safestr(domain), accountType='domain')
-        
+            if dn[0] is False:
+                return dn
+
             try:
                 deltree.DelTree(self.conn, dn, ldap.SCOPE_SUBTREE)
                 web.logger(msg="Delete domain: %s." % (domain), domain=domain, event='delete',)
@@ -155,6 +163,8 @@ class Domain(core.LDAPWrap):
         for domain in domains:
             self.domain = web.safestr(domain)
             self.dn = ldaputils.convKeywordToDN(self.domain, accountType='domain')
+            if self.dn[0] is False:
+                return self.dn
 
             try:
                 connutils.enableOrDisableAccount(
@@ -177,6 +187,8 @@ class Domain(core.LDAPWrap):
     def profile(self, domain):
         self.domain = web.safestr(domain)
         self.dn = ldaputils.convKeywordToDN(self.domain, accountType='domain')
+        if self.dn[0] is False:
+            return self.dn
 
         try:
             self.domain_profile = self.conn.search_s(
@@ -200,6 +212,8 @@ class Domain(core.LDAPWrap):
         self.profile_type = web.safestr(profile_type)
         self.domain = web.safestr(domain)
         self.domaindn = ldaputils.convKeywordToDN(self.domain, accountType='domain')
+        if self.domaindn[0] is False:
+            return self.domaindn
 
         connutils = connUtils.Utils()
         self.accountSetting = []
@@ -209,8 +223,6 @@ class Domain(core.LDAPWrap):
         if self.profile_type == 'general':
             cn = data.get('cn', None)
             mod_attrs += ldaputils.getSingleModAttr(attr='cn', value=cn, default=self.domain)
-        else:
-            pass
 
         # Allow global admin to update profiles.
         if session.get('domainGlobalAdmin') is True:
@@ -221,16 +233,18 @@ class Domain(core.LDAPWrap):
                 else:
                     accountStatus = 'disabled'
 
-                mod_attrs += [ (ldap.MOD_REPLACE, 'accountStatus', accountStatus) ]
-            else:
-                pass
-
-        else:
-            pass
+                mod_attrs += [(ldap.MOD_REPLACE, 'accountStatus', accountStatus)]
 
         try:
             dn = ldaputils.convKeywordToDN(self.domain, accountType='domain')
+            if dn[0] is False:
+                return dn
+
             self.conn.modify_s(dn, mod_attrs)
+            web.logger(msg="Update domain profile: %s (%s)." % (domain, profile_type),
+                       domain=domain,
+                       event='update',
+                      )
             return (True,)
         except Exception, e:
             return (False, ldaputils.getExceptionDesc(e))
@@ -239,7 +253,7 @@ class Domain(core.LDAPWrap):
     def getDomainAccountSetting(self, domain,):
         result = self.getAllDomains(
             filter='(&(objectClass=mailDomain)(domainName=%s))' % domain,
-            attrs=['domainName', 'accountSetting',],
+            attrs=['domainName', 'accountSetting', ],
         )
 
         if result[0] is True:

@@ -1,6 +1,7 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
-import ldap, ldap.filter
+import ldap
+import ldap.filter
 import web
 from libs import iredutils
 from libs.ldaplib import core, attrs, ldaputils, iredldif, deltree, connUtils, decorators
@@ -30,34 +31,6 @@ class Admin(core.LDAPWrap):
             lang = web.ctx.lang
         return lang
 
-    # Get domains under control.
-    def getManagedDomains(self, mail, attrs=attrs.ADMIN_ATTRS_ALL):
-        self.mail = web.safestr(mail)
-        if not iredutils.isEmail(self.mail):
-            return (False, 'INCORRECT_USERNAME')
-
-        # Pre-defined filter.
-        filter = '(&(objectClass=mailDomain)(domainAdmin=%s))' % self.mail
-
-        # Check admin type: global/normal admin.
-        try:
-            profile = self.profile(self.mail)
-            if profile[1][0][1].get('domainGlobalAdmin', ['no'])[0] == 'yes':
-                filter = '(objectClass=mailDomain)'
-        except:
-            pass
-
-        try:
-            self.managedDomains = self.conn.search_s(
-                self.basedn,
-                ldap.SCOPE_ONELEVEL,
-                filter,
-                attrs,
-            )
-            return (True, self.managedDomains)
-        except Exception, e:
-            return (False, ldaputils.getExceptionDesc(e))
-
     # List all admin accounts.
     @decorators.require_global_admin
     def listAccounts(self, attrs=attrs.ADMIN_SEARCH_ATTRS):
@@ -77,6 +50,9 @@ class Admin(core.LDAPWrap):
     def profile(self, mail):
         self.mail = web.safestr(mail)
         self.dn = ldaputils.convKeywordToDN(self.mail, accountType='admin')
+        if self.dn[0] is False:
+            return self.dn
+
         try:
             self.admin_profile = self.conn.search_s(
                 self.dn,
@@ -100,7 +76,7 @@ class Admin(core.LDAPWrap):
             return (False, 'INVALID_MAIL')
 
         self.domainGlobalAdmin = web.safestr(data.get('domainGlobalAdmin', 'no'))
-        if self.domainGlobalAdmin not in ['yes', 'no',]:
+        if self.domainGlobalAdmin not in ['yes', 'no', ]:
             self.domainGlobalAdmin = 'no'
 
         self.preferredLanguage = web.safestr(data.get('preferredLanguage', 'en_US'))
@@ -111,7 +87,7 @@ class Admin(core.LDAPWrap):
 
         result = iredutils.verifyNewPasswords(self.newpw, self.confirmpw)
         if result[0] is True:
-            self.passwd = ldaputils.generatePasswd(result[1])
+            self.passwd = ldaputils.generateLDAPPasswd(result[1])
         else:
             return result
 
@@ -124,6 +100,8 @@ class Admin(core.LDAPWrap):
                 )
 
         self.dn = ldaputils.convKeywordToDN(self.mail, accountType='admin')
+        if self.dn[0] is False:
+            return self.dn
 
         try:
             self.conn.add_s(self.dn, ldif)
@@ -135,7 +113,6 @@ class Admin(core.LDAPWrap):
             return (False, ldaputils.getExceptionDesc(e))
 
     # Update admin profile.
-    # data: must be a webpy storage object.
     def update(self, profile_type, mail, data):
         self.profile_type = web.safestr(profile_type)
         self.mail = web.safestr(mail)
@@ -145,6 +122,8 @@ class Admin(core.LDAPWrap):
             return (False, 'PERMISSION_DENIED')
 
         self.dn = ldaputils.convKeywordToDN(self.mail, accountType='admin')
+        if self.dn[0] is False:
+            return self.dn
 
         mod_attrs = []
         if self.profile_type == 'general':
@@ -162,7 +141,7 @@ class Admin(core.LDAPWrap):
             else:
                 accountStatus = 'disabled'
 
-            mod_attrs += [ (ldap.MOD_REPLACE, 'accountStatus', accountStatus) ]
+            mod_attrs += [(ldap.MOD_REPLACE, 'accountStatus', accountStatus)]
 
             try:
                 # Modify profiles.
@@ -172,60 +151,10 @@ class Admin(core.LDAPWrap):
             except ldap.LDAPError, e:
                 return (False, ldaputils.getExceptionDesc(e))
 
-            #########################
-            # Managed domains
-            #
-            if session.get('domainGlobalAdmin') is not True:
-                return (False, 'PERMISSION_DENIED')
-
-            # Get domains under control.
-            result = self.getManagedDomains(mail=self.mail, attrs=['domainName',])
-            if result[0] is True:
-                self.managedDomains = []
-                for d in result[1]:
-                    if 'domainName' in d[1].keys():
-                        self.managedDomains += d[1].get('domainName')
-            else:
-                return result
-
-            # Get domains from web form.
-            self.newmd = [web.safestr(v) for v in data.get('domainName', []) if iredutils.isDomain(v)]
-
-            # Compare two lists, get domain list which need to remove or add domain admins.
-            self.domainsRemoveAdmins = [str(v)
-                                        for v in self.managedDomains
-                                        if v not in self.newmd and iredutils.isDomain(v)
-                                       ]
-            self.domainsAddAdmins = [str(v)
-                                     for v in self.newmd
-                                     if v not in self.managedDomains and iredutils.isDomain(v)
-                                    ]
-
-            connutils = connUtils.Utils()
-            for i in self.domainsRemoveAdmins:
-                result = connutils.addOrDelAttrValue(
-                        dn=ldaputils.convKeywordToDN(i, accountType='domain'),
-                        attr='domainAdmin',
-                        value=self.mail,
-                        action='delete',
-                        )
-                if result[0] is False:
-                    return result
-
-            for i in self.domainsAddAdmins:
-                result = connutils.addOrDelAttrValue(
-                        dn=ldaputils.convKeywordToDN(i, accountType='domain'),
-                        attr='domainAdmin',
-                        value=self.mail,
-                        action='add',
-                        )
-                if result[0] is False:
-                    return result
-            return (True,)
         elif self.profile_type == 'password':
             self.cur_passwd = data.get('oldpw', None)
-            self.newpw = data.get('newpw')
-            self.confirmpw = data.get('confirmpw')
+            self.newpw = web.safestr(data.get('newpw'))
+            self.confirmpw = web.safestr(data.get('confirmpw'))
 
             result = iredutils.verifyNewPasswords(self.newpw, self.confirmpw)
             if result[0] is True:
@@ -247,6 +176,8 @@ class Admin(core.LDAPWrap):
             else:
                 return result
 
+        return (True,)
+
     @decorators.require_global_admin
     def delete(self, mails):
         if mails is None or len(mails) == 0:
@@ -257,9 +188,11 @@ class Admin(core.LDAPWrap):
         for mail in mails:
             self.mail = web.safestr(mail)
             dn = ldaputils.convKeywordToDN(self.mail, accountType='admin')
+            if dn[0] is False:
+                return dn
 
             try:
-                deltree.DelTree( self.conn, dn, ldap.SCOPE_SUBTREE )
+                deltree.DelTree(self.conn, dn, ldap.SCOPE_SUBTREE)
                 web.logger(msg="Delete admin: %s." % (self.mail,), event='delete',)
             except ldap.LDAPError, e:
                 result[self.mail] = str(e)
@@ -283,6 +216,8 @@ class Admin(core.LDAPWrap):
 
             self.domain = self.mail.split('@')[-1]
             self.dn = ldaputils.convKeywordToDN(self.mail, accountType='admin')
+            if self.dn[0] is False:
+                return self.dn
 
             try:
                 connutils.enableOrDisableAccount(
@@ -299,3 +234,29 @@ class Admin(core.LDAPWrap):
             return (True,)
         else:
             return (False, ldaputils.getExceptionDesc(result))
+
+    def getNumberOfManagedAccounts(self, admin=None, accountType='domain', domains=[],):
+        if admin is None:
+            admin = session.get('username')
+        else:
+            admin = str(admin)
+
+        if not iredutils.isEmail(admin):
+            return 0
+
+        domains = []
+        if len(domains) > 0:
+            domains = [str(d).lower() for d in domains if iredutils.isDomain(d)]
+        else:
+            connutils = connUtils.Utils()
+            qr = connutils.getManagedDomains(mail=admin, attrs=['domainName'], listedOnly=True)
+            if qr[0] is True:
+                domains = qr[1]
+
+        if accountType == 'domain':
+            try:
+                return len(domains)
+            except Exception:
+                pass
+
+        return 0

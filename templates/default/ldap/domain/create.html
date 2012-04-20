@@ -1,15 +1,16 @@
-{# Defined: domain, profile, mtaTransport, [msg,] #}
-
 {% extends "layout.html" %}
 {% from "macros/general.html" import
+        display_csrf_token,
         display_add_domain,
         with context %}
+
 {% from "macros/msgHandlers.html" import domainMsgHandler, with context %}
 
 {% block title %}{{ _('Add domain') }}{% endblock title %}
 {% block navlinks_active_create %}class="active"{% endblock %}
 
 {% block main %}
+
 {# Show system message #}
 {{ domainMsgHandler(msg) }}
 

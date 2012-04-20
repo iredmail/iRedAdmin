@@ -1,13 +1,6 @@
-{#
-    @total:         number of total entries.
-    @entries:       all entries.
-    @cur_page:      current page number (The same as offset in SQL query).
-    @event:         Event type.
-    @domain:        Domain name.
-#}
-
 {% extends "layout.html" %}
 {% from "macros/general.html" import
+            display_csrf_token,
             show_pages,
             show_event_name,
             with context
@@ -31,35 +24,28 @@
                 <h2>
                     {{ _('Admin Log') }}
                     {% if total > 0 %}
-                        ({{ (cur_page-1)*session.pageSizeLimit + 1 }}-{{ (cur_page-1)*session.pageSizeLimit + (entries |length) }}/{{ total }})
+                        ({{ (cur_page-1)*pageSizeLimit + 1 }}-{{ (cur_page-1)*pageSizeLimit + (entries |length) }}/{{ total }})
                     {% endif %}
                 </h2>
 
             <ul class="tabs clear">
                 <li class="active"><a href="{{ctx.homepath}}/system/log">{{ _('Admin Log') }}</a></li>
+                {% if session.get('enableAmavisdLoggingIntoSQL') is sameas true %}
+                    <li><a href="{{ctx.homepath}}/activities/sent">{{ _('Sent Mails') }}</a></li>
+                    <li><a href="{{ctx.homepath}}/activities/received">{{ _('Received Mails') }}</a></li>
+                {% endif %}
+
+                {% if session.get('enableAmavisdQuarantine') is sameas true %}
+                    <li><a href="{{ctx.homepath}}/activities/quarantined">{{ _('Quarantined Mails') }}</a></li>
+                {% endif %}
             </ul>
         </div>
 
 {# List all pages. #}
-<div class="clear">
-    <form method="get" action="{{ctx.homepath}}/system/log">
-    {{ _('Filter:') }}
-    <select name="domain">
-        <option value="all">{{ _('Domains') }}</option>
-        {% for d in allDomains %}
-            <option value="{{ d |e }}" {% if d == domain %}selected{% endif %}>{{ d |e }}</option>
-        {% endfor %}
-    </select>
-
-    {% if session.get('domainGlobalAdmin') is sameas true %}
-        <select name="admin">
-            <option value="all">{{ _('Admins') }}</option>
-            {% for a in allAdmins %}
-                <option value="{{ a |e }}" {% if a == admin %}selected{% endif %}>{{ a |e }}</option>
-            {% endfor %}
-        </select>
-    {% endif %}
-
+<div class="clear"></div>
+<div class="top-space5 bt-space5 left-space5">
+    <form name="pages" method="get" action="{{ctx.homepath}}/system/log">
+    {{ _('Filter:') }}&nbsp;
     <select name="event">
         {% for evt in allEvents %}
             <option value="{{ evt |e }}" {% if evt == event %}selected{% endif %}>{{ show_event_name(event=evt) }}</option>
@@ -70,7 +56,10 @@
     </form>
 </div>
 
-    <form id="list_table" method="post" action="{{ctx.homepath}}/system/log">
+{# List all logs #}
+    <form name="log" id="list_table" method="post" action="{{ctx.homepath}}/system/log">
+    {{ display_csrf_token() }}
+
     <table class="style1" cellspacing="0">
         <thead>
         <tr>
@@ -86,17 +75,26 @@
 
         {# List domain attributes/avalues. #}
         <tbody>
-        {% for log in entries %}
-            <tr>
-                {% if session.get('domainGlobalAdmin') is sameas true %}
-                    <td class="checkbox"><input type="checkbox" name="id" value="{{log.id}}" class="checkbox" /></td>
-                {% endif %}
-                <td>{{ log.timestamp |setDatetimeFormat }}</td>
-                <td><a href="{{ctx.homepath}}/profile/admin/general/{{ log.admin |e }}">{{ log.admin |e }}</a></td>
-                <td>{{ log.ip |e }}</td>
-                <td class="{{ log.event |e }}_{{ log.loglevel |e }}">{{ log.msg |e }}</td>
-            </tr>
-        {% endfor %}
+            {% if entries |length > 0 %}
+                {% for log in entries %}
+                    <tr>
+                        {% if session.get('domainGlobalAdmin') is sameas true %}
+                            <td class="checkbox"><input type="checkbox" name="id" value="{{ log.id }}" class="checkbox" /></td>
+                        {% endif %}
+                        <td style="white-space: nowrap;">{{ log.timestamp |setDatetimeFormat |convert_utc_to_timezone }}</td>
+                        <td><a href="{{ctx.homepath}}/profile/admin/general/{{ log.admin |e }}">{{ log.admin |e }}</a></td>
+                        <td>{{ log.ip |e }}</td>
+                        <td class="{{ log.event |e }}_{{ log.loglevel |e }}">{{ log.msg |e }}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    {% if session.get('domainGlobalAdmin') is sameas true %}
+                        <td class="checkbox"></td>
+                    {% endif %}
+                    <td colspan="4">{{ _('No admin log.') }}</td>
+                </tr>
+            {% endif %}
         </tbody>
     </table>
 
@@ -106,21 +104,19 @@
                 <div class="fl">
                     <select name="action" class="fl-space">
                         <option>{{ _('Choose Action') }}</option>
-                        <option value="delete">{{ _('Delete') }}</option>
+                        <option value="delete">{{ _('Delete selected') }}</option>
+                        <option value="deleteAll">{{ _('Delete all in database') }}</option>
                     </select>
                     <input type="submit" value="{{ _('Apply') }}" class="button fl-space" />
                 </div>
             {% endif %}
 
-            {% set pages = show_pages(
+            {{ show_pages(
                   baseurl=ctx.homepath + '/system/log?domain=' + domain + '&event=' + event + '&admin=' + admin,
                   total=total,
                   cur_page=cur_page,
-                  sep='&page=',
-                  )
-                  %}
-
-            {{ pages }}
+                  sep='&page=')
+                  }}
         </div>
     {% endif %}
 </form>

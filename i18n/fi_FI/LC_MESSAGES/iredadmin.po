@@ -1,0 +1,3172 @@
+# Finnish (Finland) translations for PROJECT.
+# Copyright (C) 2011 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: zhb@iredmail.org\n"
+"POT-Creation-Date: 2012-04-17 21:50+0800\n"
+"PO-Revision-Date: 2011-09-22 08:40+0200\n"
+"Last-Translator: Teemu Harjula <teemu.harjula@tietovirta.fi>\n"
+"Language-Team: fi_FI <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 0.9.6\n"
+
+#: ../templates/default/dbmail_mysql/search.html:71
+#: ../templates/default/ldap/search.html:124
+#: ../templates/default/mysql/search.html:151
+#: ../templates/default/pgsql/search.html:151
+#, python-format
+msgid "%d admin(s) found."
+msgstr "%d ylläpitäjä(ä) löytyi."
+
+#: ../templates/default/ldap/search.html:67
+#, python-format
+msgid "%d domain(s) found."
+msgstr "%d domainia löytyi."
+
+#: ../templates/default/mysql/search.html:73
+#: ../templates/default/pgsql/search.html:73
+#, python-format
+msgid "%d domains(s) found."
+msgstr "%d domainia löytyi."
+
+#: ../templates/default/dbmail_mysql/search.html:213
+#: ../templates/default/ldap/search.html:298
+#: ../templates/default/mysql/search.html:283
+#: ../templates/default/pgsql/search.html:283
+#, python-format
+msgid "%d mail alias(es) found."
+msgstr "%d alias(ta) löytyi."
+
+#: ../templates/default/ldap/search.html:243
+#, python-format
+msgid "%d mail list(s) found."
+msgstr "%d sähköpostilista(a) löytyi."
+
+#: ../templates/default/dbmail_mysql/search.html:137
+#: ../templates/default/ldap/search.html:180
+#: ../templates/default/mysql/search.html:218
+#: ../templates/default/pgsql/search.html:218
+#, python-format
+msgid "%d user(s) found."
+msgstr "%d käyttäjä(ä) löytyi."
+
+#: ../templates/default/macros/ldap.html:16
+#, python-format
+msgid "%s (%s)"
+msgstr "%s (%s)"
+
+#: ../templates/default/dbmail_mysql/domain/profile.html:331
+#: ../templates/default/dbmail_mysql/domain/profile.html:339
+#: ../templates/default/ldap/domain/profile.html:391
+#: ../templates/default/ldap/domain/profile.html:398
+#: ../templates/default/ldap/domain/profile.html:406
+#: ../templates/default/mysql/domain/profile.html:393
+#: ../templates/default/mysql/domain/profile.html:401
+#: ../templates/default/pgsql/domain/profile.html:375
+#: ../templates/default/pgsql/domain/profile.html:383
+#, python-format
+msgid "%s account(s) exist."
+msgstr "%s tiliä."
+
+#: ../templates/default/dashboard.html:142
+#, python-format
+msgid "%s days, %s hours, %s minutes."
+msgstr "%s päivää, %s tuntia, %s minuuttia."
+
+#: ../templates/default/macros/policyd.html:44
+msgid "1 Day"
+msgstr "1 päivä"
+
+#: ../templates/default/macros/policyd.html:44
+msgid "1 Hour"
+msgstr "1 tunti"
+
+#: ../templates/default/macros/policyd.html:44
+msgid "1 Minute"
+msgstr "1 minuutti"
+
+#: ../templates/default/macros/general.html:663
+#, python-format
+msgid "<a href='%s'>Domain and sub-domain users</a>"
+msgstr "<a href='%s'>Domain and sub-domain users</a>"
+
+#: ../templates/default/macros/general.html:661
+#, python-format
+msgid "<a href='%s'>Domain users</a>"
+msgstr "<a href='%s'>Domain users</a>"
+
+#: ../templates/default/macros/general.html:665
+#, python-format
+msgid "<a href='%s'>Members</a>"
+msgstr "<a href='%s'>Members</a>"
+
+#: ../templates/default/ldap/maillist/profile.html:87
+#: ../templates/default/macros/general.html:669
+#: ../templates/default/mysql/alias/profile.html:77
+#: ../templates/default/pgsql/alias/profile.html:77
+#, python-format
+msgid "<a href='%s'>Members</a> and <a href='%s'>moderators</a>"
+msgstr "<a href='%s'>Members</a> and <a href='%s'>moderators</a>"
+
+#: ../templates/default/macros/general.html:667
+#, python-format
+msgid "<a href='%s'>Moderators</a>"
+msgstr "<a href='%s'>Moderators</a>"
+
+#: ../templates/default/ldap/maillist/profile.html:83
+#: ../templates/default/mysql/alias/profile.html:73
+#: ../templates/default/pgsql/alias/profile.html:73
+#, python-format
+msgid "<a href='%s'>Users under domain <strong>%s</strong></a>"
+msgstr "<a href='%s'>Users under domain <strong>%s</strong></a>"
+
+#: ../templates/default/ldap/maillist/profile.html:84
+#: ../templates/default/mysql/alias/profile.html:74
+#: ../templates/default/pgsql/alias/profile.html:74
+#, python-format
+msgid ""
+"<a href='%s'>Users under domain <strong>%s</strong></a> and its sub-"
+"domains"
+msgstr ""
+"<a href='%s'>Users under domain <strong>%s</strong></a> and its sub-"
+"domains"
+
+#: ../templates/default/amavisd/inout.html:72
+#: ../templates/default/amavisd/inout.html:83
+msgid "About mail logs"
+msgstr "Tietoa sähköpostilogista"
+
+#: ../templates/default/amavisd/quarantined.html:59
+msgid "About quarantined mails"
+msgstr "Tietoa sähköpostikaranteenista"
+
+#: ../templates/default/ldap/user/profile.html:200
+msgid "Account NOT exists."
+msgstr "Tiliä EI löydy."
+
+#: ../templates/default/macros/general.html:227
+msgid "Account activities"
+msgstr "Tilin toiminnat"
+
+#: ../templates/default/macros/msgHandlers.html:177
+#: ../templates/default/macros/msgHandlers.html:203
+#: ../templates/default/macros/msgHandlers.html:215
+#: ../templates/default/macros/msgHandlers.html:239
+msgid "Account already exists, please choose another username."
+msgstr "Tili on jo olemassa, valitse toinen käyttäjänimi."
+
+#: ../templates/default/dbmail_mysql/domain/profile.html:391
+#: ../templates/default/mysql/domain/profile.html:453
+#: ../templates/default/pgsql/domain/profile.html:435
+msgid "Account does not exist."
+msgstr "Tiliä ei löydy."
+
+#: ../templates/default/macros/general.html:194
+msgid "Account is active."
+msgstr "Tili on aktiivinen."
+
+#: ../templates/default/macros/general.html:196
+#: ../templates/default/macros/general.html:197
+msgid "Account is disabled."
+msgstr "Tili on poistettu käytöstä."
+
+#: ../templates/default/dbmail_mysql/search.html:50
+#: ../templates/default/ldap/search.html:48
+#: ../templates/default/mysql/search.html:51
+#: ../templates/default/pgsql/search.html:51
+msgid "Account status"
+msgstr "Tilin tila"
+
+#: ../templates/default/dbmail_mysql/search.html:41
+#: ../templates/default/ldap/search.html:37
+#: ../templates/default/mysql/search.html:41
+#: ../templates/default/pgsql/search.html:41
+msgid "Account type"
+msgstr "Tilin tyyppi"
+
+#: ../templates/default/dbmail_mysql/search.html:51
+#: ../templates/default/ldap/search.html:49
+#: ../templates/default/mysql/search.html:52
+#: ../templates/default/pgsql/search.html:52
+msgid "Active"
+msgstr "Aktiivinen"
+
+#: ../templates/default/macros/general.html:804
+msgid "Active account"
+msgstr "Aktiivinen tili"
+
+#: ../templates/default/layout.html:81
+#: ../templates/default/dbmail_mysql/alias/create.html:82
+#: ../templates/default/dbmail_mysql/user/create.html:132
+#: ../templates/default/ldap/alias/create.html:87
+#: ../templates/default/ldap/maillist/create.html:84
+#: ../templates/default/ldap/maillist/profile.html:55
+#: ../templates/default/ldap/user/create.html:155
+#: ../templates/default/macros/general.html:610
+#: ../templates/default/macros/general.html:651
+#: ../templates/default/mysql/alias/create.html:82
+#: ../templates/default/mysql/user/create.html:129
+#: ../templates/default/pgsql/alias/create.html:82
+#: ../templates/default/pgsql/user/create.html:129
+#: ../templates/default/policyd/blacklist/create.html:50
+#: ../templates/default/policyd/whitelist/create.html:44
+msgid "Add"
+msgstr "Lisää"
+
+#: ../templates/default/macros/general.html:798
+msgid "Add account"
+msgstr "Lisää tili"
+
+#: ../templates/default/dbmail_mysql/admin/create.html:13
+#: ../templates/default/dbmail_mysql/admin/create.html:25
+#: ../templates/default/dbmail_mysql/admin/create.html:28
+#: ../templates/default/dbmail_mysql/admin/list.html:31
+#: ../templates/default/ldap/admin/create.html:13
+#: ../templates/default/ldap/admin/create.html:25
+#: ../templates/default/ldap/admin/create.html:28
+#: ../templates/default/ldap/admin/list.html:31
+#: ../templates/default/mysql/admin/create.html:13
+#: ../templates/default/mysql/admin/create.html:25
+#: ../templates/default/mysql/admin/create.html:28
+#: ../templates/default/mysql/admin/list.html:31
+#: ../templates/default/pgsql/admin/create.html:13
+#: ../templates/default/pgsql/admin/create.html:25
+#: ../templates/default/pgsql/admin/create.html:28
+#: ../templates/default/pgsql/admin/list.html:31
+msgid "Add admin"
+msgstr "Lisää ylläpitäjä"
+
+#: ../templates/default/policyd/wblist.html:49
+#: ../templates/default/policyd/blacklist/create.html:11
+#: ../templates/default/policyd/blacklist/create.html:26
+#: ../templates/default/policyd/blacklist/create.html:28
+#: ../templates/default/policyd/whitelist/create.html:26
+msgid "Add blacklist"
+msgstr "Lisää mustalista"
+
+#: ../templates/default/dbmail_mysql/domain/create.html:7
+#: ../templates/default/dbmail_mysql/domain/create.html:20
+#: ../templates/default/dbmail_mysql/domain/create.html:24
+#: ../templates/default/dbmail_mysql/domain/list.html:31
+#: ../templates/default/ldap/domain/create.html:9
+#: ../templates/default/ldap/domain/create.html:23
+#: ../templates/default/ldap/domain/create.html:27
+#: ../templates/default/ldap/domain/list.html:32
+#: ../templates/default/macros/general.html:642
+#: ../templates/default/macros/ldap.html:32
+#: ../templates/default/macros/mysql.html:26
+#: ../templates/default/mysql/domain/create.html:7
+#: ../templates/default/mysql/domain/create.html:20
+#: ../templates/default/mysql/domain/create.html:24
+#: ../templates/default/mysql/domain/list.html:31
+#: ../templates/default/pgsql/domain/create.html:7
+#: ../templates/default/pgsql/domain/create.html:20
+#: ../templates/default/pgsql/domain/create.html:24
+#: ../templates/default/pgsql/domain/list.html:31
+msgid "Add domain"
+msgstr "Lisää domain"
+
+#: ../templates/default/dbmail_mysql/domain/profile.html:416
+#: ../templates/default/dbmail_mysql/user/profile.html:160
+#: ../templates/default/ldap/user/profile.html:254
+#: ../templates/default/mysql/domain/profile.html:478
+#: ../templates/default/mysql/user/profile.html:147
+#: ../templates/default/pgsql/domain/profile.html:460
+#: ../templates/default/pgsql/user/profile.html:147
+msgid "Add mail alias"
+msgstr "Lisää sähköpostialias"
+
+#: ../templates/default/dbmail_mysql/alias/create.html:9
+#: ../templates/default/dbmail_mysql/alias/create.html:55
+#: ../templates/default/ldap/alias/create.html:9
+#: ../templates/default/ldap/alias/create.html:59
+#: ../templates/default/mysql/alias/create.html:9
+#: ../templates/default/mysql/alias/create.html:55
+#: ../templates/default/pgsql/alias/create.html:9
+#: ../templates/default/pgsql/alias/create.html:55
+#, python-format
+msgid "Add mail alias under domain: %s."
+msgstr "Lisää sähköpostialias domainiin %s"
+
+#: ../templates/default/ldap/domain/profile.html:474
+#: ../templates/default/ldap/user/profile.html:212
+msgid "Add mail list"
+msgstr "Lisää sähköpostilista"
+
+#: ../templates/default/ldap/maillist/create.html:9
+#: ../templates/default/ldap/maillist/create.html:58
+#, python-format
+msgid "Add mail list under domain: %s."
+msgstr "Lisää sähköpostilista domainiin %s"
+
+#: ../templates/default/ldap/maillist/profile.html:382
+msgid "Add members"
+msgstr "Lisää jäsen"
+
+#: ../templates/default/ldap/maillist/profile.html:396
+msgid "Add moderators"
+msgstr "Lisää moderaattori"
+
+#: ../templates/default/dbmail_mysql/alias/profile.html:164
+#: ../templates/default/ldap/alias/profile.html:113
+#: ../templates/default/mysql/alias/profile.html:169
+#: ../templates/default/pgsql/alias/profile.html:169
+msgid "Add new members"
+msgstr "Lisää uusi jäsen"
+
+#: ../templates/default/mysql/alias/profile.html:177
+#: ../templates/default/pgsql/alias/profile.html:177
+msgid "Add new moderators"
+msgstr "Lisää uusi moderaattori"
+
+#: ../templates/default/dbmail_mysql/alias/list.html:79
+#: ../templates/default/dbmail_mysql/domain/list.html:137
+#: ../templates/default/dbmail_mysql/user/list.html:111
+#: ../templates/default/ldap/alias/list.html:87
+#: ../templates/default/ldap/domain/list.html:188
+#: ../templates/default/ldap/maillist/list.html:87
+#: ../templates/default/ldap/user/list.html:129
+#: ../templates/default/mysql/alias/list.html:75
+#: ../templates/default/mysql/domain/list.html:138
+#: ../templates/default/mysql/user/list.html:121
+#: ../templates/default/pgsql/alias/list.html:75
+#: ../templates/default/pgsql/domain/list.html:138
+#: ../templates/default/pgsql/user/list.html:121
+msgid "Add one"
+msgstr "Lisää uusi"
+
+#: ../templates/default/macros/msgHandlers.html:108
+#: ../templates/default/macros/msgHandlers.html:149
+#: ../templates/default/macros/msgHandlers.html:184
+#: ../templates/default/macros/msgHandlers.html:224
+#: ../templates/default/macros/msgHandlers.html:256
+msgid "Add one more?"
+msgstr "Lisää uusi?"
+
+#: ../templates/default/dbmail_mysql/user/create.html:13
+#: ../templates/default/dbmail_mysql/user/create.html:78
+#: ../templates/default/ldap/user/create.html:13
+#: ../templates/default/ldap/user/create.html:101
+#: ../templates/default/mysql/user/create.html:13
+#: ../templates/default/mysql/user/create.html:75
+#: ../templates/default/pgsql/user/create.html:13
+#: ../templates/default/pgsql/user/create.html:75
+#, python-format
+msgid "Add user under domain: %s"
+msgstr "Lisää käyttäjä domainiin: %s."
+
+#: ../templates/default/policyd/wblist.html:48
+#: ../templates/default/policyd/blacklist/create.html:25
+#: ../templates/default/policyd/whitelist/create.html:11
+#: ../templates/default/policyd/whitelist/create.html:25
+#: ../templates/default/policyd/whitelist/create.html:28
+msgid "Add whitelist"
+msgstr "Lisää valkoinen lista"
+
+#: ../templates/default/layout.html:85
+#: ../templates/default/dbmail_mysql/search.html:45
+#: ../templates/default/ldap/search.html:43
+#: ../templates/default/mysql/search.html:46
+#: ../templates/default/panel/log.html:86
+#: ../templates/default/pgsql/search.html:46
+msgid "Admin"
+msgstr "Ylläpitäjä"
+
+#: ../templates/default/layout.html:62
+#: ../templates/default/amavisd/inout.html:36
+#: ../templates/default/amavisd/quarantined.html:30
+#: ../templates/default/panel/log.html:14
+#: ../templates/default/panel/log.html:25
+#: ../templates/default/panel/log.html:32
+msgid "Admin Log"
+msgstr "Ylläpitäjän logi"
+
+#: ../templates/default/macros/msgHandlers.html:184
+msgid "Admin created."
+msgstr ""
+
+#: ../templates/default/macros/general.html:796
+msgid "Admin login"
+msgstr "Kirjautuminen ylläpitäjänä"
+
+#: ../templates/default/macros/msgHandlers.html:178
+msgid "Admin not exist."
+msgstr "Ylläpitäjää ei löytynyt."
+
+#: ../templates/default/layout.html:58
+#: ../templates/default/ldap/domain/list.html:59
+#: ../templates/default/panel/log.html:58
+msgid "Admins"
+msgstr "Ylläpitäjät"
+
+#: ../templates/default/dbmail_mysql/domain/profile.html:56
+#: ../templates/default/dbmail_mysql/user/profile.html:61
+#: ../templates/default/ldap/domain/profile.html:126
+#: ../templates/default/ldap/user/profile.html:116
+#: ../templates/default/mysql/domain/profile.html:65
+#: ../templates/default/mysql/user/profile.html:69
+#: ../templates/default/pgsql/domain/profile.html:66
+#: ../templates/default/pgsql/user/profile.html:69
+msgid "Advanced"
+msgstr "Edistynyt"
+
+#: ../templates/default/layout.html:93
+#: ../templates/default/dbmail_mysql/search.html:43
+#: ../templates/default/dbmail_mysql/alias/create.html:51
+#: ../templates/default/dbmail_mysql/alias/list.html:28
+#: ../templates/default/dbmail_mysql/user/create.html:74
+#: ../templates/default/dbmail_mysql/user/list.html:31
+#: ../templates/default/ldap/search.html:40
+#: ../templates/default/ldap/alias/create.html:55
+#: ../templates/default/ldap/alias/list.html:31
+#: ../templates/default/ldap/maillist/create.html:54
+#: ../templates/default/ldap/maillist/list.html:33
+#: ../templates/default/ldap/user/create.html:97
+#: ../templates/default/ldap/user/list.html:42
+#: ../templates/default/mysql/search.html:43
+#: ../templates/default/mysql/alias/create.html:51
+#: ../templates/default/mysql/alias/list.html:28
+#: ../templates/default/mysql/user/create.html:71
+#: ../templates/default/mysql/user/list.html:39
+#: ../templates/default/pgsql/search.html:43
+#: ../templates/default/pgsql/alias/create.html:51
+#: ../templates/default/pgsql/alias/list.html:28
+#: ../templates/default/pgsql/user/create.html:71
+#: ../templates/default/pgsql/user/list.html:39
+msgid "Alias"
+msgstr "Alias"
+
+#: ../templates/default/macros/ldap.html:94
+msgid "Alias account"
+msgstr "Alias-tili"
+
+#: ../templates/default/ldap/domain/profile.html:220
+#: ../templates/default/ldap/domain/profile.html:231
+#: ../templates/default/mysql/domain/profile.html:269
+#: ../templates/default/pgsql/domain/profile.html:270
+msgid "Alias domains"
+msgstr "Domain-aliakset"
+
+#: ../templates/default/dbmail_mysql/alias/create.html:49
+#: ../templates/default/dbmail_mysql/alias/list.html:26
+#: ../templates/default/dbmail_mysql/alias/profile.html:23
+#: ../templates/default/dbmail_mysql/domain/list.html:56
+#: ../templates/default/dbmail_mysql/domain/profile.html:35
+#: ../templates/default/dbmail_mysql/domain/profile.html:55
+#: ../templates/default/dbmail_mysql/user/create.html:72
+#: ../templates/default/dbmail_mysql/user/list.html:29
+#: ../templates/default/dbmail_mysql/user/profile.html:39
+#: ../templates/default/dbmail_mysql/user/profile.html:56
+#: ../templates/default/ldap/alias/create.html:52
+#: ../templates/default/ldap/alias/list.html:28
+#: ../templates/default/ldap/alias/profile.html:30
+#: ../templates/default/ldap/domain/list.html:57
+#: ../templates/default/ldap/domain/profile.html:124
+#: ../templates/default/ldap/maillist/create.html:51
+#: ../templates/default/ldap/maillist/list.html:30
+#: ../templates/default/ldap/maillist/profile.html:35
+#: ../templates/default/ldap/user/create.html:94
+#: ../templates/default/ldap/user/list.html:39
+#: ../templates/default/ldap/user/profile.html:98
+#: ../templates/default/ldap/user/profile.html:112
+#: ../templates/default/mysql/search.html:84
+#: ../templates/default/mysql/alias/create.html:49
+#: ../templates/default/mysql/alias/list.html:26
+#: ../templates/default/mysql/alias/profile.html:23
+#: ../templates/default/mysql/domain/list.html:56
+#: ../templates/default/mysql/domain/profile.html:43
+#: ../templates/default/mysql/domain/profile.html:63
+#: ../templates/default/mysql/user/create.html:69
+#: ../templates/default/mysql/user/list.html:37
+#: ../templates/default/mysql/user/profile.html:48
+#: ../templates/default/pgsql/search.html:84
+#: ../templates/default/pgsql/alias/create.html:49
+#: ../templates/default/pgsql/alias/list.html:26
+#: ../templates/default/pgsql/alias/profile.html:23
+#: ../templates/default/pgsql/domain/list.html:56
+#: ../templates/default/pgsql/domain/profile.html:44
+#: ../templates/default/pgsql/domain/profile.html:64
+#: ../templates/default/pgsql/user/create.html:69
+#: ../templates/default/pgsql/user/list.html:37
+#: ../templates/default/pgsql/user/profile.html:48
+msgid "Aliases"
+msgstr "Aliakset"
+
+#: ../templates/default/dbmail_mysql/alias/list.html:32
+#: ../templates/default/ldap/alias/list.html:35
+#: ../templates/default/mysql/alias/list.html:32
+#: ../templates/default/pgsql/alias/list.html:32
+#, python-format
+msgid "Aliases under domain: %s."
+msgstr "Aliakset domainiin: %s."
+
+#: ../templates/default/policyd/wblist.html:43
+#: ../templates/default/policyd/blacklist/create.html:24
+#: ../templates/default/policyd/whitelist/create.html:24
+msgid "All Blacklists"
+msgstr "Kaikki mustatlistat"
+
+#: ../templates/default/policyd/wblist.html:45
+#: ../templates/default/policyd/blacklist/create.html:23
+#: ../templates/default/policyd/whitelist/create.html:23
+msgid "All Whitelists"
+msgstr "Kaikki valkoiset listat"
+
+#: ../templates/default/ldap/user/profile.html:364
+msgid "All accounts"
+msgstr "Kaikki tilit"
+
+#: ../templates/default/dbmail_mysql/admin/create.html:24
+#: ../templates/default/dbmail_mysql/admin/list.html:29
+#: ../templates/default/dbmail_mysql/admin/profile.html:28
+#: ../templates/default/ldap/admin/create.html:24
+#: ../templates/default/ldap/admin/list.html:29
+#: ../templates/default/ldap/admin/profile.html:32
+#: ../templates/default/mysql/admin/create.html:24
+#: ../templates/default/mysql/admin/list.html:29
+#: ../templates/default/mysql/admin/profile.html:28
+#: ../templates/default/pgsql/admin/create.html:24
+#: ../templates/default/pgsql/admin/list.html:29
+#: ../templates/default/pgsql/admin/profile.html:28
+msgid "All admins"
+msgstr "Kaikki ylläpitäjät"
+
+#: ../templates/default/dbmail_mysql/alias/profile.html:20
+#: ../templates/default/dbmail_mysql/domain/create.html:18
+#: ../templates/default/dbmail_mysql/domain/list.html:29
+#: ../templates/default/dbmail_mysql/domain/profile.html:32
+#: ../templates/default/dbmail_mysql/user/profile.html:35
+#: ../templates/default/ldap/alias/profile.html:28
+#: ../templates/default/ldap/domain/create.html:21
+#: ../templates/default/ldap/domain/list.html:30
+#: ../templates/default/ldap/domain/profile.html:102
+#: ../templates/default/ldap/maillist/profile.html:30
+#: ../templates/default/ldap/user/profile.html:93
+#: ../templates/default/mysql/alias/profile.html:20
+#: ../templates/default/mysql/domain/create.html:18
+#: ../templates/default/mysql/domain/list.html:29
+#: ../templates/default/mysql/domain/profile.html:40
+#: ../templates/default/mysql/user/profile.html:44
+#: ../templates/default/pgsql/alias/profile.html:20
+#: ../templates/default/pgsql/domain/create.html:18
+#: ../templates/default/pgsql/domain/list.html:29
+#: ../templates/default/pgsql/domain/profile.html:41
+#: ../templates/default/pgsql/user/profile.html:44
+msgid "All domains"
+msgstr "Kaikki domainit"
+
+#: ../templates/default/dbmail_mysql/domain/list.html:36
+#: ../templates/default/ldap/domain/list.html:37
+#: ../templates/default/mysql/domain/list.html:36
+#: ../templates/default/pgsql/domain/list.html:36
+msgid "All domains under your control."
+msgstr "Sinun hallitsemat domainit"
+
+#: ../templates/default/dbmail_mysql/admin/list.html:35
+#: ../templates/default/ldap/admin/list.html:35
+#: ../templates/default/mysql/admin/list.html:35
+#: ../templates/default/pgsql/admin/list.html:35
+msgid "All mail administrators."
+msgstr "Kaikki sähköpostin ylläpitäjät."
+
+#: ../templates/default/policyd/blacklist/create.html:73
+#: ../templates/default/policyd/whitelist/create.html:67
+msgid "All sub-domains"
+msgstr "Kaikki alidomainit"
+
+#: ../templates/default/dbmail_mysql/search.html:181
+#: ../templates/default/dbmail_mysql/domain/list.html:88
+#: ../templates/default/dbmail_mysql/domain/list.html:90
+#: ../templates/default/dbmail_mysql/domain/list.html:96
+#: ../templates/default/dbmail_mysql/domain/list.html:98
+#: ../templates/default/mysql/domain/list.html:89
+#: ../templates/default/mysql/domain/list.html:91
+#: ../templates/default/mysql/domain/list.html:97
+#: ../templates/default/mysql/domain/list.html:99
+#: ../templates/default/mysql/user/list.html:109
+#: ../templates/default/pgsql/domain/list.html:89
+#: ../templates/default/pgsql/domain/list.html:91
+#: ../templates/default/pgsql/domain/list.html:97
+#: ../templates/default/pgsql/domain/list.html:99
+#: ../templates/default/pgsql/user/list.html:109
+msgid "Allocated"
+msgstr "Varattu"
+
+#: ../templates/default/dbmail_mysql/alias/create.html:26
+#: ../templates/default/dbmail_mysql/user/create.html:35
+#: ../templates/default/ldap/alias/create.html:34
+#: ../templates/default/ldap/maillist/create.html:34
+#: ../templates/default/ldap/user/create.html:65
+#: ../templates/default/mysql/alias/create.html:26
+#: ../templates/default/mysql/user/create.html:32
+#: ../templates/default/pgsql/alias/create.html:26
+#: ../templates/default/pgsql/user/create.html:32
+#, python-format
+msgid "Already exceed max number of account limit (%s)."
+msgstr "Tilien maksimimäärä on jo ylitetty (%s)."
+
+#: ../templates/default/amavisd/inout.html:173
+#: ../templates/default/amavisd/quarantined.html:94
+#: ../templates/default/dbmail_mysql/search.html:125
+#: ../templates/default/dbmail_mysql/search.html:200
+#: ../templates/default/dbmail_mysql/search.html:255
+#: ../templates/default/dbmail_mysql/admin/list.html:94
+#: ../templates/default/dbmail_mysql/alias/list.html:95
+#: ../templates/default/dbmail_mysql/domain/list.html:159
+#: ../templates/default/dbmail_mysql/user/list.html:129
+#: ../templates/default/ldap/search.html:116
+#: ../templates/default/ldap/search.html:169
+#: ../templates/default/ldap/search.html:232
+#: ../templates/default/ldap/search.html:288
+#: ../templates/default/ldap/search.html:340
+#: ../templates/default/ldap/admin/list.html:89
+#: ../templates/default/ldap/alias/list.html:101
+#: ../templates/default/ldap/domain/list.html:207
+#: ../templates/default/ldap/maillist/list.html:101
+#: ../templates/default/ldap/maillist/profile.html:192
+#: ../templates/default/ldap/maillist/profile.html:238
+#: ../templates/default/ldap/maillist/profile.html:320
+#: ../templates/default/ldap/maillist/profile.html:365
+#: ../templates/default/ldap/user/list.html:145
+#: ../templates/default/mysql/search.html:141
+#: ../templates/default/mysql/search.html:205
+#: ../templates/default/mysql/search.html:270
+#: ../templates/default/mysql/search.html:325
+#: ../templates/default/mysql/admin/list.html:94
+#: ../templates/default/mysql/alias/list.html:89
+#: ../templates/default/mysql/domain/list.html:158
+#: ../templates/default/mysql/user/list.html:137
+#: ../templates/default/panel/log.html:126
+#: ../templates/default/pgsql/search.html:141
+#: ../templates/default/pgsql/search.html:205
+#: ../templates/default/pgsql/search.html:270
+#: ../templates/default/pgsql/search.html:325
+#: ../templates/default/pgsql/admin/list.html:94
+#: ../templates/default/pgsql/alias/list.html:89
+#: ../templates/default/pgsql/domain/list.html:158
+#: ../templates/default/pgsql/user/list.html:137
+#: ../templates/default/policyd/wblist.html:108
+msgid "Apply"
+msgstr "Aseta"
+
+#: ../templates/default/macros/general.html:417
+#, python-format
+msgid "At least %s characters, but no more than %s."
+msgstr "Vähintään %s ja enintään %s merkkiä."
+
+#: ../templates/default/macros/general.html:419
+#, python-format
+msgid "At least %s characters."
+msgstr "Vähintään %s merkkiä."
+
+#: ../templates/default/amavisd/quarantined_raw.html:10
+msgid "Attachments"
+msgstr "Liitteet"
+
+#: ../templates/default/macros/general.html:484
+msgid "Available quota:"
+msgstr "Vapaa kiintiö:"
+
+#: ../templates/default/dbmail_mysql/domain/profile.html:52
+#: ../templates/default/dbmail_mysql/user/profile.html:57
+#: ../templates/default/ldap/domain/profile.html:121
+#: ../templates/default/mysql/domain/profile.html:60
+#: ../templates/default/mysql/user/profile.html:64
+#: ../templates/default/pgsql/domain/profile.html:61
+#: ../templates/default/pgsql/user/profile.html:64
+msgid "BCC"
+msgstr "Piilokopio"
+
+#: ../templates/default/macros/general.html:535
+msgid "BCC incoming emails to single address"
+msgstr "Piilokopio saapuvista sähköposteista osoitteeseen"
+
+#: ../templates/default/macros/ldap.html:80
+#: ../templates/default/macros/ldap.html:97
+msgid "BCC incoming mails to other address"
+msgstr "Piilokopio saapuvista posteista toiseen osoitteeseen."
+
+#: ../templates/default/macros/general.html:547
+msgid "BCC outgoing emails to single address"
+msgstr "Piilokopio lähtevistä sähköposteista osoitteeseen"
+
+#: ../templates/default/macros/ldap.html:81
+#: ../templates/default/macros/ldap.html:98
+msgid "BCC outgoing mails to other address"
+msgstr "Piilokopio lähtevistä posteista toiseen osoitteeseen."
+
+#: ../templates/default/policyd/wblist.html:12
+msgid "Blacklist"
+msgstr "Mustalista"
+
+#: ../templates/default/policyd/blacklist/create.html:45
+msgid "Blacklist HELO records"
+msgstr "HELO tietueet mustalle listalle"
+
+#: ../templates/default/policyd/blacklist/create.html:39
+msgid "Blacklist records"
+msgstr "Vastaanottajat mustalla listalla"
+
+#: ../templates/default/layout.html:75 ../templates/default/layout.html:97
+#: ../templates/default/policyd/wblist.html:55
+msgid "Blacklists"
+msgstr "Mustat listat"
+
+#: ../templates/default/ldap/user/profile.html:320
+msgid "Bypass mails from below senders"
+msgstr "Ohitä sähköpostit lähettäjiltä"
+
+#: ../templates/default/ldap/user/profile.html:334
+msgid "Bypass mails sent to below recipients"
+msgstr "Ohitetut sähköpostit lähetetään alla oleville vastaanottajille"
+
+#: ../templates/default/dbmail_mysql/domain/profile.html:54
+#: ../templates/default/ldap/domain/profile.html:123
+#: ../templates/default/mysql/domain/profile.html:62
+#: ../templates/default/pgsql/domain/profile.html:63
+msgid "Catch-all"
+msgstr "Nappaa-kaikki"
+
+#: ../templates/default/ldap/domain/profile.html:301
+#: ../templates/default/mysql/domain/profile.html:237
+#: ../templates/default/pgsql/domain/profile.html:238
+msgid "Catch-all Addresses"
+msgstr "Nappaa-kaikki osoitteet"
+
+#: ../templates/default/ldap/domain/profile.html:310
+#: ../templates/default/mysql/domain/profile.html:246
+#: ../templates/default/pgsql/domain/profile.html:247
+msgid "Catch-all address may receive many spam emails."
+msgstr "Nappaa-kaikki osoitteet voivat vastaanottaa paljon roskapostia."
+
+#: ../templates/default/macros/ldap.html:110
+msgid "Check this box in order to enable other services"
+msgstr "Valitse tämä ottaaksesi käyttöön muut sähköpostiin liittyvät palvelut."
+
+#: ../templates/default/amavisd/inout.html:169
+#: ../templates/default/amavisd/quarantined.html:85
+#: ../templates/default/dbmail_mysql/search.html:120
+#: ../templates/default/dbmail_mysql/search.html:195
+#: ../templates/default/dbmail_mysql/search.html:250
+#: ../templates/default/dbmail_mysql/admin/list.html:89
+#: ../templates/default/dbmail_mysql/alias/list.html:88
+#: ../templates/default/dbmail_mysql/domain/list.html:152
+#: ../templates/default/dbmail_mysql/user/list.html:122
+#: ../templates/default/ldap/search.html:111
+#: ../templates/default/ldap/search.html:164
+#: ../templates/default/ldap/search.html:227
+#: ../templates/default/ldap/search.html:283
+#: ../templates/default/ldap/search.html:335
+#: ../templates/default/ldap/admin/list.html:84
+#: ../templates/default/ldap/alias/list.html:96
+#: ../templates/default/ldap/domain/list.html:202
+#: ../templates/default/ldap/maillist/list.html:96
+#: ../templates/default/ldap/maillist/profile.html:189
+#: ../templates/default/ldap/maillist/profile.html:235
+#: ../templates/default/ldap/maillist/profile.html:317
+#: ../templates/default/ldap/maillist/profile.html:362
+#: ../templates/default/ldap/user/list.html:140
+#: ../templates/default/mysql/search.html:136
+#: ../templates/default/mysql/search.html:200
+#: ../templates/default/mysql/search.html:265
+#: ../templates/default/mysql/search.html:320
+#: ../templates/default/mysql/admin/list.html:89
+#: ../templates/default/mysql/alias/list.html:84
+#: ../templates/default/mysql/domain/list.html:153
+#: ../templates/default/mysql/user/list.html:132
+#: ../templates/default/panel/log.html:122
+#: ../templates/default/pgsql/search.html:136
+#: ../templates/default/pgsql/search.html:200
+#: ../templates/default/pgsql/search.html:265
+#: ../templates/default/pgsql/search.html:320
+#: ../templates/default/pgsql/admin/list.html:89
+#: ../templates/default/pgsql/alias/list.html:84
+#: ../templates/default/pgsql/domain/list.html:153
+#: ../templates/default/pgsql/user/list.html:132
+#: ../templates/default/policyd/wblist.html:105
+msgid "Choose Action"
+msgstr "Valitse toiminto"
+
+#: ../templates/default/macros/amavisd.html:60
+msgid "Choose activity type"
+msgstr "Valitse toiminnan tyyppi"
+
+#: ../templates/default/macros/general.html:578
+msgid "Company/Organization Name"
+msgstr "Yrityksen/Järjestön nimi"
+
+#: ../templates/default/macros/general.html:440
+msgid "Confirm new password"
+msgstr "Vahvista uusi salasana"
+
+#: ../templates/default/layout.html:141
+msgid "Contact webmaster"
+msgstr "Ota yhteys ylläpitäjään"
+
+#: ../templates/default/ldap/domain/profile.html:190
+msgid "Content of disclaimer will be appended to outgoing emails."
+msgstr "Kuinka vastuuvapauslauseke otetaan käyttöön ulosmenevissä sähköposteissa."
+
+#: ../templates/default/policyd/blacklist/create.html:78
+msgid ""
+"Could be a FQDN (Fully Qualified Domain Name) or IP address which "
+"enclosed in square brackets, for example <u>[1.2.3.4]</u>"
+msgstr ""
+"Voi olla FQDN (Fully Qualified Domain Name) tai IP-osoite joka on "
+"hakasulkujen sisällä, esimerkiksi <u>[1.2.3.4]</u>"
+
+#: ../templates/default/dbmail_mysql/search.html:83
+#: ../templates/default/dbmail_mysql/search.html:149
+#: ../templates/default/dbmail_mysql/search.html:224
+#: ../templates/default/dbmail_mysql/admin/list.html:52
+#: ../templates/default/ldap/search.html:79
+#: ../templates/default/ldap/search.html:136
+#: ../templates/default/ldap/search.html:194
+#: ../templates/default/ldap/search.html:255
+#: ../templates/default/ldap/search.html:309
+#: ../templates/default/ldap/admin/list.html:52
+#: ../templates/default/ldap/alias/list.html:54
+#: ../templates/default/ldap/maillist/list.html:56
+#: ../templates/default/ldap/user/list.html:28
+#: ../templates/default/mysql/search.html:163
+#: ../templates/default/mysql/search.html:230
+#: ../templates/default/mysql/search.html:294
+#: ../templates/default/mysql/admin/list.html:52
+#: ../templates/default/mysql/alias/list.html:51
+#: ../templates/default/mysql/user/list.html:27
+#: ../templates/default/pgsql/search.html:163
+#: ../templates/default/pgsql/search.html:230
+#: ../templates/default/pgsql/search.html:294
+#: ../templates/default/pgsql/admin/list.html:52
+#: ../templates/default/pgsql/alias/list.html:51
+#: ../templates/default/pgsql/user/list.html:27
+msgid "Created"
+msgstr "Luotu"
+
+#: ../templates/default/macros/msgHandlers.html:135
+#: ../templates/default/macros/msgHandlers.html:172
+#: ../templates/default/macros/msgHandlers.html:173
+msgid "Current password is incorrect."
+msgstr "Nykyinen salasana on virheellinen."
+
+#: ../templates/default/macros/policyd.html:35
+#: ../templates/default/macros/policyd.html:86
+msgid "Current value:"
+msgstr "Nykyinen arvo:"
+
+#: ../templates/default/macros/policyd.html:60
+#: ../templates/default/macros/policyd.html:85
+msgid "Custom:"
+msgstr "Muokattu:"
+
+#: ../templates/default/macros/ldap.html:95
+#: ../templates/default/macros/mysql.html:68
+msgid "Customize mail filter rule"
+msgstr "Muokkaa sähköpostin suodatussääntöä"
+
+#: ../templates/default/macros/ldap.html:96
+#: ../templates/default/macros/mysql.html:69
+msgid "Customize mail filter rule over TLS/SSL"
+msgstr "Muokkaa sähköpostin TLS/SSL suodatussääntöä."
+
+#: ../templates/default/dbmail_mysql/domain/list.html:111
+#: ../templates/default/dbmail_mysql/domain/list.html:125
+#: ../templates/default/ldap/domain/list.html:147
+#: ../templates/default/ldap/domain/list.html:160
+#: ../templates/default/ldap/domain/list.html:173
+#: ../templates/default/mysql/search.html:116
+#: ../templates/default/mysql/search.html:125
+#: ../templates/default/mysql/domain/list.html:112
+#: ../templates/default/mysql/domain/list.html:126
+#: ../templates/default/pgsql/search.html:116
+#: ../templates/default/pgsql/search.html:125
+#: ../templates/default/pgsql/domain/list.html:112
+#: ../templates/default/pgsql/domain/list.html:126
+msgid "DISABLED"
+msgstr "POISTETTU KÄYTÖSTÄ"
+
+#: ../templates/default/policyd/wblist.html:26
+msgid "DNS Name"
+msgstr "DNS-Nimi"
+
+#: ../templates/default/policyd/blacklist/create.html:70
+#: ../templates/default/policyd/whitelist/create.html:64
+msgid "DNS name"
+msgstr "DNS-nimi"
+
+#: ../templates/default/dashboard.html:5 ../templates/default/layout.html:54
+msgid "Dashboard"
+msgstr "Etusivu"
+
+#: ../templates/default/amavisd/inout.html:110
+#: ../templates/default/macros/amavisd.html:13
+msgid "Date"
+msgstr "Päivä"
+
+#: ../templates/default/dbmail_mysql/domain/profile.html:375
+#: ../templates/default/ldap/domain/profile.html:444
+#: ../templates/default/mysql/domain/profile.html:437
+#: ../templates/default/pgsql/domain/profile.html:419
+msgid "Default mail group(s) of new user"
+msgstr "Uuden käyttäjän sähköpostilistat"
+
+#: ../templates/default/macros/general.html:632
+msgid "Default quota of new user"
+msgstr "Oletuskiintiö uudelle käyttäjälle"
+
+#: ../templates/default/dbmail_mysql/search.html:123
+#: ../templates/default/dbmail_mysql/search.html:198
+#: ../templates/default/dbmail_mysql/search.html:253
+#: ../templates/default/dbmail_mysql/admin/list.html:92
+#: ../templates/default/dbmail_mysql/alias/list.html:93
+#: ../templates/default/dbmail_mysql/domain/list.html:157
+#: ../templates/default/dbmail_mysql/user/list.html:127
+#: ../templates/default/ldap/search.html:114
+#: ../templates/default/ldap/search.html:167
+#: ../templates/default/ldap/search.html:230
+#: ../templates/default/ldap/search.html:286
+#: ../templates/default/ldap/search.html:338
+#: ../templates/default/ldap/admin/list.html:87
+#: ../templates/default/ldap/alias/list.html:99
+#: ../templates/default/ldap/domain/list.html:205
+#: ../templates/default/ldap/maillist/list.html:99
+#: ../templates/default/ldap/user/list.html:143
+#: ../templates/default/mysql/search.html:139
+#: ../templates/default/mysql/search.html:203
+#: ../templates/default/mysql/search.html:268
+#: ../templates/default/mysql/search.html:323
+#: ../templates/default/mysql/admin/list.html:92
+#: ../templates/default/mysql/alias/list.html:87
+#: ../templates/default/mysql/domain/list.html:156
+#: ../templates/default/mysql/user/list.html:135
+#: ../templates/default/pgsql/search.html:139
+#: ../templates/default/pgsql/search.html:203
+#: ../templates/default/pgsql/search.html:268
+#: ../templates/default/pgsql/search.html:323
+#: ../templates/default/pgsql/admin/list.html:92
+#: ../templates/default/pgsql/alias/list.html:87
+#: ../templates/default/pgsql/domain/list.html:156
+#: ../templates/default/pgsql/user/list.html:135
+#: ../templates/default/policyd/wblist.html:106
+msgid "Delete"
+msgstr "Poista"
+
+#: ../templates/default/macros/general.html:800
+msgid "Delete account"
+msgstr "Poista tili"
+
+#: ../templates/default/amavisd/inout.html:171
+#: ../templates/default/amavisd/quarantined.html:90
+#: ../templates/default/panel/log.html:124
+msgid "Delete all in database"
+msgstr "Poista kaikki tietokannasta"
+
+#: ../templates/default/amavisd/inout.html:170
+#: ../templates/default/amavisd/quarantined.html:87
+#: ../templates/default/panel/log.html:123
+msgid "Delete selected"
+msgstr "Poista valitut"
+
+#: ../templates/default/policyd/wblist.html:67
+msgid "Description"
+msgstr "Kuvaus"
+
+#: ../templates/default/ldap/domain/profile.html:490
+msgid "Directory of mailbox storage"
+msgstr "Sähköpostilaatikon tallennuskansio"
+
+#: ../templates/default/dbmail_mysql/search.html:122
+#: ../templates/default/dbmail_mysql/search.html:197
+#: ../templates/default/dbmail_mysql/search.html:252
+#: ../templates/default/dbmail_mysql/admin/list.html:91
+#: ../templates/default/ldap/search.html:113
+#: ../templates/default/ldap/search.html:166
+#: ../templates/default/ldap/search.html:229
+#: ../templates/default/ldap/search.html:285
+#: ../templates/default/ldap/search.html:337
+#: ../templates/default/ldap/admin/list.html:86
+#: ../templates/default/ldap/alias/list.html:98
+#: ../templates/default/ldap/domain/list.html:204
+#: ../templates/default/ldap/maillist/list.html:98
+#: ../templates/default/ldap/user/list.html:142
+#: ../templates/default/mysql/search.html:138
+#: ../templates/default/mysql/search.html:202
+#: ../templates/default/mysql/search.html:267
+#: ../templates/default/mysql/search.html:322
+#: ../templates/default/mysql/admin/list.html:91
+#: ../templates/default/mysql/alias/list.html:86
+#: ../templates/default/mysql/domain/list.html:155
+#: ../templates/default/mysql/user/list.html:134
+#: ../templates/default/pgsql/search.html:138
+#: ../templates/default/pgsql/search.html:202
+#: ../templates/default/pgsql/search.html:267
+#: ../templates/default/pgsql/search.html:322
+#: ../templates/default/pgsql/admin/list.html:91
+#: ../templates/default/pgsql/alias/list.html:86
+#: ../templates/default/pgsql/domain/list.html:155
+#: ../templates/default/pgsql/user/list.html:134
+msgid "Disable"
+msgstr "Poista käytöstä"
+
+#: ../templates/default/macros/general.html:802
+msgid "Disable account"
+msgstr "Poista tili käytöstä"
+
+#: ../templates/default/dbmail_mysql/search.html:52
+#: ../templates/default/ldap/search.html:50
+#: ../templates/default/mysql/search.html:53
+#: ../templates/default/pgsql/search.html:53
+msgid "Disabled"
+msgstr "Poistettu käytöstä"
+
+#: ../templates/default/ldap/domain/profile.html:181
+msgid "Disclaimer"
+msgstr "Vastuuvapauslauseke"
+
+#: ../templates/default/dbmail_mysql/search.html:80
+#: ../templates/default/dbmail_mysql/search.html:145
+#: ../templates/default/dbmail_mysql/search.html:222
+#: ../templates/default/dbmail_mysql/admin/list.html:49
+#: ../templates/default/dbmail_mysql/alias/list.html:49
+#: ../templates/default/dbmail_mysql/user/list.html:53
+#: ../templates/default/ldap/search.html:133
+#: ../templates/default/ldap/search.html:189
+#: ../templates/default/ldap/search.html:252
+#: ../templates/default/ldap/search.html:307
+#: ../templates/default/ldap/admin/list.html:49
+#: ../templates/default/ldap/alias/list.html:52
+#: ../templates/default/ldap/maillist/list.html:53
+#: ../templates/default/ldap/maillist/profile.html:141
+#: ../templates/default/ldap/maillist/profile.html:268
+#: ../templates/default/ldap/user/list.html:62
+#: ../templates/default/macros/general.html:580
+#: ../templates/default/mysql/search.html:160
+#: ../templates/default/mysql/search.html:226
+#: ../templates/default/mysql/search.html:292
+#: ../templates/default/mysql/admin/list.html:49
+#: ../templates/default/mysql/alias/list.html:49
+#: ../templates/default/mysql/user/list.html:61
+#: ../templates/default/pgsql/search.html:160
+#: ../templates/default/pgsql/search.html:226
+#: ../templates/default/pgsql/search.html:292
+#: ../templates/default/pgsql/admin/list.html:49
+#: ../templates/default/pgsql/alias/list.html:49
+#: ../templates/default/pgsql/user/list.html:61
+msgid "Display Name"
+msgstr "Näyttönimi"
+
+#: ../templates/default/macros/ldap.html:99
+#: ../templates/default/macros/ldap.html:103
+msgid "Display mail address in global LDAP address book"
+msgstr "Näytä sähköpostiosoite globaalissa LDAP osoitekirjassa"
+
+#: ../templates/default/macros/general.html:361
+msgid "Displayed in Global LDAP Address Book"
+msgstr "Näytetään globaalissa LDAP osoietkirjassa"
+
+#: ../templates/default/layout.html:84
+#: ../templates/default/dbmail_mysql/domain/list.html:52
+#: ../templates/default/ldap/search.html:41
+#: ../templates/default/ldap/search.html:77
+#: ../templates/default/ldap/domain/list.html:52
+#: ../templates/default/mysql/search.html:45
+#: ../templates/default/mysql/search.html:80
+#: ../templates/default/mysql/domain/list.html:52
+#: ../templates/default/pgsql/search.html:45
+#: ../templates/default/pgsql/search.html:80
+#: ../templates/default/pgsql/domain/list.html:52
+msgid "Domain"
+msgstr "Domain"
+
+#: ../templates/default/dbmail_mysql/admin/list.html:13
+#: ../templates/default/ldap/admin/list.html:13
+#: ../templates/default/macros/ldap.html:41
+#: ../templates/default/macros/mysql.html:35
+#: ../templates/default/mysql/admin/list.html:13
+#: ../templates/default/pgsql/admin/list.html:13
+msgid "Domain Admins"
+msgstr "Domainin ylläpitäjät"
+
+#: ../templates/default/macros/general.html:563
+msgid "Domain Name"
+msgstr "Domain nimi"
+
+#: ../templates/default/macros/general.html:225
+msgid "Domain activities"
+msgstr "Domainin toimet"
+
+#: ../templates/default/macros/ldap.html:79
+msgid "Domain alias"
+msgstr "Domainin aliakset"
+
+#: ../templates/default/macros/msgHandlers.html:97
+msgid "Domain already exists. Please check both primary or alias domains."
+msgstr "Domain on jo olemassa. Tarkasta domainit ja domainaliakset."
+
+#: ../templates/default/ldap/user/profile.html:363
+msgid "Domain and its sub-domains"
+msgstr "Domain ja sen ali-domainit"
+
+#: ../templates/default/macros/msgHandlers.html:108
+msgid "Domain created."
+msgstr ""
+
+#: ../templates/default/macros/msgHandlers.html:95
+msgid "Domain name is empty."
+msgstr "Domain nimi on tyhjä."
+
+#: ../templates/default/macros/amavisd.html:56
+msgid "Domain name or mail address"
+msgstr "Domain nimi tai sähköpostiosoite"
+
+#: ../templates/default/macros/msgHandlers.html:128
+msgid "Domain name or username is missed."
+msgstr "Domain nimi tai käyttäjänimi puuttuu."
+
+#: ../templates/default/macros/general.html:618
+msgid "Domain quota size"
+msgstr "Domainin kiintiö"
+
+#: ../templates/default/macros/msgHandlers.html:130
+msgid ""
+"Domain quota size exceeded. Please contact your administrator or service "
+"provider to increase it."
+msgstr ""
+"Domainin kiintiö ylitetty. Ota yhteys ylläpitäjään tai palveluntarjoajaan"
+" kasvattaaksesi sitä."
+
+#: ../templates/default/panel/log.html:50
+msgid "Domains"
+msgstr "Domainit"
+
+#: ../templates/default/layout.html:55
+#: ../templates/default/dbmail_mysql/domain/list.html:17
+#: ../templates/default/ldap/domain/list.html:18
+#: ../templates/default/mysql/domain/list.html:17
+#: ../templates/default/pgsql/domain/list.html:17
+msgid "Domains and Accounts"
+msgstr "Domainit ja tilit"
+
+#: ../templates/default/ldap/domain/profile.html:197
+msgid "Dump disclaimer automatically"
+msgstr "Lisää vastuuvapauslauseke automaattisesti"
+
+#: ../templates/default/amavisd/inout.html:129
+#: ../templates/default/amavisd/inout.html:139
+#: ../templates/default/dbmail_mysql/search.html:95
+#: ../templates/default/dbmail_mysql/search.html:159
+#: ../templates/default/dbmail_mysql/search.html:236
+#: ../templates/default/dbmail_mysql/admin/list.html:64
+#: ../templates/default/dbmail_mysql/admin/profile.html:23
+#: ../templates/default/dbmail_mysql/alias/list.html:66
+#: ../templates/default/dbmail_mysql/alias/profile.html:15
+#: ../templates/default/dbmail_mysql/alias/profile.html:116
+#: ../templates/default/dbmail_mysql/domain/list.html:70
+#: ../templates/default/dbmail_mysql/domain/profile.html:27
+#: ../templates/default/dbmail_mysql/user/list.html:71
+#: ../templates/default/dbmail_mysql/user/profile.html:30
+#: ../templates/default/ldap/search.html:95
+#: ../templates/default/ldap/search.html:149
+#: ../templates/default/ldap/search.html:206
+#: ../templates/default/ldap/search.html:269
+#: ../templates/default/ldap/search.html:321
+#: ../templates/default/ldap/admin/list.html:69
+#: ../templates/default/ldap/admin/profile.html:23
+#: ../templates/default/ldap/alias/list.html:76
+#: ../templates/default/ldap/alias/profile.html:15
+#: ../templates/default/ldap/domain/list.html:102
+#: ../templates/default/ldap/domain/profile.html:36
+#: ../templates/default/ldap/maillist/list.html:75
+#: ../templates/default/ldap/maillist/profile.html:15
+#: ../templates/default/ldap/maillist/profile.html:166
+#: ../templates/default/ldap/maillist/profile.html:293
+#: ../templates/default/ldap/user/list.html:90
+#: ../templates/default/ldap/user/profile.html:40
+#: ../templates/default/macros/amavisd.html:99
+#: ../templates/default/macros/general.html:806
+#: ../templates/default/mysql/search.html:94
+#: ../templates/default/mysql/search.html:175
+#: ../templates/default/mysql/search.html:240
+#: ../templates/default/mysql/search.html:306
+#: ../templates/default/mysql/admin/list.html:64
+#: ../templates/default/mysql/admin/profile.html:23
+#: ../templates/default/mysql/alias/list.html:64
+#: ../templates/default/mysql/alias/profile.html:15
+#: ../templates/default/mysql/alias/profile.html:123
+#: ../templates/default/mysql/alias/profile.html:157
+#: ../templates/default/mysql/domain/list.html:71
+#: ../templates/default/mysql/domain/profile.html:35
+#: ../templates/default/mysql/user/list.html:79
+#: ../templates/default/mysql/user/profile.html:39
+#: ../templates/default/pgsql/search.html:94
+#: ../templates/default/pgsql/search.html:175
+#: ../templates/default/pgsql/search.html:240
+#: ../templates/default/pgsql/search.html:306
+#: ../templates/default/pgsql/admin/list.html:64
+#: ../templates/default/pgsql/admin/profile.html:23
+#: ../templates/default/pgsql/alias/list.html:64
+#: ../templates/default/pgsql/alias/profile.html:15
+#: ../templates/default/pgsql/alias/profile.html:123
+#: ../templates/default/pgsql/alias/profile.html:157
+#: ../templates/default/pgsql/domain/list.html:71
+#: ../templates/default/pgsql/domain/profile.html:36
+#: ../templates/default/pgsql/user/list.html:79
+#: ../templates/default/pgsql/user/profile.html:39
+msgid "Edit account profile"
+msgstr "Muokkaa tilin profiilia"
+
+#: ../templates/default/dbmail_mysql/alias/create.html:56
+#: ../templates/default/dbmail_mysql/alias/list.html:37
+#: ../templates/default/dbmail_mysql/user/create.html:79
+#: ../templates/default/dbmail_mysql/user/list.html:40
+#: ../templates/default/ldap/alias/create.html:60
+#: ../templates/default/ldap/alias/list.html:39
+#: ../templates/default/ldap/maillist/create.html:59
+#: ../templates/default/ldap/maillist/list.html:41
+#: ../templates/default/ldap/user/create.html:102
+#: ../templates/default/ldap/user/list.html:50
+#: ../templates/default/macros/amavisd.html:97
+#: ../templates/default/mysql/alias/create.html:56
+#: ../templates/default/mysql/alias/list.html:37
+#: ../templates/default/mysql/user/create.html:76
+#: ../templates/default/mysql/user/list.html:48
+#: ../templates/default/pgsql/alias/create.html:56
+#: ../templates/default/pgsql/alias/list.html:37
+#: ../templates/default/pgsql/user/create.html:76
+#: ../templates/default/pgsql/user/list.html:48
+msgid "Edit domain profile"
+msgstr "Muokkaa domainin profiilia"
+
+#: ../templates/default/dbmail_mysql/search.html:180
+#: ../templates/default/dbmail_mysql/domain/list.html:88
+#: ../templates/default/dbmail_mysql/domain/list.html:96
+#: ../templates/default/dbmail_mysql/user/list.html:98
+#: ../templates/default/ldap/domain/list.html:119
+#: ../templates/default/ldap/domain/list.html:128
+#: ../templates/default/ldap/user/list.html:114
+#: ../templates/default/mysql/domain/list.html:89
+#: ../templates/default/mysql/domain/list.html:97
+#: ../templates/default/mysql/user/list.html:108
+#: ../templates/default/pgsql/domain/list.html:89
+#: ../templates/default/pgsql/domain/list.html:97
+#: ../templates/default/pgsql/user/list.html:108
+msgid "Edit quota setting"
+msgstr "Muokkaa kiintiön asetuksia"
+
+#: ../templates/default/dbmail_mysql/user/profile.html:218
+#: ../templates/default/ldap/user/profile.html:308
+#, python-format
+msgid "Email address of alias account must end with domain name(s): %s."
+msgstr "Alias-tilien sähköpostiosoiteet pitää päättyä domain-nimeen: %s."
+
+#: ../templates/default/dbmail_mysql/user/profile.html:203
+#: ../templates/default/ldap/user/profile.html:295
+msgid "Email addresses of alias accounts"
+msgstr "Sähköpostiosoitteet alias tilille"
+
+#: ../templates/default/dashboard.html:100
+#: ../templates/default/dbmail_mysql/search.html:181
+#: ../templates/default/mysql/user/list.html:109
+#: ../templates/default/pgsql/user/list.html:109
+msgid "Emails"
+msgstr "Sähköpostit"
+
+#: ../templates/default/ldap/domain/profile.html:315
+#: ../templates/default/mysql/domain/profile.html:251
+#: ../templates/default/pgsql/domain/profile.html:252
+msgid ""
+"Emails delivered to non-exist mail accounts will be forwarded to catch-"
+"all address(es)."
+msgstr ""
+"Saapuvat postit, joita ei löydy olemassa olevista osoitteista, "
+"toimitetaan nappaa-kaikki osoitteeseen."
+
+#: ../templates/default/ldap/domain/profile.html:242
+#: ../templates/default/mysql/domain/profile.html:298
+#: ../templates/default/pgsql/domain/profile.html:299
+#, python-format
+msgid ""
+"Emails sent to <em><strong>user@[ALIAS_DOMAIN]</strong></em> will be "
+"delivered to <em><strong>user@%s</strong></em>."
+msgstr ""
+"Sähköpostit jotka lähetetään osoitteeseen "
+"<em><strong>user@[ALIAS_DOMAIN]</strong></em> toimitetaan "
+"<em><strong>user@%s</strong></em>."
+
+#: ../templates/default/dbmail_mysql/user/profile.html:217
+#: ../templates/default/ldap/user/profile.html:307
+#, python-format
+msgid "Emails sent to alias accounts will be delivered to user %s."
+msgstr "Sähköpostit alias-tileille toimitetaan käyttäjälle %s."
+
+#: ../templates/default/macros/msgHandlers.html:249
+msgid "Empty address is not allowed."
+msgstr "Tyhjä sähköpostiosoite ei ole sallittu."
+
+#: ../templates/default/macros/msgHandlers.html:66
+msgid "Empty password is not allowed."
+msgstr "Tyhjä salasana ei ole sallittu."
+
+#: ../templates/default/dbmail_mysql/search.html:121
+#: ../templates/default/dbmail_mysql/search.html:196
+#: ../templates/default/dbmail_mysql/search.html:251
+#: ../templates/default/dbmail_mysql/admin/list.html:90
+#: ../templates/default/ldap/search.html:112
+#: ../templates/default/ldap/search.html:165
+#: ../templates/default/ldap/search.html:228
+#: ../templates/default/ldap/search.html:284
+#: ../templates/default/ldap/search.html:336
+#: ../templates/default/ldap/admin/list.html:85
+#: ../templates/default/ldap/alias/list.html:97
+#: ../templates/default/ldap/domain/list.html:203
+#: ../templates/default/ldap/maillist/list.html:97
+#: ../templates/default/ldap/user/list.html:141
+#: ../templates/default/mysql/search.html:137
+#: ../templates/default/mysql/search.html:201
+#: ../templates/default/mysql/search.html:266
+#: ../templates/default/mysql/search.html:321
+#: ../templates/default/mysql/admin/list.html:90
+#: ../templates/default/mysql/alias/list.html:85
+#: ../templates/default/mysql/domain/list.html:154
+#: ../templates/default/mysql/user/list.html:133
+#: ../templates/default/pgsql/search.html:137
+#: ../templates/default/pgsql/search.html:201
+#: ../templates/default/pgsql/search.html:266
+#: ../templates/default/pgsql/search.html:321
+#: ../templates/default/pgsql/admin/list.html:90
+#: ../templates/default/pgsql/alias/list.html:85
+#: ../templates/default/pgsql/domain/list.html:154
+#: ../templates/default/pgsql/user/list.html:133
+msgid "Enable"
+msgstr "Ota käyttöön"
+
+#: ../templates/default/ldap/user/profile.html:290
+msgid "Enable alias account"
+msgstr "Ota aliastili käyttöön"
+
+#: ../templates/default/ldap/domain/profile.html:294
+#: ../templates/default/mysql/domain/profile.html:230
+#: ../templates/default/pgsql/domain/profile.html:231
+msgid "Enable catch-all"
+msgstr "Ota käyttöön Nappaa-kaikki"
+
+#: ../templates/default/ldap/domain/profile.html:210
+msgid "Enable domain alias"
+msgstr "Ota domain alias käyttöön"
+
+#: ../templates/default/mysql/domain/profile.html:369
+msgid "Enable greylisting for this domain"
+msgstr "Ota tämä domain käyttöön"
+
+#: ../templates/default/ldap/user/profile.html:263
+#: ../templates/default/mysql/user/profile.html:162
+#: ../templates/default/pgsql/user/profile.html:162
+msgid "Enable mail forwarding"
+msgstr "Ota käyttöön sähköpostin edelleenlähetys"
+
+#: ../templates/default/macros/policyd.html:7
+msgid "Enable recipient throttling"
+msgstr "Ota käyttöön vastaanoton rajoitin"
+
+#: ../templates/default/macros/policyd.html:5
+msgid "Enable sender throttling"
+msgstr "Ota käyttöön lähetyksen rajoitin"
+
+#: ../templates/default/macros/general.html:405
+msgid "Enable this account"
+msgstr "Ota tämä tili käyttöön"
+
+#: ../templates/default/macros/general.html:403
+msgid "Enable this domain"
+msgstr "Ota tämä domain käyttöön"
+
+#: ../templates/default/macros/ldap.html:107
+#: ../templates/default/macros/mysql.html:75
+#: ../templates/default/macros/mysql.html:81
+msgid "Enabled Services"
+msgstr "Käytössä olevat palvelut"
+
+#: ../templates/default/ldap/user/profile.html:362
+#: ../templates/default/policyd/blacklist/create.html:67
+#: ../templates/default/policyd/whitelist/create.html:61
+msgid "Entire domain"
+msgstr "Koko domain"
+
+#: ../templates/default/dashboard.html:119
+#, python-format
+msgid "Error while checking new version: %s"
+msgstr "Virhe tarkastettaessa uutta versiota: %s"
+
+#: ../templates/default/dbmail_mysql/alias/create.html:32
+#: ../templates/default/dbmail_mysql/user/create.html:48
+#: ../templates/default/ldap/alias/create.html:26
+#: ../templates/default/ldap/alias/create.html:34
+#: ../templates/default/ldap/maillist/create.html:26
+#: ../templates/default/ldap/maillist/create.html:34
+#: ../templates/default/ldap/user/create.html:59
+#: ../templates/default/ldap/user/create.html:69
+#: ../templates/default/macros/msgHandlers.html:22
+#: ../templates/default/macros/msgHandlers.html:24
+#: ../templates/default/mysql/alias/create.html:32
+#: ../templates/default/mysql/user/create.html:45
+#: ../templates/default/pgsql/alias/create.html:32
+#: ../templates/default/pgsql/user/create.html:45
+msgid "Error:"
+msgstr "Virhe:"
+
+#: ../templates/default/macros/general.html:794
+msgid "Events"
+msgstr "Tapahtumat"
+
+#: ../templates/default/ldap/maillist/profile.html:82
+#: ../templates/default/mysql/alias/profile.html:72
+#: ../templates/default/pgsql/alias/profile.html:72
+msgid "Everyone can send mail to this address"
+msgstr "Jokainen voi lähettää sähköpostia tähän osoitteeseen"
+
+#: ../templates/default/macros/msgHandlers.html:131
+msgid ""
+"Exceeded domain account limit. Please contact your administrator or "
+"service provider to increase it."
+msgstr ""
+"Domain tilien maksimimäärä on ylitetty. Ota yhteys ylläpitäjään tai "
+"palveluntarjoajaan kasvattaaksesi sitä."
+
+#: ../templates/default/policyd/wblist.html:68
+msgid "Expired Date"
+msgstr "Vanhentumispäivä"
+
+#: ../templates/default/ldap/admin/profile.html:88
+#: ../templates/default/ldap/alias/profile.html:78
+#: ../templates/default/ldap/domain/profile.html:166
+#: ../templates/default/ldap/maillist/profile.html:109
+#: ../templates/default/ldap/user/profile.html:161
+msgid "Export account to"
+msgstr "Vie tili "
+
+#: ../templates/default/ldap/maillist/profile.html:202
+msgid "External Members"
+msgstr "Ulkoiset jäsenet"
+
+#: ../templates/default/ldap/maillist/profile.html:328
+msgid "External moderators"
+msgstr "Ulkoiset moderaattorit"
+
+#: ../templates/default/macros/ldap.html:90
+#: ../templates/default/macros/mysql.html:66
+msgid "Fetching mails via IMAP"
+msgstr "Nouda sähköpostit IMAP kautta."
+
+#: ../templates/default/macros/ldap.html:91
+#: ../templates/default/macros/mysql.html:67
+msgid "Fetching mails via IMAP over TLS/SSL"
+msgstr "Nouda sähköpostit IMAP kautta (TLS/SSL)."
+
+#: ../templates/default/macros/ldap.html:88
+#: ../templates/default/macros/mysql.html:64
+msgid "Fetching mails via POP3"
+msgstr "Nouda sähköpostit POP3 kautta."
+
+#: ../templates/default/macros/ldap.html:89
+#: ../templates/default/macros/mysql.html:65
+msgid "Fetching mails via POP3 over TLS/SSL"
+msgstr "Nouda sähköpostit POP3S kautta (POP3 TLS/SSL)."
+
+#: ../templates/default/panel/log.html:48
+msgid "Filter:"
+msgstr "Filtteri:"
+
+#: ../templates/default/macros/general.html:702
+msgid "First Page"
+msgstr "Ensimmäinen sivu"
+
+#: ../templates/default/ldap/user/profile.html:359
+msgid "Format of sender and recipient"
+msgstr "Lähettäjän ja vastaanottajan muoto"
+
+#: ../templates/default/dbmail_mysql/user/profile.html:185
+#: ../templates/default/ldap/user/profile.html:278
+#: ../templates/default/mysql/user/profile.html:184
+#: ../templates/default/pgsql/user/profile.html:184
+msgid "Forward mails to address"
+msgstr "Edelleenohjaa sähköpostit osoitteeseen"
+
+#: ../templates/default/dbmail_mysql/user/profile.html:55
+#: ../templates/default/ldap/user/profile.html:111
+#: ../templates/default/mysql/user/profile.html:63
+#: ../templates/default/pgsql/user/profile.html:63
+msgid "Forwarding"
+msgstr "Edelleenohjaus"
+
+#: ../templates/default/macros/ldap.html:93
+msgid "Forwarding mails to other addresses"
+msgstr "Edelleenohjaa sähköpostit toiseen osoitteeseen"
+
+#: ../templates/default/dbmail_mysql/admin/profile.html:44
+#: ../templates/default/dbmail_mysql/alias/profile.html:36
+#: ../templates/default/dbmail_mysql/domain/profile.html:51
+#: ../templates/default/dbmail_mysql/user/profile.html:54
+#: ../templates/default/ldap/admin/profile.html:46
+#: ../templates/default/ldap/alias/profile.html:46
+#: ../templates/default/ldap/domain/profile.html:120
+#: ../templates/default/ldap/maillist/profile.html:52
+#: ../templates/default/ldap/user/profile.html:110
+#: ../templates/default/mysql/admin/profile.html:44
+#: ../templates/default/mysql/alias/profile.html:36
+#: ../templates/default/mysql/domain/profile.html:59
+#: ../templates/default/mysql/user/profile.html:62
+#: ../templates/default/pgsql/admin/profile.html:44
+#: ../templates/default/pgsql/alias/profile.html:36
+#: ../templates/default/pgsql/domain/profile.html:60
+#: ../templates/default/pgsql/user/profile.html:62
+msgid "General"
+msgstr "Yleinen"
+
+#: ../templates/default/dbmail_mysql/search.html:82
+#: ../templates/default/dbmail_mysql/admin/list.html:51
+#: ../templates/default/ldap/search.html:135
+#: ../templates/default/ldap/admin/list.html:51
+#: ../templates/default/macros/ldap.html:49
+#: ../templates/default/mysql/search.html:162
+#: ../templates/default/mysql/admin/list.html:51
+#: ../templates/default/pgsql/search.html:162
+#: ../templates/default/pgsql/admin/list.html:51
+msgid "Global Admin"
+msgstr "Globaali ylläpitäjä"
+
+#: ../templates/default/macros/ldap.html:118
+#: ../templates/default/macros/mysql.html:78
+msgid "Greylisting"
+msgstr ""
+
+#: ../templates/default/policyd/wblist.html:27
+msgid "HELO Identities"
+msgstr "HELO identiteetit"
+
+#: ../templates/default/policyd/blacklist/create.html:76
+msgid "HELO identity"
+msgstr "HELO tunniste"
+
+#: ../templates/default/dashboard.html:135
+msgid "Hostname"
+msgstr "Isäntänimi"
+
+#: ../templates/default/panel/log.html:87
+#: ../templates/default/policyd/blacklist/create.html:58
+#: ../templates/default/policyd/whitelist/create.html:52
+msgid "IP Address"
+msgstr "IP-osoite"
+
+#: ../templates/default/policyd/wblist.html:24
+msgid "IP Addresses"
+msgstr "IP-osoitteet"
+
+#: ../templates/default/dbmail_mysql/user/create.html:53
+#: ../templates/default/mysql/user/create.html:50
+#: ../templates/default/pgsql/user/create.html:50
+msgid "Increase it now?"
+msgstr "Kasvata nyt?"
+
+#: ../templates/default/ldap/maillist/profile.html:383
+msgid ""
+"Input mail addresses of either internal or external members below, "
+"multiple addresses must be seperated by comma, space or new line."
+msgstr ""
+"Lisää sähköpostiosoite sisäisistä tai ulkoisista jäsenistä, useita "
+"osoitteita lisättäessä osoitteet täytyy erottaa pilkulla, välillä tai "
+"rivillä."
+
+#: ../templates/default/ldap/maillist/profile.html:397
+msgid ""
+"Input mail addresses of either internal or external moderators below, "
+"multiple addresses must be seperated by comma, space or new line."
+msgstr ""
+"Lisää sähköpostiosoite sisäisistä tai ulkoisista moderaattoreista, useita"
+" osoitteita lisättäessä osoitteet täytyy erottaa pilkulla, välillä tai "
+"rivillä."
+
+#: ../templates/default/ldap/user/profile.html:349
+msgid "Install iRedAPD"
+msgstr "Asenna iRedAPD"
+
+#: ../templates/default/ldap/maillist/profile.html:132
+msgid "Internal Members"
+msgstr "Sisäiset jäsenet"
+
+#: ../templates/default/ldap/maillist/profile.html:256
+msgid "Internal Moderators"
+msgstr "Sisäiset moderaattorit"
+
+#: ../templates/default/macros/msgHandlers.html:89
+#: ../templates/default/macros/msgHandlers.html:126
+#: ../templates/default/macros/msgHandlers.html:166
+#: ../templates/default/macros/msgHandlers.html:206
+#: ../templates/default/macros/msgHandlers.html:241
+#: ../templates/default/macros/msgHandlers.html:275
+#: ../templates/default/macros/msgHandlers.html:298
+#: ../templates/default/macros/msgHandlers.html:317
+#: ../templates/default/macros/msgHandlers.html:341
+msgid "Invalid action."
+msgstr "Virheellinen toiminto."
+
+#: ../templates/default/macros/msgHandlers.html:297
+#: ../templates/default/macros/msgHandlers.html:318
+msgid "Invalid domain name or mail address."
+msgstr "Virheellinen domain nimi tai sähköpostiosoite."
+
+#: ../templates/default/macros/msgHandlers.html:93
+msgid "Invalid domain name."
+msgstr "Virheellinen domain nimi."
+
+#: ../templates/default/macros/msgHandlers.html:94
+#: ../templates/default/macros/msgHandlers.html:129
+#: ../templates/default/macros/msgHandlers.html:176
+#: ../templates/default/macros/msgHandlers.html:339
+msgid "Invalid mail address."
+msgstr "Virheellinen sähköpostiosoite."
+
+#: ../templates/default/macros/msgHandlers.html:299
+msgid "Invalid request data."
+msgstr "Virheellinen pyyntö."
+
+#: ../templates/default/macros/msgHandlers.html:204
+msgid "Invalid username."
+msgstr "Virheellinen käyttäjänimi."
+
+#: ../templates/default/macros/general.html:203
+msgid "Is a global admin."
+msgstr "On globaali ylläpitäjä."
+
+#: ../templates/default/ldap/alias/create.html:96
+msgid ""
+"It's better to use mail list instead of alias, since we have mail deliver"
+" restriction for mail list."
+msgstr ""
+"On parempi käyttää sähköpostilistaa, kuin aliasta, koska "
+"sähköpostilistalle voidaan käyttää rajoituksia."
+
+#: ../templates/default/ldap/search.html:192
+#: ../templates/default/ldap/user/list.html:65
+msgid "Job Title"
+msgstr "Tehtävänimi"
+
+#: ../templates/default/macros/general.html:304
+msgid "Job Title/Responsibility"
+msgstr "Tehtävänimi/vastuualue"
+
+#: ../templates/default/dbmail_mysql/search.html:35
+#: ../templates/default/ldap/search.html:31
+#: ../templates/default/mysql/search.html:35
+#: ../templates/default/pgsql/search.html:35
+msgid "Keyword"
+msgstr "Hakusana"
+
+#: ../templates/default/dbmail_mysql/user/list.html:60
+#: ../templates/default/ldap/user/list.html:25
+#: ../templates/default/mysql/user/list.html:24
+#: ../templates/default/pgsql/user/list.html:24
+msgid "Last Login"
+msgstr "Domain-aliakset"
+
+#: ../templates/default/macros/general.html:783
+msgid "Last Page"
+msgstr "Edellinen sivu"
+
+#: ../templates/default/ldap/domain/profile.html:500
+msgid "Leave it empty to use server-wide default setting."
+msgstr "Jätä tyhjäksi käyttääksesi palvelinlaajuisia oletusasetuksia."
+
+#: ../templates/default/dbmail_mysql/domain/list.html:122
+#: ../templates/default/dbmail_mysql/domain/list.html:127
+#: ../templates/default/ldap/domain/list.html:167
+#: ../templates/default/mysql/search.html:123
+#: ../templates/default/mysql/domain/list.html:123
+#: ../templates/default/mysql/domain/list.html:128
+#: ../templates/default/pgsql/search.html:123
+#: ../templates/default/pgsql/domain/list.html:123
+#: ../templates/default/pgsql/domain/list.html:128
+msgid "List all mail aliases."
+msgstr "Listaa kaikki sähköpostialiakset."
+
+#: ../templates/default/ldap/domain/list.html:154
+msgid "List all mail lists."
+msgstr "Listaa kaikki sähköpostilistat."
+
+#: ../templates/default/dbmail_mysql/domain/list.html:108
+#: ../templates/default/dbmail_mysql/domain/list.html:113
+#: ../templates/default/ldap/domain/list.html:141
+#: ../templates/default/ldap/domain/list.html:144
+#: ../templates/default/mysql/search.html:114
+#: ../templates/default/mysql/domain/list.html:109
+#: ../templates/default/mysql/domain/list.html:114
+#: ../templates/default/pgsql/search.html:114
+#: ../templates/default/pgsql/domain/list.html:109
+#: ../templates/default/pgsql/domain/list.html:114
+msgid "List all mail users."
+msgstr "Listaa kaikki sähköpostikäyttäjät."
+
+#: ../templates/default/ldap/domain/list.html:179
+msgid "List assigned domain admins"
+msgstr "Listaa määritetyt domain ylläpitäjät"
+
+#: ../templates/default/ldap/domain/list.html:56
+msgid "Lists"
+msgstr "Listat"
+
+#: ../templates/default/layout.html:33
+#, python-format
+msgid "Logged in as %s"
+msgstr "Kirjautunut sisään tunnuksella %s"
+
+#: ../templates/default/login.html:64
+msgid "Login"
+msgstr "Kirjaudu"
+
+#: ../templates/default/macros/msgHandlers.html:62
+msgid "Login required"
+msgstr "Kirjautuminen vaaditaan"
+
+#: ../templates/default/login.html:7 ../templates/default/login.html:42
+msgid "Login to manage your mail domains & accounts"
+msgstr "Kirjaudu hallitaksesi sähköpostidomaineja ja tilejä"
+
+#: ../templates/default/layout.html:28
+msgid "Logout"
+msgstr "Kirjaudu ulos"
+
+#: ../templates/default/dbmail_mysql/search.html:81
+#: ../templates/default/dbmail_mysql/search.html:146
+#: ../templates/default/dbmail_mysql/search.html:223
+#: ../templates/default/dbmail_mysql/admin/list.html:50
+#: ../templates/default/dbmail_mysql/alias/create.html:65
+#: ../templates/default/dbmail_mysql/alias/list.html:50
+#: ../templates/default/dbmail_mysql/user/create.html:89
+#: ../templates/default/dbmail_mysql/user/list.html:54
+#: ../templates/default/ldap/search.html:134
+#: ../templates/default/ldap/search.html:190
+#: ../templates/default/ldap/search.html:253
+#: ../templates/default/ldap/search.html:308
+#: ../templates/default/ldap/admin/list.html:50
+#: ../templates/default/ldap/alias/create.html:70
+#: ../templates/default/ldap/alias/list.html:53
+#: ../templates/default/ldap/maillist/create.html:67
+#: ../templates/default/ldap/maillist/list.html:54
+#: ../templates/default/ldap/maillist/profile.html:142
+#: ../templates/default/ldap/maillist/profile.html:210
+#: ../templates/default/ldap/maillist/profile.html:269
+#: ../templates/default/ldap/maillist/profile.html:337
+#: ../templates/default/ldap/user/create.html:113
+#: ../templates/default/ldap/user/list.html:63
+#: ../templates/default/macros/general.html:556
+#: ../templates/default/mysql/search.html:161
+#: ../templates/default/mysql/search.html:227
+#: ../templates/default/mysql/search.html:293
+#: ../templates/default/mysql/admin/list.html:50
+#: ../templates/default/mysql/alias/create.html:65
+#: ../templates/default/mysql/alias/list.html:50
+#: ../templates/default/mysql/user/create.html:86
+#: ../templates/default/mysql/user/list.html:62
+#: ../templates/default/pgsql/search.html:161
+#: ../templates/default/pgsql/search.html:227
+#: ../templates/default/pgsql/search.html:293
+#: ../templates/default/pgsql/admin/list.html:50
+#: ../templates/default/pgsql/alias/create.html:65
+#: ../templates/default/pgsql/alias/list.html:50
+#: ../templates/default/pgsql/user/create.html:86
+#: ../templates/default/pgsql/user/list.html:62
+msgid "Mail Address"
+msgstr "Sähköpostiosoite"
+
+#: ../templates/default/macros/msgHandlers.html:108
+msgid "Mail Alias"
+msgstr "Sähköpostialias"
+
+#: ../templates/default/dbmail_mysql/alias/list.html:12
+#: ../templates/default/ldap/alias/list.html:13
+#: ../templates/default/ldap/domain/profile.html:106
+#: ../templates/default/mysql/alias/list.html:12
+#: ../templates/default/pgsql/alias/list.html:12
+msgid "Mail Aliases"
+msgstr "Sähköpostialiakset"
+
+#: ../templates/default/amavisd/quarantined_raw.html:6
+msgid "Mail Body"
+msgstr "Sähköpostin runko"
+
+#: ../templates/default/ldap/search.html:254
+#: ../templates/default/ldap/maillist/list.html:55
+msgid "Mail Deliver Restriction"
+msgstr "Postivälityksen rajoitteet"
+
+#: ../templates/default/amavisd/quarantined_raw.html:20
+msgid "Mail Headers"
+msgstr "Sähköpostin otsikot"
+
+#: ../templates/default/layout.html:90 ../templates/default/ldap/search.html:39
+#: ../templates/default/ldap/alias/create.html:54
+#: ../templates/default/ldap/alias/list.html:30
+#: ../templates/default/ldap/maillist/create.html:53
+#: ../templates/default/ldap/maillist/list.html:32
+#: ../templates/default/ldap/user/create.html:96
+#: ../templates/default/ldap/user/list.html:41
+#: ../templates/default/macros/msgHandlers.html:108
+msgid "Mail List"
+msgstr "Sähköpostilista"
+
+#: ../templates/default/ldap/alias/create.html:51
+#: ../templates/default/ldap/alias/list.html:27
+#: ../templates/default/ldap/alias/profile.html:33
+#: ../templates/default/ldap/domain/profile.html:105
+#: ../templates/default/ldap/maillist/create.html:50
+#: ../templates/default/ldap/maillist/list.html:15
+#: ../templates/default/ldap/maillist/list.html:29
+#: ../templates/default/ldap/maillist/profile.html:33
+#: ../templates/default/ldap/user/create.html:93
+#: ../templates/default/ldap/user/list.html:38
+#: ../templates/default/ldap/user/profile.html:97
+msgid "Mail Lists"
+msgstr "Sähköpostilistat"
+
+#: ../templates/default/dbmail_mysql/user/list.html:14
+#: ../templates/default/ldap/user/list.html:14
+#: ../templates/default/mysql/user/list.html:14
+#: ../templates/default/pgsql/user/list.html:14
+msgid "Mail Users"
+msgstr "Sähköpostikäyttäjät"
+
+#: ../templates/default/macros/msgHandlers.html:140
+msgid "Mail address already exists, please choose another one."
+msgstr "Sähköpostiosoite on käytössä, valitse jokin muu."
+
+#: ../templates/default/macros/msgHandlers.html:256
+msgid "Mail alias created."
+msgstr ""
+
+#: ../templates/default/macros/msgHandlers.html:224
+msgid "Mail list created."
+msgstr ""
+
+#: ../templates/default/ldap/maillist/list.html:37
+#, python-format
+msgid "Mail lists under domain: %s"
+msgstr "Sähköpostilistat domainissa: %s"
+
+#: ../templates/default/amavisd/inout.html:85
+#, python-format
+msgid ""
+"Mail logs of incoming and outgoing mails which older than %d days will be"
+" deleted from database permanantly."
+msgstr ""
+"Sähköpostilogit saapuvista ja lähtevistä maileista tuhotaan mikäli ne "
+"ovat vanhempia kuin %d päivää"
+
+#: ../templates/default/dbmail_mysql/alias/profile.html:105
+#: ../templates/default/ldap/alias/profile.html:91
+#: ../templates/default/mysql/alias/profile.html:102
+#: ../templates/default/pgsql/alias/profile.html:102
+msgid "Mail sent to alias will be forwarded to members."
+msgstr "Aliakselle lähetetyt sähköpostit edelleenohjataan sen jäsenille."
+
+#: ../templates/default/macros/ldap.html:110
+msgid "Mail service"
+msgstr "Sähköpostipalvelu"
+
+#: ../templates/default/dbmail_mysql/user/list.html:99
+#: ../templates/default/macros/general.html:474
+msgid "Mailbox Quota"
+msgstr "Sähköpostilaatikon kiintiö"
+
+#: ../templates/default/amavisd/inout.html:45
+#, python-format
+msgid "Mails Sent by Domain: %s"
+msgstr "Sähköpostit lähetetty domainista: %s"
+
+#: ../templates/default/amavisd/inout.html:48
+#, python-format
+msgid "Mails Sent by User: %s"
+msgstr "Sähköpostit lähetetty käyttäjältä: %s"
+
+#: ../templates/default/macros/msgHandlers.html:296
+msgid "Mails were deleted."
+msgstr "Sähköpostit poistettu."
+
+#: ../templates/default/macros/msgHandlers.html:295
+msgid "Mails were released."
+msgstr "Sähköpostit julkaistu."
+
+#: ../templates/default/ldap/domain/profile.html:194
+msgid "Make sure disclaimer work as expected:"
+msgstr "Varmista että vastuuvapauslauseke toimii odotetulla tavalla:"
+
+#: ../templates/default/ldap/user/profile.html:349
+msgid "Make sure you have iRedAPD work as expected:"
+msgstr "Varmista että iRedAPD toimii odotetulla tavalla:"
+
+#: ../templates/default/macros/ldap.html:5
+#: ../templates/default/macros/mysql.html:5
+msgid "Managed Domains"
+msgstr "Hallitut domainit"
+
+#: ../templates/default/macros/general.html:371
+msgid "Mark as global admin"
+msgstr "Merkitse globaaliksi ylläpitäjäksi"
+
+#: ../templates/default/macros/policyd.html:71
+msgid "Max size of single outgoing email"
+msgstr "Yksittäisen ulosmenevän sähköpostin maksimikoko"
+
+#: ../templates/default/dbmail_mysql/domain/profile.html:354
+#: ../templates/default/ldap/domain/profile.html:421
+#: ../templates/default/mysql/domain/profile.html:416
+#: ../templates/default/pgsql/domain/profile.html:398
+msgid "Maximal password length"
+msgstr "Salasanan maksimi pituus"
+
+#: ../templates/default/macros/msgHandlers.html:208
+#: ../templates/default/macros/msgHandlers.html:246
+msgid "Member assigned success."
+msgstr "Jäsenen määritys onnistui."
+
+#: ../templates/default/dbmail_mysql/user/profile.html:128
+#: ../templates/default/ldap/user/profile.html:222
+#: ../templates/default/mysql/user/profile.html:115
+#: ../templates/default/pgsql/user/profile.html:115
+msgid "Member of Mail Aliases"
+msgstr "Sähköpostialiasten jäsenyydet"
+
+#: ../templates/default/ldap/user/profile.html:175
+msgid "Member of Mail Lists"
+msgstr "Sähköpostilistojen jäsenyydet"
+
+#: ../templates/default/macros/msgHandlers.html:209
+#: ../templates/default/macros/msgHandlers.html:247
+msgid "Member removed success."
+msgstr "Jäsenen poisto onnistui."
+
+#: ../templates/default/dbmail_mysql/alias/profile.html:104
+#: ../templates/default/ldap/alias/profile.html:90
+#: ../templates/default/ldap/maillist/profile.html:53
+#: ../templates/default/ldap/maillist/profile.html:85
+#: ../templates/default/mysql/alias/profile.html:75
+#: ../templates/default/mysql/alias/profile.html:101
+#: ../templates/default/pgsql/alias/profile.html:75
+#: ../templates/default/pgsql/alias/profile.html:101
+msgid "Members"
+msgstr "Jäsenet"
+
+#: ../templates/default/panel/log.html:88
+msgid "Message"
+msgstr "Viesti"
+
+#: ../templates/default/ldap/maillist/profile.html:128
+msgid "Messages sent to mail list will be delivered to its members."
+msgstr "Sähköpostit jotka lähetetään sähköpostilistaan toimitetaan sen jäsenille."
+
+#: ../templates/default/dbmail_mysql/domain/profile.html:347
+#: ../templates/default/ldap/domain/profile.html:414
+#: ../templates/default/mysql/domain/profile.html:409
+#: ../templates/default/pgsql/domain/profile.html:391
+msgid "Minimal password length"
+msgstr "Salasanan minimipituus"
+
+#: ../templates/default/macros/general.html:311
+msgid "Mobile"
+msgstr "Matkapuhelin"
+
+#: ../templates/default/ldap/maillist/profile.html:54
+#: ../templates/default/ldap/maillist/profile.html:86
+#: ../templates/default/mysql/alias/profile.html:76
+#: ../templates/default/mysql/alias/profile.html:138
+#: ../templates/default/pgsql/alias/profile.html:76
+#: ../templates/default/pgsql/alias/profile.html:138
+msgid "Moderators"
+msgstr "Moderaattorit"
+
+#: ../templates/default/macros/msgHandlers.html:210
+msgid "Moderators assigned success."
+msgstr "Moderaattorit määritetty onnistuneesti."
+
+#: ../templates/default/macros/msgHandlers.html:211
+msgid "Moderators removed success."
+msgstr "Moderaattorit poistettu onnistuneesti."
+
+#: ../templates/default/ldap/domain/profile.html:254
+#: ../templates/default/mysql/domain/profile.html:181
+#: ../templates/default/mysql/user/profile.html:203
+#: ../templates/default/pgsql/domain/profile.html:182
+#: ../templates/default/pgsql/user/profile.html:203
+msgid "Monitor incoming emails via BCC"
+msgstr "Seuraa saapuvia sähköposteja piilokopiolla"
+
+#: ../templates/default/ldap/domain/profile.html:261
+#: ../templates/default/mysql/domain/profile.html:188
+#: ../templates/default/mysql/user/profile.html:210
+#: ../templates/default/pgsql/domain/profile.html:189
+#: ../templates/default/pgsql/user/profile.html:210
+msgid "Monitor outgoing emails via BCC"
+msgstr "Seuraa lähteviä sähköposteja piilokopiolla"
+
+#: ../templates/default/ldap/domain/profile.html:316
+#: ../templates/default/mysql/domain/profile.html:252
+#: ../templates/default/pgsql/domain/profile.html:253
+msgid "Multiple addresses MUST be seperated by comma (,)."
+msgstr "Usea osoite PITÄÄ erotella pilkulla (,)."
+
+#: ../templates/default/ldap/domain/profile.html:275
+#: ../templates/default/ldap/user/profile.html:482
+#: ../templates/default/mysql/domain/profile.html:202
+#: ../templates/default/mysql/user/profile.html:223
+#: ../templates/default/pgsql/domain/profile.html:203
+#: ../templates/default/pgsql/user/profile.html:223
+msgid "Multiple addresses are NOT supported."
+msgstr "Useaa osoitetta EI tueta."
+
+#: ../templates/default/dbmail_mysql/domain/list.html:53
+#: ../templates/default/ldap/search.html:78
+#: ../templates/default/ldap/domain/list.html:53
+#: ../templates/default/mysql/search.html:81
+#: ../templates/default/mysql/domain/list.html:53
+#: ../templates/default/pgsql/search.html:81
+#: ../templates/default/pgsql/domain/list.html:53
+msgid "Name"
+msgstr "Nimi"
+
+#: ../templates/default/macros/general.html:682
+msgid "Need a random password?"
+msgstr "Satunnainen salasana?"
+
+#: ../templates/default/dashboard.html:155
+msgid "Network"
+msgstr "Verkko"
+
+#: ../templates/default/macros/general.html:434
+msgid "New password"
+msgstr "Uusi salasana"
+
+#: ../templates/default/macros/msgHandlers.html:189
+#, python-format
+msgid "New password must NOT contain more than %s characters."
+msgstr "Uusi salasana EI saa olla pidempi kuin %s merkkiä."
+
+#: ../templates/default/macros/msgHandlers.html:187
+#, python-format
+msgid "New password must contain at least %s characters."
+msgstr "Uuden salasanan täytyy pitää sisällään ainakin %s merkkiä."
+
+#: ../templates/default/macros/msgHandlers.html:136
+#: ../templates/default/macros/msgHandlers.html:174
+msgid "New passwords are not match."
+msgstr "Antamasi salasanat eivät täsmää"
+
+#: ../templates/default/layout.html:138
+msgid "News & Announments"
+msgstr "Uutiset & Tiedotteet"
+
+#: ../templates/default/macros/general.html:779
+msgid "Next Page"
+msgstr "Seuraava sivu"
+
+#: ../templates/default/macros/msgHandlers.html:171
+msgid "No account selected."
+msgstr "Ei tiliä valittuna."
+
+#: ../templates/default/panel/log.html:111
+msgid "No admin log."
+msgstr "Ei admin logia."
+
+#: ../templates/default/macros/msgHandlers.html:102
+#: ../templates/default/macros/msgHandlers.html:127
+#: ../templates/default/macros/msgHandlers.html:216
+#: ../templates/default/macros/msgHandlers.html:242
+msgid "No domain under control."
+msgstr "Ei domainia hallittavana."
+
+#: ../templates/default/ldap/maillist/profile.html:225
+msgid "No external members."
+msgstr "Ei ulkoisia jäseniä."
+
+#: ../templates/default/ldap/maillist/profile.html:352
+msgid "No external moderators."
+msgstr "Ei ulkoisia moderaattoreita."
+
+#: ../templates/default/dbmail_mysql/user/create.html:40
+#: ../templates/default/ldap/user/create.html:51
+#: ../templates/default/mysql/user/create.html:37
+#: ../templates/default/pgsql/user/create.html:37
+msgid "No free domain quota left."
+msgstr "Ei vapaata domainkiintiötä jäljellä."
+
+#: ../templates/default/amavisd/inout.html:158
+msgid "No incoming mails."
+msgstr "Ei lähteviä sähköposteja."
+
+#: ../templates/default/ldap/maillist/profile.html:179
+msgid "No internal members."
+msgstr "Ei sisäisiä jäseniä."
+
+#: ../templates/default/ldap/maillist/profile.html:307
+msgid "No internal moderators."
+msgstr "Ei sisäisiä moderaattoreita."
+
+#: ../templates/default/dbmail_mysql/alias/list.html:79
+#: ../templates/default/ldap/alias/list.html:87
+#: ../templates/default/mysql/alias/list.html:75
+#: ../templates/default/pgsql/alias/list.html:75
+msgid "No mail alias available."
+msgstr "Ei sähköpostialiasta saatavilla."
+
+#: ../templates/default/dbmail_mysql/domain/list.html:136
+#: ../templates/default/dbmail_mysql/domain/list.html:140
+#: ../templates/default/ldap/domain/list.html:187
+#: ../templates/default/ldap/domain/list.html:191
+#: ../templates/default/macros/msgHandlers.html:141
+#: ../templates/default/mysql/domain/list.html:137
+#: ../templates/default/mysql/domain/list.html:141
+#: ../templates/default/pgsql/domain/list.html:137
+#: ../templates/default/pgsql/domain/list.html:141
+msgid "No mail domain available."
+msgstr "Ei sähköpostidomainia saatavilla."
+
+#: ../templates/default/ldap/maillist/list.html:87
+msgid "No mail list available."
+msgstr "Ei sähköpostilistaa saatavissa."
+
+#: ../templates/default/dbmail_mysql/user/list.html:111
+#: ../templates/default/ldap/user/list.html:129
+#: ../templates/default/mysql/user/list.html:121
+#: ../templates/default/pgsql/user/list.html:121
+msgid "No mail user available."
+msgstr "Ei sähköpostikäyttäjää saatavilla."
+
+#: ../templates/default/macros/msgHandlers.html:217
+msgid "No moderator selected."
+msgstr "Ei moderaattoria valittuna."
+
+#: ../templates/default/macros/general.html:421
+#, python-format
+msgid "No more than %s characters."
+msgstr "Enintään %s merkkiä."
+
+#: ../templates/default/amavisd/inout.html:156
+msgid "No outgoing mails."
+msgstr "Ei lähteviä sähköposteja."
+
+#: ../templates/default/macros/amavisd.html:37
+msgid "No quarantined mails."
+msgstr "Ei karanteenissa olevia sähköposteja."
+
+#: ../templates/default/policyd/wblist.html:95
+msgid "No records."
+msgstr ""
+
+#: ../templates/default/macros/msgHandlers.html:100
+msgid "No such domain."
+msgstr "Ei domainia."
+
+#: ../templates/default/macros/general.html:205
+msgid "Not a global admin."
+msgstr "Ei ole globaali ylläpitäjä."
+
+#: ../templates/default/dbmail_mysql/alias/create.html:23
+#: ../templates/default/dbmail_mysql/user/create.html:32
+#: ../templates/default/ldap/alias/create.html:26
+#: ../templates/default/macros/msgHandlers.html:250
+#: ../templates/default/mysql/alias/create.html:23
+#: ../templates/default/mysql/user/create.html:29
+#: ../templates/default/pgsql/alias/create.html:23
+#: ../templates/default/pgsql/user/create.html:29
+msgid "Not allowed to create mail alias under this domain."
+msgstr "Sähköpostialiasten luonti tähän domainiin ei ole sallittu."
+
+#: ../templates/default/ldap/maillist/create.html:26
+#: ../templates/default/macros/msgHandlers.html:218
+msgid "Not allowed to create mail list under this domain."
+msgstr "Sähköpostilistojen luonti tähän domainiin ei ole sallittu."
+
+#: ../templates/default/ldap/user/create.html:56
+#: ../templates/default/ldap/user/create.html:59
+#: ../templates/default/macros/msgHandlers.html:143
+msgid "Not allowed to create mail user under this domain."
+msgstr "Sähköpostikäyttäjien luonti tähän domainiin ei ole sallittu."
+
+#: ../templates/default/ldap/user/profile.html:349
+#: ../templates/default/policyd/blacklist/create.html:83
+#: ../templates/default/policyd/whitelist/create.html:72
+msgid "Note"
+msgstr "Huomio"
+
+#: ../templates/default/dashboard.html:91
+msgid "Number of aliases"
+msgstr "Aliaksien määrä"
+
+#: ../templates/default/dashboard.html:80
+msgid "Number of domains"
+msgstr "Domainien määrä"
+
+#: ../templates/default/macros/policyd.html:20
+msgid "Number of max incoming emails"
+msgstr "Tulevien sähköpostien maksimimäärä"
+
+#: ../templates/default/dbmail_mysql/domain/profile.html:336
+#: ../templates/default/ldap/domain/profile.html:403
+#: ../templates/default/mysql/domain/profile.html:398
+#: ../templates/default/pgsql/domain/profile.html:380
+msgid "Number of max mail aliases"
+msgstr "Sähköpostialiasten maksimimäärä"
+
+#: ../templates/default/ldap/domain/profile.html:396
+msgid "Number of max mail lists"
+msgstr "Sähköpostilistojen maksimimäärä"
+
+#: ../templates/default/dbmail_mysql/domain/profile.html:328
+#: ../templates/default/ldap/domain/profile.html:388
+#: ../templates/default/mysql/domain/profile.html:390
+#: ../templates/default/pgsql/domain/profile.html:372
+msgid "Number of max mail users"
+msgstr "Sähköpostikäyttäjien maksimimäärä"
+
+#: ../templates/default/macros/policyd.html:18
+msgid "Number of max outgoing emails"
+msgstr "Lähtevien sähköpostien maksimimäärä"
+
+#: ../templates/default/dashboard.html:86
+msgid "Number of users"
+msgstr "Käyttäjien määrä"
+
+#: ../templates/default/macros/general.html:428
+msgid "Old password"
+msgstr "Vanha salasana"
+
+#: ../templates/default/dbmail_mysql/alias/profile.html:165
+#: ../templates/default/dbmail_mysql/user/profile.html:186
+#: ../templates/default/dbmail_mysql/user/profile.html:204
+#: ../templates/default/ldap/alias/profile.html:114
+#: ../templates/default/ldap/user/profile.html:279
+#: ../templates/default/ldap/user/profile.html:296
+#: ../templates/default/mysql/alias/profile.html:170
+#: ../templates/default/mysql/alias/profile.html:178
+#: ../templates/default/mysql/user/profile.html:185
+#: ../templates/default/pgsql/alias/profile.html:170
+#: ../templates/default/pgsql/alias/profile.html:178
+#: ../templates/default/pgsql/user/profile.html:185
+msgid "One mail address per line."
+msgstr "Yksi sähköpostiosoite per rivi."
+
+#: ../templates/default/macros/general.html:817
+#: ../templates/default/policyd/blacklist/create.html:40
+#: ../templates/default/policyd/blacklist/create.html:46
+#: ../templates/default/policyd/whitelist/create.html:40
+msgid "One record per line."
+msgstr "Yksi tietue per rivi."
+
+#: ../templates/default/macros/msgHandlers.html:335
+msgid "Operation completed."
+msgstr "Toiminto valmis."
+
+#: ../templates/default/macros/msgHandlers.html:108
+msgid "Or create other mail accounts:"
+msgstr "Tai luo muita sähköpostitilejä:"
+
+#: ../templates/default/ldap/user/profile.html:466
+#: ../templates/default/mysql/user/profile.html:252
+#: ../templates/default/pgsql/user/profile.html:252
+#, python-format
+msgid "Or leave it empty to use <a href='%s'>domain setting</a>."
+msgstr "Tai jätä tyhjäksi käyttääksesi  <a href='%s'>domain asetuksia</a>."
+
+#: ../templates/default/login.html:60
+#: ../templates/default/dbmail_mysql/admin/profile.html:45
+#: ../templates/default/dbmail_mysql/user/profile.html:60
+#: ../templates/default/ldap/admin/profile.html:47
+#: ../templates/default/ldap/user/profile.html:115
+#: ../templates/default/mysql/admin/profile.html:45
+#: ../templates/default/mysql/user/profile.html:68
+#: ../templates/default/pgsql/admin/profile.html:45
+#: ../templates/default/pgsql/user/profile.html:68
+msgid "Password"
+msgstr "Salasana"
+
+#: ../templates/default/macros/msgHandlers.html:137
+#: ../templates/default/macros/msgHandlers.html:175
+msgid "Password is empty."
+msgstr "Salasana on tyhjä."
+
+#: ../templates/default/macros/msgHandlers.html:139
+msgid "Password is too long."
+msgstr "Salasana on liian pitkä."
+
+#: ../templates/default/macros/msgHandlers.html:138
+msgid "Password is too short."
+msgstr "Salasana on liian lyhyt."
+
+#: ../templates/default/macros/msgHandlers.html:64
+msgid "Password of cn=vmailadmin is incorrect."
+msgstr "cn=vmailadmin  salasana on virheellinen"
+
+#: ../templates/default/ldap/user/profile.html:445
+#: ../templates/default/mysql/user/profile.html:402
+#: ../templates/default/pgsql/user/profile.html:402
+msgid "Path to mailbox"
+msgstr "Polku sähköpostilaatikkoon"
+
+#: ../templates/default/ldap/domain/profile.html:276
+#: ../templates/default/ldap/user/profile.html:483
+#: ../templates/default/mysql/domain/profile.html:203
+#: ../templates/default/mysql/user/profile.html:224
+#: ../templates/default/pgsql/domain/profile.html:204
+#: ../templates/default/pgsql/user/profile.html:224
+msgid "Per-domain bcc settings will override per-user bcc settings."
+msgstr "Domainin piilokopioasetukset ohittaa käyttäjän omat piilokopioasetukset."
+
+#: ../templates/default/macros/ldap.html:118
+#: ../templates/default/mysql/domain/profile.html:378
+msgid "Per-user greylisting setting has higher priority"
+msgstr ""
+
+#: ../templates/default/macros/general.html:521
+msgid ""
+"Per-user relay setting will override per-domain relay setting you set in "
+"this page."
+msgstr ""
+"Käyttäjän välityspalvelinasetukset ohittaa domainin "
+"välityspalvelinasetukset jotka määritetään tällä sivulla."
+
+#: ../templates/default/ldap/domain/profile.html:366
+#: ../templates/default/mysql/domain/profile.html:123
+#: ../templates/default/pgsql/domain/profile.html:124
+msgid "Per-user sender throttling has higher priority."
+msgstr ""
+
+#: ../templates/default/macros/msgHandlers.html:98
+#: ../templates/default/macros/msgHandlers.html:167
+#: ../templates/default/macros/msgHandlers.html:300
+#: ../templates/default/macros/msgHandlers.html:319
+msgid "Permission denied."
+msgstr "Pääsy evätty."
+
+#: ../templates/default/ldap/domain/profile.html:182
+msgid "Plain text only"
+msgstr "Vain pelkkä teksti."
+
+#: ../templates/default/macros/msgHandlers.html:142
+msgid "Please select at least one account."
+msgstr "Valitse vähintään yksi tili."
+
+#: ../templates/default/macros/msgHandlers.html:101
+msgid "Please select at least one domain to apply action."
+msgstr "Valitse vähintää yksi domain käyttääksesi toimintoa."
+
+#: ../templates/default/layout.html:27
+msgid "Preferences"
+msgstr "Asetukset"
+
+#: ../templates/default/macros/general.html:350
+msgid "Preferred language"
+msgstr "Haluttu kieli"
+
+#: ../templates/default/macros/general.html:706
+msgid "Previous Page"
+msgstr "Edellinen sivu"
+
+#: ../templates/default/dbmail_mysql/admin/profile.html:29
+#: ../templates/default/dbmail_mysql/admin/profile.html:60
+#: ../templates/default/ldap/admin/profile.html:33
+#: ../templates/default/ldap/admin/profile.html:62
+#: ../templates/default/mysql/admin/profile.html:29
+#: ../templates/default/mysql/admin/profile.html:60
+#: ../templates/default/pgsql/admin/profile.html:29
+#: ../templates/default/pgsql/admin/profile.html:60
+msgid "Profile of admin:"
+msgstr "Profiili ylläpitäjälle:"
+
+#: ../templates/default/dbmail_mysql/alias/profile.html:24
+#: ../templates/default/dbmail_mysql/alias/profile.html:43
+#: ../templates/default/ldap/alias/profile.html:31
+#: ../templates/default/ldap/alias/profile.html:53
+#: ../templates/default/mysql/alias/profile.html:24
+#: ../templates/default/mysql/alias/profile.html:43
+#: ../templates/default/pgsql/alias/profile.html:24
+#: ../templates/default/pgsql/alias/profile.html:43
+msgid "Profile of alias:"
+msgstr "Profiili aliakselle:"
+
+#: ../templates/default/dbmail_mysql/domain/profile.html:33
+#: ../templates/default/dbmail_mysql/domain/profile.html:72
+#: ../templates/default/ldap/domain/profile.html:103
+#: ../templates/default/ldap/domain/profile.html:139
+#: ../templates/default/mysql/domain/profile.html:41
+#: ../templates/default/mysql/domain/profile.html:81
+#: ../templates/default/pgsql/domain/profile.html:42
+#: ../templates/default/pgsql/domain/profile.html:82
+msgid "Profile of domain:"
+msgstr "Profiili domainille:"
+
+#: ../templates/default/ldap/maillist/profile.html:34
+#: ../templates/default/ldap/maillist/profile.html:59
+msgid "Profile of mail list:"
+msgstr "profiili sähköpostilistalle:"
+
+#: ../templates/default/dbmail_mysql/user/profile.html:38
+#: ../templates/default/dbmail_mysql/user/profile.html:76
+#: ../templates/default/ldap/user/profile.html:96
+#: ../templates/default/ldap/user/profile.html:131
+#: ../templates/default/mysql/user/profile.html:47
+#: ../templates/default/mysql/user/profile.html:84
+#: ../templates/default/pgsql/user/profile.html:47
+#: ../templates/default/pgsql/user/profile.html:84
+msgid "Profile of user:"
+msgstr "Profiili käyttäjälle:"
+
+#: ../templates/default/macros/msgHandlers.html:125
+#: ../templates/default/macros/msgHandlers.html:207
+#: ../templates/default/macros/msgHandlers.html:248
+msgid "Profile updated failed."
+msgstr "Profiilin päivitys epäonnistui."
+
+#: ../templates/default/macros/msgHandlers.html:88
+#: ../templates/default/macros/msgHandlers.html:124
+#: ../templates/default/macros/msgHandlers.html:165
+#: ../templates/default/macros/msgHandlers.html:205
+#: ../templates/default/macros/msgHandlers.html:240
+msgid "Profile updated success."
+msgstr "Profiilin päivitys onnistui."
+
+#: ../templates/default/dashboard.html:35
+#: ../templates/default/macros/amavisd.html:61
+msgid "Quarantined"
+msgstr "Karanteeni"
+
+#: ../templates/default/layout.html:70
+#: ../templates/default/amavisd/quarantined.html:18
+#: ../templates/default/amavisd/quarantined.html:44
+#: ../templates/default/macros/amavisd.html:84
+#: ../templates/default/macros/amavisd.html:86
+#: ../templates/default/panel/log.html:39
+msgid "Quarantined Mails"
+msgstr "Karanteenissa olevat sähköpostit"
+
+#: ../templates/default/amavisd/quarantined.html:38
+#, python-format
+msgid "Quarantined Mails of Domain: %s"
+msgstr "Karanteenissa olevat sähköpostit domainista: %s"
+
+#: ../templates/default/amavisd/quarantined.html:41
+#, python-format
+msgid "Quarantined Mails of User: %s"
+msgstr "Karanteenissa olevat sähköpostit käyttäjältä: %s"
+
+#: ../templates/default/amavisd/quarantined.html:61
+msgid ""
+"Quarantined mails are not delivered to users' mailboxes yet, you can "
+"either delete them or release them. Mails will be delivered to user "
+"mailboxes after released."
+msgstr ""
+"Karanteenissa olevia sähköposteja ei välitetä käyttäjien "
+"sähköpostilaatikoihin, voit poistaa tai julkaista ne. Julkaistut "
+"sähköpostit välitetään käyttäjien sähköpostilaatikoihin."
+
+#: ../templates/default/amavisd/quarantined.html:64
+#, python-format
+msgid ""
+"Quarantined mails older than %d days will be deleted from database "
+"permanantly."
+msgstr ""
+"Karanteenissa olevat yli %d päivää vanhat sähköpostit poistetaan "
+"tietokannasta."
+
+#: ../templates/default/dbmail_mysql/search.html:148
+#: ../templates/default/dbmail_mysql/domain/list.html:54
+#: ../templates/default/dbmail_mysql/user/list.html:59
+#: ../templates/default/ldap/search.html:193
+#: ../templates/default/ldap/domain/list.html:54
+#: ../templates/default/ldap/maillist/profile.html:144
+#: ../templates/default/ldap/maillist/profile.html:271
+#: ../templates/default/ldap/user/list.html:66
+#: ../templates/default/mysql/search.html:82
+#: ../templates/default/mysql/search.html:229
+#: ../templates/default/mysql/domain/list.html:54
+#: ../templates/default/mysql/user/list.html:67
+#: ../templates/default/pgsql/search.html:82
+#: ../templates/default/pgsql/search.html:229
+#: ../templates/default/pgsql/domain/list.html:54
+#: ../templates/default/pgsql/user/list.html:67
+msgid "Quota"
+msgstr "Kiintiö"
+
+#: ../templates/default/macros/policyd.html:32
+msgid "Quota size of all outgoing emails"
+msgstr "Kiintiön koko kaikille lähteville sähköposteille"
+
+#: ../templates/default/dashboard.html:17
+#: ../templates/default/macros/amavisd.html:62
+msgid "Received"
+msgstr "Vastaanotetut"
+
+#: ../templates/default/layout.html:66
+#: ../templates/default/amavisd/inout.html:21
+#: ../templates/default/amavisd/inout.html:62
+#: ../templates/default/macros/amavisd.html:74
+#: ../templates/default/macros/amavisd.html:78
+#: ../templates/default/panel/log.html:35
+msgid "Received Mails"
+msgstr "Vastaanotetut sähköpostit"
+
+#: ../templates/default/amavisd/inout.html:56
+#, python-format
+msgid "Received Mails of Domain: %s"
+msgstr "Vastaanotetut sähköpostit domainista: %s"
+
+#: ../templates/default/amavisd/inout.html:59
+#, python-format
+msgid "Received Mails of User: %s"
+msgstr "Vastaanotetut sähköpostit käyttäjältä: %s"
+
+#: ../templates/default/macros/ldap.html:92
+#: ../templates/default/macros/mysql.html:61
+msgid "Receiving mails for this account on mail server"
+msgstr "Saapuvat sähköpostit palvelimella tälle tilille."
+
+#: ../templates/default/amavisd/inout.html:108
+#: ../templates/default/macros/amavisd.html:10
+msgid "Recipient"
+msgstr "Vastaanottaja"
+
+#: ../templates/default/policyd/blacklist/create.html:56
+#: ../templates/default/policyd/whitelist/create.html:50
+msgid "Record format"
+msgstr "Tietueen muoto"
+
+#: ../templates/default/macros/msgHandlers.html:271
+#, python-format
+msgid "Records are added. <a href=\"%s\" target=\"_blank\">View them now</a>"
+msgstr "Tietueet lisätty. <a href=\"%s\" target=\"_blank\">Katso nyt</a>"
+
+#: ../templates/default/ldap/user/profile.html:327
+msgid "Reject mails from below senders"
+msgstr "Hylkää sähköpostit allaolevilta lähettäjiltä"
+
+#: ../templates/default/ldap/user/profile.html:341
+msgid "Reject mails sent to below recipients"
+msgstr "Hylkää sähköpostit jotka on lähetetty allaoleville vastaanottajille"
+
+#: ../templates/default/dbmail_mysql/domain/profile.html:53
+#: ../templates/default/dbmail_mysql/user/profile.html:58
+#: ../templates/default/ldap/domain/profile.html:122
+#: ../templates/default/mysql/domain/profile.html:61
+#: ../templates/default/mysql/user/profile.html:65
+#: ../templates/default/pgsql/domain/profile.html:62
+#: ../templates/default/pgsql/user/profile.html:65
+msgid "Relay"
+msgstr "Välityspalvelin"
+
+#: ../templates/default/ldap/user/profile.html:455
+#: ../templates/default/macros/general.html:511
+#: ../templates/default/mysql/user/profile.html:241
+#: ../templates/default/pgsql/user/profile.html:241
+msgid "Relay/Transport Setting"
+msgstr "Välityspalvelinasetukset"
+
+#: ../templates/default/amavisd/quarantined.html:86
+msgid "Release selected"
+msgstr "Julkaisu valittu"
+
+#: ../templates/default/login.html:72
+msgid "Remember me"
+msgstr "Muista minut"
+
+#: ../templates/default/ldap/maillist/profile.html:190
+#: ../templates/default/ldap/maillist/profile.html:236
+#: ../templates/default/ldap/maillist/profile.html:318
+#: ../templates/default/ldap/maillist/profile.html:363
+msgid "Remove from list"
+msgstr "Poista listasta"
+
+#: ../templates/default/ldap/domain/profile.html:501
+#: ../templates/default/ldap/user/profile.html:465
+#: ../templates/default/macros/general.html:522
+#: ../templates/default/mysql/user/profile.html:251
+#: ../templates/default/pgsql/user/profile.html:251
+msgid "Sample"
+msgstr "Malli"
+
+#: ../templates/default/dbmail_mysql/user/profile.html:176
+#: ../templates/default/ldap/user/profile.html:270
+#: ../templates/default/mysql/user/profile.html:175
+#: ../templates/default/pgsql/user/profile.html:175
+msgid "Save a copy in mailbox"
+msgstr "Tallenna kopio sähköpostilaatikkoon"
+
+#: ../templates/default/macros/general.html:214
+msgid "Save changes"
+msgstr "Tallenna muutokset"
+
+#: ../templates/default/layout.html:102
+#: ../templates/default/amavisd/inout.html:75
+#: ../templates/default/amavisd/quarantined.html:53
+#: ../templates/default/dbmail_mysql/search.html:20
+#: ../templates/default/dbmail_mysql/search.html:37
+#: ../templates/default/ldap/search.html:15
+#: ../templates/default/ldap/search.html:33
+#: ../templates/default/mysql/search.html:20
+#: ../templates/default/mysql/search.html:37
+#: ../templates/default/pgsql/search.html:20
+#: ../templates/default/pgsql/search.html:37
+msgid "Search"
+msgstr "Etsi"
+
+#: ../templates/default/macros/amavisd.html:49
+msgid "Search activities"
+msgstr "Hakutoiminta"
+
+#: ../templates/default/macros/msgHandlers.html:337
+msgid "Search keyword could not be empty."
+msgstr "Hakusana ei voi olla tyhjä."
+
+#: ../templates/default/dbmail_mysql/search.html:64
+#: ../templates/default/ldap/search.html:61
+#: ../templates/default/mysql/search.html:65
+#: ../templates/default/pgsql/search.html:65
+msgid "Search results."
+msgstr "Hakutulokset."
+
+#: ../templates/default/macros/policyd.html:60
+msgid "Seconds"
+msgstr "Sekuntia"
+
+#: ../templates/default/error_csrf.html:7
+msgid ""
+"Security token did not match. Please refresh current page and re-perform "
+"form action."
+msgstr ""
+"turvallisuusvaltuudet eivät täsmää. Päivitä nykyinen sivu ja suorita "
+"toiminto uudelleen."
+
+#: ../templates/default/macros/msgHandlers.html:132
+#: ../templates/default/macros/msgHandlers.html:168
+#: ../templates/default/macros/msgHandlers.html:212
+#: ../templates/default/macros/msgHandlers.html:243
+msgid "Selected accounts were deleted."
+msgstr "Valitut tilit poistettiin."
+
+#: ../templates/default/macros/msgHandlers.html:133
+#: ../templates/default/macros/msgHandlers.html:169
+#: ../templates/default/macros/msgHandlers.html:213
+#: ../templates/default/macros/msgHandlers.html:244
+msgid "Selected accounts were disabled."
+msgstr "Valitut tilit poistettiin käytöstä."
+
+#: ../templates/default/macros/msgHandlers.html:134
+#: ../templates/default/macros/msgHandlers.html:170
+#: ../templates/default/macros/msgHandlers.html:214
+#: ../templates/default/macros/msgHandlers.html:245
+msgid "Selected accounts were enabled."
+msgstr "Valitut tilit otettiin käyttöön."
+
+#: ../templates/default/macros/msgHandlers.html:90
+msgid "Selected domains were deleted."
+msgstr "Valitut domainit poistettiin."
+
+#: ../templates/default/macros/msgHandlers.html:91
+msgid "Selected domains were disabled."
+msgstr "Valitut domainit poistettiin käytöstä."
+
+#: ../templates/default/macros/msgHandlers.html:92
+msgid "Selected domains were enabled."
+msgstr "Valitut domainit otettiin käyttöön."
+
+#: ../templates/default/macros/msgHandlers.html:285
+#: ../templates/default/macros/msgHandlers.html:316
+msgid "Selected log records were deleted."
+msgstr "Valitut lokitietueet poistettiin."
+
+#: ../templates/default/macros/msgHandlers.html:273
+msgid "Selected records were deleted."
+msgstr "Valitut tietueet poistettiin."
+
+#: ../templates/default/amavisd/inout.html:107
+#: ../templates/default/macros/amavisd.html:9
+#: ../templates/default/policyd/wblist.html:25
+msgid "Sender"
+msgstr "Lähettäjä"
+
+#: ../templates/default/policyd/blacklist/create.html:64
+#: ../templates/default/policyd/whitelist/create.html:58
+msgid "Sender address"
+msgstr "Lähettäjän osoite"
+
+#: ../templates/default/macros/ldap.html:86
+#: ../templates/default/macros/mysql.html:62
+msgid "Sending mails via SMTP"
+msgstr "Lähetä sähköpostit SMTP:n kautta"
+
+#: ../templates/default/macros/ldap.html:87
+#: ../templates/default/macros/mysql.html:63
+msgid "Sending mails via SMTP over TLS/SSL"
+msgstr "Lähetä sähköpostit SMPT:n kautta (TLS/SSL)"
+
+#: ../templates/default/dashboard.html:22
+#: ../templates/default/macros/amavisd.html:63
+msgid "Sent"
+msgstr "Lähetetyt"
+
+#: ../templates/default/layout.html:65
+#: ../templates/default/amavisd/inout.html:19
+#: ../templates/default/amavisd/inout.html:51
+#: ../templates/default/macros/amavisd.html:73
+#: ../templates/default/macros/amavisd.html:77
+#: ../templates/default/panel/log.html:34
+msgid "Sent Mails"
+msgstr "Lähetetyt sähköpostit"
+
+#: ../templates/default/dashboard.html:147
+msgid "Server Load"
+msgstr "Palvelimen kuorma"
+
+#: ../templates/default/macros/msgHandlers.html:96
+msgid ""
+"Server-side size limit exceeded. Please increase \"sizelimit\" in your "
+"LDAP server."
+msgstr ""
+"Palvelimen kokorajoitus ylitetty. Kasvata arvoa \"sizelimit\" LDAP-"
+"palvelimella."
+
+#: ../templates/default/macros/msgHandlers.html:67
+msgid "Session expired, please re-login."
+msgstr "Istunto vanhentunut, kirjaudu uudelleen."
+
+#: ../templates/default/macros/general.html:487
+msgid "Set to 0 for unlimited."
+msgstr "Aseta arvo 0 rajoittamattomalle"
+
+#: ../templates/default/dbmail_mysql/domain/profile.html:365
+#: ../templates/default/ldap/domain/profile.html:433
+#: ../templates/default/mysql/domain/profile.html:427
+#: ../templates/default/pgsql/domain/profile.html:409
+msgid "Set value to -1 means not allowed to create this kind of account."
+msgstr ""
+"Arvon asettaminen -1 tarkoittaa ettei tämänkaltaisen tilin luonti ole "
+"sallittu."
+
+#: ../templates/default/ldap/domain/profile.html:432
+msgid "Set value to 0 for unlimited."
+msgstr "Aseta arvo 0 rajoittamattomalle."
+
+#: ../templates/default/dbmail_mysql/domain/profile.html:126
+#: ../templates/default/dbmail_mysql/domain/profile.html:364
+#: ../templates/default/dbmail_mysql/user/profile.html:118
+#: ../templates/default/ldap/domain/profile.html:367
+#: ../templates/default/ldap/user/profile.html:414
+#: ../templates/default/mysql/domain/profile.html:124
+#: ../templates/default/mysql/domain/profile.html:351
+#: ../templates/default/mysql/domain/profile.html:426
+#: ../templates/default/mysql/user/profile.html:364
+#: ../templates/default/pgsql/domain/profile.html:125
+#: ../templates/default/pgsql/domain/profile.html:352
+#: ../templates/default/pgsql/domain/profile.html:408
+#: ../templates/default/pgsql/user/profile.html:364
+msgid "Set value to 0 or leave it empty for unlimited."
+msgstr "Aseta arvo 0 tai jätä tyhjäksi rajoittamattomalle."
+
+#: ../templates/default/ldap/domain/profile.html:196
+msgid "Signing disclaimer on outgoing mails"
+msgstr "Allekirjoita vastuuvapauslauseke lähtevissä sähköposteissa"
+
+#: ../templates/default/policyd/blacklist/create.html:60
+#: ../templates/default/policyd/whitelist/create.html:54
+msgid "Single IP Address"
+msgstr "Yksittäinen IP-osoite"
+
+#: ../templates/default/policyd/blacklist/create.html:72
+#: ../templates/default/policyd/whitelist/create.html:66
+msgid "Single domain"
+msgstr "Yksittäinen domain"
+
+#: ../templates/default/ldap/user/profile.html:361
+#: ../templates/default/policyd/blacklist/create.html:66
+#: ../templates/default/policyd/whitelist/create.html:60
+msgid "Single user"
+msgstr "Yksittäinen käyttäjä"
+
+#: ../templates/default/amavisd/inout.html:109
+#: ../templates/default/macros/amavisd.html:12
+msgid "Size"
+msgstr "Koko"
+
+#: ../templates/default/macros/amavisd.html:11
+msgid "Spam Level"
+msgstr "Roskapostitaso"
+
+#: ../templates/default/dashboard.html:12
+msgid "Statistics of latest 24 hours"
+msgstr "Tilastot viimeiseltä 24 tunnilta"
+
+#: ../templates/default/macros/general.html:448
+msgid "Store password in plain text"
+msgstr "Nykyinen salasana on virheellinen."
+
+#: ../templates/default/dbmail_mysql/search.html:181
+#: ../templates/default/dbmail_mysql/user/list.html:99
+#: ../templates/default/mysql/user/list.html:109
+#: ../templates/default/pgsql/user/list.html:109
+msgid "Stored"
+msgstr "Tallennetut"
+
+#: ../templates/default/dashboard.html:99
+msgid "Stored Emails"
+msgstr "Tallennetut sähköpostit"
+
+#: ../templates/default/amavisd/inout.html:106
+#: ../templates/default/macros/amavisd.html:8
+msgid "Subject"
+msgstr "Aihe"
+
+#: ../templates/default/ldap/maillist/profile.html:386
+#: ../templates/default/ldap/maillist/profile.html:400
+#: ../templates/default/panel/log.html:71
+msgid "Submit"
+msgstr "Lähetä"
+
+#: ../templates/default/macros/msgHandlers.html:99
+msgid "Submited domain name is incorrect."
+msgstr "Domainin nimi on virheellinen."
+
+#: ../templates/default/policyd/blacklist/create.html:61
+#: ../templates/default/policyd/whitelist/create.html:55
+msgid "Subnet"
+msgstr "Aliverkko"
+
+#: ../templates/default/layout.html:139
+msgid "Support"
+msgstr "Tuki"
+
+#: ../templates/default/layout.html:60
+msgid "System"
+msgstr "Järjestelmä"
+
+#: ../templates/default/dashboard.html:73
+msgid "System Information"
+msgstr "Järjestelmätiedot"
+
+#: ../templates/default/macros/general.html:319
+#: ../templates/default/macros/general.html:328
+msgid "Telephone Number"
+msgstr "Puhelinnumero"
+
+#: ../templates/default/policyd/blacklist/create.html:83
+#: ../templates/default/policyd/whitelist/create.html:72
+msgid "The forward and reverse DNS name must match otherwise it will not work."
+msgstr "Nimipalvelukysely ja reverse DNS pitää täsmätä."
+
+#: ../templates/default/ldap/user/profile.html:355
+msgid "This is per-user white/blacklist."
+msgstr "Tämä on käyttäjän valkoinen/musta -lista"
+
+#: ../templates/default/ldap/domain/profile.html:125
+#: ../templates/default/ldap/user/profile.html:113
+#: ../templates/default/mysql/domain/profile.html:64
+#: ../templates/default/mysql/user/profile.html:66
+#: ../templates/default/pgsql/domain/profile.html:65
+#: ../templates/default/pgsql/user/profile.html:66
+msgid "Throttling"
+msgstr "Rajoitin"
+
+#: ../templates/default/panel/log.html:85
+msgid "Time"
+msgstr "Aika"
+
+#: ../templates/default/macros/policyd.html:47
+msgid "Time Unit"
+msgstr "Aikayksikkö"
+
+#: ../templates/default/dashboard.html:57
+msgid "Top 10 recipients"
+msgstr "Top 10 vastaanottajat"
+
+#: ../templates/default/dashboard.html:44
+msgid "Top 10 senders"
+msgstr "Top 10 Lähettäjät"
+
+#: ../templates/default/dbmail_mysql/domain/list.html:88
+#: ../templates/default/dbmail_mysql/domain/list.html:90
+#: ../templates/default/dbmail_mysql/domain/list.html:98
+#: ../templates/default/mysql/domain/list.html:89
+#: ../templates/default/mysql/domain/list.html:91
+#: ../templates/default/mysql/domain/list.html:99
+#: ../templates/default/pgsql/domain/list.html:89
+#: ../templates/default/pgsql/domain/list.html:91
+#: ../templates/default/pgsql/domain/list.html:99
+msgid "Total"
+msgstr "Yhteensä"
+
+#: ../templates/default/dbmail_mysql/search.html:172
+#: ../templates/default/dbmail_mysql/search.html:174
+#: ../templates/default/dbmail_mysql/domain/list.html:96
+#: ../templates/default/dbmail_mysql/domain/list.html:98
+#: ../templates/default/dbmail_mysql/user/list.html:90
+#: ../templates/default/dbmail_mysql/user/list.html:92
+#: ../templates/default/ldap/search.html:216
+#: ../templates/default/ldap/domain/list.html:128
+#: ../templates/default/ldap/domain/list.html:130
+#: ../templates/default/ldap/maillist/profile.html:173
+#: ../templates/default/ldap/maillist/profile.html:300
+#: ../templates/default/ldap/user/list.html:104
+#: ../templates/default/ldap/user/list.html:106
+#: ../templates/default/macros/general.html:387
+#: ../templates/default/mysql/search.html:252
+#: ../templates/default/mysql/domain/list.html:97
+#: ../templates/default/mysql/domain/list.html:99
+#: ../templates/default/mysql/user/list.html:100
+#: ../templates/default/mysql/user/list.html:102
+#: ../templates/default/pgsql/search.html:252
+#: ../templates/default/pgsql/domain/list.html:97
+#: ../templates/default/pgsql/domain/list.html:99
+#: ../templates/default/pgsql/user/list.html:100
+#: ../templates/default/pgsql/user/list.html:102
+msgid "Unlimited"
+msgstr "Rajoittamaton"
+
+#: ../templates/default/ldap/maillist/profile.html:82
+#: ../templates/default/macros/general.html:659
+#: ../templates/default/macros/general.html:671
+#: ../templates/default/mysql/alias/profile.html:72
+#: ../templates/default/pgsql/alias/profile.html:72
+msgid "Unrestricted"
+msgstr "Rajoittamaton"
+
+#: ../templates/default/dashboard.html:127
+#, python-format
+msgid "Update available: <a href='%s' target='_blank'>v%s</a>"
+msgstr "Päivitys saatavissa: <a href='%s' target='_blank'>v%s</a>"
+
+#: ../templates/default/dashboard.html:141
+msgid "Uptime"
+msgstr "Käynnissä"
+
+#: ../templates/default/dbmail_mysql/domain/list.html:88
+#: ../templates/default/dbmail_mysql/domain/list.html:90
+#: ../templates/default/dbmail_mysql/domain/list.html:96
+#: ../templates/default/dbmail_mysql/domain/list.html:98
+#: ../templates/default/macros/general.html:496
+#: ../templates/default/mysql/domain/list.html:89
+#: ../templates/default/mysql/domain/list.html:91
+#: ../templates/default/mysql/domain/list.html:97
+#: ../templates/default/mysql/domain/list.html:99
+msgid "Used"
+msgstr "Käytetty"
+
+#: ../templates/default/layout.html:88
+#: ../templates/default/dbmail_mysql/search.html:42
+#: ../templates/default/dbmail_mysql/alias/create.html:50
+#: ../templates/default/dbmail_mysql/alias/list.html:27
+#: ../templates/default/dbmail_mysql/user/create.html:73
+#: ../templates/default/dbmail_mysql/user/list.html:30
+#: ../templates/default/ldap/search.html:38
+#: ../templates/default/ldap/alias/create.html:53
+#: ../templates/default/ldap/alias/list.html:29
+#: ../templates/default/ldap/maillist/create.html:52
+#: ../templates/default/ldap/maillist/list.html:31
+#: ../templates/default/ldap/user/create.html:95
+#: ../templates/default/ldap/user/list.html:40
+#: ../templates/default/macros/msgHandlers.html:108
+#: ../templates/default/mysql/search.html:42
+#: ../templates/default/mysql/alias/create.html:50
+#: ../templates/default/mysql/alias/list.html:27
+#: ../templates/default/mysql/user/create.html:70
+#: ../templates/default/mysql/user/list.html:38
+#: ../templates/default/pgsql/search.html:42
+#: ../templates/default/pgsql/alias/create.html:50
+#: ../templates/default/pgsql/alias/list.html:27
+#: ../templates/default/pgsql/user/create.html:70
+#: ../templates/default/pgsql/user/list.html:38
+msgid "User"
+msgstr "Käyttäjä"
+
+#: ../templates/default/dbmail_mysql/search.html:147
+#: ../templates/default/ldap/search.html:191
+#: ../templates/default/ldap/maillist/profile.html:143
+#: ../templates/default/ldap/maillist/profile.html:270
+#: ../templates/default/ldap/user/list.html:64
+#: ../templates/default/macros/general.html:297
+#: ../templates/default/mysql/search.html:228
+#: ../templates/default/mysql/user/list.html:63
+#: ../templates/default/pgsql/search.html:228
+#: ../templates/default/pgsql/user/list.html:63
+msgid "User ID"
+msgstr "Käyttäjä ID"
+
+#: ../templates/default/macros/msgHandlers.html:149
+msgid "User created."
+msgstr ""
+
+#: ../templates/default/login.html:55
+msgid "Username"
+msgstr "Käyttäjänimi"
+
+#: ../templates/default/macros/msgHandlers.html:65
+msgid "Username must be an valid email address."
+msgstr "käyttäjänimi pitää olla voimassaoleva sähköpostiosoite."
+
+#: ../templates/default/macros/msgHandlers.html:63
+msgid "Username or password is incorrect."
+msgstr "Käyttäjänimi tai salasana on väärin."
+
+#: ../templates/default/dbmail_mysql/alias/create.html:48
+#: ../templates/default/dbmail_mysql/alias/list.html:25
+#: ../templates/default/dbmail_mysql/alias/profile.html:22
+#: ../templates/default/dbmail_mysql/domain/list.html:55
+#: ../templates/default/dbmail_mysql/domain/profile.html:34
+#: ../templates/default/dbmail_mysql/user/create.html:71
+#: ../templates/default/dbmail_mysql/user/list.html:28
+#: ../templates/default/dbmail_mysql/user/profile.html:37
+#: ../templates/default/ldap/alias/create.html:50
+#: ../templates/default/ldap/alias/list.html:26
+#: ../templates/default/ldap/alias/profile.html:32
+#: ../templates/default/ldap/domain/list.html:55
+#: ../templates/default/ldap/domain/profile.html:104
+#: ../templates/default/ldap/maillist/create.html:49
+#: ../templates/default/ldap/maillist/list.html:28
+#: ../templates/default/ldap/maillist/profile.html:32
+#: ../templates/default/ldap/user/create.html:92
+#: ../templates/default/ldap/user/list.html:37
+#: ../templates/default/ldap/user/profile.html:95
+#: ../templates/default/mysql/search.html:83
+#: ../templates/default/mysql/alias/create.html:48
+#: ../templates/default/mysql/alias/list.html:25
+#: ../templates/default/mysql/alias/profile.html:22
+#: ../templates/default/mysql/domain/list.html:55
+#: ../templates/default/mysql/domain/profile.html:42
+#: ../templates/default/mysql/user/create.html:68
+#: ../templates/default/mysql/user/list.html:36
+#: ../templates/default/mysql/user/profile.html:46
+#: ../templates/default/pgsql/search.html:83
+#: ../templates/default/pgsql/alias/create.html:48
+#: ../templates/default/pgsql/alias/list.html:25
+#: ../templates/default/pgsql/alias/profile.html:22
+#: ../templates/default/pgsql/domain/list.html:55
+#: ../templates/default/pgsql/domain/profile.html:43
+#: ../templates/default/pgsql/user/create.html:68
+#: ../templates/default/pgsql/user/list.html:36
+#: ../templates/default/pgsql/user/profile.html:46
+msgid "Users"
+msgstr "Käyttäjät"
+
+#: ../templates/default/dbmail_mysql/user/list.html:35
+#: ../templates/default/ldap/user/list.html:46
+#: ../templates/default/mysql/user/list.html:43
+#: ../templates/default/pgsql/user/list.html:43
+#, python-format
+msgid "Users under domain: %s"
+msgstr "Käyttäjiä domainissa: %s"
+
+#: ../templates/default/ldap/search.html:268
+#: ../templates/default/ldap/maillist/list.html:74
+msgid "View members"
+msgstr "Selaa jäseniä"
+
+#: ../templates/default/dashboard.html:29
+msgid "Virus"
+msgstr "Virus"
+
+#: ../templates/default/dbmail_mysql/domain/profile.html:391
+#: ../templates/default/ldap/domain/profile.html:310
+#: ../templates/default/ldap/user/profile.html:200
+#: ../templates/default/macros/msgHandlers.html:36
+#: ../templates/default/macros/msgHandlers.html:38
+#: ../templates/default/mysql/domain/profile.html:246
+#: ../templates/default/mysql/domain/profile.html:453
+#: ../templates/default/pgsql/domain/profile.html:247
+#: ../templates/default/pgsql/domain/profile.html:435
+msgid "Warning"
+msgstr "Varoitus"
+
+#: ../templates/default/dbmail_mysql/user/profile.html:59
+#: ../templates/default/ldap/user/profile.html:114
+#: ../templates/default/mysql/user/profile.html:67
+#: ../templates/default/pgsql/user/profile.html:67
+msgid "White/Blacklist"
+msgstr "Valkoinen/musta -lista"
+
+#: ../templates/default/policyd/wblist.html:10
+msgid "Whitelist"
+msgstr "Valkoinen lista"
+
+#: ../templates/default/ldap/user/profile.html:356
+msgid "Whitelist has higher priority than blacklist."
+msgstr "Valkoisella listalla on korkeampi prioriteetti kuin mustalla listalla."
+
+#: ../templates/default/policyd/whitelist/create.html:39
+msgid "Whitelist records"
+msgstr "Vastaanottajat valkoisella listalla"
+
+#: ../templates/default/layout.html:74 ../templates/default/layout.html:96
+#: ../templates/default/policyd/wblist.html:53
+msgid "Whitelists"
+msgstr "Valkoiset listat"
+
+#: ../templates/default/ldap/maillist/profile.html:96
+#: ../templates/default/mysql/alias/profile.html:86
+#: ../templates/default/pgsql/alias/profile.html:86
+msgid "Who can send email to this list"
+msgstr "Kuka voi lähettää sähköpostia tähän listaan."
+
+#: ../templates/default/ldap/user/create.html:69
+#, python-format
+msgid "You can NOT create more users under domain %s."
+msgstr "Et voi luoda enempää käyttäjiä domainiin %s."
+
+#: ../templates/default/dbmail_mysql/alias/create.html:39
+#: ../templates/default/ldap/alias/create.html:39
+#: ../templates/default/mysql/alias/create.html:39
+#: ../templates/default/pgsql/alias/create.html:39
+#, python-format
+msgid "You can create <strong>%d</strong> more mail alias(es) under domain %s."
+msgstr "Voit luoda <strong>%d</strong> sähköpostialiasta domainiin %s."
+
+#: ../templates/default/ldap/maillist/create.html:39
+#, python-format
+msgid "You can create <strong>%d</strong> more mail list(s) under domain %s."
+msgstr "Voit luoda <strong>%d</strong> sähköpostilistaa domainiin %s."
+
+#: ../templates/default/dbmail_mysql/user/create.html:61
+#: ../templates/default/ldap/user/create.html:80
+#: ../templates/default/mysql/user/create.html:58
+#: ../templates/default/pgsql/user/create.html:58
+#, python-format
+msgid "You can create <strong>%d</strong> more mail user(s) under domain %s."
+msgstr "Voit luoda <strong>%d</strong> sähköpostikäyttäjää domainiin %s."
+
+#: ../templates/default/dbmail_mysql/alias/create.html:32
+#: ../templates/default/mysql/alias/create.html:32
+#: ../templates/default/pgsql/alias/create.html:32
+#, python-format
+msgid "You can't create mail aliases under domain %s."
+msgstr "Et voi luoda sähköpostialiaksia domainiin %s."
+
+#: ../templates/default/ldap/alias/create.html:34
+#, python-format
+msgid "You can't create more mail aliases under domain %s."
+msgstr "Et voi luoda enempää sähköpostialiaksia domainiin %s."
+
+#: ../templates/default/ldap/maillist/create.html:34
+#, python-format
+msgid "You can't create more mail lists under domain %s."
+msgstr "Et voi luoda enempää sähköpostilistoja domainiin %s."
+
+#: ../templates/default/dbmail_mysql/search.html:261
+#: ../templates/default/ldap/search.html:346
+#: ../templates/default/mysql/search.html:331
+#: ../templates/default/pgsql/search.html:331
+msgid "Your search returned no hits."
+msgstr "Hakusi ei tuottanut tuloksia."
+
+#: ../templates/default/layout.html:46
+msgid "iRedMail Admin Panel"
+msgstr "iRedMail Ylläpitopaneeli"
+

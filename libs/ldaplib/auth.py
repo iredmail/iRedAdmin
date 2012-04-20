@@ -1,7 +1,9 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
 import web
-import ldap, ldap.filter
+import ldap
+import ldap.filter
+
 
 # Used for user auth.
 def Auth(uri, dn, password, session=web.config.get('_session')):
@@ -14,7 +16,6 @@ def Auth(uri, dn, password, session=web.config.get('_session')):
             starttls = True
         else:
             starttls = False
-
 
         # Set necessary option for STARTTLS.
         if starttls:
@@ -36,9 +37,12 @@ def Auth(uri, dn, password, session=web.config.get('_session')):
                 global_admin_result = conn.search_s(
                     dn,
                     ldap.SCOPE_BASE,
-                    "(objectClass=*)",
+                    "(&(objectClass=mailAdmin)(accountStatus=active))",
                     ['domainGlobalAdmin']
                 )
+                if not global_admin_result:
+                    raise ldap.INVALID_CREDENTIALS
+
                 result = global_admin_result[0][1]
                 if result.get('domainGlobalAdmin', 'no')[0].lower() == 'yes':
                     session['domainGlobalAdmin'] = True

@@ -3,11 +3,11 @@
 import sys
 import os
 import types
+import datetime
 from base64 import b64encode
 import web
 import ldap
-from ldap.filter import escape_filter_chars
-from libs import iredutils
+from libs import iredutils, settings
 from libs.ldaplib import attrs
 
 cfg = web.iredconfig
@@ -16,15 +16,14 @@ session = web.config.get('_session')
 basedn = cfg.ldap['basedn']
 domainadmin_dn = cfg.ldap['domainadmin_dn']
 
-#
-# ---- Convert value to DN ----
-#
+
 def convKeywordToDN(keyword, accountType='user'):
+    '''Convert keyword and account type to DN.'''
     keyword = web.safestr(keyword).strip().replace(' ', '')
     accountType == web.safestr(accountType)
 
     # No matter what account type is, try to get a domain name.
-    domain = keyword.split('@')[-1]
+    domain = keyword.split('@', 1)[-1]
 
     # Validate account type.
     if accountType not in attrs.ACCOUNT_TYPES_ALL:
@@ -88,99 +87,22 @@ def convKeywordToDN(keyword, accountType='user'):
             basedn,
         )
 
-    return escape_filter_chars(dn)
-# ---- End Convert value to DN ----
+    return dn
 
-def removeSpace(s):
-    """Remove all whitespace."""
-    return str(s).strip().replace(' ', '')
 
-# Generate attribute list & values from form data.
-def getModAttrs(accountType, data):
-    accountType = web.safestr(accountType)
-    domainName = web.safestr(data.get('domainName', None))
-    if domainName == 'None' or domainName == '':
-        return False
-
-    # Init attrs & values.
-    mod_attrs = []
-
-    cn = data.get('cn', None)
-    if cn is not None and cn != '':
-        mod_attrs += [ ( ldap.MOD_REPLACE, 'cn', cn.encode('utf-8') ) ]
-
-    # Get accountStatus.
-    accountStatus = web.safestr(data.get('accountStatus', 'active'))
-    if accountStatus not in attrs.ACCOUNT_STATUSES:
-        accountStatus = 'active'
-    mod_attrs += [ (ldap.MOD_REPLACE, 'accountStatus', accountStatus) ]
-
-    if session.get('domainGlobalAdmin') is True:
-        # Convert to string, they don't contain non-ascii characters.
-
-        # Get enabledService.
-        if 'enabledService' in data.keys():
-            enabledService = [ web.safestr(v)
-                    for v in data.get('enabledService')
-                    if v in attrs.DOMAIN_ENABLED_SERVICE
-                    ]
-
-            if len(enabledService) == 0:
-                # Delete all values.
-                mod_attrs += [ (ldap.MOD_DELETE, 'enabledService', None), ]
-            else:
-                # Replace all exist values by new values.
-                mod_attrs += [ (ldap.MOD_REPLACE, 'enabledService', enabledService), ]
-
-        # Get domain attributes.
-        if accountType == 'domain':
-            dn = convKeywordToDN(domainName, accountType='domain')
-
-            # Get domainBackupMX.
-            domainBackupMX = web.safestr(data.get('domainBackupMX', 'no'))
-            if domainBackupMX not in attrs.VALUES_DOMAIN_BACKUPMX:
-                domainBackupMX = 'no'
-            mod_attrs += [ (ldap.MOD_REPLACE, 'domainBackupMX', domainBackupMX) ]
-
-            # Get domainRecipientBccAddress.
-            domainRecipientBccAddress = web.safestr(data.get('domainRecipientBccAddress'))
-            if domainRecipientBccAddress != 'None':
-                mod_attrs += [ (ldap.MOD_REPLACE, 'domainRecipientBccAddress', domainRecipientBccAddress) ]
-
-            # Get domainSenderBccAddress.
-            domainSenderBccAddress = web.safestr(data.get('domainSenderBccAddress'))
-            if domainSenderBccAddress != 'None':
-                mod_attrs += [ (ldap.MOD_REPLACE, 'domainSenderBccAddress', domainSenderBccAddress) ]
-
-            for i in ['domainMaxQuotaSize', 'domainMaxUserNumber', 'domainMaxAliasNumber',
-                    'domainMaxListNumber',]:
-                value = web.safestr(data.get(i))
-                if value != '':
-                    mod_attrs += [ (ldap.MOD_REPLACE, i, value) ]
-
-            return {'dn': dn, 'mod_attrs': mod_attrs}
-        elif accountType == 'user':
-            pass
-        elif accountType == 'maillist':
-            pass
-        elif accountType == 'alias':
-            pass
-    else:
-        pass
-
-# Generate hashed password from plain text.
-def generatePasswd(password, pwscheme=iredutils.LDAP_DEFAULT_PASSWD_SCHEME,):
+# Generate hashed password from plain text for LDAP value 'userPassword'.
+def generateLDAPPasswd(password, pwscheme=settings.LDAP_DEFAULT_PASSWD_SCHEME,):
     pwscheme = pwscheme.upper()
     salt = os.urandom(8)
-    if sys.version_info[1] < 5: # Python 2.5
+    if sys.version_info[1] < 5:  # Python 2.5
         import sha
         if pwscheme == 'SSHA':
             h = sha.new(password)
             h.update(salt)
-            pw = "{SSHA}" + b64encode( h.digest() + salt )
+            pw = "{SSHA}" + b64encode(h.digest() + salt)
         elif pwscheme == 'SHA':
             h = sha.new(password)
-            pw = "{SHA}" + b64encode( h.digest() )
+            pw = "{SHA}" + b64encode(h.digest())
         else:
             pw = password
     else:
@@ -188,14 +110,15 @@ def generatePasswd(password, pwscheme=iredutils.LDAP_DEFAULT_PASSWD_SCHEME,):
         if pwscheme == 'SSHA':
             h = hashlib.sha1(password)
             h.update(salt)
-            pw = "{SSHA}" + b64encode( h.digest() + salt )
+            pw = "{SSHA}" + b64encode(h.digest() + salt)
         elif pwscheme == 'SHA':
             h = hashlib.sha1(password)
-            pw = "{SSHA}" + b64encode( h.digest() )
+            pw = "{SSHA}" + b64encode(h.digest())
         else:
             pw = password
 
     return pw
+
 
 # Check password.
 def checkPassword(hashed_password, password):
@@ -206,6 +129,7 @@ def checkPassword(hashed_password, password):
     hr.update(salt)
     return digest == hr.digest()
 
+
 def getLdifOfSingleAttr(attr, value, default='None'):
     if value is not None and value != '':
         ldif = [(attr, [value.encode('utf-8')])]
@@ -214,33 +138,33 @@ def getLdifOfSingleAttr(attr, value, default='None'):
 
     return ldif
 
+
 def getSingleModAttr(attr, value, default='None'):
     # Default value is string 'None', not None (NoneType).
     if value is not None and value != '' and value != u'':
         mod_attrs = [(ldap.MOD_REPLACE, attr, value.encode('utf-8'))]
     else:
         if default is not None and default != 'None':
-            mod_attrs = [ ( ldap.MOD_REPLACE, attr, default.encode('utf-8') ) ]
+            mod_attrs = [(ldap.MOD_REPLACE, attr, default.encode('utf-8'))]
         else:
-            mod_attrs = [( ldap.MOD_REPLACE, attr, default )]
+            mod_attrs = [(ldap.MOD_REPLACE, attr, default)]
 
     return mod_attrs
+
 
 def getExceptionDesc(e, key='msg'):
     if isinstance(e, types.InstanceType):
         try:
-            if 'desc' in e.args[0].keys() and 'matched' in e.args[0].keys():
-                msg = e.args[0]['desc'] + ': ' + e.args[0]['matched']
-            else:
-                msg = ''
-                for k in ['info', 'desc', 'matched', ]:
-                    if k in e.args[0].keys():
-                        msg += e.args[0][k] + ' '
+            msg = ''
+            for k in ['info', 'desc', 'matched', ]:
+                if k in e.args[0].keys():
+                    msg += e.args[0][k] + ' '
             return msg
         except:
             return str(e)
     else:
         return str(e)
+
 
 def getAccountSettingFromLdapQueryResult(queryResult, key='domainName',):
     """Get account setting from LDAP query result. Return a dictionary.
@@ -268,13 +192,33 @@ def getAccountSettingFromLdapQueryResult(queryResult, key='domainName',):
                     if len(setting.split(':', 1)) == 2:
                         k, v = setting.split(':', 1)
                         if k in ['defaultQuota', 'minPasswordLength', 'maxPasswordLength', \
-                                 'numberOfUsers', 'numberOfAliases', 'numberOfLists',]:
-                            # Value of these settings must be interger.
-                            if v.isdigit():
+                                 'numberOfUsers', 'numberOfAliases', 'numberOfLists', ]:
+                            # Value of these settings must be interger or '-1'.
+                            # '-1' means not allowed to add this kind of account.
+                            if v.isdigit() or v == '-1':
                                 accountSettings[k] = v
                         else:
                             accountSettings[k] = v
 
-                allAccountSettings[ d[1][key][0] ] = accountSettings
+                allAccountSettings[d[1][key][0]] = accountSettings
 
     return allAccountSettings
+
+
+def getDaysOfShadowLastChange(year=None, month=None, day=None):
+    """Return number of days since 1970-01-01."""
+    today = datetime.date.today()
+
+    if year is None:
+        year = today.year
+
+    if month is None:
+        month = today.month
+
+    if day is None:
+        day = today.day
+
+    try:
+        return (datetime.date(year, month, day) - datetime.date(1970, 1, 1)).days
+    except:
+        return 0

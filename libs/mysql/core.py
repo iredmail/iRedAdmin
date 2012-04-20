@@ -6,17 +6,19 @@ from libs import iredutils, md5crypt
 cfg = web.iredconfig
 session = web.config.get('_session')
 
+
 class MySQLWrap:
     def __init__(self, app=web.app, session=session, **settings):
-        # Create DB connection and cursor.
+        # Initial DB connection and cursor.
         try:
             self.conn = web.database(
                 dbn='mysql',
-                host=str(cfg.vmaildb.get('host', '127.0.0.1')),
+                host=cfg.vmaildb.get('host', '127.0.0.1'),
                 port=int(cfg.vmaildb.get('port', 3306)),
-                user=str(cfg.vmaildb.get('user', 'vmailadmin')),
-                pw=str(cfg.vmaildb.get('passwd', '')),
-                db=str(cfg.vmaildb.get('db', 'vmail')),
+                db=cfg.vmaildb.get('db', 'vmail'),
+                user=cfg.vmaildb.get('user', 'vmailadmin'),
+                pw=cfg.vmaildb.get('passwd', ''),
+                charset='utf8',
             )
             self.conn.supports_multiple_insert = True
         except:
@@ -38,39 +40,39 @@ class MySQLWrap:
         try:
             result = self.conn.select(
                 'domain_admins',
+                vars={'username': admin, 'domain': 'ALL', },
                 what='username',
-                where='''username=%s AND domain="ALL"''' % web.sqlquote(admin),
+                where='username=$username AND domain=$domain',
                 limit=1,
             )
             if len(result) == 1:
                 return True
             else:
                 return False
-        except Exception, e:
+        except Exception:
             return False
 
     def isDomainAdmin(self, domain, admin=session.get('username'),):
         if not iredutils.isDomain(domain) or not iredutils.isEmail(admin):
             return False
 
-        if admin == session.get('username') and session.get('domainGlobalAdmin') is True:
+        if admin == session.get('username') \
+           and session.get('domainGlobalAdmin') is True:
             return True
 
         try:
             result = self.conn.select(
                 'domain_admins',
+                vars={'domain': domain, 'username': admin, },
                 what='username',
-                where='domain=%s AND username=%s AND active=1' % (
-                    web.sqlquote(domain),
-                    web.sqlquote(admin),
-                ),
+                where='domain=$domain AND username=$username AND active=1',
                 limit=1,
             )
             if len(result) == 1:
                 return True
             else:
                 return False
-        except Exception, e:
+        except Exception:
             return False
 
     def setAccountStatus(self, accounts, accountType, active=True):
@@ -80,51 +82,55 @@ class MySQLWrap:
         if not len(accounts) > 0:
             return (True,)
 
-        self.accountType = str(accountType)
+        accountType = str(accountType)
         if active is True:
-            self.active = 1
-            self.action = 'Active'
+            active = 1
+            action = 'Active'
         else:
-            self.active = 0
-            self.action = 'Disable'
+            active = 0
+            action = 'Disable'
 
-        if self.accountType == 'domain':
-            self.accounts = [str(v) for v in accounts if iredutils.isDomain(v)]
+        if accountType == 'domain':
+            accounts = [str(v) for v in accounts if iredutils.isDomain(v)]
             try:
                 self.conn.update(
                     'domain',
-                    where='domain IN %s' % (web.sqlquote(self.accounts)),
-                    active=self.active,
+                    vars={'accounts': accounts},
+                    where='domain IN $accounts',
+                    active=active,
                 )
             except Exception, e:
                 return (False, str(e))
-        elif self.accountType == 'user':
-            self.accounts = [str(v) for v in accounts if iredutils.isEmail(v)]
+        elif accountType == 'user':
+            accounts = [str(v) for v in accounts if iredutils.isEmail(v)]
             try:
                 self.conn.update(
                     'mailbox',
-                    where='username IN %s' % (web.sqlquote(self.accounts)),
-                    active=self.active,
+                    vars={'accounts': accounts},
+                    where='username IN $accounts',
+                    active=active,
                 )
             except Exception, e:
                 return (False, str(e))
-        elif self.accountType == 'admin':
-            self.accounts = [str(v) for v in accounts if iredutils.isEmail(v)]
+        elif accountType == 'admin':
+            accounts = [str(v) for v in accounts if iredutils.isEmail(v)]
             try:
                 self.conn.update(
                     'admin',
-                    where='username IN %s' % (web.sqlquote(self.accounts)),
-                    active=self.active,
+                    vars={'accounts': accounts},
+                    where='username IN $accounts',
+                    active=active,
                 )
             except Exception, e:
                 return (False, str(e))
-        elif self.accountType == 'alias':
-            self.accounts = [str(v) for v in accounts if iredutils.isEmail(v)]
+        elif accountType == 'alias':
+            accounts = [str(v) for v in accounts if iredutils.isEmail(v)]
             try:
                 self.conn.update(
                     'alias',
-                    where='address IN %s' % (web.sqlquote(self.accounts)),
-                    active=self.active,
+                    vars={'accounts': accounts},
+                    where='address IN $accounts',
+                    active=active,
                 )
             except Exception, e:
                 return (False, str(e))
@@ -133,97 +139,206 @@ class MySQLWrap:
 
         try:
             web.logger(
-                msg="%s %s: %s." % (self.action, self.accountType, ', '.join(self.accounts)),
-                event=self.action.lower(),
+                msg="%s %s: %s." % (action, accountType, ', '.join(accounts)),
+                event=action.lower(),
             )
         except:
             pass
         return (True,)
 
-    def getUsedBytesMessages(self, domain=None):
-        """Return (messages, bytes)"""
-        if domain is None:
-            resultOfSum = self.conn.query(
-                '''
-                SELECT
-                    SUM(messages) AS messages,
-                    SUM(bytes) AS bytes
-                FROM mailbox
-                '''
-            )
-            counterOfSum = resultOfSum[0]
-        else:
-            if not iredutils.isDomain(domain):
-                return (0, 0)
+    def deleteAccounts(self, accounts, accountType,):
+        # accounts must be a list/tuple.
+        # accountType in ['domain', 'user', 'admin', 'alias',]
+        if not accounts:
+            return (True,)
 
-            # Check domain access
-            if self.isDomainAdmin(domain=domain, admin=session.get('username'),):
-                resultOfSum = self.conn.query(
-                    '''
-                    SELECT
-                        SUM(messages) AS messages,
-                        SUM(bytes) AS bytes
-                    FROM mailbox
-                    WHERE domain = %s
-                    ''' % web.sqlquote(domain)
+        accountType = str(accountType)
+
+        if accountType == 'domain':
+            accounts = [str(v) for v in accounts if iredutils.isDomain(v)]
+            try:
+                self.conn.delete(
+                    'domain',
+                    vars={'accounts': accounts, },
+                    where='domain IN $accounts',
                 )
-                counterOfSum = resultOfSum[0]
-            else:
-                return (0, 0)
+            except Exception, e:
+                return (False, str(e))
+        elif accountType == 'user':
+            accounts = [str(v) for v in accounts if iredutils.isEmail(v)]
+            sql_vars = {'accounts': accounts, }
+            try:
+                self.conn.delete(
+                    'mailbox',
+                    vars=sql_vars,
+                    where='username IN $accounts',
+                )
+                self.conn.delete(
+                    'alias',
+                    vars=sql_vars,
+                    where='address IN $accounts',
+                )
+                self.conn.delete(
+                    'recipient_bcc_user',
+                    vars=sql_vars,
+                    where='username IN $accounts',
+                )
+                self.conn.delete(
+                    'sender_bcc_user',
+                    vars=sql_vars,
+                    where='username IN $accounts',
+                )
 
-        return (counterOfSum.messages, counterOfSum.bytes)
+                # Remove users from alias.goto.
+                try:
+                    qr = self.conn.select(
+                        'alias',
+                        what='address,goto',
+                        where='address <> goto AND address <> "" AND (%s)' % ' OR '.join(
+                            ['goto LIKE %s' % web.sqlquote('%%' + v + '%%') for v in accounts]
+                        ),
+                    )
+
+                    # Update aliases, remove deleted users.
+                    for als in qr:
+                        exist_members = [v for v in str(als.goto).replace(' ', '').split(',')]
+
+                        # Skip if MySQL pattern matching doesn't get correct results.
+                        if not set(accounts) & set(exist_members):
+                            continue
+
+                        self.conn.update(
+                            'alias',
+                            vars={'address': als.address, },
+                            where='address = $address',
+                            goto=','.join([str(v) for v in exist_members if v not in accounts]),
+                            modified=iredutils.getGMTTime(),
+                        )
+                except Exception, e:
+                    pass
+
+            except Exception, e:
+                return (False, str(e))
+        elif accountType == 'admin':
+            accounts = [str(v) for v in accounts if iredutils.isEmail(v)]
+            try:
+                self.conn.delete(
+                    'admin',
+                    vars={'accounts': accounts, },
+                    where='username IN $accounts',
+                )
+            except Exception, e:
+                return (False, str(e))
+        elif accountType == 'alias':
+            accounts = [str(v) for v in accounts if iredutils.isEmail(v)]
+            try:
+                self.conn.delete(
+                    'alias',
+                    vars={'accounts': accounts, },
+                    where='address IN $accounts',
+                )
+            except Exception, e:
+                return (False, str(e))
+        else:
+            pass
+
+        try:
+            web.logger(
+                msg="Delete %s: %s." % (accountType, ', '.join(accounts)),
+                event='delete',
+            )
+        except:
+            pass
+        return (True,)
 
 
 class Auth(MySQLWrap):
-    def auth(self, username, password, verifyPassword=False,):
+    def auth(self, username, password, accountType='admin', verifyPassword=False,):
         if not iredutils.isEmail(username):
             return (False, 'INVALID_USERNAME')
 
         if len(password) == 0:
             return (False, 'EMPTY_PASSWORD')
 
-        # Query admin.
-        result = self.conn.select(
-            'admin',
-            where="username=%s AND active=1" % web.sqlquote(username),
-            limit=1,
-        )
+        # Query account from SQL database.
+        if accountType == 'admin':
+            result = self.conn.select(
+                'admin',
+                vars={'username': username, },
+                where="username=$username AND active=1",
+                limit=1,
+            )
+        elif accountType == 'user':
+            result = self.conn.select(
+                'mailbox',
+                vars={'username': username, },
+                where="username=$username AND active=1",
+                limit=1,
+            )
+        else:
+            return (False, 'INVALID_ACCOUNT_TYPE')
 
-        if len(result) == 1:
-            # It's a valid admin.
-            record = result[0]
+        if len(result) != 1:
+            # Account not found.
+            # Do NOT return msg like 'Account does not ***EXIST***', crackers
+            # can use it to verify valid accounts.
+            return (False, 'INVALID_CREDENTIALS')
 
+        # It's a valid account.
+        record = result[0]
+        password_sql = str(record.password)
+
+        # Verify password.
+        authenticated = False
+        if password_sql.startswith('$') and len(password_sql) == 34 and password_sql.count('$') == 3:
+            # Password is considered as a MD5 password (with salt).
             # Get salt string from password which stored in SQL.
-            tmpsalt = str(record.password).split('$')
+            tmpsalt = password_sql.split('$')
             tmpsalt[-1] = ''
             salt = '$'.join(tmpsalt)
 
-            # Compare passwords.
-            if md5crypt.md5crypt(password, salt) == str(record.password):
-                if verifyPassword is not True:
-                    session['username'] = username
-                    session['logged'] = True
-                    # Set preferred language.
-                    session['lang'] = str(record.language) or 'en_US'
+            if md5crypt.md5crypt(password, salt) == password_sql:
+                authenticated = True
 
-                    # Set session['domainGlobalAdmin']
-                    try:
-                        result = self.conn.select(
-                            'domain_admins',
-                            what='domain',
-                            where='''username=%s AND domain="ALL"''' % web.sqlquote(username),
-                            limit=1,
-                        )
-                        if len(result) == 1:
-                            session['domainGlobalAdmin'] = True
-                    except:
-                        pass
+        elif password_sql == iredutils.getPlainMD5Password(password):
+            # Plain MD5
+            authenticated = True
+        elif password_sql.upper().startswith('{PLAIN-MD5}'):
+            if password_sql == '{PLAIN-MD5}' + iredutils.getPlainMD5Password(password):
+                authenticated = True
+        elif password_sql.upper().startswith('{PLAIN}'):
+            # Plain password with prefix '{PLAIN}'.
+            if password_sql == '{PLAIN}' + password:
+                authenticated = True
+        elif password_sql == password:
+            # Plain password.
+            authenticated = True
 
-                return (True,)
-            else:
-                return (False, 'INVALID_CREDENTIALS')
-        else:
+        # Compare passwords.
+        if authenticated is False:
             return (False, 'INVALID_CREDENTIALS')
+
+        if verifyPassword is not True:
+            session['username'] = username
+            session['logged'] = True
+            # Set preferred language.
+            session['lang'] = str(record.language) or 'en_US'
+
+            # Set session['domainGlobalAdmin']
+            try:
+                result = self.conn.select(
+                    'domain_admins',
+                    vars={'username': username, 'domain': 'ALL', },
+                    what='domain',
+                    where='username=$username AND domain=$domain',
+                    limit=1,
+                )
+                if len(result) == 1:
+                    session['domainGlobalAdmin'] = True
+            except:
+                pass
+
+        return (True,)
 
 
 class MySQLDecorators(MySQLWrap):
@@ -259,17 +374,15 @@ class MySQLDecorators(MySQLWrap):
                 try:
                     result = self.conn.select(
                         'domain_admins',
+                        vars={'username': self.admin, 'domain': [self.domain, 'ALL']},
                         what='username',
-                        where='''username=%s AND domain IN %s''' % (
-                            web.sqlquote(self.admin),
-                            web.sqlquote([self.domain, 'ALL']),
-                        ),
+                        where='username=$username AND domain IN $domain',
                     )
-                except Exception, e:
+                except Exception:
                     result = {}
 
                 if len(result) != 1:
                     return func(self, *args, **kw)
                 else:
-                    return web.seeother('/users' + '?msg=PERMISSION_DENIED&domain=' + self.domain)
+                    raise web.seeother('/users' + '?msg=PERMISSION_DENIED&domain=' + self.domain)
         return proxyfunc

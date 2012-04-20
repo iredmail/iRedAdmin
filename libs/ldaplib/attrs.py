@@ -5,12 +5,12 @@
 # ---------------------------------------------------------
 ACCOUNT_STATUS_ACTIVE = 'active'
 ACCOUNT_STATUS_DISABLED = 'disabled'
-ACCOUNT_STATUSES = [ACCOUNT_STATUS_ACTIVE, ACCOUNT_STATUS_DISABLED,]
+ACCOUNT_STATUSES = [ACCOUNT_STATUS_ACTIVE, ACCOUNT_STATUS_DISABLED, ]
 
 # All account types which can be converted to ldap dn.
-ACCOUNT_TYPES_ALL = ['domain', 'catchall', 'admin', 'user', 'maillist', 'maillistExternal', 'alias',]
-ACCOUNT_TYPES_EMAIL = ['admin', 'user', 'maillist', 'maillistExternal', 'alias',]
-ACCOUNT_TYPES_DOMAIN = ['domain', 'catchall',]
+ACCOUNT_TYPES_ALL = ['domain', 'catchall', 'admin', 'user', 'maillist', 'maillistExternal', 'alias', ]
+ACCOUNT_TYPES_EMAIL = ['admin', 'user', 'maillist', 'maillistExternal', 'alias', ]
+ACCOUNT_TYPES_DOMAIN = ['domain', 'catchall', ]
 
 # Default groups which will be created while create a new domain.
 # WARNING: Don't use unicode string here.
@@ -18,13 +18,13 @@ GROUP_USERS = 'Users'
 GROUP_GROUPS = 'Groups'
 GROUP_ALIASES = 'Aliases'
 GROUP_EXTERNALS = 'Externals'
-DEFAULT_GROUPS = [GROUP_USERS, GROUP_GROUPS, GROUP_ALIASES, GROUP_EXTERNALS,]
+DEFAULT_GROUPS = [GROUP_USERS, GROUP_GROUPS, GROUP_ALIASES, GROUP_EXTERNALS, ]
 
 #
-DN_BETWEEN_USER_AND_DOMAIN = DN_BETWEEN_CATCHALL_AND_DOMAIN = 'ou=%s,' % (GROUP_USERS,)
-DN_BETWEEN_MAILLIST_AND_DOMAIN = 'ou=%s,' % (GROUP_GROUPS,)
-DN_BETWEEN_ALIAS_AND_DOMAIN = 'ou=%s,' % (GROUP_ALIASES,)
-DN_BETWEEN_MAILLIST_EXTERNAL_AND_DOMAIN = 'ou=%s,' % (GROUP_EXTERNALS,)
+DN_BETWEEN_USER_AND_DOMAIN = DN_BETWEEN_CATCHALL_AND_DOMAIN = 'ou=%s,' % (GROUP_USERS, )
+DN_BETWEEN_MAILLIST_AND_DOMAIN = 'ou=%s,' % (GROUP_GROUPS, )
+DN_BETWEEN_ALIAS_AND_DOMAIN = 'ou=%s,' % (GROUP_ALIASES, )
+DN_BETWEEN_MAILLIST_EXTERNAL_AND_DOMAIN = 'ou=%s,' % (GROUP_EXTERNALS, )
 
 # RDN of accounts. Default is 'mail'.
 # Note: Although you can use other attr as RDN, but all mail user/list/alias
@@ -64,7 +64,8 @@ DOMAIN_SERVICE_UNDER_CONTROL = ['mail', 'domainalias', 'senderbcc', 'recipientbc
 
 DOMAIN_SEARCH_ATTRS = [
     # Attributes used in domain list page.
-    'domainName', 'cn', 'domainAdmin', 'mtaTransport', 'accountStatus',
+    'domainName', 'domainAliasName', 'domainAdmin',
+    'cn', 'mtaTransport', 'accountStatus',
     'domainCurrentQuotaSize',
     'domainCurrentUserNumber',
     'domainCurrentListNumber',
@@ -96,8 +97,8 @@ USER_FILTER = '(objectClass=mailUser)'
 USER_ATTR_PASSWORD = 'userPassword'
 # All availabe services.
 USER_ENABLED_SERVICES = (
-    'internal',
-    'mail', 'smtp',
+    'internal', 'doveadm',
+    'mail', 'smtp', 'smtpsecured',
     'pop3', 'pop3secured',
     'imap', 'imapsecured',
     'deliver', 'forward',
@@ -110,7 +111,7 @@ USER_ENABLED_SERVICES = (
 # Services availabel in 'Service Control' page.
 USER_SERVICE_UNDER_CONTROL = [
     'internal',
-    'mail', 'smtp',
+    'mail', 'smtp', 'smtpsecured',
     'pop3', 'pop3secured',
     'imap', 'imapsecured',
     'deliver', 'forward',
@@ -134,8 +135,9 @@ USER_ATTRS_ALL = [
     'enabledService', 'memberOfGroup', 'employeeNumber',
     'telephoneNumber', 'userRecipientBccAddress', 'userSenderBccAddress',
     'mailForwardingAddress', 'mtaTransport',
-    'storageBaseDirectory', 'mailMessageStore', # Maildir
+    'storageBaseDirectory', 'mailMessageStore',  # Maildir
     'mobile', 'title', 'shadowAddress',
+    'shadowLastChange',     # Date of last password change, it's a integer.
     # Per-user whitelist & blacklist.
     'amavisWhitelistSender', 'amavisBlacklistSender',
     'mailWhitelistRecipient', 'mailBlacklistRecipient',

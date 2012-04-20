@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+{% from "macros/general.html" import load_jquery %}
+{% from "macros/msgHandlers.html" import errorInfo %}
+
+{% block main %}
+    <div>
+        {{ errorInfo(_('Security token did not match. Please refresh current page and re-perform form action.')) }}
+    </div>
+{% endblock %}
+
+{% block js %}
+    {{ load_jquery() }}
+{% endblock js %}

@@ -2,6 +2,7 @@
 
 {% from "macros/general.html" import
         display_subnav,
+        display_csrf_token,
         set_account_status_img,
         display_button_submit,
         display_input_cn,
@@ -24,7 +25,7 @@
 {% block breadcrumb %}
     {% set crumbs = [
             (ctx.homepath + '/domains', _('All domains'),),
-            (None, _('Profile of domain:') + ' ' + cur_domain,),
+            (None, _('Profile of domain:') + '&nbsp;' + cur_domain,),
             (ctx.homepath + '/users/' + cur_domain, _('Users'),),
             ]
             %}
@@ -56,18 +57,22 @@
         </div>
 
         <div class="box-wrap clear">
-            <form method="post" action="{{ctx.homepath}}/profile/domain/{{profile_type}}/{{cur_domain}}">
+            <form name="{{profile_type}}" method="post" action="{{ctx.homepath}}/profile/domain/{{profile_type}}/{{cur_domain}}">
+                {{ display_csrf_token() }}
+
                 <input type="hidden" name="domainName" value="{{cur_domain}}" />
+
                 {% if profile_type == 'general' %}
                     <div class="columns clear">
                         <div class="col2-3 ">
-                            {% if session.get('domainGlobalAdmin') is sameas true %}
-                                {{ display_account_status(accountStatus, accountType='domain') }}
-                            {% endif %}
+                        {% if session.get('domainGlobalAdmin') is sameas true %}
+                            {{ display_account_status(accountStatus, accountType='domain') }}
+                        {% endif %}
 
-                            {{ display_input_cn(cn, accountType='domain') }}
+                        {{ display_input_cn(cn, accountType='domain') }}
+
                         </div>{# .col2-3 #}
-                    </div>{# .columns #}
+                    </div><!-- .columns -->
                 {% endif %}
 
                 {{ display_button_submit() }}

@@ -1,5 +1,6 @@
 = 0.1.7 =
-    * New translation: cs_CZ. Thanks Karel Hink <karel.hink@pretiko.cz>
+    * Based on iRedAdmin-Pro-LDAP-1.6.4, iRedAdmin-Pro-MySQL-1.3.2,
+      iRedAdmin-Pro-PGSQL-1.0.
 
 = 0.1.6 =
     * [MySQL] Better SQL performance while listing all domains.

@@ -1,9 +1,8 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
 import web
-from controllers import base
-from libs import iredutils
-from libs.ldaplib import domain as domainlib, user, ldaputils, connUtils
+from libs import iredutils, settings
+from libs.ldaplib import decorators, domain as domainlib, user, ldaputils, connUtils
 
 cfg = web.iredconfig
 session = web.config.get('_session')
@@ -18,13 +17,13 @@ class List:
     def __del__(self):
         pass
 
-    @base.require_login
+    @decorators.require_login
     def GET(self, domain='', cur_page=1):
         domain = web.safestr(domain).split('/', 1)[0]
         cur_page = int(cur_page)
 
         if not iredutils.isDomain(domain):
-            return web.seeother('/domains?msg=INVALID_DOMAIN_NAME')
+            raise web.seeother('/domains?msg=INVALID_DOMAIN_NAME')
 
         if cur_page == 0:
             cur_page = 1
@@ -32,7 +31,7 @@ class List:
         i = web.input()
 
         domainLib = domainlib.Domain()
-        result = domainLib.listAccounts(attrs=['domainName', 'accountStatus',])
+        result = domainLib.listAccounts(attrs=['domainName', 'accountStatus', ])
         if result[0] is True:
             allDomains = result[1]
         else:
@@ -45,7 +44,7 @@ class List:
             sl = connutils.getSizelimitFromAccountLists(
                 result[1],
                 curPage=cur_page,
-                sizelimit=session['pageSizeLimit'],
+                sizelimit=settings.PAGE_SIZE_LIMIT,
                 accountType='user',
                 domain=domain,
             )
@@ -56,7 +55,7 @@ class List:
                 cur_page = sl.get('totalPages')
 
             # Show login date.
-            if cfg.general.get('show_login_date', 'False').lower() in ['true',]:
+            if cfg.general.get('show_login_date', 'False').lower() in ['true', ]:
                 showLoginDate = True
             else:
                 showLoginDate = False
@@ -73,10 +72,11 @@ class List:
                 msg=i.get('msg'),
             )
         else:
-            return web.seeother('/domains?msg=%s' % result[1])
+            raise web.seeother('/domains?msg=%s' % web.urlquote(result[1]))
 
     # Delete users.
-    @base.require_login
+    @decorators.csrf_protected
+    @decorators.require_login
     def POST(self, domain):
         i = web.input(_unicode=False, mail=[])
         self.domain = web.safestr(domain)
@@ -87,26 +87,26 @@ class List:
 
         if self.action == 'delete':
             result = userLib.delete(domain=self.domain, mails=self.mails,)
-            msg = 'DELETED_SUCCESS'
+            msg = 'DELETED'
         elif self.action == 'disable':
             result = userLib.enableOrDisableAccount(domain=self.domain, mails=self.mails, action='disable',)
-            msg = 'DISABLED_SUCCESS'
+            msg = 'DISABLED'
         elif self.action == 'enable':
             result = userLib.enableOrDisableAccount(domain=self.domain, mails=self.mails, action='enable',)
-            msg = 'ENABLED_SUCCESS'
+            msg = 'ENABLED'
         else:
             result = (False, 'INVALID_ACTION')
             msg = i.get('msg', None)
 
         if result[0] is True:
             cur_page = i.get('cur_page', '1')
-            return web.seeother('/users/%s/page/%s?msg=%s' % (self.domain, str(cur_page), msg, ))
+            raise web.seeother('/users/%s/page/%s?msg=%s' % (self.domain, str(cur_page), msg, ))
         else:
-            return web.seeother('/users/%s?msg=%s' % (self.domain, result[1]))
+            raise web.seeother('/users/%s?msg=%s' % (self.domain, web.urlquote(result[1])))
 
 
 class Profile:
-    @base.require_login
+    @decorators.require_login
     def GET(self, profile_type, mail):
         i = web.input(enabledService=[], telephoneNumber=[], )
         self.mail = web.safestr(mail)
@@ -115,43 +115,48 @@ class Profile:
 
         if self.mail.startswith('@') and iredutils.isDomain(self.cur_domain):
             # Catchall account.
-            return web.seeother('/profile/domain/catchall/%s' % (self.cur_domain))
+            raise web.seeother('/profile/domain/catchall/%s' % self.cur_domain)
 
         if not iredutils.isEmail(self.mail):
-            return web.seeother('/domains?msg=INVALID_USER')
+            raise web.seeother('/domains?msg=INVALID_USER')
 
         domainAccountSetting = {}
-        
+
         userLib = user.User()
         result = userLib.profile(domain=self.cur_domain, mail=self.mail)
-        if result[0] is True:
-            if self.profile_type == 'password':
-                # Get accountSetting of current domain.
-                domainLib = domainlib.Domain()
-                result_setting = domainLib.getDomainAccountSetting(domain=self.cur_domain)
-                if result_setting[0] is True:
-                    domainAccountSetting = result_setting[1]
+        if result[0] is False:
+            raise web.seeother('/users/%s?msg=%s' % (self.cur_domain, web.urlquote(result[1])))
 
-            minPasswordLength = domainAccountSetting.get('minPasswordLength', '0')
-            maxPasswordLength = domainAccountSetting.get('maxPasswordLength', '0')
+        if self.profile_type == 'password':
+            # Get accountSetting of current domain.
+            domainLib = domainlib.Domain()
+            result_setting = domainLib.getDomainAccountSetting(domain=self.cur_domain)
+            if result_setting[0] is True:
+                domainAccountSetting = result_setting[1]
 
-            return web.render(
-                'ldap/user/profile.html',
-                profile_type=self.profile_type,
-                mail=self.mail,
-                user_profile=result[1],
-                minPasswordLength=minPasswordLength,
-                maxPasswordLength=maxPasswordLength,
-                msg=i.get('msg', None),
-            )
-        else:
-            return web.seeother('/users/%s?msg=%s' % (self.cur_domain, result[1]))
+        minPasswordLength = domainAccountSetting.get('minPasswordLength', '0')
+        maxPasswordLength = domainAccountSetting.get('maxPasswordLength', '0')
 
-    @base.require_login
+        return web.render(
+            'ldap/user/profile.html',
+            profile_type=self.profile_type,
+            mail=self.mail,
+            user_profile=result[1],
+            defaultStorageBaseDirectory=cfg.general.get('storage_base_directory'),
+            minPasswordLength=minPasswordLength,
+            maxPasswordLength=maxPasswordLength,
+            domainAccountSetting=domainAccountSetting,
+            msg=i.get('msg', None),
+        )
+
+    @decorators.csrf_protected
+    @decorators.require_login
     def POST(self, profile_type, mail):
         i = web.input(
             enabledService=[],
+            mailForwardingAddress=[],
             telephoneNumber=[],
+            memberOfGroup=[],
         )
         self.profile_type = web.safestr(profile_type)
         self.mail = web.safestr(mail)
@@ -164,13 +169,13 @@ class Profile:
         )
 
         if result[0] is True:
-            return web.seeother('/profile/user/%s/%s?msg=PROFILE_UPDATED_SUCCESS' % (self.profile_type, self.mail))
+            raise web.seeother('/profile/user/%s/%s?msg=UPDATED' % (self.profile_type, self.mail))
         else:
-            return web.seeother('/profile/user/%s/%s?msg=%s' % (self.profile_type, self.mail, result[1]))
+            raise web.seeother('/profile/user/%s/%s?msg=%s' % (self.profile_type, self.mail, web.urlquote(result[1])))
 
 
 class Create:
-    @base.require_login
+    @decorators.require_login
     def GET(self, domainName=None):
         i = web.input()
 
@@ -180,25 +185,25 @@ class Create:
             self.cur_domain = web.safestr(domainName)
 
         domainLib = domainlib.Domain()
-        result = domainLib.listAccounts(attrs=['domainName', 'accountSetting', 'domainCurrentQuotaSize',])
+        result = domainLib.listAccounts(attrs=['domainName', 'accountSetting', 'domainCurrentQuotaSize', ])
         if result[0] is True:
             allDomains = result[1]
 
             if len(allDomains) == 0:
-                return web.seeother('/domains?msg=NO_DOMAIN_AVAILABLE')
+                raise web.seeother('/domains?msg=NO_DOMAIN_AVAILABLE')
             else:
                 # Redirect to create new user under first domain, so that we
                 # can get per-domain account settings, such as number of
                 # account limit, password length control, etc.
                 if self.cur_domain == '':
-                    return web.seeother('/create/user/' + str(allDomains[0][1]['domainName'][0]))
+                    raise web.seeother('/create/user/' + str(allDomains[0][1]['domainName'][0]))
 
             # Get accountSetting of current domain.
             allAccountSettings = ldaputils.getAccountSettingFromLdapQueryResult(allDomains, key='domainName')
             domainAccountSetting = allAccountSettings.get(self.cur_domain, {})
             defaultUserQuota = domainLib.getDomainDefaultUserQuota(self.cur_domain, domainAccountSetting)
         else:
-            return web.seeother('/domains?msg=' % result[1])
+            raise web.seeother('/domains?msg=' % web.urlquote(result[1]))
 
         # Get number of account limit.
         connutils = connUtils.Utils()
@@ -226,7 +231,8 @@ class Create:
                           msg=i.get('msg'),
                          )
 
-    @base.require_login
+    @decorators.csrf_protected
+    @decorators.require_login
     def POST(self):
         i = web.input()
 
@@ -237,6 +243,6 @@ class Create:
         userLib = user.User()
         result = userLib.add(domain=self.cur_domain, data=i)
         if result[0] is True:
-            return web.seeother('/profile/user/general/%s?msg=CREATED_SUCCESS' % (self.username + '@' + self.cur_domain))
+            raise web.seeother('/profile/user/general/%s?msg=CREATED' % (self.username + '@' + self.cur_domain))
         else:
-            return web.seeother('/create/user/%s?msg=%s' % (self.cur_domain, result[1]))
+            raise web.seeother('/create/user/%s?msg=%s' % (self.cur_domain, web.urlquote(result[1])))

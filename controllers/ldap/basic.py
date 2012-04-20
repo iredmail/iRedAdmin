@@ -2,13 +2,14 @@
 
 import os
 import time
+import ldap
 import web
 from socket import getfqdn
 from urllib import urlencode
-from controllers import base
-from libs import __url_iredadmin_ldap_latest__, __version__
-from libs import iredutils, languages
-from libs.ldaplib import auth, admin as adminlib, ldaputils
+from libs import __url_latest_ldap__, __version_ldap__, __no__, __id__
+from libs import iredutils, languages, settings
+from libs.ldaplib import auth, decorators, admin as adminlib, ldaputils, connUtils, attrs
+
 
 cfg = web.iredconfig
 session = web.config.get('_session')
@@ -16,9 +17,7 @@ session = web.config.get('_session')
 
 class Login:
     def GET(self):
-        if session.get('logged') is True:
-            return web.seeother('/dashboard')
-        else:
+        if session.get('logged') is False:
             i = web.input(_unicode=False)
 
             # Show login page.
@@ -27,28 +26,64 @@ class Login:
                               webmaster=session.get('webmaster'),
                               msg=i.get('msg'),
                              )
+        else:
+            raise web.seeother('/dashboard')
 
     def POST(self):
         # Get username, password.
         i = web.input(_unicode=False)
+
+        # Verify bind_dn & bind_pw.
+        try:
+            # Get LDAP URI.
+            uri = cfg.ldap.get('uri')
+
+            # Detect STARTTLS support.
+            if uri.startswith('ldaps://'):
+                starttls = True
+            else:
+                starttls = False
+
+            # Set necessary option for STARTTLS.
+            if starttls:
+                ldap.set_option(ldap.OPT_X_TLS_REQUIRE_CERT, ldap.OPT_X_TLS_NEVER)
+
+            # Initialize connection.
+            conn = ldap.initialize(uri)
+
+            # Set LDAP protocol version: LDAP v3.
+            conn.set_option(ldap.OPT_PROTOCOL_VERSION, ldap.VERSION3)
+
+            if starttls:
+                conn.set_option(ldap.OPT_X_TLS, ldap.OPT_X_TLS_DEMAND)
+
+            # synchronous bind.
+            conn.bind_s(cfg.ldap.get('bind_dn'), cfg.ldap.get('bind_pw'))
+            conn.unbind_s()
+        except (ldap.INVALID_CREDENTIALS):
+            raise web.seeother('/login?msg=vmailadmin_INVALID_CREDENTIALS')
+        except Exception, e:
+            raise web.seeother('/login?msg=%s' % web.safestr(e))
 
         username = web.safestr(i.get('username', '').strip())
         password = i.get('password', '').strip()
         save_pass = web.safestr(i.get('save_pass', 'no').strip())
 
         if not iredutils.isEmail(username):
-            return web.seeother('/login?msg=INVALID_USERNAME')
+            raise web.seeother('/login?msg=INVALID_USERNAME')
 
-        if len(password) == 0:
-            return web.seeother('/login?msg=EMPTY_PASSWORD')
+        if not password:
+            raise web.seeother('/login?msg=EMPTY_PASSWORD')
 
         # Convert username to ldap dn.
         userdn = ldaputils.convKeywordToDN(username, accountType='admin')
+        if userdn[0] is False:
+            raise web.seeother('/login?msg=%s' % userdn[1])
 
         # Return True if auth success, otherwise return error msg.
-        self.auth_result = auth.Auth(cfg.ldap.get('uri', 'ldap://127.0.0.1/'), userdn, password,)
+        qr_admin_auth = auth.Auth(cfg.ldap.get('uri', 'ldap://127.0.0.1/'), userdn, password,)
 
-        if self.auth_result is True:
+        if qr_admin_auth is True:
             session['username'] = username
             session['logged'] = True
 
@@ -65,7 +100,7 @@ class Login:
             else:
                 pass
 
-            web.config.session_parameters['cookie_name'] = 'iRedAdmin'
+            web.config.session_parameters['cookie_name'] = 'iRedAdmin-Pro'
             # Session expire when client ip was changed.
             web.config.session_parameters['ignore_change_ip'] = False
             # Don't ignore session expiration.
@@ -79,29 +114,25 @@ class Login:
                 web.config.session_parameters['timeout'] = 600      # 10 minutes
 
             web.logger(msg="Login success", event='login',)
-            return web.seeother('/dashboard/checknew')
+            raise web.seeother('/dashboard/checknew')
         else:
             session['failedTimes'] += 1
             web.logger(msg="Login failed.", admin=username, event='login', loglevel='error',)
-            return web.seeother('/login?msg=%s' % self.auth_result)
+            raise web.seeother('/login?msg=%s' % qr_admin_auth)
 
 
 class Logout:
-    @base.require_login
+    @decorators.require_login
     def GET(self):
         session.kill()
-        return web.seeother('/login')
+        raise web.seeother('/login')
 
 
 class Dashboard:
-    @base.require_login
-    def GET(self, checknew=None):
-        i = web.input(_unicode=False,)
-
-        if checknew is not None:
-            self.checknew = True
-        else:
-            self.checknew = False
+    @decorators.require_login
+    def GET(self, checknew=False):
+        if checknew:
+            checknew = True
 
         # Get network interface related infomation.
         netif_data = {}
@@ -114,13 +145,14 @@ class Dashboard:
                     data = addr[netifaces.AF_INET][0]
                     try:
                         netif_data[iface] = {'addr': data['addr'], 'netmask': data['netmask'], }
-                    except:
+                    except Exception:
                         pass
-        except:
+        except Exception:
             pass
 
         # Check new version.
-        if session.get('domainGlobalAdmin') is True and self.checknew is True:
+        newVersionInfo = (None, )
+        if session.get('domainGlobalAdmin') is True and checknew is True:
             try:
                 curdate = time.strftime('%Y-%m-%d')
                 vars = dict(date=curdate)
@@ -129,12 +161,13 @@ class Dashboard:
                 if len(r) == 0:
                     urlInfo = {
                         'a': cfg.general.get('webmaster', session.get('username', '')),
-                        'v': __version__,
+                        'v': __version_ldap__,
+                        'o': __no__,
+                        'f': __id__,
                         'host': getfqdn(),
-                        'backend': cfg.general.get('backend', ''),
                     }
 
-                    url = __url_iredadmin_ldap_latest__ + '?' + urlencode(urlInfo)
+                    url = __url_latest_ldap__ + '?' + urlencode(urlInfo)
                     newVersionInfo = iredutils.getNewVersion(url)
 
                     # Always remove all old records, just keep the last one.
@@ -142,16 +175,12 @@ class Dashboard:
 
                     # Insert updating date.
                     web.admindb.insert('updatelog', date=curdate,)
-                else:
-                    newVersionInfo = (None, )
             except Exception, e:
                 newVersionInfo = (False, str(e))
-        else:
-            newVersionInfo = (None, )
 
         return web.render(
             'dashboard.html',
-            version=__version__,
+            version=__version_ldap__,
             hostname=getfqdn(),
             uptime=iredutils.getServerUptime(),
             loadavg=os.getloadavg(),

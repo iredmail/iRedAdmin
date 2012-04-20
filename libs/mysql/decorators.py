@@ -3,27 +3,16 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
 import web
+from controllers import decorators as base_decorators
 from libs import iredutils
 from libs.mysql import core
 
 session = web.config.get('_session')
 
-def require_login(func):
-    def proxyfunc(self, *args, **kw):
-        if session.get('logged') is True:
-            return func(self, *args, **kw)
-        else:
-            session.kill()
-            return web.seeother('/login?msg=loginRequired')
-    return proxyfunc
+require_login = base_decorators.require_login
+require_global_admin = base_decorators.require_global_admin
+csrf_protected = base_decorators.csrf_protected
 
-def require_global_admin(func):
-    def proxyfunc(*args, **kw):
-        if session.get('domainGlobalAdmin') is True:
-            return func(*args, **kw)
-        else:
-            return web.seeother('/domains?msg=PERMISSION_DENIED')
-    return proxyfunc
 
 def require_domain_access(func):
     def proxyfunc(*args, **kw):
@@ -47,3 +36,4 @@ def require_domain_access(func):
             else:
                 return (False, 'PERMISSION_DENIED')
     return proxyfunc
+

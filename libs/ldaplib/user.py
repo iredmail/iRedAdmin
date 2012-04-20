@@ -1,11 +1,10 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
-import types
 import ldap
 import ldap.filter
 import web
-from libs import iredutils
-from libs.ldaplib import core, domain as domainlib, attrs, ldaputils, iredldif, connUtils, decorators
+from libs import iredutils, settings
+from libs.ldaplib import core, domain as domainlib, attrs, ldaputils, iredldif, connUtils, decorators, deltree
 
 cfg = web.iredconfig
 session = web.config.get('_session')
@@ -23,6 +22,8 @@ class User(core.LDAPWrap):
     def listAccounts(self, domain):
         self.domain = domain
         self.domainDN = ldaputils.convKeywordToDN(self.domain, accountType='domain')
+        if self.domainDN[0] is False:
+            return self.domainDN
 
         try:
             # Use '(!(mail=@domain.ltd))' to hide catch-all account.
@@ -56,20 +57,27 @@ class User(core.LDAPWrap):
         self.domain = self.mail.split('@', 1)[-1]
 
         if self.domain != domain:
-            return web.seeother('/domains?msg=PERMISSION_DENIED')
+            raise web.seeother('/domains?msg=PERMISSION_DENIED')
 
         self.filter = '(&(objectClass=mailUser)(mail=%s))' % (self.mail,)
         if accountType == 'catchall':
             self.filter = '(&(objectClass=mailUser)(mail=@%s))' % (self.mail,)
         else:
             if not self.mail.endswith('@' + self.domain):
-                return web.seeother('/domains?msg=PERMISSION_DENIED')
+                raise web.seeother('/domains?msg=PERMISSION_DENIED')
 
         if attrs.RDN_USER == 'mail':
             self.searchdn = ldaputils.convKeywordToDN(self.mail, accountType=accountType)
             self.scope = ldap.SCOPE_BASE
+
+            if self.searchdn[0] is False:
+                return self.searchdn
         else:
-            self.searchdn = attrs.DN_BETWEEN_USER_AND_DOMAIN + ldaputils.convKeywordToDN(self.domain, accountType='domain')
+            domain_dn = ldaputils.convKeywordToDN(self.domain, accountType='domain')
+            if domain_dn[0] is False:
+                return domain_dn
+
+            self.searchdn = attrs.DN_BETWEEN_USER_AND_DOMAIN + domain_dn
             self.scope = ldap.SCOPE_SUBTREE
 
         try:
@@ -96,21 +104,28 @@ class User(core.LDAPWrap):
 
         # Check account existing.
         connutils = connUtils.Utils()
-        if connutils.isAccountExists(domain=self.domain, filter='(mail=%s)' % self.mail):
+        if connutils.isAccountExists(domain=self.domain, mail=self.mail,):
             return (False, 'ALREADY_EXISTS')
 
         # Get @domainAccountSetting.
         domainLib = domainlib.Domain()
-        result_domain_profile = domainLib.profile(self.domain)
+        result_domain_profile = domainLib.profile(domain=self.domain)
 
         # Initial parameters.
         domainAccountSetting = {}
         self.aliasDomains = []
 
-        if result_domain_profile[0] is True:
-            domainProfile = result_domain_profile[1]
-            domainAccountSetting = ldaputils.getAccountSettingFromLdapQueryResult(domainProfile, key='domainName').get(self.domain, {})
-            self.aliasDomains = domainProfile[0][1].get('domainAliasName', [])
+        if result_domain_profile[0] is not True:
+            return (False, result_domain_profile[1])
+
+        domainProfile = result_domain_profile[1]
+        domainAccountSetting = ldaputils.getAccountSettingFromLdapQueryResult(domainProfile, key='domainName').get(self.domain, {})
+        self.aliasDomains = domainProfile[0][1].get('domainAliasName', [])
+
+        # Check account number limit.
+        numberOfAccounts = domainAccountSetting.get('numberOfUsers')
+        if numberOfAccounts == '-1':
+            return (False, 'NOT_ALLOWED')
 
         # Check password.
         self.newpw = web.safestr(data.get('newpw'))
@@ -121,7 +136,10 @@ class User(core.LDAPWrap):
                                           max_passwd_length=domainAccountSetting.get('maxPasswordLength', '0'),
                                          )
         if result[0] is True:
-            self.passwd = ldaputils.generatePasswd(result[1])
+            if 'storePasswordInPlainText' in data and settings.STORE_PASSWORD_IN_PLAIN:
+                self.passwd = ldaputils.generateLDAPPasswd(result[1], pwscheme='PLAIN')
+            else:
+                self.passwd = ldaputils.generateLDAPPasswd(result[1])
         else:
             return result
 
@@ -151,14 +169,12 @@ class User(core.LDAPWrap):
         else:
             # Get domain quota, convert to MB.
             if domainQuotaUnit == 'TB':
-                domainQuota = int(domainQuotaSize) * 1024 * 1024 # TB
+                domainQuota = int(domainQuotaSize) * 1024 * 1024  # TB
             elif domainQuotaUnit == 'GB':
                 domainQuota = int(domainQuotaSize) * 1024  # GB
             else:
                 domainQuota = int(domainQuotaSize)  # MB
 
-            # TODO Query whole domain and calculate current quota size, not read from domain profile.
-            #domainCurrentQuotaSize = int(domainProfile[0][1].get('domainCurrentQuotaSize', ['0'])[0]) / (1024*1024)
             result = connutils.getDomainCurrentQuotaSizeFromLDAP(domain=self.domain)
             if result[0] is True:
                 domainCurrentQuotaSize = result[1]
@@ -166,7 +182,7 @@ class User(core.LDAPWrap):
                 domainCurrentQuotaSize = 0
 
             # Spare quota.
-            domainSpareQuotaSize = domainQuota - domainCurrentQuotaSize/(1024*1024)
+            domainSpareQuotaSize = domainQuota - domainCurrentQuotaSize / (1024 * 1024)
 
             if domainSpareQuotaSize <= 0:
                 return (False, 'EXCEEDED_DOMAIN_QUOTA_SIZE')
@@ -181,14 +197,14 @@ class User(core.LDAPWrap):
                     self.quota = domainSpareQuotaSize
 
         # Get default groups.
-        self.groups = [ web.safestr(v)
+        self.groups = [web.safestr(v)
                        for v in domainAccountSetting.get('defaultList', '').split(',')
                        if iredutils.isEmail(v)
                       ]
 
         self.defaultStorageBaseDirectory = domainAccountSetting.get('defaultStorageBaseDirectory', None)
 
-        # Get default mail list which set in domain accountSetting.
+        # Get default mail lists which set in domain accountSetting.
         ldif = iredldif.ldif_mailuser(
             domain=self.domain,
             aliasDomains=self.aliasDomains,
@@ -200,14 +216,19 @@ class User(core.LDAPWrap):
             storageBaseDirectory=self.defaultStorageBaseDirectory,
         )
 
+        domain_dn = ldaputils.convKeywordToDN(self.domain, accountType='domain')
+        if domain_dn[0] is False:
+            return domain_dn
+
         if attrs.RDN_USER == 'mail':
             self.dn = ldaputils.convKeywordToDN(self.mail, accountType='user')
+            if self.dn[0] is False:
+                return self.dn
+
         elif attrs.RDN_USER == 'cn':
-            self.dn = 'cn=' + self.cn + ',' + attrs.DN_BETWEEN_USER_AND_DOMAIN + \
-                    ldaputils.convKeywordToDN(self.domain, accountType='domain')
+            self.dn = 'cn=' + self.cn + ',' + attrs.DN_BETWEEN_USER_AND_DOMAIN + domain_dn
         elif attrs.RDN_USER == 'uid':
-            self.dn = 'uid=' + self.username + ',' + attrs.DN_BETWEEN_USER_AND_DOMAIN + \
-                    ldaputils.convKeywordToDN(self.domain, accountType='domain')
+            self.dn = 'uid=' + self.username + ',' + attrs.DN_BETWEEN_USER_AND_DOMAIN + domain_dn
         else:
             return (False, 'UNSUPPORTED_USER_RDN')
 
@@ -222,7 +243,7 @@ class User(core.LDAPWrap):
 
     def getFilterOfDeleteUserFromGroups(self, mail):
         # Get valid emails as list.
-        if isinstance(mail, types.ListType):
+        if isinstance(mail, list):
             self.mails = [web.safestr(v).lower() for v in mail if iredutils.isEmail(str(v))]
         else:
             # Single email.
@@ -254,6 +275,12 @@ class User(core.LDAPWrap):
         # Get dn of mail user and domain.
         self.dnUser = ldaputils.convKeywordToDN(self.mail, accountType='user')
         self.dnDomain = ldaputils.convKeywordToDN(self.domain, accountType='domain')
+
+        if self.dnUser[0] is False:
+            return self.dnUser
+
+        if self.dnDomain[0] is False:
+            return self.dnDomain
 
         try:
             # Get accounts which contains destination email.
@@ -304,11 +331,16 @@ class User(core.LDAPWrap):
 
         # Get dn of mail user and domain.
         self.dnUser = ldaputils.convKeywordToDN(self.mail, accountType='user')
+        if self.dnUser[0] is False:
+            return self.dnUser
 
         # Delete user object.
         try:
-            #deltree.DelTree(self.conn, self.dnUser, ldap.SCOPE_SUBTREE)
-            self.conn.delete_s(self.dnUser)
+            # Delete single object.
+            #self.conn.delete_s(self.dnUser)
+
+            # Delete object and its subtree.
+            deltree.DelTree(self.conn, self.dnUser, ldap.SCOPE_SUBTREE)
 
             if deleteFromGroups:
                 self.deleteSingleUserFromGroups(self.mail)
@@ -330,9 +362,13 @@ class User(core.LDAPWrap):
             return (False, 'NO_ACCOUNT_SELECTED')
 
         self.domain = web.safestr(domain)
-        self.mails = [str(v) for v in mails if iredutils.isEmail(v) and str(v).endswith('@'+self.domain)]
+        self.mails = [str(v) for v in mails if iredutils.isEmail(v) and str(v).endswith('@' + self.domain)]
+        if not len(self.mails) > 0:
+            return (False, 'INVALID_MAIL')
 
         self.domaindn = ldaputils.convKeywordToDN(self.domain, accountType='domain')
+        if self.domaindn[0] is False:
+            return self.domaindn
 
         if not iredutils.isDomain(self.domain):
             return (False, 'INVALID_DOMAIN_NAME')
@@ -374,7 +410,7 @@ class User(core.LDAPWrap):
         self.mails = [str(v)
                       for v in mails
                       if iredutils.isEmail(v)
-                      and str(v).endswith('@'+str(domain))
+                      and str(v).endswith('@' + str(domain))
                      ]
 
         result = {}
@@ -386,6 +422,9 @@ class User(core.LDAPWrap):
 
             self.domain = self.mail.split('@')[-1]
             self.dn = ldaputils.convKeywordToDN(self.mail, accountType='user')
+            if self.dn[0] is False:
+                result[self.mail] = self.dn[1]
+                continue
 
             try:
                 connutils.enableOrDisableAccount(
@@ -431,7 +470,7 @@ class User(core.LDAPWrap):
             mod_attrs += ldaputils.getSingleModAttr(attr='cn', value=cn, default=self.mail.split('@')[0])
 
             # Update employeeNumber, mobile, title.
-            for tmp_attr in ['employeeNumber', 'mobile', 'title',]:
+            for tmp_attr in ['employeeNumber', 'mobile', 'title', ]:
                 mod_attrs += ldaputils.getSingleModAttr(attr=tmp_attr, value=data.get(tmp_attr), default=None)
 
             ############
@@ -460,11 +499,11 @@ class User(core.LDAPWrap):
 
                 if int(domainQuotaSize) == 0:
                     # Unlimited. Keep quota which got from web form.
-                    mod_attrs += [(ldap.MOD_REPLACE, 'mailQuota', str(mailQuota*1024*1024))]
+                    mod_attrs += [(ldap.MOD_REPLACE, 'mailQuota', str(mailQuota * 1024 * 1024))]
                 else:
                     # Get domain quota.
                     if domainQuotaUnit == 'TB':
-                        domainQuota = int(domainQuotaSize) * 1024 * 1024 # TB
+                        domainQuota = int(domainQuotaSize) * 1024 * 1024  # TB
                     elif domainQuotaUnit == 'GB':
                         domainQuota = int(domainQuotaSize) * 1024  # GB
                     else:
@@ -478,19 +517,19 @@ class User(core.LDAPWrap):
                         domainCurrentQuotaSizeInBytes = 0
 
                     # Spare quota.
-                    domainSpareQuotaSize = (domainQuota + oldquota) - (domainCurrentQuotaSizeInBytes/(1024*1024))
+                    domainSpareQuotaSize = (domainQuota + oldquota) - (domainCurrentQuotaSizeInBytes / (1024 * 1024))
 
                     if domainSpareQuotaSize <= 0:
                         # Don't update quota if already exceed domain quota size.
                         #return (False, 'EXCEEDED_DOMAIN_QUOTA_SIZE')
 
                         # Set to 1MB. don't exceed domain quota size.
-                        mod_attrs += [(ldap.MOD_REPLACE, 'mailQuota', str(1024*1024))]
+                        mod_attrs += [(ldap.MOD_REPLACE, 'mailQuota', str(1024 * 1024))]
                     else:
                         # Get FINAL mailbox quota.
                         if mailQuota >= domainSpareQuotaSize:
                             mailQuota = domainSpareQuotaSize
-                        mod_attrs += [(ldap.MOD_REPLACE, 'mailQuota', str(mailQuota*1024*1024))]
+                        mod_attrs += [(ldap.MOD_REPLACE, 'mailQuota', str(mailQuota * 1024 * 1024))]
             # End quota
             ############
 
@@ -504,7 +543,7 @@ class User(core.LDAPWrap):
                 accountStatus = 'active'
             else:
                 accountStatus = 'disabled'
-            mod_attrs += [ (ldap.MOD_REPLACE, 'accountStatus', accountStatus) ]
+            mod_attrs += [(ldap.MOD_REPLACE, 'accountStatus', accountStatus)]
 
         elif self.profile_type == 'password':
             # Get password length from @domainAccountSetting.
@@ -522,8 +561,12 @@ class User(core.LDAPWrap):
                 max_passwd_length=maxPasswordLength,
             )
             if result[0] is True:
-                self.passwd = ldaputils.generatePasswd(result[1])
-                mod_attrs += [ (ldap.MOD_REPLACE, 'userPassword', self.passwd) ]
+                if 'storePasswordInPlainText' in data and settings.STORE_PASSWORD_IN_PLAIN:
+                    self.passwd = ldaputils.generateLDAPPasswd(result[1], pwscheme='PLAIN')
+                else:
+                    self.passwd = ldaputils.generateLDAPPasswd(result[1])
+                mod_attrs += [(ldap.MOD_REPLACE, 'userPassword', self.passwd)]
+                mod_attrs += [(ldap.MOD_REPLACE, 'shadowLastChange', str(ldaputils.getDaysOfShadowLastChange()))]
             else:
                 return result
 
