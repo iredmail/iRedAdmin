@@ -49,21 +49,21 @@ max_passwd_length = 0
 
 [iredadmin]
 # Database used to store iRedAdmin data. e.g. sessions, log.
-host = 127.0.0.1
-port = 5432
+host = host_of_iredadmin_sql_server
+port = port_of_iredadmin_sql_server
 db = iredadmin
 user = iredadmin
-passwd = password
+passwd = password_of_iredadmin_db
 
 ############################################
 # Database used to store mail accounts.
 #
 [vmaildb]
-host = 127.0.0.1
-port = 5432
+host = host_of_vmaildb_sql_server
+port = port_of_vmaildb_sql_server
 db = vmail
 user = vmailadmin
-passwd = password
+passwd = password_of_vmail_db
 
 #################################################################
 # Settings used for Policyd (1.8.x) integration. Provides global
@@ -85,11 +85,11 @@ enabled = True
 #   db      -> MYSQLDBASE
 #   user    -> MYSQLUSER
 #   passwd  -> MYSQLPASS
-host = 127.0.0.1
-port = 5432
+host = host_of_policyd_sql_server
+port = port_of_policyd_sql_server
 db = policyd
 user = policyd
-passwd = passwd
+passwd = password_of_policyd_db
 
 ##############################################################################
 # Settings used for Amavisd-new integration. Provides spam/virus quaranting,
@@ -109,11 +109,11 @@ passwd = passwd
 # http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Integrate.MySQL.in.Amavisd
 logging_into_sql = True
 
-host = 127.0.0.1
-port = 5432
+host = host_of_amavisd_sql_server
+port = port_of_amavisd_sql_server
 db = amavisd
 user = amavisd
-passwd = password
+passwd = password_of_amavisd_db
 
 # #### Quarantining ####
 # Release quarantined SPAM/Virus mails: True, False.
