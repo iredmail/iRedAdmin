@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
 import os
