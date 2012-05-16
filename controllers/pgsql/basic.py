@@ -5,7 +5,7 @@ import time
 from socket import getfqdn
 from urllib import urlencode
 import web
-from libs import __url_latest_pgsql__, __version_pgsql__, __no__, __id__
+from libs import __url_latest_ose__, __version_ose__, __no__, __id__
 from libs import iredutils, languages
 from libs.pgsql import core, decorators
 
@@ -106,13 +106,14 @@ class Dashboard:
                 if len(r) == 0:
                     urlInfo = {
                         'a': cfg.general.get('webmaster', session.get('username', '')),
-                        'v': __version_pgsql__,
+                        'v': __version_ose__,
                         'o': __no__,
                         'f': __id__,
                         'host': getfqdn(),
+                        'backend': cfg.general.get('backend', ''),
                     }
 
-                    url = __url_latest_pgsql__ + '?' + urlencode(urlInfo)
+                    url = __url_latest_ose__ + '?' + urlencode(urlInfo)
                     newVersionInfo = iredutils.getNewVersion(url)
 
                     # Always remove all old records, just keep the last one.
@@ -125,7 +126,7 @@ class Dashboard:
 
         return web.render(
             'dashboard.html',
-            version=__version_pgsql__,
+            version=__version_ose__,
             hostname=getfqdn(),
             uptime=iredutils.getServerUptime(),
             loadavg=os.getloadavg(),

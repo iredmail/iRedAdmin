@@ -5,9 +5,9 @@ import time
 from socket import getfqdn
 from urllib import urlencode
 import web
-from libs import __url_latest_mysql__, __version_mysql__, __no__, __id__
-from libs import iredutils, settings, languages
-from libs.mysql import core, decorators, admin as adminlib, connUtils
+from libs import __url_latest_ose__, __version_ose__, __no__, __id__
+from libs import iredutils, languages
+from libs.mysql import core, decorators
 
 
 cfg = web.iredconfig
@@ -103,13 +103,14 @@ class Dashboard:
                 if len(r) == 0:
                     urlInfo = {
                         'a': cfg.general.get('webmaster', session.get('username', '')),
-                        'v': __version_mysql__,
+                        'v': __version_ose__,
                         'o': __no__,
                         'f': __id__,
                         'host': getfqdn(),
+                        'backend': cfg.general.get('backend', ''),
                     }
 
-                    url = __url_latest_mysql__ + '?' + urlencode(urlInfo)
+                    url = __url_latest_ose__ + '?' + urlencode(urlInfo)
                     newVersionInfo = iredutils.getNewVersion(url)
 
                     # Always remove all old records, just keep the last one.
@@ -122,7 +123,7 @@ class Dashboard:
 
         return web.render(
             'dashboard.html',
-            version=__version_mysql__,
+            version=__version_ose__,
             hostname=getfqdn(),
             uptime=iredutils.getServerUptime(),
             loadavg=os.getloadavg(),
