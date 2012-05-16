@@ -9,9 +9,6 @@ from libs.pgsql import core, decorators, connUtils, domain as domainlib, admin a
 cfg = web.iredconfig
 session = web.config.get('_session', {})
 
-if session.get('enablePolicyd'):
-    from libs.policyd import throttle
-
 ENABLED_SERVICES = [
     'enablesmtp', 'enablesmtpsecured',
     'enablepop3', 'enablepop3secured',
@@ -302,6 +299,37 @@ class User(core.PGSQLWrap):
             # Get employee id.
             employeeNumber = data.get('employeeNumber', '')
             updates['employeeid'] = employeeNumber
+
+        elif self.profile_type == 'password':
+            newpw = str(data.get('newpw', ''))
+            confirmpw = str(data.get('confirmpw', ''))
+
+            # Verify new passwords.
+            qr = iredutils.verifyNewPasswords(newpw, confirmpw)
+            if qr[0] is True:
+                if 'storePasswordInPlainText' in data and settings.STORE_PASSWORD_IN_PLAIN:
+                    passwd = iredutils.getSQLPassword(qr[1], pwscheme='PLAIN')
+                else:
+                    passwd = iredutils.getSQLPassword(qr[1])
+            else:
+                return qr
+
+            # Hash/encrypt new password.
+            updates['password'] = passwd
+
+            # Update password last change date in column: passwordlastchange.
+            #
+            # Old iRedMail version doesn't have column mailbox.passwordlastchange,
+            # so we update it with a seperate SQL command with exception handle.
+            try:
+                self.conn.update(
+                    'mailbox',
+                    vars={'username': self.mail, },
+                    where='username=$username',
+                    passwordlastchange=iredutils.getGMTTime(),
+                )
+            except:
+                pass
 
         else:
             return (True,)
