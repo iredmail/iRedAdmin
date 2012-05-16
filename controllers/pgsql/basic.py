@@ -6,8 +6,8 @@ from socket import getfqdn
 from urllib import urlencode
 import web
 from libs import __url_latest_pgsql__, __version_pgsql__, __no__, __id__
-from libs import iredutils, settings, languages
-from libs.pgsql import core, decorators, admin as adminlib, connUtils
+from libs import iredutils, languages
+from libs.pgsql import core, decorators
 
 
 cfg = web.iredconfig
