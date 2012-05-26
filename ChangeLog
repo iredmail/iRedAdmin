@@ -1,5 +1,6 @@
 = 0.1.8 =
     * Fixed:
+        + [pgsql] Don't show link to view all mail aliases in domain profile page.
         + Cannot update user password in pgsql backend.
 
 = 0.1.7 =
