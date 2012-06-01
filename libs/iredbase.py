@@ -168,14 +168,14 @@ def render_template(template_name, **context):
     return jinja_env.get_template(template_name).render(context)
 
 
-class sessionExpired(web.HTTPError):
+class SessionExpired(web.HTTPError):
     def __init__(self, message):
         message = web.seeother('/login?msg=SESSION_EXPIRED')
         web.HTTPError.__init__(self, '303 See Other', {}, data=message)
 
 
 # Logger. Logging into SQL database.
-def logIntoSQL(msg, admin='', domain='', username='', event='', loglevel='info',):
+def log_into_sql(msg, admin='', domain='', username='', event='', loglevel='info',):
     try:
         if admin == '':
             admin = session.get('username', '')
@@ -189,13 +189,14 @@ def logIntoSQL(msg, admin='', domain='', username='', event='', loglevel='info',
             event=str(event),
             msg=str(msg),
             ip=str(session.ip),
+            timestamp=iredutils.getGMTTime(),
         )
     except Exception:
         pass
 
 
 # Log error message. default log to sys.stderr.
-def logError(*args):
+def log_error(*args):
     for s in args:
         try:
             print >> sys.stderr, web.safestr(s)
@@ -211,6 +212,6 @@ if cfg.general.get('mail_error_to_webmaster', 'False').lower() == 'true':
 # Store objects in 'web' module.
 web.app = app
 web.render = render_template
-web.logger = logIntoSQL
-web.logError = logError
-web.session.SessionExpired = sessionExpired
+web.logger = log_into_sql
+web.log_error = log_error
+web.session.SessionExpired = SessionExpired
