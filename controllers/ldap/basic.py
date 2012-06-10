@@ -7,7 +7,7 @@ import web
 from socket import getfqdn
 from urllib import urlencode
 from libs import __url_latest_ose__, __version_ose__, __no__, __id__
-from libs import iredutils
+from libs import iredutils, languages
 from libs.ldaplib import auth, decorators, admin as adminlib, ldaputils
 
 
