@@ -167,25 +167,19 @@ class PGSQLWrap:
             accounts = [str(v) for v in accounts if iredutils.isEmail(v)]
             sql_vars = {'accounts': accounts, }
             try:
-                self.conn.delete(
-                    'mailbox',
-                    vars=sql_vars,
-                    where='username IN $accounts',
-                )
+                for tbl in ['mailbox', 'used_quota',
+                            'recipient_bcc_user', 'sender_bcc_user',
+                           ]:
+                    self.conn.delete(
+                        tbl,
+                        vars=sql_vars,
+                        where='username IN $accounts',
+                    )
+
                 self.conn.delete(
                     'alias',
                     vars=sql_vars,
                     where='address IN $accounts',
-                )
-                self.conn.delete(
-                    'recipient_bcc_user',
-                    vars=sql_vars,
-                    where='username IN $accounts',
-                )
-                self.conn.delete(
-                    'sender_bcc_user',
-                    vars=sql_vars,
-                    where='username IN $accounts',
                 )
 
                 # Remove users from alias.goto.

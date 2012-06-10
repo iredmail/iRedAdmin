@@ -1,3 +1,8 @@
+= 0.1.9 =
+    * Fixed:
+        + Didn't remove SQL records of real-time mailbox quota while deleting 
+          mail users.
+
 = 0.1.8 =
     * Fixed:
         + [pgsql] Don't show link to view all mail aliases in domain profile page.

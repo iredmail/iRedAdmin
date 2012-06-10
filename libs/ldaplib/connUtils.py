@@ -2,7 +2,6 @@
 
 import web
 import ldap
-import ldif
 from ldap.filter import escape_filter_chars
 from libs import iredutils
 from libs.ldaplib import core, ldaputils, decorators, attrs, deltree
@@ -419,3 +418,18 @@ class Utils(core.LDAPWrap):
             return (True, self.managedDomains)
         except Exception, e:
             return (False, ldaputils.getExceptionDesc(e))
+
+
+def deleteAccountFromUsedQuota(accounts):
+    # @accounts: must be list/tuple of email addresses.
+    if len(accounts) > 0:
+        try:
+            web.admindb.delete(
+                'used_quota',
+                where='username IN %s' % (web.sqlquote(accounts)),
+            )
+            return (True,)
+        except Exception, e:
+            return (False, str(e))
+    else:
+        return (True,)
