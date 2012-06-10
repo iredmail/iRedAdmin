@@ -346,12 +346,10 @@ class User(core.LDAPWrap):
                 self.deleteSingleUserFromGroups(self.mail)
 
             # Delete record from SQL database: real-time used quota.
-            if session.get('enableShowUsedQuota', False) is True:
-                try:
-                    connutils = connUtils.Utils()
-                    connutils.deleteAccountFromUsedQuota([self.mail])
-                except:
-                    pass
+            try:
+                connUtils.deleteAccountFromUsedQuota([self.mail])
+            except Exception, e:
+                pass
 
             # Log delete action.
             web.logger(

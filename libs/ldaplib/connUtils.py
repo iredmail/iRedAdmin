@@ -422,11 +422,15 @@ class Utils(core.LDAPWrap):
 
 def deleteAccountFromUsedQuota(accounts):
     # @accounts: must be list/tuple of email addresses.
-    if len(accounts) > 0:
+    if not isinstance(accounts, (list, tuple)):
+        return (False, 'INVALID_MAIL')
+
+    if accounts:
         try:
             web.admindb.delete(
                 'used_quota',
-                where='username IN %s' % (web.sqlquote(accounts)),
+                vars={'accounts': accounts},
+                where='username IN $accounts',
             )
             return (True,)
         except Exception, e:
