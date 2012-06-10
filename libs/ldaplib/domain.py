@@ -133,11 +133,16 @@ class Domain(core.LDAPWrap):
         if not isinstance(domains, list):
             return (False, 'INVALID_DOMAIN_NAME')
 
+        domains = [str(v).lower()
+                   for v in domains
+                   if iredutils.isDomain(v)
+                  ]
+
+        if not domains:
+            return (True,)
+
         msg = {}
         for domain in domains:
-            if not iredutils.isDomain(domain):
-                continue
-
             dn = ldaputils.convKeywordToDN(web.safestr(domain), accountType='domain')
             if dn[0] is False:
                 return dn
@@ -147,6 +152,15 @@ class Domain(core.LDAPWrap):
                 web.logger(msg="Delete domain: %s." % (domain), domain=domain, event='delete',)
             except ldap.LDAPError, e:
                 msg[domain] = str(e)
+
+        # Delete real-time mailbox quota.
+        try:
+            web.admindb.query(
+                'DELETE FROM used_quota WHERE %s' % \
+                web.sqlors('username LIKE ', ['%@' + d for d in domains])
+            )
+        except:
+            pass
 
         if msg == {}:
             return (True,)

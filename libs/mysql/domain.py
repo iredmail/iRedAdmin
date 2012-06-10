@@ -192,13 +192,19 @@ class Domain(core.MySQLWrap):
             return (False, 'INVALID_DOMAIN_NAME')
 
         domains = [str(v).lower()
-                        for v in domains
-                        if iredutils.isDomain(v)
-                       ]
+                   for v in domains
+                   if iredutils.isDomain(v)
+                  ]
+
+        if not domains:
+            return (True, )
+
         sql_vars = {'domains': domains, }
 
         # Delete domain and related records.
         try:
+            self.conn.delete('domain', vars=sql_vars, where='domain IN $domains', )
+
             self.conn.delete(
                 'alias_domain',
                 vars=sql_vars,
@@ -215,12 +221,18 @@ class Domain(core.MySQLWrap):
                     where='domain IN $domains',
                 )
 
-            # Finally, delete from table `domain` to make sure all related
-            # records were deleted.
-            self.conn.delete('domain', vars=sql_vars, where='domain IN $domains', )
+            # Delete real-time mailbox quota.
+            try:
+                self.conn.query(
+                    'DELETE FROM used_quota WHERE %s' % \
+                    web.sqlors('username LIKE ', ['%@' + d for d in domains])
+                )
+            except:
+                pass
 
             for d in domains:
                 web.logger(msg="Delete domain: %s." % (d), domain=d, event='delete',)
+
             return (True,)
         except Exception, e:
             return (False, str(e))
