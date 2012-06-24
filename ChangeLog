@@ -1,7 +1,7 @@
 = 0.1.9 =
     * Fixed:
         + Didn't remove SQL records of real-time mailbox quota while deleting 
-          mail users.
+          mail domain or user.
 
 = 0.1.8 =
     * Fixed:

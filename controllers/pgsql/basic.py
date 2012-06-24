@@ -14,10 +14,6 @@ cfg = web.iredconfig
 session = web.config.get('_session')
 
 
-if session.get('enableAmavisdQuarantine') or session.get('enableAmavisdLoggingIntoSQL'):
-    from libs.amavisd import quarantine, log as amavisdlog
-
-
 class Login:
     def GET(self):
         if session.get('logged') is False:
@@ -109,6 +105,7 @@ class Dashboard:
                         'v': __version_ose__,
                         'o': __no__,
                         'f': __id__,
+                        'lang': cfg.general.get('lang', ''),
                         'host': getfqdn(),
                         'backend': cfg.general.get('backend', ''),
                     }
