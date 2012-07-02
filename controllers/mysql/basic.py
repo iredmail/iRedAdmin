@@ -102,7 +102,6 @@ class Dashboard:
                 r = web.admindb.select('updatelog', vars=vars, where='date >= $date',)
                 if len(r) == 0:
                     urlInfo = {
-                        'a': cfg.general.get('webmaster', session.get('username', '')),
                         'v': __version_ose__,
                         'o': __no__,
                         'f': __id__,
