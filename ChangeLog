@@ -1,5 +1,7 @@
 = 0.1.9 =
     * Fixed:
+        + Add attribute/value for mail user required by Dovecot-2:
+          enabledService=lib-storage.
         + Didn't remove SQL records of real-time mailbox quota while deleting 
           mail domain or user.
 
