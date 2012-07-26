@@ -45,11 +45,9 @@ ATTR_DOMAIN_CURRENT_QUOTA_SIZE = 'domainCurrentQuotaSize'
 # ---------------------------------------------------------
 ADMIN_SEARCH_ATTRS = [
     'mail', 'accountStatus', 'domainGlobalAdmin', 'cn', 'enabledService',
-    'createTimestamp',
 ]
 ADMIN_ATTRS_ALL = [
     'mail', 'accountStatus', 'cn', 'preferredLanguage', 'domainGlobalAdmin',
-    'createTimestamp',
 ]
 
 # ---------------------------------------------------------
@@ -71,7 +69,6 @@ DOMAIN_SEARCH_ATTRS = [
     'domainCurrentListNumber',
     'domainCurrentAliasNumber',
     'accountSetting',
-    'createTimestamp',                  # Internal/System attributes.
 ]
 
 DOMAIN_ATTRS_ALL = [
@@ -85,7 +82,6 @@ DOMAIN_ATTRS_ALL = [
     'domainCurrentListNumber',
     'domainCurrentAliasNumber',
     'accountSetting',
-    'createTimestamp',                  # Internal/System attributes.
 ]
 
 VALUES_DOMAIN_BACKUPMX = ['yes', 'no']
@@ -126,8 +122,6 @@ USER_SEARCH_ATTRS = [
     'mail', 'cn', 'accountStatus', 'mailQuota',
     'employeeNumber', 'title', 'shadowAddress', 'memberOfGroup',
     'storageBaseDirectory', 'mailMessageStore',
-    'lastLoginDate',                    # Last-login tracking.
-    'createTimestamp',                  # Internal/System attributes.
 ]
 
 USER_ATTRS_ALL = [
@@ -141,6 +135,5 @@ USER_ATTRS_ALL = [
     # Per-user whitelist & blacklist.
     'amavisWhitelistSender', 'amavisBlacklistSender',
     'mailWhitelistRecipient', 'mailBlacklistRecipient',
-    'lastLoginDate', 'lastLoginIP',     # Last-login tracking.
-    'createTimestamp',                  # Internal/System attributes.
+    'domainGlobalAdmin',    # Global admin
 ]

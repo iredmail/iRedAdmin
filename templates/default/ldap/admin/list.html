@@ -49,7 +49,6 @@
             <th>{{ _('Display Name') }}</th>
             <th>{{ _('Mail Address') }}</th>
             <th>{{ _('Global Admin') }}</th>
-            <th>{{ _('Created') }}</th>
         </tr>
         </thead>
 
@@ -61,7 +60,6 @@
             {% set cn = entry.get('cn', [''])[0].decode('utf-8') |e %}
             {% set accountStatus = entry.get('accountStatus', ['disabled'])[0] |lower |e %}
             {% set domainGlobalAdmin = entry.get('domainGlobalAdmin', ['no'])[0] |e %}
-            {% set timestamp = entry.get('createTimestamp', ['--------------'])[0] |e %}
 
             <tr class="{{ accountStatus }}">
                 <td><input type="checkbox" class="checkbox " name="mail" value="{{mail}}" {% if mail == session.get('username') %}disabled{% endif %}/></td>
@@ -72,7 +70,6 @@
                 </td>
                 <td>{{ highlight_username_in_mail(mail) }}</td>
                 <td>{{ set_admin_type_img(domainGlobalAdmin) }}</td>
-                <td>{{ timestamp |setDatetimeFormat(hour=False) }}</td>
             </tr>
         {% endfor %}
         </tbody>
