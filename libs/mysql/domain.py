@@ -38,8 +38,7 @@ class Domain(core.MySQLWrap):
             qr = self.conn.query(
                 '''
                 SELECT
-                    admin.username, admin.name, admin.language,
-                    admin.created, admin.active
+                    admin.username, admin.name, admin.language, admin.active
                 FROM admin
                 LEFT JOIN domain_admins ON (domain_admins.username=admin.username)
                 WHERE domain_admins.domain=$domain
@@ -127,7 +126,7 @@ class Domain(core.MySQLWrap):
         rawSQLOfRecords = """
             SELECT
                 a.domain, a.description, a.aliases, a.mailboxes, a.maxquota, a.quota,
-                a.transport, a.backupmx, a.created, a.active,
+                a.transport, a.backupmx, a.active,
                 IFNULL(b.alias_count, 0) AS alias_count,
                 IFNULL(c.mailbox_count, 0) AS mailbox_count,
                 IFNULL(c.quota_count, 0) AS quota_count
@@ -292,8 +291,7 @@ class Domain(core.MySQLWrap):
                 GROUP BY
                     domain.domain, domain.description, domain.aliases,
                     domain.mailboxes, domain.maxquota, domain.quota,
-                    domain.transport, domain.backupmx, domain.created,
-                    domain.active
+                    domain.transport, domain.backupmx, domain.active
                 ORDER BY domain.domain
                 LIMIT 1
                 ''',

@@ -38,8 +38,7 @@ class Domain(core.PGSQLWrap):
             qr = self.conn.query(
                 '''
                 SELECT
-                    admin.username, admin.name, admin.language,
-                    admin.created, admin.active
+                    admin.username, admin.name, admin.language, admin.active
                 FROM admin
                 LEFT JOIN domain_admins ON (domain_admins.username=admin.username)
                 WHERE domain_admins.domain=$domain
@@ -127,7 +126,7 @@ class Domain(core.PGSQLWrap):
         rawSQLOfRecords = """
             SELECT
                 a.domain, a.description, a.aliases, a.mailboxes, a.maxquota, a.quota,
-                a.transport, a.backupmx, a.created, a.active,
+                a.transport, a.backupmx, a.active,
                 NULLIF(b.alias_count, 0) AS alias_count,
                 NULLIF(c.mailbox_count, 0) AS mailbox_count,
                 NULLIF(c.quota_count, 0) AS quota_count
@@ -152,7 +151,7 @@ class Domain(core.PGSQLWrap):
             %s
             GROUP BY
                 a.domain, a.description, a.aliases, a.mailboxes, a.maxquota, a.quota,
-                a.transport, a.backupmx, a.created, a.active,
+                a.transport, a.backupmx, a.active,
                 mailbox_count, alias_count, quota_count
             ORDER BY a.domain
             LIMIT %d
@@ -274,8 +273,7 @@ class Domain(core.PGSQLWrap):
                 SELECT
                     domain.domain, domain.description, domain.aliases,
                     domain.mailboxes, domain.maxquota, domain.quota,
-                    domain.transport, domain.backupmx, domain.created,
-                    domain.active,
+                    domain.transport, domain.backupmx, domain.active,
                     domain.defaultuseraliases, domain.defaultuserquota,
                     domain.minpasswordlength, domain.maxpasswordlength,
                     sbcc.bcc_address AS sbcc_addr,
@@ -299,8 +297,7 @@ class Domain(core.PGSQLWrap):
                 GROUP BY
                     domain.domain, domain.description, domain.aliases,
                     domain.mailboxes, domain.maxquota, domain.quota,
-                    domain.transport, domain.backupmx, domain.created,
-                    domain.active,
+                    domain.transport, domain.backupmx, domain.active,
                     domain.defaultuseraliases, domain.defaultuserquota,
                     domain.minpasswordlength, domain.maxpasswordlength,
                     sbcc.bcc_address, sbcc.active,
