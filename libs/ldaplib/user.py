@@ -476,8 +476,22 @@ class User(core.LDAPWrap):
                 # Update domainGlobalAdmin=yes
                 if 'domainGlobalAdmin' in data:
                     mod_attrs = [(ldap.MOD_REPLACE, 'domainGlobalAdmin', 'yes')]
+                    # Update enabledService=domainadmin
+                    connutils.addOrDelAttrValue(
+                        dn=self.dn,
+                        attr='enabledService',
+                        value='domainadmin',
+                        action='add',
+                    )
                 else:
                     mod_attrs = [(ldap.MOD_REPLACE, 'domainGlobalAdmin', None)]
+                    # Remove enabledService=domainadmin
+                    connutils.addOrDelAttrValue(
+                        dn=self.dn,
+                        attr='enabledService',
+                        value='domainadmin',
+                        action='delete',
+                    )
 
             # Get display name.
             cn = data.get('cn', None)

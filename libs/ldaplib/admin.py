@@ -34,15 +34,20 @@ class Admin(core.LDAPWrap):
     # List all admin accounts.
     @decorators.require_global_admin
     def listAccounts(self, attrs=attrs.ADMIN_SEARCH_ATTRS):
-        filter = "(objectClass=mailAdmin)"
         try:
-            result = self.conn.search_s(
+            result_admin = self.conn.search_s(
                 self.domainadmin_dn,
                 ldap.SCOPE_ONELEVEL,
-                filter,
+                '(objectClass=mailAdmin)',
                 attrs,
             )
-            return (True, result)
+            result_user = self.conn.search_s(
+                self.basedn,
+                ldap.SCOPE_SUBTREE,
+                '(&(objectClass=mailUser)(accountStatus=active)(enabledService=domainadmin))',
+                attrs,
+            )
+            return (True, result_admin + result_user)
         except Exception, e:
             return (False, ldaputils.getExceptionDesc(e))
 

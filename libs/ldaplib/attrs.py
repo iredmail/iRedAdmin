@@ -43,12 +43,11 @@ ATTR_DOMAIN_CURRENT_QUOTA_SIZE = 'domainCurrentQuotaSize'
 # ---------------------------------------------------------
 # Admin related.
 # ---------------------------------------------------------
-ADMIN_SEARCH_ATTRS = [
-    'mail', 'accountStatus', 'domainGlobalAdmin', 'cn', 'enabledService',
-]
-ADMIN_ATTRS_ALL = [
-    'mail', 'accountStatus', 'cn', 'preferredLanguage', 'domainGlobalAdmin',
-]
+ADMIN_SEARCH_ATTRS = ['mail', 'accountStatus', 'cn', 'preferredLanguage',
+                      'domainGlobalAdmin', 'enabledService',
+                      'objectClass',
+                     ]
+ADMIN_ATTRS_ALL = ADMIN_SEARCH_ATTRS
 
 # ---------------------------------------------------------
 # Domain related.

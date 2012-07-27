@@ -30,25 +30,31 @@ def Auth(uri, dn, password, session=web.config.get('_session')):
             conn.set_option(ldap.OPT_X_TLS, ldap.OPT_X_TLS_DEMAND)
 
         try:
+            # Verify username and password
             res = conn.bind_s(dn, password)
 
             if res:
+                filter = '(&' + \
+                        '(accountStatus=active)' + \
+                        '(|' + \
+                        '(objectClass=mailAdmin)' + \
+                        '(&(objectClass=mailUser)(enabledService=domainadmin))' + \
+                        ')' + \
+                        ')'
+
                 # Check whether this user is a site wide global admin.
-                global_admin_result = conn.search_s(
-                    dn,
-                    ldap.SCOPE_BASE,
-                    "(&(objectClass=mailAdmin)(accountStatus=active))",
-                    ['domainGlobalAdmin']
-                )
-                if not global_admin_result:
+                qr = conn.search_s(dn, ldap.SCOPE_BASE, filter, ['objectClass', 'domainGlobalAdmin'])
+                if not qr:
                     raise ldap.INVALID_CREDENTIALS
 
-                result = global_admin_result[0][1]
-                if result.get('domainGlobalAdmin', 'no')[0].lower() == 'yes':
+                entry = qr[0][1]
+                if entry.get('domainGlobalAdmin', 'no')[0].lower() == 'yes':
                     session['domainGlobalAdmin'] = True
-                else:
-                    session['domainGlobalAdmin'] = False
 
+                if 'mailUser' in entry.get('objectClass'):
+                    session['isMailUser'] = True
+
+                conn.unbind_s()
                 return True
             else:
                 return False

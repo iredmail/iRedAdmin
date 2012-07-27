@@ -2,7 +2,7 @@
 
 import web
 from libs import iredutils, settings
-from libs.language import getLanguageMaps
+from libs.languages import getLanguageMaps
 from libs.ldaplib import decorators, domain as domainlib, user, ldaputils, connUtils
 
 cfg = web.iredconfig

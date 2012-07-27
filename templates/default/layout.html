@@ -24,7 +24,7 @@
             <div class="head_top">
                 <div class="topbuts">
                     <ul class="clear">
-                        <li><a href="{{ctx.homepath}}/profile/admin/general/{{session.get('username')}}">{{ _('Preferences') }}</a></li>
+                        <li><a href="{{ctx.homepath}}/profile/{%if session.get('isMailUser') is sameas true%}user{%else%}admin{%endif%}/general/{{session.get('username')}}">{{ _('Preferences') }}</a></li>
                         <li><a href="{{ctx.homepath}}/logout" class="red">{{ _('Logout') }}</a></li>
                     </ul>
 

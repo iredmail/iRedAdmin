@@ -33,11 +33,21 @@ class Login:
         # Get username, password.
         i = web.input(_unicode=False)
 
+        username = web.safestr(i.get('username', '').strip())
+        password = i.get('password', '').strip()
+        save_pass = web.safestr(i.get('save_pass', 'no').strip())
+
+        if not iredutils.isEmail(username):
+            raise web.seeother('/login?msg=INVALID_USERNAME')
+
+        if not password:
+            raise web.seeother('/login?msg=EMPTY_PASSWORD')
+
+        # Get LDAP URI.
+        uri = cfg.ldap.get('uri')
+
         # Verify bind_dn & bind_pw.
         try:
-            # Get LDAP URI.
-            uri = cfg.ldap.get('uri')
-
             # Detect STARTTLS support.
             if uri.startswith('ldaps://'):
                 starttls = True
@@ -65,40 +75,35 @@ class Login:
         except Exception, e:
             raise web.seeother('/login?msg=%s' % web.safestr(e))
 
-        username = web.safestr(i.get('username', '').strip())
-        password = i.get('password', '').strip()
-        save_pass = web.safestr(i.get('save_pass', 'no').strip())
-
-        if not iredutils.isEmail(username):
-            raise web.seeother('/login?msg=INVALID_USERNAME')
-
-        if not password:
-            raise web.seeother('/login?msg=EMPTY_PASSWORD')
-
-        # Convert username to ldap dn.
-        userdn = ldaputils.convKeywordToDN(username, accountType='admin')
-        if userdn[0] is False:
-            raise web.seeother('/login?msg=%s' % userdn[1])
+        # Convert username to admin dn.
+        dn_login = ldaputils.convKeywordToDN(username, accountType='admin')
+        if dn_login[0] is False:
+            raise web.seeother('/login?msg=%s' % dn_login[1])
 
         # Return True if auth success, otherwise return error msg.
-        qr_admin_auth = auth.Auth(cfg.ldap.get('uri', 'ldap://127.0.0.1/'), userdn, password,)
+        qr_admin_auth = auth.Auth(uri, dn_login, password)
 
-        if qr_admin_auth is True:
+        # Check whether it's a mail user
+        qr_user_auth = False
+        if qr_admin_auth is not True:
+            dn_user = ldaputils.convKeywordToDN(username, accountType='user')
+            qr_user_auth = auth.Auth(uri, dn_user, password)
+
+        if qr_admin_auth is True or qr_user_auth is True:
             session['username'] = username
             session['logged'] = True
 
-            # Read preferred language from db.
-            adminLib = adminlib.Admin()
-            #session['lang'] = adminLib.getPreferredLanguage(userdn) or cfg.general.get('lang', 'en_US')
-            adminProfile = adminLib.profile(username)
-            if adminProfile[0] is True:
-                cn = adminProfile[1][0][1].get('cn', [None])[0]
-                lang = adminProfile[1][0][1].get('preferredLanguage', [cfg.general.get('lang', 'en_US')])[0]
+            # Read preferred language from LDAP
+            if qr_admin_auth is True:
+                adminLib = adminlib.Admin()
+                adminProfile = adminLib.profile(username, attributes=['preferredLanguage'])
+                if adminProfile[0] is True:
+                    dn, entry = adminProfile[1][0]
+                    lang = entry.get('preferredLanguage', [cfg.general.get('lang', 'en_US')])[0]
+                    session['lang'] = lang
 
-                session['cn'] = cn
-                session['lang'] = lang
-            else:
-                pass
+            if qr_user_auth is True:
+                session['isMailUser'] = True
 
             web.config.session_parameters['cookie_name'] = 'iRedAdmin-Pro'
             # Session expire when client ip was changed.

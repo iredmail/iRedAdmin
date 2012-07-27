@@ -49,7 +49,6 @@
                                 <th>{{ _('User ID') }}</th>
                                 <th>{{ _('Job Title') }}</th>
                                 <th>{{ _('Quota') }}</th>
-                                <th>{{ _('Created') }}</th>
                             </tr>
                         </thead>
 
@@ -83,7 +82,7 @@
                         {% else %}
                             <tr>
                                 <td class="checkbox"></td>
-                                <td colspan="6">{{ _('No mail user available.') }} <a href="{{ctx.homepath}}/create/user/{{ cur_domain }}">{{ _('Add one') }}</a>?</td>
+                                <td colspan="5">{{ _('No mail user available.') }} <a href="{{ctx.homepath}}/create/user/{{ cur_domain }}">{{ _('Add one') }}</a>?</td>
                             </tr>
                         {% endif %}
                     </tbody>

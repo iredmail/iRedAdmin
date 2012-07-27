@@ -64,7 +64,7 @@
             <tr class="{{ accountStatus }}">
                 <td><input type="checkbox" class="checkbox " name="mail" value="{{mail}}" {% if mail == session.get('username') %}disabled{% endif %}/></td>
                 <td>
-                    <a href="{{ctx.homepath}}/profile/admin/general/{{mail}}"><img src="{{ctx.homepath}}/static/{{skin}}/images/action_edit.png" title="{{ _('Edit account profile') }}" class="fr-space"/></a>
+                    <a href="{{ctx.homepath}}/profile/{% if 'mailUser' in entry.get('objectClass', []) %}user{% else %}admin{% endif %}/general/{{mail}}"><img src="{{ctx.homepath}}/static/{{skin}}/images/action_edit.png" title="{{ _('Edit account profile') }}" class="fr-space"/></a>
                     {{ set_account_status_img(accountStatus) }}
                     {{ cn |cutString }}
                 </td>
