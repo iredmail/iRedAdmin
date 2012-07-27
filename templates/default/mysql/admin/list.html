@@ -49,7 +49,6 @@
             <th>{{ _('Display Name') }}</th>
             <th>{{ _('Mail Address') }}</th>
             <th>{{ _('Global Admin') }}</th>
-            <th>{{ _('Created') }}</th>
         </tr>
         </thead>
 
@@ -73,7 +72,6 @@
                     </td>
                     <td>{{ username }}</td>
                     <td>{{ set_admin_type_img('yes') }}</td>
-                    <td>{{ r.created |setDatetimeFormat(hour=False) }}</td>
                 </tr>
             {% endfor %}
         </tbody>

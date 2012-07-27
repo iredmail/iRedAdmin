@@ -77,7 +77,7 @@
 
                                     {#-- Domain Quota --#}
                                     <td class="vcenter">
-                                        <span title="{{ _('Allocated') }}">{{ r.quota_count |filesizeformat(baseMB=True) }}</span> / <span title="{{ _('Total') }}">{{ display_number_of_account_limited(r.maxquota |filesizeformat(baseMB=True), hide_unlimited=false) }}</span>
+                                        <span title="{{ _('Allocated') }}">{{ r.quota_count |filesizeformat(baseMB=True) }}</span><span title="{{ _('Total') }}">{{ display_number_of_account_limited(r.maxquota |filesizeformat(baseMB=True), hide_unlimited=false) }}</span>
                                     </td>
 
                                     {#-- Users --#}
