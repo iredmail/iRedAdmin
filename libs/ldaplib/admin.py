@@ -20,13 +20,13 @@ class Admin(core.LDAPWrap):
     # Get preferredLanguage.
     def getPreferredLanguage(self, dn):
         dn = ldap.filter.escape_filter_chars(dn)
-        self.lang = self.conn.search_s(
+        lang = self.conn.search_s(
             dn,
             ldap.SCOPE_BASE,
             attrlist=['preferredLanguage'],
         )
-        if 'preferredLanguage' in self.lang[0][1].keys():
-            lang = self.lang[0][1]['preferredLanguage'][0]
+        if 'preferredLanguage' in lang[0][1].keys():
+            lang = lang[0][1]['preferredLanguage'][0]
         else:
             lang = web.ctx.lang
         return lang
@@ -128,8 +128,8 @@ class Admin(core.LDAPWrap):
         mod_attrs = []
         if self.profile_type == 'general':
             # Get preferredLanguage.
-            self.lang = web.safestr(data.get('preferredLanguage', 'en_US'))
-            mod_attrs += [(ldap.MOD_REPLACE, 'preferredLanguage', self.lang)]
+            lang = web.safestr(data.get('preferredLanguage', 'en_US'))
+            mod_attrs += [(ldap.MOD_REPLACE, 'preferredLanguage', lang)]
 
             # Get cn.
             cn = data.get('cn', None)
@@ -146,8 +146,9 @@ class Admin(core.LDAPWrap):
             try:
                 # Modify profiles.
                 self.conn.modify_s(self.dn, mod_attrs)
-                if session.get('username') == self.mail:
-                    session['lang'] = self.lang
+                if session.get('username') == self.mail and \
+                   session.get('lang', 'en_US') != lang:
+                    session['lang'] = lang
             except ldap.LDAPError, e:
                 return (False, ldaputils.getExceptionDesc(e))
 

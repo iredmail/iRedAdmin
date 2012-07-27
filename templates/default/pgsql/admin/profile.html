@@ -19,8 +19,8 @@
 
 {% block breadcrumb %}
     {% set crumbs = [
-            (ctx.homepath + '/admins', _('All admins'),),
-            (None, _('Profile of admin:') + '&nbsp;' + mail,),
+            (ctx.homepath + '/admins', _('All admins')),
+            (None, mail),
             ]
             %}
     {{ display_subnav(crumbs) }}
@@ -58,11 +58,6 @@
             <div id="profile_general">
                 <form name="general" method="post" action="{{ctx.homepath}}/profile/admin/general/{{mail}}">
                     {{ input_csrf_token }}
-                    {% if profile.language != '' %}
-                        {% set preferredLanguage = profile.language |string |e %}
-                    {% else %}
-                        {% set preferredLanguage = 'en_US' %}
-                    {% endif %}
 
                     <div class="columns clear">
                         <div class="col2-3">
@@ -72,7 +67,7 @@
                             {% endif %}
 
                             {{ display_input_cn(cn=profile.name, accountType='admin') }}
-                            {{ display_preferred_language(value=preferredLanguage, languagemaps=languagemaps) }}
+                            {{ display_preferred_language(value=profile.get('language', 'en_US') |e, languagemaps=languagemaps) }}
                         </div>
                     </div>{# .columns #}
 

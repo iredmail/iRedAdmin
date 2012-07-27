@@ -4,12 +4,14 @@
         display_csrf_token,
         display_subnav,
         display_input_cn,
+        display_preferred_language,
         display_quota,
         display_input_employeeid,
         display_input_jobtitle,
         display_input_mobile,
         display_input_phone,
         display_account_status,
+        display_mark_us_as_admin,
         display_reset_password,
         display_random_password,
         display_button_submit,
@@ -66,9 +68,14 @@
                     <div class="columns clear">
                         <div class="col2-3">
                             {{ display_account_status(profile.active) }}
+                            {{ display_mark_user_as_admin(
+                                    is_domain_admin=profile.get('isadmin', 0),
+                                    is_global_admin=profile.get('isglobaladmin', 0),
+                            ) }}
 
                             <div class="bt-space10"></div>
                             {{ display_input_cn(profile.name) }}
+                            {{ display_preferred_language(value=profile.get('language', 'en_US'), languagemaps=languagemaps) }}
                             {{ display_quota(value=profile.quota, show_value_in_input=true) }}
 
                             <div class="bt-space10"></div>

@@ -354,6 +354,19 @@
 {%- endmacro %}
 
 
+{% macro display_mark_user_as_admin(is_domain_admin=false, is_global_admin=false) %}
+{# possible value: 0, 1 (SQL), or true, yes, false, no (LDAP) #}
+{% if session.get('domainGlobalAdmin') is sameas true %}
+<div class="form-field clear">
+    <h4 class="size-250 fl-space">{{ _('Mark this user as') }}</h4>
+    <div class="form-checkbox-item clear">
+        <span class="clean-padding bt-space20"><input class="checkbox" name="domainGlobalAdmin" value="global" type="checkbox" {% if is_global_admin in [1, true, 'yes'] %}checked{%endif%} /> {{ _('Global admin') }}</span>
+    </div>
+</div>
+{% endif %}
+{%- endmacro %}
+
+
 {# Used to display domainMaxXXXNumber #}
 {% macro display_number_of_account_limited(value, hide_unlimited=true, hide_slash=false) -%}
     {% if value == '0' or value == 0 or value == 'None' %}

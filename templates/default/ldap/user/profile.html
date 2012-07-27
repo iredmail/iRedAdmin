@@ -4,12 +4,14 @@
         display_subnav,
         display_csrf_token,
         display_input_cn,
+        display_preferred_language,
         display_quota,
         display_input_employeeid,
         display_input_jobtitle,
         display_input_mobile,
         display_input_phone,
         display_account_status,
+        display_mark_user_as_admin,
         display_reset_password,
         display_random_password,
         display_button_submit,
@@ -90,8 +92,15 @@
             <div class="col2-3">
                 {{ display_account_status(accountStatus) }}
 
+                {# Domain admin and global admin #}
+                {{ display_mark_user_as_admin(
+                        is_domain_admin='domainadmin' in enabledService,
+                        is_global_admin=entries.get('domainGlobalAdmin', ['no'])[0],
+                ) }}
+
                 <div class="bt-space10"></div>
                 {{ display_input_cn(cn) }}
+                {{ display_preferred_language(value=entries.get('preferredLanguage', ['en_US'])[0], languagemaps=languagemaps) }}
                 {{ display_quota(value=mailQuota, show_value_in_input=true) }}
 
                 <div class="bt-space10"></div>

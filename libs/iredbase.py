@@ -2,7 +2,7 @@
 
 import os
 import sys
-import ConfigParser
+from ConfigParser import SafeConfigParser
 
 import web
 from jinja2 import Environment, FileSystemLoader
@@ -17,7 +17,7 @@ os.environ['LC_ALL'] = 'C'
 
 # init settings.ini to a web.storage
 rootdir = os.path.abspath(os.path.dirname(__file__)) + '/../'
-iniSettings = ConfigParser.SafeConfigParser()
+iniSettings = SafeConfigParser()
 cfgfile = os.path.join(rootdir, 'settings.ini')
 if os.path.exists(cfgfile):
     iniSettings.read(cfgfile)

@@ -126,7 +126,7 @@ USER_SEARCH_ATTRS = [
 
 USER_ATTRS_ALL = [
     'mail', 'cn', 'accountStatus', 'mailQuota', 'jpegPhoto',
-    'enabledService', 'memberOfGroup', 'employeeNumber',
+    'enabledService', 'memberOfGroup', 'employeeNumber', 'preferredLanguage',
     'telephoneNumber', 'userRecipientBccAddress', 'userSenderBccAddress',
     'mailForwardingAddress', 'mtaTransport',
     'storageBaseDirectory', 'mailMessageStore',  # Maildir

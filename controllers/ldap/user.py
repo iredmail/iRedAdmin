@@ -2,6 +2,7 @@
 
 import web
 from libs import iredutils, settings
+from libs.language import getLanguageMaps
 from libs.ldaplib import decorators, domain as domainlib, user, ldaputils, connUtils
 
 cfg = web.iredconfig
@@ -146,6 +147,7 @@ class Profile:
             minPasswordLength=minPasswordLength,
             maxPasswordLength=maxPasswordLength,
             domainAccountSetting=domainAccountSetting,
+            languagemaps=getLanguageMaps(),
             msg=i.get('msg', None),
         )
 

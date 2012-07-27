@@ -4,6 +4,7 @@
 
 import web
 from libs import iredutils
+from libs.languages import getLanguageMaps
 from libs.pgsql import decorators, user as userlib, domain as domainlib, connUtils
 
 cfg = web.iredconfig
@@ -108,6 +109,7 @@ class Profile:
             mail=self.mail,
             profile_type=self.profile_type,
             profile=self.profile,
+            languagemaps=getLanguageMaps(),
             msg=i.get('msg'),
         )
 

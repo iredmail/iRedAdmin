@@ -471,9 +471,28 @@ class User(core.LDAPWrap):
 
         mod_attrs = []
         if self.profile_type == 'general':
-            # Get cn.
+            # Update domainGlobalAdmin=yes
+            if session.get('domainGlobalAdmin') is True:
+                # Update domainGlobalAdmin=yes
+                if 'domainGlobalAdmin' in data:
+                    mod_attrs = [(ldap.MOD_REPLACE, 'domainGlobalAdmin', 'yes')]
+                else:
+                    mod_attrs = [(ldap.MOD_REPLACE, 'domainGlobalAdmin', None)]
+
+            # Get display name.
             cn = data.get('cn', None)
             mod_attrs += ldaputils.getSingleModAttr(attr='cn', value=cn, default=self.mail.split('@')[0])
+
+            # Get preferred language: short lang code. e.g. en_US, de_DE.
+            preferred_lang = web.safestr(data.get('preferredLanguage', 'en_US'))
+            # Must be equal to or less than 5 characters.
+            if len(preferred_lang) > 5:
+                preferred_lang = preferred_lang[:5]
+            mod_attrs += [(ldap.MOD_REPLACE, 'preferredLanguage', preferred_lang)]
+            # Update language immediately.
+            if session.get('username') == self.mail and \
+               session.get('lang', 'en_US') != preferred_lang:
+                session['lang'] = preferred_lang
 
             # Update employeeNumber, mobile, title.
             for tmp_attr in ['employeeNumber', 'mobile', 'title', ]:

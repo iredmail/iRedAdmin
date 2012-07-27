@@ -253,14 +253,29 @@ class Auth(PGSQLWrap):
         if len(password) == 0:
             return (False, 'EMPTY_PASSWORD')
 
+        session['isMailUser'] = False
         # Query account from SQL database.
         if accountType == 'admin':
+            # separate admin accounts
             result = self.conn.select(
                 'admin',
                 vars={'username': username, },
                 where="username=$username AND active=1",
                 limit=1,
             )
+
+            # mail users as domain admin
+            if not result:
+                # Don't specify what= to work with old versions of iRedMail
+                result = self.conn.select(
+                    'mailbox',
+                    vars={'username': username, },
+                    where="username=$username AND active=1 AND isadmin=1",
+                    #what='username,password,language,isadmin,isglobaladmin',
+                    limit=1,
+                )
+                if result:
+                    session['isMailUser'] = True
         elif accountType == 'user':
             result = self.conn.select(
                 'mailbox',
@@ -315,19 +330,23 @@ class Auth(PGSQLWrap):
             session['username'] = username
             session['logged'] = True
             # Set preferred language.
-            session['lang'] = str(record.language) or 'en_US'
+            session['lang'] = web.safestr(record.get('language', 'en_US'))
 
             # Set session['domainGlobalAdmin']
             try:
-                result = self.conn.select(
-                    'domain_admins',
-                    vars={'username': username, 'domain': 'ALL', },
-                    what='domain',
-                    where='username=$username AND domain=$domain',
-                    limit=1,
-                )
-                if len(result) == 1:
-                    session['domainGlobalAdmin'] = True
+                if session.get('isMailUser'):
+                    if record.get('isglobaladmin', 0) == 1:
+                        session['domainGlobalAdmin'] = True
+                else:
+                    result = self.conn.select(
+                        'domain_admins',
+                        vars={'username': username, 'domain': 'ALL', },
+                        what='domain',
+                        where='username=$username AND domain=$domain',
+                        limit=1,
+                    )
+                    if len(result) == 1:
+                        session['domainGlobalAdmin'] = True
             except:
                 pass
 

@@ -71,8 +71,6 @@ class Logout:
 class Dashboard:
     @decorators.require_login
     def GET(self, checknew=False):
-        i = web.input(_unicode=False,)
-
         if checknew:
             checknew = True
 

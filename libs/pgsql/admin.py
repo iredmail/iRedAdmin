@@ -140,26 +140,30 @@ class Admin(core.PGSQLWrap):
                         result = self.conn.select(
                             'alias',
                             what='COUNT(address) AS total',
-                            where='address <> goto',
+                            where='address <> goto AND address <> domain',
                         )
                     else:
                         result = self.conn.select(
                             'alias',
                             vars=sql_vars,
                             what='COUNT(address) AS total',
-                            where='address <> goto AND domain IN $domains',
+                            where='address <> goto AND address <> domain AND domain IN $domains',
                         )
                 else:
                     self.sql_append_where = ''
                     if len(self.domains) == 0:
                         self.sql_append_where = 'AND alias.domain IN %s' % web.sqlquote(self.domains)
 
-                    result = self.conn.query(
-                        """
+                    result = self.conn.query("""
+                        -- Get number of mail aliases
                         SELECT COUNT(alias.address) AS total
                         FROM alias
                         LEFT JOIN domain_admins ON (alias.domain = domain_admins.domain)
-                        WHERE domain_admins.username=$admin AND alias.address <> alias.goto %s
+                        WHERE
+                            domain_admins.username=$admin
+                            AND alias.addres <> alias.domain
+                            AND alias.address <> alias.goto
+                            %s
                         """ % (self.sql_append_where, ),
                         vars=sql_vars,
                     )
@@ -311,7 +315,8 @@ class Admin(core.PGSQLWrap):
                 )
 
                 # Update language immediately.
-                if session.get('username') == self.mail:
+                if session.get('username') == self.mail and \
+                   session.get('lang', 'en_US') != self.preferredLanguage:
                     session['lang'] = self.preferredLanguage
             except Exception, e:
                 return (False, str(e))

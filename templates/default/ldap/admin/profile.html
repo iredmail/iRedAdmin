@@ -66,8 +66,6 @@
                 {{ display_csrf_token() }}
 
                 {% if profile_type == 'general' %}
-                    {% set preferredLanguage = entry.get('preferredLanguage', ['en_US'])[0] |string |e %}
-
                     <div class="columns clear">
                         <div class="col2-3">
                             {% if session.get('domainGlobalAdmin') is sameas true %}
@@ -76,7 +74,7 @@
                             {% endif %}
 
                             {{ display_input_cn(cn=cn, accountType='admin') }}
-                            {{ display_preferred_language(value=preferredLanguage, languagemaps=languagemaps) }}
+                            {{ display_preferred_language(value=entry.get('preferredLanguage', ['en_US'])[0], languagemaps=languagemaps) }}
                         </div>
                     </div>{# .columns #}
 

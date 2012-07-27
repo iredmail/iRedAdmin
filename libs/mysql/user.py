@@ -53,7 +53,7 @@ class User(core.MySQLWrap):
                 'mailbox',
                 vars=sql_vars,
                 # Just query what we need to reduce memory use.
-                what='username,name,quota,employeeid,active,created',
+                what='username,name,quota,employeeid,active',
                 where='domain=$domain',
                 order='username ASC',
                 limit=settings.PAGE_SIZE_LIMIT,
@@ -278,12 +278,50 @@ class User(core.MySQLWrap):
         self.domain = self.mail.split('@', 1)[-1]
 
         # Pre-defined update key:value.
-        updates = {'modified': iredutils.getGMTTime(), }
+        updates = {'modified': iredutils.getGMTTime(), 'isadmin': 0, }
 
         if self.profile_type == 'general':
+            # Get settings of domain admin and global admin
+            managed_domain=''
+            if session.get('domainGlobalAdmin'):
+                if 'domainGlobalAdmin' in data:
+                    updates['isadmin'] = 1
+                    updates['isglobaladmin'] = 1
+                    managed_domain='ALL'
+                else:
+                    updates['isglobaladmin'] = 0
+
+            # Delete records in domain_admins first
+            self.conn.delete('domain_admins',
+                             vars={'username': self.mail},
+                             where='username=$username',
+                            )
+
+            if updates.get('isadmin') == 1:
+                try:
+                    self.conn.insert('domain_admins',
+                                     username=self.mail,
+                                     domain=managed_domain,
+                                     created=iredutils.getGMTTime(),
+                                     active=1,
+                                    )
+                except:
+                    pass
+
             # Get name
             cn = data.get('cn', '')
             updates['name'] = cn
+
+            # Get preferred language: short lang code. e.g. en_US, de_DE.
+            preferred_lang = web.safestr(data.get('preferredLanguage', 'en_US'))
+            # Must be equal to or less than 5 characters.
+            if len(preferred_lang) > 5:
+                preferred_lang = preferred_lang[:5]
+            updates['language'] = preferred_lang
+            # Update language immediately.
+            if session.get('username') == self.mail and \
+               session.get('lang', 'en_US') != preferred_lang:
+                session['lang'] = preferred_lang
 
             # Get account status
             if 'accountStatus' in data.keys():
@@ -333,7 +371,7 @@ class User(core.MySQLWrap):
         else:
             return (True,)
 
-        # Update SQL db with columns: maxquota, active.
+        # Update SQL db
         try:
             self.conn.update(
                 'mailbox',
@@ -341,6 +379,12 @@ class User(core.MySQLWrap):
                 where='username=$username AND domain=$domain',
                 **updates
             )
+
+            # Update session immediately after updating SQL.
+            if not 'domainGlobalAdmin' in data and \
+               session.get('username') == self.mail:
+                session['domainGlobalAdmin'] = False
+
             return (True,)
         except Exception, e:
             return (False, str(e))
