@@ -4,7 +4,7 @@
 
 import web
 from libs import languages, iredutils
-from libs.mysql import decorators, admin as adminlib, domain as domainlib, connUtils
+from libs.mysql import decorators, admin as adminlib, domain as domainlib
 
 cfg = web.iredconfig
 session = web.config.get('_session')
@@ -23,7 +23,7 @@ class List:
         adminLib = adminlib.Admin()
         result = adminLib.listAccounts(cur_page=cur_page)
         if result[0] is True:
-            (total, records) = (result[1], result[2])
+            (total, records) = (result[1]['total'], result[1]['records'])
 
             return web.render(
                 'mysql/admin/list.html',

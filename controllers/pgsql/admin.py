@@ -4,7 +4,7 @@
 
 import web
 from libs import languages, iredutils
-from libs.pgsql import decorators, admin as adminlib, domain as domainlib, connUtils
+from libs.pgsql import decorators, admin as adminlib, domain as domainlib
 
 cfg = web.iredconfig
 session = web.config.get('_session')
@@ -23,7 +23,7 @@ class List:
         adminLib = adminlib.Admin()
         result = adminLib.listAccounts(cur_page=cur_page)
         if result[0] is True:
-            (total, records) = (result[1], result[2])
+            (total, records) = (result[1]['total'], result[1]['records'])
 
             return web.render(
                 'pgsql/admin/list.html',
@@ -96,11 +96,6 @@ class Profile:
             # Get managed domains.
             self.managedDomains = []
 
-            connutils = connUtils.Utils()
-            qr = connutils.getManagedDomains(admin=self.mail, domainNameOnly=True, listedOnly=True,)
-            if qr[0] is True:
-                self.managedDomains += qr[1]
-
             return web.render(
                 'pgsql/admin/profile.html',
                 mail=self.mail,
@@ -109,7 +104,6 @@ class Profile:
                 profile=profile,
                 languagemaps=languages.getLanguageMaps(),
                 allDomains=self.allDomains,
-                managedDomains=self.managedDomains,
                 min_passwd_length=cfg.general.get('min_passwd_length', '0'),
                 max_passwd_length=cfg.general.get('max_passwd_length', '0'),
                 msg=i.get('msg'),

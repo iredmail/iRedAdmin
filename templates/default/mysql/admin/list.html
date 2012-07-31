@@ -60,7 +60,7 @@
                 <tr>
                     <td class="checkbox"><input type="checkbox" name="mail" value="{{ username }}" {% if username == session.get('username') %}disabled{% endif %}/></td>
                     <td>
-                        <a href="{{ctx.homepath}}/profile/admin/general/{{ username }}"><img src="{{ctx.homepath}}/static/{{skin}}/images/action_edit.png" title="{{ _('Edit account profile') }}" class="fr-space"/></a>
+                        <a href="{{ctx.homepath}}/profile/{% if r.get('isadmin') is not sameas none %}user{% else %}admin{% endif %}/general/{{ username }}"><img src="{{ctx.homepath}}/static/{{skin}}/images/action_edit.png" title="{{ _('Edit account profile') }}" class="fr-space"/></a>
                         {{ set_account_status_img(r.active) }}
 
                         {# -- Show name -- #}
@@ -71,7 +71,21 @@
                         {% endif %}
                     </td>
                     <td>{{ username }}</td>
-                    <td>{{ set_admin_type_img('yes') }}</td>
+                    {% if r.get('isglobaladmin') is not sameas none %}
+                        {# users marked as admin #}
+                        {% if r.get('isglobaladmin') == 1 %}
+                            <td>{{ set_admin_type_img('yes') }}</td>
+                        {% else %}
+                            <td>{{ set_admin_type_img('no') }}</td>
+                        {% endif %}
+                    {% else %}
+                        {# Separate admin accounts #}
+                        {% if username in allGlobalAdmins %}
+                            <td>{{ set_admin_type_img('yes') }}</td>
+                        {% else %}
+                            <td>{{ set_admin_type_img('no') }}</td>
+                        {% endif %}
+                    {% endif %}
                 </tr>
             {% endfor %}
         </tbody>

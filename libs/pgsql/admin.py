@@ -43,14 +43,26 @@ class Admin(core.PGSQLWrap):
             )
 
         try:
-            result = self.conn.select('admin', what='COUNT(username) AS total')
-            if len(result) > 0:
-                total = result[0].total or 0
-        except Exception:
-            pass
+            # Get number of total accounts
+            # Separate admin accounts
+            admins_total = self.conn.select('admin', what='COUNT(username) AS total')
+            if admins_total:
+                admins_total = admins_total[0].total or 0
 
-        try:
-            result = self.conn.query(
+            # Users marked as admin
+            useradmins_total = self.conn.select(
+                'mailbox',
+                what='COUNT(username) AS total',
+                where='isadmin=1',
+            )
+            if useradmins_total:
+                useradmins_total = useradmins_total[0].total or 0
+
+            total = admins_total + useradmins_total
+
+            # Get records
+            # Separate admins
+            admins_records = self.conn.query(
                 """
                 SELECT name, username, language, active
                 FROM admin
@@ -58,7 +70,16 @@ class Admin(core.PGSQLWrap):
                 %s
                 """ % (self.sql_limit)
             )
-            return (True, total, list(result))
+
+            useradmins_records = self.conn.query(
+                """
+                SELECT name, username, language, active, isadmin, isglobaladmin
+                FROM mailbox
+                ORDER BY username ASC
+                %s
+                """ % (self.sql_limit)
+            )
+            return (True, {'total': total, 'records': list(admins_records) + list(useradmins_records)})
         except Exception, e:
             return (False, str(e))
 
