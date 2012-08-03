@@ -1,4 +1,7 @@
 = 0.1.9 =
+    * New:
+        + Mark mail user as global admin.
+
     * Fixed:
         + Add attribute/value for mail user required by Dovecot-2:
           enabledService=lib-storage.
