@@ -52,7 +52,7 @@ class Admin(core.LDAPWrap):
             return (False, ldaputils.getExceptionDesc(e))
 
     # Get admin profile.
-    def profile(self, mail):
+    def profile(self, mail, attributes=attrs.ADMIN_ATTRS_ALL):
         self.mail = web.safestr(mail)
         self.dn = ldaputils.convKeywordToDN(self.mail, accountType='admin')
         if self.dn[0] is False:
@@ -63,7 +63,7 @@ class Admin(core.LDAPWrap):
                 self.dn,
                 ldap.SCOPE_BASE,
                 '(&(objectClass=mailAdmin)(mail=%s))' % self.mail,
-                attrs.ADMIN_ATTRS_ALL,
+                attributes,
             )
             return (True, self.admin_profile)
         except ldap.NO_SUCH_OBJECT:
