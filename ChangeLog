@@ -1,5 +1,5 @@
 = 0.1.9 =
-    * New:
+    * New features:
         + Mark mail user as global admin.
 
     * Fixed:
@@ -7,6 +7,9 @@
           enabledService=lib-storage.
         + Didn't remove SQL records of real-time mailbox quota while deleting 
           mail domain or user.
+
+    * New and updated translations:
+        + Czech (cs_CZ). Thanks Roman Pudil <roman _at_ webhosting.fm>.
 
 = 0.1.8 =
     * Fixed:
