@@ -1,6 +1,6 @@
 __author__ = 'Zhang Huangbin'
 __author_mail__ = 'zhb@iredmail.org'
-__version_ose__ = '0.1.9'
+__version_ose__ = '0.2'
 __url_latest_ose__ = 'http://iredmail.org/version/check.py/ose.xml'
 __no__ = ''
 __id__ = ''

@@ -1,3 +1,7 @@
+= 0.2 =
+    * Fixed:
+        + [mysql/pgsql] List all users in Admins page.
+
 = 0.1.9 =
     * New features:
         + Mark mail user as global admin.

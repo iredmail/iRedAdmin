@@ -75,6 +75,7 @@ class Admin(core.PGSQLWrap):
                 """
                 SELECT name, username, language, active, isadmin, isglobaladmin
                 FROM mailbox
+                WHERE isadmin=1
                 ORDER BY username ASC
                 %s
                 """ % (self.sql_limit)
