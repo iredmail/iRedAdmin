@@ -18,7 +18,7 @@ langmaps = {
     'ca_ES': u'Català',
     'cy_GB': u'Cymraeg',
     'hr_HR': u'Croatian (Hrvatski)',
-    'cs_CZ': u'Czech',
+    'cs_CZ': u'Čeština',
     'da_DK': u'Dansk',
     'de_DE': u'Deutsch (Deutsch)',
     'de_CH': u'Deutsch (Schweiz)',
