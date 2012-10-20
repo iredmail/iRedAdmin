@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  iRedAdmin-Pro\n"
 "Report-Msgid-Bugs-To: zhb@iredmail.org\n"
-"POT-Creation-Date: 2012-09-25 22:21+0800\n"
-"PO-Revision-Date: 2012-09-22 18:37+0100\n"
+"POT-Creation-Date: 2012-10-20 14:52+0800\n"
+"PO-Revision-Date: 2012-10-19 21:24+0100\n"
 "Last-Translator: \n"
 "Language-Team: cs_CZ <info@webhosting.fm>\n"
 "Plural-Forms: nplurals=3; plural=n>=2 && n<=4 ? 1 : n==1 ? 0 : 2\n"
@@ -23,18 +23,18 @@ msgstr ""
 #: ../templates/default/pgsql/search.html:151
 #, python-format
 msgid "%d admin(s) found."
-msgstr "Nalezeno %d správců."
+msgstr "Nalezeno %d správců"
 
 #: ../templates/default/ldap/search.html:67
 #, python-format
 msgid "%d domain(s) found."
-msgstr "Nalezeno %d domén."
+msgstr "Nalezeno %d domén"
 
 #: ../templates/default/mysql/search.html:73
 #: ../templates/default/pgsql/search.html:73
 #, python-format
 msgid "%d domains(s) found."
-msgstr "Nalezeno %d domén."
+msgstr "Nalezeno %d domén"
 
 #: ../templates/default/dbmail_mysql/search.html:209
 #: ../templates/default/ldap/search.html:295
@@ -42,12 +42,12 @@ msgstr "Nalezeno %d domén."
 #: ../templates/default/pgsql/search.html:279
 #, python-format
 msgid "%d mail alias(es) found."
-msgstr "Nalezeno %d aliasů."
+msgstr "Nalezeno %d aliasů"
 
 #: ../templates/default/ldap/search.html:242
 #, python-format
 msgid "%d mail list(s) found."
-msgstr "Nalezeno %d maillistů."
+msgstr "Nalezeno %d maillistů"
 
 #: ../templates/default/dbmail_mysql/search.html:135
 #: ../templates/default/ldap/search.html:182
@@ -55,7 +55,7 @@ msgstr "Nalezeno %d maillistů."
 #: ../templates/default/pgsql/search.html:216
 #, python-format
 msgid "%d user(s) found."
-msgstr "Nalezeno %d uživatelů."
+msgstr "Nalezeno %d uživatelů"
 
 #: ../templates/default/macros/ldap.html:16
 #, python-format
@@ -64,9 +64,9 @@ msgstr "%s (%s)"
 
 #: ../templates/default/dbmail_mysql/domain/profile.html:330
 #: ../templates/default/dbmail_mysql/domain/profile.html:338
-#: ../templates/default/ldap/domain/profile.html:393
-#: ../templates/default/ldap/domain/profile.html:400
-#: ../templates/default/ldap/domain/profile.html:408
+#: ../templates/default/ldap/domain/profile.html:392
+#: ../templates/default/ldap/domain/profile.html:399
+#: ../templates/default/ldap/domain/profile.html:407
 #: ../templates/default/mysql/domain/profile.html:399
 #: ../templates/default/mysql/domain/profile.html:407
 #: ../templates/default/pgsql/domain/profile.html:381
@@ -75,7 +75,7 @@ msgstr "%s (%s)"
 msgid "%s account(s) exist."
 msgstr "Existuje %s účtů."
 
-#: ../templates/default/dashboard.html:137
+#: ../templates/default/dashboard.html:106
 #, python-format
 msgid "%s days, %s hours, %s minutes."
 msgstr "%s dní, %s hodin, %s minut."
@@ -92,42 +92,42 @@ msgstr "1 hodina"
 msgid "1 Minute"
 msgstr "1 minuta"
 
-#: ../templates/default/macros/general.html:717
+#: ../templates/default/macros/general.html:726
 #, python-format
 msgid "<a href='%s'>Domain and sub-domain users</a>"
 msgstr "<a href='%s'>Uživatelé domény a subdomén</a>"
 
-#: ../templates/default/macros/general.html:715
+#: ../templates/default/macros/general.html:724
 #, python-format
 msgid "<a href='%s'>Domain users</a>"
 msgstr "<a href='%s'>Uživatelé domény</a>"
 
-#: ../templates/default/macros/general.html:719
+#: ../templates/default/macros/general.html:728
 #, python-format
 msgid "<a href='%s'>Members</a>"
 msgstr "<a href='%s'>Členové</a>"
 
-#: ../templates/default/ldap/maillist/profile.html:86
-#: ../templates/default/macros/general.html:723
+#: ../templates/default/ldap/maillist/profile.html:87
+#: ../templates/default/macros/general.html:732
 #: ../templates/default/mysql/alias/profile.html:77
 #: ../templates/default/pgsql/alias/profile.html:77
 #, python-format
 msgid "<a href='%s'>Members</a> and <a href='%s'>moderators</a>"
 msgstr "<a href='%s'>Členové</a> a <a href='%s'>moderátoři</a>"
 
-#: ../templates/default/macros/general.html:721
+#: ../templates/default/macros/general.html:730
 #, python-format
 msgid "<a href='%s'>Moderators</a>"
 msgstr "<a href='%s'>Moderátoři</a>"
 
-#: ../templates/default/ldap/maillist/profile.html:82
+#: ../templates/default/ldap/maillist/profile.html:83
 #: ../templates/default/mysql/alias/profile.html:73
 #: ../templates/default/pgsql/alias/profile.html:73
 #, python-format
 msgid "<a href='%s'>Users under domain <strong>%s</strong></a>"
 msgstr "<a href='%s'>Uživatelé v doméně <strong>%s</strong></a>"
 
-#: ../templates/default/ldap/maillist/profile.html:83
+#: ../templates/default/ldap/maillist/profile.html:84
 #: ../templates/default/mysql/alias/profile.html:74
 #: ../templates/default/pgsql/alias/profile.html:74
 #, python-format
@@ -145,20 +145,20 @@ msgstr "O logách pošty"
 
 #: ../templates/default/amavisd/quarantined.html:59
 msgid "About quarantined mails"
-msgstr "O mailech v karanténě"
+msgstr "O emailech v karanténě"
 
-#: ../templates/default/ldap/user/profile.html:212
+#: ../templates/default/ldap/user/profile.html:213
 msgid "Account NOT exists."
 msgstr "Účet neexistuje."
 
-#: ../templates/default/macros/general.html:235
+#: ../templates/default/macros/general.html:244
 msgid "Account activities"
 msgstr "Aktivity účtu"
 
-#: ../templates/default/macros/msgHandlers.html:177
-#: ../templates/default/macros/msgHandlers.html:203
-#: ../templates/default/macros/msgHandlers.html:215
-#: ../templates/default/macros/msgHandlers.html:239
+#: ../templates/default/macros/msgHandlers.html:181
+#: ../templates/default/macros/msgHandlers.html:207
+#: ../templates/default/macros/msgHandlers.html:219
+#: ../templates/default/macros/msgHandlers.html:243
 msgid "Account already exists, please choose another username."
 msgstr "Účet již existuje, zvolte jiné jméno."
 
@@ -181,6 +181,16 @@ msgstr "Účet je aktivní"
 msgid "Account is disabled."
 msgstr "Účet je zakázán"
 
+#: ../templates/default/macros/general.html:210
+
+msgid "Account is domain admin"
+msgstr "Účet je zakázán"
+
+#: ../templates/default/macros/general.html:212
+
+msgid "Account is global admin"
+msgstr "Není globální správce."
+
 #: ../templates/default/macros/general.html:200
 msgid "Account is marked as backup MX."
 msgstr "Účet je označen jako záložní MX."
@@ -199,7 +209,7 @@ msgstr "Stav účtu"
 msgid "Account type"
 msgstr "Typ účtu"
 
-#: ../templates/default/macros/general.html:858
+#: ../templates/default/macros/general.html:867
 msgid "Activate account"
 msgstr "Aktivovat účet"
 
@@ -213,22 +223,22 @@ msgstr "Aktivní"
 #: ../templates/default/layout.html:106
 #: ../templates/default/dbmail_mysql/alias/create.html:82
 #: ../templates/default/dbmail_mysql/user/create.html:132
-#: ../templates/default/ldap/alias/create.html:87
-#: ../templates/default/ldap/maillist/create.html:84
-#: ../templates/default/ldap/maillist/profile.html:54
-#: ../templates/default/ldap/user/create.html:155
-#: ../templates/default/macros/general.html:664
-#: ../templates/default/macros/general.html:705
-#: ../templates/default/mysql/alias/create.html:82
-#: ../templates/default/mysql/user/create.html:129
-#: ../templates/default/pgsql/alias/create.html:82
-#: ../templates/default/pgsql/user/create.html:129
+#: ../templates/default/ldap/alias/create.html:102
+#: ../templates/default/ldap/maillist/create.html:100
+#: ../templates/default/ldap/maillist/profile.html:55
+#: ../templates/default/ldap/user/create.html:170
+#: ../templates/default/macros/general.html:673
+#: ../templates/default/macros/general.html:714
+#: ../templates/default/mysql/alias/create.html:94
+#: ../templates/default/mysql/user/create.html:141
+#: ../templates/default/pgsql/alias/create.html:94
+#: ../templates/default/pgsql/user/create.html:141
 #: ../templates/default/policyd/blacklist/create.html:50
 #: ../templates/default/policyd/whitelist/create.html:44
 msgid "Add"
 msgstr "Přidat"
 
-#: ../templates/default/macros/general.html:852
+#: ../templates/default/macros/general.html:861
 msgid "Add account"
 msgstr "Přidat účet"
 
@@ -267,7 +277,7 @@ msgstr "Přidat blacklist"
 #: ../templates/default/ldap/domain/create.html:23
 #: ../templates/default/ldap/domain/create.html:27
 #: ../templates/default/ldap/domain/list.html:31
-#: ../templates/default/macros/general.html:696
+#: ../templates/default/macros/general.html:705
 #: ../templates/default/macros/ldap.html:32
 #: ../templates/default/macros/mysql.html:26
 #: ../templates/default/mysql/domain/create.html:7
@@ -283,7 +293,7 @@ msgstr "Přidat doménu"
 
 #: ../templates/default/dbmail_mysql/domain/profile.html:415
 #: ../templates/default/dbmail_mysql/user/profile.html:155
-#: ../templates/default/ldap/user/profile.html:266
+#: ../templates/default/ldap/user/profile.html:267
 #: ../templates/default/mysql/domain/profile.html:486
 #: ../templates/default/mysql/user/profile.html:156
 #: ../templates/default/pgsql/domain/profile.html:468
@@ -293,37 +303,37 @@ msgstr "Přidat alias"
 
 #: ../templates/default/dbmail_mysql/alias/create.html:9
 #: ../templates/default/dbmail_mysql/alias/create.html:55
-#: ../templates/default/ldap/alias/create.html:9
-#: ../templates/default/ldap/alias/create.html:59
-#: ../templates/default/mysql/alias/create.html:9
-#: ../templates/default/mysql/alias/create.html:55
-#: ../templates/default/pgsql/alias/create.html:9
-#: ../templates/default/pgsql/alias/create.html:55
+#: ../templates/default/ldap/alias/create.html:10
+#: ../templates/default/ldap/alias/create.html:74
+#: ../templates/default/mysql/alias/create.html:10
+#: ../templates/default/mysql/alias/create.html:67
+#: ../templates/default/pgsql/alias/create.html:10
+#: ../templates/default/pgsql/alias/create.html:67
 #, python-format
 msgid "Add mail alias under domain: %s"
 msgstr "Přidat alias v doméně %s"
 
-#: ../templates/default/ldap/domain/profile.html:476
-#: ../templates/default/ldap/user/profile.html:224
+#: ../templates/default/ldap/domain/profile.html:475
+#: ../templates/default/ldap/user/profile.html:225
 msgid "Add mail list"
 msgstr "Přidat maillist"
 
-#: ../templates/default/ldap/maillist/create.html:9
-#: ../templates/default/ldap/maillist/create.html:58
+#: ../templates/default/ldap/maillist/create.html:10
+#: ../templates/default/ldap/maillist/create.html:74
 #, python-format
 msgid "Add mail list under domain: %s."
 msgstr "Přidat maillist v doméně %s"
 
-#: ../templates/default/ldap/maillist/profile.html:381
+#: ../templates/default/ldap/maillist/profile.html:382
 msgid "Add members"
 msgstr "Přidat členy"
 
-#: ../templates/default/ldap/maillist/profile.html:395
+#: ../templates/default/ldap/maillist/profile.html:396
 msgid "Add moderators"
 msgstr "Přidat moderátory"
 
 #: ../templates/default/dbmail_mysql/alias/profile.html:164
-#: ../templates/default/ldap/alias/profile.html:113
+#: ../templates/default/ldap/alias/profile.html:114
 #: ../templates/default/mysql/alias/profile.html:169
 #: ../templates/default/pgsql/alias/profile.html:169
 msgid "Add new members"
@@ -337,35 +347,36 @@ msgstr "Přidat nové moderátory"
 #: ../templates/default/dbmail_mysql/alias/list.html:73
 #: ../templates/default/dbmail_mysql/domain/list.html:137
 #: ../templates/default/dbmail_mysql/user/list.html:111
-#: ../templates/default/ldap/alias/list.html:96
-#: ../templates/default/ldap/domain/list.html:195
-#: ../templates/default/ldap/maillist/list.html:96
-#: ../templates/default/ldap/user/list.html:129
-#: ../templates/default/mysql/alias/list.html:84
+#: ../templates/default/ldap/alias/list.html:100
+#: ../templates/default/ldap/domain/list.html:187
+#: ../templates/default/ldap/maillist/list.html:100
+#: ../templates/default/ldap/user/admin.html:133
+#: ../templates/default/ldap/user/list.html:141
+#: ../templates/default/mysql/alias/list.html:86
 #: ../templates/default/mysql/domain/list.html:144
-#: ../templates/default/mysql/user/list.html:122
-#: ../templates/default/pgsql/alias/list.html:84
+#: ../templates/default/mysql/user/list.html:124
+#: ../templates/default/pgsql/alias/list.html:86
 #: ../templates/default/pgsql/domain/list.html:144
-#: ../templates/default/pgsql/user/list.html:122
+#: ../templates/default/pgsql/user/list.html:124
 msgid "Add one"
 msgstr "Přidat"
 
 #: ../templates/default/macros/msgHandlers.html:108
-#: ../templates/default/macros/msgHandlers.html:149
-#: ../templates/default/macros/msgHandlers.html:184
-#: ../templates/default/macros/msgHandlers.html:224
-#: ../templates/default/macros/msgHandlers.html:256
+#: ../templates/default/macros/msgHandlers.html:153
+#: ../templates/default/macros/msgHandlers.html:188
+#: ../templates/default/macros/msgHandlers.html:228
+#: ../templates/default/macros/msgHandlers.html:260
 msgid "Add one more?"
 msgstr "Přidat další?"
 
 #: ../templates/default/dbmail_mysql/user/create.html:13
 #: ../templates/default/dbmail_mysql/user/create.html:78
-#: ../templates/default/ldap/user/create.html:13
-#: ../templates/default/ldap/user/create.html:101
-#: ../templates/default/mysql/user/create.html:13
-#: ../templates/default/mysql/user/create.html:75
-#: ../templates/default/pgsql/user/create.html:13
-#: ../templates/default/pgsql/user/create.html:75
+#: ../templates/default/ldap/user/create.html:14
+#: ../templates/default/ldap/user/create.html:116
+#: ../templates/default/mysql/user/create.html:14
+#: ../templates/default/mysql/user/create.html:87
+#: ../templates/default/pgsql/user/create.html:14
+#: ../templates/default/pgsql/user/create.html:87
 #, python-format
 msgid "Add user under domain: %s"
 msgstr "Přidat uživatele v doméně %s"
@@ -396,32 +407,44 @@ msgstr "Správce"
 msgid "Admin Log"
 msgstr "Log správce"
 
-#: ../templates/default/macros/msgHandlers.html:184
+#: ../templates/default/macros/msgHandlers.html:188
 msgid "Admin created."
 msgstr "Správce vytvořen."
 
-#: ../templates/default/macros/general.html:850
+#: ../templates/default/macros/general.html:859
 msgid "Admin login"
 msgstr "Přihlášení správce"
 
-#: ../templates/default/macros/msgHandlers.html:178
+#: ../templates/default/macros/msgHandlers.html:182
 msgid "Admin not exist."
 msgstr "Správce neexistuje."
 
-#: ../templates/default/macros/general.html:396
-msgid "Admin of domain"
-msgstr "Správce domény"
-
 #: ../templates/default/layout.html:78
-#: ../templates/default/ldap/domain/list.html:58
+#: ../templates/default/ldap/alias/create.html:20
+#: ../templates/default/ldap/alias/list.html:24
+#: ../templates/default/ldap/alias/profile.html:34
+#: ../templates/default/ldap/domain/profile.html:103
+#: ../templates/default/ldap/maillist/create.html:20
+#: ../templates/default/ldap/maillist/list.html:26
+#: ../templates/default/ldap/maillist/profile.html:35
+#: ../templates/default/ldap/user/admin.html:25
+#: ../templates/default/ldap/user/create.html:24
+#: ../templates/default/ldap/user/list.html:26
+#: ../templates/default/ldap/user/profile.html:103
 #: ../templates/default/panel/log.html:55
 msgid "Admins"
 msgstr "Správci"
 
+#: ../templates/default/ldap/user/admin.html:15
+#: ../templates/default/ldap/user/admin.html:54
+#, python-format
+msgid "Admins under domain: %s"
+msgstr "Uživatelé v doméně %s"
+
 #: ../templates/default/dbmail_mysql/domain/profile.html:55
 #: ../templates/default/dbmail_mysql/user/profile.html:56
-#: ../templates/default/ldap/domain/profile.html:126
-#: ../templates/default/ldap/user/profile.html:121
+#: ../templates/default/ldap/domain/profile.html:123
+#: ../templates/default/ldap/user/profile.html:122
 #: ../templates/default/mysql/domain/profile.html:66
 #: ../templates/default/mysql/user/profile.html:72
 #: ../templates/default/pgsql/domain/profile.html:67
@@ -436,22 +459,23 @@ msgstr "Rozšířené"
 #: ../templates/default/dbmail_mysql/user/create.html:74
 #: ../templates/default/dbmail_mysql/user/list.html:31
 #: ../templates/default/ldap/search.html:40
-#: ../templates/default/ldap/alias/create.html:55
-#: ../templates/default/ldap/alias/list.html:43
-#: ../templates/default/ldap/maillist/create.html:54
-#: ../templates/default/ldap/maillist/list.html:45
-#: ../templates/default/ldap/user/create.html:97
-#: ../templates/default/ldap/user/list.html:46
+#: ../templates/default/ldap/alias/create.html:70
+#: ../templates/default/ldap/alias/list.html:47
+#: ../templates/default/ldap/maillist/create.html:70
+#: ../templates/default/ldap/maillist/list.html:49
+#: ../templates/default/ldap/user/admin.html:50
+#: ../templates/default/ldap/user/create.html:112
+#: ../templates/default/ldap/user/list.html:51
 #: ../templates/default/mysql/search.html:43
-#: ../templates/default/mysql/alias/create.html:51
-#: ../templates/default/mysql/alias/list.html:39
-#: ../templates/default/mysql/user/create.html:71
-#: ../templates/default/mysql/user/list.html:43
+#: ../templates/default/mysql/alias/create.html:63
+#: ../templates/default/mysql/alias/list.html:41
+#: ../templates/default/mysql/user/create.html:83
+#: ../templates/default/mysql/user/list.html:45
 #: ../templates/default/pgsql/search.html:43
-#: ../templates/default/pgsql/alias/create.html:51
-#: ../templates/default/pgsql/alias/list.html:39
-#: ../templates/default/pgsql/user/create.html:71
-#: ../templates/default/pgsql/user/list.html:43
+#: ../templates/default/pgsql/alias/create.html:63
+#: ../templates/default/pgsql/alias/list.html:41
+#: ../templates/default/pgsql/user/create.html:83
+#: ../templates/default/pgsql/user/list.html:45
 msgid "Alias"
 msgstr "Alias"
 
@@ -459,8 +483,8 @@ msgstr "Alias"
 msgid "Alias account"
 msgstr "Alias účet"
 
-#: ../templates/default/ldap/domain/profile.html:220
-#: ../templates/default/ldap/domain/profile.html:231
+#: ../templates/default/ldap/domain/profile.html:219
+#: ../templates/default/ldap/domain/profile.html:230
 #: ../templates/default/mysql/domain/profile.html:273
 #: ../templates/default/pgsql/domain/profile.html:274
 msgid "Alias domains"
@@ -477,52 +501,51 @@ msgstr "Doménové aliasy"
 #: ../templates/default/dbmail_mysql/user/profile.html:34
 #: ../templates/default/dbmail_mysql/user/profile.html:51
 #: ../templates/default/ldap/search.html:81
-#: ../templates/default/ldap/alias/create.html:52
+#: ../templates/default/ldap/alias/create.html:19
 #: ../templates/default/ldap/alias/list.html:23
-#: ../templates/default/ldap/alias/list.html:40
-#: ../templates/default/ldap/alias/profile.html:30
+#: ../templates/default/ldap/alias/profile.html:32
 #: ../templates/default/ldap/domain/list.html:56
-#: ../templates/default/ldap/domain/profile.html:124
-#: ../templates/default/ldap/maillist/create.html:51
+#: ../templates/default/ldap/domain/profile.html:102
+#: ../templates/default/ldap/domain/profile.html:121
+#: ../templates/default/ldap/maillist/create.html:19
 #: ../templates/default/ldap/maillist/list.html:25
-#: ../templates/default/ldap/maillist/list.html:42
 #: ../templates/default/ldap/maillist/profile.html:34
-#: ../templates/default/ldap/user/create.html:94
-#: ../templates/default/ldap/user/list.html:24
-#: ../templates/default/ldap/user/list.html:43
+#: ../templates/default/ldap/user/admin.html:24
+#: ../templates/default/ldap/user/create.html:23
+#: ../templates/default/ldap/user/list.html:25
 #: ../templates/default/ldap/user/profile.html:102
-#: ../templates/default/ldap/user/profile.html:117
+#: ../templates/default/ldap/user/profile.html:118
 #: ../templates/default/mysql/search.html:84
-#: ../templates/default/mysql/alias/create.html:49
+#: ../templates/default/mysql/alias/create.html:18
+#: ../templates/default/mysql/alias/create.html:61
 #: ../templates/default/mysql/alias/list.html:21
-#: ../templates/default/mysql/alias/list.html:37
 #: ../templates/default/mysql/alias/profile.html:23
 #: ../templates/default/mysql/domain/list.html:56
 #: ../templates/default/mysql/domain/profile.html:44
 #: ../templates/default/mysql/domain/profile.html:64
-#: ../templates/default/mysql/user/create.html:69
+#: ../templates/default/mysql/user/create.html:22
+#: ../templates/default/mysql/user/create.html:81
 #: ../templates/default/mysql/user/list.html:23
-#: ../templates/default/mysql/user/list.html:41
 #: ../templates/default/mysql/user/profile.html:51
 #: ../templates/default/pgsql/search.html:84
-#: ../templates/default/pgsql/alias/create.html:49
+#: ../templates/default/pgsql/alias/create.html:18
+#: ../templates/default/pgsql/alias/create.html:61
 #: ../templates/default/pgsql/alias/list.html:21
-#: ../templates/default/pgsql/alias/list.html:37
 #: ../templates/default/pgsql/alias/profile.html:23
 #: ../templates/default/pgsql/domain/list.html:56
 #: ../templates/default/pgsql/domain/profile.html:45
 #: ../templates/default/pgsql/domain/profile.html:65
-#: ../templates/default/pgsql/user/create.html:69
+#: ../templates/default/pgsql/user/create.html:22
+#: ../templates/default/pgsql/user/create.html:81
 #: ../templates/default/pgsql/user/list.html:23
-#: ../templates/default/pgsql/user/list.html:41
 #: ../templates/default/pgsql/user/profile.html:51
 msgid "Aliases"
 msgstr "Aliasy"
 
 #: ../templates/default/dbmail_mysql/alias/list.html:32
-#: ../templates/default/ldap/alias/list.html:47
-#: ../templates/default/mysql/alias/list.html:43
-#: ../templates/default/pgsql/alias/list.html:43
+#: ../templates/default/ldap/alias/list.html:51
+#: ../templates/default/mysql/alias/list.html:45
+#: ../templates/default/pgsql/alias/list.html:45
 #, python-format
 msgid "Aliases under domain: %s."
 msgstr "Aliasy v doméně %s"
@@ -539,7 +562,7 @@ msgstr "Všechny blacklisty"
 msgid "All Whitelists"
 msgstr "Všechny whitelisty"
 
-#: ../templates/default/ldap/user/profile.html:382
+#: ../templates/default/ldap/user/profile.html:383
 msgid "All accounts"
 msgstr "Všechny účty"
 
@@ -563,27 +586,35 @@ msgstr "Všichni správci"
 #: ../templates/default/dbmail_mysql/domain/list.html:29
 #: ../templates/default/dbmail_mysql/domain/profile.html:31
 #: ../templates/default/dbmail_mysql/user/profile.html:30
+#: ../templates/default/ldap/alias/create.html:15
 #: ../templates/default/ldap/alias/list.html:19
 #: ../templates/default/ldap/alias/profile.html:28
 #: ../templates/default/ldap/domain/create.html:21
 #: ../templates/default/ldap/domain/list.html:29
-#: ../templates/default/ldap/domain/profile.html:102
+#: ../templates/default/ldap/domain/profile.html:98
+#: ../templates/default/ldap/maillist/create.html:15
 #: ../templates/default/ldap/maillist/list.html:21
 #: ../templates/default/ldap/maillist/profile.html:29
-#: ../templates/default/ldap/user/list.html:20
+#: ../templates/default/ldap/user/admin.html:20
+#: ../templates/default/ldap/user/create.html:19
+#: ../templates/default/ldap/user/list.html:21
 #: ../templates/default/ldap/user/profile.html:97
+#: ../templates/default/mysql/alias/create.html:15
 #: ../templates/default/mysql/alias/list.html:18
 #: ../templates/default/mysql/alias/profile.html:20
 #: ../templates/default/mysql/domain/create.html:18
 #: ../templates/default/mysql/domain/list.html:29
 #: ../templates/default/mysql/domain/profile.html:41
+#: ../templates/default/mysql/user/create.html:19
 #: ../templates/default/mysql/user/list.html:20
 #: ../templates/default/mysql/user/profile.html:47
+#: ../templates/default/pgsql/alias/create.html:15
 #: ../templates/default/pgsql/alias/list.html:18
 #: ../templates/default/pgsql/alias/profile.html:20
 #: ../templates/default/pgsql/domain/create.html:18
 #: ../templates/default/pgsql/domain/list.html:29
 #: ../templates/default/pgsql/domain/profile.html:42
+#: ../templates/default/pgsql/user/create.html:19
 #: ../templates/default/pgsql/user/list.html:20
 #: ../templates/default/pgsql/user/profile.html:47
 msgid "All domains"
@@ -617,24 +648,24 @@ msgstr "Všechny subdomény"
 #: ../templates/default/mysql/domain/list.html:97
 #: ../templates/default/mysql/domain/list.html:103
 #: ../templates/default/mysql/domain/list.html:105
-#: ../templates/default/mysql/user/list.html:112
+#: ../templates/default/mysql/user/list.html:114
 #: ../templates/default/pgsql/domain/list.html:95
 #: ../templates/default/pgsql/domain/list.html:97
 #: ../templates/default/pgsql/domain/list.html:103
 #: ../templates/default/pgsql/domain/list.html:105
-#: ../templates/default/pgsql/user/list.html:112
+#: ../templates/default/pgsql/user/list.html:114
 msgid "Allocated"
 msgstr "Přiděleno"
 
 #: ../templates/default/dbmail_mysql/alias/create.html:26
 #: ../templates/default/dbmail_mysql/user/create.html:35
-#: ../templates/default/ldap/alias/create.html:34
-#: ../templates/default/ldap/maillist/create.html:34
-#: ../templates/default/ldap/user/create.html:65
-#: ../templates/default/mysql/alias/create.html:26
-#: ../templates/default/mysql/user/create.html:32
-#: ../templates/default/pgsql/alias/create.html:26
-#: ../templates/default/pgsql/user/create.html:32
+#: ../templates/default/ldap/alias/create.html:47
+#: ../templates/default/ldap/maillist/create.html:48
+#: ../templates/default/ldap/user/create.html:78
+#: ../templates/default/mysql/alias/create.html:38
+#: ../templates/default/mysql/user/create.html:44
+#: ../templates/default/pgsql/alias/create.html:38
+#: ../templates/default/pgsql/user/create.html:44
 #, python-format
 msgid "Already exceed max number of account limit (%s)."
 msgstr "Byl překročen maximální počet uživatelů (%s)."
@@ -654,41 +685,42 @@ msgstr "Byl překročen maximální počet uživatelů (%s)."
 #: ../templates/default/ldap/search.html:285
 #: ../templates/default/ldap/search.html:335
 #: ../templates/default/ldap/admin/list.html:86
-#: ../templates/default/ldap/alias/list.html:110
-#: ../templates/default/ldap/domain/list.html:214
-#: ../templates/default/ldap/maillist/list.html:110
-#: ../templates/default/ldap/maillist/profile.html:191
-#: ../templates/default/ldap/maillist/profile.html:237
-#: ../templates/default/ldap/maillist/profile.html:319
-#: ../templates/default/ldap/maillist/profile.html:364
-#: ../templates/default/ldap/user/list.html:145
+#: ../templates/default/ldap/alias/list.html:114
+#: ../templates/default/ldap/domain/list.html:206
+#: ../templates/default/ldap/maillist/list.html:114
+#: ../templates/default/ldap/maillist/profile.html:192
+#: ../templates/default/ldap/maillist/profile.html:238
+#: ../templates/default/ldap/maillist/profile.html:320
+#: ../templates/default/ldap/maillist/profile.html:365
+#: ../templates/default/ldap/user/admin.html:147
+#: ../templates/default/ldap/user/list.html:165
 #: ../templates/default/mysql/search.html:141
 #: ../templates/default/mysql/search.html:203
 #: ../templates/default/mysql/search.html:266
 #: ../templates/default/mysql/search.html:319
 #: ../templates/default/mysql/admin/list.html:102
-#: ../templates/default/mysql/alias/list.html:98
+#: ../templates/default/mysql/alias/list.html:100
 #: ../templates/default/mysql/domain/list.html:164
-#: ../templates/default/mysql/user/list.html:138
+#: ../templates/default/mysql/user/list.html:140
 #: ../templates/default/panel/log.html:123
 #: ../templates/default/pgsql/search.html:141
 #: ../templates/default/pgsql/search.html:203
 #: ../templates/default/pgsql/search.html:266
 #: ../templates/default/pgsql/search.html:319
 #: ../templates/default/pgsql/admin/list.html:102
-#: ../templates/default/pgsql/alias/list.html:98
+#: ../templates/default/pgsql/alias/list.html:100
 #: ../templates/default/pgsql/domain/list.html:164
-#: ../templates/default/pgsql/user/list.html:138
+#: ../templates/default/pgsql/user/list.html:140
 #: ../templates/default/policyd/wblist.html:108
 msgid "Apply"
 msgstr "Uložit"
 
-#: ../templates/default/macros/general.html:455
+#: ../templates/default/macros/general.html:464
 #, python-format
 msgid "At least %s characters, but no more than %s."
 msgstr "Nejméně %s znaků, ale ne více než %s znaků."
 
-#: ../templates/default/macros/general.html:457
+#: ../templates/default/macros/general.html:466
 #, python-format
 msgid "At least %s characters."
 msgstr "Nejméně %s znaků."
@@ -697,13 +729,13 @@ msgstr "Nejméně %s znaků."
 msgid "Attachments"
 msgstr "Přílohy"
 
-#: ../templates/default/macros/general.html:522
+#: ../templates/default/macros/general.html:531
 msgid "Available quota:"
 msgstr "Dostupný prostor:"
 
 #: ../templates/default/dbmail_mysql/domain/profile.html:51
 #: ../templates/default/dbmail_mysql/user/profile.html:52
-#: ../templates/default/ldap/domain/profile.html:121
+#: ../templates/default/ldap/domain/profile.html:118
 #: ../templates/default/mysql/domain/profile.html:61
 #: ../templates/default/mysql/user/profile.html:67
 #: ../templates/default/pgsql/domain/profile.html:62
@@ -711,23 +743,23 @@ msgstr "Dostupný prostor:"
 msgid "BCC"
 msgstr "BCC"
 
-#: ../templates/default/macros/general.html:589
+#: ../templates/default/macros/general.html:598
 msgid "BCC incoming emails to single address"
-msgstr "Přicházející BCC maily na jednu adresu"
+msgstr "Přicházející BCC emaily na jednu adresu"
 
 #: ../templates/default/macros/ldap.html:80
 #: ../templates/default/macros/ldap.html:100
 msgid "BCC incoming mails to other address"
-msgstr "Přicházející BCC maily na jinou adresu"
+msgstr "Přicházející BCC emaily na jinou adresu"
 
-#: ../templates/default/macros/general.html:601
+#: ../templates/default/macros/general.html:610
 msgid "BCC outgoing emails to single address"
-msgstr "Odcházející BCC maily na jednu adresu"
+msgstr "Odcházející BCC emaily na jednu adresu"
 
 #: ../templates/default/macros/ldap.html:81
 #: ../templates/default/macros/ldap.html:101
 msgid "BCC outgoing mails to other address"
-msgstr "Odcházející BCC maily na jinou adresu"
+msgstr "Odcházející BCC emaily na jinou adresu"
 
 #: ../templates/default/policyd/wblist.html:12
 msgid "Blacklist"
@@ -746,28 +778,28 @@ msgstr "Záznamy blacklistu"
 msgid "Blacklists"
 msgstr "Blacklisty"
 
-#: ../templates/default/ldap/user/profile.html:338
+#: ../templates/default/ldap/user/profile.html:339
 msgid "Bypass mails from below senders"
-msgstr "Přijímat maily od následujících odesílatelů"
+msgstr "Přijímat emaily od následujících odesílatelů"
 
-#: ../templates/default/ldap/user/profile.html:352
+#: ../templates/default/ldap/user/profile.html:353
 msgid "Bypass mails sent to below recipients"
-msgstr "Odesílat maily následujícím adresátům"
+msgstr "Odesílat emaily následujícím adresátům"
 
 #: ../templates/default/dbmail_mysql/domain/profile.html:53
-#: ../templates/default/ldap/domain/profile.html:123
+#: ../templates/default/ldap/domain/profile.html:120
 #: ../templates/default/mysql/domain/profile.html:63
 #: ../templates/default/pgsql/domain/profile.html:64
 msgid "Catch-all"
 msgstr "Zachytávání"
 
-#: ../templates/default/ldap/domain/profile.html:301
+#: ../templates/default/ldap/domain/profile.html:300
 #: ../templates/default/mysql/domain/profile.html:241
 #: ../templates/default/pgsql/domain/profile.html:242
 msgid "Catch-all Addresses"
 msgstr "Zachytávat na adresy"
 
-#: ../templates/default/ldap/domain/profile.html:310
+#: ../templates/default/ldap/domain/profile.html:309
 #: ../templates/default/mysql/domain/profile.html:250
 #: ../templates/default/pgsql/domain/profile.html:251
 msgid "Catch-all address may receive many spam emails."
@@ -777,7 +809,7 @@ msgstr ""
 
 #: ../templates/default/macros/ldap.html:113
 msgid "Check this box in order to enable other services"
-msgstr "Zaškrtněte toto políčko, abyste povolili další mailové služby."
+msgstr "Zaškrtněte toto políčko, abyste povolili další emailové služby."
 
 #: ../templates/default/amavisd/inout.html:169
 #: ../templates/default/amavisd/quarantined.html:85
@@ -794,31 +826,32 @@ msgstr "Zaškrtněte toto políčko, abyste povolili další mailové služby."
 #: ../templates/default/ldap/search.html:280
 #: ../templates/default/ldap/search.html:330
 #: ../templates/default/ldap/admin/list.html:81
-#: ../templates/default/ldap/alias/list.html:105
-#: ../templates/default/ldap/domain/list.html:209
-#: ../templates/default/ldap/maillist/list.html:105
-#: ../templates/default/ldap/maillist/profile.html:188
-#: ../templates/default/ldap/maillist/profile.html:234
-#: ../templates/default/ldap/maillist/profile.html:316
-#: ../templates/default/ldap/maillist/profile.html:361
-#: ../templates/default/ldap/user/list.html:140
+#: ../templates/default/ldap/alias/list.html:109
+#: ../templates/default/ldap/domain/list.html:201
+#: ../templates/default/ldap/maillist/list.html:109
+#: ../templates/default/ldap/maillist/profile.html:189
+#: ../templates/default/ldap/maillist/profile.html:235
+#: ../templates/default/ldap/maillist/profile.html:317
+#: ../templates/default/ldap/maillist/profile.html:362
+#: ../templates/default/ldap/user/admin.html:144
+#: ../templates/default/ldap/user/list.html:152
 #: ../templates/default/mysql/search.html:136
 #: ../templates/default/mysql/search.html:198
 #: ../templates/default/mysql/search.html:261
 #: ../templates/default/mysql/search.html:314
 #: ../templates/default/mysql/admin/list.html:97
-#: ../templates/default/mysql/alias/list.html:93
+#: ../templates/default/mysql/alias/list.html:95
 #: ../templates/default/mysql/domain/list.html:159
-#: ../templates/default/mysql/user/list.html:133
+#: ../templates/default/mysql/user/list.html:135
 #: ../templates/default/panel/log.html:119
 #: ../templates/default/pgsql/search.html:136
 #: ../templates/default/pgsql/search.html:198
 #: ../templates/default/pgsql/search.html:261
 #: ../templates/default/pgsql/search.html:314
 #: ../templates/default/pgsql/admin/list.html:97
-#: ../templates/default/pgsql/alias/list.html:93
+#: ../templates/default/pgsql/alias/list.html:95
 #: ../templates/default/pgsql/domain/list.html:159
-#: ../templates/default/pgsql/user/list.html:133
+#: ../templates/default/pgsql/user/list.html:135
 #: ../templates/default/policyd/wblist.html:105
 msgid "Choose Action"
 msgstr "Vyberte akci"
@@ -827,11 +860,11 @@ msgstr "Vyberte akci"
 msgid "Choose activity type"
 msgstr "Vyberte typ aktivity"
 
-#: ../templates/default/macros/general.html:632
+#: ../templates/default/macros/general.html:641
 msgid "Company/Organization Name"
 msgstr "Firma"
 
-#: ../templates/default/macros/general.html:478
+#: ../templates/default/macros/general.html:487
 msgid "Confirm new password"
 msgstr "Potvrďte nové heslo"
 
@@ -843,9 +876,9 @@ msgstr "Kontaktujte správce"
 msgid "Contacts"
 msgstr "Kontakty"
 
-#: ../templates/default/ldap/domain/profile.html:191
+#: ../templates/default/ldap/domain/profile.html:190
 msgid "Content of disclaimer will be appended to outgoing emails."
-msgstr "Obsah patičky bude vložen do odchozích mailů."
+msgstr "Obsah patičky bude vložen do odchozích emailů."
 
 #: ../templates/default/policyd/blacklist/create.html:78
 msgid ""
@@ -855,9 +888,9 @@ msgstr ""
 "Může být FQDN (plně kvalifikované doménové jméno) nebo IP adresa uzavřená"
 " do hranatých závorek, např. <u>[1.2.3.4]</u>"
 
-#: ../templates/default/macros/msgHandlers.html:135
-#: ../templates/default/macros/msgHandlers.html:172
-#: ../templates/default/macros/msgHandlers.html:173
+#: ../templates/default/macros/msgHandlers.html:139
+#: ../templates/default/macros/msgHandlers.html:176
+#: ../templates/default/macros/msgHandlers.html:177
 msgid "Current password is incorrect."
 msgstr "Aktuální heslo je nesprávné."
 
@@ -883,9 +916,9 @@ msgstr "Změnit pravidlo pro filtrování pošty přes TLS/SSL"
 
 #: ../templates/default/dbmail_mysql/domain/list.html:111
 #: ../templates/default/dbmail_mysql/domain/list.html:125
-#: ../templates/default/ldap/domain/list.html:154
-#: ../templates/default/ldap/domain/list.html:167
-#: ../templates/default/ldap/domain/list.html:180
+#: ../templates/default/ldap/domain/list.html:151
+#: ../templates/default/ldap/domain/list.html:164
+#: ../templates/default/ldap/domain/list.html:177
 #: ../templates/default/mysql/search.html:116
 #: ../templates/default/mysql/search.html:125
 #: ../templates/default/mysql/domain/list.html:118
@@ -916,13 +949,13 @@ msgid "Date"
 msgstr "Datum"
 
 #: ../templates/default/dbmail_mysql/domain/profile.html:374
-#: ../templates/default/ldap/domain/profile.html:446
+#: ../templates/default/ldap/domain/profile.html:445
 #: ../templates/default/mysql/domain/profile.html:445
 #: ../templates/default/pgsql/domain/profile.html:427
 msgid "Default mail group(s) of new user"
 msgstr "Výchozí aliasy nového uživatele"
 
-#: ../templates/default/macros/general.html:686
+#: ../templates/default/macros/general.html:695
 msgid "Default quota of new user"
 msgstr "Výchozí prostor nového uživatele"
 
@@ -939,31 +972,31 @@ msgstr "Výchozí prostor nového uživatele"
 #: ../templates/default/ldap/search.html:283
 #: ../templates/default/ldap/search.html:333
 #: ../templates/default/ldap/admin/list.html:84
-#: ../templates/default/ldap/alias/list.html:108
-#: ../templates/default/ldap/domain/list.html:212
-#: ../templates/default/ldap/maillist/list.html:108
-#: ../templates/default/ldap/user/list.html:143
+#: ../templates/default/ldap/alias/list.html:112
+#: ../templates/default/ldap/domain/list.html:204
+#: ../templates/default/ldap/maillist/list.html:112
+#: ../templates/default/ldap/user/list.html:155
 #: ../templates/default/mysql/search.html:139
 #: ../templates/default/mysql/search.html:201
 #: ../templates/default/mysql/search.html:264
 #: ../templates/default/mysql/search.html:317
 #: ../templates/default/mysql/admin/list.html:100
-#: ../templates/default/mysql/alias/list.html:96
+#: ../templates/default/mysql/alias/list.html:98
 #: ../templates/default/mysql/domain/list.html:162
-#: ../templates/default/mysql/user/list.html:136
+#: ../templates/default/mysql/user/list.html:138
 #: ../templates/default/pgsql/search.html:139
 #: ../templates/default/pgsql/search.html:201
 #: ../templates/default/pgsql/search.html:264
 #: ../templates/default/pgsql/search.html:317
 #: ../templates/default/pgsql/admin/list.html:100
-#: ../templates/default/pgsql/alias/list.html:96
+#: ../templates/default/pgsql/alias/list.html:98
 #: ../templates/default/pgsql/domain/list.html:162
-#: ../templates/default/pgsql/user/list.html:136
+#: ../templates/default/pgsql/user/list.html:138
 #: ../templates/default/policyd/wblist.html:106
 msgid "Delete"
 msgstr "Smazat"
 
-#: ../templates/default/macros/general.html:854
+#: ../templates/default/macros/general.html:863
 msgid "Delete account"
 msgstr "Smazat účet"
 
@@ -983,7 +1016,7 @@ msgstr "Smazat vybrané"
 msgid "Description"
 msgstr "Popis"
 
-#: ../templates/default/ldap/domain/profile.html:492
+#: ../templates/default/ldap/domain/profile.html:491
 msgid "Directory of mailbox storage"
 msgstr "Adresář úložiště pošty"
 
@@ -997,30 +1030,30 @@ msgstr "Adresář úložiště pošty"
 #: ../templates/default/ldap/search.html:282
 #: ../templates/default/ldap/search.html:332
 #: ../templates/default/ldap/admin/list.html:83
-#: ../templates/default/ldap/alias/list.html:107
-#: ../templates/default/ldap/domain/list.html:211
-#: ../templates/default/ldap/maillist/list.html:107
-#: ../templates/default/ldap/user/list.html:142
+#: ../templates/default/ldap/alias/list.html:111
+#: ../templates/default/ldap/domain/list.html:203
+#: ../templates/default/ldap/maillist/list.html:111
+#: ../templates/default/ldap/user/list.html:154
 #: ../templates/default/mysql/search.html:138
 #: ../templates/default/mysql/search.html:200
 #: ../templates/default/mysql/search.html:263
 #: ../templates/default/mysql/search.html:316
 #: ../templates/default/mysql/admin/list.html:99
-#: ../templates/default/mysql/alias/list.html:95
+#: ../templates/default/mysql/alias/list.html:97
 #: ../templates/default/mysql/domain/list.html:161
-#: ../templates/default/mysql/user/list.html:135
+#: ../templates/default/mysql/user/list.html:137
 #: ../templates/default/pgsql/search.html:138
 #: ../templates/default/pgsql/search.html:200
 #: ../templates/default/pgsql/search.html:263
 #: ../templates/default/pgsql/search.html:316
 #: ../templates/default/pgsql/admin/list.html:99
-#: ../templates/default/pgsql/alias/list.html:95
+#: ../templates/default/pgsql/alias/list.html:97
 #: ../templates/default/pgsql/domain/list.html:161
-#: ../templates/default/pgsql/user/list.html:135
+#: ../templates/default/pgsql/user/list.html:137
 msgid "Disable"
 msgstr "Zakázat"
 
-#: ../templates/default/macros/general.html:856
+#: ../templates/default/macros/general.html:865
 msgid "Disable account"
 msgstr "Zakázat účet"
 
@@ -1029,9 +1062,9 @@ msgstr "Zakázat účet"
 #: ../templates/default/mysql/search.html:53
 #: ../templates/default/pgsql/search.html:53
 msgid "Disabled"
-msgstr "Zakázáno"
+msgstr "Zakázán"
 
-#: ../templates/default/ldap/domain/profile.html:182
+#: ../templates/default/ldap/domain/profile.html:181
 msgid "Disclaimer"
 msgstr "Patička"
 
@@ -1046,33 +1079,34 @@ msgstr "Patička"
 #: ../templates/default/ldap/search.html:251
 #: ../templates/default/ldap/search.html:304
 #: ../templates/default/ldap/admin/list.html:49
-#: ../templates/default/ldap/alias/list.html:64
-#: ../templates/default/ldap/maillist/list.html:65
-#: ../templates/default/ldap/maillist/profile.html:140
-#: ../templates/default/ldap/maillist/profile.html:267
-#: ../templates/default/ldap/user/list.html:66
-#: ../templates/default/macros/general.html:634
+#: ../templates/default/ldap/alias/list.html:68
+#: ../templates/default/ldap/maillist/list.html:69
+#: ../templates/default/ldap/maillist/profile.html:141
+#: ../templates/default/ldap/maillist/profile.html:268
+#: ../templates/default/ldap/user/admin.html:70
+#: ../templates/default/ldap/user/list.html:71
+#: ../templates/default/macros/general.html:643
 #: ../templates/default/mysql/search.html:160
 #: ../templates/default/mysql/search.html:224
 #: ../templates/default/mysql/search.html:288
 #: ../templates/default/mysql/admin/list.html:49
-#: ../templates/default/mysql/alias/list.html:60
-#: ../templates/default/mysql/user/list.html:65
+#: ../templates/default/mysql/alias/list.html:62
+#: ../templates/default/mysql/user/list.html:67
 #: ../templates/default/pgsql/search.html:160
 #: ../templates/default/pgsql/search.html:224
 #: ../templates/default/pgsql/search.html:288
 #: ../templates/default/pgsql/admin/list.html:49
-#: ../templates/default/pgsql/alias/list.html:60
-#: ../templates/default/pgsql/user/list.html:65
+#: ../templates/default/pgsql/alias/list.html:62
+#: ../templates/default/pgsql/user/list.html:67
 msgid "Display Name"
 msgstr "Název"
 
 #: ../templates/default/macros/ldap.html:102
 #: ../templates/default/macros/ldap.html:106
 msgid "Display mail address in global LDAP address book"
-msgstr "Zobrazovat mailovou adresu v globálním LDAP adresáři"
+msgstr "Zobrazovat emailovou adresu v globálním LDAP adresáři"
 
-#: ../templates/default/macros/general.html:369
+#: ../templates/default/macros/general.html:378
 msgid "Displayed in Global LDAP Address Book"
 msgstr "Zobrazeno v globálním LDAP adresáři"
 
@@ -1099,13 +1133,18 @@ msgstr "Doména"
 msgid "Domain Admins"
 msgstr "Správci domény"
 
-#: ../templates/default/macros/general.html:617
+#: ../templates/default/macros/general.html:626
 msgid "Domain Name"
 msgstr "Doména"
 
-#: ../templates/default/macros/general.html:233
+#: ../templates/default/macros/general.html:242
 msgid "Domain activities"
 msgstr "Aktivity v doméně"
+
+#: ../templates/default/macros/general.html:405
+
+msgid "Domain admin"
+msgstr "Správci domény"
 
 #: ../templates/default/macros/ldap.html:79
 msgid "Domain alias"
@@ -1117,7 +1156,7 @@ msgstr ""
 "Doména již existuje. Zkontrolujte jména existujících domén i jejich "
 "aliasů."
 
-#: ../templates/default/ldap/user/profile.html:381
+#: ../templates/default/ldap/user/profile.html:382
 msgid "Domain and its sub-domains"
 msgstr "Doména a její subdomény"
 
@@ -1131,15 +1170,15 @@ msgstr "Jméno domény je prázdné."
 
 #: ../templates/default/macros/amavisd.html:56
 msgid "Domain name or mail address"
-msgstr "Jméno domény nebo mail"
+msgstr "Jméno domény nebo email"
 
 #: ../templates/default/macros/msgHandlers.html:128
 msgid "Domain name or username is missed."
 msgstr "Chybí jméno domény nebo uživatelské jméno."
 
-#: ../templates/default/macros/general.html:672
+#: ../templates/default/macros/general.html:681
 msgid "Domain quota size"
-msgstr "Velikost prostoru pro maily"
+msgstr "Velikost prostoru pro emaily"
 
 #: ../templates/default/macros/msgHandlers.html:130
 msgid ""
@@ -1161,7 +1200,7 @@ msgstr "Domény"
 msgid "Domains and Accounts"
 msgstr "Domény a účty"
 
-#: ../templates/default/ldap/domain/profile.html:197
+#: ../templates/default/ldap/domain/profile.html:196
 msgid "Dump disclaimer automatically"
 msgstr "Automatické zřeknutí se odpovědnosti"
 
@@ -1186,31 +1225,32 @@ msgstr "Automatické zřeknutí se odpovědnosti"
 #: ../templates/default/ldap/search.html:317
 #: ../templates/default/ldap/admin/list.html:67
 #: ../templates/default/ldap/admin/profile.html:23
-#: ../templates/default/ldap/alias/list.html:86
+#: ../templates/default/ldap/alias/list.html:90
 #: ../templates/default/ldap/alias/profile.html:15
-#: ../templates/default/ldap/domain/list.html:103
-#: ../templates/default/ldap/domain/profile.html:37
-#: ../templates/default/ldap/maillist/list.html:85
+#: ../templates/default/ldap/domain/list.html:100
+#: ../templates/default/ldap/domain/profile.html:33
+#: ../templates/default/ldap/maillist/list.html:89
 #: ../templates/default/ldap/maillist/profile.html:15
-#: ../templates/default/ldap/maillist/profile.html:165
-#: ../templates/default/ldap/maillist/profile.html:292
-#: ../templates/default/ldap/user/list.html:92
+#: ../templates/default/ldap/maillist/profile.html:166
+#: ../templates/default/ldap/maillist/profile.html:293
+#: ../templates/default/ldap/user/admin.html:96
+#: ../templates/default/ldap/user/list.html:97
 #: ../templates/default/ldap/user/profile.html:43
 #: ../templates/default/macros/amavisd.html:99
-#: ../templates/default/macros/general.html:860
+#: ../templates/default/macros/general.html:869
 #: ../templates/default/mysql/search.html:94
 #: ../templates/default/mysql/search.html:174
 #: ../templates/default/mysql/search.html:237
 #: ../templates/default/mysql/search.html:301
 #: ../templates/default/mysql/admin/list.html:63
 #: ../templates/default/mysql/admin/profile.html:23
-#: ../templates/default/mysql/alias/list.html:74
+#: ../templates/default/mysql/alias/list.html:76
 #: ../templates/default/mysql/alias/profile.html:15
 #: ../templates/default/mysql/alias/profile.html:123
 #: ../templates/default/mysql/alias/profile.html:157
 #: ../templates/default/mysql/domain/list.html:71
 #: ../templates/default/mysql/domain/profile.html:36
-#: ../templates/default/mysql/user/list.html:82
+#: ../templates/default/mysql/user/list.html:84
 #: ../templates/default/mysql/user/profile.html:42
 #: ../templates/default/pgsql/search.html:94
 #: ../templates/default/pgsql/search.html:174
@@ -1218,13 +1258,13 @@ msgstr "Automatické zřeknutí se odpovědnosti"
 #: ../templates/default/pgsql/search.html:301
 #: ../templates/default/pgsql/admin/list.html:63
 #: ../templates/default/pgsql/admin/profile.html:23
-#: ../templates/default/pgsql/alias/list.html:74
+#: ../templates/default/pgsql/alias/list.html:76
 #: ../templates/default/pgsql/alias/profile.html:15
 #: ../templates/default/pgsql/alias/profile.html:123
 #: ../templates/default/pgsql/alias/profile.html:157
 #: ../templates/default/pgsql/domain/list.html:71
 #: ../templates/default/pgsql/domain/profile.html:37
-#: ../templates/default/pgsql/user/list.html:82
+#: ../templates/default/pgsql/user/list.html:84
 #: ../templates/default/pgsql/user/profile.html:42
 msgid "Edit account profile"
 msgstr "Upravit profil účtu"
@@ -1233,21 +1273,22 @@ msgstr "Upravit profil účtu"
 #: ../templates/default/dbmail_mysql/alias/list.html:37
 #: ../templates/default/dbmail_mysql/user/create.html:79
 #: ../templates/default/dbmail_mysql/user/list.html:40
-#: ../templates/default/ldap/alias/create.html:60
-#: ../templates/default/ldap/alias/list.html:51
-#: ../templates/default/ldap/maillist/create.html:59
-#: ../templates/default/ldap/maillist/list.html:53
-#: ../templates/default/ldap/user/create.html:102
-#: ../templates/default/ldap/user/list.html:54
+#: ../templates/default/ldap/alias/create.html:75
+#: ../templates/default/ldap/alias/list.html:55
+#: ../templates/default/ldap/maillist/create.html:75
+#: ../templates/default/ldap/maillist/list.html:57
+#: ../templates/default/ldap/user/admin.html:58
+#: ../templates/default/ldap/user/create.html:117
+#: ../templates/default/ldap/user/list.html:59
 #: ../templates/default/macros/amavisd.html:97
-#: ../templates/default/mysql/alias/create.html:56
-#: ../templates/default/mysql/alias/list.html:48
-#: ../templates/default/mysql/user/create.html:76
-#: ../templates/default/mysql/user/list.html:52
-#: ../templates/default/pgsql/alias/create.html:56
-#: ../templates/default/pgsql/alias/list.html:48
-#: ../templates/default/pgsql/user/create.html:76
-#: ../templates/default/pgsql/user/list.html:52
+#: ../templates/default/mysql/alias/create.html:68
+#: ../templates/default/mysql/alias/list.html:50
+#: ../templates/default/mysql/user/create.html:88
+#: ../templates/default/mysql/user/list.html:54
+#: ../templates/default/pgsql/alias/create.html:68
+#: ../templates/default/pgsql/alias/list.html:50
+#: ../templates/default/pgsql/user/create.html:88
+#: ../templates/default/pgsql/user/list.html:54
 msgid "Edit domain profile"
 msgstr "Upravit profil domény"
 
@@ -1255,47 +1296,48 @@ msgstr "Upravit profil domény"
 #: ../templates/default/dbmail_mysql/domain/list.html:88
 #: ../templates/default/dbmail_mysql/domain/list.html:96
 #: ../templates/default/dbmail_mysql/user/list.html:98
-#: ../templates/default/ldap/domain/list.html:126
-#: ../templates/default/ldap/domain/list.html:135
-#: ../templates/default/ldap/user/list.html:116
+#: ../templates/default/ldap/domain/list.html:123
+#: ../templates/default/ldap/domain/list.html:132
+#: ../templates/default/ldap/user/admin.html:120
+#: ../templates/default/ldap/user/list.html:128
 #: ../templates/default/mysql/domain/list.html:95
 #: ../templates/default/mysql/domain/list.html:103
-#: ../templates/default/mysql/user/list.html:111
+#: ../templates/default/mysql/user/list.html:113
 #: ../templates/default/pgsql/domain/list.html:95
 #: ../templates/default/pgsql/domain/list.html:103
-#: ../templates/default/pgsql/user/list.html:111
+#: ../templates/default/pgsql/user/list.html:113
 msgid "Edit quota setting"
 msgstr "Upravit nastavení kvóty"
 
 #: ../templates/default/dbmail_mysql/user/profile.html:213
-#: ../templates/default/ldap/user/profile.html:326
+#: ../templates/default/ldap/user/profile.html:327
 #, python-format
 msgid "Email address of alias account must end with domain name(s): %s."
-msgstr "Mailová adresa aliasu musí končit jménem domény %s."
+msgstr "Emailová adresa aliasu musí končit jménem domény %s."
 
 #: ../templates/default/dbmail_mysql/user/profile.html:198
-#: ../templates/default/ldap/user/profile.html:313
+#: ../templates/default/ldap/user/profile.html:314
 msgid "Email addresses of alias accounts"
-msgstr "Mailové adresy aliasů"
+msgstr "Emailové adresy aliasů"
 
-#: ../templates/default/dashboard.html:111
+#: ../templates/default/dashboard.html:80
 #: ../templates/default/dbmail_mysql/search.html:178
-#: ../templates/default/mysql/user/list.html:112
-#: ../templates/default/pgsql/user/list.html:112
+#: ../templates/default/mysql/user/list.html:114
+#: ../templates/default/pgsql/user/list.html:114
 msgid "Emails"
-msgstr "mailů"
+msgstr "emailů"
 
-#: ../templates/default/ldap/domain/profile.html:315
+#: ../templates/default/ldap/domain/profile.html:314
 #: ../templates/default/mysql/domain/profile.html:255
 #: ../templates/default/pgsql/domain/profile.html:256
 msgid ""
 "Emails delivered to non-exist mail accounts will be forwarded to catch-"
 "all address(es)."
 msgstr ""
-"Maily doručované na neexistující adresy budou přesměrovány na adresy "
+"Emaily doručované na neexistující adresy budou přesměrovány na adresy "
 "nastavené v části \"Zachytávání\"."
 
-#: ../templates/default/ldap/domain/profile.html:242
+#: ../templates/default/ldap/domain/profile.html:241
 #: ../templates/default/mysql/domain/profile.html:302
 #: ../templates/default/pgsql/domain/profile.html:303
 #, python-format
@@ -1303,16 +1345,16 @@ msgid ""
 "Emails sent to <em><strong>user@[ALIAS_DOMAIN]</strong></em> will be "
 "delivered to <em><strong>user@%s</strong></em>."
 msgstr ""
-"Maily poslané na <em><strong>uzivatel@[DOMENOVY_ALIAS]</strong></em> "
+"Emaily poslané na <em><strong>uzivatel@[DOMENOVY_ALIAS]</strong></em> "
 "budou doručeny na <em><strong>uzivatel@%s</strong></em>."
 
 #: ../templates/default/dbmail_mysql/user/profile.html:212
-#: ../templates/default/ldap/user/profile.html:325
+#: ../templates/default/ldap/user/profile.html:326
 #, python-format
 msgid "Emails sent to alias accounts will be delivered to user %s."
-msgstr "Maily poslané na účet aliasu budou doručeny uživateli %s."
+msgstr "Emaily poslané na účet aliasu budou doručeny uživateli %s."
 
-#: ../templates/default/macros/msgHandlers.html:249
+#: ../templates/default/macros/msgHandlers.html:253
 msgid "Empty address is not allowed."
 msgstr "Prázdná adresa není povolena."
 
@@ -1330,40 +1372,40 @@ msgstr "Prázdné heslo není povoleno."
 #: ../templates/default/ldap/search.html:281
 #: ../templates/default/ldap/search.html:331
 #: ../templates/default/ldap/admin/list.html:82
-#: ../templates/default/ldap/alias/list.html:106
-#: ../templates/default/ldap/domain/list.html:210
-#: ../templates/default/ldap/maillist/list.html:106
-#: ../templates/default/ldap/user/list.html:141
+#: ../templates/default/ldap/alias/list.html:110
+#: ../templates/default/ldap/domain/list.html:202
+#: ../templates/default/ldap/maillist/list.html:110
+#: ../templates/default/ldap/user/list.html:153
 #: ../templates/default/mysql/search.html:137
 #: ../templates/default/mysql/search.html:199
 #: ../templates/default/mysql/search.html:262
 #: ../templates/default/mysql/search.html:315
 #: ../templates/default/mysql/admin/list.html:98
-#: ../templates/default/mysql/alias/list.html:94
+#: ../templates/default/mysql/alias/list.html:96
 #: ../templates/default/mysql/domain/list.html:160
-#: ../templates/default/mysql/user/list.html:134
+#: ../templates/default/mysql/user/list.html:136
 #: ../templates/default/pgsql/search.html:137
 #: ../templates/default/pgsql/search.html:199
 #: ../templates/default/pgsql/search.html:262
 #: ../templates/default/pgsql/search.html:315
 #: ../templates/default/pgsql/admin/list.html:98
-#: ../templates/default/pgsql/alias/list.html:94
+#: ../templates/default/pgsql/alias/list.html:96
 #: ../templates/default/pgsql/domain/list.html:160
-#: ../templates/default/pgsql/user/list.html:134
+#: ../templates/default/pgsql/user/list.html:136
 msgid "Enable"
 msgstr "Povolit"
 
-#: ../templates/default/ldap/user/profile.html:308
+#: ../templates/default/ldap/user/profile.html:309
 msgid "Enable alias account"
 msgstr "Povolit alias"
 
-#: ../templates/default/ldap/domain/profile.html:294
+#: ../templates/default/ldap/domain/profile.html:293
 #: ../templates/default/mysql/domain/profile.html:234
 #: ../templates/default/pgsql/domain/profile.html:235
 msgid "Enable catch-all"
 msgstr "Povolit zachytávání"
 
-#: ../templates/default/ldap/domain/profile.html:210
+#: ../templates/default/ldap/domain/profile.html:209
 msgid "Enable domain alias"
 msgstr "Povolit alias domény"
 
@@ -1371,11 +1413,11 @@ msgstr "Povolit alias domény"
 msgid "Enable greylisting for this domain"
 msgstr "Povolit pro tuto doménu greylisting"
 
-#: ../templates/default/ldap/user/profile.html:275
+#: ../templates/default/ldap/user/profile.html:276
 #: ../templates/default/mysql/user/profile.html:171
 #: ../templates/default/pgsql/user/profile.html:171
 msgid "Enable mail forwarding"
-msgstr "Povolit přeposílání mailů"
+msgstr "Povolit přeposílání emailů"
 
 #: ../templates/default/macros/policyd.html:7
 msgid "Enable recipient throttling"
@@ -1385,11 +1427,11 @@ msgstr "Povolit řízení doručování"
 msgid "Enable sender throttling"
 msgstr "Povolit řízení odesílání"
 
-#: ../templates/default/macros/general.html:427
+#: ../templates/default/macros/general.html:436
 msgid "Enable this account"
 msgstr "Povolit tento účet"
 
-#: ../templates/default/macros/general.html:425
+#: ../templates/default/macros/general.html:434
 msgid "Enable this domain"
 msgstr "Povolit tuto doménu"
 
@@ -1399,7 +1441,7 @@ msgstr "Povolit tuto doménu"
 msgid "Enabled Services"
 msgstr "Povolené služby"
 
-#: ../templates/default/ldap/user/profile.html:380
+#: ../templates/default/ldap/user/profile.html:381
 #: ../templates/default/policyd/blacklist/create.html:67
 #: ../templates/default/policyd/whitelist/create.html:61
 msgid "Entire domain"
@@ -1415,30 +1457,30 @@ msgstr "Chyba při získávání informací o licenci:"
 
 #: ../templates/default/dbmail_mysql/alias/create.html:32
 #: ../templates/default/dbmail_mysql/user/create.html:48
-#: ../templates/default/ldap/alias/create.html:26
-#: ../templates/default/ldap/alias/create.html:34
-#: ../templates/default/ldap/maillist/create.html:26
-#: ../templates/default/ldap/maillist/create.html:34
-#: ../templates/default/ldap/user/create.html:59
-#: ../templates/default/ldap/user/create.html:69
+#: ../templates/default/ldap/alias/create.html:39
+#: ../templates/default/ldap/alias/create.html:47
+#: ../templates/default/ldap/maillist/create.html:40
+#: ../templates/default/ldap/maillist/create.html:48
+#: ../templates/default/ldap/user/create.html:72
+#: ../templates/default/ldap/user/create.html:82
 #: ../templates/default/macros/msgHandlers.html:22
 #: ../templates/default/macros/msgHandlers.html:24
-#: ../templates/default/mysql/alias/create.html:32
-#: ../templates/default/mysql/user/create.html:45
-#: ../templates/default/pgsql/alias/create.html:32
-#: ../templates/default/pgsql/user/create.html:45
+#: ../templates/default/mysql/alias/create.html:44
+#: ../templates/default/mysql/user/create.html:57
+#: ../templates/default/pgsql/alias/create.html:44
+#: ../templates/default/pgsql/user/create.html:57
 msgid "Error:"
 msgstr "Chyba:"
 
-#: ../templates/default/macros/general.html:848
+#: ../templates/default/macros/general.html:857
 msgid "Events"
 msgstr "Události"
 
-#: ../templates/default/ldap/maillist/profile.html:81
+#: ../templates/default/ldap/maillist/profile.html:82
 #: ../templates/default/mysql/alias/profile.html:72
 #: ../templates/default/pgsql/alias/profile.html:72
 msgid "Everyone can send mail to this address"
-msgstr "Kdokoliv může na tuto adresu poslat mail"
+msgstr "Kdokoliv může na tuto adresu poslat email"
 
 #: ../templates/default/macros/msgHandlers.html:131
 msgid ""
@@ -1461,18 +1503,18 @@ msgid "Expired Date"
 msgstr "Datum platnosti"
 
 #: ../templates/default/ldap/admin/profile.html:76
-#: ../templates/default/ldap/alias/profile.html:78
-#: ../templates/default/ldap/domain/profile.html:167
-#: ../templates/default/ldap/maillist/profile.html:108
-#: ../templates/default/ldap/user/profile.html:173
+#: ../templates/default/ldap/alias/profile.html:79
+#: ../templates/default/ldap/domain/profile.html:166
+#: ../templates/default/ldap/maillist/profile.html:109
+#: ../templates/default/ldap/user/profile.html:174
 msgid "Export account to"
 msgstr "Exportovat účet do"
 
-#: ../templates/default/ldap/maillist/profile.html:201
+#: ../templates/default/ldap/maillist/profile.html:202
 msgid "External Members"
 msgstr "Externí členové"
 
-#: ../templates/default/ldap/maillist/profile.html:327
+#: ../templates/default/ldap/maillist/profile.html:328
 msgid "External moderators"
 msgstr "Externí moderátoři"
 
@@ -1500,27 +1542,27 @@ msgstr "Přijímání pošty pomocí POP3 přes TLS/SSL"
 msgid "Filter:"
 msgstr "Filtr:"
 
-#: ../templates/default/macros/general.html:756
+#: ../templates/default/macros/general.html:765
 msgid "First Page"
 msgstr "První strana"
 
-#: ../templates/default/macros/general.html:576
+#: ../templates/default/macros/general.html:585
 msgid "For advanced settings and further information please see"
 msgstr "Rozšířené nastavení a další informace viz"
 
-#: ../templates/default/ldap/user/profile.html:377
+#: ../templates/default/ldap/user/profile.html:378
 msgid "Format of sender and recipient"
 msgstr "Formát odesílatele a příjemce"
 
 #: ../templates/default/dbmail_mysql/user/profile.html:180
-#: ../templates/default/ldap/user/profile.html:290
+#: ../templates/default/ldap/user/profile.html:291
 #: ../templates/default/mysql/user/profile.html:193
 #: ../templates/default/pgsql/user/profile.html:193
 msgid "Forward mails to address"
-msgstr "Přeposílat maily na adresu"
+msgstr "Přeposílat emaily na adresu"
 
 #: ../templates/default/dbmail_mysql/user/profile.html:50
-#: ../templates/default/ldap/user/profile.html:115
+#: ../templates/default/ldap/user/profile.html:116
 #: ../templates/default/mysql/user/profile.html:66
 #: ../templates/default/pgsql/user/profile.html:66
 msgid "Forwarding"
@@ -1528,17 +1570,17 @@ msgstr "Přeposílání"
 
 #: ../templates/default/macros/ldap.html:96
 msgid "Forwarding mails to other addresses"
-msgstr "Přeposílat maily na jiné adresy"
+msgstr "Přeposílat emaily na jiné adresy"
 
 #: ../templates/default/dbmail_mysql/admin/profile.html:44
 #: ../templates/default/dbmail_mysql/alias/profile.html:36
 #: ../templates/default/dbmail_mysql/domain/profile.html:50
 #: ../templates/default/dbmail_mysql/user/profile.html:49
 #: ../templates/default/ldap/admin/profile.html:49
-#: ../templates/default/ldap/alias/profile.html:46
-#: ../templates/default/ldap/domain/profile.html:120
-#: ../templates/default/ldap/maillist/profile.html:51
-#: ../templates/default/ldap/user/profile.html:114
+#: ../templates/default/ldap/alias/profile.html:47
+#: ../templates/default/ldap/domain/profile.html:117
+#: ../templates/default/ldap/maillist/profile.html:52
+#: ../templates/default/ldap/user/profile.html:115
 #: ../templates/default/mysql/admin/profile.html:44
 #: ../templates/default/mysql/alias/profile.html:36
 #: ../templates/default/mysql/domain/profile.html:60
@@ -1562,7 +1604,7 @@ msgstr "Obecné"
 msgid "Global Admin"
 msgstr "Globální správce"
 
-#: ../templates/default/macros/general.html:398
+#: ../templates/default/macros/general.html:407
 msgid "Global admin"
 msgstr "Globální správce"
 
@@ -1579,7 +1621,7 @@ msgstr "Identity HELO"
 msgid "HELO identity"
 msgstr "HELO identity"
 
-#: ../templates/default/dashboard.html:130
+#: ../templates/default/dashboard.html:99
 msgid "Hostname"
 msgstr "Jméno hosta"
 
@@ -1594,55 +1636,55 @@ msgid "IP Addresses"
 msgstr "IP adresy"
 
 #: ../templates/default/dbmail_mysql/user/create.html:53
-#: ../templates/default/mysql/user/create.html:50
-#: ../templates/default/pgsql/user/create.html:50
+#: ../templates/default/mysql/user/create.html:62
+#: ../templates/default/pgsql/user/create.html:62
 msgid "Increase it now?"
 msgstr "Zvýšit nyní?"
 
-#: ../templates/default/ldap/maillist/profile.html:382
+#: ../templates/default/ldap/maillist/profile.html:383
 msgid ""
 "Input mail addresses of either internal or external members below, "
 "multiple addresses must be seperated by comma, space or new line."
 msgstr ""
-"Níže vložte mailové adresy interních nebo externích členů, více adres "
+"Níže vložte emailové adresy interních nebo externích členů, více adres "
 "musí být oddělených čárkou, mezerou nebo novým řádkem."
 
-#: ../templates/default/ldap/maillist/profile.html:396
+#: ../templates/default/ldap/maillist/profile.html:397
 msgid ""
 "Input mail addresses of either internal or external moderators below, "
 "multiple addresses must be seperated by comma, space or new line."
 msgstr ""
-"Níže vložte mailové adresy interních nebo externích moderátorů, více "
+"Níže vložte emailové adresy interních nebo externích moderátorů, více "
 "adres musí být oddělených čárkou, mezerou nebo novým řádkem."
 
-#: ../templates/default/ldap/user/profile.html:367
+#: ../templates/default/ldap/user/profile.html:368
 msgid "Install iRedAPD"
 msgstr "Nainstalovat iRedAPD"
 
-#: ../templates/default/ldap/maillist/profile.html:131
+#: ../templates/default/ldap/maillist/profile.html:132
 msgid "Internal Members"
 msgstr "Interní členové"
 
-#: ../templates/default/ldap/maillist/profile.html:255
+#: ../templates/default/ldap/maillist/profile.html:256
 msgid "Internal Moderators"
 msgstr "Interní moderátoři"
 
 #: ../templates/default/macros/msgHandlers.html:89
 #: ../templates/default/macros/msgHandlers.html:126
-#: ../templates/default/macros/msgHandlers.html:166
-#: ../templates/default/macros/msgHandlers.html:206
-#: ../templates/default/macros/msgHandlers.html:241
-#: ../templates/default/macros/msgHandlers.html:275
-#: ../templates/default/macros/msgHandlers.html:300
-#: ../templates/default/macros/msgHandlers.html:319
-#: ../templates/default/macros/msgHandlers.html:343
+#: ../templates/default/macros/msgHandlers.html:170
+#: ../templates/default/macros/msgHandlers.html:210
+#: ../templates/default/macros/msgHandlers.html:245
+#: ../templates/default/macros/msgHandlers.html:279
+#: ../templates/default/macros/msgHandlers.html:304
+#: ../templates/default/macros/msgHandlers.html:323
+#: ../templates/default/macros/msgHandlers.html:347
 msgid "Invalid action."
 msgstr "Neplatná operace."
 
-#: ../templates/default/macros/msgHandlers.html:299
-#: ../templates/default/macros/msgHandlers.html:320
+#: ../templates/default/macros/msgHandlers.html:303
+#: ../templates/default/macros/msgHandlers.html:324
 msgid "Invalid domain name or mail address."
-msgstr "Neplatné jméno domény nebo mailové adresy."
+msgstr "Neplatné jméno domény nebo emailové adresy."
 
 #: ../templates/default/macros/msgHandlers.html:93
 msgid "Invalid domain name."
@@ -1650,24 +1692,24 @@ msgstr "Neplatné jméno domény."
 
 #: ../templates/default/macros/msgHandlers.html:94
 #: ../templates/default/macros/msgHandlers.html:129
-#: ../templates/default/macros/msgHandlers.html:176
-#: ../templates/default/macros/msgHandlers.html:341
+#: ../templates/default/macros/msgHandlers.html:180
+#: ../templates/default/macros/msgHandlers.html:345
 msgid "Invalid mail address."
-msgstr "Neplatná mailová adresa."
+msgstr "Neplatná emailová adresa."
 
-#: ../templates/default/macros/msgHandlers.html:287
+#: ../templates/default/macros/msgHandlers.html:291
 msgid "Invalid product id."
 msgstr "Neplatné ID produktu."
 
-#: ../templates/default/macros/msgHandlers.html:301
+#: ../templates/default/macros/msgHandlers.html:305
 msgid "Invalid request data."
 msgstr "Neplatná data požadavku."
 
-#: ../templates/default/macros/msgHandlers.html:204
+#: ../templates/default/macros/msgHandlers.html:208
 msgid "Invalid username."
 msgstr "Neplatné jméno uživatele."
 
-#: ../templates/default/macros/general.html:209
+#: ../templates/default/macros/general.html:218
 msgid "Is a global admin."
 msgstr "Je globální správce."
 
@@ -1678,8 +1720,10 @@ msgid ""
 "It is recommended to mark user as domain admin in user profile page "
 "instead of creating separate admin account."
 msgstr ""
+"Doporučujeme označit uživatele jako správce domény v jeho uživatelkém "
+"profilu namísto vytváření zvláštního účtu správce."
 
-#: ../templates/default/ldap/alias/create.html:96
+#: ../templates/default/ldap/alias/create.html:111
 msgid ""
 "It's better to use mail list instead of alias, since we have mail deliver"
 " restriction for mail list."
@@ -1688,11 +1732,12 @@ msgstr ""
 "nastavit přísnější pravidla."
 
 #: ../templates/default/ldap/search.html:194
-#: ../templates/default/ldap/user/list.html:69
+#: ../templates/default/ldap/user/admin.html:73
+#: ../templates/default/ldap/user/list.html:74
 msgid "Job Title"
 msgstr "Funkce"
 
-#: ../templates/default/macros/general.html:312
+#: ../templates/default/macros/general.html:321
 msgid "Job Title/Responsibility"
 msgstr "Funkce/Odpovědnost"
 
@@ -1707,7 +1752,7 @@ msgstr "Hledané slovo"
 msgid "Last Login"
 msgstr "Poslední přihlášení"
 
-#: ../templates/default/macros/general.html:837
+#: ../templates/default/macros/general.html:846
 msgid "Last Page"
 msgstr "Poslední strana"
 
@@ -1715,14 +1760,14 @@ msgstr "Poslední strana"
 msgid "Latest version"
 msgstr "Poslední verze"
 
-#: ../templates/default/macros/general.html:574
+#: ../templates/default/macros/general.html:583
 #, python-format
 msgid "Leave it empty to use <a href='%s'>domain setting</a>."
 msgstr ""
 "Necháte-li položku prázdnou, bude použito <a href='%s'>nastavení "
 "domény</a>."
 
-#: ../templates/default/ldap/domain/profile.html:502
+#: ../templates/default/ldap/domain/profile.html:501
 msgid "Leave it empty to use server-wide default setting."
 msgstr "Ponecháte-li prázdné, použije se globální výchozí nastavení."
 
@@ -1749,7 +1794,7 @@ msgstr "Lifetime licence"
 
 #: ../templates/default/dbmail_mysql/domain/list.html:122
 #: ../templates/default/dbmail_mysql/domain/list.html:127
-#: ../templates/default/ldap/domain/list.html:174
+#: ../templates/default/ldap/domain/list.html:171
 #: ../templates/default/mysql/search.html:123
 #: ../templates/default/mysql/domain/list.html:129
 #: ../templates/default/mysql/domain/list.html:134
@@ -1759,14 +1804,14 @@ msgstr "Lifetime licence"
 msgid "List all mail aliases."
 msgstr "Zobrazit všechny aliasy"
 
-#: ../templates/default/ldap/domain/list.html:161
+#: ../templates/default/ldap/domain/list.html:158
 msgid "List all mail lists."
 msgstr "Zobrazit všechny maillisty"
 
 #: ../templates/default/dbmail_mysql/domain/list.html:108
 #: ../templates/default/dbmail_mysql/domain/list.html:113
+#: ../templates/default/ldap/domain/list.html:145
 #: ../templates/default/ldap/domain/list.html:148
-#: ../templates/default/ldap/domain/list.html:151
 #: ../templates/default/mysql/search.html:114
 #: ../templates/default/mysql/domain/list.html:115
 #: ../templates/default/mysql/domain/list.html:120
@@ -1775,10 +1820,6 @@ msgstr "Zobrazit všechny maillisty"
 #: ../templates/default/pgsql/domain/list.html:120
 msgid "List all mail users."
 msgstr "Zobrazit všechny uživatele"
-
-#: ../templates/default/ldap/domain/list.html:186
-msgid "List assigned domain admins"
-msgstr "Zobrazit přiřazené správce domény"
 
 #: ../templates/default/ldap/search.html:80
 #: ../templates/default/ldap/domain/list.html:55
@@ -1800,7 +1841,7 @@ msgstr "Vyžadováno přihlášení"
 
 #: ../templates/default/login.html:7 ../templates/default/login.html:42
 msgid "Login to manage your mail domains & accounts"
-msgstr "Přihlášení pro správu mailových domén a uživatelů"
+msgstr "Správa emailových domén a uživatelů"
 
 #: ../templates/default/layout.html:48
 msgid "Logout"
@@ -1819,33 +1860,34 @@ msgstr "Odhlásit se"
 #: ../templates/default/ldap/search.html:252
 #: ../templates/default/ldap/search.html:305
 #: ../templates/default/ldap/admin/list.html:50
-#: ../templates/default/ldap/alias/create.html:70
-#: ../templates/default/ldap/alias/list.html:65
-#: ../templates/default/ldap/maillist/create.html:67
-#: ../templates/default/ldap/maillist/list.html:66
-#: ../templates/default/ldap/maillist/profile.html:141
-#: ../templates/default/ldap/maillist/profile.html:209
-#: ../templates/default/ldap/maillist/profile.html:268
-#: ../templates/default/ldap/maillist/profile.html:336
-#: ../templates/default/ldap/user/create.html:113
-#: ../templates/default/ldap/user/list.html:67
-#: ../templates/default/macros/general.html:610
+#: ../templates/default/ldap/alias/create.html:85
+#: ../templates/default/ldap/alias/list.html:69
+#: ../templates/default/ldap/maillist/create.html:83
+#: ../templates/default/ldap/maillist/list.html:70
+#: ../templates/default/ldap/maillist/profile.html:142
+#: ../templates/default/ldap/maillist/profile.html:210
+#: ../templates/default/ldap/maillist/profile.html:269
+#: ../templates/default/ldap/maillist/profile.html:337
+#: ../templates/default/ldap/user/admin.html:71
+#: ../templates/default/ldap/user/create.html:128
+#: ../templates/default/ldap/user/list.html:72
+#: ../templates/default/macros/general.html:619
 #: ../templates/default/mysql/search.html:161
 #: ../templates/default/mysql/search.html:225
 #: ../templates/default/mysql/search.html:289
 #: ../templates/default/mysql/admin/list.html:50
-#: ../templates/default/mysql/alias/create.html:65
-#: ../templates/default/mysql/alias/list.html:61
-#: ../templates/default/mysql/user/create.html:86
-#: ../templates/default/mysql/user/list.html:66
+#: ../templates/default/mysql/alias/create.html:77
+#: ../templates/default/mysql/alias/list.html:63
+#: ../templates/default/mysql/user/create.html:98
+#: ../templates/default/mysql/user/list.html:68
 #: ../templates/default/pgsql/search.html:161
 #: ../templates/default/pgsql/search.html:225
 #: ../templates/default/pgsql/search.html:289
 #: ../templates/default/pgsql/admin/list.html:50
-#: ../templates/default/pgsql/alias/create.html:65
-#: ../templates/default/pgsql/alias/list.html:61
-#: ../templates/default/pgsql/user/create.html:86
-#: ../templates/default/pgsql/user/list.html:66
+#: ../templates/default/pgsql/alias/create.html:77
+#: ../templates/default/pgsql/alias/list.html:63
+#: ../templates/default/pgsql/user/create.html:98
+#: ../templates/default/pgsql/user/list.html:68
 msgid "Mail Address"
 msgstr "Email"
 
@@ -1855,7 +1897,6 @@ msgstr "Alias"
 
 #: ../templates/default/dbmail_mysql/alias/list.html:12
 #: ../templates/default/ldap/alias/list.html:14
-#: ../templates/default/ldap/domain/profile.html:106
 #: ../templates/default/mysql/alias/list.html:13
 #: ../templates/default/pgsql/alias/list.html:13
 msgid "Mail Aliases"
@@ -1863,66 +1904,65 @@ msgstr "Aliasy"
 
 #: ../templates/default/amavisd/quarantined_raw.html:6
 msgid "Mail Body"
-msgstr "Tělo mailu"
+msgstr "Tělo emailu"
 
 #: ../templates/default/ldap/search.html:253
-#: ../templates/default/ldap/maillist/list.html:67
+#: ../templates/default/ldap/maillist/list.html:71
 msgid "Mail Deliver Restriction"
-msgstr "Omezení doručování mailu"
+msgstr "Omezení doručování emailu"
 
 #: ../templates/default/amavisd/quarantined_raw.html:20
 msgid "Mail Headers"
-msgstr "Hlavičky mailu"
+msgstr "Hlavičky emailu"
 
 #: ../templates/default/layout.html:115
 #: ../templates/default/ldap/search.html:39
-#: ../templates/default/ldap/alias/create.html:54
-#: ../templates/default/ldap/alias/list.html:42
-#: ../templates/default/ldap/maillist/create.html:53
-#: ../templates/default/ldap/maillist/list.html:44
-#: ../templates/default/ldap/user/create.html:96
-#: ../templates/default/ldap/user/list.html:45
+#: ../templates/default/ldap/alias/create.html:69
+#: ../templates/default/ldap/alias/list.html:46
+#: ../templates/default/ldap/maillist/create.html:69
+#: ../templates/default/ldap/maillist/list.html:48
+#: ../templates/default/ldap/user/admin.html:49
+#: ../templates/default/ldap/user/create.html:111
+#: ../templates/default/ldap/user/list.html:50
 #: ../templates/default/macros/msgHandlers.html:108
 msgid "Mail List"
 msgstr "Maillist"
 
-#: ../templates/default/ldap/alias/create.html:51
+#: ../templates/default/ldap/alias/create.html:18
 #: ../templates/default/ldap/alias/list.html:22
-#: ../templates/default/ldap/alias/list.html:39
-#: ../templates/default/ldap/alias/profile.html:33
-#: ../templates/default/ldap/domain/profile.html:105
-#: ../templates/default/ldap/maillist/create.html:50
+#: ../templates/default/ldap/alias/profile.html:31
+#: ../templates/default/ldap/domain/profile.html:101
+#: ../templates/default/ldap/maillist/create.html:18
 #: ../templates/default/ldap/maillist/list.html:16
 #: ../templates/default/ldap/maillist/list.html:24
-#: ../templates/default/ldap/maillist/list.html:41
 #: ../templates/default/ldap/maillist/profile.html:32
-#: ../templates/default/ldap/user/create.html:93
-#: ../templates/default/ldap/user/list.html:23
-#: ../templates/default/ldap/user/list.html:42
+#: ../templates/default/ldap/user/admin.html:23
+#: ../templates/default/ldap/user/create.html:22
+#: ../templates/default/ldap/user/list.html:24
 #: ../templates/default/ldap/user/profile.html:101
 msgid "Mail Lists"
 msgstr "Maillisty"
 
 #: ../templates/default/dbmail_mysql/user/list.html:14
-#: ../templates/default/ldap/user/list.html:15
+#: ../templates/default/ldap/user/list.html:16
 #: ../templates/default/mysql/user/list.html:15
 #: ../templates/default/pgsql/user/list.html:15
 msgid "Mail Users"
 msgstr "Uživatelé pošty"
 
-#: ../templates/default/macros/msgHandlers.html:140
+#: ../templates/default/macros/msgHandlers.html:144
 msgid "Mail address already exists, please choose another one."
-msgstr "Mailová adresa již existuje, zvolte jinou adresu."
+msgstr "Emailová adresa již existuje, zvolte jinou adresu."
 
-#: ../templates/default/macros/msgHandlers.html:256
+#: ../templates/default/macros/msgHandlers.html:260
 msgid "Mail alias created."
-msgstr "Alias mailu vytvořen."
+msgstr "Alias emailu vytvořen."
 
-#: ../templates/default/macros/msgHandlers.html:224
+#: ../templates/default/macros/msgHandlers.html:228
 msgid "Mail list created."
 msgstr "Maillist vytvořen."
 
-#: ../templates/default/ldap/maillist/list.html:49
+#: ../templates/default/ldap/maillist/list.html:53
 #, python-format
 msgid "Mail lists under domain: %s"
 msgstr "Maillisty v doméně %s"
@@ -1933,48 +1973,48 @@ msgid ""
 "Mail logs of incoming and outgoing mails which older than %d days will be"
 " deleted from database permanantly."
 msgstr ""
-"Záznamy odchozích a příchozích mailů starších než %d dní budou z databáze"
-" navždy odstraněny."
+"Záznamy odchozích a příchozích emailů starších než %d dní budou z "
+"databáze navždy odstraněny."
 
 #: ../templates/default/dbmail_mysql/alias/profile.html:105
-#: ../templates/default/ldap/alias/profile.html:91
+#: ../templates/default/ldap/alias/profile.html:92
 #: ../templates/default/mysql/alias/profile.html:102
 #: ../templates/default/pgsql/alias/profile.html:102
 msgid "Mail sent to alias will be forwarded to members."
-msgstr "Maily odeslané na alias budou přeposlány jeho členům."
+msgstr "Emaily odeslané na alias budou přeposlány jeho členům."
 
 #: ../templates/default/macros/ldap.html:113
 msgid "Mail service"
 msgstr "Služba pošty"
 
 #: ../templates/default/dbmail_mysql/user/list.html:99
-#: ../templates/default/macros/general.html:512
+#: ../templates/default/macros/general.html:521
 msgid "Mailbox Quota"
 msgstr "Prostor schránky"
 
 #: ../templates/default/amavisd/inout.html:45
 #, python-format
 msgid "Mails Sent by Domain: %s"
-msgstr "Maily odeslané v doméně %s"
+msgstr "Emaily odeslané v doméně %s"
 
 #: ../templates/default/amavisd/inout.html:48
 #, python-format
 msgid "Mails Sent by User: %s"
-msgstr "Maily odeslané uživatelem %s"
+msgstr "Emaily odeslané uživatelem %s"
 
-#: ../templates/default/macros/msgHandlers.html:298
+#: ../templates/default/macros/msgHandlers.html:302
 msgid "Mails were deleted."
-msgstr "Maily byly smazány."
+msgstr "Emaily byly smazány."
 
-#: ../templates/default/macros/msgHandlers.html:297
+#: ../templates/default/macros/msgHandlers.html:301
 msgid "Mails were released."
-msgstr "Maily byly uvolněny."
+msgstr "Emaily byly uvolněny."
 
-#: ../templates/default/ldap/domain/profile.html:195
+#: ../templates/default/ldap/domain/profile.html:194
 msgid "Make sure disclaimer work as expected:"
 msgstr "Ujistěte se, že zřeknutí se odpovědnosti funguje tak, jak očekáváte:"
 
-#: ../templates/default/ldap/user/profile.html:367
+#: ../templates/default/ldap/user/profile.html:368
 msgid "Make sure you have iRedAPD work as expected:"
 msgstr "Ujistěte se, že iRedAPD funguje tak, jak očekáváte:"
 
@@ -1983,58 +2023,64 @@ msgstr "Ujistěte se, že iRedAPD funguje tak, jak očekáváte:"
 msgid "Managed Domains"
 msgstr "Spravované domény"
 
-#: ../templates/default/macros/general.html:438
+#: ../templates/default/macros/general.html:447
 msgid "Mark as backup MX"
 msgstr "Označit jako záložní MX"
+
+#: ../templates/default/ldap/user/list.html:157
+
+msgid "Mark as domain admin"
+msgstr "Označit jako správce domény"
 
 #: ../templates/default/macros/ldap.html:88
 msgid "Mark as domain administrator"
 msgstr "Označit jako správce domény"
 
-#: ../templates/default/macros/general.html:379
+#: ../templates/default/ldap/user/list.html:161
+#: ../templates/default/macros/general.html:388
 msgid "Mark as global admin"
 msgstr "Označit jako globálního správce"
 
-#: ../templates/default/macros/general.html:394
+#: ../templates/default/macros/general.html:403
 msgid "Mark this user as"
 msgstr "Označit uživatele jako"
 
 #: ../templates/default/macros/policyd.html:71
 msgid "Max size of single outgoing email"
-msgstr "Maximální velikost odchozího mailu"
+msgstr "Maximální velikost odchozího emailu"
 
 #: ../templates/default/dbmail_mysql/domain/profile.html:353
-#: ../templates/default/ldap/domain/profile.html:423
+#: ../templates/default/ldap/domain/profile.html:422
 #: ../templates/default/mysql/domain/profile.html:422
 #: ../templates/default/pgsql/domain/profile.html:404
 msgid "Maximal password length"
 msgstr "Maximální délka hesla"
 
-#: ../templates/default/macros/msgHandlers.html:208
-#: ../templates/default/macros/msgHandlers.html:246
+#: ../templates/default/macros/msgHandlers.html:212
+#: ../templates/default/macros/msgHandlers.html:250
 msgid "Member assigned success."
 msgstr "Člen byl úspěšně vložen."
 
 #: ../templates/default/dbmail_mysql/user/profile.html:123
-#: ../templates/default/ldap/user/profile.html:234
+#: ../templates/default/ldap/user/profile.html:235
 #: ../templates/default/mysql/user/profile.html:124
 #: ../templates/default/pgsql/user/profile.html:124
 msgid "Member of Mail Aliases"
-msgstr "Zařazen v aliasech"
+msgstr "Přiřazené aliasy"
 
-#: ../templates/default/ldap/user/profile.html:187
+#: ../templates/default/ldap/user/profile.html:188
 msgid "Member of Mail Lists"
 msgstr "Zařazen v maillistech"
 
-#: ../templates/default/macros/msgHandlers.html:209
-#: ../templates/default/macros/msgHandlers.html:247
+#: ../templates/default/macros/msgHandlers.html:213
+#: ../templates/default/macros/msgHandlers.html:251
 msgid "Member removed success."
 msgstr "Člen byl úspěšně odebrán."
 
 #: ../templates/default/dbmail_mysql/alias/profile.html:104
-#: ../templates/default/ldap/alias/profile.html:90
-#: ../templates/default/ldap/maillist/profile.html:52
-#: ../templates/default/ldap/maillist/profile.html:84
+#: ../templates/default/ldap/alias/profile.html:91
+#: ../templates/default/ldap/maillist/profile.html:53
+#: ../templates/default/ldap/maillist/profile.html:85
 #: ../templates/default/mysql/alias/profile.html:75
 #: ../templates/default/mysql/alias/profile.html:101
 #: ../templates/default/pgsql/alias/profile.html:75
@@ -2046,23 +2092,23 @@ msgstr "Členové"
 msgid "Message"
 msgstr "Zpráva"
 
-#: ../templates/default/ldap/maillist/profile.html:127
+#: ../templates/default/ldap/maillist/profile.html:128
 msgid "Messages sent to mail list will be delivered to its members."
 msgstr "Zprávy odeslané na maillist budou doručeny jeho členům."
 
 #: ../templates/default/dbmail_mysql/domain/profile.html:346
-#: ../templates/default/ldap/domain/profile.html:416
+#: ../templates/default/ldap/domain/profile.html:415
 #: ../templates/default/mysql/domain/profile.html:415
 #: ../templates/default/pgsql/domain/profile.html:397
 msgid "Minimal password length"
 msgstr "Minimální délka hesla"
 
-#: ../templates/default/macros/general.html:319
+#: ../templates/default/macros/general.html:328
 msgid "Mobile"
 msgstr "Mobil"
 
-#: ../templates/default/ldap/maillist/profile.html:53
-#: ../templates/default/ldap/maillist/profile.html:85
+#: ../templates/default/ldap/maillist/profile.html:54
+#: ../templates/default/ldap/maillist/profile.html:86
 #: ../templates/default/mysql/alias/profile.html:76
 #: ../templates/default/mysql/alias/profile.html:138
 #: ../templates/default/pgsql/alias/profile.html:76
@@ -2070,38 +2116,38 @@ msgstr "Mobil"
 msgid "Moderators"
 msgstr "Moderátoři"
 
-#: ../templates/default/macros/msgHandlers.html:210
+#: ../templates/default/macros/msgHandlers.html:214
 msgid "Moderators assigned success."
 msgstr "Moderátoři byli úspěšně vloženi."
 
-#: ../templates/default/macros/msgHandlers.html:211
+#: ../templates/default/macros/msgHandlers.html:215
 msgid "Moderators removed success."
 msgstr "Moderátoři byli úspěšně odebráni."
 
-#: ../templates/default/ldap/domain/profile.html:254
+#: ../templates/default/ldap/domain/profile.html:253
 #: ../templates/default/mysql/domain/profile.html:185
 #: ../templates/default/mysql/user/profile.html:212
 #: ../templates/default/pgsql/domain/profile.html:186
 #: ../templates/default/pgsql/user/profile.html:212
 msgid "Monitor incoming emails via BCC"
-msgstr "Monitorovat příchozí maily přes BCC"
+msgstr "Monitorovat příchozí emaily přes BCC"
 
-#: ../templates/default/ldap/domain/profile.html:261
+#: ../templates/default/ldap/domain/profile.html:260
 #: ../templates/default/mysql/domain/profile.html:192
 #: ../templates/default/mysql/user/profile.html:219
 #: ../templates/default/pgsql/domain/profile.html:193
 #: ../templates/default/pgsql/user/profile.html:219
 msgid "Monitor outgoing emails via BCC"
-msgstr "Monitorovat odchozí maily přes BCC"
+msgstr "Monitorovat odchozí emaily přes BCC"
 
-#: ../templates/default/ldap/domain/profile.html:316
+#: ../templates/default/ldap/domain/profile.html:315
 #: ../templates/default/mysql/domain/profile.html:256
 #: ../templates/default/pgsql/domain/profile.html:257
 msgid "Multiple addresses MUST be seperated by comma (,)."
 msgstr "Více adres MUSÍ být odděleno čárkou (,)."
 
-#: ../templates/default/ldap/domain/profile.html:275
-#: ../templates/default/ldap/user/profile.html:481
+#: ../templates/default/ldap/domain/profile.html:274
+#: ../templates/default/ldap/user/profile.html:482
 #: ../templates/default/mysql/domain/profile.html:206
 #: ../templates/default/mysql/user/profile.html:232
 #: ../templates/default/pgsql/domain/profile.html:207
@@ -2119,30 +2165,30 @@ msgstr "Více adres NENÍ podporováno."
 msgid "Name"
 msgstr "Název firmy"
 
-#: ../templates/default/macros/general.html:736
+#: ../templates/default/macros/general.html:745
 msgid "Need a random password?"
 msgstr "Potřebujete náhodné heslo?"
 
-#: ../templates/default/dashboard.html:150
+#: ../templates/default/dashboard.html:119
 msgid "Network"
 msgstr "Síť"
 
-#: ../templates/default/macros/general.html:472
+#: ../templates/default/macros/general.html:481
 msgid "New password"
 msgstr "Nové heslo"
 
-#: ../templates/default/macros/msgHandlers.html:189
+#: ../templates/default/macros/msgHandlers.html:193
 #, python-format
 msgid "New password must NOT contain more than %s characters."
 msgstr "Nové heslo NESMÍ obsahovat více než %s znaků."
 
-#: ../templates/default/macros/msgHandlers.html:187
+#: ../templates/default/macros/msgHandlers.html:191
 #, python-format
 msgid "New password must contain at least %s characters."
 msgstr "Nové heslo musí být nejméně %s znaků dlouhé."
 
-#: ../templates/default/macros/msgHandlers.html:136
-#: ../templates/default/macros/msgHandlers.html:174
+#: ../templates/default/macros/msgHandlers.html:140
+#: ../templates/default/macros/msgHandlers.html:178
 msgid "New passwords are not match."
 msgstr "Nová hesla si neodpovídají."
 
@@ -2163,11 +2209,11 @@ msgstr ""
 msgid "News & Announments"
 msgstr "Novinky a oznámení"
 
-#: ../templates/default/macros/general.html:833
+#: ../templates/default/macros/general.html:842
 msgid "Next Page"
 msgstr "Další strana"
 
-#: ../templates/default/macros/msgHandlers.html:171
+#: ../templates/default/macros/msgHandlers.html:175
 msgid "No account selected."
 msgstr "Není vybrán žádný účet."
 
@@ -2177,50 +2223,50 @@ msgstr "Neexistuje žádný log správce."
 
 #: ../templates/default/macros/msgHandlers.html:102
 #: ../templates/default/macros/msgHandlers.html:127
-#: ../templates/default/macros/msgHandlers.html:216
-#: ../templates/default/macros/msgHandlers.html:242
+#: ../templates/default/macros/msgHandlers.html:220
+#: ../templates/default/macros/msgHandlers.html:246
 msgid "No domain under control."
 msgstr "Žádná doména ke správě."
 
-#: ../templates/default/ldap/maillist/profile.html:224
+#: ../templates/default/ldap/maillist/profile.html:225
 msgid "No external members."
 msgstr "Žádní externí členové."
 
-#: ../templates/default/ldap/maillist/profile.html:351
+#: ../templates/default/ldap/maillist/profile.html:352
 msgid "No external moderators."
 msgstr "Žádní externí moderátoři."
 
 #: ../templates/default/dbmail_mysql/user/create.html:40
-#: ../templates/default/ldap/user/create.html:51
-#: ../templates/default/mysql/user/create.html:37
-#: ../templates/default/pgsql/user/create.html:37
+#: ../templates/default/ldap/user/create.html:64
+#: ../templates/default/mysql/user/create.html:49
+#: ../templates/default/pgsql/user/create.html:49
 msgid "No free domain quota left."
 msgstr "Nezbývá žádné volné místo domény."
 
 #: ../templates/default/amavisd/inout.html:158
 msgid "No incoming mails."
-msgstr "Žádné příchozí maily."
+msgstr "Žádné příchozí emaily."
 
-#: ../templates/default/ldap/maillist/profile.html:178
+#: ../templates/default/ldap/maillist/profile.html:179
 msgid "No internal members."
 msgstr "Žádní interní členové."
 
-#: ../templates/default/ldap/maillist/profile.html:306
+#: ../templates/default/ldap/maillist/profile.html:307
 msgid "No internal moderators."
 msgstr "Žádní interní moderátoři."
 
 #: ../templates/default/dbmail_mysql/alias/list.html:73
-#: ../templates/default/ldap/alias/list.html:96
-#: ../templates/default/mysql/alias/list.html:84
-#: ../templates/default/pgsql/alias/list.html:84
+#: ../templates/default/ldap/alias/list.html:100
+#: ../templates/default/mysql/alias/list.html:86
+#: ../templates/default/pgsql/alias/list.html:86
 msgid "No mail alias available."
-msgstr "Žádný mailový alias."
+msgstr "Žádný emailový alias."
 
 #: ../templates/default/dbmail_mysql/domain/list.html:136
 #: ../templates/default/dbmail_mysql/domain/list.html:140
-#: ../templates/default/ldap/domain/list.html:194
-#: ../templates/default/ldap/domain/list.html:198
-#: ../templates/default/macros/msgHandlers.html:141
+#: ../templates/default/ldap/domain/list.html:186
+#: ../templates/default/ldap/domain/list.html:190
+#: ../templates/default/macros/msgHandlers.html:145
 #: ../templates/default/mysql/domain/list.html:143
 #: ../templates/default/mysql/domain/list.html:147
 #: ../templates/default/pgsql/domain/list.html:143
@@ -2228,33 +2274,34 @@ msgstr "Žádný mailový alias."
 msgid "No mail domain available."
 msgstr "Žádná doména."
 
-#: ../templates/default/ldap/maillist/list.html:96
+#: ../templates/default/ldap/maillist/list.html:100
 msgid "No mail list available."
 msgstr "Žádný maillist."
 
 #: ../templates/default/dbmail_mysql/user/list.html:111
-#: ../templates/default/ldap/user/list.html:129
-#: ../templates/default/mysql/user/list.html:122
-#: ../templates/default/pgsql/user/list.html:122
+#: ../templates/default/ldap/user/admin.html:133
+#: ../templates/default/ldap/user/list.html:141
+#: ../templates/default/mysql/user/list.html:124
+#: ../templates/default/pgsql/user/list.html:124
 msgid "No mail user available."
 msgstr "Žádný uživatel."
 
-#: ../templates/default/macros/msgHandlers.html:217
+#: ../templates/default/macros/msgHandlers.html:221
 msgid "No moderator selected."
 msgstr "Není vybraný moderátor."
 
-#: ../templates/default/macros/general.html:459
+#: ../templates/default/macros/general.html:468
 #, python-format
 msgid "No more than %s characters."
 msgstr "Ne více než %s znaků."
 
 #: ../templates/default/amavisd/inout.html:156
 msgid "No outgoing mails."
-msgstr "Žádné odchozí maily."
+msgstr "Žádné odchozí emaily."
 
 #: ../templates/default/macros/amavisd.html:37
 msgid "No quarantined mails."
-msgstr "Žádné maily v karanténě."
+msgstr "Žádné emaily v karanténě."
 
 #: ../templates/default/policyd/wblist.html:95
 msgid "No records."
@@ -2264,63 +2311,63 @@ msgstr "Žádné záznamy."
 msgid "No such domain."
 msgstr "Doména nenalezena."
 
-#: ../templates/default/macros/general.html:212
+#: ../templates/default/macros/general.html:221
 msgid "Not a global admin."
 msgstr "Není globální správce."
 
 #: ../templates/default/dbmail_mysql/alias/create.html:23
 #: ../templates/default/dbmail_mysql/user/create.html:32
-#: ../templates/default/ldap/alias/create.html:26
-#: ../templates/default/macros/msgHandlers.html:250
-#: ../templates/default/mysql/alias/create.html:23
-#: ../templates/default/mysql/user/create.html:29
-#: ../templates/default/pgsql/alias/create.html:23
-#: ../templates/default/pgsql/user/create.html:29
+#: ../templates/default/ldap/alias/create.html:39
+#: ../templates/default/macros/msgHandlers.html:254
+#: ../templates/default/mysql/alias/create.html:35
+#: ../templates/default/mysql/user/create.html:41
+#: ../templates/default/pgsql/alias/create.html:35
+#: ../templates/default/pgsql/user/create.html:41
 msgid "Not allowed to create mail alias under this domain."
 msgstr "V této doméně není povoleno vytvářet aliasy."
 
-#: ../templates/default/ldap/maillist/create.html:26
-#: ../templates/default/macros/msgHandlers.html:218
+#: ../templates/default/ldap/maillist/create.html:40
+#: ../templates/default/macros/msgHandlers.html:222
 msgid "Not allowed to create mail list under this domain."
 msgstr "V této doméně není povoleno vytvářet maillisty."
 
-#: ../templates/default/ldap/user/create.html:56
-#: ../templates/default/ldap/user/create.html:59
-#: ../templates/default/macros/msgHandlers.html:143
+#: ../templates/default/ldap/user/create.html:69
+#: ../templates/default/ldap/user/create.html:72
+#: ../templates/default/macros/msgHandlers.html:147
 msgid "Not allowed to create mail user under this domain."
 msgstr "V této doméně není povoleno vytvářet uživatele."
 
-#: ../templates/default/ldap/user/profile.html:367
+#: ../templates/default/ldap/user/profile.html:368
 #: ../templates/default/policyd/blacklist/create.html:83
 #: ../templates/default/policyd/whitelist/create.html:72
 msgid "Note"
 msgstr "Poznámka"
 
-#: ../templates/default/dashboard.html:102
+#: ../templates/default/dashboard.html:71
 msgid "Number of aliases"
 msgstr "Počet aliasů"
 
-#: ../templates/default/dashboard.html:91
+#: ../templates/default/dashboard.html:60
 msgid "Number of domains"
 msgstr "Počet domén"
 
 #: ../templates/default/macros/policyd.html:20
 msgid "Number of max incoming emails"
-msgstr "Maximální počet příchozích mailů"
+msgstr "Maximální počet příchozích emailů"
 
 #: ../templates/default/dbmail_mysql/domain/profile.html:335
-#: ../templates/default/ldap/domain/profile.html:405
+#: ../templates/default/ldap/domain/profile.html:404
 #: ../templates/default/mysql/domain/profile.html:404
 #: ../templates/default/pgsql/domain/profile.html:386
 msgid "Number of max mail aliases"
 msgstr "Maximální počet aliasů"
 
-#: ../templates/default/ldap/domain/profile.html:398
+#: ../templates/default/ldap/domain/profile.html:397
 msgid "Number of max mail lists"
 msgstr "Maximální počet maillistů"
 
 #: ../templates/default/dbmail_mysql/domain/profile.html:327
-#: ../templates/default/ldap/domain/profile.html:390
+#: ../templates/default/ldap/domain/profile.html:389
 #: ../templates/default/mysql/domain/profile.html:396
 #: ../templates/default/pgsql/domain/profile.html:378
 msgid "Number of max mail users"
@@ -2328,22 +2375,22 @@ msgstr "Maximální počet uživatelů"
 
 #: ../templates/default/macros/policyd.html:18
 msgid "Number of max outgoing emails"
-msgstr "Maximální počet odchozích mailů"
+msgstr "Maximální počet odchozích emailů"
 
-#: ../templates/default/dashboard.html:97
+#: ../templates/default/dashboard.html:66
 msgid "Number of users"
 msgstr "Počet uživatelů"
 
-#: ../templates/default/macros/general.html:466
+#: ../templates/default/macros/general.html:475
 msgid "Old password"
 msgstr "Staré heslo"
 
 #: ../templates/default/dbmail_mysql/alias/profile.html:165
 #: ../templates/default/dbmail_mysql/user/profile.html:181
 #: ../templates/default/dbmail_mysql/user/profile.html:199
-#: ../templates/default/ldap/alias/profile.html:114
-#: ../templates/default/ldap/user/profile.html:291
-#: ../templates/default/ldap/user/profile.html:314
+#: ../templates/default/ldap/alias/profile.html:115
+#: ../templates/default/ldap/user/profile.html:292
+#: ../templates/default/ldap/user/profile.html:315
 #: ../templates/default/mysql/alias/profile.html:170
 #: ../templates/default/mysql/alias/profile.html:178
 #: ../templates/default/mysql/user/profile.html:194
@@ -2351,28 +2398,28 @@ msgstr "Staré heslo"
 #: ../templates/default/pgsql/alias/profile.html:178
 #: ../templates/default/pgsql/user/profile.html:194
 msgid "One mail address per line."
-msgstr "Jedna mailová adresa na řádek."
+msgstr "Jedna emailová adresa na řádek."
 
-#: ../templates/default/macros/general.html:871
+#: ../templates/default/macros/general.html:880
 #: ../templates/default/policyd/blacklist/create.html:40
 #: ../templates/default/policyd/blacklist/create.html:46
 #: ../templates/default/policyd/whitelist/create.html:40
 msgid "One record per line."
 msgstr "Jeden záznam na řádek."
 
-#: ../templates/default/macros/msgHandlers.html:337
+#: ../templates/default/macros/msgHandlers.html:341
 msgid "Operation completed."
 msgstr "Operace dokončena."
 
 #: ../templates/default/macros/msgHandlers.html:108
 msgid "Or create other mail accounts:"
-msgstr "Nebo vytvořte další mailové účty:"
+msgstr "Nebo vytvořte další emailové účty:"
 
 #: ../templates/default/login.html:60
 #: ../templates/default/dbmail_mysql/admin/profile.html:45
 #: ../templates/default/dbmail_mysql/user/profile.html:55
 #: ../templates/default/ldap/admin/profile.html:50
-#: ../templates/default/ldap/user/profile.html:120
+#: ../templates/default/ldap/user/profile.html:121
 #: ../templates/default/mysql/admin/profile.html:45
 #: ../templates/default/mysql/user/profile.html:71
 #: ../templates/default/pgsql/admin/profile.html:45
@@ -2380,16 +2427,16 @@ msgstr "Nebo vytvořte další mailové účty:"
 msgid "Password"
 msgstr "Heslo"
 
-#: ../templates/default/macros/msgHandlers.html:137
-#: ../templates/default/macros/msgHandlers.html:175
+#: ../templates/default/macros/msgHandlers.html:141
+#: ../templates/default/macros/msgHandlers.html:179
 msgid "Password is empty."
 msgstr "Heslo je prázdné."
 
-#: ../templates/default/macros/msgHandlers.html:139
+#: ../templates/default/macros/msgHandlers.html:143
 msgid "Password is too long."
 msgstr "Heslo je příliš dlouhé."
 
-#: ../templates/default/macros/msgHandlers.html:138
+#: ../templates/default/macros/msgHandlers.html:142
 msgid "Password is too short."
 msgstr "Heslo je příliš krátké."
 
@@ -2397,14 +2444,14 @@ msgstr "Heslo je příliš krátké."
 msgid "Password of cn=vmailadmin is incorrect."
 msgstr "Heslo pro cn=vmailadmin není správné."
 
-#: ../templates/default/ldap/user/profile.html:465
+#: ../templates/default/ldap/user/profile.html:466
 #: ../templates/default/mysql/user/profile.html:396
 #: ../templates/default/pgsql/user/profile.html:396
 msgid "Path to mailbox"
 msgstr "Cesta k poštovní schránce"
 
-#: ../templates/default/ldap/domain/profile.html:276
-#: ../templates/default/ldap/user/profile.html:482
+#: ../templates/default/ldap/domain/profile.html:275
+#: ../templates/default/ldap/user/profile.html:483
 #: ../templates/default/mysql/domain/profile.html:207
 #: ../templates/default/mysql/user/profile.html:233
 #: ../templates/default/pgsql/domain/profile.html:208
@@ -2417,7 +2464,7 @@ msgstr "Doménové nastavení BCC bude přepsáno uživatelským nastavením BCC
 msgid "Per-user greylisting setting has higher priority"
 msgstr "Uživatelské nastavení greylistu má vyšší prioritu"
 
-#: ../templates/default/macros/general.html:560
+#: ../templates/default/macros/general.html:569
 msgid ""
 "Per-user relay setting will override per-domain relay setting you set in "
 "this page."
@@ -2425,24 +2472,24 @@ msgstr ""
 "Uživatelské nastavení přeposílání zneplatní doménové nastavení "
 "přeposílání."
 
-#: ../templates/default/ldap/domain/profile.html:367
+#: ../templates/default/ldap/domain/profile.html:366
 #: ../templates/default/mysql/domain/profile.html:126
 #: ../templates/default/pgsql/domain/profile.html:127
 msgid "Per-user sender throttling has higher priority."
 msgstr "Uživatelské řízení odesílání má vyšší prioritu."
 
 #: ../templates/default/macros/msgHandlers.html:98
-#: ../templates/default/macros/msgHandlers.html:167
-#: ../templates/default/macros/msgHandlers.html:302
-#: ../templates/default/macros/msgHandlers.html:321
+#: ../templates/default/macros/msgHandlers.html:171
+#: ../templates/default/macros/msgHandlers.html:306
+#: ../templates/default/macros/msgHandlers.html:325
 msgid "Permission denied."
 msgstr "Přístup odepřen."
 
-#: ../templates/default/ldap/domain/profile.html:183
+#: ../templates/default/ldap/domain/profile.html:182
 msgid "Plain text only"
 msgstr "Pouze čistý text."
 
-#: ../templates/default/macros/msgHandlers.html:142
+#: ../templates/default/macros/msgHandlers.html:146
 msgid "Please select at least one account."
 msgstr "Vyberte alespoň jeden účet."
 
@@ -2450,7 +2497,7 @@ msgstr "Vyberte alespoň jeden účet."
 msgid "Please select at least one domain to apply action."
 msgstr "Vyberte alespoň jednu doménu pro zpracování."
 
-#: ../templates/default/macros/general.html:576
+#: ../templates/default/macros/general.html:585
 msgid "Postfix manual page"
 msgstr "Manuálová stránka Postfixu"
 
@@ -2458,11 +2505,11 @@ msgstr "Manuálová stránka Postfixu"
 msgid "Preferences"
 msgstr "Nastavení"
 
-#: ../templates/default/macros/general.html:358
+#: ../templates/default/macros/general.html:367
 msgid "Preferred language"
 msgstr "Preferovaný jazyk"
 
-#: ../templates/default/macros/general.html:760
+#: ../templates/default/macros/general.html:769
 msgid "Previous Page"
 msgstr "Předchozí strana"
 
@@ -2481,8 +2528,8 @@ msgstr "Profil správce"
 
 #: ../templates/default/dbmail_mysql/alias/profile.html:24
 #: ../templates/default/dbmail_mysql/alias/profile.html:43
-#: ../templates/default/ldap/alias/profile.html:31
-#: ../templates/default/ldap/alias/profile.html:53
+#: ../templates/default/ldap/alias/profile.html:33
+#: ../templates/default/ldap/alias/profile.html:54
 #: ../templates/default/mysql/alias/profile.html:24
 #: ../templates/default/mysql/alias/profile.html:43
 #: ../templates/default/pgsql/alias/profile.html:24
@@ -2492,21 +2539,21 @@ msgstr "Profil aliasu"
 
 #: ../templates/default/dbmail_mysql/domain/profile.html:32
 #: ../templates/default/dbmail_mysql/domain/profile.html:71
-#: ../templates/default/ldap/domain/profile.html:139
+#: ../templates/default/ldap/domain/profile.html:136
 #: ../templates/default/mysql/domain/profile.html:82
 #: ../templates/default/pgsql/domain/profile.html:83
 msgid "Profile of domain:"
 msgstr "Profil domény"
 
 #: ../templates/default/ldap/maillist/profile.html:33
-#: ../templates/default/ldap/maillist/profile.html:58
+#: ../templates/default/ldap/maillist/profile.html:59
 msgid "Profile of mail list:"
 msgstr "Profil maillistu"
 
 #: ../templates/default/dbmail_mysql/user/profile.html:33
 #: ../templates/default/dbmail_mysql/user/profile.html:71
 #: ../templates/default/ldap/user/profile.html:100
-#: ../templates/default/ldap/user/profile.html:136
+#: ../templates/default/ldap/user/profile.html:137
 #: ../templates/default/mysql/user/profile.html:50
 #: ../templates/default/mysql/user/profile.html:87
 #: ../templates/default/pgsql/user/profile.html:50
@@ -2515,16 +2562,16 @@ msgid "Profile of user:"
 msgstr "Profil uživatele"
 
 #: ../templates/default/macros/msgHandlers.html:125
-#: ../templates/default/macros/msgHandlers.html:207
-#: ../templates/default/macros/msgHandlers.html:248
+#: ../templates/default/macros/msgHandlers.html:211
+#: ../templates/default/macros/msgHandlers.html:252
 msgid "Profile updated failed."
 msgstr "Aktualizace profilu se nepodařila."
 
 #: ../templates/default/macros/msgHandlers.html:88
 #: ../templates/default/macros/msgHandlers.html:124
-#: ../templates/default/macros/msgHandlers.html:165
-#: ../templates/default/macros/msgHandlers.html:205
-#: ../templates/default/macros/msgHandlers.html:240
+#: ../templates/default/macros/msgHandlers.html:169
+#: ../templates/default/macros/msgHandlers.html:209
+#: ../templates/default/macros/msgHandlers.html:244
 msgid "Profile updated success."
 msgstr "Změna profilu uložena."
 
@@ -2544,17 +2591,17 @@ msgstr "V karanténě"
 #: ../templates/default/macros/amavisd.html:86
 #: ../templates/default/panel/log.html:36
 msgid "Quarantined Mails"
-msgstr "Maily v karanténě"
+msgstr "Emaily v karanténě"
 
 #: ../templates/default/amavisd/quarantined.html:38
 #, python-format
 msgid "Quarantined Mails of Domain: %s"
-msgstr "Počet mailů v karanténě v doméně %s"
+msgstr "Počet emailů v karanténě v doméně %s"
 
 #: ../templates/default/amavisd/quarantined.html:41
 #, python-format
 msgid "Quarantined Mails of User: %s"
-msgstr "Počet mailů v karenténě u uživatele %s"
+msgstr "Počet emailů v karenténě u uživatele %s"
 
 #: ../templates/default/amavisd/quarantined.html:61
 msgid ""
@@ -2562,9 +2609,9 @@ msgid ""
 "either delete them or release them. Mails will be delivered to user "
 "mailboxes after released."
 msgstr ""
-"Maily v karanténě nejsou doručeny do uživatelských schránek. Maily můžete"
-" buď smazat nebo uvolnit k doručení. Při uvolnění budou maily doručeny "
-"uživatelům do schránek."
+"Emaily v karanténě nejsou doručeny do uživatelských schránek. Emaily "
+"můžete buď smazat nebo uvolnit k doručení. Při uvolnění budou emaily "
+"doručeny uživatelům do schránek."
 
 #: ../templates/default/amavisd/quarantined.html:64
 #, python-format
@@ -2572,7 +2619,7 @@ msgid ""
 "Quarantined mails older than %d days will be deleted from database "
 "permanantly."
 msgstr ""
-"Maily, které jsou v karanténě déle než %d dní, budou z databáze navždy "
+"Emaily, které jsou v karanténě déle než %d dní, budou z databáze navždy "
 "odstraněny."
 
 #: ../templates/default/dbmail_mysql/search.html:146
@@ -2580,23 +2627,24 @@ msgstr ""
 #: ../templates/default/dbmail_mysql/user/list.html:59
 #: ../templates/default/ldap/search.html:195
 #: ../templates/default/ldap/domain/list.html:53
-#: ../templates/default/ldap/maillist/profile.html:143
-#: ../templates/default/ldap/maillist/profile.html:270
-#: ../templates/default/ldap/user/list.html:70
+#: ../templates/default/ldap/maillist/profile.html:144
+#: ../templates/default/ldap/maillist/profile.html:271
+#: ../templates/default/ldap/user/admin.html:74
+#: ../templates/default/ldap/user/list.html:75
 #: ../templates/default/mysql/search.html:82
 #: ../templates/default/mysql/search.html:227
 #: ../templates/default/mysql/domain/list.html:54
-#: ../templates/default/mysql/user/list.html:71
+#: ../templates/default/mysql/user/list.html:73
 #: ../templates/default/pgsql/search.html:82
 #: ../templates/default/pgsql/search.html:227
 #: ../templates/default/pgsql/domain/list.html:54
-#: ../templates/default/pgsql/user/list.html:71
+#: ../templates/default/pgsql/user/list.html:73
 msgid "Quota"
 msgstr "Prostor"
 
 #: ../templates/default/macros/policyd.html:32
 msgid "Quota size of all outgoing emails"
-msgstr "Velikost prostoru pro odchozí maily"
+msgstr "Velikost prostoru pro odchozí emaily"
 
 #: ../templates/default/dashboard.html:28
 #: ../templates/default/macros/amavisd.html:62
@@ -2610,22 +2658,22 @@ msgstr "Přijaté"
 #: ../templates/default/macros/amavisd.html:78
 #: ../templates/default/panel/log.html:32
 msgid "Received Mails"
-msgstr "Přijaté maily"
+msgstr "Přijaté emaily"
 
 #: ../templates/default/amavisd/inout.html:56
 #, python-format
 msgid "Received Mails of Domain: %s"
-msgstr "Přijaté maily v doméně %s"
+msgstr "Přijaté emaily v doméně %s"
 
 #: ../templates/default/amavisd/inout.html:59
 #, python-format
 msgid "Received Mails of User: %s"
-msgstr "Přijaté maily uživatele %s"
+msgstr "Přijaté emaily uživatele %s"
 
 #: ../templates/default/macros/ldap.html:95
 #: ../templates/default/macros/mysql.html:61
 msgid "Receiving mails for this account on mail server"
-msgstr "Přijaté maily pro tento účet na mail serveru"
+msgstr "Přijaté emaily pro tento účet na poštovním serveru"
 
 #: ../templates/default/amavisd/inout.html:108
 #: ../templates/default/macros/amavisd.html:10
@@ -2637,25 +2685,25 @@ msgstr "Příjemce"
 msgid "Record format"
 msgstr "Formát záznamu"
 
-#: ../templates/default/macros/msgHandlers.html:271
+#: ../templates/default/macros/msgHandlers.html:275
 #, python-format
 msgid "Records are added. <a href=\"%s\" target=\"_blank\">View them now</a>"
 msgstr ""
 "Záznamy byly přidány. <a href=\"%s\" target=\"_blank\">Zobrazit "
 "záznamy</a>"
 
-#: ../templates/default/ldap/user/profile.html:345
+#: ../templates/default/ldap/user/profile.html:346
 msgid "Reject mails from below senders"
-msgstr "Odmítnout maily od následujících odesílatelů"
+msgstr "Odmítnout emaily od následujících odesílatelů"
 
-#: ../templates/default/ldap/user/profile.html:359
+#: ../templates/default/ldap/user/profile.html:360
 msgid "Reject mails sent to below recipients"
-msgstr "Odmítnout odeslat maily následujícím příjemcům"
+msgstr "Odmítnout odeslat emaily následujícím adresátům"
 
 #: ../templates/default/dbmail_mysql/domain/profile.html:52
 #: ../templates/default/dbmail_mysql/user/profile.html:53
-#: ../templates/default/ldap/domain/profile.html:122
-#: ../templates/default/ldap/user/profile.html:116
+#: ../templates/default/ldap/domain/profile.html:119
+#: ../templates/default/ldap/user/profile.html:117
 #: ../templates/default/mysql/domain/profile.html:62
 #: ../templates/default/mysql/user/profile.html:68
 #: ../templates/default/pgsql/domain/profile.html:63
@@ -2663,7 +2711,7 @@ msgstr "Odmítnout odeslat maily následujícím příjemcům"
 msgid "Relay"
 msgstr "Přeposlat"
 
-#: ../templates/default/macros/general.html:550
+#: ../templates/default/macros/general.html:559
 msgid "Relay/Transport Setting"
 msgstr "Nastavení přeposílání (relaying)"
 
@@ -2679,10 +2727,10 @@ msgstr "Uvolnit vybrané"
 msgid "Remember me"
 msgstr "Zapamatovat si mě na tomto počítači"
 
-#: ../templates/default/ldap/maillist/profile.html:189
-#: ../templates/default/ldap/maillist/profile.html:235
-#: ../templates/default/ldap/maillist/profile.html:317
-#: ../templates/default/ldap/maillist/profile.html:362
+#: ../templates/default/ldap/maillist/profile.html:190
+#: ../templates/default/ldap/maillist/profile.html:236
+#: ../templates/default/ldap/maillist/profile.html:318
+#: ../templates/default/ldap/maillist/profile.html:363
 msgid "Remove from list"
 msgstr "Odebrat ze seznamu"
 
@@ -2690,22 +2738,22 @@ msgstr "Odebrat ze seznamu"
 msgid "Renew license"
 msgstr "Renew licence"
 
-#: ../templates/default/ldap/domain/profile.html:503
+#: ../templates/default/ldap/domain/profile.html:502
 msgid "Sample"
 msgstr "Příklad"
 
-#: ../templates/default/macros/general.html:565
+#: ../templates/default/macros/general.html:574
 msgid "Sample relay settings"
 msgstr "Příklad nastavení přeposílání"
 
 #: ../templates/default/dbmail_mysql/user/profile.html:171
-#: ../templates/default/ldap/user/profile.html:282
+#: ../templates/default/ldap/user/profile.html:283
 #: ../templates/default/mysql/user/profile.html:184
 #: ../templates/default/pgsql/user/profile.html:184
 msgid "Save a copy in mailbox"
 msgstr "Uložit kopii do schránky"
 
-#: ../templates/default/macros/general.html:222
+#: ../templates/default/macros/general.html:231
 msgid "Save changes"
 msgstr "Uložit změny"
 
@@ -2726,20 +2774,20 @@ msgstr "Hledat"
 msgid "Search activities"
 msgstr "Hledání aktivity"
 
-#: ../templates/default/macros/msgHandlers.html:339
+#: ../templates/default/macros/msgHandlers.html:343
 msgid "Search keyword could not be empty."
 msgstr "Slovo pro vyhledávání nesmí být prázdné."
 
 #: ../templates/default/layout.html:37
 msgid "Search mail accounts"
-msgstr "Hledat mailové účty"
+msgstr "Hledat emailové účty"
 
 #: ../templates/default/dbmail_mysql/search.html:64
 #: ../templates/default/ldap/search.html:61
 #: ../templates/default/mysql/search.html:65
 #: ../templates/default/pgsql/search.html:65
 msgid "Search results."
-msgstr "Výsledky hledání."
+msgstr "Výsledky hledání"
 
 #: ../templates/default/macros/policyd.html:60
 msgid "Seconds"
@@ -2752,24 +2800,44 @@ msgid ""
 msgstr "Bezpečnostní token nesouhlasí. Obnovte stránku a znovu potvrďte akci."
 
 #: ../templates/default/macros/msgHandlers.html:132
-#: ../templates/default/macros/msgHandlers.html:168
-#: ../templates/default/macros/msgHandlers.html:212
-#: ../templates/default/macros/msgHandlers.html:243
+#: ../templates/default/macros/msgHandlers.html:172
+#: ../templates/default/macros/msgHandlers.html:216
+#: ../templates/default/macros/msgHandlers.html:247
 msgid "Selected accounts were deleted."
 msgstr "Vybrané účty byly smazány."
 
 #: ../templates/default/macros/msgHandlers.html:133
-#: ../templates/default/macros/msgHandlers.html:169
-#: ../templates/default/macros/msgHandlers.html:213
-#: ../templates/default/macros/msgHandlers.html:244
+#: ../templates/default/macros/msgHandlers.html:173
+#: ../templates/default/macros/msgHandlers.html:217
+#: ../templates/default/macros/msgHandlers.html:248
 msgid "Selected accounts were disabled."
 msgstr "Vybrané účty byly nastaveny jako neaktivní."
 
 #: ../templates/default/macros/msgHandlers.html:134
-#: ../templates/default/macros/msgHandlers.html:170
-#: ../templates/default/macros/msgHandlers.html:214
-#: ../templates/default/macros/msgHandlers.html:245
+#: ../templates/default/macros/msgHandlers.html:174
+#: ../templates/default/macros/msgHandlers.html:218
+#: ../templates/default/macros/msgHandlers.html:249
 msgid "Selected accounts were enabled."
+msgstr "Vybrané účty byly nastaveny jako aktivní."
+
+#: ../templates/default/macros/msgHandlers.html:135
+
+msgid "Selected accounts were marked as domain admin."
+msgstr "Vybrané účty byly nastaveny jako aktivní."
+
+#: ../templates/default/macros/msgHandlers.html:137
+
+msgid "Selected accounts were marked as global admin."
+msgstr "Vybrané účty byly nastaveny jako aktivní."
+
+#: ../templates/default/macros/msgHandlers.html:136
+
+msgid "Selected accounts were unmarked as domain admin."
+msgstr "Vybrané účty byly nastaveny jako aktivní."
+
+#: ../templates/default/macros/msgHandlers.html:138
+
+msgid "Selected accounts were unmarked as global admin."
 msgstr "Vybrané účty byly nastaveny jako aktivní."
 
 #: ../templates/default/macros/msgHandlers.html:90
@@ -2784,12 +2852,12 @@ msgstr "Vybrané domény byly nastaveny jako neaktivní."
 msgid "Selected domains were enabled."
 msgstr "Vybrané domény byly nastaveny jako aktivní."
 
-#: ../templates/default/macros/msgHandlers.html:285
-#: ../templates/default/macros/msgHandlers.html:318
+#: ../templates/default/macros/msgHandlers.html:289
+#: ../templates/default/macros/msgHandlers.html:322
 msgid "Selected log records were deleted."
 msgstr "Vybrané auditní záznamy byly smazány."
 
-#: ../templates/default/macros/msgHandlers.html:273
+#: ../templates/default/macros/msgHandlers.html:277
 msgid "Selected records were deleted."
 msgstr "Vybrané záznamy byly smazány."
 
@@ -2811,7 +2879,7 @@ msgstr "Adresa odesílatele"
 #: ../templates/default/macros/ldap.html:89
 #: ../templates/default/macros/mysql.html:62
 msgid "Sending mails via SMTP"
-msgstr "Odesílání pošty pomocí SMTP."
+msgstr "Odesílání pošty pomocí SMTP"
 
 #: ../templates/default/macros/ldap.html:90
 #: ../templates/default/macros/mysql.html:63
@@ -2830,9 +2898,9 @@ msgstr "Odeslané"
 #: ../templates/default/macros/amavisd.html:77
 #: ../templates/default/panel/log.html:31
 msgid "Sent Mails"
-msgstr "Odeslané maily"
+msgstr "Odeslané emaily"
 
-#: ../templates/default/dashboard.html:142
+#: ../templates/default/dashboard.html:111
 msgid "Server Load"
 msgstr "Zátěž serveru"
 
@@ -2848,26 +2916,26 @@ msgstr ""
 msgid "Session expired, please re-login."
 msgstr "Session vypršela, znovu se přihlašte."
 
-#: ../templates/default/macros/general.html:525
+#: ../templates/default/macros/general.html:534
 msgid "Set to 0 for unlimited."
 msgstr "Pro neomezeně nastavte hodnotu 0."
 
 #: ../templates/default/dbmail_mysql/domain/profile.html:364
-#: ../templates/default/ldap/domain/profile.html:435
+#: ../templates/default/ldap/domain/profile.html:434
 #: ../templates/default/mysql/domain/profile.html:434
 #: ../templates/default/pgsql/domain/profile.html:416
 msgid "Set value to -1 means not allowed to create this kind of account."
 msgstr "Nastavení hodnoty -1 znamená, že není povoleno vytváření tohoto typu účtu."
 
-#: ../templates/default/ldap/domain/profile.html:434
+#: ../templates/default/ldap/domain/profile.html:433
 msgid "Set value to 0 for unlimited."
 msgstr "Nastavení hodnoty 0 znamená neomezeně."
 
 #: ../templates/default/dbmail_mysql/domain/profile.html:125
 #: ../templates/default/dbmail_mysql/domain/profile.html:363
 #: ../templates/default/dbmail_mysql/user/profile.html:113
-#: ../templates/default/ldap/domain/profile.html:368
-#: ../templates/default/ldap/user/profile.html:432
+#: ../templates/default/ldap/domain/profile.html:367
+#: ../templates/default/ldap/user/profile.html:433
 #: ../templates/default/mysql/domain/profile.html:127
 #: ../templates/default/mysql/domain/profile.html:356
 #: ../templates/default/mysql/domain/profile.html:432
@@ -2889,7 +2957,7 @@ msgstr "Jedna IP adresa"
 msgid "Single domain"
 msgstr "Jedna doména"
 
-#: ../templates/default/ldap/user/profile.html:379
+#: ../templates/default/ldap/user/profile.html:380
 #: ../templates/default/policyd/blacklist/create.html:66
 #: ../templates/default/policyd/whitelist/create.html:60
 msgid "Single user"
@@ -2908,28 +2976,28 @@ msgstr "Úroveň nevyžádané pošty"
 msgid "Statistics of latest 24 hours"
 msgstr "Statistika za posledních 24 hodin"
 
-#: ../templates/default/macros/general.html:486
+#: ../templates/default/macros/general.html:495
 msgid "Store password in plain text"
 msgstr "Uložit heslo jako běžný řetězec"
 
 #: ../templates/default/dbmail_mysql/search.html:178
 #: ../templates/default/dbmail_mysql/user/list.html:99
-#: ../templates/default/mysql/user/list.html:112
-#: ../templates/default/pgsql/user/list.html:112
+#: ../templates/default/mysql/user/list.html:114
+#: ../templates/default/pgsql/user/list.html:114
 msgid "Stored"
 msgstr "Obsazeno"
 
-#: ../templates/default/dashboard.html:110
+#: ../templates/default/dashboard.html:79
 msgid "Stored emails"
-msgstr "Uložené maily"
+msgstr "Uložené emaily"
 
 #: ../templates/default/amavisd/inout.html:106
 #: ../templates/default/macros/amavisd.html:8
 msgid "Subject"
 msgstr "Předmět"
 
-#: ../templates/default/ldap/maillist/profile.html:385
-#: ../templates/default/ldap/maillist/profile.html:399
+#: ../templates/default/ldap/maillist/profile.html:386
+#: ../templates/default/ldap/maillist/profile.html:400
 #: ../templates/default/panel/log.html:68
 msgid "Submit"
 msgstr "Odeslat"
@@ -2951,12 +3019,12 @@ msgstr "Podpora"
 msgid "System"
 msgstr "Systém"
 
-#: ../templates/default/dashboard.html:84
+#: ../templates/default/dashboard.html:53
 msgid "System Information"
 msgstr "Informace o systému"
 
-#: ../templates/default/macros/general.html:327
 #: ../templates/default/macros/general.html:336
+#: ../templates/default/macros/general.html:345
 msgid "Telephone Number"
 msgstr "Telefonní číslo"
 
@@ -2967,12 +3035,12 @@ msgstr ""
 "DNS záznamy i reverzní DNS záznamy si musí vzájemně odpovídat, jinak "
 "seznam nebude správně fungovat."
 
-#: ../templates/default/ldap/user/profile.html:373
+#: ../templates/default/ldap/user/profile.html:374
 msgid "This is per-user white/blacklist."
 msgstr "Toto je uživatelský whitelist/blacklist."
 
-#: ../templates/default/ldap/domain/profile.html:125
-#: ../templates/default/ldap/user/profile.html:118
+#: ../templates/default/ldap/domain/profile.html:122
+#: ../templates/default/ldap/user/profile.html:119
 #: ../templates/default/mysql/domain/profile.html:65
 #: ../templates/default/mysql/user/profile.html:69
 #: ../templates/default/pgsql/domain/profile.html:66
@@ -2988,13 +3056,13 @@ msgstr "Čas"
 msgid "Time Unit"
 msgstr "Jednotka času"
 
-#: ../templates/default/dashboard.html:68
+#: ../templates/default/dashboard.html:145
 msgid "Top 10 recipients"
-msgstr "Top 10 příjemců"
+msgstr "10 nejaktivnějších příjemců"
 
-#: ../templates/default/dashboard.html:55
+#: ../templates/default/dashboard.html:132
 msgid "Top 10 senders"
-msgstr "Top 10 odesílatelů"
+msgstr "10 nejaktivnějších odesílatelů"
 
 #: ../templates/default/dbmail_mysql/domain/list.html:88
 #: ../templates/default/dbmail_mysql/domain/list.html:90
@@ -3015,29 +3083,42 @@ msgstr "Celkem"
 #: ../templates/default/dbmail_mysql/user/list.html:90
 #: ../templates/default/dbmail_mysql/user/list.html:92
 #: ../templates/default/ldap/search.html:217
-#: ../templates/default/ldap/domain/list.html:135
-#: ../templates/default/ldap/domain/list.html:137
-#: ../templates/default/ldap/maillist/profile.html:172
-#: ../templates/default/ldap/maillist/profile.html:299
-#: ../templates/default/ldap/user/list.html:106
-#: ../templates/default/ldap/user/list.html:108
-#: ../templates/default/macros/general.html:409
+#: ../templates/default/ldap/domain/list.html:132
+#: ../templates/default/ldap/domain/list.html:134
+#: ../templates/default/ldap/maillist/profile.html:173
+#: ../templates/default/ldap/maillist/profile.html:300
+#: ../templates/default/ldap/user/admin.html:110
+#: ../templates/default/ldap/user/admin.html:112
+#: ../templates/default/ldap/user/list.html:118
+#: ../templates/default/ldap/user/list.html:120
+#: ../templates/default/macros/general.html:418
 #: ../templates/default/mysql/search.html:249
 #: ../templates/default/mysql/domain/list.html:103
 #: ../templates/default/mysql/domain/list.html:105
-#: ../templates/default/mysql/user/list.html:103
 #: ../templates/default/mysql/user/list.html:105
+#: ../templates/default/mysql/user/list.html:107
 #: ../templates/default/pgsql/search.html:249
 #: ../templates/default/pgsql/domain/list.html:103
 #: ../templates/default/pgsql/domain/list.html:105
-#: ../templates/default/pgsql/user/list.html:103
 #: ../templates/default/pgsql/user/list.html:105
+#: ../templates/default/pgsql/user/list.html:107
 msgid "Unlimited"
 msgstr "Bez omezení"
 
-#: ../templates/default/ldap/maillist/profile.html:81
-#: ../templates/default/macros/general.html:713
-#: ../templates/default/macros/general.html:725
+#: ../templates/default/ldap/user/admin.html:145
+#: ../templates/default/ldap/user/list.html:158
+
+msgid "Unmark as domain admin"
+msgstr "Označit jako správce domény"
+
+#: ../templates/default/ldap/user/list.html:162
+
+msgid "Unmark as global admin"
+msgstr "Označit jako globálního správce"
+
+#: ../templates/default/ldap/maillist/profile.html:82
+#: ../templates/default/macros/general.html:722
+#: ../templates/default/macros/general.html:734
 #: ../templates/default/mysql/alias/profile.html:72
 #: ../templates/default/pgsql/alias/profile.html:72
 msgid "Unrestricted"
@@ -3047,7 +3128,7 @@ msgstr "Bez omezení"
 msgid "Upgrade tutorials"
 msgstr "Návody pro aktualizaci"
 
-#: ../templates/default/dashboard.html:136
+#: ../templates/default/dashboard.html:105
 msgid "Uptime"
 msgstr "Čas běhu"
 
@@ -3055,7 +3136,7 @@ msgstr "Čas běhu"
 #: ../templates/default/dbmail_mysql/domain/list.html:90
 #: ../templates/default/dbmail_mysql/domain/list.html:96
 #: ../templates/default/dbmail_mysql/domain/list.html:98
-#: ../templates/default/macros/general.html:534
+#: ../templates/default/macros/general.html:543
 #: ../templates/default/mysql/domain/list.html:95
 #: ../templates/default/mysql/domain/list.html:97
 #: ../templates/default/mysql/domain/list.html:103
@@ -3070,40 +3151,42 @@ msgstr "Využito"
 #: ../templates/default/dbmail_mysql/user/create.html:73
 #: ../templates/default/dbmail_mysql/user/list.html:30
 #: ../templates/default/ldap/search.html:38
-#: ../templates/default/ldap/alias/create.html:53
-#: ../templates/default/ldap/alias/list.html:41
-#: ../templates/default/ldap/maillist/create.html:52
-#: ../templates/default/ldap/maillist/list.html:43
-#: ../templates/default/ldap/user/create.html:95
-#: ../templates/default/ldap/user/list.html:44
+#: ../templates/default/ldap/alias/create.html:68
+#: ../templates/default/ldap/alias/list.html:45
+#: ../templates/default/ldap/maillist/create.html:68
+#: ../templates/default/ldap/maillist/list.html:47
+#: ../templates/default/ldap/user/admin.html:48
+#: ../templates/default/ldap/user/create.html:110
+#: ../templates/default/ldap/user/list.html:49
 #: ../templates/default/macros/msgHandlers.html:108
 #: ../templates/default/mysql/search.html:42
-#: ../templates/default/mysql/alias/create.html:50
-#: ../templates/default/mysql/alias/list.html:38
-#: ../templates/default/mysql/user/create.html:70
-#: ../templates/default/mysql/user/list.html:42
+#: ../templates/default/mysql/alias/create.html:62
+#: ../templates/default/mysql/alias/list.html:40
+#: ../templates/default/mysql/user/create.html:82
+#: ../templates/default/mysql/user/list.html:44
 #: ../templates/default/pgsql/search.html:42
-#: ../templates/default/pgsql/alias/create.html:50
-#: ../templates/default/pgsql/alias/list.html:38
-#: ../templates/default/pgsql/user/create.html:70
-#: ../templates/default/pgsql/user/list.html:42
+#: ../templates/default/pgsql/alias/create.html:62
+#: ../templates/default/pgsql/alias/list.html:40
+#: ../templates/default/pgsql/user/create.html:82
+#: ../templates/default/pgsql/user/list.html:44
 msgid "User"
 msgstr "Uživatel"
 
 #: ../templates/default/dbmail_mysql/search.html:145
 #: ../templates/default/ldap/search.html:193
-#: ../templates/default/ldap/maillist/profile.html:142
-#: ../templates/default/ldap/maillist/profile.html:269
-#: ../templates/default/ldap/user/list.html:68
-#: ../templates/default/macros/general.html:305
+#: ../templates/default/ldap/maillist/profile.html:143
+#: ../templates/default/ldap/maillist/profile.html:270
+#: ../templates/default/ldap/user/admin.html:72
+#: ../templates/default/ldap/user/list.html:73
+#: ../templates/default/macros/general.html:314
 #: ../templates/default/mysql/search.html:226
-#: ../templates/default/mysql/user/list.html:67
+#: ../templates/default/mysql/user/list.html:69
 #: ../templates/default/pgsql/search.html:226
-#: ../templates/default/pgsql/user/list.html:67
+#: ../templates/default/pgsql/user/list.html:69
 msgid "User ID"
 msgstr "ID uživatele"
 
-#: ../templates/default/macros/msgHandlers.html:149
+#: ../templates/default/macros/msgHandlers.html:153
 msgid "User created."
 msgstr "Uživatel vytvořen."
 
@@ -3113,7 +3196,7 @@ msgstr "Uživatel"
 
 #: ../templates/default/macros/msgHandlers.html:65
 msgid "Username must be an valid email address."
-msgstr "Uživatel musí být validní mailová adresa."
+msgstr "Uživatel musí být validní emailová adresa."
 
 #: ../templates/default/macros/msgHandlers.html:63
 msgid "Username or password is incorrect."
@@ -3128,55 +3211,53 @@ msgstr "Uživatelské jméno nebo heslo není správné."
 #: ../templates/default/dbmail_mysql/user/list.html:28
 #: ../templates/default/dbmail_mysql/user/profile.html:32
 #: ../templates/default/ldap/search.html:79
-#: ../templates/default/ldap/alias/create.html:50
+#: ../templates/default/ldap/alias/create.html:17
 #: ../templates/default/ldap/alias/list.html:21
-#: ../templates/default/ldap/alias/list.html:38
-#: ../templates/default/ldap/alias/profile.html:32
+#: ../templates/default/ldap/alias/profile.html:30
 #: ../templates/default/ldap/domain/list.html:54
-#: ../templates/default/ldap/domain/profile.html:104
-#: ../templates/default/ldap/maillist/create.html:49
+#: ../templates/default/ldap/domain/profile.html:100
+#: ../templates/default/ldap/maillist/create.html:17
 #: ../templates/default/ldap/maillist/list.html:23
-#: ../templates/default/ldap/maillist/list.html:40
 #: ../templates/default/ldap/maillist/profile.html:31
-#: ../templates/default/ldap/user/create.html:92
-#: ../templates/default/ldap/user/list.html:22
-#: ../templates/default/ldap/user/list.html:41
+#: ../templates/default/ldap/user/admin.html:22
+#: ../templates/default/ldap/user/create.html:21
+#: ../templates/default/ldap/user/list.html:23
 #: ../templates/default/ldap/user/profile.html:99
 #: ../templates/default/mysql/search.html:83
-#: ../templates/default/mysql/alias/create.html:48
+#: ../templates/default/mysql/alias/create.html:17
+#: ../templates/default/mysql/alias/create.html:60
 #: ../templates/default/mysql/alias/list.html:20
-#: ../templates/default/mysql/alias/list.html:36
 #: ../templates/default/mysql/alias/profile.html:22
 #: ../templates/default/mysql/domain/list.html:55
 #: ../templates/default/mysql/domain/profile.html:43
-#: ../templates/default/mysql/user/create.html:68
+#: ../templates/default/mysql/user/create.html:21
+#: ../templates/default/mysql/user/create.html:80
 #: ../templates/default/mysql/user/list.html:22
-#: ../templates/default/mysql/user/list.html:40
 #: ../templates/default/mysql/user/profile.html:49
 #: ../templates/default/pgsql/search.html:83
-#: ../templates/default/pgsql/alias/create.html:48
+#: ../templates/default/pgsql/alias/create.html:17
+#: ../templates/default/pgsql/alias/create.html:60
 #: ../templates/default/pgsql/alias/list.html:20
-#: ../templates/default/pgsql/alias/list.html:36
 #: ../templates/default/pgsql/alias/profile.html:22
 #: ../templates/default/pgsql/domain/list.html:55
 #: ../templates/default/pgsql/domain/profile.html:44
-#: ../templates/default/pgsql/user/create.html:68
+#: ../templates/default/pgsql/user/create.html:21
+#: ../templates/default/pgsql/user/create.html:80
 #: ../templates/default/pgsql/user/list.html:22
-#: ../templates/default/pgsql/user/list.html:40
 #: ../templates/default/pgsql/user/profile.html:49
 msgid "Users"
 msgstr "Uživatelé"
 
 #: ../templates/default/dbmail_mysql/user/list.html:35
-#: ../templates/default/ldap/user/list.html:50
-#: ../templates/default/mysql/user/list.html:47
-#: ../templates/default/pgsql/user/list.html:47
+#: ../templates/default/ldap/user/list.html:55
+#: ../templates/default/mysql/user/list.html:49
+#: ../templates/default/pgsql/user/list.html:49
 #, python-format
 msgid "Users under domain: %s"
 msgstr "Uživatelé v doméně %s"
 
 #: ../templates/default/ldap/search.html:266
-#: ../templates/default/ldap/maillist/list.html:84
+#: ../templates/default/ldap/maillist/list.html:88
 msgid "View members"
 msgstr "Zobrazit členy"
 
@@ -3185,7 +3266,7 @@ msgid "Virus"
 msgstr "Virus"
 
 #: ../templates/default/dbmail_mysql/domain/profile.html:390
-#: ../templates/default/ldap/user/profile.html:212
+#: ../templates/default/ldap/user/profile.html:213
 #: ../templates/default/macros/msgHandlers.html:36
 #: ../templates/default/macros/msgHandlers.html:38
 #: ../templates/default/mysql/domain/profile.html:461
@@ -3195,7 +3276,7 @@ msgid "Warning"
 msgstr "Upozornění"
 
 #: ../templates/default/dbmail_mysql/user/profile.html:54
-#: ../templates/default/ldap/user/profile.html:119
+#: ../templates/default/ldap/user/profile.html:120
 #: ../templates/default/mysql/user/profile.html:70
 #: ../templates/default/pgsql/user/profile.html:70
 msgid "White/Blacklist"
@@ -3205,7 +3286,7 @@ msgstr "Whitelist/Blacklist"
 msgid "Whitelist"
 msgstr "Whitelist"
 
-#: ../templates/default/ldap/user/profile.html:374
+#: ../templates/default/ldap/user/profile.html:375
 msgid "Whitelist has higher priority than blacklist."
 msgstr "Whitelist má vyšší prioritu než blacklist"
 
@@ -3218,56 +3299,56 @@ msgstr "Záznamy whitelistu"
 msgid "Whitelists"
 msgstr "Whitelisty"
 
-#: ../templates/default/ldap/maillist/profile.html:95
+#: ../templates/default/ldap/maillist/profile.html:96
 #: ../templates/default/mysql/alias/profile.html:86
 #: ../templates/default/pgsql/alias/profile.html:86
 msgid "Who can send email to this list"
-msgstr "Kdo může poslat mail na tento alias"
+msgstr "Kdo může poslat email na tento alias"
 
 #: ../templates/default/panel/license.html:55
 #, python-format
 msgid "You are running version %s"
 msgstr "Používáte verzi %s"
 
-#: ../templates/default/ldap/user/create.html:69
+#: ../templates/default/ldap/user/create.html:82
 #, python-format
 msgid "You can NOT create more users under domain %s."
 msgstr "V doméně %s nemůžete vytvořit více uživatelů."
 
 #: ../templates/default/dbmail_mysql/alias/create.html:39
-#: ../templates/default/ldap/alias/create.html:39
-#: ../templates/default/mysql/alias/create.html:39
-#: ../templates/default/pgsql/alias/create.html:39
+#: ../templates/default/ldap/alias/create.html:52
+#: ../templates/default/mysql/alias/create.html:51
+#: ../templates/default/pgsql/alias/create.html:51
 #, python-format
 msgid "You can create <strong>%d</strong> more mail alias(es) under domain %s."
 msgstr "Ještě můžete vytvořit <strong>%d</strong> aliasů v doméně %s."
 
-#: ../templates/default/ldap/maillist/create.html:39
+#: ../templates/default/ldap/maillist/create.html:53
 #, python-format
 msgid "You can create <strong>%d</strong> more mail list(s) under domain %s."
 msgstr "Ještě můžete vytvořit <strong>%d</strong> maillistů v doméně %s."
 
 #: ../templates/default/dbmail_mysql/user/create.html:61
-#: ../templates/default/ldap/user/create.html:80
-#: ../templates/default/mysql/user/create.html:58
-#: ../templates/default/pgsql/user/create.html:58
+#: ../templates/default/ldap/user/create.html:93
+#: ../templates/default/mysql/user/create.html:70
+#: ../templates/default/pgsql/user/create.html:70
 #, python-format
 msgid "You can create <strong>%d</strong> more mail user(s) under domain %s."
 msgstr "Ještě můžete vytvořit <strong>%d</strong> uživatelů v doméně %s."
 
 #: ../templates/default/dbmail_mysql/alias/create.html:32
-#: ../templates/default/mysql/alias/create.html:32
-#: ../templates/default/pgsql/alias/create.html:32
+#: ../templates/default/mysql/alias/create.html:44
+#: ../templates/default/pgsql/alias/create.html:44
 #, python-format
 msgid "You can't create mail aliases under domain %s."
 msgstr "V doméně %s nemůžete vytvářet aliasy."
 
-#: ../templates/default/ldap/alias/create.html:34
+#: ../templates/default/ldap/alias/create.html:47
 #, python-format
 msgid "You can't create more mail aliases under domain %s."
 msgstr "V doméně %s již nemůžete vytvořit více aliasů."
 
-#: ../templates/default/ldap/maillist/create.html:34
+#: ../templates/default/ldap/maillist/create.html:48
 #, python-format
 msgid "You can't create more mail lists under domain %s."
 msgstr "V doméně %s již nemůžete vytvořit více maillistů."
@@ -3279,11 +3360,11 @@ msgstr "V doméně %s již nemůžete vytvořit více maillistů."
 msgid "Your search returned no hits."
 msgstr "Nebylo nic nalezeno."
 
-#: ../templates/default/macros/general.html:568
+#: ../templates/default/macros/general.html:577
 msgid "default transport"
 msgstr "výchozí doručování"
 
-#: ../templates/default/macros/general.html:572
+#: ../templates/default/macros/general.html:581
 msgid ""
 "forward emails to host example.com through port 25. The [] form is "
 "required when you specify an IP address instead of a hostname, or disable"
@@ -3297,9 +3378,15 @@ msgstr ""
 msgid "iRedMail Admin Panel"
 msgstr "Administrátorský panel iRedAdmin"
 
-#: ../templates/default/macros/general.html:571
+#: ../templates/default/macros/general.html:580
 msgid "receive but discard email, useful for mailboxes like noreply@example.com"
 msgstr ""
-"přijmout email, ale vyřadit ho; Užitečné pro maily typu "
+"přijmout email, ale vyřadit ho; užitečné pro emaily typu "
 "noreply@example.com"
+
+#~ msgid "Admin of domain"
+#~ msgstr "Správce domény"
+
+#~ msgid "List assigned domain admins"
+#~ msgstr "Zobrazit přiřazené správce domény"
 

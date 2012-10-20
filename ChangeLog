@@ -1,3 +1,7 @@
+= 0.2.1 =
+    * Updated translations:
+        + Update Czech (cs_CZ). Thanks Roman Pudil <roman _at_ webhosting.fm>.
+
 = 0.2 =
     * Fixed:
         + [mysql/pgsql] List all users in Admins page.
