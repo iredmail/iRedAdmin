@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  iRedAdmin-Pro\n"
 "Report-Msgid-Bugs-To: zhb@iredmail.org\n"
-"POT-Creation-Date: 2012-10-20 14:52+0800\n"
-"PO-Revision-Date: 2012-10-19 21:24+0100\n"
+"POT-Creation-Date: 2012-10-24 15:45+0800\n"
+"PO-Revision-Date: 2012-10-23 19:05+0100\n"
 "Last-Translator: \n"
 "Language-Team: cs_CZ <info@webhosting.fm>\n"
 "Plural-Forms: nplurals=3; plural=n>=2 && n<=4 ? 1 : n==1 ? 0 : 2\n"
@@ -741,25 +741,25 @@ msgstr "Dostupný prostor:"
 #: ../templates/default/pgsql/domain/profile.html:62
 #: ../templates/default/pgsql/user/profile.html:67
 msgid "BCC"
-msgstr "BCC"
+msgstr "Sledování"
 
 #: ../templates/default/macros/general.html:598
 msgid "BCC incoming emails to single address"
-msgstr "Přicházející BCC emaily na jednu adresu"
+msgstr "Přichozí emaily na BCC adresu"
 
 #: ../templates/default/macros/ldap.html:80
 #: ../templates/default/macros/ldap.html:100
 msgid "BCC incoming mails to other address"
-msgstr "Přicházející BCC emaily na jinou adresu"
+msgstr "Přichozí emaily na jinou BCC adresu"
 
 #: ../templates/default/macros/general.html:610
 msgid "BCC outgoing emails to single address"
-msgstr "Odcházející BCC emaily na jednu adresu"
+msgstr "Odchozí emaily na BCC adresu"
 
 #: ../templates/default/macros/ldap.html:81
 #: ../templates/default/macros/ldap.html:101
 msgid "BCC outgoing mails to other address"
-msgstr "Odcházející BCC emaily na jinou adresu"
+msgstr "Odchozí emaily na jinou BCC adresu"
 
 #: ../templates/default/policyd/wblist.html:12
 msgid "Blacklist"
@@ -1417,7 +1417,7 @@ msgstr "Povolit pro tuto doménu greylisting"
 #: ../templates/default/mysql/user/profile.html:171
 #: ../templates/default/pgsql/user/profile.html:171
 msgid "Enable mail forwarding"
-msgstr "Povolit přeposílání emailů"
+msgstr "Povolit přesměrování emailů"
 
 #: ../templates/default/macros/policyd.html:7
 msgid "Enable recipient throttling"
@@ -1559,18 +1559,18 @@ msgstr "Formát odesílatele a příjemce"
 #: ../templates/default/mysql/user/profile.html:193
 #: ../templates/default/pgsql/user/profile.html:193
 msgid "Forward mails to address"
-msgstr "Přeposílat emaily na adresu"
+msgstr "Přesměrovat emaily na adresy"
 
 #: ../templates/default/dbmail_mysql/user/profile.html:50
 #: ../templates/default/ldap/user/profile.html:116
 #: ../templates/default/mysql/user/profile.html:66
 #: ../templates/default/pgsql/user/profile.html:66
 msgid "Forwarding"
-msgstr "Přeposílání"
+msgstr "Přesměrování"
 
 #: ../templates/default/macros/ldap.html:96
 msgid "Forwarding mails to other addresses"
-msgstr "Přeposílat emaily na jiné adresy"
+msgstr "Přesměrovat emaily na jiné adresy"
 
 #: ../templates/default/dbmail_mysql/admin/profile.html:44
 #: ../templates/default/dbmail_mysql/alias/profile.html:36
@@ -1981,7 +1981,7 @@ msgstr ""
 #: ../templates/default/mysql/alias/profile.html:102
 #: ../templates/default/pgsql/alias/profile.html:102
 msgid "Mail sent to alias will be forwarded to members."
-msgstr "Emaily odeslané na alias budou přeposlány jeho členům."
+msgstr "Email odeslaný na alias bude přesměrován na jeho členy."
 
 #: ../templates/default/macros/ldap.html:113
 msgid "Mail service"
@@ -2130,7 +2130,7 @@ msgstr "Moderátoři byli úspěšně odebráni."
 #: ../templates/default/pgsql/domain/profile.html:186
 #: ../templates/default/pgsql/user/profile.html:212
 msgid "Monitor incoming emails via BCC"
-msgstr "Monitorovat příchozí emaily přes BCC"
+msgstr "Sledovat příchozí emaily pomocí BCC"
 
 #: ../templates/default/ldap/domain/profile.html:260
 #: ../templates/default/mysql/domain/profile.html:192
@@ -2138,7 +2138,7 @@ msgstr "Monitorovat příchozí emaily přes BCC"
 #: ../templates/default/pgsql/domain/profile.html:193
 #: ../templates/default/pgsql/user/profile.html:219
 msgid "Monitor outgoing emails via BCC"
-msgstr "Monitorovat odchozí emaily přes BCC"
+msgstr "Sledovat odchozí emaily pomocí BCC"
 
 #: ../templates/default/ldap/domain/profile.html:315
 #: ../templates/default/mysql/domain/profile.html:256
@@ -2644,7 +2644,7 @@ msgstr "Prostor"
 
 #: ../templates/default/macros/policyd.html:32
 msgid "Quota size of all outgoing emails"
-msgstr "Velikost prostoru pro odchozí emaily"
+msgstr "Celková velikost odchozích emailů"
 
 #: ../templates/default/dashboard.html:28
 #: ../templates/default/macros/amavisd.html:62
@@ -2709,7 +2709,7 @@ msgstr "Odmítnout odeslat emaily následujícím adresátům"
 #: ../templates/default/pgsql/domain/profile.html:63
 #: ../templates/default/pgsql/user/profile.html:68
 msgid "Relay"
-msgstr "Přeposlat"
+msgstr "Přeposílání"
 
 #: ../templates/default/macros/general.html:559
 msgid "Relay/Transport Setting"
@@ -2791,7 +2791,7 @@ msgstr "Výsledky hledání"
 
 #: ../templates/default/macros/policyd.html:60
 msgid "Seconds"
-msgstr "Sekund"
+msgstr "sekund"
 
 #: ../templates/default/error_csrf.html:7
 msgid ""
