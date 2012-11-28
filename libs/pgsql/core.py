@@ -296,33 +296,15 @@ class Auth(PGSQLWrap):
         record = result[0]
         password_sql = str(record.password)
 
-        # Verify password.
+        # Verify password
         authenticated = False
-        if password_sql.startswith('$') and len(password_sql) == 34 and password_sql.count('$') == 3:
-            # Password is considered as a MD5 password (with salt).
-            # Get salt string from password which stored in SQL.
-            tmpsalt = password_sql.split('$')
-            tmpsalt[-1] = ''
-            salt = '$'.join(tmpsalt)
-
-            if md5crypt.md5crypt(password, salt) == password_sql:
-                authenticated = True
-
-        elif password_sql == iredutils.getPlainMD5Password(password):
-            # Plain MD5
-            authenticated = True
-        elif password_sql.upper().startswith('{PLAIN-MD5}'):
-            if password_sql == '{PLAIN-MD5}' + iredutils.getPlainMD5Password(password):
-                authenticated = True
-        elif password_sql.upper().startswith('{PLAIN}'):
-            # Plain password with prefix '{PLAIN}'.
-            if password_sql == '{PLAIN}' + password:
-                authenticated = True
-        elif password_sql == password:
-            # Plain password.
+        if iredutils.verify_md5_password(password_sql, password) \
+           or iredutils.verify_plain_md5_password(password_sql, password) \
+           or password_sql in [password, '{PLAIN}' + password] \
+           or iredutils.verify_ssha_password(password_sql, password) \
+           or iredutils.verify_ssha512_password(password_sql, password):
             authenticated = True
 
-        # Compare passwords.
         if authenticated is False:
             return (False, 'INVALID_CREDENTIALS')
 

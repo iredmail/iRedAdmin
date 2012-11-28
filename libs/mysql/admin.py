@@ -287,7 +287,7 @@ class Admin(core.MySQLWrap):
                 'admin',
                 username=self.mail,
                 name=self.cn,
-                password=iredutils.getSQLPassword(self.passwd),
+                password=iredutils.generate_password_for_sql_mail_account(self.passwd),
                 language=self.preferredLanguage,
                 created=iredutils.getGMTTime(),
                 active='1',
@@ -366,7 +366,7 @@ class Admin(core.MySQLWrap):
             # Verify new passwords.
             qr = iredutils.verifyNewPasswords(self.newpw, self.confirmpw)
             if qr[0] is True:
-                self.passwd = iredutils.getSQLPassword(qr[1])
+                self.passwd = iredutils.generate_password_for_sql_mail_account(qr[1])
             else:
                 return qr
 

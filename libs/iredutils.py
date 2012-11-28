@@ -1,12 +1,14 @@
 # encoding: utf-8
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
+from os import urandom
 import gettext
 import re
 import datetime
 import time
 import urllib2
 import socket
+from base64 import b64encode, b64decode
 from xml.dom.minidom import parseString as parseXMLString
 import random
 import web
@@ -335,13 +337,34 @@ def getRandomPassword(length=10):
     return "".join(random.choice(chars) for x in range(length))
 
 
-def getMD5Password(p):
+def generate_md5_password(p):
     p = str(p).strip()
     return md5crypt.unix_md5_crypt(p, getRandomPassword(length=8))
 
 
-def getPlainMD5Password(p):
-    p = str(p)
+def verify_md5_password(challenge_password, plain_password):
+    """Verify salted MD5 password"""
+    if challenge_password.startswith('{MD5}'):
+        challenge_password = challenge_password.replace('{MD5}', '')
+
+    if not (
+        challenge_password.startswith('$') \
+        and len(challenge_password) == 34 \
+        and challenge_password.count('$') == 3):
+        return False
+
+    # Get salt from hashed string
+    salt = challenge_password.split('$')
+    salt[-1] = ''
+    salt = '$'.join(salt)
+
+    if md5crypt.md5crypt(p, salt) == p:
+        return True
+    else:
+        return False
+
+def generate_plain_md5_password(p):
+    p = str(p).strip()
     try:
         from hashlib import md5
         return md5(p).hexdigest()
@@ -352,23 +375,117 @@ def getPlainMD5Password(p):
     return p
 
 
-def getSQLPassword(p, pwscheme=settings.SQL_DEFAULT_PASSWD_SCHEME):
-    p = str(p)
-    pw = p
+def verify_plain_md5_password(challenge_password, plain_password):
+    if challenge_password.startswith('{PLAIN-MD5}'):
+        challenge_password = challenge_password.replace('{PLAIN-MD5}', '')
+
+    if challenge_password == generate_plain_md5_password(plain_password):
+        return True
+    else:
+        return False
+
+def generate_ssha_password(p):
+    p = str(p).strip()
+    salt = urandom(8)
+    try:
+        from hashlib import sha1
+        pw = sha1(p)
+    except ImportError:
+        import sha
+        pw = sha.new(p)
+    pw.update(salt)
+    return "{SSHA}" + b64encode(pw.digest() + salt)
+
+
+def verify_ssha_password(challenge_password, plain_password):
+    """Verify SSHA (salted SHA) hash with or without prefix '{SSHA}'"""
+    if challenge_password.startswith('{SSHA}'):
+        challenge_password = challenge_password.replace('{SSHA}', '')
+
+    if not len(challenge_password) > 20:
+        # Not a valid SSHA hash
+        return False
+
+    try:
+        challenge_bytes = b64decode(challenge_password)
+        digest = challenge_bytes[:20]
+        salt = challenge_bytes[20:]
+        try:
+            from hashlib import sha1
+            hr = sha1(plain_password)
+        except ImportError:
+            import sha
+            hr = sha.new(plain_password)
+        hr.update(salt)
+        return digest == hr.digest()
+    except:
+        return False
+
+
+def generate_ssha512_password(p):
+    """Generate salted SHA512 password with prefix '{SSHA512}'.
+    Return salted SHA hash if python is older than 2.5 (module hashlib)."""
+    p = str(p).strip()
+    try:
+        from hashlib import sha512
+        salt = urandom(8)
+        pw = sha512(p)
+        pw.update(salt)
+        return "{SSHA512}" + b64encode(pw.digest() + salt)
+    except ImportError:
+        # Use SSHA password instead if python is older than 2.5.
+        return generate_ssha_password(p)
+
+
+def verify_ssha512_password(challenge_password, plain_password):
+    """Verify SSHA512 password with or without prefix '{SSHA512}'.
+    Python-2.5 is required since it requires module hashlib."""
+    if challenge_password.startswith('{SSHA512}'):
+        challenge_password = challenge_password.replace('{SSHA512}', '')
+
+    # With SSHA512, hash itself is 64 bytes (512 bits/8 bits per byte),
+    # everything after that 64 bytes is the salt.
+    if not len(challenge_password) > 64:
+        return False
+
+    try:
+        challenge_bytes = b64decode(challenge_password)
+        digest = challenge_bytes[:64]
+        salt = challenge_bytes[64:]
+
+        from hashlib import sha512
+        hr = sha512(plain_password)
+        hr.update(salt)
+
+        return digest == hr.digest()
+    except:
+        return False
+
+
+def generate_password_for_sql_mail_account(p, pwscheme=None):
+    """Generate password for mail user for MySQL/PostgreSQL backend."""
+    pw = str(p).strip()
+
+    if not pwscheme:
+        pwscheme = settings.SQL_DEFAULT_PASSWD_SCHEME
 
     if pwscheme == 'MD5':
-        pw = getMD5Password(p)
+        pw = generate_md5_password(p)
     elif pwscheme == 'PLAIN-MD5':
-        pw = getPlainMD5Password(p)
+        pw = generate_plain_md5_password(p)
     elif pwscheme == 'PLAIN':
         backend = cfg.general.get('backend', 'mysql')
-        if backend == 'mysql':
+        if backend in ['mysql', 'pgsql']:
             if settings.SQL_PASSWD_PREFIX_SCHEME is True:
                 pw = '{PLAIN}' + p
             else:
                 pw = p
         elif backend == 'dbmail_mysql':
             pw = p
+    elif pwscheme == 'SSHA':
+        pw = generate_ssha_password(p)
+    elif pwscheme == 'SSHA512':
+        pw = generate_ssha512_password(p)
 
     return pw
 

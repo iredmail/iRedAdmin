@@ -223,10 +223,10 @@ class User(core.PGSQLWrap):
             max_passwd_length=maxPasswordLength,
         )
         if resultOfPW[0] is True:
+            pwscheme = None
             if 'storePasswordInPlainText' in data and settings.STORE_PASSWORD_IN_PLAIN:
-                passwd = iredutils.getSQLPassword(resultOfPW[1], pwscheme='PLAIN')
-            else:
-                passwd = iredutils.getSQLPassword(resultOfPW[1])
+                pwscheme = 'PLAIN'
+            passwd = iredutils.generate_password_for_sql_mail_account(resultOfPW[1], pwscheme=pwscheme)
         else:
             return resultOfPW
 
@@ -345,10 +345,10 @@ class User(core.PGSQLWrap):
             # Verify new passwords.
             qr = iredutils.verifyNewPasswords(newpw, confirmpw)
             if qr[0] is True:
+                pwscheme = None
                 if 'storePasswordInPlainText' in data and settings.STORE_PASSWORD_IN_PLAIN:
-                    passwd = iredutils.getSQLPassword(qr[1], pwscheme='PLAIN')
-                else:
-                    passwd = iredutils.getSQLPassword(qr[1])
+                    pwscheme = 'PLAIN'
+                passwd = iredutils.generate_password_for_sql_mail_account(qr[1], pwscheme=pwscheme)
             else:
                 return qr
 
