@@ -38,7 +38,7 @@ def Auth(uri, dn, password, session=web.config.get('_session')):
                         '(accountStatus=active)' + \
                         '(|' + \
                         '(objectClass=mailAdmin)' + \
-                        '(&(objectClass=mailUser)(enabledService=domainadmin))' + \
+                        '(&(objectClass=mailUser)(|(enabledService=domainadmin)(domainGlobalAdmin=yes)))' + \
                         ')' + \
                         ')'
 
