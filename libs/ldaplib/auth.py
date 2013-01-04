@@ -2,13 +2,12 @@
 
 import web
 import ldap
-from ldap.dn import escape_dn_chars
 
 
 # Used for user auth.
 def Auth(uri, dn, password, session=web.config.get('_session')):
     try:
-        dn = escape_dn_chars(web.safestr(dn.strip()))
+        dn = web.safestr(dn.strip())
         password = password.strip()
 
         # Detect STARTTLS support.

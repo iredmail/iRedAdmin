@@ -7,6 +7,7 @@ import datetime
 from base64 import b64encode
 import web
 import ldap
+from ldap.dn import escape_dn_chars
 from libs import iredutils, settings
 from libs.ldaplib import attrs
 
@@ -20,6 +21,7 @@ domainadmin_dn = cfg.ldap['domainadmin_dn']
 def convKeywordToDN(keyword, accountType='user'):
     '''Convert keyword and account type to DN.'''
     keyword = web.safestr(keyword).strip().replace(' ', '')
+    keyword = escape_dn_chars(keyword)
     accountType == web.safestr(accountType)
 
     # No matter what account type is, try to get a domain name.
