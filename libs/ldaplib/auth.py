@@ -57,9 +57,13 @@ def Auth(uri, dn, password, session=web.config.get('_session')):
                     session['domainGlobalAdmin'] = True
 
                 if 'mailUser' in entry.get('objectClass'):
-                    if 'domainadmin' in entry.get('enabledService', []):
-                        return False
                     session['isMailUser'] = True
+
+                    # Make sure user have 'domainGlobalAdmin=yes' for global
+                    # admin or 'enabledService=domainadmin' for domain admin.
+                    if not session.get('domainGlobalAdmin') \
+                       or not 'domainadmin' in entry.get('enabledService', []):
+                        return False
 
                 conn.unbind_s()
                 return True
