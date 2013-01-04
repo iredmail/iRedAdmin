@@ -2,13 +2,13 @@
 
 import web
 import ldap
-import ldap.filter
+from ldap.dn import escape_dn_chars
 
 
 # Used for user auth.
 def Auth(uri, dn, password, session=web.config.get('_session')):
     try:
-        dn = ldap.filter.escape_filter_chars(web.safestr(dn.strip()))
+        dn = escape_dn_chars(web.safestr(dn.strip()))
         password = password.strip()
 
         # Detect STARTTLS support.
@@ -43,7 +43,12 @@ def Auth(uri, dn, password, session=web.config.get('_session')):
                         ')'
 
                 # Check whether this user is a site wide global admin.
-                qr = conn.search_s(dn, ldap.SCOPE_BASE, filter, ['objectClass', 'domainGlobalAdmin'])
+                qr = conn.search_s(
+                    dn,
+                    ldap.SCOPE_BASE,
+                    filter,
+                    ['objectClass', 'domainGlobalAdmin', 'enabledService'])
+
                 if not qr:
                     raise ldap.INVALID_CREDENTIALS
 
@@ -52,6 +57,8 @@ def Auth(uri, dn, password, session=web.config.get('_session')):
                     session['domainGlobalAdmin'] = True
 
                 if 'mailUser' in entry.get('objectClass'):
+                    if 'domainadmin' in entry.get('enabledService', []):
+                        return False
                     session['isMailUser'] = True
 
                 conn.unbind_s()

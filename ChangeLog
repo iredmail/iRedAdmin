@@ -4,6 +4,11 @@
           Note: SSHA512 requires Dovecot-2.0 (and later), Python-2.5 (or
           later).
 
+    * Fixed:
+        - SECURITY ISSUE: Normal user can login and update their own profile,
+          includes mail quota.
+          Thanks Wesley MOUEDINE ASSABY <wesley _at_ aise.re> for the report.
+
     * Updated translations:
         + Update Czech (cs_CZ). Thanks Roman Pudil <roman _at_ webhosting.fm>.
 
