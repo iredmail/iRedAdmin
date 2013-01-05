@@ -44,6 +44,9 @@
     {% set mobile = entries.get('mobile', [''])[0] |e %}
     {% set telephoneNumber = entries.get('telephoneNumber', []) %}
     {% set mailQuota = '%d' % (entries.get('mailQuota', [0])[0] |int /1024/1024) %}
+
+    {% set first_name = entries.get('givenName', [''])[0].decode('utf-8') |e %}
+    {% set last_name = entries.get('sn', [''])[0].decode('utf-8') |e %}
 {% endif %}
 
 {% block breadcrumb %}
@@ -99,7 +102,11 @@
                 ) }}
 
                 <div class="bt-space10"></div>
-                {{ display_input_cn(cn) }}
+                {{ display_input_cn(cn,
+                                    tooltip=_('Full name'),
+                                    show_first_last_name=true,
+                                    first_name=first_name,
+                                    last_name=last_name) }}
                 {{ display_preferred_language(value=entries.get('preferredLanguage', ['en_US'])[0], languagemaps=languagemaps) }}
                 {{ display_quota(value=mailQuota, show_value_in_input=true) }}
 

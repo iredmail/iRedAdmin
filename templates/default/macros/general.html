@@ -81,18 +81,10 @@
         });
 
         {# tooltip #}
-        $("a[title], img[title], span[title]").tooltip({
+        $("a[title], img[title], span[title], input[title]").tooltip({
             position: "top center",
             offset: [-5, 0],
             predelay: 300,
-            delay: 100,
-            effect: "fade",
-            opacity: 1
-        });
-
-        $("input[title]").tooltip({
-            position: "center right",
-            offset: [-2, 10],
             delay: 100,
             effect: "fade",
             opacity: 1
@@ -555,7 +547,8 @@
 {%- endmacro %}
 
 
-{% macro display_input_cn(cn='', name='cn', accountType='user', tooltip='', size="size-250") -%}
+{% macro display_input_cn(cn='', name='cn', accountType='user', tooltip='', size="size-250", show_first_last_name=false, first_name='', last_name='') -%}
+
     {% if cn is sameas none %}
         {% set cn = '' %}
     {% endif %}
@@ -571,6 +564,16 @@
             <input type="text" name="{{ name |e }}" value="{{ cn |e }}" size="35" class="text" {% if tooltip != '' %}title="{{ tooltip |e }}"{% endif %} />
         </span>
     </div>
+
+    {% if show_first_last_name is sameas true %}
+    <div class="form-field clear">
+        <h4 class="size-250 fl-space">&nbsp;</h4>
+        <span class="clean-padding bt-space20">
+            <input type="text" name="first_name" value="{{ first_name |e }}" size="15" class="text" title="{{ _('First name') }}" />
+            <input type="text" name="last_name" value="{{ last_name |e }}" size="15" class="text" title="{{ _('Last name') }}"/>
+        </span>
+    </div>
+    {% endif %}
 {%- endmacro %}
 
 

@@ -47,7 +47,7 @@ ADMIN_SEARCH_ATTRS = ['mail', 'accountStatus', 'cn', 'preferredLanguage',
                       'domainGlobalAdmin', 'enabledService',
                       'objectClass',
                      ]
-ADMIN_ATTRS_ALL = ADMIN_SEARCH_ATTRS
+ADMIN_ATTRS_ALL = ADMIN_SEARCH_ATTRS + ['sn', 'givenName']
 
 # ---------------------------------------------------------
 # Domain related.
@@ -125,6 +125,7 @@ USER_SEARCH_ATTRS = [
 
 USER_ATTRS_ALL = [
     'mail', 'cn', 'accountStatus', 'mailQuota', 'jpegPhoto',
+    'sn', 'givenName',
     'enabledService', 'memberOfGroup', 'employeeNumber', 'preferredLanguage',
     'telephoneNumber', 'userRecipientBccAddress', 'userSenderBccAddress',
     'mailForwardingAddress', 'mtaTransport',
