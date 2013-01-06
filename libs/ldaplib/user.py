@@ -452,7 +452,7 @@ class User(core.LDAPWrap):
     def update(self, profile_type, mail, data):
         self.profile_type = web.safestr(profile_type)
         self.mail = str(mail).lower()
-        self.domain = self.mail.split('@', 1)[-1]
+        self.username, self.domain = self.mail.split('@', 1)
 
         domainAccountSetting = {}
 
@@ -495,7 +495,19 @@ class User(core.LDAPWrap):
 
             # Get display name.
             cn = data.get('cn', None)
-            mod_attrs += ldaputils.getSingleModAttr(attr='cn', value=cn, default=self.mail.split('@')[0])
+            mod_attrs += ldaputils.getSingleModAttr(attr='cn',
+                                                    value=cn,
+                                                    default=self.username)
+
+            first_name = data.get('first_name', '')
+            mod_attrs += ldaputils.getSingleModAttr(attr='givenName',
+                                                    value=first_name,
+                                                    default=self.username)
+
+            last_name = data.get('last_name', '')
+            mod_attrs += ldaputils.getSingleModAttr(attr='sn',
+                                                    value=last_name,
+                                                    default=self.username)
 
             # Get preferred language: short lang code. e.g. en_US, de_DE.
             preferred_lang = web.safestr(data.get('preferredLanguage', 'en_US'))

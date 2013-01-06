@@ -121,6 +121,7 @@ class Admin(core.LDAPWrap):
     def update(self, profile_type, mail, data):
         self.profile_type = web.safestr(profile_type)
         self.mail = web.safestr(mail)
+        self.username, self.domain = self.mail.split('@', 1)
 
         if session.get('domainGlobalAdmin') is not True and session.get('username') != self.mail:
             # Don't allow to view/update other admins' profile.
@@ -138,7 +139,19 @@ class Admin(core.LDAPWrap):
 
             # Get cn.
             cn = data.get('cn', None)
-            mod_attrs += ldaputils.getSingleModAttr(attr='cn', value=cn, default=self.mail.split('@')[0],)
+            mod_attrs += ldaputils.getSingleModAttr(attr='cn',
+                                                    value=cn,
+                                                    default=self.username)
+
+            first_name = data.get('first_name', '')
+            mod_attrs += ldaputils.getSingleModAttr(attr='givenName',
+                                                    value=first_name,
+                                                    default=self.username)
+
+            last_name = data.get('last_name', '')
+            mod_attrs += ldaputils.getSingleModAttr(attr='sn',
+                                                    value=last_name,
+                                                    default=self.username)
 
             # Get accountStatus.
             if 'accountStatus' in data.keys():
