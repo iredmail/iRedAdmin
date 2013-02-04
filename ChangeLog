@@ -6,8 +6,12 @@
           later).
 
     * Fixed:
-        - SECURITY ISSUE: Normal user can login and update their own profile,
-          includes mail quota.
+        - Incorrectly unset domainGlobalAdmin status in session after updating
+          admin profile.
+          Thanks Tue <tt _at_ atorbital.com> and escu <cosmin.necula@gmail> for
+          the report.
+        - [ldap] Normal user can login and update their own profile, includes
+          mail quota.
           Thanks Wesley MOUEDINE ASSABY <wesley _at_ aise.re> for the report.
 
     * Updated translations:

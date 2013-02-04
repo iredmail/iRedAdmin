@@ -278,11 +278,18 @@ class User(core.MySQLWrap):
         self.domain = self.mail.split('@', 1)[-1]
 
         # Pre-defined update key:value.
-        updates = {'modified': iredutils.getGMTTime(), 'isadmin': 0, }
+        updates = {'modified': iredutils.getGMTTime()}
 
         if self.profile_type == 'general':
             # Get settings of domain admin and global admin
             managed_domain=''
+            if 'domainadmin' in data:
+                # isadmin=1
+                updates['isadmin'] = 1
+                managed_domain=self.domain
+            else:
+                updates['isadmin'] = 0
+
             if session.get('domainGlobalAdmin'):
                 if 'domainGlobalAdmin' in data:
                     updates['isadmin'] = 1
@@ -381,9 +388,10 @@ class User(core.MySQLWrap):
             )
 
             # Update session immediately after updating SQL.
-            if not 'domainGlobalAdmin' in data and \
-               session.get('username') == self.mail:
-                session['domainGlobalAdmin'] = False
+            if profile_type == 'general':
+                if not 'domainGlobalAdmin' in data and \
+                   session.get('username') == self.mail:
+                    session['domainGlobalAdmin'] = False
 
             return (True,)
         except Exception, e:
