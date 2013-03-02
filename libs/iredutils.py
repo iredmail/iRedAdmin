@@ -358,7 +358,7 @@ def verify_md5_password(challenge_password, plain_password):
     salt[-1] = ''
     salt = '$'.join(salt)
 
-    if md5crypt.md5crypt(p, salt) == p:
+    if md5crypt.md5crypt(plain_password, salt) == challenge_password:
         return True
     else:
         return False
