@@ -1,3 +1,7 @@
+= 0.2.2 =
+    * New or updated translations:
+        + Korean (ko_KR). Thanks Bosung Lee <bs.lee _at_ innogrid.com>.
+
 = 0.2.1 =
     * Improvements:
         + [ldap] Able to manage first/last name in user/admin profile page.

@@ -40,7 +40,7 @@ DOMAIN="iredadmin"
 POFILE="${DOMAIN}.po"
 AVAILABLE_LANGS="$(ls -d *_*)"
 
-extractLastest()
+extract_latest()
 {
     # Extract strings from template files.
     echo "* Extract localizable messages from template files to ${POFILE}..."
@@ -54,7 +54,7 @@ extractLastest()
         .. >/dev/null
 }
 
-updatePO()
+update_po()
 {
     # Update PO files.
     echo "* Update existing new translations catalog based on ${POFILE}..."
@@ -75,23 +75,22 @@ updatePO()
     done
 }
 
-convertPO2MO()
+convert_po_to_mo()
 {
     echo "* Convert translation catalogs into binary MO files..."
     for lang in ${LANGUAGES}
     do
         echo "  + Converting ${lang}..."
         msgfmt --statistics -c ${lang}/LC_MESSAGES/${DOMAIN}.po -o ${lang}/LC_MESSAGES/${DOMAIN}.mo
-        #python msgfmt.py ${lang}/LC_MESSAGES/${DOMAIN}.po
     done
 }
 
 if [ X"${ACTIONORLANG}" == X"all" -o X"${ACTIONORLANG}" == X"" ]; then
     export LANGUAGES="${AVAILABLE_LANGS}"
 else
-    export LANGUAGES="${ACTIONORLANG}"
+    export LANGUAGES="$(basename ${ACTIONORLANG})"
 fi
 
-extractLastest && \
-updatePO && \
-convertPO2MO
+extract_latest && \
+update_po && \
+convert_po_to_mo
