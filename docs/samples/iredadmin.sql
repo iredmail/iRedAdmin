@@ -40,3 +40,21 @@ CREATE TABLE IF NOT EXISTS `updatelog` (
     KEY id (id),
     INDEX (date)
 ) ENGINE=MyISAM;
+
+-- Used to store basic info of deleted mailboxes.
+CREATE TABLE IF NOT EXISTS `deleted_mailboxes` (
+    `id` BIGINT(20) UNSIGNED AUTO_INCREMENT,
+    `timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    -- Email address of deleted user
+    `username` VARCHAR(255) NOT NULL DEFAULT '',
+    -- Domain part of user email address
+    domain VARCHAR(255) NOT NULL DEFAULT '',
+    -- Absolute path of user's mailbox
+    `maildir` TEXT NOT NULL DEFAULT '',
+    -- Which domain admin deleted this user
+    `admin` VARCHAR(255) NOT NULL DEFAULT '',
+    KEY id (id),
+    INDEX (username),
+    INDEX (domain),
+    INDEX (admin)
+) ENGINE=MyISAM;
