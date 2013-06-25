@@ -1,6 +1,6 @@
 = 0.2.2 =
-    * New SQL table: deleted_mailboxes. Used to store basic info of deleted
-      user mailbox, majorly maildir path.
+    * New SQL table: deleted_mailboxes. Required by iRedAdmin-Pro, used to
+      store basic info of deleted user mailbox, majorly maildir path.
     * New or updated translations:
         + Korean (ko_KR). Thanks Bosung Lee <gotocloud _at_ gotocloud.co.kr>
 
