@@ -48,6 +48,7 @@ CREATE TABLE deleted_mailboxes (
     admin VARCHAR(255) NOT NULL DEFAULT ''
 );
 
+CREATE INDEX idx_deleted_mailboxes_timestamp ON deleted_mailboxes (timestamp);
 CREATE INDEX idx_deleted_mailboxes_username ON deleted_mailboxes (username);
 CREATE INDEX idx_deleted_mailboxes_domain ON deleted_mailboxes (domain);
 CREATE INDEX idx_deleted_mailboxes_admin ON deleted_mailboxes (admin);

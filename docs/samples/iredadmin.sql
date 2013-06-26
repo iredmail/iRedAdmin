@@ -54,6 +54,7 @@ CREATE TABLE IF NOT EXISTS `deleted_mailboxes` (
     -- Which domain admin deleted this user
     `admin` VARCHAR(255) NOT NULL DEFAULT '',
     KEY id (id),
+    INDEX (timestamp),
     INDEX (username),
     INDEX (domain),
     INDEX (admin)
