@@ -48,9 +48,9 @@ CREATE TABLE IF NOT EXISTS `deleted_mailboxes` (
     -- Email address of deleted user
     `username` VARCHAR(255) NOT NULL DEFAULT '',
     -- Domain part of user email address
-    domain VARCHAR(255) NOT NULL DEFAULT '',
+    `domain` VARCHAR(255) NOT NULL DEFAULT '',
     -- Absolute path of user's mailbox
-    `maildir` TEXT NOT NULL DEFAULT '',
+    `maildir` VARCHAR(255) NOT NULL DEFAULT '',
     -- Which domain admin deleted this user
     `admin` VARCHAR(255) NOT NULL DEFAULT '',
     KEY id (id),

@@ -43,7 +43,7 @@ CREATE TABLE deleted_mailboxes (
     -- Domain part of user email address
     domain VARCHAR(255) NOT NULL DEFAULT '',
     -- Absolute path of user's mailbox
-    maildir TEXT NOT NULL DEFAULT '',
+    maildir VARCHAR(255) NOT NULL DEFAULT '',
     -- Which domain admin deleted this user
     admin VARCHAR(255) NOT NULL DEFAULT ''
 );
