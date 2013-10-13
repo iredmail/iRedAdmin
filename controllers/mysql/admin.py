@@ -3,10 +3,10 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
 import web
+import settings
 from libs import languages, iredutils
 from libs.mysql import decorators, admin as adminlib, domain as domainlib
 
-cfg = web.iredconfig
 session = web.config.get('_session')
 
 
@@ -99,10 +99,10 @@ class Profile:
                 profile_type=self.profile_type,
                 domainGlobalAdmin=domainGlobalAdmin,
                 profile=profile,
-                languagemaps=languages.getLanguageMaps(),
+                languagemaps=languages.get_language_maps(),
                 allDomains=self.allDomains,
-                min_passwd_length=cfg.general.get('min_passwd_length', '0'),
-                max_passwd_length=cfg.general.get('max_passwd_length', '0'),
+                min_passwd_length=settings.min_passwd_length,
+                max_passwd_length=settings.max_passwd_length,
                 msg=i.get('msg'),
             )
         else:
@@ -139,10 +139,10 @@ class Create:
         i = web.input()
         return web.render(
             'mysql/admin/create.html',
-            languagemaps=languages.getLanguageMaps(),
-            default_language=cfg.general.get('lang', 'en_US'),
-            min_passwd_length=cfg.general.get('min_passwd_length'),
-            max_passwd_length=cfg.general.get('max_passwd_length'),
+            languagemaps=languages.get_language_maps(),
+            default_language=settings.default_language,
+            min_passwd_length=settings.min_passwd_length,
+            max_passwd_length=settings.max_passwd_length,
             msg=i.get('msg'),
         )
 

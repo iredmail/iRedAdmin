@@ -465,18 +465,6 @@
             {% elif spare_quota_bytes |int == -1 %}
                 {% set comment = _('Set to 0 for unlimited.') %}
             {% endif %}
-
-            {% if show_used_quota is sameas true %}
-                {% if value |int > 0 %}
-                    {% if session.get('enableShowUsedQuota') is sameas true and value.isdigit() and used_quota.isdigit() %}
-                        {% set percent = used_quota |getPercentage(value |int * 1024 * 1024) %}
-                        <label class="fl-space"><em style="color: black; font-style: normal;">
-                            {{ display_progress_bar(percent, show_zero=true, width='80px') }}&nbsp;
-                            {{ _('Used') }}&nbsp;{{ used_quota |filesizeformat }}.&nbsp;({{ percent }}%)
-                        </em></label>
-                    {% endif %}
-                {% endif %}
-            {% endif %}
         </span>
 
         <span><input type="hidden" name="oldMailQuota" value="{{ value |e }}" /></span>
@@ -670,7 +658,7 @@
 {%- macro display_random_password(length) -%}
     <div class="mark_blue bt-space10">
         <h4>{{ _('Need a random password?') }}</h4>
-        <p class="clean-padding clean-padding bt-space10">{{ length | getRandomPassword }}</p>
+        <p class="clean-padding clean-padding bt-space10">{{ length | generate_random_strings }}</p>
     </div>
 {%- endmacro -%}
 

@@ -5,8 +5,6 @@ import os
 import glob
 import web
 
-cfg = web.iredconfig
-
 langmaps = {
     'en_US': u'English (US)',
     'sq_AL': u'Albanian',
@@ -116,22 +114,26 @@ allTimezonesOffsets = {
 
 
 # Get available languages.
-def getLanguageMaps():
+def get_language_maps():
     # Get available languages.
-    available_langs = [web.safestr(os.path.basename(v))
-                       for v in glob.glob(cfg.get('rootdir') + 'i18n/[a-z][a-z]_[A-Z][A-Z]')
-                       if os.path.basename(v) in langmaps
-                      ]
-    available_langs += [web.safestr(os.path.basename(v))
-                        for v in glob.glob(cfg.get('rootdir') + 'i18n/[a-z][a-z]')
-                        if os.path.basename(v) in langmaps
-                       ]
+    rootdir = os.path.abspath(os.path.dirname(__file__)) + '/../'
+
+    available_langs = [
+        web.safestr(os.path.basename(v))
+        for v in glob.glob(rootdir + 'i18n/[a-z][a-z]_[A-Z][A-Z]')
+        if os.path.basename(v) in langmaps]
+
+    available_langs += [
+        web.safestr(os.path.basename(v))
+        for v in glob.glob(rootdir + 'i18n/[a-z][a-z]')
+        if os.path.basename(v) in langmaps]
+
     available_langs.sort()
 
     # Get language maps.
     languagemaps = {}
-    [languagemaps.update({i: langmaps[i]})
-     for i in available_langs
-     if i in langmaps
-    ]
+    for i in available_langs:
+        if i in langmaps:
+            languagemaps.update({i: langmaps[i]})
+
     return languagemaps

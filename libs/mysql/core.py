@@ -1,23 +1,23 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
 import web
-from libs import iredutils, md5crypt
+import settings
+from libs import iredutils
 
-cfg = web.iredconfig
 session = web.config.get('_session')
 
 
 class MySQLWrap:
-    def __init__(self, app=web.app, session=session, **settings):
+    def __init__(self):
         # Initial DB connection and cursor.
         try:
             self.conn = web.database(
                 dbn='mysql',
-                host=cfg.vmaildb.get('host', '127.0.0.1'),
-                port=int(cfg.vmaildb.get('port', 3306)),
-                db=cfg.vmaildb.get('db', 'vmail'),
-                user=cfg.vmaildb.get('user', 'vmailadmin'),
-                pw=cfg.vmaildb.get('passwd', ''),
+                host=settings.vmail_db_host,
+                port=int(settings.vmail_db_port),
+                db=settings.vmail_db_name,
+                user=settings.vmail_db_user,
+                pw=settings.vmail_db_password,
                 charset='utf8',
             )
             self.conn.supports_multiple_insert = True
@@ -25,7 +25,7 @@ class MySQLWrap:
             return False
 
     # Validators.
-    def isGlobalAdmin(self, admin=None,):
+    def is_global_admin(self, admin=None,):
         if admin is None:
             return False
         elif admin == session.get('username'):
@@ -206,7 +206,7 @@ class MySQLWrap:
                             vars={'address': als.address, },
                             where='address = $address',
                             goto=','.join([str(v) for v in exist_members if v not in accounts]),
-                            modified=iredutils.getGMTTime(),
+                            modified=iredutils.get_gmttime(),
                         )
                 except Exception, e:
                     pass

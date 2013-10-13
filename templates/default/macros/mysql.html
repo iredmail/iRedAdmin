@@ -11,7 +11,7 @@
                             <span class="fl-space">
                                 <input type="checkbox" name="domainName" value="{{ domain }}" {% if domain in managedDomains %}checked{%endif%} />
                             </span>
-                            <label>{% if r.description |length > 0 %}{{ domain }} ({{ r.description |cutString |e }}){% else %}{{ domain }}{% endif %}</label>
+                            <label>{% if r.description |length > 0 %}{{ domain }} ({{ r.description |cut_string |e }}){% else %}{{ domain }}{% endif %}</label>
                         </div>
                         <div class="clear"></div>
                     {% endfor %}

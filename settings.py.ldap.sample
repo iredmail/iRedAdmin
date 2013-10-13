@@ -1,0 +1,126 @@
+############################################################
+# DO NOT TOUCH BELOW LINE.
+#
+# Import default settings.
+# You can always override default settings by placing custom settings in this
+# file.
+from libs.default_settings import *
+
+############################################################
+# General settings.
+#
+# Site webmaster's mail address.
+webmaster = 'zhb@iredmail.org'
+
+# Default language.
+default_language = 'en_US'
+
+# Database backend: ldap.
+backend = 'ldap'
+
+# Base directory used to store all mail data.
+# iRedMail uses '/var/vmail/vmail1' as default storage directory.
+# Tip: You can set a per-domain storage directory in domain profile page.
+storage_base_directory = '/var/vmail/vmail1'
+
+# Default mta transport.
+# iRedMail uses 'dovecot' as defualt transport.
+# Tip: You can set a per-domain or per-user transport in domain or user
+#      profile page.
+default_mta_transport = 'dovecot'
+
+# Min/Max admin password length.
+#   - min_passwd_length: 0 means unlimited, but at least 1 character
+#                        is required.
+#   - max_passwd_length: 0 means unlimited.
+# User password length is controlled in domain profile.
+min_passwd_length = 8
+max_passwd_length = 0
+
+#####################################################################
+# Database used to store iRedAdmin data. e.g. sessions, log.
+#
+iredadmin_db_host = '127.0.0.1'
+iredadmin_db_port = 3306
+iredadmin_db_name = 'iredadmin'
+iredadmin_db_user = 'iredadmin'
+iredadmin_db_password = 'password'
+
+############################################################################
+# Settings used for OpenLDAP backend.
+#
+# LDAP server uri. Examples:
+# - ldap://127.0.0.1    normal LDAP connection (port 389)
+# - ldaps://127.0.0.1   secure connection through STARTTLS (port 389)
+ldap_uri = 'ldap://127.0.0.1'
+
+# LDAP suffix.
+# basedn: dn which contains virtual domains.
+# domainadmin_dn: dn which contains virtual domain admins.
+ldap_basedn = 'o=domains,dc=iredmail,dc=org'
+ldap_domainadmin_dn = 'o=domainAdmins,dc=iredmail,dc=org'
+
+# Bind dn and password.
+#   - bind dn should have write privilege in LDAP.
+#   - bind pw is plain text, not encryped/hashed.
+ldap_bind_dn = 'cn=vmailadmin,dc=iredmail,dc=org'
+ldap_bind_password = 'password'
+
+############################################################################
+# Settings used for Policyd (1.8.x) integration. Provides global
+# white-/blacklist, sender/recipient throttling, etc.
+#
+# Enable policyd integration: True, False.
+policyd_enabled = True
+
+# SQL Database used to store policyd data, eg. whitelist, blacklist.
+# You can find related information in policyd config files:
+#   - On RHEL/CentOS:   /etc/policyd.conf
+#   - On Debian/Ubuntu: /etc/postfix-policyd.conf
+#   - On FreeBSD:       /usr/local/etc/policyd.conf
+# Related parameters:
+#   host    -> MYSQLHOST
+#   port    -> 3306 (Default)
+#   db      -> MYSQLDBASE
+#   user    -> MYSQLUSER
+#   passwd  -> MYSQLPASS
+policyd_db_host = '127.0.0.1'
+policyd_db_port = 3306
+policyd_db_name = 'policyd'
+policyd_db_user = 'policyd'
+policyd_db_password = 'password'
+
+##############################################################################
+# Settings used for Amavisd-new integration. Provides spam/virus quaranting,
+# releasing, etc.
+#
+# Log basic info of in/out emails into SQL (@storage_sql_dsn): True, False.
+# It's @storage_sql_dsn setting in amavisd. You can find this setting
+# in amavisd-new config files:
+#   - On RHEL/CentOS:   /etc/amavisd.conf or /etc/amavisd/amavisd.conf
+#   - On Debian/Ubuntu: /etc/amavis/conf.d/50-user.conf
+#   - On FreeBSD:       /usr/local/etc/amavisd.conf
+# Reference:
+# http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Integrate.MySQL.in.Amavisd
+amavisd_enable_logging = True
+
+amavisd_db_host = '127.0.0.1'
+amavisd_db_port = 3306
+amavisd_db_name = 'amavisd'
+amavisd_db_user = 'amavisd'
+amavisd_db_password = 'password'
+
+# #### Quarantining ####
+# Release quarantined SPAM/Virus mails: True, False.
+# iRedAdmin-Pro will connect to @quarantine_server to release quarantined mails.
+# How to enable quarantining in Amavisd-new:
+# http://www.iredmail.org/wiki/index.php?title=IRedMail/FAQ/Quarantining.SPAM
+amavisd_enable_quarantine = True
+
+# Port of Amavisd protocol 'AM.PDP-INET'. Default is 9998.
+amavisd_quarantine_port = 9998
+
+##############################################################################
+# Place your custom settings below, you can override all settings in this file
+# and libs/default_settings.py here.
+#

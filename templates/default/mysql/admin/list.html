@@ -67,7 +67,7 @@
                         {% if name == '' %}
                             {{ username.split('@', 1)[0] }}
                         {% else %}
-                            {{ name |cutString }}
+                            {{ name |cut_string }}
                         {% endif %}
                     </td>
                     <td>{{ username }}</td>

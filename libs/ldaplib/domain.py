@@ -5,7 +5,6 @@ import web
 from libs import iredutils
 from libs.ldaplib import core, attrs, iredldif, ldaputils, deltree, connUtils, decorators
 
-cfg = web.iredconfig
 session = web.config.get('_session')
 
 

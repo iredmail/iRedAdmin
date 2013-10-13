@@ -2,7 +2,7 @@
 
 import os
 import sys
-from ConfigParser import SafeConfigParser
+import gettext
 
 import web
 from jinja2 import Environment, FileSystemLoader
@@ -15,40 +15,18 @@ from jinja2 import Environment, FileSystemLoader
 os.environ['PYTHON_EGG_CACHE'] = '/tmp/.iredadmin-eggs'
 os.environ['LC_ALL'] = 'C'
 
-# init settings.ini to a web.storage
-rootdir = os.path.abspath(os.path.dirname(__file__)) + '/../'
-iniSettings = SafeConfigParser()
-cfgfile = os.path.join(rootdir, 'settings.ini')
-if os.path.exists(cfgfile):
-    iniSettings.read(cfgfile)
-else:
-    sys.exit('Error: No config file found: %s.' % cfgfile)
-
-iniSections = web.storage(iniSettings._sections)
-cfg = web.iredconfig = web.storage()
-for k in iniSections:
-    web.iredconfig[k] = web.storage(iniSections[k])
-
-web.iredconfig['rootdir'] = rootdir
-
-webmaster = cfg.general.get('webmaster', 'root')
-backend = cfg.general.get('backend', 'ldap')
-
-# Set debug mode.
-if cfg.general.get('debug', 'False').lower() in ['true', ]:
-    web.config.debug = True
-else:
-    web.config.debug = False
-
-# Initialize object which used to stored all translations.
-cfg.allTranslations = web.storage()
-
-# Get global language setting.
-lang = cfg.general.get('lang', 'en_US')
-
 import iredutils
 import settings
 from ireddate import convert_utc_to_timezone
+
+# Set debug mode.
+web.config.debug = settings.DEBUG
+
+# Check Policyd/Cluebringer
+enable_policyd = settings.policyd_enabled
+enable_cluebringer = settings.policyd_enabled
+if settings.policyd_db_name in ['cluebringer']:
+    enable_policyd = False
 
 # Set session parameters.
 web.config.session_parameters['cookie_name'] = 'iRedAdmin'
@@ -58,17 +36,18 @@ web.config.session_parameters['ignore_change_ip'] = False
 
 # Initialize session object.
 session_dbn = 'mysql'
-if backend in ['pgsql', ]:
+if settings.backend in ['pgsql', ]:
     session_dbn = 'postgres'
 
 db_iredadmin = web.database(
-    host=cfg.iredadmin.get('host', 'localhost'),
-    port=int(cfg.iredadmin.get('port', '3306')),
+    host=settings.iredadmin_db_host,
+    port=int(settings.iredadmin_db_port),
     dbn=session_dbn,
-    db=cfg.iredadmin.get('db', 'iredadmin'),
-    user=cfg.iredadmin.get('user', 'iredadmin'),
-    pw=cfg.iredadmin.get('passwd'),
+    db=settings.iredadmin_db_name,
+    user=settings.iredadmin_db_user,
+    pw=settings.iredadmin_db_password,
 )
+db_iredadmin.supports_multiple_insert = True
 
 # Store session data in 'iredadmin.sessions'.
 sessionStore = web.session.DBStore(db_iredadmin, 'sessions')
@@ -78,18 +57,30 @@ web.admindb = db_iredadmin
 
 # URL handlers.
 # Import backend related urls.
-if backend == 'ldap':
+if settings.backend == 'ldap':
     from controllers.ldap.urls import urls as backendUrls
-elif backend == 'mysql':
+elif settings.backend == 'mysql':
     from controllers.mysql.urls import urls as backendUrls
-elif backend == 'pgsql':
+elif settings.backend == 'pgsql':
     from controllers.pgsql.urls import urls as backendUrls
-elif backend == 'dbmail_mysql':
-    from controllers.dbmail_mysql.urls import urls as backendUrls
 else:
     backendUrls = []
 
 urls = backendUrls
+
+# Import Policyd/Cluebringer related urls.
+if enable_policyd:
+    from controllers.policyd.urls import urls as policydUrls
+    urls += policydUrls
+
+if enable_cluebringer:
+    from controllers.cluebringer.urls import urls as policydUrls
+    urls += policydUrls
+
+# Import amavisd related urls.
+if settings.amavisd_enable_quarantine or settings.amavisd_enable_logging:
+    from controllers.amavisd.urls import urls as amavisdUrls
+    urls += amavisdUrls
 
 from controllers.panel.urls import urls as panelUrls
 urls += panelUrls
@@ -101,24 +92,23 @@ session = web.session.Session(
     app,
     sessionStore,
     initializer={
-        'webmaster': webmaster,
+        'webmaster': settings.webmaster,
         'username': None,
         'logged': False,
-        'failedTimes': 0,   # Integer.
-        'lang': lang,
+        'failed_times': 0,   # Integer.
+        'lang': settings.default_language,
+        'is_global_admin': False,
+        'default_mta_transport': settings.default_mta_transport,
 
         # Store password in plain text.
-        'storePasswordInPlain': settings.STORE_PASSWORD_IN_PLAIN,
+        'store_password_in_plain_text': settings.STORE_PASSWORD_IN_PLAIN_TEXT,
 
-        # Show used quota.
-        'enableShowUsedQuota': False,
-
-        # Enable Policyd & Amavisd integration.
-        'enablePolicyd': False,
+        # Policyd/Cluebringer integration.
+        'enable_policyd': enable_policyd,
+        'enable_cluebringer': enable_cluebringer,
 
         # Amavisd related features.
-        'enableAmavisdQuarantine': False,
-        'enableAmavisdLoggingIntoSQL': False,
+        'amavisd_enable_quarantine': settings.amavisd_enable_quarantine,
     }
 )
 
@@ -128,28 +118,48 @@ web.config._session = session
 # Generate CSRF token and store it in session.
 def csrf_token():
     if not 'csrf_token' in session.keys():
-        session['csrf_token'] = iredutils.getRandomPassword(32)
+        session['csrf_token'] = iredutils.generate_random_strings(32)
 
     return session['csrf_token']
 
 
-# Hooks.
-def hook_lang():
-    web.ctx.lang = web.input(lang=None, _method="GET").lang or session.get('lang', 'en_US')
+# Initialize object which used to stored all translations.
+all_translations = {'en_US': gettext.NullTranslations()}
+
+# Translations
+def ired_gettext(string):
+    """Translate a given string to the language of the application."""
+    lang = session.lang
+
+    if lang in all_translations:
+        translation = all_translations[lang]
+    else:
+        try:
+            # Store new translation
+            translation = gettext.translation(
+                'iredadmin',
+                os.path.abspath(os.path.dirname(__file__)) + '/../i18n',
+                languages=[lang])
+            all_translations[lang] = translation
+        except:
+            translation = all_translations['en_US']
+
+    return translation.ugettext(string)
 
 
 # Define template render.
 def render_template(template_name, **context):
     jinja_env = Environment(
-        loader=FileSystemLoader(os.path.join(os.path.dirname(__file__), '../templates/default', )),
+        loader=FileSystemLoader(os.path.join(os.path.dirname(__file__),
+                                             '../templates/default', )),
         extensions=[],
     )
     jinja_env.globals.update({
-        '_': iredutils.iredGettext,    # Override _() which provided by Jinja2.
-        'ctx': web.ctx,                 # Used to get 'homepath'.
-        'skin': 'default',              # Used for static files.
+        '_': ired_gettext,  # Override _() which provided by Jinja2.
+        'ctx': web.ctx,     # Used to get 'homepath'.
+        'skin': 'default',  # Used for static files.
         'session': web.config._session,
-        'backend': backend,
+        'backend': settings.backend,
         'csrf_token': csrf_token,
         'pageSizeLimit': settings.PAGE_SIZE_LIMIT,
         'policyPriorityOfUser': settings.POLICY_PRIORITY_OF_USER,
@@ -158,10 +168,10 @@ def render_template(template_name, **context):
 
     jinja_env.filters.update({
         'filesizeformat': iredutils.filesizeformat,
-        'setDatetimeFormat': iredutils.setDatetimeFormat,
-        'getRandomPassword': iredutils.getRandomPassword,
-        'getPercentage': iredutils.getPercentage,
-        'cutString': iredutils.cutString,
+        'set_datetime_format': iredutils.set_datetime_format,
+        'generate_random_strings': iredutils.generate_random_strings,
+        'convert_to_percentage': iredutils.convert_to_percentage,
+        'cut_string': iredutils.cut_string,
         'convert_utc_to_timezone': convert_utc_to_timezone,
     })
 
@@ -175,10 +185,15 @@ class SessionExpired(web.HTTPError):
 
 
 # Logger. Logging into SQL database.
-def log_into_sql(msg, admin='', domain='', username='', event='', loglevel='info',):
+def log_into_sql(msg,
+                 admin='',
+                 domain='',
+                 username='',
+                 event='',
+                 loglevel='info'):
     try:
-        if admin == '':
-            admin = session.get('username', '')
+        if not admin:
+            admin = session.get('username')
 
         db_iredadmin.insert(
             'log',
@@ -189,10 +204,12 @@ def log_into_sql(msg, admin='', domain='', username='', event='', loglevel='info
             event=str(event),
             msg=str(msg),
             ip=str(session.ip),
-            timestamp=iredutils.getGMTTime(),
+            timestamp=iredutils.get_gmttime(),
         )
     except Exception:
         pass
+
+    return None
 
 
 # Log error message. default log to sys.stderr.
@@ -203,11 +220,10 @@ def log_error(*args):
         except Exception, e:
             print >> sys.stderr, e
 
-app.add_processor(web.loadhook(hook_lang))
 
 # Mail 500 error to webmaster.
-if cfg.general.get('mail_error_to_webmaster', 'False').lower() == 'true':
-    app.internalerror = web.emailerrors(webmaster, web.webapi._InternalError,)
+if settings.MAIL_ERROR_TO_WEBMASTER:
+    app.internalerror = web.emailerrors(settings.webmaster, web.webapi._InternalError)
 
 # Store objects in 'web' module.
 web.app = app

@@ -8,14 +8,11 @@ from base64 import b64encode
 import web
 import ldap
 from ldap.dn import escape_dn_chars
-from libs import iredutils, settings
+import settings
+from libs import iredutils
 from libs.ldaplib import attrs
 
-cfg = web.iredconfig
 session = web.config.get('_session')
-
-basedn = cfg.ldap['basedn']
-domainadmin_dn = cfg.ldap['domainadmin_dn']
 
 
 def convKeywordToDN(keyword, accountType='user'):
@@ -48,45 +45,45 @@ def convKeywordToDN(keyword, accountType='user'):
             attrs.RDN_USER, keyword,
             attrs.DN_BETWEEN_USER_AND_DOMAIN,
             attrs.RDN_DOMAIN, domain,
-            basedn,
+            settings.ldap_basedn,
         )
     elif accountType == 'maillist':
         dn = '%s=%s,%s%s=%s,%s' % (
             attrs.RDN_MAILLIST, keyword,
             attrs.DN_BETWEEN_MAILLIST_AND_DOMAIN,
             attrs.RDN_DOMAIN, domain,
-            basedn,
+            settings.ldap_basedn,
         )
     elif accountType == 'maillistExternal':
         dn = '%s=%s,%s%s=%s,%s' % (
             attrs.RDN_MAILLIST_EXTERNAL, keyword,
             attrs.DN_BETWEEN_MAILLIST_EXTERNAL_AND_DOMAIN,
             attrs.RDN_DOMAIN, domain,
-            basedn,
+            settings.ldap_basedn,
         )
     elif accountType == 'alias':
         dn = '%s=%s,%s%s=%s,%s' % (
             attrs.RDN_ALIAS, keyword,
             attrs.DN_BETWEEN_ALIAS_AND_DOMAIN,
             attrs.RDN_DOMAIN, domain,
-            basedn,
+            settings.ldap_basedn,
         )
     elif accountType == 'admin':
         dn = '%s=%s,%s' % (
             attrs.RDN_ADMIN, keyword,
-            domainadmin_dn,
+            settings.ldap_domainadmin_dn,
         )
     elif accountType == 'catchall':
         dn = '%s=@%s,%s%s=%s,%s' % (
             attrs.RDN_CATCHALL, domain,
             attrs.DN_BETWEEN_CATCHALL_AND_DOMAIN,
             attrs.RDN_DOMAIN, domain,
-            basedn,
+            settings.ldap_basedn,
         )
     elif accountType == 'domain':
         dn = '%s=%s,%s' % (
             attrs.RDN_DOMAIN, keyword,
-            basedn,
+            settings.ldap_basedn,
         )
 
     return dn

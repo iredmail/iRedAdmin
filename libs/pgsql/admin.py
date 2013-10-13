@@ -3,10 +3,10 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
 import web
-from libs import iredutils, settings
+import settings
+from libs import iredutils
 from libs.pgsql import core, decorators, connUtils
 
-cfg = web.iredconfig
 session = web.config.get('_session')
 
 
@@ -107,7 +107,7 @@ class Admin(core.PGSQLWrap):
         sql_vars = {'admin': self.admin, 'domains': self.domains, }
         if accountType == 'domain':
             try:
-                if self.isGlobalAdmin(self.admin):
+                if self.is_global_admin(self.admin):
                     result = self.conn.select('domain', what='COUNT(domain) AS total',)
                 else:
                     result = self.conn.query(
@@ -126,7 +126,7 @@ class Admin(core.PGSQLWrap):
                 pass
         elif accountType == 'user':
             try:
-                if self.isGlobalAdmin(self.admin):
+                if self.is_global_admin(self.admin):
                     if len(self.domains) >= 0:
                         result = self.conn.select(
                             'mailbox',
@@ -157,7 +157,7 @@ class Admin(core.PGSQLWrap):
                 pass
         elif accountType == 'alias':
             try:
-                if self.isGlobalAdmin(self.admin):
+                if self.is_global_admin(self.admin):
                     if len(self.domains) == 0:
                         result = self.conn.select(
                             'alias',
@@ -242,7 +242,7 @@ class Admin(core.PGSQLWrap):
                 limit=1,
             )
             if len(result) == 1:
-                if self.isGlobalAdmin(admin=self.mail):
+                if self.is_global_admin(admin=self.mail):
                     self.domainGlobalAdmin = True
 
                 return (True, self.domainGlobalAdmin, list(result)[0])
@@ -276,7 +276,7 @@ class Admin(core.PGSQLWrap):
         self.newpw = web.safestr(data.get('newpw'))
         self.confirmpw = web.safestr(data.get('confirmpw'))
 
-        result = iredutils.verifyNewPasswords(self.newpw, self.confirmpw)
+        result = iredutils.verify_new_password(self.newpw, self.confirmpw)
 
         if result[0] is True:
             self.passwd = result[1]
@@ -290,7 +290,7 @@ class Admin(core.PGSQLWrap):
                 name=self.cn,
                 password=iredutils.generate_password_for_sql_mail_account(self.passwd),
                 language=self.preferredLanguage,
-                created=iredutils.getGMTTime(),
+                created=iredutils.get_gmttime(),
                 active='1',
             )
 
@@ -299,7 +299,7 @@ class Admin(core.PGSQLWrap):
                     'domain_admins',
                     username=self.mail,
                     domain='ALL',
-                    created=iredutils.getGMTTime(),
+                    created=iredutils.get_gmttime(),
                     active='1',
                 )
 
@@ -365,7 +365,7 @@ class Admin(core.PGSQLWrap):
             self.confirmpw = web.safestr(data.get('confirmpw', ''))
 
             # Verify new passwords.
-            qr = iredutils.verifyNewPasswords(self.newpw, self.confirmpw)
+            qr = iredutils.verify_new_password(self.newpw, self.confirmpw)
             if qr[0] is True:
                 self.passwd = iredutils.generate_password_for_sql_mail_account(qr[1])
             else:
@@ -385,7 +385,7 @@ class Admin(core.PGSQLWrap):
                     vars=sql_vars,
                     where='username=$username',
                     password=self.passwd,
-                    passwordlastchange=iredutils.getGMTTime(),
+                    passwordlastchange=iredutils.get_gmttime(),
                 )
             except Exception, e:
                 raise web.seeother('/profile/admin/password/%s?msg=%s' % (self.mail, web.urlquote(e)))

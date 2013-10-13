@@ -6,7 +6,6 @@ import web
 from libs import iredutils
 from libs.ldaplib import core, attrs, ldaputils, iredldif, deltree, connUtils, decorators
 
-cfg = web.iredconfig
 session = web.config.get('_session')
 
 
@@ -90,7 +89,7 @@ class Admin(core.LDAPWrap):
         self.newpw = web.safestr(data.get('newpw'))
         self.confirmpw = web.safestr(data.get('confirmpw'))
 
-        result = iredutils.verifyNewPasswords(self.newpw, self.confirmpw)
+        result = iredutils.verify_new_password(self.newpw, self.confirmpw)
         if result[0] is True:
             self.passwd = ldaputils.generateLDAPPasswd(result[1])
         else:
@@ -175,7 +174,7 @@ class Admin(core.LDAPWrap):
             self.newpw = web.safestr(data.get('newpw'))
             self.confirmpw = web.safestr(data.get('confirmpw'))
 
-            result = iredutils.verifyNewPasswords(self.newpw, self.confirmpw)
+            result = iredutils.verify_new_password(self.newpw, self.confirmpw)
             if result[0] is True:
                 self.passwd = result[1]
             else:

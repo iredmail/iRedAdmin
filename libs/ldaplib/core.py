@@ -2,23 +2,22 @@
 
 import web
 import ldap
-from libs import settings
+import settings
 from libs.ldaplib import attrs
 
-cfg = web.iredconfig
 session = web.config.get('_session')
 
 
 class LDAPWrap:
     def __init__(self, app=web.app, session=session,):
         # Get LDAP settings.
-        self.basedn = cfg.ldap.get('basedn')
-        self.domainadmin_dn = cfg.ldap.get('domainadmin_dn')
+        self.basedn = settings.ldap_basedn
+        self.domainadmin_dn = settings.ldap_domainadmin_dn
 
         # Initialize LDAP connection.
         try:
             # Get LDAP URI.
-            uri = cfg.ldap.get('uri', 'ldap://127.0.0.1')
+            uri = settings.ldap_uri
 
             # Detect STARTTLS support.
             if uri.startswith('ldaps://'):
@@ -43,7 +42,7 @@ class LDAPWrap:
             return False
 
         # synchronous bind.
-        self.conn.bind_s(cfg.ldap.get('bind_dn'), cfg.ldap.get('bind_pw'))
+        self.conn.bind_s(settings.ldap_bind_dn, settings.ldap_bind_password)
 
     def __del__(self):
         try:

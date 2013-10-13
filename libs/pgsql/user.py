@@ -3,10 +3,10 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
 import web
-from libs import iredutils, settings
+import settings
+from libs import iredutils
 from libs.pgsql import core, decorators, connUtils, domain as domainlib, admin as adminlib
 
-cfg = web.iredconfig
 session = web.config.get('_session', {})
 
 ENABLED_SERVICES = [
@@ -213,10 +213,10 @@ class User(core.PGSQLWrap):
         confirmpw = web.safestr(data.get('confirmpw', ''))
 
         # Get password length limit from domain profile or global setting.
-        minPasswordLength = domainProfile.get('minpasswordlength', cfg.general.get('min_passwd_length', '0'))
-        maxPasswordLength = domainProfile.get('maxpasswordlength', cfg.general.get('max_passwd_length', '0'))
+        minPasswordLength = domainProfile.get('minpasswordlength', settings.min_passwd_length)
+        maxPasswordLength = domainProfile.get('maxpasswordlength', settings.max_passwd_length)
 
-        resultOfPW = iredutils.verifyNewPasswords(
+        resultOfPW = iredutils.verify_new_password(
             newpw,
             confirmpw,
             min_passwd_length=minPasswordLength,
@@ -234,7 +234,7 @@ class User(core.PGSQLWrap):
         cn = data.get('cn', '')
 
         # Get storage base directory.
-        tmpStorageBaseDirectory = cfg.general.get('storage_base_directory').lower()
+        tmpStorageBaseDirectory = settings.storage_base_directory.lower()
         splitedSBD = tmpStorageBaseDirectory.rstrip('/').split('/')
         storageNode = splitedSBD.pop()
         storageBaseDirectory = '/'.join(splitedSBD)
@@ -247,11 +247,11 @@ class User(core.PGSQLWrap):
                 username=self.mail,
                 password=passwd,
                 name=cn,
-                maildir=iredutils.setMailMessageStore(self.mail),
+                maildir=iredutils.generate_maildir_path(self.mail),
                 quota=mailQuota,
                 storagebasedirectory=storageBaseDirectory,
                 storagenode=storageNode,
-                created=iredutils.getGMTTime(),
+                created=iredutils.get_gmttime(),
                 active='1',
                 local_part=mail_local_part,
             )
@@ -262,7 +262,7 @@ class User(core.PGSQLWrap):
                 address=self.mail,
                 goto=self.mail,
                 domain=self.domain,
-                created=iredutils.getGMTTime(),
+                created=iredutils.get_gmttime(),
                 active='1',
             )
 
@@ -278,7 +278,7 @@ class User(core.PGSQLWrap):
         self.domain = self.mail.split('@', 1)[-1]
 
         # Pre-defined update key:value.
-        updates = {'modified': iredutils.getGMTTime()}
+        updates = {'modified': iredutils.get_gmttime()}
 
         if self.profile_type == 'general':
             # Get settings of domain admin and global admin
@@ -309,7 +309,7 @@ class User(core.PGSQLWrap):
                     self.conn.insert('domain_admins',
                                      username=self.mail,
                                      domain=managed_domain,
-                                     created=iredutils.getGMTTime(),
+                                     created=iredutils.get_gmttime(),
                                      active=1,
                                     )
                 except:
@@ -350,7 +350,7 @@ class User(core.PGSQLWrap):
             confirmpw = str(data.get('confirmpw', ''))
 
             # Verify new passwords.
-            qr = iredutils.verifyNewPasswords(newpw, confirmpw)
+            qr = iredutils.verify_new_password(newpw, confirmpw)
             if qr[0] is True:
                 pwscheme = None
                 if 'storePasswordInPlainText' in data and settings.STORE_PASSWORD_IN_PLAIN:
@@ -371,7 +371,7 @@ class User(core.PGSQLWrap):
                     'mailbox',
                     vars={'username': self.mail, },
                     where='username=$username',
-                    passwordlastchange=iredutils.getGMTTime(),
+                    passwordlastchange=iredutils.get_gmttime(),
                 )
             except:
                 pass

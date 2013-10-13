@@ -66,7 +66,7 @@
                 <td>
                     <a href="{{ctx.homepath}}/profile/{% if 'mailUser' in entry.get('objectClass', []) %}user{% else %}admin{% endif %}/general/{{mail}}"><img src="{{ctx.homepath}}/static/{{skin}}/images/action_edit.png" title="{{ _('Edit account profile') }}" class="fr-space"/></a>
                     {{ set_account_status_img(accountStatus) }}
-                    {{ cn |cutString }}
+                    {{ cn |cut_string }}
                 </td>
                 <td>{{ highlight_username_in_mail(mail) }}</td>
                 <td>{{ set_admin_type_img(domainGlobalAdmin) }}</td>

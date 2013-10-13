@@ -4,17 +4,7 @@ import web
 from controllers import decorators
 from libs.panel import LOG_EVENTS, log as loglib
 
-cfg = web.iredconfig
 session = web.config.get('_session')
-
-if cfg.general.backend == 'ldap':
-    from libs.ldaplib import admin as adminlib, connUtils
-elif cfg.general.backend == 'mysql':
-    from libs.mysql import admin as adminlib, connUtils
-elif cfg.general.backend == 'pgsql':
-    from libs.pgsql import admin as adminlib, connUtils
-elif cfg.general.backend == 'dbmail_mysql':
-    from libs.dbmail_mysql import admin as adminlib, connUtils
 
 
 class Log:

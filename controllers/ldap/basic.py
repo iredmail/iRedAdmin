@@ -6,12 +6,12 @@ import ldap
 import web
 from socket import getfqdn
 from urllib import urlencode
+import settings
 from libs import __url_latest_ose__, __version_ose__, __no__, __id__
 from libs import iredutils, languages
 from libs.ldaplib import auth, decorators, admin as adminlib, ldaputils
 
 
-cfg = web.iredconfig
 session = web.config.get('_session')
 
 
@@ -22,7 +22,7 @@ class Login:
 
             # Show login page.
             return web.render('login.html',
-                              languagemaps=languages.getLanguageMaps(),
+                              languagemaps=languages.get_language_maps(),
                               webmaster=session.get('webmaster'),
                               msg=i.get('msg'),
                              )
@@ -44,7 +44,7 @@ class Login:
             raise web.seeother('/login?msg=EMPTY_PASSWORD')
 
         # Get LDAP URI.
-        uri = cfg.ldap.get('uri')
+        uri = settings.ldap_uri
 
         # Verify bind_dn & bind_pw.
         try:
@@ -68,7 +68,7 @@ class Login:
                 conn.set_option(ldap.OPT_X_TLS, ldap.OPT_X_TLS_DEMAND)
 
             # synchronous bind.
-            conn.bind_s(cfg.ldap.get('bind_dn'), cfg.ldap.get('bind_pw'))
+            conn.bind_s(settings.ldap_bind_dn, settings.ldap_bind_password)
             conn.unbind_s()
         except (ldap.INVALID_CREDENTIALS):
             raise web.seeother('/login?msg=vmailadmin_INVALID_CREDENTIALS')
@@ -99,7 +99,7 @@ class Login:
                 adminProfile = adminLib.profile(username, attributes=['preferredLanguage'])
                 if adminProfile[0] is True:
                     dn, entry = adminProfile[1][0]
-                    lang = entry.get('preferredLanguage', [cfg.general.get('lang', 'en_US')])[0]
+                    lang = entry.get('preferredLanguage', [settings.default_language])[0]
                     session['lang'] = lang
 
             if qr_user_auth is True:
@@ -121,7 +121,7 @@ class Login:
             web.logger(msg="Login success", event='login',)
             raise web.seeother('/dashboard/checknew')
         else:
-            session['failedTimes'] += 1
+            session['failed_times'] += 1
             web.logger(msg="Login failed.", admin=username, event='login', loglevel='error',)
             raise web.seeother('/login?msg=%s' % qr_admin_auth)
 
@@ -168,9 +168,9 @@ class Dashboard:
                         'v': __version_ose__,
                         'o': __no__,
                         'f': __id__,
-                        'lang': cfg.general.get('lang', ''),
+                        'lang': settings.default_language,
                         'host': getfqdn(),
-                        'backend': cfg.general.get('backend', ''),
+                        'backend': settings.backend,
                     }
 
                     url = __url_latest_ose__ + '?' + urlencode(urlInfo)
@@ -188,7 +188,7 @@ class Dashboard:
             'dashboard.html',
             version=__version_ose__,
             hostname=getfqdn(),
-            uptime=iredutils.getServerUptime(),
+            uptime=iredutils.get_server_uptime(),
             loadavg=os.getloadavg(),
             netif_data=netif_data,
             newVersionInfo=newVersionInfo,

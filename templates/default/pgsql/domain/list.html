@@ -72,7 +72,7 @@
                                     {% if r.description is sameas none %}
                                         <td class="vcenter">&nbsp;</td>
                                     {% else %}
-                                        <td class="vcenter">{{ r.description |cutString |e }}</td>
+                                        <td class="vcenter">{{ r.description |cut_string |e }}</td>
                                     {% endif %}
 
                                     {#-- Domain Quota --#}

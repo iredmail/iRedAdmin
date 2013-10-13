@@ -4,10 +4,9 @@
 
 import web
 from libs import iredutils
-from libs.languages import getLanguageMaps
+from libs.languages import get_language_maps
 from libs.mysql import decorators, user as userlib, domain as domainlib, connUtils
 
-cfg = web.iredconfig
 session = web.config.get('_session')
 
 
@@ -109,7 +108,7 @@ class Profile:
             mail=self.mail,
             profile_type=self.profile_type,
             profile=self.profile,
-            languagemaps=getLanguageMaps(),
+            languagemaps=get_language_maps(),
             msg=i.get('msg'),
         )
 

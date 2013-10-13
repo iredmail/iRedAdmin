@@ -1,19 +1,18 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
 import web
+import settings
 from libs import iredutils
 from libs.ldaplib import ldaputils
-
-cfg = web.iredconfig
 
 
 # Define and return LDIF structure of domain.
 def ldif_maildomain(domain, cn=None,
-        mtaTransport=cfg.general.get('mtaTransport', 'dovecot'),
+        mtaTransport=settings.default_mta_transport,
         enabledService=['mail'], ):
     domain = web.safestr(domain).lower()
 
-    minPasswordLength = cfg.general.get('min_passwd_length', '8')
+    minPasswordLength = settings.min_passwd_length
 
     ldif = [
             ('objectClass', ['mailDomain']),
@@ -78,7 +77,7 @@ def ldif_mailuser(domain, username, cn, passwd, quota=0, aliasDomains=[], groups
     mail = username + '@' + domain
 
     if storageBaseDirectory is None:
-        tmpStorageBaseDirectory = cfg.general.get('storage_base_directory').lower()
+        tmpStorageBaseDirectory = settings.storage_base_directory.lower()
     else:
         tmpStorageBaseDirectory = storageBaseDirectory
 
@@ -87,7 +86,7 @@ def ldif_mailuser(domain, username, cn, passwd, quota=0, aliasDomains=[], groups
     storageNode = splitedSBD.pop()
     storageBaseDirectory = '/'.join(splitedSBD)
 
-    mailMessageStore = storageNode + '/' + iredutils.setMailMessageStore(mail)
+    mailMessageStore = storageNode + '/' + iredutils.generate_maildir_path(mail)
     homeDirectory = storageBaseDirectory + '/' + mailMessageStore
 
     # Generate basic LDIF.

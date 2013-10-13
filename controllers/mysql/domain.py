@@ -2,9 +2,8 @@
 
 import web
 from libs import iredutils
-from libs.mysql import decorators, domain as domainlib, admin as adminlib
+from libs.mysql import decorators, domain as domainlib
 
-cfg = web.iredconfig
 session = web.config.get('_session')
 
 

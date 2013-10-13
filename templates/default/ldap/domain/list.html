@@ -91,7 +91,7 @@
                                 {{ domain }}
                             </td>
 
-                            <td class="vcenter">{% if cn != '' and cn != domain %}{{ cn |cutString }}{% endif %}</td>
+                            <td class="vcenter">{% if cn != '' and cn != domain %}{{ cn |cut_string }}{% endif %}</td>
 
                             <td class="vcenter">{{ _('Unlimited') }}</td>
                             {# Mail user count #}

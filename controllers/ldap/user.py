@@ -1,11 +1,11 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
 import web
-from libs import iredutils, settings
-from libs.languages import getLanguageMaps
+import settings
+from libs import iredutils
+from libs.languages import get_language_maps
 from libs.ldaplib import decorators, domain as domainlib, user, ldaputils, connUtils
 
-cfg = web.iredconfig
 session = web.config.get('_session')
 
 
@@ -55,12 +55,6 @@ class List:
             if cur_page > sl.get('totalPages'):
                 cur_page = sl.get('totalPages')
 
-            # Show login date.
-            if cfg.general.get('show_login_date', 'False').lower() in ['true', ]:
-                showLoginDate = True
-            else:
-                showLoginDate = False
-
             return web.render(
                 'ldap/user/list.html',
                 cur_page=cur_page,
@@ -68,7 +62,6 @@ class List:
                 users=accountList,
                 cur_domain=domain,
                 allDomains=allDomains,
-                showLoginDate=showLoginDate,
                 accountUsedQuota={},
                 msg=i.get('msg'),
             )
@@ -143,11 +136,11 @@ class Profile:
             profile_type=self.profile_type,
             mail=self.mail,
             user_profile=result[1],
-            defaultStorageBaseDirectory=cfg.general.get('storage_base_directory'),
+            defaultStorageBaseDirectory=settings.storage_base_directory,
             minPasswordLength=minPasswordLength,
             maxPasswordLength=maxPasswordLength,
             domainAccountSetting=domainAccountSetting,
-            languagemaps=getLanguageMaps(),
+            languagemaps=get_language_maps(),
             msg=i.get('msg', None),
         )
 

@@ -1,10 +1,10 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
 import web
-from libs import iredutils, settings
+import settings
+from libs import iredutils
 from libs.pgsql import core, decorators, connUtils
 
-cfg = web.iredconfig
 session = web.config.get('_session')
 
 
@@ -158,7 +158,7 @@ class Domain(core.PGSQLWrap):
             OFFSET %d
         """ % (sql_where, settings.PAGE_SIZE_LIMIT, (page - 1) * settings.PAGE_SIZE_LIMIT,)
 
-        if self.isGlobalAdmin(admin):
+        if self.is_global_admin(admin):
             try:
                 resultOfTotal = self.conn.select(
                     'domain',
@@ -339,8 +339,8 @@ class Domain(core.PGSQLWrap):
                 'domain',
                 domain=domain,
                 description=cn,
-                transport=cfg.general.get('transport', 'dovecot'),
-                created=iredutils.getGMTTime(),
+                transport=settings.default_mta_transport,
+                created=iredutils.get_gmttime(),
                 active='1',
             )
             web.logger(msg="Create domain: %s." % (domain), domain=domain, event='create',)
@@ -355,7 +355,7 @@ class Domain(core.PGSQLWrap):
         domain = str(domain)
 
         # Pre-defined update key:value.
-        updates = {'modified': iredutils.getGMTTime(), }
+        updates = {'modified': iredutils.get_gmttime(), }
 
         sql_vars = {'domain': domain, }
 

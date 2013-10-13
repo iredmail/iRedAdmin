@@ -5,12 +5,12 @@ import time
 from socket import getfqdn
 from urllib import urlencode
 import web
+import settings
 from libs import __url_latest_ose__, __version_ose__, __no__, __id__
 from libs import iredutils, languages
 from libs.mysql import core, decorators
 
 
-cfg = web.iredconfig
 session = web.config.get('_session')
 
 
@@ -22,7 +22,7 @@ class Login:
             # Show login page.
             return web.render(
                 'login.html',
-                languagemaps=languages.getLanguageMaps(),
+                languagemaps=languages.get_language_maps(),
                 msg=i.get('msg'),
             )
         else:
@@ -57,7 +57,7 @@ class Login:
             web.logger(msg="Login success", event='login',)
             raise web.seeother('/dashboard/checknew')
         else:
-            session['failedTimes'] += 1
+            session['failed_times'] += 1
             web.logger(msg="Login failed.", admin=username, event='login', loglevel='error',)
             raise web.seeother('/login?msg=%s' % web.urlquote(auth_result[1]))
 
@@ -103,9 +103,9 @@ class Dashboard:
                         'v': __version_ose__,
                         'o': __no__,
                         'f': __id__,
-                        'lang': cfg.general.get('lang', ''),
+                        'lang': settings.default_language,
                         'host': getfqdn(),
-                        'backend': cfg.general.get('backend', ''),
+                        'backend': settings.backend,
                     }
 
                     url = __url_latest_ose__ + '?' + urlencode(urlInfo)
@@ -123,7 +123,7 @@ class Dashboard:
             'dashboard.html',
             version=__version_ose__,
             hostname=getfqdn(),
-            uptime=iredutils.getServerUptime(),
+            uptime=iredutils.get_server_uptime(),
             loadavg=os.getloadavg(),
             netif_data=netif_data,
             newVersionInfo=newVersionInfo,

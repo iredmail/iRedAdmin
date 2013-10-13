@@ -1,10 +1,10 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
 import web
-from libs import iredutils, settings
-from libs.ldaplib import decorators, admin, domain as domainlib, connUtils, ldaputils
+import settings
+from libs import iredutils
+from libs.ldaplib import decorators, domain as domainlib, connUtils, ldaputils
 
-cfg = web.iredconfig
 session = web.config.get('_session')
 
 

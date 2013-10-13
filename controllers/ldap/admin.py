@@ -1,10 +1,10 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
 import web
-from libs import languages, settings
+import settings
+from libs import languages
 from libs.ldaplib import decorators, admin, domain as domainlib, connUtils
 
-cfg = web.iredconfig
 session = web.config.get('_session')
 
 #
@@ -78,10 +78,10 @@ class Create:
     def GET(self):
         i = web.input()
         return web.render('ldap/admin/create.html',
-                          languagemaps=languages.getLanguageMaps(),
-                          default_language=cfg.general.get('lang', 'en_US'),
-                          min_passwd_length=cfg.general.get('min_passwd_length'),
-                          max_passwd_length=cfg.general.get('max_passwd_length'),
+                          languagemaps=languages.get_language_maps(),
+                          default_language=settings.default_language,
+                          min_passwd_length=settings.min_passwd_length,
+                          max_passwd_length=settings.max_passwd_length,
                           msg=i.get('msg'),
                          )
 
@@ -146,7 +146,7 @@ class Profile:
                     mail=self.mail,
                     profile_type=self.profile_type,
                     profile=self.admin_profile,
-                    languagemaps=languages.getLanguageMaps(),
+                    languagemaps=languages.get_language_maps(),
                     allDomains=self.allDomains,
                     msg=i.get('msg', None),
                 )
@@ -158,8 +158,8 @@ class Profile:
                               mail=self.mail,
                               profile_type=self.profile_type,
                               profile=self.admin_profile,
-                              min_passwd_length=cfg.general.get('min_passwd_length'),
-                              max_passwd_length=cfg.general.get('max_passwd_length'),
+                              min_passwd_length=settings.min_passwd_length,
+                              max_passwd_length=settings.max_passwd_length,
                               msg=i.get('msg', None),
                              )
 

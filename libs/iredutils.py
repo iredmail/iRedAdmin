@@ -2,9 +2,7 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
 from os import urandom
-import gettext
 import re
-import datetime
 import time
 import urllib2
 import socket
@@ -12,9 +10,8 @@ from base64 import b64encode, b64decode
 from xml.dom.minidom import parseString as parseXMLString
 import random
 import web
-from libs import md5crypt, settings
-
-cfg = web.iredconfig
+import settings
+from libs import md5crypt
 
 ######################
 # Regular expressions.
@@ -129,16 +126,16 @@ def filesizeformat(value, baseMB=False):
     return ret
 
 
-def setDatetimeFormat(t, hour=True,):
+def set_datetime_format(t, hour=True,):
     """Format LDAP timestamp and Amavisd msgs.time_iso to YYYY-MM-DD HH:MM:SS.
 
-    >>> setDatetimeFormat('20100925T113256Z')
+    >>> set_datetime_format('20100925T113256Z')
     '2010-09-25 11:32:56'
 
-    >>> setDatetimeFormat('20100925T113256Z', hour=False)
+    >>> set_datetime_format('20100925T113256Z', hour=False)
     '2010-09-25'
 
-    >>> setDatetimeFormat('INVALID_TIME_STAMP')      # Return original string
+    >>> set_datetime_format('INVALID_TIME_STAMP')      # Return original string
     'INVALID_TIME_STAMP'
     """
     if t is None:
@@ -186,7 +183,7 @@ def setDatetimeFormat(t, hour=True,):
     return t
 
 
-def cutString(s, length=40):
+def cut_string(s, length=40):
     try:
         if len(s) != len(s.encode('utf-8', 'replace')):
             length = length / 2
@@ -204,50 +201,7 @@ def cutString(s, length=40):
 # End Jinja2 filters.
 ########################
 
-
-def getTranslations(lang='en_US'):
-    # Init translation.
-    if lang in cfg.allTranslations.keys():
-        translation = cfg.allTranslations[lang]
-    elif lang is None:
-        translation = gettext.NullTranslations()
-    else:
-        try:
-            translation = gettext.translation(
-                    'iredadmin',
-                    cfg['rootdir'] + 'i18n',
-                    languages=[lang],
-                    )
-        except IOError:
-            translation = gettext.NullTranslations()
-    return translation
-
-
-def loadTranslations(lang):
-    """Return the translations for the locale."""
-    lang = str(lang)
-    translation = cfg.allTranslations.get(lang)
-    if translation is None:
-        translation = getTranslations(lang)
-        cfg.allTranslations[lang] = translation
-
-        # Delete other translations.
-        for lk in cfg.allTranslations.keys():
-            if lk != lang:
-                del cfg.allTranslations[lk]
-    return translation
-
-
-def iredGettext(string):
-    """Translate a given string to the language of the application."""
-    lang = web.ctx.lang
-    translation = loadTranslations(lang)
-    if translation is None:
-        return unicode(string)
-    return translation.ugettext(string)
-
-
-def getServerUptime():
+def get_server_uptime():
     try:
         # Works on Linux.
         f = open("/proc/uptime")
@@ -270,7 +224,7 @@ def getServerUptime():
     return (days, hours, minutes)
 
 
-def getGMTTime():
+def get_gmttime():
     # Convert local time to UTC
     return time.strftime('%Y-%m-%d %H:%M:%S', time.gmtime())
 
@@ -296,10 +250,9 @@ def convertSQLQueryRecords(qr=[]):
     return rcds
 
 
-def verifyNewPasswords(newpw, confirmpw, \
-                   min_passwd_length=cfg.general.get('min_passwd_length', 0), \
-                   max_passwd_length=cfg.general.get('max_passwd_length', 0), \
-                  ):
+def verify_new_password(newpw, confirmpw,
+                       min_passwd_length=settings.min_passwd_length,
+                       max_passwd_length=settings.max_passwd_length):
     # Get new passwords from user input.
     newpw = str(newpw).strip()
     confirmpw = str(confirmpw).strip()
@@ -323,7 +276,7 @@ def verifyNewPasswords(newpw, confirmpw, \
     return (True, passwd)
 
 
-def getRandomPassword(length=10):
+def generate_random_strings(length=10):
     """Create a random password of specified length"""
     try:
         length = int(length) or 10
@@ -339,7 +292,7 @@ def getRandomPassword(length=10):
 
 def generate_md5_password(p):
     p = str(p).strip()
-    return md5crypt.unix_md5_crypt(p, getRandomPassword(length=8))
+    return md5crypt.unix_md5_crypt(p, generate_random_strings(length=8))
 
 
 def verify_md5_password(challenge_password, plain_password):
@@ -474,13 +427,9 @@ def generate_password_for_sql_mail_account(p, pwscheme=None):
     elif pwscheme == 'PLAIN-MD5':
         pw = generate_plain_md5_password(p)
     elif pwscheme == 'PLAIN':
-        backend = cfg.general.get('backend', 'mysql')
-        if backend in ['mysql', 'pgsql']:
-            if settings.SQL_PASSWD_PREFIX_SCHEME is True:
-                pw = '{PLAIN}' + p
-            else:
-                pw = p
-        elif backend == 'dbmail_mysql':
+        if settings.SQL_PASSWD_PREFIX_SCHEME is True:
+            pw = '{PLAIN}' + p
+        else:
             pw = p
     elif pwscheme == 'SSHA':
         pw = generate_ssha_password(p)
@@ -490,7 +439,7 @@ def generate_password_for_sql_mail_account(p, pwscheme=None):
     return pw
 
 
-def setMailMessageStore(mail,
+def generate_maildir_path(mail,
                         hashedMaildir=settings.MAILDIR_HASHED,
                         prependDomainName=settings.MAILDIR_PREPEND_DOMAIN,
                         appendTimestamp=settings.MAILDIR_APPEND_TIMESTAMP,
@@ -533,26 +482,6 @@ def setMailMessageStore(mail,
     return mailMessageStore.lower()
 
 
-# Return value of percentage.
-def getPercentage(current, total):
-    try:
-        current = int(current)
-        total = int(total)
-    except:
-        return 0
-
-    if current == 0 or total == 0:
-        return 0
-    else:
-        percent = (current * 100) // total
-        if percent < 0:
-            return 0
-        elif percent > 100:
-            return 100
-        else:
-            return percent
-
-
 def getNewVersion(urlOfXML):
     '''Checking new version via parsing XML string to extract version number.
 
@@ -582,9 +511,3 @@ def getNewVersion(urlOfXML):
     except Exception, e:
         return (False, str(e))
 
-
-def convShadowLastChangeToDate(day):
-    if not isinstance(day, int):
-        return '0'
-
-    return (datetime.date(1970, 1, 1) + datetime.timedelta(day)).isoformat()

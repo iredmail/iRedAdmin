@@ -3,10 +3,10 @@
 import ldap
 import ldap.filter
 import web
-from libs import iredutils, settings
+import settings
+from libs import iredutils
 from libs.ldaplib import core, domain as domainlib, attrs, ldaputils, iredldif, connUtils, decorators, deltree
 
-cfg = web.iredconfig
 session = web.config.get('_session')
 
 
@@ -131,7 +131,7 @@ class User(core.LDAPWrap):
         self.newpw = web.safestr(data.get('newpw'))
         self.confirmpw = web.safestr(data.get('confirmpw'))
 
-        result = iredutils.verifyNewPasswords(self.newpw, self.confirmpw,
+        result = iredutils.verify_new_password(self.newpw, self.confirmpw,
                                           min_passwd_length=domainAccountSetting.get('minPasswordLength', '0'),
                                           max_passwd_length=domainAccountSetting.get('maxPasswordLength', '0'),
                                          )
@@ -598,14 +598,14 @@ class User(core.LDAPWrap):
 
         elif self.profile_type == 'password':
             # Get password length from @domainAccountSetting.
-            minPasswordLength = domainAccountSetting.get('minPasswordLength', cfg.general.get('min_passwd_length', '0'))
-            maxPasswordLength = domainAccountSetting.get('maxPasswordLength', cfg.general.get('max_passwd_length', '0'))
+            minPasswordLength = domainAccountSetting.get('minPasswordLength', settings.min_passwd_length)
+            maxPasswordLength = domainAccountSetting.get('maxPasswordLength', settings.max_passwd_length)
 
             # Get new passwords from user input.
             self.newpw = str(data.get('newpw', None))
             self.confirmpw = str(data.get('confirmpw', None))
 
-            result = iredutils.verifyNewPasswords(
+            result = iredutils.verify_new_password(
                 newpw=self.newpw,
                 confirmpw=self.confirmpw,
                 min_passwd_length=minPasswordLength,

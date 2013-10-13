@@ -3,10 +3,10 @@
 import web
 import ldap
 from ldap.filter import escape_filter_chars
+import settings
 from libs import iredutils
 from libs.ldaplib import core, ldaputils, decorators, attrs, deltree
 
-cfg = web.iredconfig
 session = web.config.get('_session')
 
 try:
@@ -124,7 +124,7 @@ class Utils(core.LDAPWrap):
         # Check domainName and domainAliasName.
         try:
             result = self.conn.search_s(
-                cfg.ldap.get('basedn'),
+                settings.ldap_basedn,
                 ldap.SCOPE_ONELEVEL,
                 '(|(domainName=%s)(domainAliasName=%s))' % (self.domain, self.domain),
                 ['domainName', 'domainAliasName', ],
