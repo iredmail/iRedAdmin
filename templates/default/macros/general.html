@@ -151,18 +151,19 @@
 
 
 {%- macro display_subnav(crumbs) -%}
-    {#-- crumbs = [(link, label), (link, label)] --#}
+    {# Crumb format: (link, label), ('active', link, label) #}
     {% if crumbs | length > 0 %}
         <div class="breadcrumb">
             <div class="pagesize">
                 <ul id="breadcrumb">
                     {% for crb in crumbs %}
                         <li>
-                            {% if crb[0] is not sameas none %}
-                                <a href="{{ crb[0] }}">{{ crb[1] }}</a>{% if not loop.last %}{% endif %}
-                            {% else %}
-                                <a href="#" class="inactive">{{ crb[1] }}</a>
-                            {% endif %}
+                            {%- if crb |length == 2 -%}
+                                <a href="{{ crb[0] }}">{{ crb[1] }}</a>
+                            {%- elif crb |length ==3 -%}
+                                <a href="{{ crb[1] }}" class="inactive"><strong>{{ crb[2] }}</strong></a>
+                            {%- endif -%}
+                            {% if not loop.last %}/{% endif %}
                         </li>
                     {% endfor %}
                 </ul>
