@@ -39,7 +39,7 @@ def ldif_group(name):
 
 def ldif_mailExternalUser(mail,):
     mail = web.safestr(mail).lower()
-    if not iredutils.isEmail(mail):
+    if not iredutils.is_email(mail):
         return None
 
     listname, domain = mail.split('@')
@@ -118,7 +118,7 @@ def ldif_mailuser(domain, username, cn, passwd, quota=0, aliasDomains=[], groups
     # Append @shadowAddress.
     shadowAddresses = []
     for d in aliasDomains:
-        if iredutils.isDomain(d):
+        if iredutils.is_domain(d):
             shadowAddresses += [username + '@' + d]
 
     if len(shadowAddresses) > 0:

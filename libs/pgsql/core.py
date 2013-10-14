@@ -51,8 +51,8 @@ class PGSQLWrap:
         except Exception:
             return False
 
-    def isDomainAdmin(self, domain, admin=session.get('username'),):
-        if not iredutils.isDomain(domain) or not iredutils.isEmail(admin):
+    def is_domainAdmin(self, domain, admin=session.get('username'),):
+        if not iredutils.is_domain(domain) or not iredutils.is_email(admin):
             return False
 
         if admin == session.get('username') \
@@ -90,7 +90,7 @@ class PGSQLWrap:
             action = 'Disable'
 
         if accountType == 'domain':
-            accounts = [str(v) for v in accounts if iredutils.isDomain(v)]
+            accounts = [str(v) for v in accounts if iredutils.is_domain(v)]
             try:
                 self.conn.update(
                     'domain',
@@ -101,7 +101,7 @@ class PGSQLWrap:
             except Exception, e:
                 return (False, str(e))
         elif accountType == 'user':
-            accounts = [str(v) for v in accounts if iredutils.isEmail(v)]
+            accounts = [str(v) for v in accounts if iredutils.is_email(v)]
             try:
                 self.conn.update(
                     'mailbox',
@@ -112,7 +112,7 @@ class PGSQLWrap:
             except Exception, e:
                 return (False, str(e))
         elif accountType == 'admin':
-            accounts = [str(v) for v in accounts if iredutils.isEmail(v)]
+            accounts = [str(v) for v in accounts if iredutils.is_email(v)]
             try:
                 self.conn.update(
                     'admin',
@@ -123,7 +123,7 @@ class PGSQLWrap:
             except Exception, e:
                 return (False, str(e))
         elif accountType == 'alias':
-            accounts = [str(v) for v in accounts if iredutils.isEmail(v)]
+            accounts = [str(v) for v in accounts if iredutils.is_email(v)]
             try:
                 self.conn.update(
                     'alias',
@@ -154,7 +154,7 @@ class PGSQLWrap:
         accountType = str(accountType)
 
         if accountType == 'domain':
-            accounts = [str(v) for v in accounts if iredutils.isDomain(v)]
+            accounts = [str(v) for v in accounts if iredutils.is_domain(v)]
             try:
                 self.conn.delete(
                     'domain',
@@ -164,7 +164,7 @@ class PGSQLWrap:
             except Exception, e:
                 return (False, str(e))
         elif accountType == 'user':
-            accounts = [str(v) for v in accounts if iredutils.isEmail(v)]
+            accounts = [str(v) for v in accounts if iredutils.is_email(v)]
             sql_vars = {'accounts': accounts, }
             try:
                 for tbl in ['mailbox', 'used_quota',
@@ -213,7 +213,7 @@ class PGSQLWrap:
             except Exception, e:
                 return (False, str(e))
         elif accountType == 'admin':
-            accounts = [str(v) for v in accounts if iredutils.isEmail(v)]
+            accounts = [str(v) for v in accounts if iredutils.is_email(v)]
             try:
                 self.conn.delete(
                     'admin',
@@ -223,7 +223,7 @@ class PGSQLWrap:
             except Exception, e:
                 return (False, str(e))
         elif accountType == 'alias':
-            accounts = [str(v) for v in accounts if iredutils.isEmail(v)]
+            accounts = [str(v) for v in accounts if iredutils.is_email(v)]
             try:
                 self.conn.delete(
                     'alias',
@@ -247,7 +247,7 @@ class PGSQLWrap:
 
 class Auth(PGSQLWrap):
     def auth(self, username, password, accountType='admin', verifyPassword=False,):
-        if not iredutils.isEmail(username):
+        if not iredutils.is_email(username):
             return (False, 'INVALID_USERNAME')
 
         if len(password) == 0:
@@ -349,15 +349,15 @@ class PGSQLDecorators(PGSQLWrap):
 
     def require_domain_access(self, func):
         def proxyfunc(self, *args, **kw):
-            if 'mail' in kw.keys() and iredutils.isEmail(kw.get('mail')):
+            if 'mail' in kw.keys() and iredutils.is_email(kw.get('mail')):
                 self.domain = web.safestr(kw['mail']).split('@')[-1]
-            elif 'domain' in kw.keys() and iredutils.isDomain(kw.get('domain')):
+            elif 'domain' in kw.keys() and iredutils.is_domain(kw.get('domain')):
                 self.domain = web.safestr(kw['domain'])
             else:
                 return False
 
             self.admin = session.get('username')
-            if not iredutils.isEmail(self.admin):
+            if not iredutils.is_email(self.admin):
                 return False
 
             # Check domain global admin.

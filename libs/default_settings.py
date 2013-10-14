@@ -1,10 +1,20 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
-#################################### WARNING ####################################
-# It's strongly recommended to place all your settings in libs/settings_local.py
-# to override settings below, so that you don't need to sync settings after
-# upgrading iRedAdmin-Pro.
-#################################### WARNING ####################################
+#
+# WARNING
+#
+# Please place all your settings in settings.py to override settings below, so
+# that you can simply copy settings.py after upgrading iRedAdmin.
+#
+
+# Debug iRedAdmin: True, False.
+DEBUG = False
+
+# Mail detail message of '500 internal server error' to webmaster: True, False. 
+# If set to True, iredadmin will mail detail error to webmaster when            
+# it catches 'internal server error' via LOCAL mail server to aid               
+# in debugging production servers.                                              
+MAIL_ERROR_TO_WEBMASTER = False
 
 # Set http proxy server address if iRedAdmin cannot access internet
 # (iredmail.org) directly.
@@ -60,7 +70,7 @@ LOCAL_TIMEZONE = 'GMT'
 # password or reset password in plain text. If not checked, password
 # will be stored as encrypted.
 # See LDAP_DEFAULT_PASSWD_SCHEME and SQL_DEFAULT_PASSWD_SCHEME below.
-STORE_PASSWORD_IN_PLAIN = False
+STORE_PASSWORD_IN_PLAIN_TEXT_TEXT = False
 
 # Print PERMISSION_DENIED related programming info to stdout or web server
 # log file. e.g. Apache log file.

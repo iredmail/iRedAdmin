@@ -2,7 +2,8 @@
 
 import web
 from controllers import decorators
-from libs import iredutils, settings
+import settings
+from libs import iredutils
 from libs.panel import LOG_EVENTS
 
 db = web.admindb
@@ -22,13 +23,13 @@ class Log:
         if self.event in LOG_EVENTS and self.event != 'all':
             queryDict['event'] = self.event
 
-        if iredutils.isDomain(self.domain):
+        if iredutils.is_domain(self.domain):
             queryDict['domain'] = self.domain
 
         if session.get('domainGlobalAdmin') is not True:
             queryDict['admin'] = session.get('username')
         else:
-            if iredutils.isEmail(self.admin):
+            if iredutils.is_email(self.admin):
                 queryDict['admin'] = self.admin
 
         # Get number of total records.

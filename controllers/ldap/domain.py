@@ -85,7 +85,7 @@ class Profile:
         self.domain = web.safestr(domain.split('/', 1)[0])
         self.profile_type = web.safestr(profile_type)
 
-        if not iredutils.isDomain(self.domain):
+        if not iredutils.is_domain(self.domain):
             raise web.seeother('/domains?msg=EMPTY_DOMAIN')
 
         domainLib = domainlib.Domain()

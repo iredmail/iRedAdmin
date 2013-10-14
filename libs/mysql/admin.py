@@ -90,13 +90,13 @@ class Admin(core.MySQLWrap):
         else:
             self.admin = str(admin)
 
-        if not iredutils.isEmail(self.admin):
+        if not iredutils.is_email(self.admin):
             return 0
 
         self.domains = []
         if accountType in ['user', 'alias', ]:
             if len(domains) > 0:
-                self.domains = [str(d).lower() for d in domains if iredutils.isDomain(d)]
+                self.domains = [str(d).lower() for d in domains if iredutils.is_domain(d)]
             else:
                 connutils = connUtils.Utils()
                 qr = connutils.getManagedDomains(admin=self.admin, domainNameOnly=True)
@@ -201,7 +201,7 @@ class Admin(core.MySQLWrap):
         if not isinstance(mails, list):
             return (False, 'INVALID_MAIL')
 
-        self.mails = [str(v).lower() for v in mails if iredutils.isEmail(v)]
+        self.mails = [str(v).lower() for v in mails if iredutils.is_email(v)]
         sql_vars = {'username': self.mails, }
 
         # Delete domain and related records.
@@ -230,7 +230,7 @@ class Admin(core.MySQLWrap):
         self.mail = web.safestr(mail)
         self.domainGlobalAdmin = False
 
-        if not iredutils.isEmail(self.mail):
+        if not iredutils.is_email(self.mail):
             return (False, 'INVALID_MAIL')
 
         try:
@@ -255,7 +255,7 @@ class Admin(core.MySQLWrap):
         self.cn = data.get('cn', '')
         self.mail = web.safestr(data.get('mail')).strip().lower()
 
-        if not iredutils.isEmail(self.mail):
+        if not iredutils.is_email(self.mail):
             return (False, 'INVALID_MAIL')
 
         # Check admin exist.

@@ -38,7 +38,7 @@ INVALID_EMAIL_CHARS = '~!#$%^&*()\\/\ '
 INVALID_DOMAIN_CHARS = '~!#$%^&*()+\\/\ '
 
 
-def isEmail(s):
+def is_email(s):
     s = str(s)
     if len(set(s) & set(INVALID_EMAIL_CHARS)) > 0 \
        or '.' not in s \
@@ -52,7 +52,7 @@ def isEmail(s):
         return False
 
 
-def isDomain(s):
+def is_domain(s):
     s = str(s)
     if len(set(s) & set(INVALID_DOMAIN_CHARS)) > 0 or '.' not in s:
         return False
@@ -447,7 +447,7 @@ def generate_maildir_path(mail,
     """Generate path of mailbox."""
 
     mail = web.safestr(mail)
-    if not isEmail(mail):
+    if not is_email(mail):
         return (False, 'INVALID_EMAIL_ADDRESS')
 
     # Get user/domain part from mail address.

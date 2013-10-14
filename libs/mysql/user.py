@@ -27,12 +27,12 @@ class User(core.MySQLWrap):
     @decorators.require_login
     def listAccounts(self, domain, cur_page=1):
         '''List all users.'''
-        if not iredutils.isDomain(domain):
+        if not iredutils.is_domain(domain):
             return (False, 'INVALID_DOMAIN_NAME')
 
         domain = str(domain)
         connutils = connUtils.Utils()
-        if not connutils.isDomainExists(domain):
+        if not connutils.is_domain_exists(domain):
             return (False, 'PERMISSION_DENIED')
 
         # Pre-defined.
@@ -71,13 +71,13 @@ class User(core.MySQLWrap):
     @decorators.require_domain_access
     def delete(self, domain, mails=[]):
         domain = str(domain)
-        if not iredutils.isDomain(domain):
+        if not iredutils.is_domain(domain):
             return (False, 'INVALID_DOMAIN_NAME')
 
         if not isinstance(mails, list):
             return (False, 'INVALID_MAIL')
 
-        mails = [str(v).lower() for v in mails if iredutils.isEmail(v) and str(v).endswith('@' + domain)]
+        mails = [str(v).lower() for v in mails if iredutils.is_email(v) and str(v).endswith('@' + domain)]
         if not mails:
             return (False, 'INVALID_MAIL')
 
@@ -145,18 +145,18 @@ class User(core.MySQLWrap):
         mail_local_part = web.safestr(data.get('username')).strip().lower()
         self.mail = mail_local_part + '@' + self.domain
 
-        if not iredutils.isDomain(self.domain):
+        if not iredutils.is_domain(self.domain):
             return (False, 'INVALID_DOMAIN_NAME')
 
         if self.domain != domain:
             return (False, 'PERMISSION_DENIED')
 
-        if not iredutils.isEmail(self.mail):
+        if not iredutils.is_email(self.mail):
             return (False, 'INVALID_MAIL')
 
         # Check account existing.
         connutils = connUtils.Utils()
-        if connutils.isEmailExists(mail=self.mail):
+        if connutils.is_email_exists(mail=self.mail):
             return (False, 'ALREADY_EXISTS')
 
         # Get domain profile.
@@ -224,7 +224,7 @@ class User(core.MySQLWrap):
         )
         if resultOfPW[0] is True:
             pwscheme = None
-            if 'storePasswordInPlainText' in data and settings.STORE_PASSWORD_IN_PLAIN:
+            if 'storePasswordInPlainText' in data and settings.STORE_PASSWORD_IN_PLAIN_TEXT:
                 pwscheme = 'PLAIN'
             passwd = iredutils.generate_password_for_sql_mail_account(resultOfPW[1], pwscheme=pwscheme)
         else:
@@ -353,7 +353,7 @@ class User(core.MySQLWrap):
             qr = iredutils.verify_new_password(newpw, confirmpw)
             if qr[0] is True:
                 pwscheme = None
-                if 'storePasswordInPlainText' in data and settings.STORE_PASSWORD_IN_PLAIN:
+                if 'storePasswordInPlainText' in data and settings.STORE_PASSWORD_IN_PLAIN_TEXT:
                     pwscheme = 'PLAIN'
                 passwd = iredutils.generate_password_for_sql_mail_account(qr[1], pwscheme=pwscheme)
             else:

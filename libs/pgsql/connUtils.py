@@ -12,10 +12,10 @@ session = web.config.get('_session')
 
 class Utils(core.PGSQLWrap):
 
-    def isDomainExists(self, domain):
+    def is_domain_exists(self, domain):
         # Return True if account is invalid or exist.
         domain = str(domain)
-        if not iredutils.isDomain(domain):
+        if not iredutils.is_domain(domain):
             return True
 
         sql_vars = {'domain': domain, }
@@ -52,7 +52,7 @@ class Utils(core.PGSQLWrap):
     def isAdminExists(self, mail):
         # Return True if account is invalid or exist.
         mail = str(mail)
-        if not iredutils.isEmail(mail):
+        if not iredutils.is_email(mail):
             return True
 
         try:
@@ -74,11 +74,11 @@ class Utils(core.PGSQLWrap):
             return True
 
     # Check whether account exist or not.
-    def isEmailExists(self, mail):
+    def is_email_exists(self, mail):
         # Return True if account is invalid or exist.
         mail = web.safestr(mail)
 
-        if not iredutils.isEmail(mail):
+        if not iredutils.is_email(mail):
             return True
 
         sql_vars = {'email': mail, }
@@ -112,7 +112,7 @@ class Utils(core.PGSQLWrap):
     def getManagedDomains(self, admin, domainNameOnly=False, listedOnly=False,):
         admin = web.safestr(admin)
 
-        if not iredutils.isEmail(admin):
+        if not iredutils.is_email(admin):
             return (False, 'INCORRECT_USERNAME')
 
         sql_left_join = ''
@@ -134,7 +134,7 @@ class Utils(core.PGSQLWrap):
             if domainNameOnly is True:
                 domains = []
                 for i in result:
-                    if iredutils.isDomain(i.domain):
+                    if iredutils.is_domain(i.domain):
                         domains += [str(i.domain).lower()]
 
                 return (True, domains)

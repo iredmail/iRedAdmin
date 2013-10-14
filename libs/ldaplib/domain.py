@@ -22,15 +22,15 @@ class Domain(core.LDAPWrap):
         self.domain = web.safestr(data.get('domainName', '')).strip().lower()
 
         # Check domain name.
-        if not iredutils.isDomain(self.domain):
+        if not iredutils.is_domain(self.domain):
             return (False, 'INVALID_DOMAIN_NAME')
 
         # Check whether domain name already exist (domainName, domainAliasName).
         connutils = connUtils.Utils()
-        if connutils.isDomainExists(self.domain):
+        if connutils.is_domain_exists(self.domain):
             return (False, 'ALREADY_EXISTS')
 
-        self.dn = ldaputils.convKeywordToDN(self.domain, accountType='domain')
+        self.dn = ldaputils.convert_keyword_to_dn(self.domain, accountType='domain')
         if self.dn[0] is False:
             return self.dn
 
@@ -69,7 +69,7 @@ class Domain(core.LDAPWrap):
     # List all domain admins.
     def getDomainAdmins(self, domain):
         domain = web.safestr(domain)
-        dn = ldaputils.convKeywordToDN(domain, accountType='domain')
+        dn = ldaputils.convert_keyword_to_dn(domain, accountType='domain')
         if dn[0] is False:
             return dn
 
@@ -99,7 +99,7 @@ class Domain(core.LDAPWrap):
     def getDomainDefaultUserQuota(self, domain, domainAccountSetting=None,):
         # Return 0 as unlimited.
         self.domain = web.safestr(domain)
-        self.dn = ldaputils.convKeywordToDN(self.domain, accountType='domain')
+        self.dn = ldaputils.convert_keyword_to_dn(self.domain, accountType='domain')
         if self.dn[0] is False:
             return self.dn
 
@@ -134,7 +134,7 @@ class Domain(core.LDAPWrap):
 
         domains = [str(v).lower()
                    for v in domains
-                   if iredutils.isDomain(v)
+                   if iredutils.is_domain(v)
                   ]
 
         if not domains:
@@ -142,7 +142,7 @@ class Domain(core.LDAPWrap):
 
         msg = {}
         for domain in domains:
-            dn = ldaputils.convKeywordToDN(web.safestr(domain), accountType='domain')
+            dn = ldaputils.convert_keyword_to_dn(web.safestr(domain), accountType='domain')
             if dn[0] is False:
                 return dn
 
@@ -175,7 +175,7 @@ class Domain(core.LDAPWrap):
         connutils = connUtils.Utils()
         for domain in domains:
             self.domain = web.safestr(domain)
-            self.dn = ldaputils.convKeywordToDN(self.domain, accountType='domain')
+            self.dn = ldaputils.convert_keyword_to_dn(self.domain, accountType='domain')
             if self.dn[0] is False:
                 return self.dn
 
@@ -199,7 +199,7 @@ class Domain(core.LDAPWrap):
     @decorators.require_domain_access
     def profile(self, domain):
         self.domain = web.safestr(domain)
-        self.dn = ldaputils.convKeywordToDN(self.domain, accountType='domain')
+        self.dn = ldaputils.convert_keyword_to_dn(self.domain, accountType='domain')
         if self.dn[0] is False:
             return self.dn
 
@@ -224,7 +224,7 @@ class Domain(core.LDAPWrap):
     def update(self, profile_type, domain, data):
         self.profile_type = web.safestr(profile_type)
         self.domain = web.safestr(domain)
-        self.domaindn = ldaputils.convKeywordToDN(self.domain, accountType='domain')
+        self.domaindn = ldaputils.convert_keyword_to_dn(self.domain, accountType='domain')
         if self.domaindn[0] is False:
             return self.domaindn
 
@@ -249,7 +249,7 @@ class Domain(core.LDAPWrap):
                 mod_attrs += [(ldap.MOD_REPLACE, 'accountStatus', accountStatus)]
 
         try:
-            dn = ldaputils.convKeywordToDN(self.domain, accountType='domain')
+            dn = ldaputils.convert_keyword_to_dn(self.domain, accountType='domain')
             if dn[0] is False:
                 return dn
 

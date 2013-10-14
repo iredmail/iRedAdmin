@@ -87,7 +87,7 @@ class Utils(core.LDAPWrap):
     def getNumberOfCurrentAccountsUnderDomain(self, domain, accountType='user', filter=None):
         # accountType in ['user', 'list', 'alias',]
         self.domain = web.safestr(domain)
-        self.domaindn = ldaputils.convKeywordToDN(self.domain, accountType='domain')
+        self.domaindn = ldaputils.convert_keyword_to_dn(self.domain, accountType='domain')
 
         if filter is not None:
             self.searchdn = self.domaindn
@@ -112,12 +112,12 @@ class Utils(core.LDAPWrap):
             return (False, ldaputils.getExceptionDesc(e))
 
     # Check whether domain name already exist (domainName, domainAliasName).
-    def isDomainExists(self, domain):
+    def is_domain_exists(self, domain):
         # Return True if account is invalid or exist.
         self.domain = web.safestr(domain).strip().lower()
 
         # Check domain name.
-        if not iredutils.isDomain(self.domain):
+        if not iredutils.is_domain(self.domain):
             # Return True if invalid.
             return True
 
@@ -143,10 +143,10 @@ class Utils(core.LDAPWrap):
         self.domain = str(domain)
         self.mail = str(mail)
 
-        if not iredutils.isDomain(self.domain):
+        if not iredutils.is_domain(self.domain):
             return True
 
-        if not iredutils.isEmail(self.mail):
+        if not iredutils.is_email(self.mail):
             return True
 
         # Check whether mail address ends with domain name or alias domain name.
@@ -214,7 +214,7 @@ class Utils(core.LDAPWrap):
     @decorators.require_domain_access
     def deleteObjWithDN(self, domain, dn, account, accountType,):
         self.domain = web.safestr(domain)
-        if not iredutils.isDomain(self.domain):
+        if not iredutils.is_domain(self.domain):
             return (False, 'INVALID_DOMAIN_NAME')
 
         self.dn = escape_filter_chars(dn)
@@ -283,7 +283,7 @@ class Utils(core.LDAPWrap):
             if domain is not None:
                 # Update number of current domain quota size in LDAP.
                 try:
-                    dnDomain = ldaputils.convKeywordToDN(domain, accountType='domain')
+                    dnDomain = ldaputils.convert_keyword_to_dn(domain, accountType='domain')
                     self.updateAttrSingleValue(
                         dn=dnDomain,
                         attr=attrs.ATTR_DOMAIN_CURRENT_QUOTA_SIZE,
@@ -304,10 +304,10 @@ class Utils(core.LDAPWrap):
     @decorators.require_domain_access
     def getDomainCurrentQuotaSizeFromLDAP(self, domain):
         self.domain = web.safestr(domain).strip().lower()
-        if not iredutils.isDomain(self.domain):
+        if not iredutils.is_domain(self.domain):
             return (False, 'INVALID_DOMAIN_NAME')
 
-        self.domainDN = ldaputils.convKeywordToDN(self.domain, accountType='domain')
+        self.domainDN = ldaputils.convert_keyword_to_dn(self.domain, accountType='domain')
 
         # Initial @domainCurrentQuotaSize
         self.domainCurrentQuotaSize = 0
@@ -348,10 +348,10 @@ class Utils(core.LDAPWrap):
         (True, ['example.com', 'aliasdomain01.com', 'aliasdomain02.com', ...])
         '''
         domain = web.safestr(domain).strip().lower()
-        if not iredutils.isDomain(domain):
+        if not iredutils.is_domain(domain):
             return (False, 'INVALID_DOMAIN_NAME')
 
-        dn = ldaputils.convKeywordToDN(domain, accountType='domain')
+        dn = ldaputils.convert_keyword_to_dn(domain, accountType='domain')
 
         try:
             result = self.conn.search_s(
@@ -369,12 +369,12 @@ class Utils(core.LDAPWrap):
 
         if accountType == 'user':
             if attrs.RDN_USER == 'mail':
-                if not iredutils.isEmail(self.keyword):
+                if not iredutils.is_email(self.keyword):
                     return False
-                return ldaputils.convKeywordToDN(self.keyword, accountType='user')
+                return ldaputils.convert_keyword_to_dn(self.keyword, accountType='user')
             else:
                 self.domain = self.keyword.split('@', 1)[-1]
-                self.dnOfDomain = ldaputils.convKeywordToDN(self.domain, accountType='domain',)
+                self.dnOfDomain = ldaputils.convert_keyword_to_dn(self.domain, accountType='domain',)
                 try:
                     result = self.conn.search_s(
                         attrs.DN_BETWEEN_USER_AND_DOMAIN + self.dnOfDomain,
@@ -395,7 +395,7 @@ class Utils(core.LDAPWrap):
     # Get domains under control.
     def getManagedDomains(self, mail, attrs=attrs.ADMIN_ATTRS_ALL, listedOnly=False):
         self.mail = web.safestr(mail)
-        if not iredutils.isEmail(self.mail):
+        if not iredutils.is_email(self.mail):
             return (False, 'INCORRECT_USERNAME')
 
         # Pre-defined filter.

@@ -15,7 +15,7 @@ from libs.ldaplib import attrs
 session = web.config.get('_session')
 
 
-def convKeywordToDN(keyword, accountType='user'):
+def convert_keyword_to_dn(keyword, accountType='user'):
     '''Convert keyword and account type to DN.'''
     keyword = web.safestr(keyword).strip().replace(' ', '')
     keyword = escape_dn_chars(keyword)
@@ -26,18 +26,18 @@ def convKeywordToDN(keyword, accountType='user'):
 
     # Validate account type.
     if accountType not in attrs.ACCOUNT_TYPES_ALL:
-        return (False, 'INVALID_ACCOUNT_TYPE')
+        return 'INVALID_ACCOUNT_TYPE'
 
     # Validate keyword.
     # Keyword is email address.
     if accountType in attrs.ACCOUNT_TYPES_EMAIL and \
-       not iredutils.isEmail(keyword):
-        return (False, 'INVALID_MAIL')
+       not iredutils.is_email(keyword):
+        return 'INVALID_MAIL'
 
     # Keyword is domain name.
     if accountType in attrs.ACCOUNT_TYPES_DOMAIN and \
-       not iredutils.isDomain(keyword):
-        return (False, 'INVALID_DOMAIN_NAME')
+       not iredutils.is_domain(keyword):
+        return 'INVALID_DOMAIN_NAME'
 
     # Convert keyword to DN.
     if accountType == 'user':

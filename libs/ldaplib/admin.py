@@ -53,7 +53,7 @@ class Admin(core.LDAPWrap):
     # Get admin profile.
     def profile(self, mail, attributes=attrs.ADMIN_ATTRS_ALL):
         self.mail = web.safestr(mail)
-        self.dn = ldaputils.convKeywordToDN(self.mail, accountType='admin')
+        self.dn = ldaputils.convert_keyword_to_dn(self.mail, accountType='admin')
         if self.dn[0] is False:
             return self.dn
 
@@ -76,7 +76,7 @@ class Admin(core.LDAPWrap):
         self.cn = data.get('cn')
         self.mail = web.safestr(data.get('mail')).strip().lower()
 
-        if not iredutils.isEmail(self.mail):
+        if not iredutils.is_email(self.mail):
             return (False, 'INVALID_MAIL')
 
         self.domainGlobalAdmin = web.safestr(data.get('domainGlobalAdmin', 'no'))
@@ -103,7 +103,7 @@ class Admin(core.LDAPWrap):
                 domainGlobalAdmin=self.domainGlobalAdmin,
                 )
 
-        self.dn = ldaputils.convKeywordToDN(self.mail, accountType='admin')
+        self.dn = ldaputils.convert_keyword_to_dn(self.mail, accountType='admin')
         if self.dn[0] is False:
             return self.dn
 
@@ -126,7 +126,7 @@ class Admin(core.LDAPWrap):
             # Don't allow to view/update other admins' profile.
             return (False, 'PERMISSION_DENIED')
 
-        self.dn = ldaputils.convKeywordToDN(self.mail, accountType='admin')
+        self.dn = ldaputils.convert_keyword_to_dn(self.mail, accountType='admin')
         if self.dn[0] is False:
             return self.dn
 
@@ -205,13 +205,36 @@ class Admin(core.LDAPWrap):
 
         for mail in mails:
             self.mail = web.safestr(mail)
-            dn = ldaputils.convKeywordToDN(self.mail, accountType='admin')
+            dn = ldaputils.convert_keyword_to_dn(self.mail, accountType='admin')
             if dn[0] is False:
                 return dn
 
             try:
                 deltree.DelTree(self.conn, dn, ldap.SCOPE_SUBTREE)
                 web.logger(msg="Delete admin: %s." % (self.mail,), event='delete',)
+            except ldap.NO_SUCH_OBJECT:
+                # This is a mail user admin
+                dn = ldaputils.convert_keyword_to_dn(self.mail, accountType='user')
+                try:
+                    connutils = connUtils.Utils()
+                    # Delete enabledService=domainadmin
+                    connutils.addOrDelAttrValue(
+                            dn=dn,
+                            attr='enabledService',
+                            value='domainadmin',
+                            action='delete',
+                            )
+
+                    # Delete domainGlobalAdmin=yes
+                    connutils.addOrDelAttrValue(
+                            dn=dn,
+                            attr='domainGlobalAdmin',
+                            value='yes',
+                            action='delete',
+                            )
+                    web.logger(msg="Delete admin: %s." % (self.mail), event='delete')
+                except Exception, e:
+                    result[self.mail] = str(e)
             except ldap.LDAPError, e:
                 result[self.mail] = str(e)
 
@@ -229,11 +252,11 @@ class Admin(core.LDAPWrap):
         connutils = connUtils.Utils()
         for mail in mails:
             self.mail = web.safestr(mail).strip().lower()
-            if not iredutils.isEmail(self.mail):
+            if not iredutils.is_email(self.mail):
                 continue
 
             self.domain = self.mail.split('@')[-1]
-            self.dn = ldaputils.convKeywordToDN(self.mail, accountType='admin')
+            self.dn = ldaputils.convert_keyword_to_dn(self.mail, accountType='admin')
             if self.dn[0] is False:
                 return self.dn
 
@@ -259,12 +282,12 @@ class Admin(core.LDAPWrap):
         else:
             admin = str(admin)
 
-        if not iredutils.isEmail(admin):
+        if not iredutils.is_email(admin):
             return 0
 
         domains = []
         if len(domains) > 0:
-            domains = [str(d).lower() for d in domains if iredutils.isDomain(d)]
+            domains = [str(d).lower() for d in domains if iredutils.is_domain(d)]
         else:
             connutils = connUtils.Utils()
             qr = connutils.getManagedDomains(mail=admin, attrs=['domainName'], listedOnly=True)

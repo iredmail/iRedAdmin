@@ -23,7 +23,7 @@ class List:
         domain = web.safestr(domain).split('/', 1)[0]
         cur_page = int(cur_page)
 
-        if not iredutils.isDomain(domain):
+        if not iredutils.is_domain(domain):
             raise web.seeother('/domains?msg=INVALID_DOMAIN_NAME')
 
         if cur_page == 0:
@@ -107,11 +107,11 @@ class Profile:
         self.cur_domain = self.mail.split('@', 1)[-1]
         self.profile_type = web.safestr(profile_type)
 
-        if self.mail.startswith('@') and iredutils.isDomain(self.cur_domain):
+        if self.mail.startswith('@') and iredutils.is_domain(self.cur_domain):
             # Catchall account.
             raise web.seeother('/profile/domain/catchall/%s' % self.cur_domain)
 
-        if not iredutils.isEmail(self.mail):
+        if not iredutils.is_email(self.mail):
             raise web.seeother('/domains?msg=INVALID_USER')
 
         domainAccountSetting = {}

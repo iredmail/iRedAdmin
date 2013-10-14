@@ -21,7 +21,7 @@ class User(core.LDAPWrap):
     @decorators.require_domain_access
     def listAccounts(self, domain):
         self.domain = domain
-        self.domainDN = ldaputils.convKeywordToDN(self.domain, accountType='domain')
+        self.domainDN = ldaputils.convert_keyword_to_dn(self.domain, accountType='domain')
         if self.domainDN[0] is False:
             return self.domainDN
 
@@ -67,13 +67,13 @@ class User(core.LDAPWrap):
                 raise web.seeother('/domains?msg=PERMISSION_DENIED')
 
         if attrs.RDN_USER == 'mail':
-            self.searchdn = ldaputils.convKeywordToDN(self.mail, accountType=accountType)
+            self.searchdn = ldaputils.convert_keyword_to_dn(self.mail, accountType=accountType)
             self.scope = ldap.SCOPE_BASE
 
             if self.searchdn[0] is False:
                 return self.searchdn
         else:
-            domain_dn = ldaputils.convKeywordToDN(self.domain, accountType='domain')
+            domain_dn = ldaputils.convert_keyword_to_dn(self.domain, accountType='domain')
             if domain_dn[0] is False:
                 return domain_dn
 
@@ -99,7 +99,7 @@ class User(core.LDAPWrap):
         self.mail = self.username + '@' + self.domain
         self.groups = data.get('groups', [])
 
-        if not iredutils.isDomain(self.domain) or not iredutils.isEmail(self.mail):
+        if not iredutils.is_domain(self.domain) or not iredutils.is_email(self.mail):
             return (False, 'MISSING_DOMAIN_OR_USERNAME')
 
         # Check account existing.
@@ -136,7 +136,7 @@ class User(core.LDAPWrap):
                                           max_passwd_length=domainAccountSetting.get('maxPasswordLength', '0'),
                                          )
         if result[0] is True:
-            if 'storePasswordInPlainText' in data and settings.STORE_PASSWORD_IN_PLAIN:
+            if 'storePasswordInPlainText' in data and settings.STORE_PASSWORD_IN_PLAIN_TEXT:
                 self.passwd = ldaputils.generateLDAPPasswd(result[1], pwscheme='PLAIN')
             else:
                 self.passwd = ldaputils.generateLDAPPasswd(result[1])
@@ -199,7 +199,7 @@ class User(core.LDAPWrap):
         # Get default groups.
         self.groups = [web.safestr(v)
                        for v in domainAccountSetting.get('defaultList', '').split(',')
-                       if iredutils.isEmail(v)
+                       if iredutils.is_email(v)
                       ]
 
         self.defaultStorageBaseDirectory = domainAccountSetting.get('defaultStorageBaseDirectory', None)
@@ -216,12 +216,12 @@ class User(core.LDAPWrap):
             storageBaseDirectory=self.defaultStorageBaseDirectory,
         )
 
-        domain_dn = ldaputils.convKeywordToDN(self.domain, accountType='domain')
+        domain_dn = ldaputils.convert_keyword_to_dn(self.domain, accountType='domain')
         if domain_dn[0] is False:
             return domain_dn
 
         if attrs.RDN_USER == 'mail':
-            self.dn = ldaputils.convKeywordToDN(self.mail, accountType='user')
+            self.dn = ldaputils.convert_keyword_to_dn(self.mail, accountType='user')
             if self.dn[0] is False:
                 return self.dn
 
@@ -244,7 +244,7 @@ class User(core.LDAPWrap):
     def getFilterOfDeleteUserFromGroups(self, mail):
         # Get valid emails as list.
         if isinstance(mail, list):
-            self.mails = [web.safestr(v).lower() for v in mail if iredutils.isEmail(str(v))]
+            self.mails = [web.safestr(v).lower() for v in mail if iredutils.is_email(str(v))]
         else:
             # Single email.
             self.mails = [web.safestr(mail).lower()]
@@ -266,15 +266,15 @@ class User(core.LDAPWrap):
     # Delete single user from mail list, alias, user forwarding addresses.
     def deleteSingleUserFromGroups(self, mail):
         self.mail = web.safestr(mail)
-        if not iredutils.isEmail(self.mail):
+        if not iredutils.is_email(self.mail):
             return (False, 'INVALID_MAIL')
 
         # Get domain name of this account.
         self.domain = self.mail.split('@')[-1]
 
         # Get dn of mail user and domain.
-        self.dnUser = ldaputils.convKeywordToDN(self.mail, accountType='user')
-        self.dnDomain = ldaputils.convKeywordToDN(self.domain, accountType='domain')
+        self.dnUser = ldaputils.convert_keyword_to_dn(self.mail, accountType='user')
+        self.dnDomain = ldaputils.convert_keyword_to_dn(self.domain, accountType='domain')
 
         if self.dnUser[0] is False:
             return self.dnUser
@@ -323,14 +323,14 @@ class User(core.LDAPWrap):
     # Delete single user.
     def deleteSingleUser(self, mail, deleteFromGroups=True,):
         self.mail = web.safestr(mail)
-        if not iredutils.isEmail(self.mail):
+        if not iredutils.is_email(self.mail):
             return (False, 'INVALID_MAIL')
 
         # Get domain name of this account.
         self.domain = self.mail.split('@')[-1]
 
         # Get dn of mail user and domain.
-        self.dnUser = ldaputils.convKeywordToDN(self.mail, accountType='user')
+        self.dnUser = ldaputils.convert_keyword_to_dn(self.mail, accountType='user')
         if self.dnUser[0] is False:
             return self.dnUser
 
@@ -368,15 +368,15 @@ class User(core.LDAPWrap):
             return (False, 'NO_ACCOUNT_SELECTED')
 
         self.domain = web.safestr(domain)
-        self.mails = [str(v) for v in mails if iredutils.isEmail(v) and str(v).endswith('@' + self.domain)]
+        self.mails = [str(v) for v in mails if iredutils.is_email(v) and str(v).endswith('@' + self.domain)]
         if not len(self.mails) > 0:
             return (False, 'INVALID_MAIL')
 
-        self.domaindn = ldaputils.convKeywordToDN(self.domain, accountType='domain')
+        self.domaindn = ldaputils.convert_keyword_to_dn(self.domain, accountType='domain')
         if self.domaindn[0] is False:
             return self.domaindn
 
-        if not iredutils.isDomain(self.domain):
+        if not iredutils.is_domain(self.domain):
             return (False, 'INVALID_DOMAIN_NAME')
 
         result = {}
@@ -390,7 +390,7 @@ class User(core.LDAPWrap):
                 # Delete user object and whole sub-tree.
                 # Get dn of mail user and domain.
                 """
-                self.userdn = ldaputils.convKeywordToDN(self.mail, accountType='user')
+                self.userdn = ldaputils.convert_keyword_to_dn(self.mail, accountType='user')
                 deltree.DelTree(self.conn, self.userdn, ldap.SCOPE_SUBTREE)
 
                 # Log delete action.
@@ -415,7 +415,7 @@ class User(core.LDAPWrap):
 
         self.mails = [str(v)
                       for v in mails
-                      if iredutils.isEmail(v)
+                      if iredutils.is_email(v)
                       and str(v).endswith('@' + str(domain))
                      ]
 
@@ -423,11 +423,11 @@ class User(core.LDAPWrap):
         connutils = connUtils.Utils()
         for mail in self.mails:
             self.mail = web.safestr(mail)
-            if not iredutils.isEmail(self.mail):
+            if not iredutils.is_email(self.mail):
                 continue
 
             self.domain = self.mail.split('@')[-1]
-            self.dn = ldaputils.convKeywordToDN(self.mail, accountType='user')
+            self.dn = ldaputils.convert_keyword_to_dn(self.mail, accountType='user')
             if self.dn[0] is False:
                 result[self.mail] = self.dn[1]
                 continue
@@ -612,7 +612,7 @@ class User(core.LDAPWrap):
                 max_passwd_length=maxPasswordLength,
             )
             if result[0] is True:
-                if 'storePasswordInPlainText' in data and settings.STORE_PASSWORD_IN_PLAIN:
+                if 'storePasswordInPlainText' in data and settings.STORE_PASSWORD_IN_PLAIN_TEXT:
                     self.passwd = ldaputils.generateLDAPPasswd(result[1], pwscheme='PLAIN')
                 else:
                     self.passwd = ldaputils.generateLDAPPasswd(result[1])

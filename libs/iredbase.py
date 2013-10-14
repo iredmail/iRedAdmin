@@ -68,20 +68,6 @@ else:
 
 urls = backendUrls
 
-# Import Policyd/Cluebringer related urls.
-if enable_policyd:
-    from controllers.policyd.urls import urls as policydUrls
-    urls += policydUrls
-
-if enable_cluebringer:
-    from controllers.cluebringer.urls import urls as policydUrls
-    urls += policydUrls
-
-# Import amavisd related urls.
-if settings.amavisd_enable_quarantine or settings.amavisd_enable_logging:
-    from controllers.amavisd.urls import urls as amavisdUrls
-    urls += amavisdUrls
-
 from controllers.panel.urls import urls as panelUrls
 urls += panelUrls
 
@@ -101,7 +87,7 @@ session = web.session.Session(
         'default_mta_transport': settings.default_mta_transport,
 
         # Store password in plain text.
-        'store_password_in_plain_text': settings.STORE_PASSWORD_IN_PLAIN_TEXT,
+        'store_password_in_plain_text': settings.STORE_PASSWORD_IN_PLAIN_TEXT_TEXT,
 
         # Policyd/Cluebringer integration.
         'enable_policyd': enable_policyd,
@@ -170,7 +156,6 @@ def render_template(template_name, **context):
         'filesizeformat': iredutils.filesizeformat,
         'set_datetime_format': iredutils.set_datetime_format,
         'generate_random_strings': iredutils.generate_random_strings,
-        'convert_to_percentage': iredutils.convert_to_percentage,
         'cut_string': iredutils.cut_string,
         'convert_utc_to_timezone': convert_utc_to_timezone,
     })

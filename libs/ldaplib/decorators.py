@@ -19,8 +19,8 @@ class Validator(core.LDAPWrap):
         except Exception:
             pass
 
-    def isDomainAdmin(self, domain, admin=session.get('username'),):
-        dn = ldaputils.convKeywordToDN(domain, accountType='domain')
+    def is_domainAdmin(self, domain, admin=session.get('username'),):
+        dn = ldaputils.convert_keyword_to_dn(domain, accountType='domain')
         try:
             result = self.conn.search_s(
                 dn,
@@ -42,16 +42,16 @@ def require_domain_access(func):
         if session.get('domainGlobalAdmin') is True:
             return func(*args, **kw)
         else:
-            if 'mail' in kw.keys() and iredutils.isEmail(kw.get('mail')):
+            if 'mail' in kw.keys() and iredutils.is_email(kw.get('mail')):
                 domain = web.safestr(kw['mail']).split('@')[-1]
-            elif 'domain' in kw.keys() and iredutils.isDomain(kw.get('domain')):
+            elif 'domain' in kw.keys() and iredutils.is_domain(kw.get('domain')):
                 domain = web.safestr(kw['domain'])
             else:
                 return (False, 'PERMISSION_DENIED')
 
             # Check whether is domain admin.
             validator = Validator()
-            if validator.isDomainAdmin(domain=domain, admin=session.get('username'),):
+            if validator.is_domainAdmin(domain=domain, admin=session.get('username'),):
                 return func(*args, **kw)
             else:
                 return (False, 'PERMISSION_DENIED')

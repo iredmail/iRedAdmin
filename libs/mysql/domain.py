@@ -31,7 +31,7 @@ class Domain(core.MySQLWrap):
     def getDomainAdmins(self, domain, mailOnly=False):
         domain = str(domain)
 
-        if not iredutils.isDomain(domain):
+        if not iredutils.is_domain(domain):
             return (False, 'INVALID_DOMAIN_NAME')
 
         try:
@@ -58,7 +58,7 @@ class Domain(core.MySQLWrap):
 
     @decorators.require_domain_access
     def getCountsOfExistAccountsUnderDomain(self, domain, accountType='user'):
-        if not iredutils.isDomain(domain):
+        if not iredutils.is_domain(domain):
             return (False, 'INVALID_DOMAIN_NAME')
 
         sql_vars = {'domain': domain, }
@@ -192,7 +192,7 @@ class Domain(core.MySQLWrap):
 
         domains = [str(v).lower()
                    for v in domains
-                   if iredutils.isDomain(v)
+                   if iredutils.is_domain(v)
                   ]
 
         if not domains:
@@ -240,7 +240,7 @@ class Domain(core.MySQLWrap):
     def simpleProfile(self, domain, columns=[]):
         domain = web.safestr(domain)
 
-        if not iredutils.isDomain(domain):
+        if not iredutils.is_domain(domain):
             return (False, 'INVALID_DOMAIN_NAME')
 
         try:
@@ -262,7 +262,7 @@ class Domain(core.MySQLWrap):
     def profile(self, domain):
         domain = web.safestr(domain)
 
-        if not iredutils.isDomain(domain):
+        if not iredutils.is_domain(domain):
             return (False, 'INVALID_DOMAIN_NAME')
 
         try:
@@ -314,12 +314,12 @@ class Domain(core.MySQLWrap):
         cn = data.get('cn', '')
 
         # Check domain name.
-        if not iredutils.isDomain(domain):
+        if not iredutils.is_domain(domain):
             return (False, 'INVALID_DOMAIN_NAME')
 
         # Check whether domain name already exist (domainName, domainAliasName).
         connutils = connUtils.Utils()
-        if connutils.isDomainExists(domain):
+        if connutils.is_domain_exists(domain):
             return (False, 'ALREADY_EXISTS')
 
         # Add domain in database.

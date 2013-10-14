@@ -7,7 +7,7 @@ import web
 from socket import getfqdn
 from urllib import urlencode
 import settings
-from libs import __url_latest_ose__, __version_ose__, __no__, __id__
+from libs import __url_latest_ose__, __version_ose__
 from libs import iredutils, languages
 from libs.ldaplib import auth, decorators, admin as adminlib, ldaputils
 
@@ -37,7 +37,7 @@ class Login:
         password = i.get('password', '').strip()
         save_pass = web.safestr(i.get('save_pass', 'no').strip())
 
-        if not iredutils.isEmail(username):
+        if not iredutils.is_email(username):
             raise web.seeother('/login?msg=INVALID_USERNAME')
 
         if not password:
@@ -76,7 +76,7 @@ class Login:
             raise web.seeother('/login?msg=%s' % web.safestr(e))
 
         # Convert username to admin dn.
-        dn_login = ldaputils.convKeywordToDN(username, accountType='admin')
+        dn_login = ldaputils.convert_keyword_to_dn(username, accountType='admin')
         if dn_login[0] is False:
             raise web.seeother('/login?msg=%s' % dn_login[1])
 
@@ -86,7 +86,7 @@ class Login:
         # Check whether it's a mail user
         qr_user_auth = False
         if qr_admin_auth is not True:
-            dn_user = ldaputils.convKeywordToDN(username, accountType='user')
+            dn_user = ldaputils.convert_keyword_to_dn(username, accountType='user')
             qr_user_auth = auth.Auth(uri, dn_user, password)
 
         if qr_admin_auth is True or qr_user_auth is True:
@@ -166,8 +166,6 @@ class Dashboard:
                 if len(r) == 0:
                     urlInfo = {
                         'v': __version_ose__,
-                        'o': __no__,
-                        'f': __id__,
                         'lang': settings.default_language,
                         'host': getfqdn(),
                         'backend': settings.backend,

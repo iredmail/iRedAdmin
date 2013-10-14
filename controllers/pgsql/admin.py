@@ -72,7 +72,7 @@ class Profile:
         self.mail = web.safestr(mail)
         self.profile_type = web.safestr(profile_type)
 
-        if not iredutils.isEmail(self.mail):
+        if not iredutils.is_email(self.mail):
             raise web.seeother('/admins?msg=INVALID_MAIL')
 
         if session.get('domainGlobalAdmin') is not True and session.get('username') != self.mail:

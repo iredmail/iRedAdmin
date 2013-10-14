@@ -6,7 +6,7 @@ from socket import getfqdn
 from urllib import urlencode
 import web
 import settings
-from libs import __url_latest_ose__, __version_ose__, __no__, __id__
+from libs import __url_latest_ose__, __version_ose__
 from libs import iredutils, languages
 from libs.mysql import core, decorators
 
@@ -101,8 +101,6 @@ class Dashboard:
                 if len(r) == 0:
                     urlInfo = {
                         'v': __version_ose__,
-                        'o': __no__,
-                        'f': __id__,
                         'lang': settings.default_language,
                         'host': getfqdn(),
                         'backend': settings.backend,
