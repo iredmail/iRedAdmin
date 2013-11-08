@@ -1,4 +1,6 @@
 = 0.3 =
+    * Able to choose addition password scheme as default one in OpenLDAP
+      backend: SSHA512, MD5.
     * Use python source file as config file. You can convert old ini config
       file with script tools/convert_ini_to_py.py.
 

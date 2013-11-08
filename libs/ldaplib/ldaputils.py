@@ -90,31 +90,17 @@ def convert_keyword_to_dn(keyword, accountType='user'):
 
 
 # Generate hashed password from plain text for LDAP value 'userPassword'.
-def generateLDAPPasswd(password, pwscheme=settings.LDAP_DEFAULT_PASSWD_SCHEME,):
+def generate_ldap_password(password, pwscheme=settings.LDAP_DEFAULT_PASSWD_SCHEME,):
     pwscheme = pwscheme.upper()
-    salt = os.urandom(8)
-    if sys.version_info[1] < 5:  # Python 2.5
-        import sha
-        if pwscheme == 'SSHA':
-            h = sha.new(password)
-            h.update(salt)
-            pw = "{SSHA}" + b64encode(h.digest() + salt)
-        elif pwscheme == 'SHA':
-            h = sha.new(password)
-            pw = "{SHA}" + b64encode(h.digest())
-        else:
-            pw = password
+
+    if pwscheme == 'SSHA512':
+        pw = iredutils.generate_ssha512_password(password)
+    elif pwscheme == 'SSHA':
+        pw = iredutils.generate_ssha_password(password)
+    elif pwscheme == 'MD5':
+        pw = iredutils.generate_md5_password(password)
     else:
-        import hashlib
-        if pwscheme == 'SSHA':
-            h = hashlib.sha1(password)
-            h.update(salt)
-            pw = "{SSHA}" + b64encode(h.digest() + salt)
-        elif pwscheme == 'SHA':
-            h = hashlib.sha1(password)
-            pw = "{SSHA}" + b64encode(h.digest())
-        else:
-            pw = password
+        pw = password
 
     return pw
 
