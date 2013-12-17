@@ -1,3 +1,7 @@
+= 0.3.1 =
+    * Fixed:
+        - [ldap] Didn't add 'enabledService=doveadm' for mail user.
+
 = 0.3 =
     * Able to choose addition password scheme as default one in OpenLDAP
       backend: SSHA512, MD5.
