@@ -90,32 +90,6 @@ VALUES_DOMAIN_BACKUPMX = ['yes', 'no']
 # ---------------------------------------------------------
 USER_FILTER = '(objectClass=mailUser)'
 USER_ATTR_PASSWORD = 'userPassword'
-# All availabe services.
-USER_ENABLED_SERVICES = (
-    'internal', 'doveadm',
-    'mail', 'smtp', 'smtpsecured',
-    'pop3', 'pop3secured',
-    'imap', 'imapsecured',
-    'deliver', 'forward',
-    'recipientbcc', 'senderbcc',
-    'managesieve', 'managesievesecured', 'sieve', 'sievesecured',
-    'shadowaddress',
-    'displayedInGlobalAddressBook',
-)
-
-# Services availabel in 'Service Control' page.
-USER_SERVICE_UNDER_CONTROL = [
-    'internal',
-    'mail', 'smtp', 'smtpsecured',
-    'pop3', 'pop3secured',
-    'imap', 'imapsecured',
-    'deliver', 'forward',
-    'recipientbcc', 'senderbcc',
-    'managesieve', 'managesievesecured', 'sieve', 'sievesecured',
-    'shadowaddress',
-    'displayedInGlobalAddressBook',
-]
-
 USER_SEARCH_ATTRS = [
     # Required attributes.
     'mail', 'cn', 'accountStatus', 'mailQuota',
