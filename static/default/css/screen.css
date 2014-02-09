@@ -83,7 +83,7 @@ del		{ color: #FF001C; text-decoration:line-through; }
 .login-header .logo		{ width: auto; margin: 0px; padding-top: 0px; }
 .login-header .logo .title	{ }
 .login-header .logo .text	{ color: #333333; }
-.login-inside			{ height: 195px; padding-top: 35px; border-bottom: 1px solid #bbbbbb; background: url('../images/gear.png') 325px bottom no-repeat; }
+.login-inside			{ height: 195px; padding-top: 35px; /*border-bottom: 1px solid #bbbbbb;*/ background: url('../images/gear.png') 325px bottom no-repeat; }
 .login-inside p			{ text-align: center; padding-bottom: 10px; }
 .login-data			{ width: 290px; padding: 30px 10px 25px 30px; background: url('../images/bck_white_50.png'); margin: 0px auto; -moz-border-radius: 3px 3px 3px 3px; -webkit-border-radius: 3px 3px 3px 3px; border-radius: 3px 3px 3px 3px; margin-bottom : 20px; }
 .login-data label		{ display: block; width: 70px; float: left; line-height: 22px; text-align: right; margin-right: 10px; }
@@ -665,9 +665,14 @@ label { cursor: default; }
 label:hover { color: inherit; }
 .topbuts li a {font-size: 12px; lien-height: 18px;}
 
-.login-header { height: 50px; font-size: 20px; }
-.login-box { border: 0px; padding: 0px; }
-.login-header .logo .title  { font-size: 20px; }
+.login-header { height: 45px; font-size: 18px; }
+.login-header .logo .title  { font-size: 18px; }
+.login-box { width: 530px; border: 0px; padding: 0px; }
+.login-inside { height: 165px; padding-top: 25px; }
+.login-data { background: none; }
+.login-data label { width: 90px; font-size: 14px; }
+.login-data input.text { font-size: 14px; }
+.login-data .button { margin-left: 100px; font-size: 14px; }
 
 .pagetop { padding: 0px 0px 0px 0px; }
 .head_top { min-height: 90px; }
@@ -675,6 +680,7 @@ label:hover { color: inherit; }
 .page { padding-top: 8px; padding-bottom: 15px; }
 .menu li a { background: none; }
 .menu ul ul { padding-bottom: 8px; }
+h4 { padding-bottom: 5px; }
 
 .main-wrap { padding-top: 10px; }
 .col1-3 { width: 300px; }
@@ -761,7 +767,7 @@ div.progress-container > div.progress-bar {
 
 .checklist .checklist-item label {
     display: block;
-    padding: 0 0 0 2.25em;
+    padding: 0 0 0 1em;
     float: none;
     height: 100%;
     /*background-color: #fff;*/
@@ -777,7 +783,7 @@ div.progress-container > div.progress-bar {
 
 .checklist .checklist-item input {
     margin: 0;
-    height: 1.55em;
+    height: 1.8em;
     width: 1.55em;
 }
 
