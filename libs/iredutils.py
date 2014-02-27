@@ -17,10 +17,10 @@ from libs import md5crypt
 # Regular expressions.
 #
 # Email.
-reEmail = r'''[\w\-][\w\-\.]*@[\w\-][\w\-\.]+[a-zA-Z]{2,6}'''
+reEmail = r'''[\w\-][\w\-\.]*@[\w\-][\w\-\.]+[a-zA-Z]{2,10}'''
 
 # Domain.
-reDomain = r'''[\w\-][\w\-\.]*\.[a-z]{2,6}'''
+reDomain = r'''[\w\-][\w\-\.]*\.[a-z]{2,10}'''
 
 # End Regular expressions.
 ####
