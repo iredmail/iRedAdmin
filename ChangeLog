@@ -1,6 +1,6 @@
 = 0.3.1 =
     * Fixed:
-        - [ldap] Didn't add 'enabledService=doveadm' for mail user.
+        - [ldap] Didn't add 'enabledService=doveadm' for newly created mail user.
 
     * Updated translation:
         - hu_HU (Hungarian). Thanks Balázsi Gábor <gapcsi _at_ gmail dot com>.
