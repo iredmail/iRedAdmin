@@ -100,7 +100,7 @@ def ldif_mailuser(domain, username, cn, passwd, quota=0, aliasDomains=[], groups
         ('mailMessageStore', [mailMessageStore]),
         ('homeDirectory', [homeDirectory]),
         ('accountStatus', ['active']),
-        ('enabledService', ['mail', 'deliver', 'lda', 'smtp', 'smtpsecured',
+        ('enabledService', ['mail', 'deliver', 'lda', 'lmtp', 'smtp', 'smtpsecured',
                             'pop3', 'pop3secured', 'imap', 'imapsecured',
                             'managesieve', 'managesievesecured',
                             # ManageService name In dovecot-1.2.
