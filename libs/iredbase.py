@@ -108,6 +108,9 @@ def csrf_token():
 
     return session['csrf_token']
 
+# Hooks.
+def hook_lang():
+    web.ctx.lang = web.input(lang=None, _method="GET").lang or session.get('lang', 'en_US')
 
 # Initialize object which used to stored all translations.
 all_translations = {'en_US': gettext.NullTranslations()}
@@ -205,6 +208,8 @@ def log_error(*args):
         except Exception, e:
             print >> sys.stderr, e
 
+# Load hooks
+app.add_processor(web.loadhook(hook_lang))
 
 # Mail 500 error to webmaster.
 if settings.MAIL_ERROR_TO_WEBMASTER:
