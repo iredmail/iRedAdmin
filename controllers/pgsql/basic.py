@@ -55,6 +55,13 @@ class Login:
                 web.config.session_parameters['timeout'] = 600      # 10 minutes
 
             web.logger(msg="Login success", event='login',)
+
+            # Save selected language
+            selected_language = str(i.get('lang').strip())
+            if selected_language != web.ctx.lang and \
+               selected_language in languages.get_language_maps():
+                session['lang'] = selected_language
+
             raise web.seeother('/dashboard/checknew')
         else:
             session['failed_times'] += 1
