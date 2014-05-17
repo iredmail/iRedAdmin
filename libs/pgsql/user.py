@@ -181,12 +181,11 @@ class User(core.PGSQLWrap):
         # Check spare quota and number of spare account limit.
         # Get quota from <form>
         mailQuota = str(data.get('mailQuota')).strip()
-        defaultUserQuota = domainProfile.get('defaultuserquota', 0)
 
         if mailQuota.isdigit():
             mailQuota = int(mailQuota)
         else:
-            mailQuota = defaultUserQuota
+            mailQuota = 0
 
         # Re-calculate mail quota if this domain has limited max quota.
         if domainProfile.maxquota > 0:
@@ -212,15 +211,11 @@ class User(core.PGSQLWrap):
         newpw = web.safestr(data.get('newpw', ''))
         confirmpw = web.safestr(data.get('confirmpw', ''))
 
-        # Get password length limit from domain profile or global setting.
-        minPasswordLength = domainProfile.get('minpasswordlength', settings.min_passwd_length)
-        maxPasswordLength = domainProfile.get('maxpasswordlength', settings.max_passwd_length)
-
         resultOfPW = iredutils.verify_new_password(
             newpw,
             confirmpw,
-            min_passwd_length=minPasswordLength,
-            max_passwd_length=maxPasswordLength,
+            min_passwd_length=settings.min_passwd_length,
+            max_passwd_length=settings.max_passwd_length,
         )
         if resultOfPW[0] is True:
             pwscheme = None

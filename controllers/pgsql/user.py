@@ -3,6 +3,7 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
 import web
+import settings
 from libs import iredutils
 from libs.languages import get_language_maps
 from libs.pgsql import decorators, user as userlib, domain as domainlib, connUtils
@@ -185,6 +186,8 @@ class Create:
             cur_domain=self.cur_domain,
             allDomains=allDomains,
             profile=self.profile,
+            min_passwd_length=settings.min_passwd_length,
+            max_passwd_length=settings.max_passwd_length,
             msg=i.get('msg'),
         )
 

@@ -55,8 +55,8 @@
                             <div class="bt-space5">&nbsp;</div>
 
                             {{ display_reset_password(
-                                        min_passwd_length=profile.minpasswordlength |string,
-                                        max_passwd_length=profile.maxpasswordlength |string,
+                                        min_passwd_length=min_passwd_length |string,
+                                        max_passwd_length=max_passwd_length |string,
                                         store_in_plain=true,
                                         )
                                         }}
@@ -65,7 +65,7 @@
 
                             {{ display_input_cn(cn=cn, accountType='user') }}
                             {{ display_quota(
-                                            value=profile.defaultuserquota,
+                                            value=0,
                                             show_value_in_input=true,
                                             show_used_quota=false,
                                             )
@@ -74,7 +74,7 @@
                         </div>{# .col2-3 #}
 
                         <div class="col1-4 lastcol">
-                            {{ display_random_password(profile.maxpasswordlength) }}
+                            {{ display_random_password(max_passwd_length) }}
                         </div>
                     </div>{# .columns #}
 

@@ -274,8 +274,6 @@ class Domain(core.PGSQLWrap):
                     domain.domain, domain.description, domain.aliases,
                     domain.mailboxes, domain.maxquota, domain.quota,
                     domain.transport, domain.backupmx, domain.active,
-                    domain.defaultuseraliases, domain.defaultuserquota,
-                    domain.minpasswordlength, domain.maxpasswordlength,
                     sbcc.bcc_address AS sbcc_addr,
                     sbcc.active AS sbcc_active,
                     rbcc.bcc_address AS rbcc_addr,
@@ -298,8 +296,6 @@ class Domain(core.PGSQLWrap):
                     domain.domain, domain.description, domain.aliases,
                     domain.mailboxes, domain.maxquota, domain.quota,
                     domain.transport, domain.backupmx, domain.active,
-                    domain.defaultuseraliases, domain.defaultuserquota,
-                    domain.minpasswordlength, domain.maxpasswordlength,
                     sbcc.bcc_address, sbcc.active,
                     rbcc.bcc_address, rbcc.active,
                     alias.goto, alias.active
