@@ -1,5 +1,6 @@
 = 0.3.3 =
     * Fixed issues:
+        - Not remove unused SQL columns for MySQL/PostgreSQL backends.
         - Not render pages in selected language in drop-down list in Login page
           after logged in.
         - Not correctly show current language in drop-down list in Login page.
