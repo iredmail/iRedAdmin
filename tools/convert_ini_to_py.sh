@@ -187,4 +187,8 @@ else
     echo "  + [SKIP] No such file."
 fi
 
+echo "* Set file owner (iredadmin:iredadmin) and permission (0400)."
+chown iredadmin:iredadmin settings.py
+chmod 0400 settings.py
+
 echo "* DONE. New config file: ${new_cfg}"
