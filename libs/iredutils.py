@@ -1,7 +1,7 @@
 # encoding: utf-8
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
-from os import urandom
+from os import urandom, getloadavg
 import re
 import time
 import urllib2
@@ -222,6 +222,17 @@ def get_server_uptime():
     minutes = int((total_seconds % HOUR) / MINUTE)
 
     return (days, hours, minutes)
+
+
+def get_system_load_average():
+    try:
+        (a1, a2, a3) = getloadavg()
+        a1 = '%.3f' % a1
+        a2 = '%.3f' % a2
+        a3 = '%.3f' % a3
+        return (a1, a2, a3)
+    except:
+        return (0, 0, 0)
 
 
 def get_gmttime():

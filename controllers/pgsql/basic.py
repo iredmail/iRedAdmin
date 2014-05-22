@@ -129,7 +129,7 @@ class Dashboard:
             version=__version_ose__,
             hostname=getfqdn(),
             uptime=iredutils.get_server_uptime(),
-            loadavg=os.getloadavg(),
+            loadavg=iredutils.get_system_load_average(),
             netif_data=netif_data,
             newVersionInfo=newVersionInfo,
         )
