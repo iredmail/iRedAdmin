@@ -1,3 +1,7 @@
+= 0.3.4 =
+    * Fixed issues:
+        - Incorrect link in sub-navication bar in account profile page.
+
 = 0.3.3 =
     * Fixed issues:
         - Not remove unused SQL columns for MySQL/PostgreSQL backends.

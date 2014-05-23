@@ -54,7 +54,7 @@
             (ctx.homepath + '/domains', _('All domains'),),
             (ctx.homepath + '/profile/domain/general/' + cur_domain, cur_domain,),
             (ctx.homepath + '/users/' + cur_domain, _('Users'),),
-            (None, _('Profile of user:') + ' ' + mail,),
+            ('active', ctx.homepath + '/profile/user/general/' + mail, _('Profile of user:') + ' ' + mail,),
             ]
             %}
     {{ display_subnav(crumbs) }}

@@ -25,7 +25,7 @@
 {% block breadcrumb %}
     {% set crumbs = [
             (ctx.homepath + '/domains', _('All domains'),),
-            (None, _('Profile of domain:') + '&nbsp;' + cur_domain,),
+            ('active', ctx.homepath + '/profile/domain/general/' + cur_domain, cur_domain,),
             (ctx.homepath + '/users/' + cur_domain, _('Users'),),
             ]
             %}
