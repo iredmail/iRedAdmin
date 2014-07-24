@@ -1,0 +1,14 @@
+
+= Cron Jobs =
+
+* cleanup_amavisd_db.py:
+    Cleanup old records from Amavisd database.
+    It's safe to execute it manually.
+
+= Utils =
+
+* convert_ini_to_py.sh:
+    Convert old iRedAdmin-Pro config file (.ini format) to the new one.
+
+* sync_cluebringer_internal_domains.py:
+    Sync mail domain names from SQL/LDAP to cluebringer database.

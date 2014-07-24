@@ -170,7 +170,7 @@ SQL_ALIAS_ACCESS_POLICIES = [
 
 # Remove old SQL records of sent/received mails in Amavisd database.
 # NOTE: require cron job with script tools/cleanup_amavisd_db.py.
-AMAVISD_REMOVE_MAILLOG_IN_DAYS = 7
+AMAVISD_REMOVE_MAILLOG_IN_DAYS = 3
 
 # Remove old SQL records of quarantined mails.
 # Since quarantined mails may take much disk space, it's better to release

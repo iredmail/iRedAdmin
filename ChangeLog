@@ -1,4 +1,13 @@
 = 0.3.4 =
+    * New tool scripts:
+        - tools/cleanup_amavisd_db.py.
+          Used to Cleanup old records from Amavisd database. It's safe to
+          execute it manually.
+
+        - tools/sync_cluebringer_internal_domains.py.
+          Sync mail domain names from SQL/LDAP to cluebringer policy group
+          '%internal_domains'.
+
     * Fixed issues:
         - Incorrect link in sub-navication bar in account profile page.
         - Missing LDAP attribute/value pair: enabledService=indexer-worker.
