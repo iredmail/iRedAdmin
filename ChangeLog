@@ -1,4 +1,4 @@
-= 0.3.4 =
+= 0.4 =
     * New tool scripts:
         - tools/cleanup_amavisd_db.py.
           Used to Cleanup old records from Amavisd database. It's safe to
