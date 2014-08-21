@@ -107,6 +107,7 @@ def ldif_mailuser(domain, username, cn, passwd, quota=0, aliasDomains=[], groups
                             'sieve', 'sievesecured',
                             'forward', 'senderbcc', 'recipientbcc',
                             'internal', 'lib-storage', 'indexer-worker', 'doveadm',
+                            'dsync',
                             'shadowaddress', 'displayedInGlobalAddressBook', ]
         ),
         # shadowAccount integration.
