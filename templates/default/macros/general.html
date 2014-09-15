@@ -783,6 +783,8 @@
         {{ _('Active account') }}
     {% elif event == 'update' %}
         {{ _('Edit account profile') }}
+    {% elif event == 'backup' %}
+        {{ _('Backup') }}
     {% else %}
         {{ event |e }}
     {% endif %}

@@ -1,4 +1,11 @@
 = 0.4 =
+    * Improvements:
+        + Able to generate bcrypt password hash with Python module 'bcrypt' or
+          'py-bcrypt'.
+          NOTE: It works on BSD systems, but not Linux. Since libc shpped in
+                most Linux distributions doesn't bcrypt, Dovecot cannot verify
+                bcrypt hash on Linux.
+
     * New tool scripts:
         - tools/cleanup_amavisd_db.py.
           Used to Cleanup old records from Amavisd database. It's safe to

@@ -23,7 +23,7 @@ def ldif_maildomain(domain, cn=None,
             ('accountSetting', ['minPasswordLength:%s' % minPasswordLength]),
            ]
 
-    ldif += ldaputils.getLdifOfSingleAttr(attr='cn', value=cn, default=domain,)
+    ldif += ldaputils.get_ldif_of_attr(attr='cn', value=cn, default=domain,)
 
     return ldif
 
@@ -65,7 +65,7 @@ def ldif_mailadmin(mail, passwd, cn, preferredLanguage='en_US', domainGlobalAdmi
             ('domainGlobalAdmin', [web.safestr(domainGlobalAdmin)]),
             ]
 
-    ldif += ldaputils.getLdifOfSingleAttr(attr='cn', value=cn, default=mail.split('@', 1)[0],)
+    ldif += ldaputils.get_ldif_of_attr(attr='cn', value=cn, default=mail.split('@', 1)[0],)
 
     return ldif
 
@@ -132,7 +132,7 @@ def ldif_mailuser(domain, username, cn, passwd, quota=0, aliasDomains=[], groups
         ldif += [('mailQuota', [str(quota)])]
 
     # Append cn.
-    ldif += ldaputils.getLdifOfSingleAttr(attr='cn', value=cn, default=username,)
+    ldif += ldaputils.get_ldif_of_attr(attr='cn', value=cn, default=username,)
 
     # Append groups.
     if isinstance(groups, list) and len(groups) >= 1:

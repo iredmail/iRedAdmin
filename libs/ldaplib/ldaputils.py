@@ -4,7 +4,6 @@ import sys
 import os
 import types
 import datetime
-from base64 import b64encode
 import web
 import ldap
 from ldap.dn import escape_dn_chars
@@ -89,37 +88,9 @@ def convert_keyword_to_dn(keyword, accountType='user'):
     return dn
 
 
-# Generate hashed password from plain text for LDAP value 'userPassword'.
-def generate_ldap_password(password, pwscheme=settings.LDAP_DEFAULT_PASSWD_SCHEME,):
-    pwscheme = pwscheme.upper()
-
-    if pwscheme == 'SSHA512':
-        pw = iredutils.generate_ssha512_password(password)
-    elif pwscheme == 'SSHA':
-        pw = iredutils.generate_ssha_password(password)
-    elif pwscheme == 'MD5':
-        pw = iredutils.generate_md5_password(password)
-    else:
-        pw = password
-
-    return pw
-
-
-# Check password.
-def checkPassword(hashed_password, password):
-    hashed_bytes = decode(hashed_password[6:])
-    digest = hashed_bytes[:20]
-    salt = hashed_bytes[20:]
-    hr = hashlib.sha1(password)
-    hr.update(salt)
-    return digest == hr.digest()
-
-
-def getLdifOfSingleAttr(attr, value, default='None'):
-    if value is not None and value != '':
-        ldif = [(attr, [value.encode('utf-8')])]
-    else:
-        ldif = [(attr, [default.encode('utf-8')])]
+def get_ldif_of_attr(attr, value, default='None'):
+    v = value or default
+    ldif = [(attr, [v.encode('utf-8')])]
 
     return ldif
 

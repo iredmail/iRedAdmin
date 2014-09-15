@@ -300,6 +300,54 @@ def generate_random_strings(length=10):
 
     return "".join(random.choice(chars) for x in range(length))
 
+def generate_password_hash(p, pwscheme=None):
+    """Generate password for LDAP mail user and admin."""
+    pw = str(p).strip()
+
+    if not pwscheme:
+        pwscheme = settings.DEFAULT_PASSWORD_SCHEME
+
+    if pwscheme == 'BCRYPT':
+        pw = generate_bcrypt_password(p)
+    elif pwscheme == 'SSHA512':
+        pw = generate_ssha512_password(p)
+    elif pwscheme == 'SSHA':
+        pw = generate_ssha_password(p)
+    elif pwscheme == 'MD5':
+        pw = '{CRYPT}' + generate_md5_password(p)
+    elif pwscheme == 'PLAIN-MD5':
+        pw = generate_plain_md5_password(p)
+    elif pwscheme == 'PLAIN':
+        if settings.SQL_PASSWORD_PREFIX_SCHEME is True:
+            pw = '{PLAIN}' + p
+        else:
+            pw = p
+    else:
+        # Plain password
+        pw = p
+
+    return pw
+
+
+def generate_bcrypt_password(p):
+    try:
+        import bcrypt
+    except:
+        return generate_ssha_password(p)
+
+    return '{CRYPT}' + bcrypt.hashpw(p, bcrypt.gensalt())
+
+
+def verify_bcrypt_password(challenge_password, plain_password):
+    try:
+        import bcrypt
+    except:
+        return False
+
+    challenge_password = challenge_password.lstrip('{CRYPT}')
+
+    return bcrypt.checkpw(plain_password, challenge_password)
+
 
 def generate_md5_password(p):
     p = str(p).strip()
@@ -425,29 +473,6 @@ def verify_ssha512_password(challenge_password, plain_password):
     except:
         return False
 
-
-def generate_password_for_sql_mail_account(p, pwscheme=None):
-    """Generate password for mail user for MySQL/PostgreSQL backend."""
-    pw = str(p).strip()
-
-    if not pwscheme:
-        pwscheme = settings.SQL_DEFAULT_PASSWD_SCHEME
-
-    if pwscheme == 'MD5':
-        pw = generate_md5_password(p)
-    elif pwscheme == 'PLAIN-MD5':
-        pw = generate_plain_md5_password(p)
-    elif pwscheme == 'PLAIN':
-        if settings.SQL_PASSWD_PREFIX_SCHEME is True:
-            pw = '{PLAIN}' + p
-        else:
-            pw = p
-    elif pwscheme == 'SSHA':
-        pw = generate_ssha_password(p)
-    elif pwscheme == 'SSHA512':
-        pw = generate_ssha512_password(p)
-
-    return pw
 
 
 def generate_maildir_path(mail,

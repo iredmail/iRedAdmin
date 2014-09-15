@@ -221,7 +221,7 @@ class User(core.MySQLWrap):
             pwscheme = None
             if 'storePasswordInPlainText' in data and settings.STORE_PASSWORD_IN_PLAIN_TEXT:
                 pwscheme = 'PLAIN'
-            passwd = iredutils.generate_password_for_sql_mail_account(resultOfPW[1], pwscheme=pwscheme)
+            passwd = iredutils.generate_password_hash(resultOfPW[1], pwscheme=pwscheme)
         else:
             return resultOfPW
 
@@ -350,7 +350,7 @@ class User(core.MySQLWrap):
                 pwscheme = None
                 if 'storePasswordInPlainText' in data and settings.STORE_PASSWORD_IN_PLAIN_TEXT:
                     pwscheme = 'PLAIN'
-                passwd = iredutils.generate_password_for_sql_mail_account(qr[1], pwscheme=pwscheme)
+                passwd = iredutils.generate_password_hash(qr[1], pwscheme=pwscheme)
             else:
                 return qr
 

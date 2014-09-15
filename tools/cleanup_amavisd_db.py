@@ -139,3 +139,6 @@ conn.query('''
         AND NOT EXISTS (SELECT 1 FROM msgrcpt WHERE rid=id)
     '''
 )
+
+logger.info('Delete unreferenced records from table `mailaddr`.')
+conn.query('''DELETE FROM mailaddr WHERE NOT EXISTS (SELECT 1 FROM wblist WHERE sid=id)''')

@@ -82,7 +82,11 @@
                             <td class="checkbox"><input type="checkbox" name="id" value="{{ log.id }}" class="checkbox" /></td>
                         {% endif %}
                         <td style="white-space: nowrap;">{{ log.timestamp |set_datetime_format |convert_utc_to_timezone }}</td>
-                        <td><a href="{{ctx.homepath}}/profile/admin/general/{{ log.admin |e }}">{{ log.admin |e }}</a></td>
+                        {% if '@' in log.admin %}
+                            <td><a href="{{ctx.homepath}}/profile/admin/general/{{ log.admin |e }}">{{ log.admin |e }}</a></td>
+                        {% else %}
+                            <td>{{ log.admin |e }}</td>
+                        {% endif %}
                         <td>{{ log.ip |e }}</td>
                         <td class="{{ log.event |e }}_{{ log.loglevel |e }}">{{ log.msg |e }}</td>
                     </tr>

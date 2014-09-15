@@ -91,7 +91,7 @@ class Admin(core.LDAPWrap):
 
         result = iredutils.verify_new_password(self.newpw, self.confirmpw)
         if result[0] is True:
-            self.passwd = ldaputils.generate_ldap_password(result[1])
+            self.passwd = iredutils.generate_password_hash(result[1])
         else:
             return result
 

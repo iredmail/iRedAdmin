@@ -65,11 +65,63 @@ HTTP_PROXY = ''
 #   GMT+14:00
 LOCAL_TIMEZONE = 'GMT'
 
+# Default password scheme, must be a string.
+#
+#   - Available schemes for LDAP backend: BCRYPT, SSHA, PLAIN.
+#   - Available schemes for SQL backend: BCRYPT, SSHA, MD5, PLAIN-MD5 (without salt), PLAIN.
+#
+# Recommended schemes in specified order:
+#
+#   BCRYPT -> SSHA -> MD5
+#
+# WARNING: Don't use PLAIN-MD5, PLAIN, they're easy to crack.
+#
+# Important notes:
+#
+#   - Password length and complexity are probably more important then a strong
+#     crypt algorithm.
+#
+#   - BCRYPT: *) must be supported by your system's libc.
+#                You can get available algorithms with command 'doveadm pw -l'
+#                ('BLF-CRYPT' is BCRYPT).
+#                Unfortunately, most Linux distributions doesn't support it,
+#                but OpenBSD supports it.
+#
+#             *) BCRYPT is slower than SSHA512, SSHA, MD5.
+#                But, "Speed is exactly what you don't want in a password hash function."
+#
+#   - SSHA512: requires Dovecot-2.0 (and later) and Python-2.5 (and later).
+#              If you're running Python-2.4, iRedAdmin will generate SSHA hash
+#              instead of SSHA512. But if you're running Dovecot-1.x, user
+#              authentication will fail.
+#
+# Passwords of new mail accounts will be crypted by specified scheme.
+# Sample password format:
+#
+# - BCRYPT: {CRYPT}$2a$05$TKnXV39M3uJ4o.AbY1HbjeAval9bunHbxd0.6Qn782yKoBjTEBXTe
+#           NOTE: Use prefix '{CRYPT}' instead of '{BLF-CRYPT}'.
+# - SSHA512: {SSHA512}FxgXDhBVYmTqoboW+ibyyzPv/wGG7y4VJtuHWrx+wfqrs/lIH2Qxn2eA0jygXtBhMvRi7GNFmL++6aAZ0kXpcy1fxag=
+# - SSHA: {SSHA}bfxqKqOOKODJw/bGqMo54f9Q/iOvQoftOQrqWA==
+# - MD5: $1$ozdpg0V0$0fb643pVsPtHVPX8mCZYW/
+# - PLAIN-MD5: 900150983cd24fb0d6963f7d28e17f72.
+# - PLAIN: Plain text.
+#
+# References:
+#
+#   - Dovecot password schemes:
+#       o Dovecot-1.x: http://wiki.dovecot.org/Authentication/PasswordSchemes
+#       o dovecot-2.x: http://wiki2.dovecot.org/Authentication/PasswordSchemes
+#
+#   - bcrypt:
+#       o A Future-Adaptable Password Scheme: http://www.openbsd.org/papers/bcrypt-paper.ps
+#       o How to safely store a password. http://codahale.com/how-to-safely-store-a-password/
+#
+DEFAULT_PASSWORD_SCHEME = 'SSHA'
+
 # Allow to store password in plain text.
 # It will show a HTML checkbox to allow admin to store newly created user
 # password or reset password in plain text. If not checked, password
 # will be stored as encrypted.
-# See LDAP_DEFAULT_PASSWD_SCHEME and SQL_DEFAULT_PASSWD_SCHEME below.
 STORE_PASSWORD_IN_PLAIN_TEXT_TEXT = False
 
 # Print PERMISSION_DENIED related programming info to stdout or web server
@@ -106,44 +158,9 @@ MAILDIR_APPEND_TIMESTAMP = True
 # LDAP connection trace level. Must be an integer.
 LDAP_CONN_TRACE_LEVEL = 0
 
-# Default password scheme: SSHA, SHA, PLAIN.
-# Must be a string. SSHA is recommended.
-# To store passwords in plain text, please change below setting to 'PLAIN',
-# no addition changes are required in iredmail, dovecot will detect password
-# scheme automatically.
-LDAP_DEFAULT_PASSWD_SCHEME = 'SSHA'
-
 #######################################
 # MySQL/PostgreSQL backends related settings. Note: Not applicable for DBMail.
 #
-
-# Default password scheme: MD5, SSHA, SSHA512, PLAIN-MD5, PLAIN.
-#
-# Passwords of new accounts (admin, user) will be crypted by specified scheme.
-#
-# - MD5: MD5 based salted password hash.
-#       Example: '$1$ozdpg0V0$0fb643pVsPtHVPX8mCZYW/'.
-#
-# - SSHA: {SSHA} is RFC 2307 password scheme which use the SHA1 secure hash
-#       algorithm. The {SSHA} is the seeded varient. {SSHA} is recommended
-#       over other RFC 2307 schemes.
-#       Example: {SSHA}bfxqKqOOKODJw/bGqMo54f9Q/iOvQoftOQrqWA==
-#
-# - SSHA512: {SSHA512} is salted SHA512 which uses the SHA2 secure hash
-#       algorithm, SSHA512 is better than SSHA.
-#       Example: {SSHA512}FxgXDhBVYmTqoboW+ibyyzPv/wGG7y4VJtuHWrx+wfqrs/lIH2Qxn2eA0jygXtBhMvRi7GNFmL++6aAZ0kXpcy1fxag=
-#       Note: SSHA512 support requires Dovecot-2.0 (and later) and Python-2.5
-#             (and later).
-#
-# - PLAIN-MD5: MD5 based password without salt.
-#       Example: 900150983cd24fb0d6963f7d28e17f72.
-#
-# - PLAIN: Plain text.
-#
-# Reference:
-#   - For dovecot-1.1.x, 1.2.x: http://wiki.dovecot.org/Authentication/PasswordSchemes
-#   - For dovecot-2.x: http://wiki2.dovecot.org/Authentication/PasswordSchemes
-SQL_DEFAULT_PASSWD_SCHEME = 'MD5'
 
 # Prefix '{PLAIN}' in plain passwords: True, False.
 #

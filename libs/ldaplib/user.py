@@ -137,9 +137,9 @@ class User(core.LDAPWrap):
                                          )
         if result[0] is True:
             if 'storePasswordInPlainText' in data and settings.STORE_PASSWORD_IN_PLAIN_TEXT:
-                self.passwd = ldaputils.generate_ldap_password(result[1], pwscheme='PLAIN')
+                self.passwd = iredutils.generate_password_hash(result[1], pwscheme='PLAIN')
             else:
-                self.passwd = ldaputils.generate_ldap_password(result[1])
+                self.passwd = iredutils.generate_password_hash(result[1])
         else:
             return result
 
@@ -613,9 +613,9 @@ class User(core.LDAPWrap):
             )
             if result[0] is True:
                 if 'storePasswordInPlainText' in data and settings.STORE_PASSWORD_IN_PLAIN_TEXT:
-                    self.passwd = ldaputils.generate_ldap_password(result[1], pwscheme='PLAIN')
+                    self.passwd = iredutils.generate_password_hash(result[1], pwscheme='PLAIN')
                 else:
-                    self.passwd = ldaputils.generate_ldap_password(result[1])
+                    self.passwd = iredutils.generate_password_hash(result[1])
                 mod_attrs += [(ldap.MOD_REPLACE, 'userPassword', self.passwd)]
                 mod_attrs += [(ldap.MOD_REPLACE, 'shadowLastChange', str(ldaputils.getDaysOfShadowLastChange()))]
             else:
