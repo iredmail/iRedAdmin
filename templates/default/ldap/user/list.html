@@ -2,6 +2,7 @@
 
 {% from "macros/general.html" import
         display_csrf_token,
+        display_subnav,
         set_account_status_img,
         highlight_username_in_mail,
         show_pages,
@@ -11,6 +12,16 @@
 
 {% block title %}{{ _('Mail Users') }}{% endblock %}
 {% block navlinks_active_domains %}class="active"{% endblock %}
+
+{% block breadcrumb %}
+    {% set crumbs = [
+        (ctx.homepath + '/domains', _('All domains')),
+        (ctx.homepath + '/profile/domain/general/' + cur_domain, cur_domain),
+        ('active', ctx.homepath + '/users/' + cur_domain, _('Users')),
+        ] %}
+
+    {{ display_subnav(crumbs) }}
+{% endblock %}
 
 
 {% block main %}
