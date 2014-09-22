@@ -106,6 +106,9 @@ amavisd_enable_quarantine = True
 # Port of Amavisd protocol 'AM.PDP-INET'. Default is 9998.
 amavisd_quarantine_port = 9998
 
+# Enable per-recipient spam policy, white/blacklist.
+amavisd_enable_policy_lookup = True
+
 ############################################################
 # Place your custom settings below, you can override all settings in this file
 # and libs/default_settings.py here.

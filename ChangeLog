@@ -7,6 +7,10 @@
                 bcrypt hash on Linux.
 
     * New tool scripts:
+        - tools/upgrade_iredadmin.py.
+          Used to upgrade iRedAdmin from old release. Works with both
+          iRedAdmin open source edition and iRedAdmin-Pro.
+
         - tools/cleanup_amavisd_db.py.
           Used to Cleanup old records from Amavisd database. It's safe to
           execute it manually.
