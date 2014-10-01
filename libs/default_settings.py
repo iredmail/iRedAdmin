@@ -95,6 +95,8 @@ LOCAL_TIMEZONE = 'GMT'
 #              instead of SSHA512. But if you're running Dovecot-1.x, user
 #              authentication will fail.
 #
+#   - CRAM-MD5: Currently works with SQL backends, but not LDAP.
+#
 # Passwords of new mail accounts will be crypted by specified scheme.
 # Sample password format:
 #
@@ -102,6 +104,7 @@ LOCAL_TIMEZONE = 'GMT'
 #           NOTE: Use prefix '{CRYPT}' instead of '{BLF-CRYPT}'.
 # - SSHA512: {SSHA512}FxgXDhBVYmTqoboW+ibyyzPv/wGG7y4VJtuHWrx+wfqrs/lIH2Qxn2eA0jygXtBhMvRi7GNFmL++6aAZ0kXpcy1fxag=
 # - SSHA: {SSHA}bfxqKqOOKODJw/bGqMo54f9Q/iOvQoftOQrqWA==
+# - CRAM-MD5: {CRAM-MD5}465076e1c95ac134fc2ba88ad617b6660958f388d60423504ee7c46ce44be8b4
 # - MD5: $1$ozdpg0V0$0fb643pVsPtHVPX8mCZYW/
 # - PLAIN-MD5: 900150983cd24fb0d6963f7d28e17f72.
 # - PLAIN: Plain text.
