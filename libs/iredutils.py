@@ -9,6 +9,7 @@ import socket
 from base64 import b64encode, b64decode
 from xml.dom.minidom import parseString as parseXMLString
 import random
+import subprocess
 import web
 import settings
 from libs import md5crypt
@@ -300,34 +301,6 @@ def generate_random_strings(length=10):
 
     return "".join(random.choice(chars) for x in range(length))
 
-def generate_password_hash(p, pwscheme=None):
-    """Generate password for LDAP mail user and admin."""
-    pw = str(p).strip()
-
-    if not pwscheme:
-        pwscheme = settings.DEFAULT_PASSWORD_SCHEME
-
-    if pwscheme == 'BCRYPT':
-        pw = generate_bcrypt_password(p)
-    elif pwscheme == 'SSHA512':
-        pw = generate_ssha512_password(p)
-    elif pwscheme == 'SSHA':
-        pw = generate_ssha_password(p)
-    elif pwscheme == 'MD5':
-        pw = '{CRYPT}' + generate_md5_password(p)
-    elif pwscheme == 'PLAIN-MD5':
-        pw = generate_plain_md5_password(p)
-    elif pwscheme == 'PLAIN':
-        if settings.SQL_PASSWORD_PREFIX_SCHEME is True:
-            pw = '{PLAIN}' + p
-        else:
-            pw = p
-    else:
-        # Plain password
-        pw = p
-
-    return pw
-
 
 def generate_bcrypt_password(p):
     try:
@@ -473,6 +446,91 @@ def verify_ssha512_password(challenge_password, plain_password):
     except:
         return False
 
+
+def generate_cram_md5_password(p):
+    """Generate CRAM-MD5 hash with `doveadm pw` command with prefix '{CRAM-MD5}'.
+    Return SSHA instead if no 'doveadm' command found or other error raised."""
+    p = str(p).strip()
+
+    try:
+        pp = subprocess.Popen(['doveadm', 'pw', '-s', 'CRAM-MD5', '-p', p],
+                              stdout=subprocess.PIPE)
+        return pp.communicate()[0]
+    except:
+        return generate_ssha_password(p)
+
+
+def verify_cram_md5_password(challenge_password, plain_password):
+    """Verify CRAM-MD5 hash with 'doveadm pw' command."""
+    if not challenge_password.startswith('{CRAM-MD5}'):
+        return False
+
+    try:
+        exit_status = subprocess.call(['doveadm',
+                                      'pw',
+                                      '-t',
+                                      challenge_password,
+                                      '-p',
+                                      plain_password])
+        if exit_status == 0:
+            return True
+    except:
+        pass
+
+    return False
+
+
+def generate_password_hash(p, pwscheme=None):
+    """Generate password for LDAP mail user and admin."""
+    pw = str(p).strip()
+
+    if not pwscheme:
+        pwscheme = settings.DEFAULT_PASSWORD_SCHEME
+
+    if pwscheme == 'BCRYPT':
+        pw = generate_bcrypt_password(p)
+    elif pwscheme == 'SSHA512':
+        pw = generate_ssha512_password(p)
+    elif pwscheme == 'SSHA':
+        pw = generate_ssha_password(p)
+    elif pwscheme == 'MD5':
+        pw = '{CRYPT}' + generate_md5_password(p)
+    elif pwscheme == 'PLAIN-MD5':
+        pw = generate_plain_md5_password(p)
+    elif pwscheme == 'PLAIN':
+        if settings.SQL_PASSWORD_PREFIX_SCHEME is True:
+            pw = '{PLAIN}' + p
+        else:
+            pw = p
+    else:
+        # Plain password
+        pw = p
+
+    return pw
+
+
+def verify_password_hash(challenge_password, plain_password):
+    # Check plain password and MD5 first.
+    if challenge_password in [plain_password,
+                              '{PLAIN}' + plain_password,
+                              '{plain}' + plain_password]:
+        return True
+    elif verify_md5_password(challenge_password, plain_password):
+        return True
+
+    upper_pwd = challenge_password.upper()
+    if upper_pwd.startswith('{SSHA}'):
+        return verify_ssha_password(challenge_password, plain_password)
+    elif upper_pwd.startswith('{SSHA512}'):
+        return verify_ssha512_password(challenge_password, plain_password)
+    elif upper_pwd.startswith('{PLAIN-MD5}'):
+        return verify_plain_md5_password(challenge_password, plain_password)
+    elif upper_pwd.upper().startswith('{CRAM-MD5}'):
+        return verify_cram_md5_password(challenge_password, plain_password)
+    elif upper_pwd.upper().startswith('{CRYPT}$2A$'):
+        return verify_bcrypt_password(challenge_password, plain_password)
+
+    return False
 
 
 def generate_maildir_path(mail,

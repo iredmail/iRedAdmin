@@ -298,12 +298,7 @@ class Auth(PGSQLWrap):
 
         # Verify password
         authenticated = False
-        if iredutils.verify_md5_password(password_sql, password) \
-           or iredutils.verify_plain_md5_password(password_sql, password) \
-           or password_sql in [password, '{PLAIN}' + password] \
-           or iredutils.verify_ssha_password(password_sql, password) \
-           or iredutils.verify_ssha512_password(password_sql, password) \
-           or iredutils.verify_bcrypt_password(password_sql, password):
+        if iredutils.verify_password_hash(password_sql, password):
             authenticated = True
 
         if authenticated is False:
