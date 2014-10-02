@@ -518,16 +518,16 @@ def verify_password_hash(challenge_password, plain_password):
     elif verify_md5_password(challenge_password, plain_password):
         return True
 
-    upper_pwd = challenge_password.upper()
-    if upper_pwd.startswith('{SSHA}'):
+    upwd = challenge_password.upper()
+    if upwd.startswith('{SSHA}'):
         return verify_ssha_password(challenge_password, plain_password)
-    elif upper_pwd.startswith('{SSHA512}'):
+    elif upwd.startswith('{SSHA512}'):
         return verify_ssha512_password(challenge_password, plain_password)
-    elif upper_pwd.startswith('{PLAIN-MD5}'):
+    elif upwd.startswith('{PLAIN-MD5}'):
         return verify_plain_md5_password(challenge_password, plain_password)
-    elif upper_pwd.upper().startswith('{CRAM-MD5}'):
+    elif upwd.startswith('{CRAM-MD5}'):
         return verify_cram_md5_password(challenge_password, plain_password)
-    elif upper_pwd.upper().startswith('{CRYPT}$2A$'):
+    elif upwd.startswith('{CRYPT}$2A$') or upwd.startswith('{CRYPT}$2B$'):
         return verify_bcrypt_password(challenge_password, plain_password)
 
     return False
