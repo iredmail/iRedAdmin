@@ -172,6 +172,9 @@ echo "* Creating symbol link ${IRA_ROOT_DIR} to ${NEW_IRA_ROOT_DIR}"
 cd ${HTTPD_SERVERROOT}
 ln -s ${name_new_version} iredadmin
 
+# Delete all sessions to force admins to re-login.
+python delete_sessions.py
+
 # Sync virtual mail domains to Cluebringer policy group '@internal_domains'.
 if grep 'policyd_db_name.*cluebringer.*' ${IRA_CONF_PY} &>/dev/null; then
     echo "* Add existing virtual mail domains to Cluebringer database as internal domains."
@@ -180,10 +183,10 @@ if grep 'policyd_db_name.*cluebringer.*' ${IRA_CONF_PY} &>/dev/null; then
     python sync_cluebringer_internal_domains.py
 fi
 
-if [ X"${IS_IRA_PRO}" == X'YES' ]; then
-    # Add missing setting parameters.
-    add_missing_parameter 'amavisd_enable_policy_lookup' False 'Enable per-recipient spam policy, white/blacklist.'
+# Add missing setting parameters.
+add_missing_parameter 'amavisd_enable_policy_lookup' False 'Enable per-recipient spam policy, white/blacklist.'
 
+if [ X"${IS_IRA_PRO}" == X'YES' ]; then
     # Enable self-service
     cat <<EOF
 * Would you like to enable self-service? With self-service, mail users can login to"
