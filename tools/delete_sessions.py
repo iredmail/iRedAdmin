@@ -34,5 +34,5 @@ conn = web.database(dbn=sql_dbn,
 
 # Delete old quarantined mails from table 'msgs'. It will also
 # delete records in table 'quarantine'.
-logger.info('Delete all sessions.')
+logger.info('Delete all existing sessions to force admins to re-login.')
 conn.delete('sessions')
