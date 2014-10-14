@@ -317,7 +317,11 @@ def verify_bcrypt_password(challenge_password, plain_password):
     except:
         return False
 
-    challenge_password = challenge_password.lstrip('{CRYPT}')
+    if challenge_password.startswith('{CRYPT}$2a$') \
+       or challenge_password.startswith('{CRYPT}$2b$') \
+       or challenge_password.startswith('{crypt}$2a$') \
+       or challenge_password.startswith('{crypt}$2b$'):
+        challenge_password = challenge_password[7:]
 
     return bcrypt.checkpw(plain_password, challenge_password)
 
@@ -329,8 +333,8 @@ def generate_md5_password(p):
 
 def verify_md5_password(challenge_password, plain_password):
     """Verify salted MD5 password"""
-    if challenge_password.startswith('{MD5}'):
-        challenge_password = challenge_password.replace('{MD5}', '')
+    if challenge_password.startswith('{MD5}') or challenge_password.startswith('{md5}'):
+        challenge_password = challenge_password[5:]
 
     if not (
         challenge_password.startswith('$') \
@@ -361,8 +365,9 @@ def generate_plain_md5_password(p):
 
 
 def verify_plain_md5_password(challenge_password, plain_password):
-    if challenge_password.startswith('{PLAIN-MD5}'):
-        challenge_password = challenge_password.replace('{PLAIN-MD5}', '')
+    if challenge_password.startswith('{PLAIN-MD5}') \
+       or challenge_password.startswith('{plain-md5}'):
+        challenge_password = challenge_password[11:]
 
     if challenge_password == generate_plain_md5_password(plain_password):
         return True
@@ -384,8 +389,9 @@ def generate_ssha_password(p):
 
 def verify_ssha_password(challenge_password, plain_password):
     """Verify SSHA (salted SHA) hash with or without prefix '{SSHA}'"""
-    if challenge_password.startswith('{SSHA}'):
-        challenge_password = challenge_password.replace('{SSHA}', '')
+    if challenge_password.startswith('{SSHA}') \
+       or challenge_password.startswith('{ssha}'):
+        challenge_password = challenge_password[6:]
 
     if not len(challenge_password) > 20:
         # Not a valid SSHA hash
@@ -425,8 +431,9 @@ def generate_ssha512_password(p):
 def verify_ssha512_password(challenge_password, plain_password):
     """Verify SSHA512 password with or without prefix '{SSHA512}'.
     Python-2.5 is required since it requires module hashlib."""
-    if challenge_password.startswith('{SSHA512}'):
-        challenge_password = challenge_password.replace('{SSHA512}', '')
+    if challenge_password.startswith('{SSHA512}') \
+       or challenge_password.startswith('{ssha512}'):
+        challenge_password = challenge_password[9:]
 
     # With SSHA512, hash itself is 64 bytes (512 bits/8 bits per byte),
     # everything after that 64 bytes is the salt.
@@ -462,7 +469,8 @@ def generate_cram_md5_password(p):
 
 def verify_cram_md5_password(challenge_password, plain_password):
     """Verify CRAM-MD5 hash with 'doveadm pw' command."""
-    if not challenge_password.startswith('{CRAM-MD5}'):
+    if not challenge_password.startswith('{CRAM-MD5}') \
+       or not challenge_password.startswith('{cram-md5}'):
         return False
 
     try:
