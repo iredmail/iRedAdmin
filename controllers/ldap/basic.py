@@ -84,17 +84,16 @@ class Login:
         qr_admin_auth = auth.Auth(uri, dn_login, password)
 
         # Check whether it's a mail user
-        qr_user_auth = False
-        if qr_admin_auth is not True:
+        if qr_admin_auth[0] is not True:
             dn_user = ldaputils.convert_keyword_to_dn(username, accountType='user')
             qr_user_auth = auth.Auth(uri, dn_user, password)
 
-        if qr_admin_auth is True or qr_user_auth is True:
+        if qr_admin_auth[0] or qr_user_auth[0]:
             session['username'] = username
             session['logged'] = True
 
             # Read preferred language from LDAP
-            if qr_admin_auth is True:
+            if qr_admin_auth[0] is True:
                 adminLib = adminlib.Admin()
                 adminProfile = adminLib.profile(username, attributes=['preferredLanguage'])
                 if adminProfile[0] is True:
@@ -102,7 +101,7 @@ class Login:
                     lang = entry.get('preferredLanguage', [settings.default_language])[0]
                     session['lang'] = lang
 
-            if qr_user_auth is True:
+            if qr_user_auth[0] is True:
                 session['isMailUser'] = True
 
             web.config.session_parameters['cookie_name'] = 'iRedAdmin-Pro'
@@ -130,7 +129,7 @@ class Login:
         else:
             session['failed_times'] += 1
             web.logger(msg="Login failed.", admin=username, event='login', loglevel='error',)
-            raise web.seeother('/login?msg=%s' % qr_admin_auth)
+            raise web.seeother('/login?msg=%s' % qr_admin_auth[1])
 
 
 class Logout:
