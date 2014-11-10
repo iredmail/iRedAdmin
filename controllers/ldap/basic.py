@@ -24,8 +24,7 @@ class Login:
             return web.render('login.html',
                               languagemaps=languages.get_language_maps(),
                               webmaster=session.get('webmaster'),
-                              msg=i.get('msg'),
-                             )
+                              msg=i.get('msg'))
         else:
             raise web.seeother('/dashboard')
 
