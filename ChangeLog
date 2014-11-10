@@ -1,7 +1,6 @@
 = 0.4 =
     * Improvements:
         + Able to generate 'CRAM-MD5' password hash with command `doveadm pw`.
-          Note: it works with MySQL/PostgreSQL backends, not LDAP.
         + Able to generate bcrypt password hash with Python module 'bcrypt' or
           'py-bcrypt'.
           NOTE: It works on BSD systems, but not Linux. Since libc shpped in
