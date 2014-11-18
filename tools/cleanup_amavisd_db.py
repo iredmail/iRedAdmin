@@ -44,9 +44,6 @@ logger = ira_tool_lib.logger
 backend = settings.backend
 logger.info('Backend: %s' % backend)
 
-logger.info('Remove records of quarantined mails older than %d days.' % settings.AMAVISD_REMOVE_QUARANTINED_IN_DAYS)
-logger.info('Remove records of sent/received mails older than %d days.' % settings.AMAVISD_REMOVE_MAILLOG_IN_DAYS)
-
 if backend in ['ldap', 'mysql']:
     sql_dbn = 'mysql'
 elif backend in ['pgsql']:
