@@ -173,6 +173,7 @@ cd ${HTTPD_SERVERROOT}
 ln -s ${name_new_version} iredadmin
 
 # Delete all sessions to force admins to re-login.
+cd ${HTTPD_SERVERROOT}/iredadmin/tools/
 python delete_sessions.py
 
 # Sync virtual mail domains to Cluebringer policy group '@internal_domains'.
