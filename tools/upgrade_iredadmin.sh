@@ -58,6 +58,12 @@ fi
 
 restart_web_service()
 {
+    ps aux | grep 'httpd' &>/dev/null
+    [ X"$?" == X'0' ] && export web_service="${RC_SCRIPT_NAME_HTTPD}"
+
+    ps aux | grep 'nginx' &>/dev/null
+    [ X"$?" == X'0' ] && export web_service="${RC_SCRIPT_NAME_NGINX}"
+
     if [ X"${KERNEL_NAME}" == X'LINUX' ]; then
         service ${RC_SCRIPT_NAME_HTTPD} restart
     elif [ X"${KERNEL_NAME}" == X'FREEBSD' ]; then
@@ -66,19 +72,7 @@ restart_web_service()
         /etc/rc.d/${RC_SCRIPT_NAME_HTTPD} restart
     fi
 
-    RETVAL="$0"
-
-    if [ X"${RETVAL}" != X'0' ]; then
-        if [ X"${KERNEL_NAME}" == X'LINUX' ]; then
-            service ${RC_SCRIPT_NAME_NGINX} restart
-        elif [ X"${KERNEL_NAME}" == X'FREEBSD' ]; then
-            /usr/local/etc/rc.d/${RC_SCRIPT_NAME_NGINX} restart
-        elif [ X"${KERNEL_NAME}" == X'OPENBSD' ]; then
-            /etc/rc.d/${RC_SCRIPT_NAME_NGINX} restart
-        fi
-    fi
-
-    if [ X"$?" != X'0' -a X"${RETVAL}" != X'0' ]; then
+    if [ X"$?" != X'0' ]; then
         echo "Failed, please restart web service (Apache/Nginx) manually."
     fi
 }
