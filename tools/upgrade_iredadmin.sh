@@ -14,6 +14,7 @@ export IRA_HTTPD_GROUP='iredadmin'
 # Check OS to detect some necessary info.
 export KERNEL_NAME="$(uname -s | tr '[a-z]' '[A-Z]')"
 export RC_SCRIPT_NAME_NGINX='nginx'
+export NGINX_PID_FILE='/var/run/nginx.pid'
 if [ X"${KERNEL_NAME}" == X"LINUX" ]; then
     if [ -f /etc/redhat-release ]; then
         # RHEL/CentOS
@@ -34,7 +35,7 @@ if [ X"${KERNEL_NAME}" == X"LINUX" ]; then
         # openSUSE
         export DISTRO='SUSE'
         export HTTPD_SERVERROOT='/srv/www'
-        export RC_SCRIPT_NAME_HTTPD='/etc/init.d/apache2'
+        export RC_SCRIPT_NAME_HTTPD='apache2'
     else
         echo "<<< ERROR >>> Cannot detect Linux distribution name. Exit."
         echo "Please contact support@iredmail.org to solve it."
@@ -58,23 +59,31 @@ fi
 
 restart_web_service()
 {
-    ps aux | grep 'httpd' &>/dev/null
-    [ X"$?" == X'0' ] && export web_service="${RC_SCRIPT_NAME_HTTPD}"
-
-    ps aux | grep 'nginx' &>/dev/null
-    [ X"$?" == X'0' ] && export web_service="${RC_SCRIPT_NAME_NGINX}"
-
-    if [ X"${KERNEL_NAME}" == X'LINUX' ]; then
-        service ${RC_SCRIPT_NAME_HTTPD} restart
-    elif [ X"${KERNEL_NAME}" == X'FREEBSD' ]; then
-        /usr/local/etc/rc.d/${RC_SCRIPT_NAME_HTTPD} restart
-    elif [ X"${KERNEL_NAME}" == X'OPENBSD' ]; then
-        /etc/rc.d/${RC_SCRIPT_NAME_HTTPD} restart
+    export web_service="${RC_SCRIPT_NAME_HTTPD}"
+    if [ -f ${NGINX_PID_FILE} ]; then
+        if [ -n "$(cat ${NGINX_PID_FILE})" ]; then
+            export web_service="${RC_SCRIPT_NAME_NGINX}"
+        fi
     fi
 
-    if [ X"$?" != X'0' ]; then
-        echo "Failed, please restart web service (Apache/Nginx) manually."
-    fi
+    echo -n "* Restart web service (${web_service}) now? [Y|n] "
+    read answer
+    case $answer in
+        y|Y|yes|YES|* )
+            if [ X"${KERNEL_NAME}" == X'LINUX' ]; then
+                service ${web_service} restart
+            elif [ X"${KERNEL_NAME}" == X'FREEBSD' ]; then
+                /usr/local/etc/rc.d/${web_service} restart
+            elif [ X"${KERNEL_NAME}" == X'OPENBSD' ]; then
+                /etc/rc.d/${web_service} restart
+            fi
+
+            if [ X"$?" != X'0' ]; then
+                echo "Failed, please restart web service (Apache/Nginx) manually."
+            fi
+            ;;
+        n|N|no|NO ) echo "* SKIPPED, please restart web service (Apache/Nginx) manually." ;;
+    esac
 }
 
 add_missing_parameter()
@@ -187,8 +196,10 @@ if [ X"${IS_IRA_PRO}" == X'YES' ]; then
 * Would you like to enable self-service? With self-service, mail users can login to"
   iRedAdmin-Pro to manage their own preferences, including mail forwarding, changing"
   password, manage per-user white/blacklists and spam policy. You can control allowed"
-  preferences in domain profile page. [y|N]"
+  preferences in domain profile page."
 EOF
+
+    echo -n "  Enable self-service now? [y|N] "
 
     read answer
     case $answer in
@@ -198,7 +209,7 @@ EOF
                 echo 'ENABLE_SELF_SERVICE = True' >> ${IRA_CONF_PY}
             elif grep '^ENABLE_SELF_SERVICE' ${IRA_CONF_PY} &>/dev/null; then
                 echo "* Update setting 'ENABLE_SELF_SERVICE' to True in config file ${IRA_CONF_PY}."
-                perl -pi -e 's#^(ENABLE_SELF_SERVICE).*#${1} = True#g' >> ${IRA_CONF_PY}
+                perl -pi -e 's#^(ENABLE_SELF_SERVICE).*#${1} = True#g' ${IRA_CONF_PY}
             fi
             ;;
         n|N|no|NO|* ) echo "* SKIPPED, didn't touch iRedAdmin config file." ;;
@@ -206,11 +217,11 @@ EOF
 fi
 
 echo "* iRedAdmin was successfully upgraded, restarting web service is required."
-echo -n "* Restart web service now? [Y|n] "
-read answer
-case $answer in
-    y|Y|yes|YES|* ) restart_web_service ;;
-    n|N|no|NO ) echo "* SKIPPED, please restart web service (Apache/Nginx) manually." ;;
-esac
+restart_web_service
 
-echo -e "\n<<< NOTE >>> If iRedAdmin doesn't work as expected, please contact us: <support@iredmail.org>."
+echo "* Upgrading completed."
+
+cat <<EOF
+<<< NOTE >>> If iRedAdmin doesn't work as expected, please post your issue in
+<<< NOTE >>> our online support forum: http://www.iredmail.org/forum/
+EOF
