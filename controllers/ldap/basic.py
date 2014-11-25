@@ -1,6 +1,5 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
-import os
 import time
 import ldap
 import web
@@ -32,7 +31,7 @@ class Login:
         # Get username, password.
         i = web.input(_unicode=False)
 
-        username = web.safestr(i.get('username', '').strip())
+        username = web.safestr(i.get('username', '').strip()).lower()
         password = i.get('password', '').strip()
         save_pass = web.safestr(i.get('save_pass', 'no').strip())
 
