@@ -21,6 +21,7 @@
           '%internal_domains'.
 
     * Fixed issues:
+        - Use VARCHAR(40) to store both IPv4 and IPv6 address.
         - Incorrect regular expression which not support IDN domain name.
         - Incorrect link in sub-navication bar in account profile page.
         - Missing LDAP attribute/value pairs required by Dovecot:

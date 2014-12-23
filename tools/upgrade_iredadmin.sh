@@ -15,6 +15,7 @@ export IRA_HTTPD_GROUP='iredadmin'
 export KERNEL_NAME="$(uname -s | tr '[a-z]' '[A-Z]')"
 export RC_SCRIPT_NAME_NGINX='nginx'
 export NGINX_PID_FILE='/var/run/nginx.pid'
+
 if [ X"${KERNEL_NAME}" == X"LINUX" ]; then
     if [ -f /etc/redhat-release ]; then
         # RHEL/CentOS
@@ -41,7 +42,7 @@ if [ X"${KERNEL_NAME}" == X"LINUX" ]; then
         echo "Please contact support@iredmail.org to solve it."
         exit 255
     fi
-elif [ X"${KERNEL_NAME}" == X"FREEBSD" ]; then
+elif [ X"${KERNEL_NAME}" == X'FREEBSD' ]; then
     export DISTRO='FREEBSD'
     export HTTPD_SERVERROOT='/usr/local/www'
     export RC_SCRIPT_NAME_HTTPD='apache22'
@@ -56,6 +57,8 @@ else
     echo "Please contact author iRedMail team <support@iredmail.org> to solve it."
     exit 255
 fi
+
+echo "* Detected Linux/BSD distribution: ${DISTRO}"
 
 restart_web_service()
 {
@@ -106,8 +109,6 @@ add_missing_parameter()
         fi
     fi
 }
-
-echo "* Detecting Linux/BSD distribution: ${DISTRO}"
 
 # iRedAdmin directory and config file.
 export IRA_ROOT_DIR="${HTTPD_SERVERROOT}/iredadmin"
@@ -188,7 +189,11 @@ if grep 'policyd_db_name.*cluebringer.*' ${IRA_CONF_PY} &>/dev/null; then
 fi
 
 # Add missing setting parameters.
-add_missing_parameter 'amavisd_enable_policy_lookup' False 'Enable per-recipient spam policy, white/blacklist.'
+if grep 'amavisd_enable_logging.*True.*' ${IRA_CONF_PY} &>/dev/null; then
+    add_missing_parameter 'amavisd_enable_policy_lookup' True 'Enable per-recipient spam policy, white/blacklist.'
+else
+    add_missing_parameter 'amavisd_enable_policy_lookup' False 'Enable per-recipient spam policy, white/blacklist.'
+fi
 
 if [ X"${IS_IRA_PRO}" == X'YES' ]; then
     # Enable self-service
