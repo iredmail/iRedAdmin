@@ -94,10 +94,11 @@ add_missing_parameter()
     # Usage: add_missing_parameter VARIABLE DEFAULT_VALUE [COMMENT]
     var="${1}"
     value="${2}"
-    comment="${3}"
+    shift 2
+    comment="$@"
 
     if ! grep "^${var}" ${IRA_CONF_PY} &>/dev/null; then
-        if [ ! -z ${comment} ]; then
+        if [ ! -z "${comment}" ]; then
             echo "# ${comment}" >> ${IRA_CONF_PY}
         fi
 
