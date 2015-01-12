@@ -73,18 +73,20 @@ class Login:
         except Exception, e:
             raise web.seeother('/login?msg=%s' % web.safestr(e))
 
-        # Convert username to admin dn.
-        dn_login = ldaputils.convert_keyword_to_dn(username, accountType='admin')
-        if dn_login[0] is False:
-            raise web.seeother('/login?msg=%s' % dn_login[1])
-
-        # Return True if auth success, otherwise return error msg.
-        qr_admin_auth = auth.Auth(uri, dn_login, password)
-
         # Check whether it's a mail user
-        if qr_admin_auth[0] is not True:
-            dn_user = ldaputils.convert_keyword_to_dn(username, accountType='user')
-            qr_user_auth = auth.Auth(uri, dn_user, password)
+        dn_user = ldaputils.convert_keyword_to_dn(username, account_type='user')
+        qr_user_auth = auth.Auth(dn=dn_user, password=password)
+
+        qr_admin_auth = (False, 'INVALID_CREDENTIALS')
+        if not qr_user_auth[0]:
+            # Verify admin account under 'o=domainAdmins'.
+            dn_admin = ldaputils.convert_keyword_to_dn(username, account_type='admin')
+            qr_admin_auth = auth.Auth(dn=dn_admin, password=password)
+
+            if not qr_admin_auth[0]:
+                session['failed_times'] += 1
+                web.logger(msg="Login failed.", admin=username, event='login', loglevel='error')
+                raise web.seeother('/login?msg=INVALID_CREDENTIALS')
 
         if qr_admin_auth[0] or qr_user_auth[0]:
             session['username'] = username

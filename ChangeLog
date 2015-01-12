@@ -1,3 +1,8 @@
+= 0.4.1 =
+    * Fixed issues:
+        - Not correctly handle incorrect login username/password for OpenLDAP
+          backend.
+
 = 0.4 =
     * Improvements:
         + Able to generate 'CRAM-MD5' password hash with command `doveadm pw`.
