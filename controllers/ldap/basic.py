@@ -74,13 +74,13 @@ class Login:
             raise web.seeother('/login?msg=%s' % web.safestr(e))
 
         # Check whether it's a mail user
-        dn_user = ldaputils.convert_keyword_to_dn(username, account_type='user')
+        dn_user = ldaputils.convert_keyword_to_dn(username, accountType='user')
         qr_user_auth = auth.Auth(dn=dn_user, password=password)
 
         qr_admin_auth = (False, 'INVALID_CREDENTIALS')
         if not qr_user_auth[0]:
             # Verify admin account under 'o=domainAdmins'.
-            dn_admin = ldaputils.convert_keyword_to_dn(username, account_type='admin')
+            dn_admin = ldaputils.convert_keyword_to_dn(username, accountType='admin')
             qr_admin_auth = auth.Auth(dn=dn_admin, password=password)
 
             if not qr_admin_auth[0]:
