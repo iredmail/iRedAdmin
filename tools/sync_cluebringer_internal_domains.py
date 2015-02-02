@@ -34,15 +34,6 @@ from tools import ira_tool_lib
 web.config.debug = ira_tool_lib.debug
 logger = ira_tool_lib.logger
 
-# Check backend
-logger.info('Backend: %s' % settings.backend)
-if settings.backend in ['ldap', 'mysql']:
-    sql_dbn = 'mysql'
-elif settings.backend in ['pgsql']:
-    sql_dbn = 'postgres'
-else:
-    sys.exit('Error: Unsupported backend (%s).' % settings.backend)
-
 # Check database name to make sure it's Cluebringer
 if settings.policyd_db_name != 'cluebringer':
     sys.exit('Error: not a Cluebringer database.')
@@ -56,7 +47,6 @@ if settings.backend == 'ldap':
     # Initialize LDAP connection.
     qr = verify_bind_dn_pw(dn=settings.ldap_bind_dn,
                            password=settings.ldap_bind_password,
-                           uri=settings.ldap_uri,
                            close_connection=False)
     if qr[0]:
         ldap_conn = qr[1]
@@ -73,12 +63,7 @@ if settings.backend == 'ldap':
         all_domains += entry.get('domainAliasName', [])
 
 else:
-    conn = web.database(dbn=sql_dbn,
-                        host=settings.vmail_db_host,
-                        port=int(settings.vmail_db_port),
-                        db=settings.vmail_db_name,
-                        user=settings.vmail_db_user,
-                        pw=settings.vmail_db_password)
+    conn = ira_tool_lib.get_db_conn('vmail')
 
     # Get all mail domains
     qr = conn.select('domain', what='domain')
@@ -93,12 +78,7 @@ else:
 logger.info('Found %d domain(s).' % len(all_domains))
 
 # Add all mail domains as Cluebringer internal domains.
-conn = web.database(dbn=sql_dbn,
-                    host=settings.policyd_db_host,
-                    port=int(settings.policyd_db_port),
-                    db=settings.policyd_db_name,
-                    user=settings.policyd_db_user,
-                    pw=settings.policyd_db_password)
+conn = ira_tool_lib.get_db_conn('policyd')
 
 logger.info('Query ID of Cluebringer policy group "%internal_domains".')
 qr = conn.select('policy_groups',
@@ -116,7 +96,7 @@ for domain in all_domains:
 
     try:
         conn.insert('policy_group_members', **value)
-        logger.info('[%s] Successfully added.' % domain)
+        logger.info('+ %s [OK]' % domain)
     except Exception, e:
         if e[0] == 1062:
             logger.info('[%s] SKIP, already exists.' % domain)

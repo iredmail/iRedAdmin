@@ -1,6 +1,10 @@
 
 = Cron Jobs =
 
+* dump_disclaimer.py:
+    Dump per-domain disclaimer which stored in LDAP or SQL database.
+    It's safe to execute it manually.
+
 * cleanup_amavisd_db.py:
     Cleanup old records from Amavisd database.
     It's safe to execute it manually.
@@ -12,3 +16,11 @@
 
 * sync_cluebringer_internal_domains.py:
     Sync mail domain names from SQL/LDAP to cluebringer database.
+
+* migrate_cluebringer_wblist_to_amavisd.py:
+
+    Migrate Cluebringer white/blacklists to Amavisd database, and, optionally,
+    delete them in Cluebringer database.
+
+    Note: Don't forget to enable iRedAPD plugin `amavisd_wblist` in
+    /opt/iredapd/settings.py.

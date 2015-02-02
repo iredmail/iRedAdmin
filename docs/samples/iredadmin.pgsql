@@ -17,7 +17,7 @@ CREATE TABLE log (
     ip VARCHAR(40) NOT NULL,
     domain VARCHAR(255) NOT NULL DEFAULT '',
     username VARCHAR(255) NOT NULL DEFAULT '',
-    event VARCHAR(10) NOT NULL DEFAULT '',
+    event VARCHAR(20) NOT NULL DEFAULT '',
     loglevel VARCHAR(10) NOT NULL DEFAULT 'info',
     msg VARCHAR(255) NOT NULL
 );

@@ -34,7 +34,6 @@ os.environ['LC_ALL'] = 'C'
 rootdir = os.path.abspath(os.path.dirname(__file__)) + '/../'
 sys.path.insert(0, rootdir)
 
-# Import addition config file of iRedAdmin-Pro: libs/settings.py.
 import settings
 from tools import ira_tool_lib
 
@@ -44,75 +43,63 @@ logger = ira_tool_lib.logger
 backend = settings.backend
 logger.info('Backend: %s' % backend)
 
-if backend in ['ldap', 'mysql']:
-    sql_dbn = 'mysql'
-elif backend in ['pgsql']:
-    sql_dbn = 'postgres'
-else:
-    sys.exit('Error: Unsupported backend (%s).' % backend)
+query_size_limit = 100
 
-conn = web.database(dbn=sql_dbn,
-                    host=settings.amavisd_db_host,
-                    port=int(settings.amavisd_db_port),
-                    db=settings.amavisd_db_name,
-                    user=settings.amavisd_db_user,
-                    pw=settings.amavisd_db_password)
+conn = ira_tool_lib.get_db_conn('amavisd')
 
 # Delete old quarantined mails from table 'msgs'. It will also
 # delete records in table 'quarantine'.
 logger.info('Delete quarantined mails which older than %d days' % settings.AMAVISD_REMOVE_QUARANTINED_IN_DAYS)
-if sql_dbn == 'mysql':
-    conn.query('''
-        DELETE FROM msgs
-        WHERE
-            quar_type = 'Q'
-            AND time_num < UNIX_TIMESTAMP(DATE_SUB(NOW(), INTERVAL %d DAY))
-        ''' % settings.AMAVISD_REMOVE_QUARANTINED_IN_DAYS
-    )
+counter_msgs = 0
+while True:
+    if ira_tool_lib.sql_dbn == 'mysql':
+        sql_where = """quar_type = 'Q' AND time_num < UNIX_TIMESTAMP(DATE_SUB(NOW(), INTERVAL %d DAY))""" % settings.AMAVISD_REMOVE_QUARANTINED_IN_DAYS
+    elif ira_tool_lib.sql_dbn == 'postgres':
+        sql_where = """quar_type = 'Q' AND time_iso < CURRENT_TIMESTAMP - INTERVAL '%d DAYS'""" % settings.AMAVISD_REMOVE_QUARANTINED_IN_DAYS
+    else:
+        break
 
-elif sql_dbn == 'postgres':
-    conn.query('''
-        DELETE FROM msgs
-        WHERE
-            quar_type = 'Q'
-            AND time_iso < CURRENT_TIMESTAMP - INTERVAL '%d DAYS'
-        ''' % settings.AMAVISD_REMOVE_QUARANTINED_IN_DAYS
-    )
+    qr = conn.select('msgs',
+                     what='mail_id',
+                     where=sql_where,
+                     limit=query_size_limit)
+
+    if qr:
+        ids = [id.mail_id for id in qr]
+
+        counter_msgs += len(ids)
+        logger.info('[-] Deleting %d records' % counter_msgs)
+
+        conn.delete('msgs', vars={'ids': ids}, where='mail_id IN $ids')
+        conn.delete('msgrcpt', vars={'ids': ids}, where='mail_id IN $ids')
+    else:
+        break
 
 logger.info('Delete incoming/outgoing emails which older than %d days' % settings.AMAVISD_REMOVE_MAILLOG_IN_DAYS)
-if sql_dbn == 'mysql':
-    logger.info('+ Delete from table `msgrcpt`.')
-    conn.query('''
-        DELETE msgrcpt.*
-        FROM msgrcpt
-        INNER JOIN msgs ON msgrcpt.mail_id=msgs.mail_id
-        WHERE msgs.time_num < UNIX_TIMESTAMP(DATE_SUB(NOW(), INTERVAL %d DAY))
-        ''' % settings.AMAVISD_REMOVE_MAILLOG_IN_DAYS
-    )
+counter_msgrcpt = 0
+while True:
+    if ira_tool_lib.sql_dbn == 'mysql':
+        sql_where = """quar_type <> 'Q' AND time_num < UNIX_TIMESTAMP(DATE_SUB(NOW(), INTERVAL %d DAY))""" % settings.AMAVISD_REMOVE_MAILLOG_IN_DAYS
+    elif ira_tool_lib.sql_dbn == 'postgres':
+        sql_where = """quar_type <> 'Q' AND time_iso < CURRENT_TIMESTAMP - INTERVAL '%d DAYS'""" % settings.AMAVISD_REMOVE_MAILLOG_IN_DAYS
+    else:
+        break
 
-    logger.info('+ Delete from table `msgs`.')
-    conn.query('''
-        DELETE FROM msgs
-        WHERE time_num < UNIX_TIMESTAMP(DATE_SUB(NOW(), INTERVAL %d DAY))
-        ''' % settings.AMAVISD_REMOVE_MAILLOG_IN_DAYS
-    )
-elif sql_dbn == 'postgres':
-    logger.info('+ Delete from table `msgrcpt`.')
-    conn.query('''
-        DELETE FROM msgrcpt
-        USING msgs
-        WHERE
-            msgrcpt.mail_id=msgs.mail_id
-            AND msgs.time_iso < CURRENT_TIMESTAMP - INTERVAL '%d DAYS'
-        ''' % settings.AMAVISD_REMOVE_MAILLOG_IN_DAYS
-    )
+    qr = conn.select('msgs',
+                     what='mail_id',
+                     where=sql_where,
+                     limit=query_size_limit)
 
-    logger.info('+ Delete from table `msgs`.')
-    conn.query('''
-        DELETE FROM msgs
-        WHERE time_iso < CURRENT_TIMESTAMP - INTERVAL '%d DAYS'
-        ''' % settings.AMAVISD_REMOVE_MAILLOG_IN_DAYS
-    )
+    if qr:
+        ids = [id.mail_id for id in qr]
+
+        counter_msgrcpt += len(ids)
+        logger.info('[-] Deleting %d records' % counter_msgrcpt)
+
+        conn.delete('msgs', vars={'ids': ids}, where='mail_id IN $ids')
+        conn.delete('msgrcpt', vars={'ids': ids}, where='mail_id IN $ids')
+    else:
+        break
 
 # delete unreferenced records from tables msgrcpt, quarantine and maddr
 logger.info('Delete unreferenced records from table `msgrcpt`.')
@@ -139,3 +126,8 @@ conn.query('''
 
 logger.info('Delete unreferenced records from table `mailaddr`.')
 conn.query('''DELETE FROM mailaddr WHERE NOT EXISTS (SELECT 1 FROM wblist WHERE sid=id)''')
+
+if counter_msgs or counter_msgrcpt:
+    msg = 'Cleanup Amavisd database: delete %d records in msgs, %d in msgrcpt.' % (counter_msgs, counter_msgrcpt)
+    ira_tool_lib.log_to_iredadmin(msg, admin='cleanup_amavisd_db', event='cleanup_db')
+    logger.info('Log cleanup status.')
