@@ -14,6 +14,7 @@ os.environ['LC_ALL'] = 'C'
 
 rootdir = os.path.abspath(os.path.dirname(__file__)) + '/../'
 sys.path.insert(0, rootdir)
+
 import settings
 from libs import iredutils
 
@@ -25,13 +26,13 @@ elif backend in ['pgsql']:
 else:
     sys.exit('Error: Unsupported backend (%s).' % backend)
 
-# Delete old quarantined mails from table 'msgs'. It will also
 # Config logging
 logging.basicConfig(level=logging.INFO,
                     format='* [%(asctime)s] %(message)s',
                     datefmt='%Y-%m-%d %H:%M:%S')
 
 logger = logging.getLogger('iRedAdmin-Pro')
+
 
 def get_db_conn(db):
     conn = web.database(dbn=sql_dbn,
@@ -43,6 +44,7 @@ def get_db_conn(db):
 
     conn.supports_multiple_insert = True
     return conn
+
 
 # Log in `iredadmin.log`
 def log_to_iredadmin(msg, event, admin='', loglevel='info'):
@@ -62,3 +64,7 @@ def log_to_iredadmin(msg, event, admin='', loglevel='info'):
         pass
 
     return None
+
+
+def print_error(msg):
+    print '< ERROR > ' + msg

@@ -106,23 +106,20 @@ logger.info('Delete unreferenced records from table `msgrcpt`.')
 conn.query('''
     DELETE FROM msgrcpt
     WHERE NOT EXISTS (SELECT 1 FROM msgs WHERE mail_id=msgrcpt.mail_id)
-    '''
-)
+    ''')
 
 logger.info('Delete unreferenced records from table `quarantine`.')
 conn.query('''
     DELETE FROM quarantine
     WHERE NOT EXISTS (SELECT 1 FROM msgs WHERE mail_id=quarantine.mail_id)
-    '''
-)
+    ''')
 
 logger.info('Delete unreferenced records from table `maddr`.')
 conn.query('''
     DELETE FROM maddr
     WHERE NOT EXISTS (SELECT 1 FROM msgs WHERE sid=id)
         AND NOT EXISTS (SELECT 1 FROM msgrcpt WHERE rid=id)
-    '''
-)
+    ''')
 
 logger.info('Delete unreferenced records from table `mailaddr`.')
 conn.query('''DELETE FROM mailaddr WHERE NOT EXISTS (SELECT 1 FROM wblist WHERE sid=id)''')

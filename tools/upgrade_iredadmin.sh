@@ -62,7 +62,19 @@ else
     exit 255
 fi
 
+# Optional argument to set the directory which stores iRedAdmin.
+if [ $# -gt 0 ]; then
+    if [ -d ${1} ]; then
+        export HTTPD_SERVERROOT="${1}"
+    fi
+
+    if echo ${HTTPD_SERVERROOT} | grep '/iredadmin/*$' > /dev/null; then
+        export HTTPD_SERVERROOT="$(dirname ${HTTPD_SERVERROOT})"
+    fi
+fi
+
 echo "* Detected Linux/BSD distribution: ${DISTRO}"
+echo "* HTTP server root: ${HTTPD_SERVERROOT}"
 
 restart_web_service()
 {
