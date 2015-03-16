@@ -73,6 +73,26 @@ if [ $# -gt 0 ]; then
     fi
 fi
 
+# Dependent package names
+# BeautifulSoup 4.x
+export DEP_PY_BS4='python-beautifulsoup4'
+# BeautifulSoup 3.x
+export DEP_PY_BS='python-beautifulsoup'
+# lxml
+export DEP_PY_LXML='python-lxml'
+if [ X"${DISTRO}" == X'RHEL' ]; then
+    :
+elif [ X"${DISTRO}" == X'DEBIAN' -o X"${DISTRO}" == X'UBUNTU' ]; then
+    export DEP_PY_BS4='python-beautifulsoup'
+elif [ X"${DISTRO}" == X'OPENBSD' ]; then
+    export DEP_PY_BS4='py-beautifulsoup4'
+    export DEP_PY_BS='py-beautifulsoup4'
+elif [ X"${DISTRO}" == X'FREEBSD' ]; then
+    export DEP_PY_BS4='www/py-beautifulsoup'
+    export DEP_PY_BS='www/py-beautifulsoup32'
+    export DEP_PY_LXML='devel/py-lxml'
+fi
+
 echo "* Detected Linux/BSD distribution: ${DISTRO}"
 echo "* HTTP server root: ${HTTPD_SERVERROOT}"
 
@@ -88,7 +108,10 @@ restart_web_service()
     echo -n "* Restart service (${web_service}) to use new iRedAdmin release now? [Y|n] "
     read answer
     case $answer in
-        y|Y|yes|YES )
+        n|N|no|NO )
+            echo "* [SKIP] Please restart service ${HTTPD_RC_SCRIPT_NAME} or ${UWSGI_RC_SCRIPT_NAME} (if you're running Nginx as web server) manually."
+            ;;
+        y|Y|yes|YES|* )
             if [ X"${KERNEL_NAME}" == X'LINUX' ]; then
                 service ${web_service} restart
             elif [ X"${KERNEL_NAME}" == X'FREEBSD' ]; then
@@ -101,7 +124,6 @@ restart_web_service()
                 echo "Failed, please restart service ${HTTPD_RC_SCRIPT_NAME} or ${UWSGI_RC_SCRIPT_NAME} (if you're running Nginx as web server) manually."
             fi
             ;;
-        n|N|no|NO|* ) echo "* SKIPPED, please restart service ${HTTPD_RC_SCRIPT_NAME} or ${UWSGI_RC_SCRIPT_NAME} (if you're running Nginx as web server) manually."
     esac
 }
 
@@ -125,6 +147,18 @@ add_missing_parameter()
             echo "${var} = '${value}'" >> ${IRA_CONF_PY}
         fi
     fi
+}
+
+has_python_module()
+{
+    for mod in $@; do
+        python -c "import $mod" &>/dev/null
+        if [ X"$?" == X'0' ]; then
+            echo 'YES'
+        else
+            echo 'NO'
+        fi
+    done
 }
 
 # iRedAdmin directory and config file.
@@ -237,9 +271,25 @@ EOF
                 perl -pi -e 's#^(ENABLE_SELF_SERVICE).*#${1} = True#g' ${IRA_CONF_PY}
             fi
             ;;
-        n|N|no|NO|* ) echo "* SKIPPED, didn't touch iRedAdmin config file." ;;
+        n|N|no|NO|* ) echo "* [SKIP] didn't touch iRedAdmin config file." ;;
     esac
 fi
+
+
+# Check dependent packages. Prompt to install missed ones manually.
+echo "* Checking dependent Python modules:"
+echo "  + [optional] BeautifulSoup"
+if [ X"$(has_python_module bs4)" == X'NO' \
+     -a X"$(has_python_module BeautifulSoup)" == X'NO' ]; then
+    echo "    << ATTENTION >> Package not found, please install package $DEP_PY_BS4 or $DEP_PY_BS manually."
+fi
+
+echo "  + [optional] lxml"
+if [ X"$(has_python_module lxml)" == X'NO' ]; then
+    echo "    << ATTENTION >> Package not found, please install package $DEP_PY_LXML manually."
+fi
+
+
 
 echo "* iRedAdmin was successfully upgraded, restarting web service is required."
 restart_web_service

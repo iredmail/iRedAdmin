@@ -98,9 +98,12 @@ for domain in all_domains:
         conn.insert('policy_group_members', **value)
         logger.info('+ %s [OK]' % domain)
     except Exception, e:
-        if e[0] == 1062:
-            logger.info('[%s] SKIP, already exists.' % domain)
+        # Raised error due to duplicate record:
+        #   - MySQL: (1062, xxx)
+        #   - PGSQL: 'duplicate key value violates unique constraint ...'
+        if e[0] == 1062 or str(e).startswith('duplicate'):
+            logger.info('[SKIP] domain name %s already exists.' % domain)
         else:
-            logger.error('< ERROR > [%s] %s' % (domain, str(e)))
+            logger.error('<<< ERROR >>> [%s] %s' % (domain, str(e)))
 
 logger.info('DONE')
