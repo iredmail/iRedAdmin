@@ -125,7 +125,7 @@ DEFAULT_PASSWORD_SCHEME = 'SSHA'
 # It will show a HTML checkbox to allow admin to store newly created user
 # password or reset password in plain text. If not checked, password
 # will be stored as encrypted.
-STORE_PASSWORD_IN_PLAIN_TEXT_TEXT = False
+STORE_PASSWORD_IN_PLAIN_TEXT = False
 
 # Print PERMISSION_DENIED related programming info to stdout or web server
 # log file. e.g. Apache log file.

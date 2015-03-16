@@ -87,7 +87,7 @@ session = web.session.Session(
         'default_mta_transport': settings.default_mta_transport,
 
         # Store password in plain text.
-        'store_password_in_plain_text': settings.STORE_PASSWORD_IN_PLAIN_TEXT_TEXT,
+        'store_password_in_plain_text': settings.STORE_PASSWORD_IN_PLAIN_TEXT,
 
         # Policyd/Cluebringer integration.
         'enable_policyd': enable_policyd,
