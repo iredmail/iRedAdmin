@@ -7,8 +7,10 @@ import sys
 import logging
 import web
 
-# Set True to print SQL queries.
 debug = False
+
+# Set True to print SQL queries.
+web.config.debug = debug
 
 os.environ['LC_ALL'] = 'C'
 
@@ -34,16 +36,23 @@ logging.basicConfig(level=logging.INFO,
 logger = logging.getLogger('iRedAdmin-Pro')
 
 
-def get_db_conn(db):
-    conn = web.database(dbn=sql_dbn,
-                        host=settings.__dict__[db + '_db_host'],
-                        port=int(settings.__dict__[db + '_db_port']),
-                        db=settings.__dict__[db + '_db_name'],
-                        user=settings.__dict__[db + '_db_user'],
-                        pw=settings.__dict__[db + '_db_password'])
+def print_error(msg):
+    print '< ERROR > ' + msg
 
-    conn.supports_multiple_insert = True
-    return conn
+
+def get_db_conn(db):
+    try:
+        conn = web.database(dbn=sql_dbn,
+                            host=settings.__dict__[db + '_db_host'],
+                            port=int(settings.__dict__[db + '_db_port']),
+                            db=settings.__dict__[db + '_db_name'],
+                            user=settings.__dict__[db + '_db_user'],
+                            pw=settings.__dict__[db + '_db_password'])
+
+        conn.supports_multiple_insert = True
+        return conn
+    except Exception, e:
+        print_error(e)
 
 
 # Log in `iredadmin.log`
@@ -51,20 +60,14 @@ def log_to_iredadmin(msg, event, admin='', loglevel='info'):
     conn = get_db_conn('iredadmin')
 
     try:
-        conn.insert(
-            'log',
-            admin=admin,
-            event=event,
-            loglevel=loglevel,
-            msg=str(msg),
-            ip='127.0.0.1',
-            timestamp=iredutils.get_gmttime(),
-        )
-    except Exception:
+        conn.insert('log',
+                    admin=admin,
+                    event=event,
+                    loglevel=loglevel,
+                    msg=str(msg),
+                    ip='127.0.0.1',
+                    timestamp=iredutils.get_gmttime())
+    except:
         pass
 
     return None
-
-
-def print_error(msg):
-    print '< ERROR > ' + msg

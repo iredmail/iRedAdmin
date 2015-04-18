@@ -73,8 +73,7 @@ if [ $# -gt 0 ]; then
     fi
 fi
 
-# Dependent package names
-# BeautifulSoup 4.x
+# Dependent package names # BeautifulSoup 4.x
 export DEP_PY_BS4='python-beautifulsoup4'
 # BeautifulSoup 3.x
 export DEP_PY_BS='python-beautifulsoup'
@@ -248,6 +247,10 @@ if grep 'amavisd_enable_logging.*True.*' ${IRA_CONF_PY} &>/dev/null; then
 else
     add_missing_parameter 'amavisd_enable_policy_lookup' False 'Enable per-recipient spam policy, white/blacklist.'
 fi
+
+# Fix incorrect parameter name:
+#   - ADDITION_USER_SERVICES -> ADDITIONAL_USER_SERVICES
+perl -pi -e 's#ADDITION_USER_SERVICES#ADDITIONAL_USER_SERVICES#g' ${IRA_CONF_PY}
 
 if [ X"${IS_IRA_PRO}" == X'YES' ]; then
     # Enable self-service
