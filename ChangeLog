@@ -1,3 +1,8 @@
+= 0.4.2 =
+    * Sync scripts under 'tools/' with the latest iRedAdmin-Pro release.
+    * Fix incorrect parameter name:
+      STORE_PASSWORD_IN_PLAIN_TEXT_TEXT -> STORE_PASSWORD_IN_PLAIN_TEXT.
+
 = 0.4.1 =
     * Fixed issues:
         - Not correctly handle incorrect login username/password for OpenLDAP
