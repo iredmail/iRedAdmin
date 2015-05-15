@@ -25,12 +25,20 @@ if [ X"${KERNEL_NAME}" == X"LINUX" ]; then
     elif [ -f /etc/lsb-release ]; then
         # Ubuntu
         export DISTRO='UBUNTU'
-        export HTTPD_SERVERROOT='/usr/share/apache2'
+        if [ -d '/opt/www' ]; then
+            export HTTPD_SERVERROOT='/opt/www'
+        else
+            export HTTPD_SERVERROOT='/usr/share/apache2'
+        fi
         export HTTPD_RC_SCRIPT_NAME='apache2'
     elif [ -f /etc/debian_version ]; then
         # Debian
         export DISTRO='DEBIAN'
-        export HTTPD_SERVERROOT='/usr/share/apache2'
+        if [ -d '/opt/www' ]; then
+            export HTTPD_SERVERROOT='/opt/www'
+        else
+            export HTTPD_SERVERROOT='/usr/share/apache2'
+        fi
         export HTTPD_RC_SCRIPT_NAME='apache2'
     elif [ -f /etc/SuSE-release ]; then
         # openSUSE
@@ -126,6 +134,23 @@ restart_web_service()
     esac
 }
 
+install_pkg()
+{
+    echo "Install package: $@"
+
+    if [ X"${DISTRO}" == X'RHEL' ]; then
+        yum -y install $@
+    elif [ X"${DISTRO}" == X'DEBIAN' -o X"${DISTRO}" == X'UBUNTU' ]; then
+        apt-get install -y --force-yes $@
+    elif [ X"${DISTRO}" == X'FREEBSD' ]; then
+        cd /usr/ports/$@ && make install clean
+    elif [ X"${DISTRO}" == X'OPENBSD' ]; then
+        pkg_add -r $@
+    else
+        echo "<< ERROR >> Please install package(s) manually: $@"
+    fi
+}
+
 add_missing_parameter()
 {
     # Usage: add_missing_parameter VARIABLE DEFAULT_VALUE [COMMENT]
@@ -218,7 +243,14 @@ fi
 
 echo "* Copying new version to ${NEW_IRA_ROOT_DIR}"
 cp -rf ${COPY_FILES} ${COPY_DEST_DIR}
+
+# Copy old config file
 cp -p ${IRA_CONF_PY} ${NEW_IRA_ROOT_DIR}/
+# Copy hooks.py. It's ok if missing.
+cp -p ${IRA_ROOT_DIR}/hooks.py ${NEW_IRA_ROOT_DIR}/ &>/dev/null
+# Copy custom files under 'tools/'. It's ok if missing.
+cp -p ${IRA_ROOT_DIR}/tools/*.custom.* ${NEW_IRA_ROOT_DIR}/tools/ &>/dev/null
+# Set owner and permission.
 chown -R ${IRA_HTTPD_USER}:${IRA_HTTPD_GROUP} ${NEW_IRA_ROOT_DIR}
 chmod -R 0555 ${NEW_IRA_ROOT_DIR}
 chmod 0400 ${NEW_IRA_ROOT_DIR}/settings.py
@@ -249,49 +281,24 @@ else
 fi
 
 # Fix incorrect parameter name:
-#   - ADDITION_USER_SERVICES -> ADDITIONAL_USER_SERVICES
-perl -pi -e 's#ADDITION_USER_SERVICES#ADDITIONAL_USER_SERVICES#g' ${IRA_CONF_PY}
+#   - ADDITION_USER_SERVICES -> ADDITIONAL_ENABLED_USER_SERVICES
+perl -pi -e 's#ADDITION_USER_SERVICES#ADDITIONAL_ENABLED_USER_SERVICES#g' ${IRA_CONF_PY}
 
-if [ X"${IS_IRA_PRO}" == X'YES' ]; then
-    # Enable self-service
-    cat <<EOF
-* Would you like to enable self-service? With self-service, mail users can login to"
-  iRedAdmin-Pro to manage their own preferences, including mail forwarding, changing"
-  password, manage per-user white/blacklists and spam policy. You can control allowed"
-  preferences in domain profile page."
-EOF
-
-    echo -n "  Enable self-service now? [y|N] "
-
-    read answer
-    case $answer in
-        y|Y|yes|YES )
-            if ! grep '^ENABLE_SELF_SERVICE' ${IRA_CONF_PY} &>/dev/null; then
-                echo "* Add new setting 'ENABLE_SELF_SERVICE = True' in config file ${IRA_CONF_PY}."
-                echo 'ENABLE_SELF_SERVICE = True' >> ${IRA_CONF_PY}
-            elif grep '^ENABLE_SELF_SERVICE' ${IRA_CONF_PY} &>/dev/null; then
-                echo "* Update setting 'ENABLE_SELF_SERVICE' to True in config file ${IRA_CONF_PY}."
-                perl -pi -e 's#^(ENABLE_SELF_SERVICE).*#${1} = True#g' ${IRA_CONF_PY}
-            fi
-            ;;
-        n|N|no|NO|* ) echo "* [SKIP] didn't touch iRedAdmin config file." ;;
-    esac
-fi
-
+# Remove deprecated setting: ENABLE_SELF_SERVICE, it's now a per-domain setting.
+perl -pi -e 's#^(ENABLE_SELF_SERVICE.*)##g' ${IRA_CONF_PY}
 
 # Check dependent packages. Prompt to install missed ones manually.
 echo "* Checking dependent Python modules:"
 echo "  + [optional] BeautifulSoup"
 if [ X"$(has_python_module bs4)" == X'NO' \
      -a X"$(has_python_module BeautifulSoup)" == X'NO' ]; then
-    echo "    << ATTENTION >> Package not found, please install package $DEP_PY_BS4 or $DEP_PY_BS manually."
+    echo "    << ATTENTION >> Package not found, please install package '$DEP_PY_BS4' or '$DEP_PY_BS' manually."
 fi
 
 echo "  + [optional] lxml"
 if [ X"$(has_python_module lxml)" == X'NO' ]; then
     echo "    << ATTENTION >> Package not found, please install package $DEP_PY_LXML manually."
 fi
-
 
 
 echo "* iRedAdmin was successfully upgraded, restarting web service is required."
