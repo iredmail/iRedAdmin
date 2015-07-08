@@ -1,3 +1,8 @@
+= 0.4.3 =
+    * Improvements:
+        + tools/cleanup_amavisd_db.py has been rewritten to avoid performance
+          issue.
+
 = 0.4.2 =
     * Sync scripts under 'tools/' with the latest iRedAdmin-Pro release.
     * Fix incorrect parameter name:
