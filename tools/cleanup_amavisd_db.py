@@ -48,6 +48,27 @@ query_size_limit = 100
 
 conn = ira_tool_lib.get_db_conn('amavisd')
 
+
+# Removing records from single table.
+def removing_from_one_table(sql_table, index_column, removed_values):
+    total = len(removed_values)
+
+    # Delete 1000 records each time
+    offset = 1000
+
+    if total:
+        loop_times = total / offset
+        if total % offset:
+            loop_times += 1
+
+        for i in range(loop_times):
+            removing_values = removed_values[offset*i: offset*(i+1)]
+            logger.info('\t[-] Deleting %d records from table `%s`' % (i*offset + len(removing_values), sql_table))
+            conn.delete(sql_table,
+                        vars={'ids': removing_values},
+                        where='%s IN $ids' % index_column)
+
+
 # Delete old quarantined mails from table 'msgs'. It will also
 # delete records in table 'quarantine'.
 logger.info('Delete quarantined mails which older than %d days' % settings.AMAVISD_REMOVE_QUARANTINED_IN_DAYS)
@@ -69,7 +90,7 @@ while True:
         ids = [id.mail_id for id in qr]
 
         counter_msgs += len(ids)
-        logger.info('[-] Deleting %d records' % counter_msgs)
+        logger.info('\t[-] Deleting %d records' % counter_msgs)
 
         conn.delete('msgs', vars={'ids': ids}, where='mail_id IN $ids')
         conn.delete('msgrcpt', vars={'ids': ids}, where='mail_id IN $ids')
@@ -95,7 +116,7 @@ while True:
         ids = [id.mail_id for id in qr]
 
         counter_msgrcpt += len(ids)
-        logger.info('[-] Deleting %d records' % counter_msgrcpt)
+        logger.info('\t[-] Deleting %d records' % counter_msgrcpt)
 
         conn.delete('msgs', vars={'ids': ids}, where='mail_id IN $ids')
         conn.delete('msgrcpt', vars={'ids': ids}, where='mail_id IN $ids')
@@ -108,6 +129,9 @@ conn.query('''DELETE FROM msgrcpt
               WHERE NOT EXISTS (SELECT 1 FROM msgs WHERE mail_id=msgrcpt.mail_id)
            ''')
 
+#
+# Delete unreferenced records from table `quarantine`.
+#
 logger.info('Delete unreferenced records from table `quarantine`.')
 msgs_mail_ids = set()
 maddr_ids_in_use = set()
@@ -117,31 +141,19 @@ qr = conn.select('msgs', what='mail_id, sid')
 for i in qr:
     msgs_mail_ids.add(i.mail_id)
     maddr_ids_in_use.add(i.sid)
-logger.info('- `msgs` table has %d records' % len(msgs_mail_ids))
 
 qr = conn.select('quarantine', what='mail_id')
 for i in qr:
     quar_mail_ids.append(i.mail_id)
-logger.info('- `quarantine` table has %d records' % len(quar_mail_ids))
 
-invalid_quar_mail_ids = []
-counter = 0
-for id in quar_mail_ids:
-    if id not in msgs_mail_ids:
-        invalid_quar_mail_ids.append(id)
-        counter += 1
+invalid_quar_mail_ids = [id for id in quar_mail_ids if id not in msgs_mail_ids]
+removing_from_one_table(sql_table='quarantine',
+                        index_column='mail_id',
+                        removed_values=invalid_quar_mail_ids)
 
-    if invalid_quar_mail_ids and (counter % 1000 == 0):
-        logger.info('[-] Deleting %d unreferenced records in `quarantine` table' % counter)
-        conn.delete('quarantine',
-                    vars={'ids': invalid_quar_mail_ids},
-                    where='mail_id IN $ids')
-        invalid_quar_mail_ids = []
-
-del quar_mail_ids
-del msgs_mail_ids
-del invalid_quar_mail_ids
-
+#
+# Delete unreferenced records from table `maddr`.
+#
 logger.info('Delete unreferenced records from table `maddr`.')
 
 # Get all maddr.id
@@ -149,43 +161,26 @@ maddr_ids = set()
 qr = conn.select('maddr', what='id')
 for i in qr:
     maddr_ids.add(i.id)
-logger.info('- `maddr` contains %d addresses' % len(maddr_ids))
 
 qr = conn.select('msgrcpt', what='rid')
 for i in qr:
     maddr_ids_in_use.add(i.rid)
-logger.info('- `msgs` and `msgrcpt` have %d addresses' % len(maddr_ids_in_use))
 
-invalid_maddr_ids = []
-counter_invalid_maddr_ids = 0
-counter = 0
-for id in maddr_ids:
-    if id not in maddr_ids_in_use:
-        invalid_maddr_ids.append(id)
-        counter += 1
+invalid_maddr_ids = [id for id in maddr_ids if id not in maddr_ids_in_use]
+removing_from_one_table(sql_table='maddr',
+                        index_column='id',
+                        removed_values=invalid_maddr_ids)
 
-    if invalid_maddr_ids and (counter % 1000 == 0):
-        logger.info('[-] Deleting %d unreferenced records in `maddr` table' % counter)
-        conn.delete('maddr',
-                    vars={'ids': invalid_maddr_ids},
-                    where='id IN $ids')
-        invalid_maddr_ids = []
-
-if invalid_maddr_ids:
-    counter_invalid_maddr_ids = len(invalid_maddr_ids)
-    logger.info('- Removed %d unreferenced addresses in `maddr`' % counter_invalid_maddr_ids)
-
-del invalid_maddr_ids
-del maddr_ids_in_use
-del maddr_ids
-
+#
+# Delete unreferenced records from table `mailaddr`.
+#
 logger.info('Delete unreferenced records from table `mailaddr`.')
+
 # Get all `mailaddr.id`
-all_mailaddr_ids = set()
+mailaddr_ids = set()
 qr = conn.select('mailaddr', what='id')
 for i in qr:
-    all_mailaddr_ids.add(i.id)
-logger.info('- `mailaddr` contains %d addresses' % len(all_mailaddr_ids))
+    mailaddr_ids.add(i.id)
 
 # Get all `wblist.sid` and `outbound_wblist.rid` (both refer to `mailaddr.id`)
 wblist_ids = set()
@@ -202,35 +197,31 @@ except:
     # No outbound_wblist table
     pass
 
-logger.info('- `wblist` and `outbound_wblist` contain %d addresses' % len(wblist_ids))
+invalid_mailaddr_ids = [id for id in mailaddr_ids if id not in wblist_ids]
+removing_from_one_table(sql_table='mailaddr',
+                        index_column='id',
+                        removed_values=invalid_mailaddr_ids)
 
-invalid_mailaddr_ids = []
-counter_invalid_mailaddr_ids = 0
-counter = 0
-for id in all_mailaddr_ids:
-    if id not in wblist_ids:
-        invalid_mailaddr_ids.append(id)
-        counter += 1
+logger.info('')
+logger.info('Remained records:')
+logger.info('')
+logger.info('      `msgs`: %-7.d' % len(msgs_mail_ids))
+logger.info('`quarantine`: %-7.d' % (len(quar_mail_ids) - len(invalid_quar_mail_ids)))
+logger.info('     `maddr`: %-7.d' % (len(maddr_ids) - len(invalid_maddr_ids)))
+logger.info('  `mailaddr`: %-7.d' % (len(mailaddr_ids) - len(invalid_mailaddr_ids)))
 
-    if invalid_mailaddr_ids and (counter % 1000 == 0):
-        logger.info('[-] Deleting %d unreferenced addresses in `mailaddr`' % counter)
-        conn.delete('maddr',
-                    vars={'ids': invalid_mailaddr_ids},
-                    where='id IN $ids')
-        invalid_mailaddr_ids = []
 
-if invalid_mailaddr_ids:
-    counter_invalid_mailaddr_ids = len(invalid_mailaddr_ids)
-    logger.info('- Removed %d unreferenced addresses in `maddr`' % counter_invalid_mailaddr_ids)
+if counter_msgs \
+   or counter_msgrcpt \
+   or invalid_quar_mail_ids \
+   or invalid_maddr_ids \
+   or invalid_mailaddr_ids:
+    msg = 'Removed records: '
+    msg += '%d in msgs, ' % counter_msgs
+    msg += '%d in msgrcpt, ' % counter_msgrcpt
+    msg += '%d in quarantine, ' % len(invalid_quar_mail_ids)
+    msg += '%d in maddr, ' % len(invalid_maddr_ids)
+    msg += '%d in mailaddr.' % len(invalid_mailaddr_ids)
 
-del wblist_ids
-del invalid_mailaddr_ids
-del all_mailaddr_ids
-
-if counter_msgs or counter_msgrcpt:
-    msg = 'Removed %d records in msgs, %d in msgrcpt, %d in maddr, %d in mailaddr.' % (counter_msgs,
-                                                                                       counter_msgrcpt,
-                                                                                       counter_invalid_maddr_ids,
-                                                                                       counter_invalid_mailaddr_ids)
     ira_tool_lib.log_to_iredadmin(msg, admin='cleanup_amavisd_db', event='cleanup_db')
     logger.info('Log cleanup status.')
