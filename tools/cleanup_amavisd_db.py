@@ -43,6 +43,7 @@ logger = ira_tool_lib.logger
 
 backend = settings.backend
 logger.info('Backend: %s' % backend)
+logger.info('SQL server: %s:%d' % (settings.amavisd_db_host, int(settings.amavisd_db_port)))
 
 query_size_limit = 100
 
