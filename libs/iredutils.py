@@ -613,3 +613,19 @@ def getNewVersion(urlOfXML):
     except Exception, e:
         return (False, str(e))
 
+
+def get_iredmail_version():
+    v = 'Unknown, check /etc/iredmail-release please.'
+
+    # Read first word splited by space in first line.
+    try:
+        f = open('/etc/iredmail-release', 'r')
+        vline = f.readline().split()
+        f.close()
+
+        if vline:
+            v = vline[0]
+    except:
+        pass
+
+    return v

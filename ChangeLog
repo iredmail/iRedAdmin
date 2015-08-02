@@ -1,5 +1,6 @@
 = 0.4.3 =
     * Improvements:
+        + Show iRedMail version number stored in /etc/iredmail-release.
         + tools/cleanup_amavisd_db.py has been rewritten to avoid performance
           issue.
 

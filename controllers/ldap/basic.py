@@ -191,6 +191,7 @@ class Dashboard:
         return web.render(
             'dashboard.html',
             version=__version_ose__,
+            iredmail_version=iredutils.get_iredmail_version(),
             hostname=getfqdn(),
             uptime=iredutils.get_server_uptime(),
             loadavg=iredutils.get_system_load_average(),

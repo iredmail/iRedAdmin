@@ -12,6 +12,10 @@
         <div class="box-wrap clear">
             <table class="basic" cellspacing="0">
                 <tbody>
+                    <tr>
+                        <th>iRedMail</th>
+                        <td>v{{ iredmail_version }}</td>
+                    </tr>
 
                 {% if session.get('domainGlobalAdmin') is sameas true %}
                     <tr>
