@@ -71,7 +71,7 @@ ldap_bind_password = 'password'
 # white-/blacklist, sender/recipient throttling, etc.
 #
 # Enable policyd integration: True, False.
-policyd_enabled = True
+policyd_enabled = False
 
 # SQL Database used to store policyd data, eg. whitelist, blacklist.
 # You can find related information in policyd config files:
