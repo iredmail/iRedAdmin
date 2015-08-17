@@ -789,20 +789,3 @@
         {{ event |e }}
     {% endif %}
 {%- endmacro %}
-
-
-{# iRedAPD: per-user wblist #}
-{% macro display_per_user_wblist(values=[], htmlInputName, label) -%}
-    <div class="form-field clear">
-        <h4 class="size-250 fl-space">{{ label |e }}</h4>
-        <small>{{ _('One record per line.') }}</small>
-
-        {% if values |length == 0 %}
-            <textarea name="{{ htmlInputName |e }}" rows="6" class="textarea"></textarea>
-        {% else %}
-            <textarea name="{{ htmlInputName |e }}" rows="6" class="textarea">{% for v in values %}{{ v |e }}
-{% endfor %}</textarea>
-        {% endif %}
-    </div>
-{%- endmacro %}
-
