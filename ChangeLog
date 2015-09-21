@@ -4,6 +4,9 @@
         + tools/cleanup_amavisd_db.py has been rewritten to avoid performance
           issue.
 
+    * Fixed issues:
+        + Remove unused template macro in templates/default/macros/general.html.
+
 = 0.4.2 =
     * Sync scripts under 'tools/' with the latest iRedAdmin-Pro release.
     * Fix incorrect parameter name:

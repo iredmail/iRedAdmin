@@ -109,6 +109,19 @@ amavisd_quarantine_port = 9998
 # Enable per-recipient spam policy, white/blacklist.
 amavisd_enable_policy_lookup = True
 
+##############################################################################
+# Settings used for iRedAPD integration: throttling and more.
+#
+# Enable iRedAPD integration.
+iredapd_enabled = True
+
+# SQL server/port and credential used to connect to iRedAPD SQL database.
+iredapd_db_host = '127.0.0.1'
+iredapd_db_port = 3306
+iredapd_db_name = 'iredapd'
+iredapd_db_user = 'iredapd'
+iredapd_db_password = 'password'
+
 ############################################################
 # Place your custom settings below, you can override all settings in this file
 # and libs/default_settings.py here.
