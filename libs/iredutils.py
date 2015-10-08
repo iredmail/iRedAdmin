@@ -549,10 +549,9 @@ def verify_password_hash(challenge_password, plain_password):
 
 
 def generate_maildir_path(mail,
-                        hashedMaildir=settings.MAILDIR_HASHED,
-                        prependDomainName=settings.MAILDIR_PREPEND_DOMAIN,
-                        appendTimestamp=settings.MAILDIR_APPEND_TIMESTAMP,
-                       ):
+                          hash_maildir=settings.MAILDIR_HASHED,
+                          prepend_domain_name=settings.MAILDIR_PREPEND_DOMAIN,
+                          append_timestamp=settings.MAILDIR_APPEND_TIMESTAMP):
     """Generate path of mailbox."""
 
     mail = web.safestr(mail)
@@ -564,31 +563,31 @@ def generate_maildir_path(mail,
 
     # Get current timestamp.
     timestamp = ''
-    if appendTimestamp:
+    if append_timestamp:
         timestamp = time.strftime('-%Y.%m.%d.%H.%M.%S')
 
-    if hashedMaildir is True:
+    if hash_maildir:
         if len(username) >= 3:
-            maildir = "%s/%s/%s/%s%s/" % (
-                username[0], username[1], username[2], username, timestamp,
-            )
+            chars = [username[0], username[1], username[0]]
+
         elif len(username) == 2:
-            maildir = "%s/%s/%s/%s%s/" % (
-                username[0], username[1], username[1], username, timestamp,
-            )
+            chars = [username[0], username[1], username[1]]
         else:
-            maildir = "%s/%s/%s/%s%s/" % (
-                username[0], username[0], username[0], username, timestamp,
-            )
+            chars = [username[0], username[0], username[0]]
 
-        mailMessageStore = maildir
+        # Replace '.' by '_'
+        for (index, char) in enumerate(chars):
+            if char == '.':
+                chars[index] = '_'
+
+        maildir = "%s/%s/%s/%s%s/" % (chars[0], chars[1], chars[2], username, timestamp)
     else:
-        mailMessageStore = "%s%s/" % (username, timestamp,)
+        maildir = "%s%s/" % (username, timestamp)
 
-    if prependDomainName:
-        mailMessageStore = domain + '/' + mailMessageStore
+    if prepend_domain_name:
+        maildir = domain + '/' + maildir
 
-    return mailMessageStore.lower()
+    return maildir.lower()
 
 
 def getNewVersion(urlOfXML):
