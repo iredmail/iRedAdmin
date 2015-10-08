@@ -322,6 +322,9 @@ def verify_bcrypt_password(challenge_password, plain_password):
        or challenge_password.startswith('{crypt}$2a$') \
        or challenge_password.startswith('{crypt}$2b$'):
         challenge_password = challenge_password[7:]
+    elif challenge_password.startswith('{BLF-CRYPT}') \
+       or challenge_password.startswith('{blf-crypt}'):
+        challenge_password = challenge_password[11:]
 
     return bcrypt.checkpw(plain_password, challenge_password)
 
@@ -335,6 +338,8 @@ def verify_md5_password(challenge_password, plain_password):
     """Verify salted MD5 password"""
     if challenge_password.startswith('{MD5}') or challenge_password.startswith('{md5}'):
         challenge_password = challenge_password[5:]
+    elif challenge_password.startswith('{CRYPT}') or challenge_password.startswith('{crypt}'):
+        challenge_password = challenge_password[7:]
 
     if not (
         challenge_password.startswith('$') \
@@ -535,7 +540,9 @@ def verify_password_hash(challenge_password, plain_password):
         return verify_plain_md5_password(challenge_password, plain_password)
     elif upwd.startswith('{CRAM-MD5}'):
         return verify_cram_md5_password(challenge_password, plain_password)
-    elif upwd.startswith('{CRYPT}$2A$') or upwd.startswith('{CRYPT}$2B$'):
+    elif upwd.startswith('{CRYPT}$2A$') \
+       or upwd.startswith('{CRYPT}$2B$') \
+       or upwd.startswith('{BLF-CRYPT}'):
         return verify_bcrypt_password(challenge_password, plain_password)
 
     return False

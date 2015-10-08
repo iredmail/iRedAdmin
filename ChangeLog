@@ -7,6 +7,8 @@
           issue.
 
     * Fixed issues:
+        + Cannot verify BCRYPT hash with '{BLF-CRYPT}' prefix.
+        + Cannot verify (salted) MD5 hash with '{CRYPT}' prefix.
         + Remove unused template macro in templates/default/macros/general.html.
 
 = 0.4.2 =

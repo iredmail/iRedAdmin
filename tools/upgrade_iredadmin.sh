@@ -81,7 +81,10 @@ if [ $# -gt 0 ]; then
     fi
 fi
 
-# Dependent package names # BeautifulSoup 4.x
+# Dependent package names
+# SimpleJson
+export DEP_PY_JSON='simplejson'
+# BeautifulSoup 4.x
 export DEP_PY_BS4='python-beautifulsoup4'
 # BeautifulSoup 3.x
 export DEP_PY_BS='python-beautifulsoup'
@@ -90,11 +93,14 @@ export DEP_PY_LXML='python-lxml'
 if [ X"${DISTRO}" == X'RHEL' ]; then
     :
 elif [ X"${DISTRO}" == X'DEBIAN' -o X"${DISTRO}" == X'UBUNTU' ]; then
+    export DEP_PY_JSON='python-simplejson'
     export DEP_PY_BS4='python-beautifulsoup'
 elif [ X"${DISTRO}" == X'OPENBSD' ]; then
+    export DEP_PY_JSON='py-simplejson'
     export DEP_PY_BS4='py-beautifulsoup4'
     export DEP_PY_BS='py-beautifulsoup4'
 elif [ X"${DISTRO}" == X'FREEBSD' ]; then
+    export DEP_PY_JSON='devel/py-simplejson'
     export DEP_PY_BS4='www/py-beautifulsoup'
     export DEP_PY_BS='www/py-beautifulsoup32'
     export DEP_PY_LXML='devel/py-lxml'
@@ -175,14 +181,13 @@ add_missing_parameter()
 
 has_python_module()
 {
-    for mod in $@; do
-        python -c "import $mod" &>/dev/null
-        if [ X"$?" == X'0' ]; then
-            echo 'YES'
-        else
-            echo 'NO'
-        fi
-    done
+    mod="$1"
+    python -c "import $mod" &>/dev/null
+    if [ X"$?" == X'0' ]; then
+        echo 'YES'
+    else
+        echo 'NO'
+    fi
 }
 
 # iRedAdmin directory and config file.
@@ -280,6 +285,22 @@ else
     add_missing_parameter 'amavisd_enable_policy_lookup' False 'Enable per-recipient spam policy, white/blacklist.'
 fi
 
+if ! grep '^iredapd_' ${IRA_CONF_PY} &>/dev/null; then
+    add_missing_parameter 'iredapd_enabled' True 'Enable iRedAPD integration.'
+
+    # Get iredapd db password from /opt/iredapd/settings.py.
+    if [ -f /opt/iredapd/settings.py ]; then
+        grep '^iredapd_db_' /opt/iredapd/settings.py >> ${IRA_CONF_PY}
+        perl -pi -e 's#iredapd_db_server#iredapd_db_host#g' ${IRA_CONF_PY}
+    else
+        add_missing_parameter 'iredapd_db_host' '127.0.0.1'
+        add_missing_parameter 'iredapd_db_port' '3306'
+        add_missing_parameter 'iredapd_db_name' 'iredapd'
+        add_missing_parameter 'iredapd_db_user' 'iredapd'
+        add_missing_parameter 'iredapd_db_password' 'password'
+    fi
+fi
+
 # Fix incorrect parameter name:
 #   - ADDITION_USER_SERVICES -> ADDITIONAL_ENABLED_USER_SERVICES
 perl -pi -e 's#ADDITION_USER_SERVICES#ADDITIONAL_ENABLED_USER_SERVICES#g' ${IRA_CONF_PY}
@@ -288,16 +309,21 @@ perl -pi -e 's#ADDITION_USER_SERVICES#ADDITIONAL_ENABLED_USER_SERVICES#g' ${IRA_
 perl -pi -e 's#^(ENABLE_SELF_SERVICE.*)##g' ${IRA_CONF_PY}
 
 # Check dependent packages. Prompt to install missed ones manually.
-echo "* Checking dependent Python modules:"
+echo "* Check and install dependent Python modules:"
+echo "  + [required] json or simplejson"
+if [ X"$(has_python_module json)" == X'NO' \
+     -a X"$(has_python_module simplejson)" == X'NO' ]; then
+    install_pkg $DEP_PY_JSON
+fi
 echo "  + [optional] BeautifulSoup"
 if [ X"$(has_python_module bs4)" == X'NO' \
      -a X"$(has_python_module BeautifulSoup)" == X'NO' ]; then
-    echo "    << ATTENTION >> Package not found, please install package '$DEP_PY_BS4' or '$DEP_PY_BS' manually."
+    install_pkg $DEP_PY_BS4
 fi
 
 echo "  + [optional] lxml"
 if [ X"$(has_python_module lxml)" == X'NO' ]; then
-    echo "    << ATTENTION >> Package not found, please install package $DEP_PY_LXML manually."
+    install_pkg $DEP_PY_LXML
 fi
 
 
