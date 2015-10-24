@@ -7,6 +7,7 @@
           issue.
 
     * Fixed issues:
+        + Incorrect set preferred language while updating user profile.
         + Cannot generate proper maildir path when first 3 characters in
           username part of email address contains dot.
         + Cannot verify BCRYPT hash with '{BLF-CRYPT}' prefix.
