@@ -316,7 +316,7 @@
 <div class="form-field clear">
     <h4 class="size-250 fl-space">{{ _('Preferred language') }}</h4>
     <select name="preferredLanguage">
-        {% for lang in languagemaps %}
+        {% for lang in [''] + languagemaps |sort %}
             <option value="{{ lang |e }}" {% if value == lang %}selected{%endif%}>{{ languagemaps[lang] |e }}</option>
         {% endfor %}
     </select>
