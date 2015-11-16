@@ -52,30 +52,6 @@ vmail_db_name = 'vmail'
 vmail_db_user = 'vmailadmin'
 vmail_db_password = 'password'
 
-#################################################################
-# Settings used for Policyd (1.8.x) integration. Provides global
-# white-/blacklist, sender/recipient throttling, etc.
-#
-# Enable policyd integration: True, False.
-policyd_enabled = False
-
-# SQL Database used to store policyd data, eg. whitelist, blacklist.
-# You can find related information in policyd config files:
-#   - On RHEL/CentOS:   /etc/policyd.conf
-#   - On Debian/Ubuntu: /etc/postfix-policyd.conf
-#   - On FreeBSD:       /usr/local/etc/policyd.conf
-# Related parameters:
-#   host    -> MYSQLHOST
-#   port    -> 3306 (Default)
-#   db      -> MYSQLDBASE
-#   user    -> MYSQLUSER
-#   passwd  -> MYSQLPASS
-policyd_db_host = '127.0.0.1'
-policyd_db_port = 3306
-policyd_db_name = 'policyd'
-policyd_db_user = 'policyd'
-policyd_db_password = 'password'
-
 ##############################################################################
 # Settings used for Amavisd-new integration. Provides spam/virus quaranting,
 # releasing, etc.
