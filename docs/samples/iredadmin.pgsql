@@ -34,24 +34,5 @@ CREATE TABLE updatelog (
     PRIMARY KEY (date)
 );
 
--- Used to store basic info of deleted mailboxes.
-CREATE TABLE deleted_mailboxes (
-    id SERIAL PRIMARY KEY,
-    timestamp TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    -- Email address of deleted user
-    username VARCHAR(255) NOT NULL DEFAULT '',
-    -- Domain part of user email address
-    domain VARCHAR(255) NOT NULL DEFAULT '',
-    -- Absolute path of user's mailbox
-    maildir VARCHAR(255) NOT NULL DEFAULT '',
-    -- Which domain admin deleted this user
-    admin VARCHAR(255) NOT NULL DEFAULT ''
-);
-
-CREATE INDEX idx_deleted_mailboxes_timestamp ON deleted_mailboxes (timestamp);
-CREATE INDEX idx_deleted_mailboxes_username ON deleted_mailboxes (username);
-CREATE INDEX idx_deleted_mailboxes_domain ON deleted_mailboxes (domain);
-CREATE INDEX idx_deleted_mailboxes_admin ON deleted_mailboxes (admin);
-
 -- GRANT INSERT,UPDATE,DELETE,SELECT on sessions,log,updatelog to iredadmin;
 -- GRANT UPDATE,USAGE,SELECT ON log_id_seq TO iredadmin;

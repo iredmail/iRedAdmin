@@ -53,9 +53,13 @@ CREATE TABLE IF NOT EXISTS `deleted_mailboxes` (
     `maildir` VARCHAR(255) NOT NULL DEFAULT '',
     -- Which domain admin deleted this user
     `admin` VARCHAR(255) NOT NULL DEFAULT '',
+    -- The time scheduled to delete this mailbox.
+    -- NOTE: it requires cron job + script to actually delete the mailbox.
+    delete_date DATE NOT NULL DEFAULT '0000-00-00',
     KEY id (id),
     INDEX (timestamp),
     INDEX (username),
     INDEX (domain),
-    INDEX (admin)
+    INDEX (admin),
+    INDEX (delete_date)
 ) ENGINE=MyISAM;
