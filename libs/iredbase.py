@@ -23,10 +23,18 @@ from ireddate import convert_utc_to_timezone
 web.config.debug = settings.DEBUG
 
 # Check Policyd/Cluebringer
-enable_policyd = settings.policyd_enabled
-enable_cluebringer = settings.policyd_enabled
-if settings.policyd_db_name in ['cluebringer']:
-    enable_policyd = False
+enable_policyd = False
+enable_cluebringer = False
+try:
+    enable_policyd = settings.policyd_enabled
+    enable_cluebringer = settings.policyd_enabled
+
+    if settings.policyd_db_name in ['cluebringer']:
+        enable_policyd = False
+    else:
+        enable_cluebringer = False
+except:
+    pass
 
 # Set session parameters.
 web.config.session_parameters['cookie_name'] = 'iRedAdmin'

@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `deleted_mailboxes` (
     `admin` VARCHAR(255) NOT NULL DEFAULT '',
     -- The time scheduled to delete this mailbox.
     -- NOTE: it requires cron job + script to actually delete the mailbox.
-    delete_date DATE NOT NULL DEFAULT '0000-00-00',
+    delete_date DATE DEFAULT NULL,
     KEY id (id),
     INDEX (timestamp),
     INDEX (username),
