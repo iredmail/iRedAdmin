@@ -103,11 +103,8 @@ USER_ATTRS_ALL = [
     'enabledService', 'memberOfGroup', 'employeeNumber', 'preferredLanguage',
     'telephoneNumber', 'userRecipientBccAddress', 'userSenderBccAddress',
     'mailForwardingAddress', 'mtaTransport',
-    'storageBaseDirectory', 'mailMessageStore',  # Maildir
+    'storageBaseDirectory', 'mailMessageStore', 'homeDirectory',    # Maildir
     'mobile', 'title', 'shadowAddress',
     'shadowLastChange',     # Date of last password change, it's a integer.
-    # Per-user whitelist & blacklist.
-    'amavisWhitelistSender', 'amavisBlacklistSender',
-    'mailWhitelistRecipient', 'mailBlacklistRecipient',
     'domainGlobalAdmin',    # Global admin
 ]
