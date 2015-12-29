@@ -1,5 +1,6 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
+import os
 import ldap
 import ldap.filter
 import web
@@ -333,6 +334,31 @@ class User(core.LDAPWrap):
         self.dnUser = ldaputils.convert_keyword_to_dn(self.mail, accountType='user')
         if self.dnUser[0] is False:
             return self.dnUser
+
+        # Log maildir path in SQL table.
+        try:
+            qr_profile = self.profile(domain=self.domain, mail=self.mail)
+            if qr_profile[0]:
+                user_profile = qr_profile[1][0][1]
+            else:
+                return qr_profile
+
+            if 'homeDirectory' in user_profile:
+                maildir = user_profile.get('homeDirectory', [''])[0]
+            else:
+                storageBaseDirectory = user_profile.get('storageBaseDirectory', [''])[0]
+                mailMessageStore = user_profile.get('mailMessageStore', [''])[0]
+                maildir = os.path.join(storageBaseDirectory, mailMessageStore)
+
+            web.admindb.insert('deleted_mailboxes',
+                               maildir=maildir,
+                               username=self.mail,
+                               domain=self.domain,
+                               admin=session.get('username'))
+        except:
+            pass
+
+        del maildir
 
         # Delete user object.
         try:

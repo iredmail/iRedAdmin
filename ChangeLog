@@ -1,3 +1,9 @@
+= 0.5 =
+    * Improvements:
+        + Log maildir path of deleted user in sql database:
+            - OpenLDAP backend: it's stored in 'iredadmin.deleted_mailboxes'.
+            - SQL backends: it's stored in 'vmail.deleted_mailboxes'.
+
 = 0.4.3 =
     * New settings for iRedAPD integration in `settings.py`, used to connect
       to iRedAPD SQL database.

@@ -201,7 +201,21 @@ class Domain(core.PGSQLWrap):
         if not domains:
             return (True, )
 
-        sql_vars = {'domains': domains, }
+        sql_vars = {'domains': domains, 'admin': session.get('username')}
+
+        # Log maildir paths of existing users
+        try:
+            sql_raw = '''
+                INSERT INTO deleted_mailboxes (username, maildir, domain, admin)
+                SELECT username, \
+                       CONCAT(storagebasedirectory || '/' || storagenode || '/' || maildir), \
+                       domain, \
+                       $admin
+                  FROM mailbox
+                 WHERE domain IN $domains'''
+            self.conn.query(sql_raw, vars=sql_vars)
+        except:
+            pass
 
         # Delete domain and related records.
         try:

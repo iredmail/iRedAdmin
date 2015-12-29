@@ -77,7 +77,9 @@ class User(core.MySQLWrap):
         if not isinstance(mails, list):
             return (False, 'INVALID_MAIL')
 
-        mails = [str(v).lower() for v in mails if iredutils.is_email(v) and str(v).endswith('@' + domain)]
+        mails = [str(v).lower()
+                 for v in mails
+                 if iredutils.is_email(v) and str(v).endswith('@' + domain)]
         if not mails:
             return (False, 'INVALID_MAIL')
 

@@ -166,22 +166,28 @@ class MySQLWrap:
                 return (False, str(e))
         elif accountType == 'user':
             accounts = [str(v) for v in accounts if iredutils.is_email(v)]
-            sql_vars = {'accounts': accounts, }
-            try:
-                for tbl in ['mailbox', 'used_quota',
-                            'recipient_bcc_user', 'sender_bcc_user',
-                           ]:
-                    self.conn.delete(
-                        tbl,
-                        vars=sql_vars,
-                        where='username IN $accounts',
-                    )
+            sql_vars = {'accounts': accounts, 'admin': session.get('username')}
 
-                self.conn.delete(
-                    'alias',
-                    vars=sql_vars,
-                    where='address IN $accounts',
-                )
+            try:
+                sql_raw = '''
+                    INSERT INTO deleted_mailboxes (username, maildir, domain, admin)
+                    SELECT username, \
+                           CONCAT(storagebasedirectory, '/', storagenode, '/', maildir) AS maildir, \
+                           SUBSTRING_INDEX(username, '@', -1), \
+                           $admin
+                      FROM mailbox
+                     WHERE username IN $accounts'''
+                self.conn.query(sql_raw, vars=sql_vars)
+
+                for tbl in ['mailbox', 'used_quota',
+                            'recipient_bcc_user', 'sender_bcc_user']:
+                    self.conn.delete(tbl,
+                                     vars=sql_vars,
+                                     where='username IN $accounts')
+
+                self.conn.delete('alias',
+                                 vars=sql_vars,
+                                 where='address IN $accounts')
 
                 # Remove users from alias.goto.
                 try:

@@ -146,6 +146,26 @@ class Domain(core.LDAPWrap):
             if dn[0] is False:
                 return dn
 
+            # Log maildir path in SQL table.
+            try:
+                qr = self.conn.search_s(attrs.DN_BETWEEN_USER_AND_DOMAIN + dn,
+                                        ldap.SCOPE_ONELEVEL,
+                                        "(objectClass=mailUser)",
+                                        ['mail', 'homeDirectory'])
+                v = []
+                for obj in qr:
+                    deleted_mail = obj[1].get('mail')[0]
+                    deleted_maildir = obj[1].get('homeDirectory', [''])[0]
+                    v += [{'maildir': deleted_maildir,
+                           'username': deleted_mail,
+                           'domain': domain,
+                           'admin': session.get('username')}]
+
+                if v:
+                    web.admindb.multiple_insert('deleted_mailboxes', values=v)
+            except:
+                pass
+
             try:
                 deltree.DelTree(self.conn, dn, ldap.SCOPE_SUBTREE)
                 web.logger(msg="Delete domain: %s." % (domain), domain=domain, event='delete',)
