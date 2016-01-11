@@ -568,7 +568,7 @@ def generate_maildir_path(mail,
 
     if hash_maildir:
         if len(username) >= 3:
-            chars = [username[0], username[1], username[0]]
+            chars = [username[0], username[1], username[2]]
 
         elif len(username) == 2:
             chars = [username[0], username[1], username[1]]
