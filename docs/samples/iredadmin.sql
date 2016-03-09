@@ -1,19 +1,19 @@
-#CREATE DATABASE iredadmin DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-#GRANT INSERT,UPDATE,DELETE,SELECT on iredadmin.* to iredadmin@localhost identified by 'secret_passwd';
-#USE iredadmin;
+-- CREATE DATABASE iredadmin DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+-- GRANT INSERT,UPDATE,DELETE,SELECT on iredadmin.* to iredadmin@localhost identified by 'secret_passwd';
+-- USE iredadmin;
 
-#
-# Session table required by webpy session module.
-#
+--
+-- Session table required by webpy session module.
+--
 CREATE TABLE IF NOT EXISTS `sessions` (
     `session_id` CHAR(128) UNIQUE NOT NULL,
     `atime` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     `data` TEXT
-) ENGINE=MyISAM;
+) ENGINE=InnoDB;
 
-#
-# Store all admin operations.
-#
+--
+-- Store all admin operations.
+--
 CREATE TABLE IF NOT EXISTS `log` (
     `id` BIGINT(20) UNSIGNED AUTO_INCREMENT,
     `timestamp` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -32,14 +32,14 @@ CREATE TABLE IF NOT EXISTS `log` (
     INDEX (username),
     INDEX (event),
     INDEX (loglevel)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB;
 
 CREATE TABLE IF NOT EXISTS `updatelog` (
     `id` BIGINT(20) UNSIGNED AUTO_INCREMENT,
     `date` DATE NOT NULL,
     KEY id (id),
     INDEX (date)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB;
 
 -- Used to store basic info of deleted mailboxes.
 CREATE TABLE IF NOT EXISTS `deleted_mailboxes` (
@@ -62,4 +62,4 @@ CREATE TABLE IF NOT EXISTS `deleted_mailboxes` (
     INDEX (domain),
     INDEX (admin),
     INDEX (delete_date)
-) ENGINE=MyISAM;
+) ENGINE=InnoDB;
