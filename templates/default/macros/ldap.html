@@ -110,16 +110,6 @@ Display enabledService
         <label>{{ _('Mail service') }} <span class="grey"><em>({{ _('Check this box in order to enable other services') }})</em></span></label>
     </div>
 
-    {% if accountType in ['domain', 'user', ] %}
-        {% if session.get('enablePolicyd') is sameas true %}
-            <h4 class="size-250 fl-space">&nbsp;</h4>
-            <div class="form-checkbox-item clear">
-                <input type="checkbox" name="greylisting" value="greylisting" {% if greylisted is sameas true %}checked{%endif%} class="checkbox fl-space" rel="checkboxhorizont" />
-                <label>{{ _('Greylisting') }} {% if accountType == 'domain' %}<span class="grey"><em>({{ _('Per-user greylisting setting has higher priority') }})</em></span>{% endif %}</label>
-            </div>
-        {% endif %}
-    {% endif %}
-
         {% for srv in available_services %}
             {% if srv[0] != 'hidden' %}
                 <h4 class="size-250 fl-space">&nbsp;</h4>

@@ -71,23 +71,11 @@
     {% endif %}
 
 <div class="form-field clear">
-    {% if session.get('enablePolicyd') is sameas true %}
-        <h4 class="size-250 fl-space">{{ _('Enabled Services') }}</h4>
-        <div class="form-checkbox-item clear">
-            <input type="checkbox" name="greylisting" value="greylisting" {% if greylisted is sameas true %}checked{%endif%} class="checkbox fl-space" rel="checkboxhorizont" />
-            <label>{{ _('Greylisting') }}</label>
-        </div>
-    {% else %}
-        <h4 class="size-250 fl-space">{{ _('Enabled Services') }}</h4>
-    {% endif %}
+    <h4 class="size-250 fl-space">{{ _('Enabled Services') }}</h4>
 
     {% for srv in available_services %}
-        {% if session.get('enablePolicyd') is sameas true %}
+        {% if not loop.first %}
             <h4 class="size-250 fl-space">&nbsp;</h4>
-        {% else %}
-            {% if not loop.first %}
-                <h4 class="size-250 fl-space">&nbsp;</h4>
-            {% endif %}
         {% endif %}
 
         <div class="form-checkbox-item clear">

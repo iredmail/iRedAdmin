@@ -265,20 +265,6 @@
 {% endif %}
 {%- endmacro %}
 
-{% macro policydMsgHandler(msg, listname='whitelist') -%}
-{% if msg is defined and msg is not sameas none and msg|string != '' %}
-    {% if msg == 'CREATED' %}
-        {{ successInfo( _('Records are added. <a href="%s" target="_blank">View them now</a>') |format(ctx.homepath + '/system/' + listname), trusted=true) }}
-    {% elif msg == 'DELETED' %}
-        {{ successInfo( _('Selected records were deleted.') ) }}
-    {% elif msg == 'INVALID_ACTION' %}
-        {{ errorInfo(_('Invalid action.')) }}
-    {% else %}
-        {{ errorInfo( msg ) }}
-    {% endif %}
-{% endif %}
-{%- endmacro %}
-
 {% macro logMsgHandler(msg) -%}
 {% if msg is defined and msg is not sameas none and msg|string != '' %}
     {% if msg == 'DELETED' %}

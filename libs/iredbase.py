@@ -22,20 +22,6 @@ from ireddate import convert_utc_to_timezone
 # Set debug mode.
 web.config.debug = settings.DEBUG
 
-# Check Policyd/Cluebringer
-enable_policyd = False
-enable_cluebringer = False
-try:
-    enable_policyd = settings.policyd_enabled
-    enable_cluebringer = settings.policyd_enabled
-
-    if settings.policyd_db_name in ['cluebringer']:
-        enable_policyd = False
-    else:
-        enable_cluebringer = False
-except:
-    pass
-
 # Set session parameters.
 web.config.session_parameters['cookie_name'] = 'iRedAdmin'
 web.config.session_parameters['cookie_domain'] = None
@@ -97,10 +83,6 @@ session = web.session.Session(
         # Store password in plain text.
         'store_password_in_plain_text': settings.STORE_PASSWORD_IN_PLAIN_TEXT,
 
-        # Policyd/Cluebringer integration.
-        'enable_policyd': enable_policyd,
-        'enable_cluebringer': enable_cluebringer,
-
         # Amavisd related features.
         'amavisd_enable_quarantine': settings.amavisd_enable_quarantine,
     }
@@ -159,8 +141,6 @@ def render_template(template_name, **context):
         'backend': settings.backend,
         'csrf_token': csrf_token,
         'pageSizeLimit': settings.PAGE_SIZE_LIMIT,
-        'policyPriorityOfUser': settings.POLICY_PRIORITY_OF_USER,
-        'policyPriorityOfDomain': settings.POLICY_PRIORITY_OF_DOMAIN,
     })
 
     jinja_env.filters.update({

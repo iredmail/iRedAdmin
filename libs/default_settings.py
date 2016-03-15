@@ -264,18 +264,6 @@ DBMAIL_DEFAULT_IMAP_FOLDERS = ['INBOX', 'Sent', 'Drafts', 'Trash', 'Junk', ]
 DBMAIL_SQL_FOR_NEWLY_CREATED_USER = []
 
 ###################################
-# Policyd related settings.
-#
-
-# Priority of Policyd policies, includes throttling, greylist opt-in, etc.
-POLICY_PRIORITY_OF_DOMAIN = 10
-POLICY_PRIORITY_OF_USER = 20
-
-# If you turn off greylisting in Policyd config file (policyd.conf), please
-# turn below setting to False.
-POLICY_GREYLISTED_BY_DEFAULT = True
-
-###################################
 # Minor settings. You do not need to change them.
 #
 # List how many items in one page. e.g. domain list, user list.
