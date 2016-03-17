@@ -1,3 +1,7 @@
+= 0.6 =
+    * Fixed issues:
+        - Not add required header (Content-Type: text/html) for web pages.
+
 = 0.5 =
     * Fixed issues:
         - Improper maildir path if username contains more than 3 characters.

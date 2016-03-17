@@ -151,6 +151,7 @@ def render_template(template_name, **context):
         'convert_utc_to_timezone': convert_utc_to_timezone,
     })
 
+    web.header('Content-Type', 'text/html')
     return jinja_env.get_template(template_name).render(context)
 
 
