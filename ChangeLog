@@ -1,4 +1,8 @@
 = 0.6 =
+    * Improvements:
+        + Add 'enabledService=sogo' (LDAP) or 'mailbox.enablesogo=1' (SQL) for
+          newly created mail user.
+
     * Fixed issues:
         - Not add required header (Content-Type: text/html) for web pages.
 

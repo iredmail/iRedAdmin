@@ -103,6 +103,7 @@ def ldif_mailuser(domain, username, cn, passwd, quota=0, aliasDomains=[], groups
         ('enabledService', ['mail', 'deliver', 'lda', 'lmtp', 'smtp', 'smtpsecured',
                             'pop3', 'pop3secured', 'imap', 'imapsecured',
                             'managesieve', 'managesievesecured',
+                            'sogo',
                             # ManageService name In dovecot-1.2.
                             'sieve', 'sievesecured',
                             'forward', 'senderbcc', 'recipientbcc',

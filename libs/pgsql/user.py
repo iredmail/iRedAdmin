@@ -16,6 +16,7 @@ ENABLED_SERVICES = [
     'enablemanagesieve', 'enablemanagesievesecured',
     'enablesieve', 'enablesievesecured',
     'enabledeliver', 'enableinternal',
+    'enablesogo',
 ]
 
 
