@@ -17,7 +17,7 @@
 #   3: Test this script in command line directly, make sure no errors in output
 #      message.
 #
-#       # python /path/to/cleanup_amavisd_db.py
+#       # python cleanup_amavisd_db.py
 #
 #   4: Setup a daily cron job to execute this script. For example: execute
 #      it daily at 1:30AM.
@@ -46,12 +46,13 @@ logger.info('Backend: %s' % backend)
 logger.info('SQL server: %s:%d' % (settings.amavisd_db_host, int(settings.amavisd_db_port)))
 
 query_size_limit = 100
+keep_quar_days = settings.AMAVISD_REMOVE_QUARANTINED_IN_DAYS
+keep_inout_days = settings.AMAVISD_REMOVE_MAILLOG_IN_DAYS
 
 conn = ira_tool_lib.get_db_conn('amavisd')
 
-
 # Removing records from single table.
-def removing_from_one_table(sql_table, index_column, removed_values):
+def remove_from_one_table(conn, sql_table, index_column, removed_values):
     total = len(removed_values)
 
     # Delete 1000 records each time
@@ -64,7 +65,7 @@ def removing_from_one_table(sql_table, index_column, removed_values):
 
         for i in range(loop_times):
             removing_values = removed_values[offset*i: offset*(i+1)]
-            logger.info('\t[-] Deleting %d records from table `%s`' % (i*offset + len(removing_values), sql_table))
+            logger.info('\t[-] Deleting records from table `%s`: %d - %d' % (sql_table, i*offset, i*offset + len(removing_values)))
             conn.delete(sql_table,
                         vars={'ids': removing_values},
                         where='%s IN $ids' % index_column)
@@ -72,15 +73,17 @@ def removing_from_one_table(sql_table, index_column, removed_values):
 
 # Delete old quarantined mails from table 'msgs'. It will also
 # delete records in table 'quarantine'.
-logger.info('Delete quarantined mails which older than %d days' % settings.AMAVISD_REMOVE_QUARANTINED_IN_DAYS)
+logger.info('Delete quarantined mails which older than %d days' % keep_quar_days)
+
+if ira_tool_lib.sql_dbn == 'mysql':
+    sql_where = """quar_type = 'Q'
+                   AND time_num < UNIX_TIMESTAMP(DATE_SUB(NOW(), INTERVAL %d DAY))""" % keep_quar_days
+elif ira_tool_lib.sql_dbn == 'postgres':
+    sql_where = """quar_type = 'Q'
+                   AND time_iso < CURRENT_TIMESTAMP - INTERVAL '%d DAYS'""" % keep_quar_days
+
 counter_msgs = 0
 while True:
-    if ira_tool_lib.sql_dbn == 'mysql':
-        sql_where = """quar_type = 'Q' AND time_num < UNIX_TIMESTAMP(DATE_SUB(NOW(), INTERVAL %d DAY))""" % settings.AMAVISD_REMOVE_QUARANTINED_IN_DAYS
-    elif ira_tool_lib.sql_dbn == 'postgres':
-        sql_where = """quar_type = 'Q' AND time_iso < CURRENT_TIMESTAMP - INTERVAL '%d DAYS'""" % settings.AMAVISD_REMOVE_QUARANTINED_IN_DAYS
-    else:
-        break
 
     qr = conn.select('msgs',
                      what='mail_id',
@@ -89,25 +92,28 @@ while True:
 
     if qr:
         ids = [id.mail_id for id in qr]
+        _total = len(ids)
+
+        logger.info('\t[-] Deleting records: %d - %d' % (counter_msgs+1, counter_msgs + _total))
+
+        conn.delete('msgs', vars={'ids': ids}, where='mail_id IN $ids')
+        conn.delete('msgrcpt', vars={'ids': ids}, where='mail_id IN $ids')
 
         counter_msgs += len(ids)
-        logger.info('\t[-] Deleting %d records' % counter_msgs)
-
-        conn.delete('msgs', vars={'ids': ids}, where='mail_id IN $ids')
-        conn.delete('msgrcpt', vars={'ids': ids}, where='mail_id IN $ids')
     else:
         break
 
-logger.info('Delete incoming/outgoing emails which older than %d days' % settings.AMAVISD_REMOVE_MAILLOG_IN_DAYS)
+logger.info('Delete incoming/outgoing emails which older than %d days' % keep_inout_days)
+
+if ira_tool_lib.sql_dbn == 'mysql':
+    sql_where = """quar_type <> 'Q'
+                   AND time_num < UNIX_TIMESTAMP(DATE_SUB(NOW(), INTERVAL %d DAY))""" % keep_inout_days
+elif ira_tool_lib.sql_dbn == 'postgres':
+    sql_where = """quar_type <> 'Q'
+                   AND time_iso < CURRENT_TIMESTAMP - INTERVAL '%d DAYS'""" % keep_inout_days
+
 counter_msgrcpt = 0
 while True:
-    if ira_tool_lib.sql_dbn == 'mysql':
-        sql_where = """quar_type <> 'Q' AND time_num < UNIX_TIMESTAMP(DATE_SUB(NOW(), INTERVAL %d DAY))""" % settings.AMAVISD_REMOVE_MAILLOG_IN_DAYS
-    elif ira_tool_lib.sql_dbn == 'postgres':
-        sql_where = """quar_type <> 'Q' AND time_iso < CURRENT_TIMESTAMP - INTERVAL '%d DAYS'""" % settings.AMAVISD_REMOVE_MAILLOG_IN_DAYS
-    else:
-        break
-
     qr = conn.select('msgs',
                      what='mail_id',
                      where=sql_where,
@@ -115,12 +121,14 @@ while True:
 
     if qr:
         ids = [id.mail_id for id in qr]
+        _total = len(ids)
 
-        counter_msgrcpt += len(ids)
-        logger.info('\t[-] Deleting %d records' % counter_msgrcpt)
+        logger.info('\t[-] Deleting records: %d - %d' % (counter_msgrcpt+1, counter_msgrcpt + _total))
 
         conn.delete('msgs', vars={'ids': ids}, where='mail_id IN $ids')
         conn.delete('msgrcpt', vars={'ids': ids}, where='mail_id IN $ids')
+
+        counter_msgrcpt += _total
     else:
         break
 
@@ -136,7 +144,7 @@ conn.query('''DELETE FROM msgrcpt
 logger.info('Delete unreferenced records from table `quarantine`.')
 msgs_mail_ids = set()
 maddr_ids_in_use = set()
-quar_mail_ids = []
+quar_mail_ids = set()
 
 qr = conn.select('msgs', what='mail_id, sid')
 for i in qr:
@@ -145,12 +153,13 @@ for i in qr:
 
 qr = conn.select('quarantine', what='mail_id')
 for i in qr:
-    quar_mail_ids.append(i.mail_id)
+    quar_mail_ids.add(i.mail_id)
 
 invalid_quar_mail_ids = [id for id in quar_mail_ids if id not in msgs_mail_ids]
-removing_from_one_table(sql_table='quarantine',
-                        index_column='mail_id',
-                        removed_values=invalid_quar_mail_ids)
+remove_from_one_table(conn=conn,
+                      sql_table='quarantine',
+                      index_column='mail_id',
+                      removed_values=invalid_quar_mail_ids)
 
 #
 # Delete unreferenced records from table `maddr`.
@@ -168,9 +177,10 @@ for i in qr:
     maddr_ids_in_use.add(i.rid)
 
 invalid_maddr_ids = [id for id in maddr_ids if id not in maddr_ids_in_use]
-removing_from_one_table(sql_table='maddr',
-                        index_column='id',
-                        removed_values=invalid_maddr_ids)
+remove_from_one_table(conn=conn,
+                      sql_table='maddr',
+                      index_column='id',
+                      removed_values=invalid_maddr_ids)
 
 #
 # Delete unreferenced records from table `mailaddr`.
@@ -193,15 +203,16 @@ for i in qr:
 try:
     qr = conn.select('outbound_wblist', what='rid')
     for i in qr:
-        wblist_ids.add(i.sid)
+        wblist_ids.add(i.rid)
 except:
     # No outbound_wblist table
     pass
 
 invalid_mailaddr_ids = [id for id in mailaddr_ids if id not in wblist_ids]
-removing_from_one_table(sql_table='mailaddr',
-                        index_column='id',
-                        removed_values=invalid_mailaddr_ids)
+remove_from_one_table(conn=conn,
+                      sql_table='mailaddr',
+                      index_column='id',
+                      removed_values=invalid_mailaddr_ids)
 
 logger.info('')
 logger.info('Remained records:')

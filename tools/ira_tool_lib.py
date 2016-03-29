@@ -28,12 +28,13 @@ elif backend in ['pgsql']:
 else:
     sys.exit('Error: Unsupported backend (%s).' % backend)
 
-# Config logging
-logging.basicConfig(level=logging.INFO,
-                    format='* [%(asctime)s] %(message)s',
-                    datefmt='%Y-%m-%d %H:%M:%S')
-
-logger = logging.getLogger('iRedAdmin-Pro')
+# logging
+logger = logging.getLogger('iredadmin')
+_ch = logging.StreamHandler(sys.stdout)
+_formatter = logging.Formatter('* %(message)s')
+_ch.setFormatter(_formatter)
+logger.addHandler(_ch)
+logger.setLevel(logging.INFO)
 
 
 def print_error(msg):
@@ -41,6 +42,16 @@ def print_error(msg):
 
 
 def get_db_conn(db):
+    if backend == 'ldap' and db in ['ldap', 'vmail']:
+        from libs.ldaplib.auth import verify_bind_dn_pw
+        qr = verify_bind_dn_pw(dn=settings.ldap_bind_dn,
+                               password=settings.ldap_bind_password,
+                               close_connection=False)
+        if qr[0]:
+            return qr[1]
+        else:
+            return None
+
     try:
         conn = web.database(dbn=sql_dbn,
                             host=settings.__dict__[db + '_db_host'],
@@ -71,3 +82,19 @@ def log_to_iredadmin(msg, event, admin='', loglevel='info'):
         pass
 
     return None
+
+
+def sql_count_id(conn, table, column='id', where=None):
+    if where:
+        qr = conn.select(table,
+                         what='count(%s) as total' % column,
+                         where=where)
+    else:
+        qr = conn.select(table,
+                         what='count(%s) as total' % column)
+    if qr:
+        total = qr[0].total
+    else:
+        total = 0
+
+    return total

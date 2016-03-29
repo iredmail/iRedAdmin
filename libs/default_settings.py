@@ -231,6 +231,22 @@ AMAVISD_EXECUTE_SQL_WITHOUT_ENABLED = False
 AMAVISD_SQL_FOR_NEWLY_CREATED_USER = []
 
 ###################################
+# iRedAdmin related settings.
+#
+IREDADMIN_LOG_KEPT_DAYS = 30
+
+###################################
+# iRedAPD related settings.
+#
+# Show how many top senders/recipients on Dashboard page.
+NUM_TOP_SENDERS = 10
+NUM_TOP_RECIPIENTS = 10
+
+# Count top senders/recipients in last SECONDS (86400 == 1 day)
+TIME_LENGTH_OF_TOP_SENDERS = 86400
+TIME_LENGTH_OF_TOP_RECIPIENTS = 86400
+
+###################################
 # DBMail related settings.
 #
 
@@ -268,9 +284,3 @@ DBMAIL_SQL_FOR_NEWLY_CREATED_USER = []
 #
 # List how many items in one page. e.g. domain list, user list.
 PAGE_SIZE_LIMIT = 50
-
-# Import local settings.
-try:
-    from libs.settings_local import *
-except Exception:
-    pass

@@ -11,6 +11,8 @@
 export IRA_HTTPD_USER='iredadmin'
 export IRA_HTTPD_GROUP='iredadmin'
 
+export SYS_ROOT_USER='root'
+
 # Check OS to detect some necessary info.
 export KERNEL_NAME="$(uname -s | tr '[a-z]' '[A-Z]')"
 export UWSGI_RC_SCRIPT_NAME='uwsgi'
@@ -22,6 +24,7 @@ if [ X"${KERNEL_NAME}" == X"LINUX" ]; then
         export DISTRO='RHEL'
         export HTTPD_SERVERROOT='/var/www'
         export HTTPD_RC_SCRIPT_NAME='httpd'
+        export CRON_SPOOL_DIR='/var/spool/cron'
     elif [ -f /etc/lsb-release ]; then
         # Ubuntu
         export DISTRO='UBUNTU'
@@ -31,6 +34,7 @@ if [ X"${KERNEL_NAME}" == X"LINUX" ]; then
             export HTTPD_SERVERROOT='/usr/share/apache2'
         fi
         export HTTPD_RC_SCRIPT_NAME='apache2'
+        export CRON_SPOOL_DIR='/var/spool/cron/crontabs'
     elif [ -f /etc/debian_version ]; then
         # Debian
         export DISTRO='DEBIAN'
@@ -40,11 +44,13 @@ if [ X"${KERNEL_NAME}" == X"LINUX" ]; then
             export HTTPD_SERVERROOT='/usr/share/apache2'
         fi
         export HTTPD_RC_SCRIPT_NAME='apache2'
+        export CRON_SPOOL_DIR='/var/spool/cron/crontabs'
     elif [ -f /etc/SuSE-release ]; then
         # openSUSE
         export DISTRO='SUSE'
         export HTTPD_SERVERROOT='/srv/www'
         export HTTPD_RC_SCRIPT_NAME='apache2'
+        export CRON_SPOOL_DIR='/var/spool/cron'
     else
         echo "<<< ERROR >>> Cannot detect Linux distribution name. Exit."
         echo "Please contact support@iredmail.org to solve it."
@@ -58,17 +64,21 @@ elif [ X"${KERNEL_NAME}" == X'FREEBSD' ]; then
     else:
         export HTTPD_RC_SCRIPT_NAME='apache22'
     fi
+    export CRON_SPOOL_DIR='/var/cron/tabs'
 elif [ X"${KERNEL_NAME}" == X'OPENBSD' ]; then
     export DISTRO='OPENBSD'
     export HTTPD_SERVERROOT='/var/www'
 
     export IRA_HTTPD_USER='www'
     export IRA_HTTPD_GROUP='www'
+    export CRON_SPOOL_DIR='/var/cron/tabs'
 else
     echo "Cannot detect Linux/BSD distribution. Exit."
     echo "Please contact author iRedMail team <support@iredmail.org> to solve it."
     exit 255
 fi
+
+export CRON_FILE="${CRON_SPOOL_DIR}/${SYS_ROOT_USER}"
 
 # Optional argument to set the directory which stores iRedAdmin.
 if [ $# -gt 0 ]; then
@@ -271,13 +281,6 @@ ln -s ${name_new_version} iredadmin
 cd ${NEW_IRA_ROOT_DIR}/tools/
 python delete_sessions.py
 
-# Sync virtual mail domains to Cluebringer policy group '@internal_domains'.
-if grep 'policyd_db_name.*cluebringer.*' ${IRA_CONF_PY} &>/dev/null; then
-    echo "* Add existing virtual mail domains to Cluebringer database as internal domains."
-
-    python sync_cluebringer_internal_domains.py
-fi
-
 # Add missing setting parameters.
 if grep 'amavisd_enable_logging.*True.*' ${IRA_CONF_PY} &>/dev/null; then
     add_missing_parameter 'amavisd_enable_policy_lookup' True 'Enable per-recipient spam policy, white/blacklist.'
@@ -293,13 +296,21 @@ if ! grep '^iredapd_' ${IRA_CONF_PY} &>/dev/null; then
         grep '^iredapd_db_' /opt/iredapd/settings.py >> ${IRA_CONF_PY}
         perl -pi -e 's#iredapd_db_server#iredapd_db_host#g' ${IRA_CONF_PY}
     else
+        # Check backend.
+        if egrep '^backend.*pgsql' ${IRA_CONF_PY} &>/dev/null; then
+            export IREDAPD_DB_PORT='5432'
+        else
+            export IREDAPD_DB_PORT='3306'
+        fi
+
         add_missing_parameter 'iredapd_db_host' '127.0.0.1'
-        add_missing_parameter 'iredapd_db_port' '3306'
+        add_missing_parameter 'iredapd_db_port' ${IREDAPD_DB_PORT}
         add_missing_parameter 'iredapd_db_name' 'iredapd'
         add_missing_parameter 'iredapd_db_user' 'iredapd'
         add_missing_parameter 'iredapd_db_password' 'password'
     fi
 fi
+perl -pi -e 's#iredapd_db_server#iredapd_db_host#g' ${IRA_CONF_PY}
 
 # Fix incorrect parameter name:
 #   - ADDITION_USER_SERVICES -> ADDITIONAL_ENABLED_USER_SERVICES
@@ -324,6 +335,24 @@ fi
 echo "  + [optional] lxml"
 if [ X"$(has_python_module lxml)" == X'NO' ]; then
     install_pkg $DEP_PY_LXML
+fi
+
+
+#------------------------------
+# Cron job.
+#
+[[ -d ${CRON_SPOOL_DIR} ]] || mkdir -p ${CRON_SPOOL_DIR} &>/dev/null
+if [[ ! -f ${CRON_FILE} ]]; then
+    touch ${CRON_FILE} &>/dev/null
+    chmod 0600 ${CRON_FILE} &>/dev/null
+fi
+
+# cron job for cleaning up database.
+if ! grep 'iredadmin/tools/cleanup_db.py' ${CRON_FILE} &>/dev/null; then
+    cat >> ${CRON_FILE} <<EOF
+# iRedAdmin: Clean up sql database.
+1   *   *   *   *   ${PYTHON_BIN} ${IRA_ROOT_DIR}/tools/cleanup_db.py &>/dev/null
+EOF
 fi
 
 
