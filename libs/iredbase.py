@@ -141,6 +141,10 @@ def render_template(template_name, **context):
         'backend': settings.backend,
         'csrf_token': csrf_token,
         'pageSizeLimit': settings.PAGE_SIZE_LIMIT,
+        # Brand logo, name, description
+        'brand_logo': settings.BRAND_LOGO,
+        'brand_name': settings.BRAND_NAME,
+        'brand_desc': settings.BRAND_DESC,
     })
 
     jinja_env.filters.update({

@@ -1,5 +1,6 @@
 = 0.6 =
     * Improvements:
+        + Easy to set custom logo image, product name and short description.
         + New script: tools/cleanup_db.py. Used to clean up old SQL records in
           sql table `iredadmin.log`.
         + Add 'enabledService=sogo' (LDAP) or 'mailbox.enablesogo=1' (SQL) for

@@ -284,3 +284,12 @@ DBMAIL_SQL_FOR_NEWLY_CREATED_USER = []
 #
 # List how many items in one page. e.g. domain list, user list.
 PAGE_SIZE_LIMIT = 50
+
+# Path to the logo image.
+# Please copy your logo image to 'static/' folder, then put the image file name 
+# in BRAND_LOGO.  e.g.: 'logo.png' (will load file 'static/logo.png').
+BRAND_LOGO = ''
+
+# Product name, short description.
+BRAND_NAME = 'iRedAdmin-Pro'
+BRAND_DESC = 'iRedMail Admin Panel'

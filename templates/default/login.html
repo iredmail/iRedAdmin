@@ -35,9 +35,9 @@
             <div class="login-style">
                 <div class="login-header">
                     <div class="logo clear">
-                        {#
-                        <img src="{{ctx.homepath}}/static/{{skin}}/images/logo_earth_bw.png" alt="" class="picture" />
-                        #}
+                        {% if brand_logo %}
+                            <img src="{{ctx.homepath}}/static/{{ brand_logo }}" alt="logo" class="picture" height="40px" />
+                        {% endif %}
                         <span class="textlogo">
                             <span class="title">{{ _('Login to manage your mail domains & accounts') |title }}</span>
                         </span>
@@ -45,7 +45,9 @@
                 </div>
 
                 {# Show system message if available #}
-                {{ loginMsgHandler(msg) }}
+                <p class="clear">
+                    {{ loginMsgHandler(msg) }}
+                </p>
 
 
                 <form name="login_form" method="post" action="{{ctx.homepath}}/login">
