@@ -360,7 +360,10 @@ class Utils(core.LDAPWrap):
                 '(&(objectClass=mailDomain)(domainName=%s))' % domain,
                 ['domainName', 'domainAliasName'],
             )
-            return (True, result[0][1].get('domainName', []) + result[0][1].get('domainAliasName', []))
+
+            all_domains = result[0][1].get('domainName', []) + result[0][1].get('domainAliasName', [])
+            all_domains = [str(d).lower() for d in all_domains if iredutils.is_domain(d)]
+            return (True, all_domains)
         except Exception, e:
             return (False, ldaputils.getExceptionDesc(e))
 
