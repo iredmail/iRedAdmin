@@ -40,10 +40,6 @@ class User(core.LDAPWrap):
 
             return (True, self.users)
         except ldap.NO_SUCH_OBJECT:
-            #self.conn.add_s(
-            #        attrs.DN_BETWEEN_USER_AND_DOMAIN + self.domainDN,
-            #        iredldif.ldif_group(attrs.GROUP_USERS),
-            #        )
             return (False, 'NO_SUCH_OBJECT')
         except ldap.SIZELIMIT_EXCEEDED:
             return (False, 'EXCEEDED_LDAP_SERVER_SIZELIMIT')
@@ -60,9 +56,9 @@ class User(core.LDAPWrap):
         if self.domain != domain:
             raise web.seeother('/domains?msg=PERMISSION_DENIED')
 
-        self.filter = '(&(objectClass=mailUser)(mail=%s))' % (self.mail,)
+        self.filter = '(&(objectClass=mailUser)(mail=%s))' % (self.mail)
         if accountType == 'catchall':
-            self.filter = '(&(objectClass=mailUser)(mail=@%s))' % (self.mail,)
+            self.filter = '(&(objectClass=mailUser)(mail=@%s))' % (self.mail)
         else:
             if not self.mail.endswith('@' + self.domain):
                 raise web.seeother('/domains?msg=PERMISSION_DENIED')
@@ -105,7 +101,7 @@ class User(core.LDAPWrap):
 
         # Check account existing.
         connutils = connUtils.Utils()
-        if connutils.isAccountExists(domain=self.domain, mail=self.mail,):
+        if connutils.isAccountExists(domain=self.domain, mail=self.mail):
             return (False, 'ALREADY_EXISTS')
 
         # Get @domainAccountSetting.
@@ -234,9 +230,9 @@ class User(core.LDAPWrap):
             return (False, 'UNSUPPORTED_USER_RDN')
 
         try:
-            self.conn.add_s(ldap.filter.escape_filter_chars(self.dn), ldif,)
-            web.logger(msg="Create user: %s." % (self.mail), domain=self.domain, event='create',)
-            return (True,)
+            self.conn.add_s(ldap.filter.escape_filter_chars(self.dn), ldif)
+            web.logger(msg="Create user: %s." % (self.mail), domain=self.domain, event='create')
+            return (True, )
         except ldap.ALREADY_EXISTS:
             return (False, 'ALREADY_EXISTS')
         except Exception, e:
@@ -317,12 +313,12 @@ class User(core.LDAPWrap):
             else:
                 pass
 
-            return (True,)
+            return (True, )
         except Exception, e:
             return (False, ldaputils.getExceptionDesc(e))
 
     # Delete single user.
-    def deleteSingleUser(self, mail, deleteFromGroups=True,):
+    def deleteSingleUser(self, mail, deleteFromGroups=True):
         self.mail = web.safestr(mail)
         if not iredutils.is_email(self.mail):
             return (False, 'INVALID_MAIL')
@@ -383,7 +379,7 @@ class User(core.LDAPWrap):
                     domain=self.domain,
                     event='delete',
             )
-            return (True,)
+            return (True, )
         except ldap.LDAPError, e:
             return (False, ldaputils.getExceptionDesc(e))
 
@@ -411,7 +407,7 @@ class User(core.LDAPWrap):
 
             try:
                 # Delete user object (ldap.SCOPE_BASE).
-                self.deleteSingleUser(self.mail,)
+                self.deleteSingleUser(self.mail)
 
                 # Delete user object and whole sub-tree.
                 # Get dn of mail user and domain.
@@ -430,12 +426,12 @@ class User(core.LDAPWrap):
                 result[self.mail] = ldaputils.getExceptionDesc(e)
 
         if result == {}:
-            return (True,)
+            return (True, )
         else:
             return (False, str(result))
 
     @decorators.require_domain_access
-    def enableOrDisableAccount(self, domain, mails, action, attr='accountStatus',):
+    def enableOrDisableAccount(self, domain, mails, action, attr='accountStatus'):
         if mails is None or len(mails) == 0:
             return (False, 'NO_ACCOUNT_SELECTED')
 
@@ -470,7 +466,7 @@ class User(core.LDAPWrap):
                 result[self.mail] = str(e)
 
         if result == {}:
-            return (True,)
+            return (True, )
         else:
             return (False, str(result))
 
@@ -649,6 +645,6 @@ class User(core.LDAPWrap):
 
         try:
             self.conn.modify_s(self.dn, mod_attrs)
-            return (True,)
+            return (True, )
         except Exception, e:
             return (False, ldaputils.getExceptionDesc(e))

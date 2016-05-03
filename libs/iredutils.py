@@ -326,7 +326,7 @@ def verify_bcrypt_password(challenge_password, plain_password):
        or challenge_password.startswith('{blf-crypt}'):
         challenge_password = challenge_password[11:]
 
-    return bcrypt.checkpw(plain_password, challenge_password)
+    return bcrypt.hashpw(plain_password, challenge_password)
 
 
 def generate_md5_password(p):
