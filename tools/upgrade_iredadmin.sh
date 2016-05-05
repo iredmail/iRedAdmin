@@ -135,12 +135,10 @@ restart_web_service()
             echo "* [SKIP] Please restart service ${HTTPD_RC_SCRIPT_NAME} or ${UWSGI_RC_SCRIPT_NAME} (if you're running Nginx as web server) manually."
             ;;
         y|Y|yes|YES|* )
-            if [ X"${KERNEL_NAME}" == X'LINUX' ]; then
+            if [ X"${KERNEL_NAME}" == X'LINUX' -o X"${KERNEL_NAME}" == X'FREEBSD' ]; then
                 service ${web_service} restart
-            elif [ X"${KERNEL_NAME}" == X'FREEBSD' ]; then
-                /usr/local/etc/rc.d/${web_service} restart
             elif [ X"${KERNEL_NAME}" == X'OPENBSD' ]; then
-                /etc/rc.d/${web_service} restart
+                rcctl restart ${web_service}
             fi
 
             if [ X"$?" != X'0' ]; then
