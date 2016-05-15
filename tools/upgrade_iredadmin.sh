@@ -19,6 +19,8 @@ export UWSGI_RC_SCRIPT_NAME='uwsgi'
 export NGINX_PID_FILE='/var/run/nginx.pid'
 
 if [ X"${KERNEL_NAME}" == X"LINUX" ]; then
+    export PYTHON_BIN='/usr/bin/python'
+
     if [ -f /etc/redhat-release ]; then
         # RHEL/CentOS
         export DISTRO='RHEL'
@@ -59,6 +61,7 @@ if [ X"${KERNEL_NAME}" == X"LINUX" ]; then
 elif [ X"${KERNEL_NAME}" == X'FREEBSD' ]; then
     export DISTRO='FREEBSD'
     export HTTPD_SERVERROOT='/usr/local/www'
+    export PYTHON_BIN='/usr/local/bin/python'
     if [ -f /usr/local/etc/rc.d/apache24 ]; then
         export HTTPD_RC_SCRIPT_NAME='apache24'
     else:
@@ -66,6 +69,7 @@ elif [ X"${KERNEL_NAME}" == X'FREEBSD' ]; then
     fi
     export CRON_SPOOL_DIR='/var/cron/tabs'
 elif [ X"${KERNEL_NAME}" == X'OPENBSD' ]; then
+    export PYTHON_BIN='/usr/local/bin/python'
     export DISTRO='OPENBSD'
     export HTTPD_SERVERROOT='/var/www'
 

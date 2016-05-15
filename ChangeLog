@@ -1,3 +1,8 @@
+= 0.6.1 =
+    * Fixed issues:
+        + Not specify path to python command to run 'tools/cleanup_db.py' in
+          upgrade script, this causes error in cron job.
+
 = 0.6 =
     * Improvements:
         + Easy to set custom logo image, product name and short description.

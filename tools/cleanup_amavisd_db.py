@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 # Author: Zhang Huangbin <zhb@iredmail.org>
 # Purpose: Remove old records in Amavisd database.
 
