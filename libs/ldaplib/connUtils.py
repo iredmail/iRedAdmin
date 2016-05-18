@@ -65,7 +65,12 @@ class Utils(core.LDAPWrap):
                     if v in entries_new:
                         entries_new.remove(v)
 
-                mod_attr = [(ldap.MOD_REPLACE, attr, list(entries_new))]
+                if entries_new:
+                    mod_attr = [(ldap.MOD_REPLACE, attr, list(entries_new))]
+                else:
+                    # Delete thie attribute if no value left.
+                    mod_attr = [(ldap.MOD_REPLACE, attr, None)]
+
                 self.conn.modify_s(dn, mod_attr)
             except ldap.NO_SUCH_ATTRIBUTE:
                 pass
