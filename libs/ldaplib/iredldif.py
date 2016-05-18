@@ -124,15 +124,10 @@ def ldif_mailuser(domain,
         ('amavisLocal', ['TRUE']),
         ]
 
-    # Append @shadowAddress.
-    shadowAddresses = []
+    # Append `shadowAddress`
     if aliasDomains:
-        for d in aliasDomains:
-            if iredutils.is_domain(d):
-                shadowAddresses += [username + '@' + d]
-
-    if len(shadowAddresses) > 0:
-        ldif += [('shadowAddress', shadowAddresses)]
+        _shadowAddresses = [username + '@' + d for d in aliasDomains if iredutils.is_domain(d)]
+        ldif += [('shadowAddress', _shadowAddresses)]
 
     # Append quota. No 'mailQuota' attribute means unlimited.
     quota = str(quota).strip()
@@ -148,10 +143,7 @@ def ldif_mailuser(domain,
     # Append groups.
     if groups and isinstance(groups, list):
         # Remove duplicate items.
-        grps = set()
-        for g in groups:
-            grps.update([str(g).strip()])
-
-        ldif += [('memberOfGroup', list(grps))]
+        grps = [str(g).strip() for g in groups]
+        ldif += [('memberOfGroup', list(set(grps)))]
 
     return ldif
