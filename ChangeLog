@@ -1,3 +1,13 @@
+= 0.6.2 =
+    * Fixed issues:
+        - OpenBSD ldapd(*) cannot handle MOD_DELETE correctly, it will
+          remove all values of this attribute instead of removing just the
+          one we specified.
+
+          As a workaround, we perform one extra LDAP query to get all
+          present values of the attribute first, then remove the one we want
+          to delete.
+
 = 0.6.1 =
     * Fixed issues:
         + Not specify path to python command to run 'tools/cleanup_db.py' in

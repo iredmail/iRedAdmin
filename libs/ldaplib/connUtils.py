@@ -45,13 +45,32 @@ class Utils(core.LDAPWrap):
                 except Exception, e:
                     msg += str(e)
         elif action == 'delete' or action == 'remove':
-            for v in values:
-                try:
-                    self.conn.modify_s(self.dn, [(ldap.MOD_DELETE, attr, v)])
-                except ldap.NO_SUCH_ATTRIBUTE:
-                    pass
-                except Exception, e:
-                    msg += str(e)
+            #
+            # Note
+            #
+            # OpenBSD ldapd(*) cannot handle MOD_DELETE correctly, it will
+            # remove all values of this attribute instead of removing just the
+            # one we specified.
+            #
+            # As a workaround, we perform one extra LDAP query to get all
+            # present values of the attribute first, then remove the one we
+            # want to delete.
+            try:
+                # Get present values
+                qr = self.conn.search_s(self.dn, ldap.SCOPE_BASE, attrlist=[attr])
+                entries = qr[0][1].get(attr, [])
+                entries_new = set(entries)
+
+                for v in values:
+                    if v in entries_new:
+                        entries_new.remove(v)
+
+                mod_attr = [(ldap.MOD_REPLACE, attr, list(entries_new))]
+                self.conn.modify_s(dn, mod_attr)
+            except ldap.NO_SUCH_ATTRIBUTE:
+                pass
+            except Exception, e:
+                msg += str(e)
         else:
             return (False, 'UNKNOWN_ACTION')
 

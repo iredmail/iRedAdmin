@@ -7,71 +7,78 @@ from libs.ldaplib import ldaputils
 
 
 # Define and return LDIF structure of domain.
-def ldif_maildomain(domain, cn=None,
-        mtaTransport=settings.default_mta_transport,
-        enabledService=['mail'], ):
+def ldif_maildomain(domain,
+                    cn=None,
+                    mtaTransport=settings.default_mta_transport,
+                    enabledService=['mail']):
     domain = web.safestr(domain).lower()
 
     minPasswordLength = settings.min_passwd_length
 
-    ldif = [
-            ('objectClass', ['mailDomain']),
+    ldif = [('objectClass', ['mailDomain']),
             ('domainName', [domain]),
             ('mtaTransport', [mtaTransport]),
             ('accountStatus', ['active']),
             ('enabledService', enabledService),
-            ('accountSetting', ['minPasswordLength:%s' % minPasswordLength]),
-           ]
+            ('accountSetting', ['minPasswordLength:%s' % minPasswordLength])]
 
-    ldif += ldaputils.get_ldif_of_attr(attr='cn', value=cn, default=domain,)
+    ldif += ldaputils.get_ldif_of_attr(attr='cn', value=cn, default=domain)
 
     return ldif
 
 
 def ldif_group(name):
-    ldif = [
-            ('objectClass', ['organizationalUnit']),
-            ('ou', [name]),
-            ]
+    ldif = [('objectClass', ['organizationalUnit']),
+            ('ou', [name])]
 
     return ldif
 
 
-def ldif_mailExternalUser(mail,):
+def ldif_mailExternalUser(mail):
     mail = web.safestr(mail).lower()
     if not iredutils.is_email(mail):
         return None
 
     listname, domain = mail.split('@')
-    ldif = [
-            ('objectClass', ['mailExternalUser']),
+    ldif = [('objectClass', ['mailExternalUser']),
             ('accountStatus', ['active']),
             ('memberOfGroup', [mail]),
-            ('enabledService', ['mail', 'deliver']),
-            ]
+            ('enabledService', ['mail', 'deliver'])]
+
     return ldif
 
 
 # Define and return LDIF structure of domain admin.
-def ldif_mailadmin(mail, passwd, cn, preferredLanguage='en_US', domainGlobalAdmin='no'):
+def ldif_mailadmin(mail,
+                   passwd,
+                   cn,
+                   preferredLanguage='en_US',
+                   domainGlobalAdmin='no'):
     mail = web.safestr(mail).lower()
 
-    ldif = [
-            ('objectClass', ['mailAdmin']),
+    ldif = [('objectClass', ['mailAdmin']),
             ('mail', [mail]),
             ('userPassword', [str(passwd)]),
             ('accountStatus', ['active']),
             ('preferredLanguage', [web.safestr(preferredLanguage)]),
-            ('domainGlobalAdmin', [web.safestr(domainGlobalAdmin)]),
-            ]
+            ('domainGlobalAdmin', [web.safestr(domainGlobalAdmin)])]
 
-    ldif += ldaputils.get_ldif_of_attr(attr='cn', value=cn, default=mail.split('@', 1)[0],)
+    ldif += ldaputils.get_ldif_of_attr(attr='cn',
+                                       value=cn,
+                                       default=mail.split('@', 1)[0])
 
     return ldif
 
 
 # Define and return LDIF structure of mail user.
-def ldif_mailuser(domain, username, cn, passwd, quota=0, aliasDomains=[], groups=[], storageBaseDirectory=None, ):
+def ldif_mailuser(domain,
+                  username,
+                  cn,
+                  passwd,
+                  quota=0,
+                  aliasDomains=None,
+                  groups=None,
+                  storageBaseDirectory=None):
     domain = str(domain).lower()
     username = str(username).strip().replace(' ', '').lower()
     mail = username + '@' + domain
@@ -91,7 +98,7 @@ def ldif_mailuser(domain, username, cn, passwd, quota=0, aliasDomains=[], groups
 
     # Generate basic LDIF.
     ldif = [
-        ('objectClass', ['inetOrgPerson', 'mailUser', 'shadowAccount', 'amavisAccount', ]),
+        ('objectClass', ['inetOrgPerson', 'mailUser', 'shadowAccount', 'amavisAccount']),
         ('mail', [mail]),
         ('userPassword', [str(passwd)]),
         ('sn', [username]),
@@ -109,7 +116,7 @@ def ldif_mailuser(domain, username, cn, passwd, quota=0, aliasDomains=[], groups
                             'forward', 'senderbcc', 'recipientbcc',
                             'internal', 'lib-storage', 'indexer-worker', 'doveadm',
                             'dsync',
-                            'shadowaddress', 'displayedInGlobalAddressBook', ]
+                            'shadowaddress', 'displayedInGlobalAddressBook']
         ),
         # shadowAccount integration.
         ('shadowLastChange', ['0']),
@@ -119,9 +126,10 @@ def ldif_mailuser(domain, username, cn, passwd, quota=0, aliasDomains=[], groups
 
     # Append @shadowAddress.
     shadowAddresses = []
-    for d in aliasDomains:
-        if iredutils.is_domain(d):
-            shadowAddresses += [username + '@' + d]
+    if aliasDomains:
+        for d in aliasDomains:
+            if iredutils.is_domain(d):
+                shadowAddresses += [username + '@' + d]
 
     if len(shadowAddresses) > 0:
         ldif += [('shadowAddress', shadowAddresses)]
@@ -133,10 +141,12 @@ def ldif_mailuser(domain, username, cn, passwd, quota=0, aliasDomains=[], groups
         ldif += [('mailQuota', [str(quota)])]
 
     # Append cn.
-    ldif += ldaputils.get_ldif_of_attr(attr='cn', value=cn, default=username,)
+    ldif += ldaputils.get_ldif_of_attr(attr='cn',
+                                       value=cn,
+                                       default=username)
 
     # Append groups.
-    if isinstance(groups, list) and len(groups) >= 1:
+    if groups and isinstance(groups, list):
         # Remove duplicate items.
         grps = set()
         for g in groups:
