@@ -1,6 +1,3 @@
-#!/usr/bin/env python
-# encoding: utf-8
-
 # Author:   Zhang Huangbin <zhb@iredmail.org>
 # Updated:  2012.07.01
 # Purpose:  Dump disclaimer text from OpenLDAP directory server or SQL servers.
@@ -48,16 +45,62 @@ import settings
 from tools import ira_tool_lib
 logger = ira_tool_lib.logger
 
+if settings.backend == 'ldap':
+    import ldap
+elif settings.backend == 'mysql':
+    sql_dbn = 'mysql'
+elif settings.backend == 'pgsql':
+    sql_dbn = 'postgres'
+
+def write_disclaimer(text, filename, file_type='txt'):
+    # Write plain text
+    try:
+        f = open(filename, 'w')
+
+        if file_type == 'html':
+            html = """<div id="disclaimer_separator"><p>----------</p><br /></div>"""
+            html += """<div id="disclaimer_text"><p>""" + text + """</p></div>"""
+
+            f.write('\n' + html + '\n')
+        else:
+            f.write('\n---------\n' + text + '\n')
+        logger.info("  + %s" % filename)
+        f.close()
+    except Exception, e:
+        logger.info('<<< ERROR >>> %s' % str(e))
+
+
+def handle_disclaimer(domain, disclaimer_text):
+    """Dump or remove disclaimer text."""
+    txt = os.path.join(DISCLAIMER_DIR, domain + '.txt')
+    html = os.path.join(DISCLAIMER_DIR, domain + '.html')
+
+    if disclaimer_text:
+        write_disclaimer(text=disclaimer_text,
+                         filename=txt,
+                         file_type='txt')
+
+        write_disclaimer(text=disclaimer_text,
+                         filename=html,
+                         file_type='html')
+    else:
+        # Remove old disclaimer file if no disclaimer setting
+        try:
+            for f in [txt, html]:
+                if os.path.isfile(f):
+                    os.remove(f)
+                    logger.info("  - Remove %s." % f)
+        except OSError:
+            # File not exist.
+            #logger.info("= %(domain)s -> [SKIP] No disciaimer configured." % vars)
+            pass
+        except Exception, e:
+            # Other errors.
+            logger.info("<<< ERROR >>> %s: %s." % (domain, str(e)))
+
 
 def dump_from_ldap():
     """Dump disclaimer text from LDAP server."""
-
-    try:
-        import ldap
-    except ImportError:
-        logger.info("Error: You don't have package 'python-ldap' installed, Please install it first.")
-        sys.exit()
-
     logger.info('Connecting to LDAP server')
     conn = ldap.initialize(settings.ldap_uri, trace_level=0)
     conn.set_option(ldap.OPT_PROTOCOL_VERSION, 3)
@@ -66,113 +109,76 @@ def dump_from_ldap():
     conn.bind_s(settings.ldap_bind_dn, settings.ldap_bind_password)
 
     # Search and get disclaimer.
-    logger.info('Searching accounts which have disclaimer configured')
+    logger.info('Searching all domains')
     qr = conn.search_s(
         settings.ldap_basedn,
         ldap.SCOPE_ONELEVEL,
-        '(objectclass=maildomain)',
-        ['domainName', 'disclaimer'],
+        '(objectClass=mailDomain)',
+        ['domainName', 'domainAliasName', 'disclaimer'],
     )
 
     logger.info('Dumping ...')
-    # Dump disclaimer for every domain.
-    counter = 0
+
     for (dn, entry) in qr:
-        # Get domain name.
-        domainName = entry['domainName'][0]
+        # Get domain names.
+        _domains = entry['domainName']
+        _alias_domains = entry.get('domainAliasName', [])
+        disclaimer_text = entry.get('disclaimer', [''])[0]
 
-        # Set file name.
-        disclaimer_file = os.path.join(DISCLAIMER_DIR, domainName)
-        vars = {'domain': domainName, 'dest_file': disclaimer_file}
+        domains = _domains + _alias_domains
 
-        if 'disclaimer' in entry:
-            counter += 1
-            # Dump disclaimer text.
-            try:
-                # Write plain text
-                f = open(disclaimer_file + '.txt', 'w')
-                f.write('\n' + entry['disclaimer'][0] + '\n')
-                f.close()
+        for domain in domains:
+            handle_disclaimer(domain, disclaimer_text)
 
-                # Write html format
-                f = open(disclaimer_file + '.html', 'w')
-                f.write('<div>' + entry['disclaimer'][0] + '</div>')
-                f.close()
-
-                logger.info('+ %(domain)s -> %(dest_file)s.{txt,html}' % vars)
-            except Exception, e:
-                logger.info('[ERROR] (%s): %s ...' % (domainName, str(e)))
-        else:
-            # Remove old disclaimer file if no disclaimer setting
-            try:
-                for f in [disclaimer_file + '.txt', disclaimer_file + '.html']:
-                    if os.path.isfile(f):
-                        os.remove(f)
-                logger.info("- %(domain)s -> [REMOVE] Unused disclaimer: %(dest_file)s.{txt,html}." % vars)
-            except OSError:
-                # File not exist.
-                logger.info("= %(domain)s -> [SKIP] No disciaimer configured." % vars)
-            except Exception, e:
-                # Other errors.
-                logger.info("[ERROR] %s: %s." % (domainName, str(e)))
-
-    logger.info('Total %d domains.' % counter)
-
-    # Close connection.
     conn.unbind()
     logger.info('Connection closed.')
 
 
-def dump_from_mysql():
-    """Dump disclaimer text from MySQL server."""
-    logger.info('Connecting MySQL server ...')
-    conn = web.database(dbn='mysql',
+def dump_from_sql():
+    """Dump disclaimer text from MySQL or PostgreSQL server."""
+    logger.info("Connecting to SQL server '%s:%d' as user '%s' ..." % (settings.vmail_db_host,
+                                                                       int(settings.vmail_db_port),
+                                                                       settings.vmail_db_user))
+
+    conn = web.database(dbn=sql_dbn,
                         host=settings.vmail_db_host,
                         port=int(settings.vmail_db_port),
                         db=settings.vmail_db_name,
                         user=settings.vmail_db_user,
                         pw=settings.vmail_db_password)
 
+    logger.info('Get all alias domains')
+    qr = conn.select('alias_domain', what='alias_domain, target_domain')
+    alias_domains = {}
+    for i in qr:
+        _alias_domain = str(i.alias_domain).lower()
+        _target_domain = str(i.target_domain).lower()
+
+        if _target_domain in alias_domains:
+            alias_domains[_target_domain].append(_alias_domain)
+        else:
+            alias_domains[_target_domain] = [_alias_domain]
+
     # Search and get disclaimer.
-    logger.info('Get disclaimer text ...')
-    qr = conn.select('domain', what='domain,disclaimer')
+    logger.info('Get all primary domains')
+    qr = conn.select('domain', what='domain, disclaimer')
 
     # Dump disclaimer for every domain.
     logger.info('Dumping...')
     for r in qr:
         domain = str(r.domain).lower()
-        # Set file name.
-        disclaimer_file = DISCLAIMER_DIR + '/' + domain + DISCLAIMER_FILE_EXT
+        disclaimer_text = r.disclaimer
 
-        if r.disclaimer:
-            # Dump disclaimer text.
-            try:
-                f = open(disclaimer_file, 'w')
-                #f.write( entry['disclaimer'][0].decode('utf-8') )
-                f.write('\n' + r.disclaimer + '\n')  # .decode('utf-8') )
-                f.close()
+        domains = [domain] + alias_domains.get(domain, [])
 
-                logger.info('Dump disclaimer text to file: %s.' % disclaimer_file)
-            except Exception, e:
-                logger.info('SKIP (%s): %s.' % (domain, str(e)))
-        else:
-            # Remove old disclaimer file if no disclaimer setting in LDAP.
-            try:
-                os.remove(disclaimer_file)
-                logger.info("Remove old disclaimer file: %s." % (disclaimer_file))
-            except OSError:
-                # File not exist.
-                pass
-            except Exception, e:
-                # Other errors.
-                logger.info("Error while deleting (%s): %s." % (disclaimer_file, str(e)))
+        logger.info(domain)
+        for domain in domains:
+            handle_disclaimer(domain, disclaimer_text)
 
     logger.info('Completed.')
 
 
 if settings.backend == 'ldap':
     dump_from_ldap()
-elif settings.backend == 'mysql':
-    dump_from_mysql()
-#elif settings.backend == 'pgsql':
-#    dump_from_pgsql()
+elif settings.backend in ['mysql', 'pgsql']:
+    dump_from_sql()
