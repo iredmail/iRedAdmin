@@ -3,6 +3,7 @@
         + tools/dump_disclaimer.py: able to dump disclaimer for alias domains.
 
     * Fixed issues:
+        - SQL backends: Cannot identify separately created global admins.
         - OpenBSD ldapd(*) cannot handle MOD_DELETE correctly, it will
           remove all values of this attribute instead of removing just the
           one we specified.

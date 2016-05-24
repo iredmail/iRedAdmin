@@ -25,11 +25,18 @@ class List:
         if result[0] is True:
             (total, records) = (result[1]['total'], result[1]['records'])
 
+            # Get list of global admins.
+            allGlobalAdmins = []
+            qr = adminLib.get_all_global_admins(mail_only=True)
+            if qr[0]:
+                allGlobalAdmins = qr[1]
+
             return web.render(
                 'mysql/admin/list.html',
                 cur_page=cur_page,
                 total=total,
                 admins=records,
+                allGlobalAdmins=allGlobalAdmins,
                 msg=i.get('msg', None),
             )
         else:

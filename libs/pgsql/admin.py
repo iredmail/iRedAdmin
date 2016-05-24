@@ -14,6 +14,25 @@ class Admin(core.PGSQLWrap):
     def __del__(self):
         pass
 
+    def get_all_global_admins(self, mail_only=True):
+        """Get all global admins."""
+        sql_what = '*'
+        if mail_only:
+            sql_what = 'username'
+
+        try:
+            result = self.conn.select('admin', what=sql_what)
+
+            admins = []
+            if mail_only:
+                for i in result:
+                    admins.append(str(i.username).lower())
+            else:
+                admins = list(result)
+            return (True, admins)
+        except Exception, e:
+            return (False, str(e))
+
     def getAllAdmins(self, columns=[]):
         """Get all admins. Return (True, [records])."""
         try:
