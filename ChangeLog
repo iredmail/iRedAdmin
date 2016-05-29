@@ -8,9 +8,10 @@
           remove all values of this attribute instead of removing just the
           one we specified.
 
-          As a workaround, we perform one extra LDAP query to get all
-          present values of the attribute first, then remove the one we want
-          to delete.
+          As a workaround, we define ldap server name in parameter
+          'LDAP_SERVER_NAME'. For ldapd, perform one extra LDAP query to get
+          all present values of the attribute first, then remove the one we
+          want to delete.
 
 = 0.6.1 =
     * Fixed issues:

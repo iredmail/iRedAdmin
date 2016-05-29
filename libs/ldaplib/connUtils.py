@@ -19,7 +19,7 @@ class Utils(core.LDAPWrap):
     def __del__(self):
         try:
             self.conn.unbind()
-        except Exception, e:
+        except:
             pass
 
     def addOrDelAttrValue(self, dn, attr, value, action):
@@ -29,22 +29,22 @@ class Utils(core.LDAPWrap):
         @value: value of attr
         @action: add, delete.
         """
-        self.dn = escape_filter_chars(dn)
+        dn = escape_filter_chars(dn)
         if isinstance(value, list):
             values = value
         else:
             values = [value]
 
         msg = ''
-        if action == 'add' or action == 'assign':
+        if action in ['add', 'assign', 'enable']:
             for v in values:
                 try:
-                    self.conn.modify_s(self.dn, [(ldap.MOD_ADD, attr, v)])
+                    self.conn.modify_s(dn, [(ldap.MOD_ADD, attr, v)])
                 except (ldap.NO_SUCH_OBJECT, ldap.TYPE_OR_VALUE_EXISTS):
                     pass
                 except Exception, e:
                     msg += str(e)
-        elif action == 'delete' or action == 'remove':
+        elif action in ['del', 'delete', 'remove', 'disable']:
             #
             # Note
             #
@@ -55,27 +55,37 @@ class Utils(core.LDAPWrap):
             # As a workaround, we perform one extra LDAP query to get all
             # present values of the attribute first, then remove the one we
             # want to delete.
-            try:
-                # Get present values
-                qr = self.conn.search_s(self.dn, ldap.SCOPE_BASE, attrlist=[attr])
-                entries = qr[0][1].get(attr, [])
-                entries_new = set(entries)
+            if settings.LDAP_SERVER_TYPE == 'LDAPD':
+                try:
+                    # Get present values
+                    qr = self.conn.search_s(dn, ldap.SCOPE_BASE, attrlist=[attr])
+                    entries = qr[0][1].get(attr, [])
+                    entries_new = set(entries)
 
+                    for v in values:
+                        if v in entries_new:
+                            entries_new.remove(v)
+
+                    if entries_new:
+                        mod_attr = [(ldap.MOD_REPLACE, attr, list(entries_new))]
+                    else:
+                        # Delete thie attribute if no value left.
+                        mod_attr = [(ldap.MOD_REPLACE, attr, None)]
+
+                    self.conn.modify_s(dn, mod_attr)
+                except ldap.NO_SUCH_ATTRIBUTE:
+                    pass
+                except Exception, e:
+                    msg += str(e)
+            else:
+                # OpenLDAP
                 for v in values:
-                    if v in entries_new:
-                        entries_new.remove(v)
-
-                if entries_new:
-                    mod_attr = [(ldap.MOD_REPLACE, attr, list(entries_new))]
-                else:
-                    # Delete thie attribute if no value left.
-                    mod_attr = [(ldap.MOD_REPLACE, attr, None)]
-
-                self.conn.modify_s(dn, mod_attr)
-            except ldap.NO_SUCH_ATTRIBUTE:
-                pass
-            except Exception, e:
-                msg += str(e)
+                    try:
+                        self.conn.modify_s(dn, [(ldap.MOD_DELETE, attr, str(v))])
+                    except ldap.NO_SUCH_ATTRIBUTE:
+                        pass
+                    except Exception, e:
+                        msg += str(e)
         else:
             return (False, 'UNKNOWN_ACTION')
 

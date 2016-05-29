@@ -155,8 +155,10 @@ MAILDIR_APPEND_TIMESTAMP = True
 
 
 #######################################
-# OpenLDAP backend related settings.
+# LDAP backends related settings.
 #
+# Define LDAP server product name: OPENLDAP, LDAPD (OpenBSD built-in ldap daemon)
+LDAP_SERVER_NAME = 'OPENLDAP'
 
 # LDAP connection trace level. Must be an integer.
 LDAP_CONN_TRACE_LEVEL = 0
