@@ -153,6 +153,8 @@ MAILDIR_PREPEND_DOMAIN = True
 # - without timestamp: domain.ltd/username/
 MAILDIR_APPEND_TIMESTAMP = True
 
+# Delete maildirs which have NULL value of SQL column `deleted_mailboxes.delete_date`.
+MAILDIR_DELETE_IF_DATE_IS_NULL = False
 
 #######################################
 # LDAP backends related settings.

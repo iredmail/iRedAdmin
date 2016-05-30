@@ -67,12 +67,13 @@ def get_db_conn(db):
 
 
 # Log in `iredadmin.log`
-def log_to_iredadmin(msg, event, admin='', loglevel='info'):
+def log_to_iredadmin(msg, event, admin='', username='', loglevel='info'):
     conn = get_db_conn('iredadmin')
 
     try:
         conn.insert('log',
                     admin=admin,
+                    username=username,
                     event=event,
                     loglevel=loglevel,
                     msg=str(msg),

@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 # Author: Zhang Huangbin <zhb@iredmail.org>
 # Purpose: Migrate Cluebringer white/blacklist to Amavisd database.
 #
@@ -14,7 +16,8 @@ rootdir = os.path.abspath(os.path.dirname(__file__)) + '/../'
 sys.path.insert(0, rootdir)
 
 import settings
-from libs.amavisd import is_valid_amavisd_address, wblist
+from libs.iredutils import is_valid_amavisd_address
+from libs.amavisd import wblist
 from tools import ira_tool_lib
 
 web.config.debug = ira_tool_lib.debug

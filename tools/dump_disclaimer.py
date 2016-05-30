@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 # Author:   Zhang Huangbin <zhb@iredmail.org>
 # Updated:  2012.07.01
 # Purpose:  Dump disclaimer text from OpenLDAP directory server or SQL servers.

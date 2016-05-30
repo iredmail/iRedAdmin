@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 # Author: Zhang Huangbin <zhb@iredmail.org>
 # Purpose: Add existing virtual mail domains (and their alias domains) to
 #          Cluebringer database as internal domains.

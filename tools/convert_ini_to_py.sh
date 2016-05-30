@@ -111,54 +111,6 @@ elif [ X"${backend}" == X'mysql' -o X"${backend}" == X'pgsql' ]; then
     perl -pi -e 's#^(vmail_db_password = ).*#${1}"$ENV{ini_vmaildb_passwd}"#' ${new_cfg}
 fi
 
-# Check [policyd]
-echo "  + Sync [policyd] section"
-export ini_policyd_enabled="$(cat ${ini} | sed -n '/\[policyd\]/,/\[/ s/^enabled = *//p')"
-export ini_policyd_db_host="$(cat ${ini} | sed -n '/\[policyd\]/,/\[/ s/^host = *//p')"
-export ini_policyd_db_port="$(cat ${ini} | sed -n '/\[policyd\]/,/\[/ s/^port = *//p')"
-export ini_policyd_db_name="$(cat ${ini} | sed -n '/\[policyd\]/,/\[/ s/^db = *//p')"
-export ini_policyd_db_user="$(cat ${ini} | sed -n '/\[policyd\]/,/\[/ s/^user = *//p')"
-export ini_policyd_db_password="$(cat ${ini} | sed -n '/\[policyd\]/,/\[/ s/^passwd = *//p')"
-
-if [ X"${ini_policyd_db_port}" == X'port_of_policyd_sql_server' ]; then
-    if [ X"${backend}" == X'pgsql' ]; then
-        export ini_policyd_db_port='5432'
-    else
-        export ini_policyd_db_port='3306'
-    fi
-fi
-
-# Get correct Cluebringer db settings from /etc/cluebringer/cluebringer.conf
-if [ X"${ini_policyd_enabled}" == X'False' ]; then
-    if [ -f /etc/policyd/cluebringer.conf ]; then
-        # RHEL/CentOS/openSUSE
-        cluebringer_conf='/etc/policyd/cluebringer.conf'
-    elif [ -f /etc/cluebringer/cluebringer.conf ]; then
-        # Debian/Ubuntu
-        cluebringer_conf='/etc/cluebringer/cluebringer.conf'
-    elif [ -f /usr/local/etc/cluebringer.conf ]; then
-        # FreeBSD
-        cluebringer_conf='/usr/local/etc/cluebringer.conf'
-    fi
-
-    # Parse Cluebringer config file to set database related setings.
-    if [ X"${cluebringer_conf}" != X'' ]; then
-        echo "   o Enable Cluebringer integration"
-        export ini_policyd_enabled='True'
-        export ini_policyd_db_host="$(grep '^DSN=' ${cluebringer_conf} | awk -F'[:=;]' '{print $5}')"
-        export ini_policyd_db_name="$(grep '^DSN=' ${cluebringer_conf} | awk -F'[:=;]' '{print $7}')"
-        export ini_policyd_db_user="$(grep '^DSN=' ${cluebringer_conf} | awk -F'[:=;]' '{print $9}')"
-        export ini_policyd_db_password="$(grep '^DSN=' ${cluebringer_conf} | awk -F'[:=;]' '{print $11}')"
-    fi
-fi
-
-perl -pi -e 's#^(policyd_enabled = ).*#${1}$ENV{ini_policyd_enabled}#' ${new_cfg}
-perl -pi -e 's#^(policyd_db_host = ).*#${1}"$ENV{ini_policyd_db_host}"#' ${new_cfg}
-perl -pi -e 's#^(policyd_db_port = ).*#${1}$ENV{ini_policyd_db_port}#' ${new_cfg}
-perl -pi -e 's#^(policyd_db_name = ).*#${1}"$ENV{ini_policyd_db_name}"#' ${new_cfg}
-perl -pi -e 's#^(policyd_db_user = ).*#${1}"$ENV{ini_policyd_db_user}"#' ${new_cfg}
-perl -pi -e 's#^(policyd_db_password = ).*#${1}"$ENV{ini_policyd_db_password}"#' ${new_cfg}
-
 # Check [amavisd]
 echo "  + Sync [amavisd] section"
 export ini_amavisd_enable_logging="$(cat ${ini} | sed -n '/\[amavisd\]/,/\[/ s/^logging_into_sql = *//p')"

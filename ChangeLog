@@ -1,5 +1,7 @@
 = 0.6.2 =
     * Improvements:
+        + NEW: tools/delete_mailboxes.py: remove mailboxes which are scheduled
+          to be removed.
         + tools/dump_disclaimer.py: able to dump disclaimer for alias domains.
 
     * Fixed issues:
