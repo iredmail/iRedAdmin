@@ -166,23 +166,25 @@ class MySQLWrap:
                 return (False, str(e))
         elif accountType == 'user':
             accounts = [str(v) for v in accounts if iredutils.is_email(v)]
-            sql_vars = {'accounts': accounts, 'admin': session.get('username')}
+
+            # Keep mailboxes 'forever', set to 100 years.
+            if keep_mailbox_days == 0:
+                keep_mailbox_days = 36500
+
+            sql_vars = {'accounts': accounts,
+                        'admin': session.get('username'),
+                        'keep_mailbox_days': keep_mailbox_days}
 
             try:
-                # Keep mailboxes 'forever', set to 100 years.
-                if keep_mailbox_days == 0:
-                    keep_mailbox_days = 36500
-
                 sql_raw = '''
                     INSERT INTO deleted_mailboxes (username, maildir, domain, admin, delete_date)
                     SELECT username, \
                            CONCAT(storagebasedirectory, '/', storagenode, '/', maildir) AS maildir, \
                            SUBSTRING_INDEX(username, '@', -1), \
                            $admin, \
-                           DATE_ADD(NOW(), INTERVAL %d DAY)
+                           DATE_ADD(NOW(), INTERVAL $keep_mailbox_days DAY)
                       FROM mailbox
-                     WHERE username IN $accounts
-                     ''' % keep_mailbox_days
+                     WHERE username IN $accounts'''
 
                 self.conn.query(sql_raw, vars=sql_vars)
 

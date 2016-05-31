@@ -189,30 +189,34 @@ class Domain(core.PGSQLWrap):
         return (True, total, list(resultOfRecords),)
 
     @decorators.require_global_admin
-    def delete(self, domains=[]):
-        if not isinstance(domains, list):
+    def delete(self, domains=None, keep_mailbox_days=0):
+        if not domains:
             return (False, 'INVALID_DOMAIN_NAME')
 
-        domains = [str(v).lower()
-                   for v in domains
-                   if iredutils.is_domain(v)
-                  ]
+        domains = [str(v).lower() for v in domains if iredutils.is_domain(v)]
 
         if not domains:
             return (True, )
 
-        sql_vars = {'domains': domains, 'admin': session.get('username')}
+        if keep_mailbox_days == 0:
+            keep_mailbox_days = 36500
+
+        sql_vars = {'domains': domains,
+                    'admin': session.get('username'),
+                    'keep_mailbox_days': keep_mailbox_days}
 
         # Log maildir paths of existing users
         try:
             sql_raw = '''
-                INSERT INTO deleted_mailboxes (username, maildir, domain, admin)
+                INSERT INTO deleted_mailboxes (username, maildir, domain, admin, delete_date)
                 SELECT username, \
                        CONCAT(storagebasedirectory || '/' || storagenode || '/' || maildir), \
                        domain, \
-                       $admin
+                       $admin, \
+                       CURRENT_TIMESTAMP + INTERVAL '$keep_mailbox_days DAYS'
                   FROM mailbox
                  WHERE domain IN $domains'''
+
             self.conn.query(sql_raw, vars=sql_vars)
         except:
             pass

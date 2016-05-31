@@ -2,7 +2,7 @@
 
 import web
 import settings
-from libs import iredutils
+from libs import iredutils, form_utils
 from libs.ldaplib import decorators, domain as domainlib, connUtils, ldaputils
 
 session = web.config.get('_session')
@@ -55,17 +55,23 @@ class List:
         i = web.input(domainName=[], _unicode=False,)
 
         self.domainName = i.get('domainName', [])
-        self.action = i.get('action', None)
+        action = i.get('action', None)
 
         domainLib = domainlib.Domain()
 
-        if self.action == 'delete':
-            result = domainLib.delete(domains=self.domainName)
+        if action == 'delete':
+            keep_mailbox_days = form_utils.get_single_value(form=i,
+                                                            input_name='keep_mailbox_days',
+                                                            default_value=0,
+                                                            is_integer=True)
+
+            result = domainLib.delete(domains=self.domainName,
+                                      keep_mailbox_days=keep_mailbox_days)
             msg = 'DELETED'
-        elif self.action == 'disable':
+        elif action == 'disable':
             result = domainLib.enableOrDisableAccount(domains=self.domainName, action='disable',)
             msg = 'DISABLED'
-        elif self.action == 'enable':
+        elif action == 'enable':
             result = domainLib.enableOrDisableAccount(domains=self.domainName, action='enable',)
             msg = 'ENABLED'
         else:

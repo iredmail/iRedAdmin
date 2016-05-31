@@ -165,23 +165,25 @@ class PGSQLWrap:
                 return (False, str(e))
         elif accountType == 'user':
             accounts = [str(v) for v in accounts if iredutils.is_email(v)]
-            sql_vars = {'accounts': accounts, 'admin': session.get('username')}
+
+            # Keep mailboxes 'forever', set to 100 years.
+            if keep_mailbox_days == 0:
+                keep_mailbox_days = 36500
+
+            sql_vars = {'accounts': accounts,
+                        'admin': session.get('username'),
+                        'keep_mailbox_days': keep_mailbox_days}
 
             try:
-                # Keep mailboxes 'forever', set to 100 years.
-                if keep_mailbox_days == 0:
-                    keep_mailbox_days = 36500
-
                 sql_raw = '''
                     INSERT INTO deleted_mailboxes (username, maildir, domain, admin, delete_date)
                     SELECT username, \
                            CONCAT(storagebasedirectory || '/' || storagenode || '/' || maildir), \
                            SPLIT_PART(username, '@', 2), \
                            $admin, \
-                           CURRENT_TIMESTAMP + INTERVAL '%d DAYS'
+                           CURRENT_TIMESTAMP + INTERVAL '$keep_mailbox_days DAYS'
                       FROM mailbox
-                     WHERE username IN $accounts
-                     ''' % keep_mailbox_days
+                     WHERE username IN $accounts'''
 
                 self.conn.query(sql_raw, vars=sql_vars)
 

@@ -1,5 +1,6 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
+import time
 import ldap
 import web
 from libs import iredutils
@@ -128,17 +129,14 @@ class Domain(core.LDAPWrap):
 
     # Delete domain.
     @decorators.require_global_admin
-    def delete(self, domains=[]):
-        if not isinstance(domains, list):
+    def delete(self, domains=None, keep_mailbox_days=0):
+        if not domains:
             return (False, 'INVALID_DOMAIN_NAME')
 
-        domains = [str(v).lower()
-                   for v in domains
-                   if iredutils.is_domain(v)
-                  ]
+        domains = [str(v).lower() for v in domains if iredutils.is_domain(v)]
 
         if not domains:
-            return (True,)
+            return (True, )
 
         msg = {}
         for domain in domains:
@@ -152,6 +150,15 @@ class Domain(core.LDAPWrap):
                                         ldap.SCOPE_ONELEVEL,
                                         "(objectClass=mailUser)",
                                         ['mail', 'homeDirectory'])
+
+                if keep_mailbox_days == 0:
+                    keep_mailbox_days = 36500
+
+                # Convert keep days to string
+                _now_in_seconds = time.time()
+                _days_in_seconds = _now_in_seconds + (keep_mailbox_days * 24 * 60 * 60)
+                sql_keep_days = time.strftime('%Y-%m-%d', time.strptime(time.ctime(_days_in_seconds)))
+
                 v = []
                 for obj in qr:
                     deleted_mail = obj[1].get('mail')[0]
@@ -159,7 +166,8 @@ class Domain(core.LDAPWrap):
                     v += [{'maildir': deleted_maildir,
                            'username': deleted_mail,
                            'domain': domain,
-                           'admin': session.get('username')}]
+                           'admin': session.get('username'),
+                           'delete_date': sql_keep_days}]
 
                 if v:
                     web.admindb.multiple_insert('deleted_mailboxes', values=v)
