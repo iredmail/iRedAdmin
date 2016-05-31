@@ -70,21 +70,25 @@ class User(core.PGSQLWrap):
         return self.setAccountStatus(accounts=accounts, active=active, accountType='user')
 
     @decorators.require_domain_access
-    def delete(self, domain, mails=[]):
-        domain = str(domain)
+    def delete(self, domain, mails=None, keep_mailbox_days=0):
+        domain = str(domain).lower()
+
         if not iredutils.is_domain(domain):
             return (False, 'INVALID_DOMAIN_NAME')
 
-        if not isinstance(mails, list):
+        if not mails:
             return (False, 'INVALID_MAIL')
 
-        mails = [str(v).lower() for v in mails if iredutils.is_email(v) and str(v).endswith('@' + domain)]
+        mails = [str(v).lower()
+                 for v in mails
+                 if iredutils.is_email(v) and str(v).endswith('@' + domain)]
+
         if not mails:
             return (False, 'INVALID_MAIL')
 
         # Delete user and related records.
         try:
-            qr = self.deleteAccounts(accounts=mails, accountType='user')
+            qr = self.deleteAccounts(accounts=mails, accountType='user', keep_mailbox_days=keep_mailbox_days)
             if qr[0] is True:
                 web.logger(
                     msg="Delete user: %s." % ', '.join(mails),

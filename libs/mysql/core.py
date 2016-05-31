@@ -146,7 +146,7 @@ class MySQLWrap:
             pass
         return (True,)
 
-    def deleteAccounts(self, accounts, accountType,):
+    def deleteAccounts(self, accounts, accountType, keep_mailbox_days=0):
         # accounts must be a list/tuple.
         # accountType in ['domain', 'user', 'admin', 'alias',]
         if not accounts:
@@ -169,14 +169,21 @@ class MySQLWrap:
             sql_vars = {'accounts': accounts, 'admin': session.get('username')}
 
             try:
+                # Keep mailboxes 'forever', set to 100 years.
+                if keep_mailbox_days == 0:
+                    keep_mailbox_days = 36500
+
                 sql_raw = '''
-                    INSERT INTO deleted_mailboxes (username, maildir, domain, admin)
+                    INSERT INTO deleted_mailboxes (username, maildir, domain, admin, delete_date)
                     SELECT username, \
                            CONCAT(storagebasedirectory, '/', storagenode, '/', maildir) AS maildir, \
                            SUBSTRING_INDEX(username, '@', -1), \
-                           $admin
+                           $admin, \
+                           DATE_ADD(NOW(), INTERVAL %d DAY)
                       FROM mailbox
-                     WHERE username IN $accounts'''
+                     WHERE username IN $accounts
+                     ''' % keep_mailbox_days
+
                 self.conn.query(sql_raw, vars=sql_vars)
 
                 for tbl in ['mailbox', 'used_quota',

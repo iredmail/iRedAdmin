@@ -1,13 +1,9 @@
 {# ------------ Load JS files ------------- #}
 {% macro load_jquery(plugins=[], nonSortedCols=[], defaultPlugins=['tooltip', 'idtabs', 'fancybox'], quarantined=false) -%}
-    {#
-        Available jQuery plugins:
-        [idtabs, jeditable, visualize, fancybox, idtabs, ui, jcarousel, validate,]
-
-        excanvas.js,
-        cufon.js,
+    {# Available jQuery plugins:
+        [idtabs, jeditable, visualize, fancybox, idtabs, ui, jcarousel, validate]
     #}
-    <script type="text/javascript" src="{{ctx.homepath}}/static/js/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="{{ctx.homepath}}/static/js/jquery-1.12.3.min.js"></script>
 
     {% for p in defaultPlugins %}
         <script type="text/javascript" src="{{ctx.homepath}}/static/js/jquery.{{p}}.js"></script>
@@ -17,44 +13,8 @@
         <script type="text/javascript" src="{{ctx.homepath}}/static/js/jquery.{{p}}.js"></script>
     {% endfor %}
 
-    {#
-    <script type="text/javascript" src="{{ctx.homepath}}/static/js/cufon.js"></script>
-    <script type="text/javascript" src="{{ctx.homepath}}/static/js/Zurich_Condensed_Lt_Bd.js"></script>
-    #}
-
-    <script type="text/javascript">
-    {# Access URL to get RAW mail of quarantined mail. #}
-    {% if quarantined is sameas true %}
-        function displayRawQuarantinedMail() {
-            //$('.box-slide-head').click(function (event) {
-            $('.box-slide-head > td > span').click(function (event) {
-                tgt = $(event.target);
-                if (tgt.hasClass('clickable')) {
-                    return;
-                }
-
-                //mailid = $(this).attr('id');
-                mailid = $(this).parents('tr').attr('id');
-                mailid_orig = $(this).parents('tr').attr('mailid');
-                body = $('#box-tr-'+mailid);
-                if (!body.hasClass('box-slide-tr')) {
-                    $.get('{{ctx.homepath}}/activities/quarantined/raw/'+mailid_orig, function(data) {
-                        if (data != ''){
-                            $('#'+mailid).after(data);
-                        }
-                    });
-                }
-                if (body.is(':visible')) {
-                    body.hide();
-                } else {
-                    body.show();
-                }
-                return false;
-            });
-        }
-    {% endif %}
-
     {# Addition JS/jQuery functions #}
+    <script type="text/javascript">
     $(document).ready(function() {
         {# -- Menus -- #}
         $('.menu li').hover(function () {
@@ -118,25 +78,15 @@
         $("a[href$='jpg']").fancybox();
         $("a[href$='png']").fancybox();
 
-        {% if quarantined is sameas true %}
-            displayRawQuarantinedMail();
-        {% endif %}
-
-        {# -- Cufon -- #}
-        {#
-        Cufon.replace('.logo .title', { fontFamily: 'Zurich Cn BT', color: '-linear-gradient(#FFFFFF, #FFFFFF, #c0c0c0, rgb(200, 200, 200))', textShadow: '#FFFFFF 0px 1px'});
-        Cufon.replace('.user-detail .name', { fontFamily: 'Zurich Cn BT' });
-        Cufon.replace('.visualize-title', { fontFamily: 'Zurich Cn BT' });
-        Cufon.replace('table caption', { fontFamily: 'Zurich Cn BT' });
-
-        Cufon.replace('h1', { fontFamily: 'Zurich LtCn BT' });
-        Cufon.replace('h2', { fontFamily: 'Zurich Cn BT' });
-        Cufon.replace('h3', { fontFamily: 'Zurich LtCn BT' });
-        Cufon.replace('h4', { fontFamily: 'Zurich Cn BT' });
-        Cufon.replace('h5', { fontFamily: 'Zurich Cn BT' });
-        Cufon.replace('h6', { fontFamily: 'Zurich LtCn BT' });
-        Cufon.replace('h1 .label', { fontFamily: 'Zurich Cn BT' });
-        #}
+        // Show a select box to let admin choose to delete mailboxes in how many days
+        $('#account_delete_date').hide()
+        $('#account_list_actions').change(function(){
+            if ($(this).val() == 'delete') {
+                $('#account_delete_date').show();
+            } else {
+                $("#account_delete_date").hide();
+            }
+        });
     });
     </script>
 
@@ -769,22 +719,23 @@
 
 {# Convert event code to event name #}
 {% macro show_event_name(event) -%}
-    {% if event == 'all' %}
-        {{ _('Events') }}
-    {% elif event == 'login' %}
-        {{ _('Admin login') }}
-    {% elif event == 'create' %}
-        {{ _('Add account') }}
-    {% elif event == 'delete' %}
-        {{ _('Delete account') }}
-    {% elif event == 'disable' %}
-        {{ _('Disable account') }}
-    {% elif event == 'active' %}
-        {{ _('Active account') }}
-    {% elif event == 'update' %}
-        {{ _('Edit account profile') }}
-    {% elif event == 'backup' %}
-        {{ _('Backup') }}
+    {% set event_names = {'all': _('Events'),
+                          'login': _('Admin login'),
+                          'user_login': _('User login (self-service)'),
+                          'create': _('Add account'),
+                          'delete': _('Delete account'),
+                          'disable': _('Disable account'),
+                          'active': _('Activate account'),
+                          'update': _('Edit account profile'),
+                          'grant': _('Grant admin'),
+                          'revoke': _('Revoke admin privilege'),
+                          'backup': _('Backup'),
+                          'update_wblist': _('Update whitelists and blacklists'),
+                          'iredapd': 'iRedAPD',
+                          'cron_delete_mailboxes': _('Delete mailboxes')} %}
+
+    {% if event in event_names %}
+        {{ event_names[event] }}
     {% else %}
         {{ event |e }}
     {% endif %}

@@ -4,7 +4,7 @@
 
 import web
 import settings
-from libs import iredutils
+from libs import iredutils, form_utils
 from libs.languages import get_language_maps
 from libs.mysql import decorators, user as userlib, domain as domainlib, connUtils
 
@@ -55,18 +55,22 @@ class List:
                       and str(v).endswith('@' + self.domain)
                      ]
 
-        self.action = i.get('action', None)
+        action = i.get('action', None)
         msg = i.get('msg', None)
 
         userLib = userlib.User()
 
-        if self.action == 'delete':
-            result = userLib.delete(domain=self.domain, mails=self.mails,)
+        if action == 'delete':
+            keep_mailbox_days = form_utils.get_single_value(form=i,
+                                                            input_name='keep_mailbox_days',
+                                                            default_value=0,
+                                                            is_integer=True)
+            result = userLib.delete(domain=self.domain, mails=self.mails, keep_mailbox_days=keep_mailbox_days)
             msg = 'DELETED'
-        elif self.action == 'disable':
+        elif action == 'disable':
             result = userLib.enableOrDisableAccount(domain=self.domain, accounts=self.mails, active=False,)
             msg = 'DISABLED'
-        elif self.action == 'enable':
+        elif action == 'enable':
             result = userLib.enableOrDisableAccount(domain=self.domain, accounts=self.mails, active=True,)
             msg = 'ENABLED'
         else:

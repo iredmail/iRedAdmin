@@ -4,7 +4,7 @@
 
 import web
 import settings
-from libs import iredutils
+from libs import iredutils, form_utils
 from libs.languages import get_language_maps
 from libs.pgsql import decorators, user as userlib, domain as domainlib, connUtils
 
@@ -61,7 +61,11 @@ class List:
         userLib = userlib.User()
 
         if action == 'delete':
-            result = userLib.delete(domain=self.domain, mails=self.mails,)
+            keep_mailbox_days = form_utils.get_single_value(form=i,
+                                                            input_name='keep_mailbox_days',
+                                                            default_value=0,
+                                                            is_integer=True)
+            result = userLib.delete(domain=self.domain, mails=self.mails, keep_mailbox_days=keep_mailbox_days)
             msg = 'DELETED'
         elif action == 'disable':
             result = userLib.enableOrDisableAccount(domain=self.domain, accounts=self.mails, active=False)

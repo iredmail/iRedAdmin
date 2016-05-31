@@ -103,12 +103,25 @@
 
                 <div class="tab-footer clear f1">
                     <div class="fl">
-                        <select name="action" class="fl-space">
+                        <select name="action" class="fl-space" id="account_list_actions">
                             <option>{{ _('Choose Action') }}</option>
                             <option value="enable">{{ _('Enable') }}</option>
                             <option value="disable">{{ _('Disable') }}</option>
                             <option value="delete">{{ _('Delete') }}</option>
                         </select>
+
+                        <select name="keep_mailbox_days" class="fl-space" id="account_delete_date">
+                            <option>{{ _('Delete mailboxes in') }}</option>
+                            <option disabled>----</option>
+                            <option value="0">{{ _('Keep forever') }}</option>
+                            <option value="1">{{ _('1 day') }}</option>
+                            <option value="90">{{ _('3 months') }}</option>
+                            <option value="180">{{ _('6 months') }}</option>
+                            <option value="365">{{ _('1 year') }}</option>
+                            <option value="730">{{ _('2 years') }}</option>
+                            <option value="1095">{{ _('3 years') }}</option>
+                        </select>
+
                         <input type="submit" value="{{ _('Apply') }}" class="button fl-space" />
                     </div>
 

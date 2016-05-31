@@ -1,6 +1,7 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
 import os
+import time
 import ldap
 import ldap.filter
 import web
@@ -318,7 +319,7 @@ class User(core.LDAPWrap):
             return (False, ldaputils.getExceptionDesc(e))
 
     # Delete single user.
-    def deleteSingleUser(self, mail, deleteFromGroups=True):
+    def deleteSingleUser(self, mail, deleteFromGroups=True, keep_mailbox_days=0):
         self.mail = web.safestr(mail)
         if not iredutils.is_email(self.mail):
             return (False, 'INVALID_MAIL')
@@ -346,11 +347,20 @@ class User(core.LDAPWrap):
                 mailMessageStore = user_profile.get('mailMessageStore', [''])[0]
                 maildir = os.path.join(storageBaseDirectory, mailMessageStore)
 
+            if keep_mailbox_days == 0:
+                keep_mailbox_days = 36500
+
+            # Convert keep days to string
+            _now_in_seconds = time.time()
+            _days_in_seconds = _now_in_seconds + (keep_mailbox_days * 24 * 60 * 60)
+            sql_keep_days = time.strftime('%Y-%m-%d', time.strptime(time.ctime(_days_in_seconds)))
+
             web.admindb.insert('deleted_mailboxes',
                                maildir=maildir,
                                username=self.mail,
                                domain=self.domain,
-                               admin=session.get('username'))
+                               admin=session.get('username'),
+                               delete_date=sql_keep_days)
         except:
             pass
 
@@ -385,8 +395,8 @@ class User(core.LDAPWrap):
 
     # Delete mail users in same domain.
     @decorators.require_domain_access
-    def delete(self, domain, mails=[]):
-        if mails is None or len(mails) == 0:
+    def delete(self, domain, mails=None, keep_mailbox_days=0):
+        if not mails:
             return (False, 'NO_ACCOUNT_SELECTED')
 
         self.domain = web.safestr(domain)
@@ -394,12 +404,10 @@ class User(core.LDAPWrap):
         if not len(self.mails) > 0:
             return (False, 'INVALID_MAIL')
 
-        self.domaindn = ldaputils.convert_keyword_to_dn(self.domain, accountType='domain')
-        if self.domaindn[0] is False:
-            return self.domaindn
-
         if not iredutils.is_domain(self.domain):
             return (False, 'INVALID_DOMAIN_NAME')
+
+        self.domaindn = ldaputils.convert_keyword_to_dn(self.domain, accountType='domain')
 
         result = {}
         for mail in self.mails:
@@ -407,7 +415,7 @@ class User(core.LDAPWrap):
 
             try:
                 # Delete user object (ldap.SCOPE_BASE).
-                self.deleteSingleUser(self.mail)
+                self.deleteSingleUser(mail=self.mail, keep_mailbox_days=keep_mailbox_days)
 
                 # Delete user object and whole sub-tree.
                 # Get dn of mail user and domain.

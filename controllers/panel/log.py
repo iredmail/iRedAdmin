@@ -36,7 +36,7 @@ class Log:
             event=self.event,
             domain=self.domain,
             admin=self.admin,
-            allEvents=LOG_EVENTS,
+            log_events=LOG_EVENTS,
             cur_page=self.cur_page,
             total=total,
             entries=entries,
