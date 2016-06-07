@@ -13,6 +13,7 @@
 
 import os
 import sys
+import time
 import logging
 import shutil
 import pwd
@@ -37,6 +38,11 @@ delete_null_date = False
 if '--delete-null-date' in sys.argv:
     delete_null_date = True
 
+# TODO --delete-without-timestamp
+delete_without_timestamp = False
+if '--delete-without-timestamp' in sys.argv:
+    delete_without_timestamp = True
+
 def delete_record(conn, rid):
     try:
         conn.delete('deleted_mailboxes',
@@ -53,6 +59,30 @@ def delete_mailbox(conn, record):
     maildir = record.maildir
     timestamp = str(record.timestamp)
     delete_date = record.delete_date
+
+    # Make sure there's a timestamp (yyyy.mm.dd.hh.mm.ss) in maildir path,
+    # otherwise it's too risky to remove this mailbox -- because the maildir
+    # could be reused by another user after old account was removed.
+    #
+    #   - Safe to remove: <domain.com>/u/s/e/username-<timestamp>/
+    #   - Risky to remove: <domain.com/u/s/e/username/
+    if not delete_without_timestamp:
+        _dir = maildir.rstrip('/')
+
+        if len(_dir) <= 21:
+            # Why 21 chars:
+            #   - 20 chars: "-<timestamp>". e.g. "-2014.03.26.15.07.25"
+            #   - username contains at least 1 char
+            logger.error("<<< ERROR >>> Seems no timestamp in maildir path (%s), too risky to remove this mailbox. skip." % maildir)
+            return False
+
+        try:
+            # Extract timestamp string, make sure it's a valid time format.
+            ts = _dir[-20:-1]
+            time.strptime(ts, '%Y.%m.%d.%H.%M.%S')
+        except:
+            logger.error("<<< ERROR >>> No valid timestamp in maildir path (%s), too risky to remove this mailbox. skip." % maildir)
+            return False
 
     # check directory
     if os.path.isdir(maildir):
@@ -114,6 +144,9 @@ else:
 
     if not delete_null_date:
         logger.debug("To remove mailboxes with empty schedule date, please run this script with argument '--delete-null-date'.")
+
+    if not delete_without_timestamp:
+        logger.debug("To remove mailboxes which don't contain a timesamp in maildir path, please run this script with argument '--delete-without-timestamp'.")
 
     sys.exit()
 

@@ -27,6 +27,7 @@ web.config.session_parameters['cookie_name'] = 'iRedAdmin'
 web.config.session_parameters['cookie_domain'] = None
 web.config.session_parameters['ignore_expiry'] = False
 web.config.session_parameters['ignore_change_ip'] = False
+web.config.session_parameters['timeout'] = settings.SESSION_TIMEOUT
 
 # Initialize session object.
 session_dbn = 'mysql'
@@ -93,7 +94,7 @@ web.config._session = session
 
 # Generate CSRF token and store it in session.
 def csrf_token():
-    if not 'csrf_token' in session.keys():
+    if 'csrf_token' not in session.keys():
         session['csrf_token'] = iredutils.generate_random_strings(32)
 
     return session['csrf_token']

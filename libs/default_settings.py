@@ -10,10 +10,13 @@
 # Debug iRedAdmin: True, False.
 DEBUG = False
 
-# Mail detail message of '500 internal server error' to webmaster: True, False. 
-# If set to True, iredadmin will mail detail error to webmaster when            
-# it catches 'internal server error' via LOCAL mail server to aid               
-# in debugging production servers.                                              
+# Session timeout in seconds. Default is 30 minutes (1800 seconds).
+SESSION_TIMEOUT = 1800
+
+# Mail detail message of '500 internal server error' to webmaster: True, False.
+# If set to True, iredadmin will mail detail error to webmaster when
+# it catches 'internal server error' via LOCAL mail server to aid
+# in debugging production servers.
 MAIL_ERROR_TO_WEBMASTER = False
 
 # Set http proxy server address if iRedAdmin cannot access internet
@@ -138,7 +141,7 @@ REDIRECT_TO_DOMAIN_LIST_AFTER_LOGIN = False
 # Maildir related.
 #
 
-#It's RECOMMEND for better performance. Samples:
+# It's RECOMMEND for better performance. Samples:
 # - hashed: domain.ltd/u/s/e/username-2009.09.04.12.05.33/
 # - non-hashed: domain.ltd/username-2009.09.04.12.05.33/
 MAILDIR_HASHED = True
@@ -287,7 +290,7 @@ DBMAIL_SQL_FOR_NEWLY_CREATED_USER = []
 PAGE_SIZE_LIMIT = 50
 
 # Path to the logo image.
-# Please copy your logo image to 'static/' folder, then put the image file name 
+# Please copy your logo image to 'static/' folder, then put the image file name
 # in BRAND_LOGO.  e.g.: 'logo.png' (will load file 'static/logo.png').
 BRAND_LOGO = ''
 

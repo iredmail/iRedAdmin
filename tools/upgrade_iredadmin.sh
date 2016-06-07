@@ -82,7 +82,7 @@ else
     exit 255
 fi
 
-export CRON_FILE="${CRON_SPOOL_DIR}/${SYS_ROOT_USER}"
+export CRON_FILE_ROOT="${CRON_SPOOL_DIR}/${SYS_ROOT_USER}"
 
 # Optional argument to set the directory which stores iRedAdmin.
 if [ $# -gt 0 ]; then
@@ -344,16 +344,24 @@ fi
 # Cron job.
 #
 [[ -d ${CRON_SPOOL_DIR} ]] || mkdir -p ${CRON_SPOOL_DIR} &>/dev/null
-if [[ ! -f ${CRON_FILE} ]]; then
-    touch ${CRON_FILE} &>/dev/null
-    chmod 0600 ${CRON_FILE} &>/dev/null
+if [[ ! -f ${CRON_FILE_ROOT} ]]; then
+    touch ${CRON_FILE_ROOT} &>/dev/null
+    chmod 0600 ${CRON_FILE_ROOT} &>/dev/null
 fi
 
-# cron job for cleaning up database.
-if ! grep 'iredadmin/tools/cleanup_db.py' ${CRON_FILE} &>/dev/null; then
-    cat >> ${CRON_FILE} <<EOF
+# cron job: clean up database.
+if ! grep 'iredadmin/tools/cleanup_db.py' ${CRON_FILE_ROOT} &>/dev/null; then
+    cat >> ${CRON_FILE_ROOT} <<EOF
 # iRedAdmin: Clean up sql database.
 1   *   *   *   *   ${PYTHON_BIN} ${IRA_ROOT_DIR}/tools/cleanup_db.py &>/dev/null
+EOF
+fi
+
+# cron job: clean up database.
+if ! grep 'iredadmin/tools/delete_mailboxes.py' ${CRON_FILE_ROOT} &>/dev/null; then
+    cat >> ${CRON_FILE_ROOT} <<EOF
+# iRedAdmin: Remove mailboxes which are scheduled to be removed.
+1   3   *   *   *   ${PYTHON_BIN} ${IRA_ROOT_DIR}/tools/delete_mailboxes.py
 EOF
 fi
 

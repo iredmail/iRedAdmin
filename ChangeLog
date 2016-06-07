@@ -1,5 +1,6 @@
 = 0.6.2 =
     * Improvements:
+        + Add setting `SESSION_TIMEOUT` to control session timeout.
         + Able to schedule date to delete mailboxes while removing domain and
           user.
         + NEW: tools/delete_mailboxes.py: remove mailboxes which are scheduled
