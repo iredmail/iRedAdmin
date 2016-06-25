@@ -10,8 +10,6 @@ session = web.config.get('_session')
 #
 # Admin related.
 #
-
-
 class List:
     @decorators.require_global_admin
     @decorators.require_login
@@ -82,8 +80,7 @@ class Create:
                           default_language=settings.default_language,
                           min_passwd_length=settings.min_passwd_length,
                           max_passwd_length=settings.max_passwd_length,
-                          msg=i.get('msg'),
-                         )
+                          msg=i.get('msg'))
 
     @decorators.require_global_admin
     @decorators.csrf_protected
@@ -129,10 +126,6 @@ class Profile:
                 # Managed domains
                 #
 
-                # Check permission.
-                #if session.get('domainGlobalAdmin') is not True:
-                #    raise web.seeother('/profile/admin/general/%s?msg=PERMISSION_DENIED' % self.mail)
-
                 # Get all domains.
                 domainLib = domainlib.Domain()
                 resultOfAllDomains = domainLib.listAccounts(attrs=['domainName', 'cn', ])
@@ -160,8 +153,7 @@ class Profile:
                               profile=self.admin_profile,
                               min_passwd_length=settings.min_passwd_length,
                               max_passwd_length=settings.max_passwd_length,
-                              msg=i.get('msg', None),
-                             )
+                              msg=i.get('msg', None))
 
     @decorators.csrf_protected
     @decorators.require_login
@@ -175,11 +167,9 @@ class Profile:
             raise web.seeother('/profile/admin/general/%s?msg=PERMISSION_DENIED' % session.get('username'))
 
         adminLib = admin.Admin()
-        result = adminLib.update(
-                profile_type=self.profile_type,
-                mail=self.mail,
-                data=i,
-                )
+        result = adminLib.update(profile_type=self.profile_type,
+                                 mail=self.mail,
+                                 data=i)
 
         if result[0] is True:
             raise web.seeother('/profile/admin/%s/%s?msg=UPDATED' % (self.profile_type, self.mail))

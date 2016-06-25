@@ -1,7 +1,5 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
-import sys
-import os
 import types
 import datetime
 import web
@@ -147,7 +145,7 @@ def getAccountSettingFromLdapQueryResult(queryResult, key='domainName',):
                 for setting in d[1]['accountSetting']:
                     if len(setting.split(':', 1)) == 2:
                         k, v = setting.split(':', 1)
-                        if k in ['defaultQuota', 'minPasswordLength', 'maxPasswordLength', \
+                        if k in ['defaultQuota', 'minPasswordLength', 'maxPasswordLength',
                                  'numberOfUsers', 'numberOfAliases', 'numberOfLists', ]:
                             # Value of these settings must be interger or '-1'.
                             # '-1' means not allowed to add this kind of account.

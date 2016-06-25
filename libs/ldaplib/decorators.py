@@ -56,4 +56,3 @@ def require_domain_access(func):
             else:
                 return (False, 'PERMISSION_DENIED')
     return proxyfunc
-

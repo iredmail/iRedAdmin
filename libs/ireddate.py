@@ -100,7 +100,7 @@ def timezone(tzname):
         return None
 
     if isinstance(tzname, (str, unicode)):
-        #not pytz module imported, so just return None
+        # not pytz module imported, so just return None
         tzname = fix_gmt_timezone(tzname)
         tz = __timezones__.get(tzname, None)
         if not tz:
@@ -160,8 +160,8 @@ def to_datetime_with_tzinfo(dt, tzinfo=None, format=None):
         d = d.replace(tzinfo=tz)
     else:
         d = datetime(getattr(dt, 'year', 1970), getattr(dt, 'month', 1),
-            getattr(dt, 'day', 1), getattr(dt, 'hour', 0), getattr(dt, 'minute', 0),
-            getattr(dt, 'second', 0), getattr(dt, 'microsecond', 0))
+                     getattr(dt, 'day', 1), getattr(dt, 'hour', 0), getattr(dt, 'minute', 0),
+                     getattr(dt, 'second', 0), getattr(dt, 'microsecond', 0))
 
         if not getattr(dt, 'tzinfo', None):
             d = d.replace(tzinfo=tz)

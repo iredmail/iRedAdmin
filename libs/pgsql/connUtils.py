@@ -142,4 +142,3 @@ class Utils(core.PGSQLWrap):
                 return (True, list(result))
         except Exception, e:
             return (False, str(e))
-

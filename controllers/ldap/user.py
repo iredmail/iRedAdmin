@@ -8,12 +8,9 @@ from libs.ldaplib import decorators, domain as domainlib, user, ldaputils, connU
 
 session = web.config.get('_session')
 
-
 #
 # User related.
 #
-
-
 class List:
     def __del__(self):
         pass
@@ -227,8 +224,7 @@ class Create:
                           domainAccountSetting=domainAccountSetting,
                           numberOfCurrentAccounts=numberOfCurrentAccounts,
                           domainCurrentQuotaSize=domainCurrentQuotaSize,
-                          msg=i.get('msg'),
-                         )
+                          msg=i.get('msg'))
 
     @decorators.csrf_protected
     @decorators.require_login

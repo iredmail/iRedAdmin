@@ -45,8 +45,7 @@ ATTR_DOMAIN_CURRENT_QUOTA_SIZE = 'domainCurrentQuotaSize'
 # ---------------------------------------------------------
 ADMIN_SEARCH_ATTRS = ['mail', 'accountStatus', 'cn', 'preferredLanguage',
                       'domainGlobalAdmin', 'enabledService',
-                      'objectClass',
-                     ]
+                      'objectClass']
 ADMIN_ATTRS_ALL = ADMIN_SEARCH_ATTRS + ['sn', 'givenName']
 
 # ---------------------------------------------------------

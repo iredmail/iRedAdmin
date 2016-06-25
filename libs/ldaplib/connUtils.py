@@ -9,11 +9,6 @@ from libs.ldaplib import core, ldaputils, decorators, attrs, deltree
 
 session = web.config.get('_session')
 
-try:
-    import cStringIO as StringIO
-except ImportError:
-    import StringIO
-
 
 class Utils(core.LDAPWrap):
     def __del__(self):
@@ -108,11 +103,9 @@ class Utils(core.LDAPWrap):
 
     # Update value of attribute which must be single value.
     def updateAttrSingleValue(self, dn, attr, value):
-        self.mod_attrs = [
-                (ldap.MOD_REPLACE, web.safestr(attr), web.safestr(value))
-                ]
+        self.mod_attrs = [(ldap.MOD_REPLACE, web.safestr(attr), web.safestr(value))]
         try:
-            result = self.conn.modify_s(web.safestr(dn), self.mod_attrs)
+            self.conn.modify_s(web.safestr(dn), self.mod_attrs)
             return (True,)
         except Exception, e:
             return (False, ldaputils.getExceptionDesc(e))
@@ -168,7 +161,7 @@ class Utils(core.LDAPWrap):
                 return True
             else:
                 return False
-        except Exception, e:
+        except:
             return True
 
     # Check whether account exist or not.
@@ -205,7 +198,7 @@ class Utils(core.LDAPWrap):
                 return False
             else:
                 return True
-        except Exception, e:
+        except:
             # Account 'EXISTS' (fake) if ldap lookup failed.
             return True
 
@@ -323,7 +316,7 @@ class Utils(core.LDAPWrap):
                         attr=attrs.ATTR_DOMAIN_CURRENT_QUOTA_SIZE,
                         value=str(result['totalQuota']),
                     )
-                except Exception, e:
+                except:
                     pass
 
         # Get account list used to display in current page.
@@ -364,10 +357,6 @@ class Utils(core.LDAPWrap):
                     self.domainCurrentQuotaSize += int(quota)
             return (True, self.domainCurrentQuotaSize)
         except ldap.NO_SUCH_OBJECT:
-            #self.conn.add_s(
-            #        attrs.DN_BETWEEN_USER_AND_DOMAIN + self.domainDN,
-            #        iredldif.ldif_group(attrs.GROUP_USERS),
-            #        )
             return (False, 'NO_SUCH_OBJECT')
         except ldap.SIZELIMIT_EXCEEDED:
             return (False, 'EXCEEDED_LDAP_SERVER_SIZELIMIT')
@@ -423,7 +412,7 @@ class Utils(core.LDAPWrap):
                         return self.dn
                     else:
                         return False
-                except Exception, e:
+                except:
                     return False
         else:
             # Unsupported accountType.

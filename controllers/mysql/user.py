@@ -51,9 +51,7 @@ class List:
 
         self.mails = [str(v)
                       for v in i.get('mail', [])
-                      if iredutils.is_email(v)
-                      and str(v).endswith('@' + self.domain)
-                     ]
+                      if iredutils.is_email(v) and str(v).endswith('@' + self.domain)]
 
         action = i.get('action', None)
         msg = i.get('msg', None)
@@ -122,16 +120,11 @@ class Profile:
     def POST(self, profile_type, mail):
         i = web.input(
             enabledService=[],
-            #mailForwardingAddress=[],
             shadowAddress=[],
             telephoneNumber=[],
             memberOfGroup=[],
             oldMemberOfAlias=[],
             memberOfAlias=[],
-            #whitelistSender=[],
-            #blacklistSender=[],
-            #whitelistRecipient=[],
-            #blacklistRecipient=[],
         )
         self.profile_type = web.safestr(profile_type)
         self.mail = str(mail).lower()

@@ -263,8 +263,8 @@ def convertSQLQueryRecords(qr=[]):
 
 
 def verify_new_password(newpw, confirmpw,
-                       min_passwd_length=settings.min_passwd_length,
-                       max_passwd_length=settings.max_passwd_length):
+                        min_passwd_length=settings.min_passwd_length,
+                        max_passwd_length=settings.max_passwd_length):
     # Get new passwords from user input.
     newpw = str(newpw).strip()
     confirmpw = str(confirmpw).strip()
@@ -323,7 +323,7 @@ def verify_bcrypt_password(challenge_password, plain_password):
        or challenge_password.startswith('{crypt}$2b$'):
         challenge_password = challenge_password[7:]
     elif challenge_password.startswith('{BLF-CRYPT}') \
-       or challenge_password.startswith('{blf-crypt}'):
+            or challenge_password.startswith('{blf-crypt}'):
         challenge_password = challenge_password[11:]
 
     return bcrypt.hashpw(plain_password, challenge_password)
@@ -341,10 +341,9 @@ def verify_md5_password(challenge_password, plain_password):
     elif challenge_password.startswith('{CRYPT}') or challenge_password.startswith('{crypt}'):
         challenge_password = challenge_password[7:]
 
-    if not (
-        challenge_password.startswith('$') \
-        and len(challenge_password) == 34 \
-        and challenge_password.count('$') == 3):
+    if not (challenge_password.startswith('$') and
+            len(challenge_password) == 34 and
+            challenge_password.count('$') == 3):
         return False
 
     # Get salt from hashed string
@@ -480,11 +479,11 @@ def verify_cram_md5_password(challenge_password, plain_password):
 
     try:
         exit_status = subprocess.call(['doveadm',
-                                      'pw',
-                                      '-t',
-                                      challenge_password,
-                                      '-p',
-                                      plain_password])
+                                       'pw',
+                                       '-t',
+                                       challenge_password,
+                                       '-p',
+                                       plain_password])
         if exit_status == 0:
             return True
     except:
@@ -540,9 +539,9 @@ def verify_password_hash(challenge_password, plain_password):
         return verify_plain_md5_password(challenge_password, plain_password)
     elif upwd.startswith('{CRAM-MD5}'):
         return verify_cram_md5_password(challenge_password, plain_password)
-    elif upwd.startswith('{CRYPT}$2A$') \
-       or upwd.startswith('{CRYPT}$2B$') \
-       or upwd.startswith('{BLF-CRYPT}'):
+    elif upwd.startswith('{CRYPT}$2A$') or \
+            upwd.startswith('{CRYPT}$2B$') or \
+            upwd.startswith('{BLF-CRYPT}'):
         return verify_bcrypt_password(challenge_password, plain_password)
 
     return False
@@ -613,8 +612,7 @@ def getNewVersion(urlOfXML):
 
         d = {'version': str(version),
              'date': str(date),
-             'url': str(urlOfReleaseNotes),
-            }
+             'url': str(urlOfReleaseNotes)}
         return (True, d)
     except Exception, e:
         return (False, str(e))

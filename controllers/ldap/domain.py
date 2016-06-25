@@ -130,11 +130,9 @@ class Profile:
             raise web.seeother('/profile/domain/%s/%s?msg=DOMAIN_NAME_MISMATCH' % (self.profile_type, self.domain))
 
         domainLib = domainlib.Domain()
-        result = domainLib.update(
-                profile_type=self.profile_type,
-                domain=self.domain,
-                data=i,
-                )
+        result = domainLib.update(profile_type=self.profile_type,
+                                  domain=self.domain,
+                                  data=i)
         if result[0] is True:
             raise web.seeother('/profile/domain/%s/%s?msg=UPDATED' % (self.profile_type, self.domain))
         elif result[0] is False:

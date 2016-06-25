@@ -129,10 +129,12 @@ class User(core.LDAPWrap):
         self.newpw = web.safestr(data.get('newpw'))
         self.confirmpw = web.safestr(data.get('confirmpw'))
 
-        result = iredutils.verify_new_password(self.newpw, self.confirmpw,
-                                          min_passwd_length=domainAccountSetting.get('minPasswordLength', '0'),
-                                          max_passwd_length=domainAccountSetting.get('maxPasswordLength', '0'),
-                                         )
+        result = iredutils.verify_new_password(
+            self.newpw,
+            self.confirmpw,
+            min_passwd_length=domainAccountSetting.get('minPasswordLength', '0'),
+            max_passwd_length=domainAccountSetting.get('maxPasswordLength', '0'),
+        )
         if result[0] is True:
             if 'storePasswordInPlainText' in data and settings.STORE_PASSWORD_IN_PLAIN_TEXT:
                 self.passwd = iredutils.generate_password_hash(result[1], pwscheme='PLAIN')
@@ -197,8 +199,7 @@ class User(core.LDAPWrap):
         # Get default groups.
         self.groups = [web.safestr(v)
                        for v in domainAccountSetting.get('defaultList', '').split(',')
-                       if iredutils.is_email(v)
-                      ]
+                       if iredutils.is_email(v)]
 
         self.defaultStorageBaseDirectory = domainAccountSetting.get('defaultStorageBaseDirectory', None)
 
@@ -368,9 +369,6 @@ class User(core.LDAPWrap):
 
         # Delete user object.
         try:
-            # Delete single object.
-            #self.conn.delete_s(self.dnUser)
-
             # Delete object and its subtree.
             deltree.DelTree(self.conn, self.dnUser, ldap.SCOPE_SUBTREE)
 
@@ -384,11 +382,9 @@ class User(core.LDAPWrap):
                 pass
 
             # Log delete action.
-            web.logger(
-                    msg="Delete user: %s." % (self.mail),
-                    domain=self.domain,
-                    event='delete',
-            )
+            web.logger(msg="Delete user: %s." % (self.mail),
+                       domain=self.domain,
+                       event='delete')
             return (True, )
         except ldap.LDAPError, e:
             return (False, ldaputils.getExceptionDesc(e))
@@ -445,9 +441,7 @@ class User(core.LDAPWrap):
 
         self.mails = [str(v)
                       for v in mails
-                      if iredutils.is_email(v)
-                      and str(v).endswith('@' + str(domain))
-                     ]
+                      if iredutils.is_email(v) and str(v).endswith('@' + str(domain))]
 
         result = {}
         connutils = connUtils.Utils()
@@ -569,7 +563,6 @@ class User(core.LDAPWrap):
                 # Don't touch it, keep original value.
                 pass
             else:
-                #mod_attrs += [( ldap.MOD_REPLACE, 'mailQuota', str(int(mailQuota) * 1024 * 1024) )]
                 # Assign quota which got from web form.
                 mailQuota = int(quota)
 
@@ -601,9 +594,6 @@ class User(core.LDAPWrap):
                     domainSpareQuotaSize = (domainQuota + oldquota) - (domainCurrentQuotaSizeInBytes / (1024 * 1024))
 
                     if domainSpareQuotaSize <= 0:
-                        # Don't update quota if already exceed domain quota size.
-                        #return (False, 'EXCEEDED_DOMAIN_QUOTA_SIZE')
-
                         # Set to 1MB. don't exceed domain quota size.
                         mod_attrs += [(ldap.MOD_REPLACE, 'mailQuota', str(1024 * 1024))]
                     else:

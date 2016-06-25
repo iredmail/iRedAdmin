@@ -229,22 +229,16 @@ class Domain(core.MySQLWrap):
                 where='alias_domain IN $domains OR target_domain IN $domains',
             )
 
-            for tbl in ['alias', 'domain_admins', 'mailbox', \
-                        'recipient_bcc_domain', 'recipient_bcc_user', \
-                        'sender_bcc_domain', 'sender_bcc_user', \
-                       ]:
-                self.conn.delete(
-                    tbl,
-                    vars=sql_vars,
-                    where='domain IN $domains',
-                )
+            for tbl in ['alias', 'domain_admins', 'mailbox',
+                        'recipient_bcc_domain', 'recipient_bcc_user',
+                        'sender_bcc_domain', 'sender_bcc_user']:
+                self.conn.delete(tbl,
+                                 vars=sql_vars,
+                                 where='domain IN $domains')
 
             # Delete real-time mailbox quota.
             try:
-                self.conn.query(
-                    'DELETE FROM used_quota WHERE %s' % \
-                    web.sqlors('username LIKE ', ['%@' + d for d in domains])
-                )
+                self.conn.query('DELETE FROM used_quota WHERE %s' % web.sqlors('username LIKE ', ['%@' + d for d in domains]))
             except:
                 pass
 
@@ -266,8 +260,7 @@ class Domain(core.MySQLWrap):
             qr = self.conn.select('domain',
                                   vars={'domain': domain, },
                                   what=','.join(columns) or '*',
-                                  where='domain=$domain',
-                                 )
+                                  where='domain=$domain')
 
             if len(qr) == 1:
                 # Return first list element.

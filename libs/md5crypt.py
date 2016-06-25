@@ -19,9 +19,8 @@
 
 SYNOPSIS
 
-	import md5crypt.py
-
-	cryptedpassword = md5crypt.md5crypt(password, salt);
+    import md5crypt.py
+    cryptedpassword = md5crypt.md5crypt(password, salt);
 
 DESCRIPTION
 
@@ -52,25 +51,23 @@ def to64(v, n):
     ret = ''
     while (n - 1 >= 0):
         n = n - 1
-	ret = ret + ITOA64[v & 0x3f]
-	v = v >> 6
+        ret = ret + ITOA64[v & 0x3f]
+        v = v >> 6
     return ret
 
 
-def apache_md5_crypt (pw, salt):
+def apache_md5_crypt(pw, salt):
     # change the Magic string to match the one used by Apache
     return unix_md5_crypt(pw, salt, '$apr1$')
 
 
 def unix_md5_crypt(pw, salt, magic=None):
-    
-    if magic==None:
+    if magic is None:
         magic = MAGIC
 
     # Take care of the magic string if present
     if salt[:len(magic)] == magic:
         salt = salt[len(magic):]
-        
 
     # salt can have up to 8 characters:
     import string
@@ -81,27 +78,25 @@ def unix_md5_crypt(pw, salt, magic=None):
 
     final = md5(pw + salt + pw).digest()
 
-    for pl in range(len(pw),0,-16):
+    for pl in range(len(pw), 0, -16):
         if pl > 16:
             ctx = ctx + final[:16]
         else:
             ctx = ctx + final[:pl]
 
-
     # Now the 'weird' xform (??)
-
     i = len(pw)
     while i:
         if i & 1:
-            ctx = ctx + chr(0)  #if ($i & 1) { $ctx->add(pack("C", 0)); }
+            ctx = ctx + chr(0)  # if ($i & 1) { $ctx->add(pack("C", 0)); }
         else:
             ctx = ctx + pw[0]
         i = i >> 1
 
     final = md5(ctx).digest()
-    
+
     # The following is supposed to make
-    # things run slower. 
+    # things run slower.
 
     # my question: WTF???
 
@@ -122,42 +117,36 @@ def unix_md5_crypt(pw, salt, magic=None):
             ctx1 = ctx1 + final[:16]
         else:
             ctx1 = ctx1 + pw
-            
-            
+
         final = md5(ctx1).digest()
 
-
     # Final xform
-                                
     passwd = ''
+    passwd = passwd + to64((int(ord(final[0])) << 16) |
+                           (int(ord(final[6])) << 8) |
+                           (int(ord(final[12]))), 4)
 
-    passwd = passwd + to64((int(ord(final[0])) << 16)
-                           |(int(ord(final[6])) << 8)
-                           |(int(ord(final[12]))),4)
+    passwd = passwd + to64((int(ord(final[1])) << 16) |
+                           (int(ord(final[7])) << 8) |
+                           (int(ord(final[13]))), 4)
 
-    passwd = passwd + to64((int(ord(final[1])) << 16)
-                           |(int(ord(final[7])) << 8)
-                           |(int(ord(final[13]))), 4)
+    passwd = passwd + to64((int(ord(final[2])) << 16) |
+                           (int(ord(final[8])) << 8) |
+                           (int(ord(final[14]))), 4)
 
-    passwd = passwd + to64((int(ord(final[2])) << 16)
-                           |(int(ord(final[8])) << 8)
-                           |(int(ord(final[14]))), 4)
+    passwd = passwd + to64((int(ord(final[3])) << 16) |
+                           (int(ord(final[9])) << 8) |
+                           (int(ord(final[15]))), 4)
 
-    passwd = passwd + to64((int(ord(final[3])) << 16)
-                           |(int(ord(final[9])) << 8)
-                           |(int(ord(final[15]))), 4)
-
-    passwd = passwd + to64((int(ord(final[4])) << 16)
-                           |(int(ord(final[10])) << 8)
-                           |(int(ord(final[5]))), 4)
+    passwd = passwd + to64((int(ord(final[4])) << 16) |
+                           (int(ord(final[10])) << 8) |
+                           (int(ord(final[5]))), 4)
 
     passwd = passwd + to64((int(ord(final[11]))), 2)
 
-
     return magic + salt + '$' + passwd
 
-
-## assign a wrapper function:
+# assign a wrapper function:
 md5crypt = unix_md5_crypt
 
 if __name__ == "__main__":

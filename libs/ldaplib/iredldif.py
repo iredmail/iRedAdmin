@@ -116,13 +116,11 @@ def ldif_mailuser(domain,
                             'forward', 'senderbcc', 'recipientbcc',
                             'internal', 'lib-storage', 'indexer-worker', 'doveadm',
                             'dsync',
-                            'shadowaddress', 'displayedInGlobalAddressBook']
-        ),
+                            'shadowaddress', 'displayedInGlobalAddressBook']),
         # shadowAccount integration.
         ('shadowLastChange', ['0']),
         # Amavisd integration.
-        ('amavisLocal', ['TRUE']),
-        ]
+        ('amavisLocal', ['TRUE'])]
 
     # Append `shadowAddress`
     if aliasDomains:

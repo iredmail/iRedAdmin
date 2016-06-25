@@ -40,7 +40,7 @@ class Domain(core.LDAPWrap):
 
         # Add domain dn.
         try:
-            result = self.conn.add_s(self.dn, ldif)
+            self.conn.add_s(self.dn, ldif)
             web.logger(msg="Create domain: %s." % (self.domain), domain=self.domain, event='create',)
         except ldap.ALREADY_EXISTS:
             msg[self.domain] = 'ALREADY_EXISTS'
@@ -76,11 +76,11 @@ class Domain(core.LDAPWrap):
 
         try:
             self.domainAdmins = self.conn.search_s(
-                    dn,
-                    ldap.SCOPE_BASE,
-                    '(&(objectClass=mailDomain)(domainName=%s))' % domain,
-                    ['domainAdmin'],
-                    )
+                dn,
+                ldap.SCOPE_BASE,
+                '(&(objectClass=mailDomain)(domainName=%s))' % domain,
+                ['domainAdmin'],
+            )
             return self.domainAdmins
         except Exception, e:
             return str(e)
@@ -112,11 +112,11 @@ class Domain(core.LDAPWrap):
         else:
             try:
                 result = self.conn.search_s(
-                        self.dn,
-                        ldap.SCOPE_BASE,
-                        '(domainName=%s)' % self.domain,
-                        ['domainName', 'accountSetting'],
-                        )
+                    self.dn,
+                    ldap.SCOPE_BASE,
+                    '(domainName=%s)' % self.domain,
+                    ['domainName', 'accountSetting'],
+                )
 
                 settings = ldaputils.getAccountSettingFromLdapQueryResult(result, key='domainName',)
 
@@ -182,10 +182,7 @@ class Domain(core.LDAPWrap):
 
         # Delete real-time mailbox quota.
         try:
-            web.admindb.query(
-                'DELETE FROM used_quota WHERE %s' % \
-                web.sqlors('username LIKE ', ['%@' + d for d in domains])
-            )
+            web.admindb.query('DELETE FROM used_quota WHERE %s' % web.sqlors('username LIKE ', ['%@' + d for d in domains]))
         except:
             pass
 
@@ -256,7 +253,6 @@ class Domain(core.LDAPWrap):
         if self.domaindn[0] is False:
             return self.domaindn
 
-        connutils = connUtils.Utils()
         self.accountSetting = []
         mod_attrs = []
 
@@ -284,8 +280,7 @@ class Domain(core.LDAPWrap):
             self.conn.modify_s(dn, mod_attrs)
             web.logger(msg="Update domain profile: %s (%s)." % (domain, profile_type),
                        domain=domain,
-                       event='update',
-                      )
+                       event='update')
             return (True,)
         except Exception, e:
             return (False, ldaputils.getExceptionDesc(e))

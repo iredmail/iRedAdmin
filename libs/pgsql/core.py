@@ -286,7 +286,6 @@ class Auth(PGSQLWrap):
                     'mailbox',
                     vars={'username': username, },
                     where="username=$username AND active=1 AND isadmin=1",
-                    #what='username,password,language,isadmin,isglobaladmin',
                     limit=1,
                 )
                 if result:

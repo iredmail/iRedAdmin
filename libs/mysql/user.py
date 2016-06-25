@@ -282,11 +282,11 @@ class User(core.MySQLWrap):
 
         if self.profile_type == 'general':
             # Get settings of domain admin and global admin
-            managed_domain=''
+            managed_domain = ''
             if 'domainadmin' in data:
                 # isadmin=1
                 updates['isadmin'] = 1
-                managed_domain=self.domain
+                managed_domain = self.domain
             else:
                 updates['isadmin'] = 0
 
@@ -294,15 +294,14 @@ class User(core.MySQLWrap):
                 if 'domainGlobalAdmin' in data:
                     updates['isadmin'] = 1
                     updates['isglobaladmin'] = 1
-                    managed_domain='ALL'
+                    managed_domain = 'ALL'
                 else:
                     updates['isglobaladmin'] = 0
 
             # Delete records in domain_admins first
             self.conn.delete('domain_admins',
                              vars={'username': self.mail},
-                             where='username=$username',
-                            )
+                             where='username=$username')
 
             if updates.get('isadmin') == 1:
                 try:
@@ -310,8 +309,7 @@ class User(core.MySQLWrap):
                                      username=self.mail,
                                      domain=managed_domain,
                                      created=iredutils.get_gmttime(),
-                                     active=1,
-                                    )
+                                     active=1)
                 except:
                     pass
 
@@ -389,7 +387,7 @@ class User(core.MySQLWrap):
 
             # Update session immediately after updating SQL.
             if profile_type == 'general':
-                if not 'domainGlobalAdmin' in data and \
+                if 'domainGlobalAdmin' not in data and \
                    session.get('username') == self.mail:
                     session['domainGlobalAdmin'] = False
 

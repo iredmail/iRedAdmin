@@ -95,13 +95,11 @@ class Admin(core.LDAPWrap):
         else:
             return result
 
-        ldif = iredldif.ldif_mailadmin(
-                mail=self.mail,
-                passwd=self.passwd,
-                cn=self.cn,
-                preferredLanguage=self.preferredLanguage,
-                domainGlobalAdmin=self.domainGlobalAdmin,
-                )
+        ldif = iredldif.ldif_mailadmin(mail=self.mail,
+                                       passwd=self.passwd,
+                                       cn=self.cn,
+                                       preferredLanguage=self.preferredLanguage,
+                                       domainGlobalAdmin=self.domainGlobalAdmin)
 
         self.dn = ldaputils.convert_keyword_to_dn(self.mail, accountType='admin')
         if self.dn[0] is False:
@@ -218,20 +216,16 @@ class Admin(core.LDAPWrap):
                 try:
                     connutils = connUtils.Utils()
                     # Delete enabledService=domainadmin
-                    connutils.addOrDelAttrValue(
-                            dn=dn,
-                            attr='enabledService',
-                            value='domainadmin',
-                            action='delete',
-                            )
+                    connutils.addOrDelAttrValue(dn=dn,
+                                                attr='enabledService',
+                                                value='domainadmin',
+                                                action='delete')
 
                     # Delete domainGlobalAdmin=yes
-                    connutils.addOrDelAttrValue(
-                            dn=dn,
-                            attr='domainGlobalAdmin',
-                            value='yes',
-                            action='delete',
-                            )
+                    connutils.addOrDelAttrValue(dn=dn,
+                                                attr='domainGlobalAdmin',
+                                                value='yes',
+                                                action='delete')
                     web.logger(msg="Delete admin: %s." % (self.mail), event='delete')
                 except Exception, e:
                     result[self.mail] = str(e)
