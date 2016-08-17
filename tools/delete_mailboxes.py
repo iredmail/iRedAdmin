@@ -10,6 +10,27 @@
 # Usage: Either run this script manually, or run it with a daily cron job.
 #
 #   # python delete_mailboxes.py
+#
+# Available arguments:
+#
+#   * --delete-without-timestamp:
+#       [RISKY] If no timestamp string in maildir path, continue to delete it.
+#
+#       With default iRedMail settings, maildir path will contain a timestamp
+#       like this: <domain.com>/u/s/e/username-<20160817095303>/
+#       (20160817095303 is the timestamp), this way all created maildir paths
+#       are unique, even if you removed the user and recreate it with same
+#       mail address.
+#
+#       Without timestamp in maildir path (e.g. <domain.com>/u/s/e/username/),
+#       if you removed a user and recreate it someday, this user will see old
+#       emails in old mailbox (because maildir path is same as old user's). So
+#       it becomes RISKY to remove the mailbox if no timestamp in maildir path.
+#
+#   * --delete-null-date:
+#       Delete mailbox if SQL column `deleted_mailboxes.delete_date` is null.
+#
+#   * --debug: print additional log
 
 import os
 import sys
@@ -43,7 +64,7 @@ if '--delete-null-date' in sys.argv:
 # could be reused by another user after old account was removed.
 #
 #   - Safe to remove: <domain.com>/u/s/e/username-<timestamp>/
-#   - Dangerous to remove: <domain.com/u/s/e/username/
+#   - Dangerous to remove: <domain.com>/u/s/e/username/
 delete_without_timestamp = False
 if '--delete-without-timestamp' in sys.argv:
     delete_without_timestamp = True
