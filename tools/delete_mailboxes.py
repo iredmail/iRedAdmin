@@ -38,7 +38,12 @@ delete_null_date = False
 if '--delete-null-date' in sys.argv:
     delete_null_date = True
 
-# TODO --delete-without-timestamp
+# Make sure there's a timestamp (yyyy.mm.dd.hh.mm.ss) in maildir path,
+# otherwise it's too risky to remove this mailbox -- because the maildir
+# could be reused by another user after old account was removed.
+#
+#   - Safe to remove: <domain.com>/u/s/e/username-<timestamp>/
+#   - Dangerous to remove: <domain.com/u/s/e/username/
 delete_without_timestamp = False
 if '--delete-without-timestamp' in sys.argv:
     delete_without_timestamp = True
@@ -60,12 +65,6 @@ def delete_mailbox(conn, record):
     timestamp = str(record.timestamp)
     delete_date = record.delete_date
 
-    # Make sure there's a timestamp (yyyy.mm.dd.hh.mm.ss) in maildir path,
-    # otherwise it's too risky to remove this mailbox -- because the maildir
-    # could be reused by another user after old account was removed.
-    #
-    #   - Safe to remove: <domain.com>/u/s/e/username-<timestamp>/
-    #   - Risky to remove: <domain.com/u/s/e/username/
     if not delete_without_timestamp:
         _dir = maildir.rstrip('/')
 

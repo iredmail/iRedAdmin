@@ -9,6 +9,10 @@
     Cleanup old records from Amavisd database.
     It's safe to execute it manually.
 
+* delete_mailboxes.py
+
+Delete mailboxes which are scheduled to be removed.
+
 = Utils =
 
 * convert_ini_to_py.sh:
