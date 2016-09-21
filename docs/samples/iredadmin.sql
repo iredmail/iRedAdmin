@@ -63,3 +63,11 @@ CREATE TABLE IF NOT EXISTS `deleted_mailboxes` (
     INDEX (admin),
     INDEX (delete_date)
 ) ENGINE=InnoDB;
+
+-- Key-value store.
+CREATE TABLE IF NOT EXISTS `tracking` (
+    `k` VARCHAR(50) NOT NULL,
+    `v` TEXT NOT NULL,
+    `time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY (k)
+);

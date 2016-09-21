@@ -120,6 +120,11 @@ elif [ X"${DISTRO}" == X'FREEBSD' ]; then
     export DEP_PY_LXML='devel/py-lxml'
 fi
 
+# iRedAdmin directory and config file.
+export IRA_ROOT_DIR="${HTTPD_SERVERROOT}/iredadmin"
+export IRA_CONF_PY="${IRA_ROOT_DIR}/settings.py"
+export IRA_CONF_INI="${IRA_ROOT_DIR}/settings.ini"
+
 echo "* Detected Linux/BSD distribution: ${DISTRO}"
 echo "* HTTP server root: ${HTTPD_SERVERROOT}"
 
@@ -140,7 +145,15 @@ restart_web_service()
             ;;
         y|Y|yes|YES|* )
             if [ X"${KERNEL_NAME}" == X'LINUX' -o X"${KERNEL_NAME}" == X'FREEBSD' ]; then
-                service ${web_service} restart
+                # The uwsgi script on CentOS 6 has problem with 'restart'
+                # action, 'stop' with few seconds sleep fixes it.
+                if [ X"${DISTRO}" == X'RHEL' -a X"${web_service}" == X'uwsgi' ]; then
+                    service ${web_service} stop
+                    sleep 5
+                    service ${web_service} start
+                else
+                    service ${web_service} restart
+                fi
             elif [ X"${KERNEL_NAME}" == X'OPENBSD' ]; then
                 rcctl restart ${web_service}
             fi
@@ -202,10 +215,21 @@ has_python_module()
     fi
 }
 
-# iRedAdmin directory and config file.
-export IRA_ROOT_DIR="${HTTPD_SERVERROOT}/iredadmin"
-export IRA_CONF_PY="${IRA_ROOT_DIR}/settings.py"
-export IRA_CONF_INI="${IRA_ROOT_DIR}/settings.ini"
+# Remove all single quote and double quotes in string.
+strip_quotes()
+{
+    # Read input from stdin
+    str="$(cat <&0)"
+    value="$(echo ${str} | tr -d '"' | tr -d "'")"
+    echo "${value}"
+}
+
+get_iredadmin_setting()
+{
+    var="${1}"
+    value="$(grep "^${var}" ${IRA_CONF_PY} | awk '{print $NF}' | strip_quotes)"
+    echo "${value}"
+}
 
 if [ -L ${IRA_ROOT_DIR} ]; then
     export IRA_ROOT_REAL_DIR="$(readlink ${IRA_ROOT_DIR})"
@@ -263,10 +287,20 @@ cp -rf ${COPY_FILES} ${COPY_DEST_DIR}
 
 # Copy old config file
 cp -p ${IRA_CONF_PY} ${NEW_IRA_ROOT_DIR}/
+
 # Copy hooks.py. It's ok if missing.
 cp -p ${IRA_ROOT_DIR}/hooks.py ${NEW_IRA_ROOT_DIR}/ &>/dev/null
+
 # Copy custom files under 'tools/'. It's ok if missing.
-cp -p ${IRA_ROOT_DIR}/tools/*.custom.* ${NEW_IRA_ROOT_DIR}/tools/ &>/dev/null
+cp -p ${IRA_ROOT_DIR}/tools/*.custom ${NEW_IRA_ROOT_DIR}/tools/ &>/dev/null
+cp -p ${IRA_ROOT_DIR}/tools/*.last-time ${NEW_IRA_ROOT_DIR}/tools/ &>/dev/null
+
+# Template file renamed
+if [ -f "${IRA_ROOT_DIR}/tools/notify_quarantined_recipients.custom.html" ]; then
+    cp -f ${IRA_ROOT_DIR}/tools/notify_quarantined_recipients.custom.html \
+        ${NEW_IRA_ROOT_DIR}/tools/notify_quarantined_recipients.html.custom
+fi
+
 # Set owner and permission.
 chown -R ${IRA_HTTPD_USER}:${IRA_HTTPD_GROUP} ${NEW_IRA_ROOT_DIR}
 chmod -R 0555 ${NEW_IRA_ROOT_DIR}
@@ -314,9 +348,12 @@ if ! grep '^iredapd_' ${IRA_CONF_PY} &>/dev/null; then
 fi
 perl -pi -e 's#iredapd_db_server#iredapd_db_host#g' ${IRA_CONF_PY}
 
-# Fix incorrect parameter name:
+# Change old parameter names to the new ones:
+#
 #   - ADDITION_USER_SERVICES -> ADDITIONAL_ENABLED_USER_SERVICES
+#   - LDAP_SERVER_NAME -> LDAP_SERVER_PRODUCT_NAME
 perl -pi -e 's#ADDITION_USER_SERVICES#ADDITIONAL_ENABLED_USER_SERVICES#g' ${IRA_CONF_PY}
+perl -pi -e 's#LDAP_SERVER_NAME#LDAP_SERVER_PRODUCT_NAME#g' ${IRA_CONF_PY}
 
 # Remove deprecated setting: ENABLE_SELF_SERVICE, it's now a per-domain setting.
 perl -pi -e 's#^(ENABLE_SELF_SERVICE.*)##g' ${IRA_CONF_PY}
@@ -339,6 +376,67 @@ if [ X"$(has_python_module lxml)" == X'NO' ]; then
     install_pkg $DEP_PY_LXML
 fi
 
+
+#------------------------------------------
+# Add new SQL tables, drop deprecated ones.
+#
+export ira_db_host="$(get_iredadmin_setting 'iredadmin_db_host')"
+export ira_db_port="$(get_iredadmin_setting 'iredadmin_db_port')"
+export ira_db_name="$(get_iredadmin_setting 'iredadmin_db_name')"
+export ira_db_user="$(get_iredadmin_setting 'iredadmin_db_user')"
+export ira_db_password="$(get_iredadmin_setting 'iredadmin_db_password')"
+
+#
+# Update sql tables
+#
+mysql_conn="mysql -h${ira_db_host} \
+                  -P ${ira_db_port} \
+                  -u${ira_db_user} \
+                  -p${ira_db_password} \
+                  ${ira_db_name}"
+
+psql_conn="psql -h ${ira_db_host} \
+                -p ${ira_db_port} \
+                -U ${ira_db_user} \
+                -d ${ira_db_name}"
+
+if egrep '^backend.*(mysql|ldap)' ${IRA_CONF_PY} &>/dev/null; then
+    # SQL table: tracking.
+    (${mysql_conn} <<EOF
+show tables;
+EOF
+) | grep '\<tracking\>' &>/dev/null
+
+    if [ X"$?" != X'0' ]; then
+        echo "* [SQL] Add new table: iredadmin.tracking."
+
+        ${mysql_conn} <<EOF
+CREATE TABLE IF NOT EXISTS tracking (
+    k VARCHAR(50) NOT NULL,
+    v TEXT NOT NULL,
+    time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE KEY (k)
+);
+EOF
+    fi
+elif egrep '^backend.*pgsql' ${IRA_CONF_PY} &>/dev/null; then
+    export PGPASSWORD="${ira_db_password}"
+
+    # SQL table: tracking.
+    ${psql_conn} -c '\d' | grep '\<tracking\>' &>/dev/null
+    if [ X"$?" != X'0' ]; then
+        echo "* [SQL] Add new table: iredadmin.tracking."
+
+        ${psql_conn} <<EOF
+CREATE TABLE tracking (
+    k VARCHAR(50) NOT NULL,
+    v TEXT,
+    time TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE UNIQUE INDEX idx_tracking_k ON tracking (k);
+EOF
+    fi
+fi
 
 #------------------------------
 # Cron job.

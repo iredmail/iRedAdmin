@@ -22,7 +22,7 @@ CREATE TABLE log (
     msg VARCHAR(255) NOT NULL
 );
 
-CREATE INDEX idx_log_timestamp ON log (timestamp);                                            
+CREATE INDEX idx_log_timestamp ON log (timestamp);
 CREATE INDEX idx_log_ip ON log (ip);
 CREATE INDEX idx_log_domain ON log (domain);
 CREATE INDEX idx_log_username ON log (username);
@@ -36,3 +36,11 @@ CREATE TABLE updatelog (
 
 -- GRANT INSERT,UPDATE,DELETE,SELECT on sessions,log,updatelog to iredadmin;
 -- GRANT UPDATE,USAGE,SELECT ON log_id_seq TO iredadmin;
+
+-- Key-value store.
+CREATE TABLE tracking (
+    k VARCHAR(50) NOT NULL,
+    v TEXT,
+    time TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+CREATE UNIQUE INDEX idx_tracking_k ON tracking (k);
