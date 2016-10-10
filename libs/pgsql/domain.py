@@ -210,7 +210,7 @@ class Domain(core.PGSQLWrap):
             sql_raw = '''
                 INSERT INTO deleted_mailboxes (username, maildir, domain, admin, delete_date)
                 SELECT username, \
-                       CONCAT(storagebasedirectory || '/' || storagenode || '/' || maildir), \
+                       storagebasedirectory || '/' || storagenode || '/' || maildir, \
                        domain, \
                        $admin, \
                        CURRENT_TIMESTAMP + INTERVAL '$keep_mailbox_days DAYS'

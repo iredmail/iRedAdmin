@@ -1,3 +1,7 @@
+= 0.6.3 =
+    * Fixed issues:
+        - Cannot delete mail user account due to incorrect PostgreSQL command.
+
 = 0.6.2 =
     * Improvements:
         + Add setting `SESSION_TIMEOUT` to control session timeout.
