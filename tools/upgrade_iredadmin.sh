@@ -64,7 +64,7 @@ elif [ X"${KERNEL_NAME}" == X'FREEBSD' ]; then
     export PYTHON_BIN='/usr/local/bin/python'
     if [ -f /usr/local/etc/rc.d/apache24 ]; then
         export HTTPD_RC_SCRIPT_NAME='apache24'
-    else:
+    else
         export HTTPD_RC_SCRIPT_NAME='apache22'
     fi
     export CRON_SPOOL_DIR='/var/cron/tabs'
