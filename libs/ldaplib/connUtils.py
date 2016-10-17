@@ -50,7 +50,7 @@ class Utils(core.LDAPWrap):
             # As a workaround, we perform one extra LDAP query to get all
             # present values of the attribute first, then remove the one we
             # want to delete.
-            if settings.LDAP_SERVER_TYPE == 'LDAPD':
+            if settings.LDAP_SERVER_PRODUCT_NAME == 'LDAPD':
                 try:
                     # Get present values
                     qr = self.conn.search_s(dn, ldap.SCOPE_BASE, attrlist=[attr])
