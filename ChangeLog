@@ -1,5 +1,7 @@
 = 0.6.3 =
     * Fixed issues:
+        - Incorrect variable name in libs/ldaplib/connUtis,py:
+          settings.LDAP_SERVER_TYPE -> settings.LDAP_SERVER_PRODUCT_NAME.
         - Cannot delete mail user account due to incorrect PostgreSQL command.
 
 = 0.6.2 =
