@@ -454,7 +454,7 @@ def deleteAccountFromUsedQuota(accounts):
     if accounts:
         try:
             web.admindb.delete(
-                'used_quota',
+                settings.SQL_TBL_USED_QUOTA,
                 vars={'accounts': accounts},
                 where='username IN $accounts',
             )

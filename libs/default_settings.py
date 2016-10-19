@@ -68,6 +68,14 @@ HTTP_PROXY = ''
 #   GMT+14:00
 LOCAL_TIMEZONE = 'GMT'
 
+###################################
+# General settings
+#
+# SQL table used to store real-time mailbox quota usage.
+#   - For SQL backends, it's stored in SQL db 'vmail'.
+#   - For LDAP backend, it's stored in SQL db 'iredadmin'.
+SQL_TBL_USED_QUOTA = 'used_quota'
+
 # Default password scheme, must be a string.
 #
 #   - Available schemes for LDAP backend: BCRYPT, SSHA, PLAIN.

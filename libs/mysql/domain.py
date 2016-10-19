@@ -238,7 +238,8 @@ class Domain(core.MySQLWrap):
 
             # Delete real-time mailbox quota.
             try:
-                self.conn.query('DELETE FROM used_quota WHERE %s' % web.sqlors('username LIKE ', ['%@' + d for d in domains]))
+                self.conn.query('DELETE FROM %s WHERE %s' % (settings.SQL_TBL_USED_QUOTA,
+                                                             web.sqlors('username LIKE ', ['%@' + d for d in domains])))
             except:
                 pass
 

@@ -187,7 +187,7 @@ class PGSQLWrap:
 
                 self.conn.query(sql_raw, vars=sql_vars)
 
-                for tbl in ['mailbox', 'used_quota',
+                for tbl in ['mailbox', settings.SQL_TBL_USED_QUOTA,
                             'recipient_bcc_user', 'sender_bcc_user']:
                     self.conn.delete(tbl,
                                      vars=sql_vars,

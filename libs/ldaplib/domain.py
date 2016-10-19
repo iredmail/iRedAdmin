@@ -3,6 +3,8 @@
 import time
 import ldap
 import web
+
+import settings
 from libs import iredutils
 from libs.ldaplib import core, attrs, iredldif, ldaputils, deltree, connUtils, decorators
 
@@ -182,7 +184,8 @@ class Domain(core.LDAPWrap):
 
         # Delete real-time mailbox quota.
         try:
-            web.admindb.query('DELETE FROM used_quota WHERE %s' % web.sqlors('username LIKE ', ['%@' + d for d in domains]))
+            web.admindb.query('DELETE FROM %s WHERE %s' % (settings.SQL_TBL_USED_QUOTA,
+                                                           web.sqlors('username LIKE ', ['%@' + d for d in domains])))
         except:
             pass
 
