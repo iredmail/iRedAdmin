@@ -93,15 +93,15 @@ def delete_mailbox(conn, record):
             # Why 21 chars:
             #   - 20 chars: "-<timestamp>". e.g. "-2014.03.26.15.07.25"
             #   - username contains at least 1 char
-            logger.error("<<< ERROR >>> Seems no timestamp in maildir path (%s), too risky to remove this mailbox. skip." % maildir)
+            logger.error("<<< SKIP >>> Seems no timestamp in maildir path (%s), too risky to remove this mailbox." % maildir)
             return False
 
         try:
             # Extract timestamp string, make sure it's a valid time format.
-            ts = _dir[-20:-1]
+            ts = _dir[-19:]
             time.strptime(ts, '%Y.%m.%d.%H.%M.%S')
-        except:
-            logger.error("<<< ERROR >>> No valid timestamp in maildir path (%s), too risky to remove this mailbox. skip." % maildir)
+        except Exception, e:
+            logger.error("<<< ERROR >>> Cannot convert timestamp in maildir path, skip." % maildir)
             return False
 
     # check directory

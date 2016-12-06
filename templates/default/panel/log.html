@@ -83,10 +83,16 @@
                             <td class="checkbox"><input type="checkbox" name="id" value="{{ log.id }}" class="checkbox" /></td>
                         {% endif %}
                         <td style="white-space: nowrap;">{{ log.timestamp |set_datetime_format |convert_utc_to_timezone }}</td>
-                        {% if '@' in log.admin %}
-                            <td><a href="{{ctx.homepath}}/profile/admin/general/{{ log.admin |e }}">{{ log.admin |e }}</a></td>
+
+                        {% set log_admin = log.admin | string | e%}
+                        {% if '@' in log_admin %}
+                            <td><a href="{{ctx.homepath}}/system/log?admin={{ log_admin }}">{{ log_admin }}</a></td>
+                        {% elif log_admin.startswith('cron_backup') %}
+                            <td><a href="{{ctx.homepath}}/system/log?event=backup">{{ log_admin }}</a></td>
+                        {% elif log_admin == 'delete_mailboxes' %}
+                            <td><a href="{{ctx.homepath}}/system/log?event=delete_mailboxes">{{ log_admin }}</a></td>
                         {% else %}
-                            <td>{{ log.admin |e }}</td>
+                            <td>{{ log_admin }}</td>
                         {% endif %}
                         <td>{{ log.ip |e }}</td>
                         <td class="{{ log.event |e }}_{{ log.loglevel |e }}">{{ log.msg |e }}</td>
