@@ -104,6 +104,8 @@ export DEP_PY_BS4='python-beautifulsoup4'
 export DEP_PY_BS='python-beautifulsoup'
 # lxml
 export DEP_PY_LXML='python-lxml'
+# pycurl
+export DEP_PY_CURL='python-pycurl'
 if [ X"${DISTRO}" == X'RHEL' ]; then
     :
 elif [ X"${DISTRO}" == X'DEBIAN' -o X"${DISTRO}" == X'UBUNTU' ]; then
@@ -113,11 +115,13 @@ elif [ X"${DISTRO}" == X'OPENBSD' ]; then
     export DEP_PY_JSON='py-simplejson'
     export DEP_PY_BS4='py-beautifulsoup4'
     export DEP_PY_BS='py-beautifulsoup4'
+    export DEP_PY_CURL='py-curl'
 elif [ X"${DISTRO}" == X'FREEBSD' ]; then
     export DEP_PY_JSON='devel/py-simplejson'
     export DEP_PY_BS4='www/py-beautifulsoup'
     export DEP_PY_BS='www/py-beautifulsoup32'
     export DEP_PY_LXML='devel/py-lxml'
+    export DEP_PY_CURL='ftp/py-pycurl'
 fi
 
 # iRedAdmin directory and config file.
@@ -137,32 +141,24 @@ restart_web_service()
         fi
     fi
 
-    echo -n "* Restart service (${web_service}) to use new iRedAdmin release now? [Y|n] "
-    read answer
-    case $answer in
-        n|N|no|NO )
-            echo "* [SKIP] Please restart service ${HTTPD_RC_SCRIPT_NAME} or ${UWSGI_RC_SCRIPT_NAME} (if you're running Nginx as web server) manually."
-            ;;
-        y|Y|yes|YES|* )
-            if [ X"${KERNEL_NAME}" == X'LINUX' -o X"${KERNEL_NAME}" == X'FREEBSD' ]; then
-                # The uwsgi script on CentOS 6 has problem with 'restart'
-                # action, 'stop' with few seconds sleep fixes it.
-                if [ X"${DISTRO}" == X'RHEL' -a X"${web_service}" == X'uwsgi' ]; then
-                    service ${web_service} stop
-                    sleep 5
-                    service ${web_service} start
-                else
-                    service ${web_service} restart
-                fi
-            elif [ X"${KERNEL_NAME}" == X'OPENBSD' ]; then
-                rcctl restart ${web_service}
-            fi
+    echo "* Restarting ${web_service} service to use new iRedAdmin release ..."
+    if [ X"${KERNEL_NAME}" == X'LINUX' -o X"${KERNEL_NAME}" == X'FREEBSD' ]; then
+        # The uwsgi script on CentOS 6 has problem with 'restart'
+        # action, 'stop' with few seconds sleep fixes it.
+        if [ X"${DISTRO}" == X'RHEL' -a X"${web_service}" == X'uwsgi' ]; then
+            service ${web_service} stop
+            sleep 5
+            service ${web_service} start
+        else
+            service ${web_service} restart
+        fi
+    elif [ X"${KERNEL_NAME}" == X'OPENBSD' ]; then
+        rcctl restart ${web_service}
+    fi
 
-            if [ X"$?" != X'0' ]; then
-                echo "Failed, please restart service ${HTTPD_RC_SCRIPT_NAME} or ${UWSGI_RC_SCRIPT_NAME} (if you're running Nginx as web server) manually."
-            fi
-            ;;
-    esac
+    if [ X"$?" != X'0' ]; then
+        echo "Failed, please restart service ${HTTPD_RC_SCRIPT_NAME} or ${UWSGI_RC_SCRIPT_NAME} (if you're running Nginx as web server) manually."
+    fi
 }
 
 install_pkg()
@@ -262,12 +258,6 @@ if ! echo ${PWD} | grep 'iRedAdmin-.*/tools' >/dev/null; then
     exit 255
 fi
 
-# Check whether it's iRedAdmin-Pro
-IS_IRA_PRO='NO'
-if echo ${PWD} | grep 'iRedAdmin-Pro-.*/tools' >/dev/null; then
-    IS_IRA_PRO='YES'
-fi
-
 # Copy current directory to Apache server root
 dir_new_version="$(dirname ${PWD})"
 name_new_version="$(basename ${dir_new_version})"
@@ -365,6 +355,10 @@ if [ X"$(has_python_module json)" == X'NO' \
      -a X"$(has_python_module simplejson)" == X'NO' ]; then
     install_pkg $DEP_PY_JSON
 fi
+echo "  + [required] pycurl"
+if [ X"$(has_python_module pycurl)" == X'NO' ]; then
+    install_pkg $DEP_PY_CURL
+fi
 echo "  + [optional] BeautifulSoup"
 if [ X"$(has_python_module bs4)" == X'NO' \
      -a X"$(has_python_module BeautifulSoup)" == X'NO' ]; then
@@ -390,7 +384,7 @@ export ira_db_password="$(get_iredadmin_setting 'iredadmin_db_password')"
 # Update sql tables
 #
 mysql_conn="mysql -h${ira_db_host} \
-                  -P ${ira_db_port} \
+                  -P${ira_db_port} \
                   -u${ira_db_user} \
                   -p${ira_db_password} \
                   ${ira_db_name}"
@@ -401,24 +395,9 @@ psql_conn="psql -h ${ira_db_host} \
                 -d ${ira_db_name}"
 
 if egrep '^backend.*(mysql|ldap)' ${IRA_CONF_PY} &>/dev/null; then
-    # SQL table: tracking.
-    (${mysql_conn} <<EOF
-show tables;
-EOF
-) | grep '\<tracking\>' &>/dev/null
+    echo "* Check SQL tables, and add missed ones - if there's any"
+    ${mysql_conn} -e "SOURCE ${IRA_ROOT_DIR}/docs/samples/iredadmin.sql"
 
-    if [ X"$?" != X'0' ]; then
-        echo "* [SQL] Add new table: iredadmin.tracking."
-
-        ${mysql_conn} <<EOF
-CREATE TABLE IF NOT EXISTS tracking (
-    k VARCHAR(50) NOT NULL,
-    v TEXT NOT NULL,
-    time TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    UNIQUE KEY (k)
-);
-EOF
-    fi
 elif egrep '^backend.*pgsql' ${IRA_CONF_PY} &>/dev/null; then
     export PGPASSWORD="${ira_db_password}"
 
@@ -434,6 +413,28 @@ CREATE TABLE tracking (
     time TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 CREATE UNIQUE INDEX idx_tracking_k ON tracking (k);
+EOF
+    fi
+
+    # SQL table: domain_ownership.
+    ${psql_conn} -c '\d' | grep '\<domain_ownership\>' &>/dev/null
+    if [ X"$?" != X'0' ]; then
+        echo "* [SQL] Add new table: iredadmin.domain_ownership."
+
+        ${psql_conn} <<EOF
+CREATE TABLE domain_ownership (
+    id SERIAL PRIMARY KEY,
+    admin VARCHAR(255) NOT NULL DEFAULT '',
+    domain VARCHAR(255) NOT NULL DEFAULT '',
+    alias_domain VARCHAR(255) NOT NULL DEFAULT '',
+    verify_code VARCHAR(100) NOT NULL DEFAULT '',
+    verified INT2 NOT NULL DEFAULT 0,
+    message TEXT,
+    last_verify TIMESTAMP NULL DEFAULT NULL,
+    expire INT DEFAULT 0
+);
+CREATE UNIQUE INDEX idx_ownership_1 ON domain_ownership (admin, domain, alias_domain);
+CREATE INDEX idx_ownership_2 ON domain_ownership (verified);
 EOF
     fi
 fi
@@ -464,7 +465,7 @@ EOF
 fi
 
 
-echo "* iRedAdmin was successfully upgraded, restarting web service is required."
+echo "* iRedAdmin has been successfully upgraded."
 restart_web_service
 
 # Clean up.

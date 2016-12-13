@@ -66,8 +66,42 @@ CREATE TABLE IF NOT EXISTS `deleted_mailboxes` (
 
 -- Key-value store.
 CREATE TABLE IF NOT EXISTS `tracking` (
-    `k` VARCHAR(50) NOT NULL,
-    `v` TEXT NOT NULL,
+    `k` VARCHAR(255) NOT NULL,
+    `v` VARCHAR(255) NOT NULL,
     `time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    UNIQUE KEY (k)
-);
+    UNIQUE KEY (k),
+    INDEX (v)
+) ENGINE=InnoDB;
+
+-- Store admin <-> domain <-> verify_code used to verify domain ownership
+CREATE TABLE IF NOT EXISTS domain_ownership (
+    id BIGINT(20) UNSIGNED AUTO_INCREMENT,
+    -- the admin who added this domain with iRedAdmin. Required if domain was
+    -- added by a normal domain admin.
+    admin VARCHAR(255) NOT NULL DEFAULT '',
+    -- the domain we're going to verify. If we're going to verifying an alias
+    -- domain, it stores primary domain.
+    domain VARCHAR(255) NOT NULL DEFAULT '',
+    -- if we're verifying an alias domain:
+    --  - store primary domain in `domain`
+    --  - store alias domain in `alias_domain`
+    alias_domain VARCHAR(255) NOT NULL DEFAULT '',
+    -- a unique string which domain admin should put in TXT type DNS record
+    -- or as a web file on web server
+    verify_code VARCHAR(100) NOT NULL DEFAULT '',
+    -- store the verify status
+    verified TINYINT(1) NOT NULL DEFAULT 0,
+    -- store error message if any returned while verifying, so that domain
+    -- admin can fix it
+    message TEXT,
+    -- the last time we verify it. If it's verified, this record will be
+    -- removed in 1 month.
+    last_verify TIMESTAMP NULL DEFAULT NULL,
+    -- expire time. cron job `tools/cleanup_db.py` will remove verified or
+    -- unverified domains regularly. e.g. one month.
+    -- Note: stores seconds since Unix epoch
+    expire INT UNSIGNED DEFAULT 0,
+    PRIMARY KEY (id),
+    UNIQUE INDEX (admin, domain, alias_domain),
+    INDEX (verified)
+) ENGINE=InnoDB;
