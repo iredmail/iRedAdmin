@@ -102,6 +102,8 @@ export DEP_PY_JSON='simplejson'
 export DEP_PY_BS4='python-beautifulsoup4'
 # BeautifulSoup 3.x
 export DEP_PY_BS='python-beautifulsoup'
+# dnspython
+export DEP_PY_DNS='python-dns'
 # lxml
 export DEP_PY_LXML='python-lxml'
 # pycurl
@@ -111,17 +113,20 @@ if [ X"${DISTRO}" == X'RHEL' ]; then
 elif [ X"${DISTRO}" == X'DEBIAN' -o X"${DISTRO}" == X'UBUNTU' ]; then
     export DEP_PY_JSON='python-simplejson'
     export DEP_PY_BS4='python-beautifulsoup'
+    export DEP_PY_DNS='python-dnspython'
 elif [ X"${DISTRO}" == X'OPENBSD' ]; then
     export DEP_PY_JSON='py-simplejson'
     export DEP_PY_BS4='py-beautifulsoup4'
     export DEP_PY_BS='py-beautifulsoup4'
     export DEP_PY_CURL='py-curl'
+    export DEP_PY_DNS='py-dnspython'
 elif [ X"${DISTRO}" == X'FREEBSD' ]; then
     export DEP_PY_JSON='devel/py-simplejson'
     export DEP_PY_BS4='www/py-beautifulsoup'
     export DEP_PY_BS='www/py-beautifulsoup32'
     export DEP_PY_LXML='devel/py-lxml'
     export DEP_PY_CURL='ftp/py-pycurl'
+    export DEP_PY_DNS='dns/py-dnspython'
 fi
 
 # iRedAdmin directory and config file.
@@ -355,10 +360,13 @@ if [ X"$(has_python_module json)" == X'NO' \
      -a X"$(has_python_module simplejson)" == X'NO' ]; then
     install_pkg $DEP_PY_JSON
 fi
+
+echo "  + [required] dnspython"
+[ X"$(has_python_module dns)" == X'NO' ] && install_pkg $DEP_PY_DNS
+
 echo "  + [required] pycurl"
-if [ X"$(has_python_module pycurl)" == X'NO' ]; then
-    install_pkg $DEP_PY_CURL
-fi
+[ X"$(has_python_module pycurl)" == X'NO' ] && install_pkg $DEP_PY_CURL
+
 echo "  + [optional] BeautifulSoup"
 if [ X"$(has_python_module bs4)" == X'NO' \
      -a X"$(has_python_module BeautifulSoup)" == X'NO' ]; then
@@ -366,9 +374,7 @@ if [ X"$(has_python_module bs4)" == X'NO' \
 fi
 
 echo "  + [optional] lxml"
-if [ X"$(has_python_module lxml)" == X'NO' ]; then
-    install_pkg $DEP_PY_LXML
-fi
+[ X"$(has_python_module lxml)" == X'NO' ] && install_pkg $DEP_PY_LXML
 
 
 #------------------------------------------

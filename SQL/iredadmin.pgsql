@@ -40,11 +40,10 @@ CREATE TABLE updatelog (
 -- Key-value store.
 CREATE TABLE tracking (
     k VARCHAR(255) NOT NULL,
-    v VARCHAR(255) NOT NULL,
+    v TEXT,
     time TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 CREATE UNIQUE INDEX idx_tracking_k ON tracking (k);
-CREATE INDEX idx_tracking_v ON tracking (v);
 
 -- Store <-> domain <-> verify_code used to verify domain ownership
 CREATE TABLE domain_ownership (

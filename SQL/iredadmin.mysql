@@ -67,10 +67,9 @@ CREATE TABLE IF NOT EXISTS `deleted_mailboxes` (
 -- Key-value store.
 CREATE TABLE IF NOT EXISTS `tracking` (
     `k` VARCHAR(255) NOT NULL,
-    `v` VARCHAR(255) NOT NULL,
+    `v` TEXT,
     `time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    UNIQUE KEY (k),
-    INDEX (v)
+    UNIQUE KEY (k)
 ) ENGINE=InnoDB;
 
 -- Store admin <-> domain <-> verify_code used to verify domain ownership
