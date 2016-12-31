@@ -402,7 +402,7 @@ psql_conn="psql -h ${ira_db_host} \
 
 if egrep '^backend.*(mysql|ldap)' ${IRA_CONF_PY} &>/dev/null; then
     echo "* Check SQL tables, and add missed ones - if there's any"
-    ${mysql_conn} -e "SOURCE ${IRA_ROOT_DIR}/docs/samples/iredadmin.sql"
+    ${mysql_conn} -e "SOURCE ${IRA_ROOT_DIR}/SQL/iredadmin.mysql"
 
 elif egrep '^backend.*pgsql' ${IRA_CONF_PY} &>/dev/null; then
     export PGPASSWORD="${ira_db_password}"
