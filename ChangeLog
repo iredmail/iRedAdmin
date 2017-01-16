@@ -1,3 +1,11 @@
+= 0.7 =
+    * Improvements:
+        + Able to specify sql table name which is used to store real-time
+          mailbox quota usage. Defaults to 'used_quota'.
+        + Fix improper links in admin log page.
+        + New: tools/update_password_with_csv.py, used to reset password by
+          reading password from CSV file (format: '<email> <password>').
+
 = 0.6.3 =
     * Fixed issues:
         - Incorrect variable name in libs/ldaplib/connUtis,py:
