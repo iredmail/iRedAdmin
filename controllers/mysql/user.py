@@ -161,7 +161,7 @@ class Create:
         if qr[0] is True:
             allDomains = qr[1]
         else:
-            raise web.seeother('/domains?msg=' % web.urlquote(qr[1]))
+            raise web.seeother('/domains?msg=%s' % web.urlquote(qr[1]))
 
         # Set first domain as current domain.
         if self.cur_domain is None:

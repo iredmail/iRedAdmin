@@ -115,21 +115,8 @@ class Utils(core.PGSQLWrap):
         if not iredutils.is_email(admin):
             return (False, 'INCORRECT_USERNAME')
 
-        sql_left_join = ''
-        if listedOnly is False:
-            sql_left_join = """OR domain_admins.domain='ALL'"""
-
         try:
-            result = self.conn.query(
-                """
-                SELECT domain.domain
-                FROM domain
-                LEFT JOIN domain_admins ON (domain.domain=domain_admins.domain %s)
-                WHERE domain_admins.username=$admin
-                ORDER BY domain_admins.domain
-                """ % (sql_left_join),
-                vars={'admin': admin, },
-            )
+            result = self.conn.select('domain')
 
             if domainNameOnly is True:
                 domains = []

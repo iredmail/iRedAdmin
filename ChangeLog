@@ -1,3 +1,8 @@
+= 0.8 =
+    * Fixed issues:
+        - Not correctly query all managed domains.
+        - Missing two '%s' for string format.
+
 = 0.7 =
     * Improvements:
         + Able to specify sql table name which is used to store real-time

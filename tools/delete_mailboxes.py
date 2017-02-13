@@ -101,7 +101,7 @@ def delete_mailbox(conn, record):
             ts = _dir[-19:]
             time.strptime(ts, '%Y.%m.%d.%H.%M.%S')
         except Exception, e:
-            logger.error("<<< ERROR >>> Cannot convert timestamp in maildir path, skip." % maildir)
+            logger.error("<<< ERROR >>> Cannot convert timestamp in maildir path (%s), skip." % maildir)
             return False
 
     # check directory
