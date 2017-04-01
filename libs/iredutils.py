@@ -416,6 +416,37 @@ def verify_ssha_password(challenge_password, plain_password):
     except:
         return False
 
+def generate_sha512_password(p):
+    """Generate SHA512 password with prefix '{SHA512}'."""
+    p = str(p).strip()
+    try:
+        from hashlib import sha512
+        pw = sha512(p)
+        return '{SHA512}' + b64encode(pw.digest())
+    except ImportError:
+        # Use SSHA password instead if python is older than 2.5.
+        return generate_ssha_password(p)
+
+def verify_sha512_password(challenge_password, plain_password):
+    """Verify SHA512 password with or without prefix '{SHA512}'.
+    Python-2.5 is required since it requires module hashlib."""
+    if challenge_password.startswith('{SHA512}') \
+       or challenge_password.startswith('{sha512}'):
+        challenge_password = challenge_password[8:]
+
+    if not len(challenge_password) == 88:
+        return False
+
+    try:
+        challenge_bytes = b64decode(challenge_password)
+        digest = challenge_bytes[:64]
+
+        from hashlib import sha512
+        hr = sha512(plain_password)
+
+        return digest == hr.digest()
+    except:
+        return False
 
 def generate_ssha512_password(p):
     """Generate salted SHA512 password with prefix '{SSHA512}'.
@@ -503,6 +534,8 @@ def generate_password_hash(p, pwscheme=None):
         pw = generate_bcrypt_password(p)
     elif pwscheme == 'SSHA512':
         pw = generate_ssha512_password(p)
+    elif pwscheme == 'SHA512':
+        pw = generate_sha512_password(p)
     elif pwscheme == 'SSHA':
         pw = generate_ssha_password(p)
     elif pwscheme == 'MD5':
@@ -535,14 +568,16 @@ def verify_password_hash(challenge_password, plain_password):
         return verify_ssha_password(challenge_password, plain_password)
     elif upwd.startswith('{SSHA512}'):
         return verify_ssha512_password(challenge_password, plain_password)
-    elif upwd.startswith('{PLAIN-MD5}'):
-        return verify_plain_md5_password(challenge_password, plain_password)
-    elif upwd.startswith('{CRAM-MD5}'):
-        return verify_cram_md5_password(challenge_password, plain_password)
     elif upwd.startswith('{CRYPT}$2A$') or \
             upwd.startswith('{CRYPT}$2B$') or \
             upwd.startswith('{BLF-CRYPT}'):
         return verify_bcrypt_password(challenge_password, plain_password)
+    elif upwd.startswith('{SHA512}'):
+        return verify_sha512_password(challenge_password, plain_password)
+    elif upwd.startswith('{PLAIN-MD5}'):
+        return verify_plain_md5_password(challenge_password, plain_password)
+    elif upwd.startswith('{CRAM-MD5}'):
+        return verify_cram_md5_password(challenge_password, plain_password)
 
     return False
 

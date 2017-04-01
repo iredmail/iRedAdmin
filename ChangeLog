@@ -1,4 +1,7 @@
 = 0.8 =
+    * Improvements:
+        + Able to generate and verify SHA512 password hash.
+
     * Fixed issues:
         - Not correctly query all managed domains.
         - Missing two '%s' for string format.
