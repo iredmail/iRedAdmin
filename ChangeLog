@@ -3,6 +3,13 @@
         + Able to generate and verify SHA512 password hash.
 
     * Fixed issues:
+        - tools/upgrade_iredadmin.sh:
+            - Not able to upgrade SQL database if we're using a remote MySQL
+              server. Fixed by introducing two new command line arguments:
+                * SQL_IREDADMIN_USER: specify the sql username.
+                * MY_CNF: specify alternative file of /root/.my.cnf.
+            - Not copy custom config file 'custom_settings.py' - it's used in
+              iRedMail cluster solution.
         - Not correctly query all managed domains.
         - Missing two '%s' for string format.
 

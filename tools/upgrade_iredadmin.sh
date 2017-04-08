@@ -7,11 +7,29 @@
 #
 #   # cd /path/to/iRedAdmin-xxx/tools/
 #   # bash upgrade_iredadmin.sh
+#
+# Notes:
+#
+#   * it uses sql username 'root' by default to connect to sql database. If you
+#     are using a remote SQL database which you don't have root privilege,
+#     please specify the sql username on command line with 'SQL_IREDADMIN_USER'
+#     parameter like this:
+#
+#       SQL_IREDADMIN_USER='iredadmin' bash upgrade_iredadmin.sh
+#
+#   * it reads sql password for given sql user from /root/.my.cnf by default.
+#     if you use a different file, please specify the file on command line with
+#     'MY_CNF' parameter like this:
+#
+#       MY_CNF='/root/.my.cnf.iredadmin' SQL_IREDADMIN_USER='iredadmin' bash upgrade_iredadmin.sh
 
 export IRA_HTTPD_USER='iredadmin'
 export IRA_HTTPD_GROUP='iredadmin'
 
 export SYS_ROOT_USER='root'
+
+export SQL_IREDADMIN_USER="${SQL_IREDADMIN_USER:=iredadmin}"
+export MY_CNF="${MY_CNF:=/root/.my.cnf}"
 
 # Check OS to detect some necessary info.
 export KERNEL_NAME="$(uname -s | tr '[a-z]' '[A-Z]')"
@@ -132,10 +150,8 @@ fi
 # iRedAdmin directory and config file.
 export IRA_ROOT_DIR="${HTTPD_SERVERROOT}/iredadmin"
 export IRA_CONF_PY="${IRA_ROOT_DIR}/settings.py"
+export IRA_CUSTOM_CONF_PY="${IRA_ROOT_DIR}/custom_settings.py"
 export IRA_CONF_INI="${IRA_ROOT_DIR}/settings.ini"
-
-echo "* Detected Linux/BSD distribution: ${DISTRO}"
-echo "* HTTP server root: ${HTTPD_SERVERROOT}"
 
 restart_web_service()
 {
@@ -232,6 +248,39 @@ get_iredadmin_setting()
     echo "${value}"
 }
 
+check_dot_my_cnf()
+{
+    if egrep '^backend.*(mysql|ldap)' ${IRA_CONF_PY} &>/dev/null; then
+        if [ ! -f ${MY_CNF} ]; then
+            echo "<<< ERROR >>> File ${MY_CNF} not found."
+            echo "<<< ERROR >>> Please add mysql root user and password in it like below, then run this script again."
+            cat <<EOF
+
+[client]
+host=127.0.0.1
+port=3306
+user=${SQL_IREDADMIN_USER}
+password="plain_password"
+
+EOF
+
+            exit 255
+        fi
+
+        # Check MySQL connection
+        mysql --defaults-file=${MY_CNF} -u${SQL_IREDADMIN_USER} -e "SHOW DATABASES" &>/dev/null
+        if [ X"$?" != X'0' ]; then
+            echo "<<< ERROR >>> MySQL user name '${SQL_IREDADMIN_USER}' or password is incorrect in ${MY_CNF}, please double check."
+            exit 255
+        fi
+    fi
+}
+
+check_dot_my_cnf
+
+echo "* Detected Linux/BSD distribution: ${DISTRO}"
+echo "* HTTP server root: ${HTTPD_SERVERROOT}"
+
 if [ -L ${IRA_ROOT_DIR} ]; then
     export IRA_ROOT_REAL_DIR="$(readlink ${IRA_ROOT_DIR})"
     echo "* Found iRedAdmin directory: ${IRA_ROOT_DIR}, symbol link of ${IRA_ROOT_REAL_DIR}"
@@ -280,8 +329,9 @@ fi
 echo "* Copying new version to ${NEW_IRA_ROOT_DIR}"
 cp -rf ${COPY_FILES} ${COPY_DEST_DIR}
 
-# Copy old config file
+# Copy old config files
 cp -p ${IRA_CONF_PY} ${NEW_IRA_ROOT_DIR}/
+[ -f ${IRA_CUSTOM_CONF_PY} ] && cp -p ${IRA_CUSTOM_CONF_PY} ${NEW_IRA_ROOT_DIR}/
 
 # Copy hooks.py. It's ok if missing.
 cp -p ${IRA_ROOT_DIR}/hooks.py ${NEW_IRA_ROOT_DIR}/ &>/dev/null
@@ -389,12 +439,6 @@ export ira_db_password="$(get_iredadmin_setting 'iredadmin_db_password')"
 #
 # Update sql tables
 #
-mysql_conn="mysql -h${ira_db_host} \
-                  -P${ira_db_port} \
-                  -u${ira_db_user} \
-                  -p${ira_db_password} \
-                  ${ira_db_name}"
-
 psql_conn="psql -h ${ira_db_host} \
                 -p ${ira_db_port} \
                 -U ${ira_db_user} \
@@ -402,7 +446,7 @@ psql_conn="psql -h ${ira_db_host} \
 
 if egrep '^backend.*(mysql|ldap)' ${IRA_CONF_PY} &>/dev/null; then
     echo "* Check SQL tables, and add missed ones - if there's any"
-    ${mysql_conn} -e "SOURCE ${IRA_ROOT_DIR}/SQL/iredadmin.mysql"
+    mysql --defaults-file=${MY_CNF} -u "${SQL_IREDADMIN_USER}" ${ira_db_name} -e "SOURCE ${IRA_ROOT_DIR}/SQL/iredadmin.mysql"
 
 elif egrep '^backend.*pgsql' ${IRA_CONF_PY} &>/dev/null; then
     export PGPASSWORD="${ira_db_password}"
