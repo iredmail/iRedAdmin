@@ -76,7 +76,7 @@ class PGSQLWrap:
 
     def setAccountStatus(self, accounts, accountType, active=True):
         # accounts must be a list/tuple.
-        # accountType in ['domain', 'user', 'admin', 'alias',]
+        # accountType in ['domain', 'user', 'admin']
         # active: True -> active, False -> disabled
         if not len(accounts) > 0:
             return (True,)
@@ -122,17 +122,6 @@ class PGSQLWrap:
                 )
             except Exception, e:
                 return (False, str(e))
-        elif accountType == 'alias':
-            accounts = [str(v) for v in accounts if iredutils.is_email(v)]
-            try:
-                self.conn.update(
-                    'alias',
-                    vars={'accounts': accounts},
-                    where='address IN $accounts',
-                    active=active,
-                )
-            except Exception, e:
-                return (False, str(e))
         else:
             pass
 
@@ -147,7 +136,7 @@ class PGSQLWrap:
 
     def deleteAccounts(self, accounts, accountType, keep_mailbox_days=0):
         # accounts must be a list/tuple.
-        # accountType in ['domain', 'user', 'admin', 'alias',]
+        # accountType in ['domain', 'user', 'admin']
         if not accounts:
             return (True,)
 
@@ -193,37 +182,9 @@ class PGSQLWrap:
                                      vars=sql_vars,
                                      where='username IN $accounts')
 
-                self.conn.delete('alias',
+                self.conn.delete('forwardings',
                                  vars=sql_vars,
-                                 where='address IN $accounts')
-
-                # Remove users from alias.goto.
-                try:
-                    qr = self.conn.select(
-                        'alias',
-                        what='address,goto',
-                        where='address <> goto AND address <> "" AND (%s)' % ' OR '.join(
-                            ['goto LIKE %s' % web.sqlquote('%%' + v + '%%') for v in accounts]
-                        ),
-                    )
-
-                    # Update aliases, remove deleted users.
-                    for als in qr:
-                        exist_members = [v for v in str(als.goto).replace(' ', '').split(',')]
-
-                        # Skip if PGSQL pattern matching doesn't get correct results.
-                        if not set(accounts) & set(exist_members):
-                            continue
-
-                        self.conn.update(
-                            'alias',
-                            vars={'address': als.address, },
-                            where='address = $address',
-                            goto=','.join([str(v) for v in exist_members if v not in accounts]),
-                            modified=iredutils.get_gmttime(),
-                        )
-                except Exception, e:
-                    pass
+                                 where='address IN $accounts OR forwarding IN $accounts')
 
             except Exception, e:
                 return (False, str(e))
@@ -234,16 +195,6 @@ class PGSQLWrap:
                     'admin',
                     vars={'accounts': accounts, },
                     where='username IN $accounts',
-                )
-            except Exception, e:
-                return (False, str(e))
-        elif accountType == 'alias':
-            accounts = [str(v) for v in accounts if iredutils.is_email(v)]
-            try:
-                self.conn.delete(
-                    'alias',
-                    vars={'accounts': accounts, },
-                    where='address IN $accounts',
                 )
             except Exception, e:
                 return (False, str(e))

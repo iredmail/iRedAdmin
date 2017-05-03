@@ -118,9 +118,6 @@ class User(core.MySQLWrap):
                 '''
                 SELECT
                 mailbox.*,
-                alias.address AS alias_address,
-                alias.goto AS alias_goto,
-                alias.active AS alias_active,
                 sbcc.username AS sbcc_username,
                 sbcc.bcc_address AS sbcc_bcc_address,
                 sbcc.active AS sbcc_active,
@@ -128,7 +125,6 @@ class User(core.MySQLWrap):
                 rbcc.bcc_address AS rbcc_bcc_address,
                 rbcc.active AS rbcc_active
                 FROM mailbox
-                LEFT JOIN alias ON (mailbox.username = alias.address)
                 LEFT JOIN sender_bcc_user AS sbcc ON (mailbox.username = sbcc.username)
                 LEFT JOIN recipient_bcc_user AS rbcc ON (mailbox.username = rbcc.username)
                 WHERE mailbox.username = $username
@@ -256,15 +252,12 @@ class User(core.MySQLWrap):
                 local_part=mail_local_part,
             )
 
-            # Create an alias account: address=goto.
             self.conn.insert(
-                'alias',
+                'forwardings',
                 address=self.mail,
-                goto=self.mail,
+                forwarding=self.mail,
                 domain=self.domain,
-                created=iredutils.get_gmttime(),
-                active='1',
-            )
+                is_forwarding=1)
 
             web.logger(msg="Create user: %s." % (self.mail), domain=self.domain, event='create',)
             return (True,)

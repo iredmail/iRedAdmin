@@ -114,7 +114,7 @@ class Admin(core.PGSQLWrap):
             return 0
 
         self.domains = []
-        if accountType in ['user', 'alias', ]:
+        if accountType == 'user':
             if len(domains) > 0:
                 self.domains = [str(d).lower() for d in domains if iredutils.is_domain(d)]
             else:
@@ -166,45 +166,6 @@ class Admin(core.PGSQLWrap):
                         FROM mailbox
                         LEFT JOIN domain_admins ON (mailbox.domain = domain_admins.domain)
                         WHERE domain_admins.username=$admin %s
-                        """ % (self.sql_append_where, ),
-                        vars=sql_vars,
-                    )
-
-                total = result[0].total or 0
-                return total
-            except:
-                pass
-        elif accountType == 'alias':
-            try:
-                if self.is_global_admin(self.admin):
-                    if len(self.domains) == 0:
-                        result = self.conn.select(
-                            'alias',
-                            what='COUNT(address) AS total',
-                            where='address <> goto AND address <> domain',
-                        )
-                    else:
-                        result = self.conn.select(
-                            'alias',
-                            vars=sql_vars,
-                            what='COUNT(address) AS total',
-                            where='address <> goto AND address <> domain AND domain IN $domains',
-                        )
-                else:
-                    self.sql_append_where = ''
-                    if len(self.domains) == 0:
-                        self.sql_append_where = 'AND alias.domain IN %s' % web.sqlquote(self.domains)
-
-                    result = self.conn.query("""
-                        -- Get number of mail aliases
-                        SELECT COUNT(alias.address) AS total
-                        FROM alias
-                        LEFT JOIN domain_admins ON (alias.domain = domain_admins.domain)
-                        WHERE
-                            domain_admins.username=$admin
-                            AND alias.addres <> alias.domain
-                            AND alias.address <> alias.goto
-                            %s
                         """ % (self.sql_append_where, ),
                         vars=sql_vars,
                     )

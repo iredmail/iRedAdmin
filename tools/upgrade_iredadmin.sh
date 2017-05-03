@@ -28,7 +28,8 @@ export IRA_HTTPD_GROUP='iredadmin'
 
 export SYS_ROOT_USER='root'
 
-export SQL_IREDADMIN_USER="${SQL_IREDADMIN_USER:=iredadmin}"
+# If you don't have root privilege, use another sql user instead.
+export SQL_IREDADMIN_USER="${SQL_IREDADMIN_USER:=root}"
 export MY_CNF="${MY_CNF:=/root/.my.cnf}"
 
 # Check OS to detect some necessary info.

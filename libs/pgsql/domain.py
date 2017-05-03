@@ -83,18 +83,6 @@ class Domain(core.PGSQLWrap):
                 return (True, mailbox_count, quota_count)
             except Exception, e:
                 return (False, str(e))
-        elif accountType == 'alias':
-            try:
-                result = self.conn.select(
-                    'alias',
-                    vars=sql_vars,
-                    what='COUNT(address) AS alias_count',
-                    where='domain = $domain AND address <> goto',
-                )
-                result = list(result)
-                return (True, result[0].alias_count)
-            except Exception, e:
-                return (False, str(e))
         else:
             return (False, 'INVALID_ACCOUNT_TYPE')
 
@@ -131,15 +119,6 @@ class Domain(core.PGSQLWrap):
                 NULLIF(c.mailbox_count, 0) AS mailbox_count,
                 NULLIF(c.quota_count, 0) AS quota_count
             FROM domain AS a
-            LEFT JOIN (
-                SELECT domain, COUNT(address) AS alias_count
-                FROM alias
-                WHERE
-                    address<>goto
-                    AND address<>domain
-                    AND address NOT IN (SELECT username FROM mailbox)
-                GROUP BY domain
-                ) AS b ON (a.domain=b.domain)
             LEFT JOIN (
                 SELECT domain,
                     SUM(mailbox.quota) AS quota_count,
@@ -231,7 +210,8 @@ class Domain(core.PGSQLWrap):
                 where='alias_domain IN $domains OR target_domain IN $domains',
             )
 
-            for tbl in ['alias', 'domain_admins', 'mailbox',
+            for tbl in ['alias', 'alias_moderators', 'forwardings',
+                        'domain_admins', 'mailbox',
                         'recipient_bcc_domain', 'recipient_bcc_user',
                         'sender_bcc_domain', 'sender_bcc_user']:
                 self.conn.delete(tbl,
@@ -290,27 +270,19 @@ class Domain(core.PGSQLWrap):
                     sbcc.active AS sbcc_active,
                     rbcc.bcc_address AS rbcc_addr,
                     rbcc.active AS rbcc_active,
-                    alias.goto AS catchall,
-                    alias.active AS catchall_active,
                     COUNT(DISTINCT mailbox.username) AS mailbox_count,
-                    COUNT(DISTINCT alias.address) AS alias_count
                 FROM domain
                 LEFT JOIN sender_bcc_domain AS sbcc ON (sbcc.domain=domain.domain)
                 LEFT JOIN recipient_bcc_domain AS rbcc ON (rbcc.domain=domain.domain)
                 LEFT JOIN domain_admins ON (domain.domain = domain_admins.domain)
                 LEFT JOIN mailbox ON (domain.domain = mailbox.domain)
-                LEFT JOIN alias ON (
-                    domain.domain = alias.address
-                    AND alias.address <> alias.goto
-                    )
                 WHERE domain.domain=$domain
                 GROUP BY
                     domain.domain, domain.description, domain.aliases,
                     domain.mailboxes, domain.maxquota, domain.quota,
                     domain.transport, domain.backupmx, domain.active,
                     sbcc.bcc_address, sbcc.active,
-                    rbcc.bcc_address, rbcc.active,
-                    alias.goto, alias.active
+                    rbcc.bcc_address, rbcc.active
                 ORDER BY domain.domain
                 LIMIT 1
                 ''',

@@ -84,23 +84,14 @@ class Utils(core.MySQLWrap):
         sql_vars = {'email': mail, }
 
         try:
-            resultOfMailbox = self.conn.select(
-                'mailbox',
-                vars=sql_vars,
-                what='username',
-                where='username=$email',
-                limit=1,
-            )
-
-            resultOfAlias = self.conn.select(
-                'alias',
+            result = self.conn.select(
+                'forwardings',
                 vars=sql_vars,
                 what='address',
                 where='address=$email',
-                limit=1,
-            )
+                limit=1)
 
-            if resultOfMailbox or resultOfAlias:
+            if result:
                 return True
             else:
                 return False
