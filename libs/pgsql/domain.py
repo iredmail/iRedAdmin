@@ -115,7 +115,6 @@ class Domain(core.PGSQLWrap):
             SELECT
                 a.domain, a.description, a.aliases, a.mailboxes, a.maxquota, a.quota,
                 a.transport, a.backupmx, a.active,
-                NULLIF(b.alias_count, 0) AS alias_count,
                 NULLIF(c.mailbox_count, 0) AS mailbox_count,
                 NULLIF(c.quota_count, 0) AS quota_count
             FROM domain AS a
@@ -131,7 +130,7 @@ class Domain(core.PGSQLWrap):
             GROUP BY
                 a.domain, a.description, a.aliases, a.mailboxes, a.maxquota, a.quota,
                 a.transport, a.backupmx, a.active,
-                mailbox_count, alias_count, quota_count
+                mailbox_count, quota_count
             ORDER BY a.domain
             LIMIT %d
             OFFSET %d
@@ -270,7 +269,7 @@ class Domain(core.PGSQLWrap):
                     sbcc.active AS sbcc_active,
                     rbcc.bcc_address AS rbcc_addr,
                     rbcc.active AS rbcc_active,
-                    COUNT(DISTINCT mailbox.username) AS mailbox_count,
+                    COUNT(DISTINCT mailbox.username) AS mailbox_count
                 FROM domain
                 LEFT JOIN sender_bcc_domain AS sbcc ON (sbcc.domain=domain.domain)
                 LEFT JOIN recipient_bcc_domain AS rbcc ON (rbcc.domain=domain.domain)

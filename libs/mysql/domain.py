@@ -115,7 +115,6 @@ class Domain(core.MySQLWrap):
             SELECT
                 a.domain, a.description, a.aliases, a.mailboxes, a.maxquota, a.quota,
                 a.transport, a.backupmx, a.active,
-                IFNULL(b.alias_count, 0) AS alias_count,
                 IFNULL(c.mailbox_count, 0) AS mailbox_count,
                 IFNULL(c.quota_count, 0) AS quota_count
             FROM domain AS a
@@ -267,7 +266,7 @@ class Domain(core.MySQLWrap):
                     sbcc.active AS sbcc_active,
                     rbcc.bcc_address AS rbcc_addr,
                     rbcc.active AS rbcc_active,
-                    COUNT(DISTINCT mailbox.username) AS mailbox_count,
+                    COUNT(DISTINCT mailbox.username) AS mailbox_count
                 FROM domain
                 LEFT JOIN sender_bcc_domain AS sbcc ON (sbcc.domain=domain.domain)
                 LEFT JOIN recipient_bcc_domain AS rbcc ON (rbcc.domain=domain.domain)
