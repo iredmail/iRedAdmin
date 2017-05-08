@@ -1,11 +1,8 @@
-############################################################
-# DO NOT TOUCH BELOW LINE.
+# encoding: utf-8
 #
-# Import default settings.
-# You can always override default settings by placing custom settings in this
-# file.
+############################################################
+# DO NOT MODIFY THIS LINE, IT'S USED TO IMPORT DEFAULT SETTINGS.
 from libs.default_settings import *
-
 ############################################################
 # General settings.
 #

@@ -1,8 +1,8 @@
-############################################################
-# DO NOT TOUCH BELOW LINE.
+# encoding: utf-8
 #
+############################################################
+# DO NOT MODIFY THIS LINE, IT'S USED TO IMPORT DEFAULT SETTINGS.
 from libs.default_settings import *
-
 ############################################################
 # General settings.
 #
