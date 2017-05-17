@@ -193,8 +193,7 @@ class Domain(core.MySQLWrap):
                  WHERE domain IN $domains'''
 
             self.conn.query(sql_raw, vars=sql_vars)
-        except Exception, e:
-            print e
+        except Exception:
             pass
 
         # Delete domain and related records.

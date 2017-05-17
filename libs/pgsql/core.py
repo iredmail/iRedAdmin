@@ -201,13 +201,6 @@ class PGSQLWrap:
         else:
             pass
 
-        try:
-            web.logger(
-                msg="Delete %s: %s." % (accountType, ', '.join(accounts)),
-                event='delete',
-            )
-        except:
-            pass
         return (True,)
 
 
