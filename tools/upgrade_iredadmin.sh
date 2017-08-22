@@ -286,7 +286,7 @@ if [ -L ${IRA_ROOT_DIR} ]; then
     export IRA_ROOT_REAL_DIR="$(readlink ${IRA_ROOT_DIR})"
     echo "* Found iRedAdmin directory: ${IRA_ROOT_DIR}, symbol link of ${IRA_ROOT_REAL_DIR}"
 else
-    echo "<<< ERROR >>> Directory is not a symbol link created by iRedMail. Exit."
+    echo "<<< ERROR >>> Directory (${IRA_ROOT_DIR}) is not a symbol link created by iRedMail. Exit."
     exit 255
 fi
 
@@ -331,11 +331,19 @@ echo "* Copying new version to ${NEW_IRA_ROOT_DIR}"
 cp -rf ${COPY_FILES} ${COPY_DEST_DIR}
 
 # Copy old config files
+echo "* Copy ${IRA_CONF_PY}."
 cp -p ${IRA_CONF_PY} ${NEW_IRA_ROOT_DIR}/
-[ -f ${IRA_CUSTOM_CONF_PY} ] && cp -p ${IRA_CUSTOM_CONF_PY} ${NEW_IRA_ROOT_DIR}/
+
+if [ -f ${IRA_CUSTOM_CONF_PY} ]; then
+    echo "* Copy ${IRA_CUSTOM_CONF_PY}."
+    cp -p ${IRA_CUSTOM_CONF_PY} ${NEW_IRA_ROOT_DIR}
+fi
 
 # Copy hooks.py. It's ok if missing.
-cp -p ${IRA_ROOT_DIR}/hooks.py ${NEW_IRA_ROOT_DIR}/ &>/dev/null
+if [ -f ${IRA_ROOT_DIR}/hooks.py ]; then
+    echo "* Copy ${IRA_ROOT_DIR}/hooks.py."
+    cp -p ${IRA_ROOT_DIR}/hooks.py ${NEW_IRA_ROOT_DIR}/ &>/dev/null
+fi
 
 # Copy custom files under 'tools/'. It's ok if missing.
 cp -p ${IRA_ROOT_DIR}/tools/*.custom ${NEW_IRA_ROOT_DIR}/tools/ &>/dev/null
@@ -343,8 +351,16 @@ cp -p ${IRA_ROOT_DIR}/tools/*.last-time ${NEW_IRA_ROOT_DIR}/tools/ &>/dev/null
 
 # Template file renamed
 if [ -f "${IRA_ROOT_DIR}/tools/notify_quarantined_recipients.custom.html" ]; then
+    echo "* Copy ${IRA_ROOT_DIR}/tools/notify_quarantined_recipients.custom.html"
     cp -f ${IRA_ROOT_DIR}/tools/notify_quarantined_recipients.custom.html \
         ${NEW_IRA_ROOT_DIR}/tools/notify_quarantined_recipients.html.custom
+fi
+
+# Copy favicon.ico
+if grep '^BRAND_FAVICON\>' ${IRA_CONF_PY} &>/dev/null; then
+    echo "* Copy ${IRA_ROOT_DIR}/static/${_ico}."
+    _ico="$(grep '^BRAND_FAVICON\>' ${IRA_CONF_PY} | awk '{print $NF}' | tr -d '"' | tr -d "'")"
+    cp -f ${IRA_ROOT_DIR}/static/${_ico} ${NEW_IRA_ROOT_DIR}/static/
 fi
 
 # Set owner and permission.
@@ -449,8 +465,14 @@ if egrep '^backend.*(mysql|ldap)' ${IRA_CONF_PY} &>/dev/null; then
     echo "* Check SQL tables, and add missed ones - if there's any"
     mysql --defaults-file=${MY_CNF} -u "${SQL_IREDADMIN_USER}" ${ira_db_name} -e "SOURCE ${IRA_ROOT_DIR}/SQL/iredadmin.mysql"
 
+    mysql --defaults-file=${MY_CNF} -u "${SQL_IREDADMIN_USER}" ${ira_db_name} -e "ALTER TABLE log MODIFY COLUMN msg TEXT;"
 elif egrep '^backend.*pgsql' ${IRA_CONF_PY} &>/dev/null; then
     export PGPASSWORD="${ira_db_password}"
+
+    # Allow log.msg to store long text.
+    ${psql_conn} <<EOF
+ALTER TABLE log ALTER COLUMN msg TYPE TEXT;
+EOF
 
     # SQL table: tracking.
     ${psql_conn} -c '\d' | grep '\<tracking\>' &>/dev/null
