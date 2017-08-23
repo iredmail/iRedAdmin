@@ -112,24 +112,27 @@ class Domain(core.MySQLWrap):
 
         # RAW sql command used to get records.
         rawSQLOfRecords = """
-            SELECT
-                a.domain, a.description, a.aliases, a.mailboxes, a.maxquota, a.quota,
-                a.transport, a.backupmx, a.active,
-                IFNULL(c.mailbox_count, 0) AS mailbox_count,
-                IFNULL(c.quota_count, 0) AS quota_count
-            FROM domain AS a
-            LEFT JOIN (
-                SELECT domain,
-                    SUM(mailbox.quota) AS quota_count,
-                    COUNT(username) AS mailbox_count
-                FROM mailbox
-                GROUP BY domain
-                ) AS c ON (a.domain=c.domain)
-            LEFT JOIN domain_admins ON (domain_admins.domain=a.domain)
-            %s
-            GROUP BY a.domain
-            ORDER BY a.domain
-            LIMIT %d
+            SELECT a.domain, a.description, a.transport, a.backupmx, a.active,
+                   a.aliases, a.mailboxes,
+                   a.maxquota, a.quota,
+                   IFNULL(c.mailbox_count, 0) AS mailbox_count,
+                   IFNULL(c.quota_count, 0) AS quota_count
+              FROM domain AS a
+         LEFT JOIN (SELECT domain,
+                           SUM(mailbox.quota) AS quota_count,
+                           COUNT(username) AS mailbox_count
+                      FROM mailbox
+                  GROUP BY domain
+                   ) AS c ON (a.domain=c.domain)
+         LEFT JOIN domain_admins ON (domain_admins.domain=a.domain)
+                   %s
+          GROUP BY a.domain, a.description, a.transport, a.backupmx, a.active,
+                   a.aliases, a.mailboxes,
+                   a.maxquota, a.quota,
+                   b.alias_count,
+                   c.mailbox_count, c.quota_count
+          ORDER BY a.domain
+             LIMIT %d
             OFFSET %d
         """ % (sql_where, settings.PAGE_SIZE_LIMIT, (page - 1) * settings.PAGE_SIZE_LIMIT,)
 
@@ -275,7 +278,11 @@ class Domain(core.MySQLWrap):
                 GROUP BY
                     domain.domain, domain.description, domain.aliases,
                     domain.mailboxes, domain.maxquota, domain.quota,
-                    domain.transport, domain.backupmx, domain.active
+                    domain.transport, domain.backupmx, domain.active,
+                    domain.disclaimer, domain.settings, domain.created,
+                    domain.modified, domain.expired,
+                    sbcc.bcc_address, sbcc.active,
+                    rbcc.bcc_address, rbcc.active
                 ORDER BY domain.domain
                 LIMIT 1
                 ''',
