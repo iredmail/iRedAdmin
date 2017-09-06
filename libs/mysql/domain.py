@@ -129,7 +129,6 @@ class Domain(core.MySQLWrap):
           GROUP BY a.domain, a.description, a.transport, a.backupmx, a.active,
                    a.aliases, a.mailboxes,
                    a.maxquota, a.quota,
-                   b.alias_count,
                    c.mailbox_count, c.quota_count
           ORDER BY a.domain
              LIMIT %d
