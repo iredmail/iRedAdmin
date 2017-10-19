@@ -21,7 +21,7 @@
 #     if you use a different file, please specify the file on command line with
 #     'MY_CNF' parameter like this:
 #
-#       MY_CNF='/root/.my.cnf.iredadmin' SQL_IREDADMIN_USER='iredadmin' bash upgrade_iredadmin.sh
+#       MY_CNF='/root/.my.cnf-iredadmin' SQL_IREDADMIN_USER='iredadmin' bash upgrade_iredadmin.sh
 
 export IRA_HTTPD_USER='iredadmin'
 export IRA_HTTPD_GROUP='iredadmin'
@@ -358,8 +358,8 @@ fi
 
 # Copy favicon.ico
 if grep '^BRAND_FAVICON\>' ${IRA_CONF_PY} &>/dev/null; then
-    echo "* Copy ${IRA_ROOT_DIR}/static/${_ico}."
     _ico="$(grep '^BRAND_FAVICON\>' ${IRA_CONF_PY} | awk '{print $NF}' | tr -d '"' | tr -d "'")"
+    echo "* Copy ${IRA_ROOT_DIR}/static/${_ico}."
     cp -f ${IRA_ROOT_DIR}/static/${_ico} ${NEW_IRA_ROOT_DIR}/static/
 fi
 
@@ -425,23 +425,23 @@ echo "* Check and install dependent Python modules:"
 echo "  + [required] json or simplejson"
 if [ X"$(has_python_module json)" == X'NO' \
      -a X"$(has_python_module simplejson)" == X'NO' ]; then
-    install_pkg $DEP_PY_JSON
+    install_pkg ${DEP_PY_JSON}
 fi
 
 echo "  + [required] dnspython"
-[ X"$(has_python_module dns)" == X'NO' ] && install_pkg $DEP_PY_DNS
+[ X"$(has_python_module dns)" == X'NO' ] && install_pkg ${DEP_PY_DNS}
 
 echo "  + [required] pycurl"
-[ X"$(has_python_module pycurl)" == X'NO' ] && install_pkg $DEP_PY_CURL
+[ X"$(has_python_module pycurl)" == X'NO' ] && install_pkg ${DEP_PY_CURL}
 
 echo "  + [optional] BeautifulSoup"
 if [ X"$(has_python_module bs4)" == X'NO' \
      -a X"$(has_python_module BeautifulSoup)" == X'NO' ]; then
-    install_pkg $DEP_PY_BS4
+    install_pkg ${DEP_PY_BS4}
 fi
 
 echo "  + [optional] lxml"
-[ X"$(has_python_module lxml)" == X'NO' ] && install_pkg $DEP_PY_LXML
+[ X"$(has_python_module lxml)" == X'NO' ] && install_pkg ${DEP_PY_LXML}
 
 
 #------------------------------------------
