@@ -504,17 +504,17 @@ def generate_cram_md5_password(p):
 
 def verify_cram_md5_password(challenge_password, plain_password):
     """Verify CRAM-MD5 hash with 'doveadm pw' command."""
-    if not challenge_password.startswith('{CRAM-MD5}') \
-       or not challenge_password.startswith('{cram-md5}'):
+    if not challenge_password.lower().strip().startswith('{cram-md5}'):
         return False
 
     try:
         exit_status = subprocess.call(['doveadm',
                                        'pw',
                                        '-t',
-                                       challenge_password,
+                                       challenge_password.strip(),
                                        '-p',
-                                       plain_password])
+                                       plain_password.strip()])
+
         if exit_status == 0:
             return True
     except:
@@ -542,6 +542,8 @@ def generate_password_hash(p, pwscheme=None):
         pw = '{CRYPT}' + generate_md5_password(p)
     elif pwscheme == 'PLAIN-MD5':
         pw = generate_plain_md5_password(p)
+    elif pwscheme == 'CRAM-MD5':
+        pw = generate_cram_md5_password(p)
     elif pwscheme == 'PLAIN':
         if settings.SQL_PASSWORD_PREFIX_SCHEME is True:
             pw = '{PLAIN}' + p
