@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `log` (
     `username` VARCHAR(255) NOT NULL DEFAULT '',
     `event` VARCHAR(20) NOT NULL DEFAULT '',
     `loglevel` VARCHAR(10) NOT NULL DEFAULT 'info',
-    `msg` VARCHAR(255) NOT NULL,
+    `msg` TEXT NOT NULL,
     KEY id (id),
     INDEX (timestamp),
     INDEX (admin),
@@ -103,4 +103,25 @@ CREATE TABLE IF NOT EXISTS domain_ownership (
     PRIMARY KEY (id),
     UNIQUE INDEX (admin, domain, alias_domain),
     INDEX (verified)
+) ENGINE=InnoDB;
+
+-- mailing list subscription/unsubscription confirms.
+CREATE TABLE IF NOT EXISTS `newsletter_subunsub_confirms` (
+    `id` BIGINT(20) UNSIGNED AUTO_INCREMENT,
+    -- email of mailing list
+    `mail` VARCHAR(255) NOT NULL DEFAULT '',
+    -- unique server wide id
+    `mlid` VARCHAR(255) NOT NULL DEFAULT '',
+    -- email of subscriber
+    `subscriber` VARCHAR(255) NOT NULL DEFAULT '',
+    -- kinds of 'subscribe', 'unsubscribe'
+    `kind` VARCHAR(20) NOT NULL DEFAULT '',
+    -- unique server-wide id as confirm token
+    `token` VARCHAR(255) NOT NULL DEFAULT '',
+    `expired` INT UNSIGNED DEFAULT 0,
+    PRIMARY KEY (id),
+    INDEX (mail),
+    UNIQUE INDEX (mlid, subscriber, kind),
+    INDEX (token),
+    INDEX (expired)
 ) ENGINE=InnoDB;
