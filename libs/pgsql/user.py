@@ -249,7 +249,6 @@ class User(core.PGSQLWrap):
                 storagenode=storageNode,
                 created=iredutils.get_gmttime(),
                 active='1',
-                local_part=mail_local_part,
             )
 
             self.conn.insert(
