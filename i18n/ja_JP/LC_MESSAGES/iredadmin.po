@@ -7,21 +7,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: zhb@iredmail.org\n"
-"POT-Creation-Date: 2018-02-08 11:36+0800\n"
+"POT-Creation-Date: 2018-02-08 14:28+0900\n"
 "PO-Revision-Date: 2018-02-07 16:00+0900\n"
 "Last-Translator: OSAKANA TARO <osakanataro@gmail.com>\n"
-"Language: ja_JP\n"
 "Language-Team: ja_JP <LL@li.org>\n"
+"Language: ja_JP\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.3.4\n"
+"Generated-By: Babel 0.9.6\n"
 
 #: ../templates/default/macros/ldap.html:16
 #, python-format
 msgid "%s (%s)"
-msgstr ""
+msgstr "%s (%s)"
 
 #: ../templates/default/dashboard.html:59
 #, python-format
@@ -100,12 +100,12 @@ msgstr "<a href='%s'>メンバー</a>"
 #: ../templates/default/macros/general.html:598
 #, python-format
 msgid "<a href='%s'>Members</a> and <a href='%s'>moderators</a>"
-msgstr ""
+msgstr "<a href='%s'>メンバー</a> と <a href='%s'>モデレーター</a>"
 
 #: ../templates/default/macros/general.html:596
 #, python-format
 msgid "<a href='%s'>Moderators</a>"
-msgstr ""
+msgstr "<a href='%s'>モデレーター</a>"
 
 #: ../templates/default/macros/msgHandlers.html:177
 #: ../templates/default/macros/msgHandlers.html:203
@@ -125,7 +125,7 @@ msgstr "アカウントは無効です."
 
 #: ../templates/default/macros/general.html:728
 msgid "Activate account"
-msgstr "アカウントを有効化"
+msgstr "アカウントの有効化"
 
 #: ../templates/default/layout.html:66
 #: ../templates/default/ldap/user/create.html:90
@@ -138,7 +138,7 @@ msgstr "追加"
 
 #: ../templates/default/macros/general.html:725
 msgid "Add account"
-msgstr "アカウントを追加"
+msgstr "アカウントの追加"
 
 #: ../templates/default/ldap/admin/create.html:13
 #: ../templates/default/ldap/admin/create.html:25
@@ -180,7 +180,7 @@ msgstr "ドメインの追加"
 #: ../templates/default/pgsql/domain/list.html:100
 #: ../templates/default/pgsql/user/list.html:104
 msgid "Add one"
-msgstr ""
+msgstr "さらに作成しますか"
 
 #: ../templates/default/macros/msgHandlers.html:108
 #: ../templates/default/macros/msgHandlers.html:149
@@ -220,7 +220,7 @@ msgstr "管理者ログイン"
 
 #: ../templates/default/macros/msgHandlers.html:178
 msgid "Admin not exist."
-msgstr ""
+msgstr "管理者ではありません."
 
 #: ../templates/default/layout.html:58
 msgid "Admins"
@@ -228,7 +228,7 @@ msgstr "管理者"
 
 #: ../templates/default/macros/ldap.html:94
 msgid "Alias account"
-msgstr ""
+msgstr "エイリアスアカウント"
 
 #: ../templates/default/ldap/admin/create.html:24
 #: ../templates/default/ldap/admin/list.html:29
@@ -308,21 +308,21 @@ msgstr "クォータが設定されている:"
 
 #: ../templates/default/macros/general.html:453
 msgid "BCC incoming emails to single address"
-msgstr ""
+msgstr "受信メールを1つのアドレスにBCCで転送する"
 
 #: ../templates/default/macros/ldap.html:80
 #: ../templates/default/macros/ldap.html:97
 msgid "BCC incoming mails to other address"
-msgstr ""
+msgstr "受信メールを他のアドレスにBCCで転送する"
 
 #: ../templates/default/macros/general.html:465
 msgid "BCC outgoing emails to single address"
-msgstr ""
+msgstr "送信メールを1つのアドレスにBCCで転送する"
 
 #: ../templates/default/macros/ldap.html:81
 #: ../templates/default/macros/ldap.html:98
 msgid "BCC outgoing mails to other address"
-msgstr ""
+msgstr "送信メールを他のアドレスにBCCで転送する"
 
 #: ../templates/default/macros/general.html:732
 msgid "Backup"
@@ -330,7 +330,7 @@ msgstr "バックアップ"
 
 #: ../templates/default/macros/ldap.html:110
 msgid "Check this box in order to enable other services"
-msgstr ""
+msgstr "他のサービスを有効にする場合、チェックを入れる"
 
 #: ../templates/default/ldap/admin/list.html:81
 #: ../templates/default/ldap/domain/list.html:122
@@ -347,7 +347,7 @@ msgstr "実施内容を選択"
 
 #: ../templates/default/macros/general.html:497
 msgid "Company/Organization Name"
-msgstr ""
+msgstr "会社や組織の名称"
 
 #: ../templates/default/macros/general.html:370
 msgid "Confirm new password"
@@ -355,7 +355,7 @@ msgstr "パスワードの再入力"
 
 #: ../templates/default/layout.html:107
 msgid "Contact webmaster"
-msgstr ""
+msgstr "Web管理者に連絡"
 
 #: ../templates/default/macros/msgHandlers.html:135
 #: ../templates/default/macros/msgHandlers.html:172
@@ -366,12 +366,12 @@ msgstr "現在のパスワードが異なります."
 #: ../templates/default/macros/ldap.html:95
 #: ../templates/default/macros/mysql.html:68
 msgid "Customize mail filter rule"
-msgstr ""
+msgstr "通常配信時のメールフィルタールールを編集"
 
 #: ../templates/default/macros/ldap.html:96
 #: ../templates/default/macros/mysql.html:69
 msgid "Customize mail filter rule over TLS/SSL"
-msgstr ""
+msgstr "TLS/SSL配信時のメールフィルタールールを編集"
 
 #: ../templates/default/mysql/domain/list.html:88
 #: ../templates/default/pgsql/domain/list.html:88
@@ -452,11 +452,11 @@ msgstr "表示名"
 #: ../templates/default/macros/ldap.html:99
 #: ../templates/default/macros/ldap.html:103
 msgid "Display mail address in global LDAP address book"
-msgstr ""
+msgstr "LDAPの全体アドレス帳でメールアドレスを表示"
 
 #: ../templates/default/macros/general.html:278
 msgid "Displayed in Global LDAP Address Book"
-msgstr ""
+msgstr "LDAPの全体アドレス帳で表示"
 
 #: ../templates/default/layout.html:69
 #: ../templates/default/ldap/domain/list.html:50
@@ -483,7 +483,7 @@ msgstr "ドメインのエイリアス"
 
 #: ../templates/default/macros/msgHandlers.html:97
 msgid "Domain already exists. Please check both primary or alias domains."
-msgstr ""
+msgstr "ドメインは既にあります. 異なる名前を指定してください."
 
 #: ../templates/default/macros/msgHandlers.html:108
 msgid "Domain created."
@@ -505,7 +505,7 @@ msgstr "ドメイン全体のクォータサイズ"
 msgid ""
 "Domain quota size exceeded. Please contact your administrator or service "
 "provider to increase it."
-msgstr ""
+msgstr "ドメインのクォータサイズを超えました. 管理者に連絡してサイズを増やしてもらってください."
 
 #: ../templates/default/layout.html:55
 #: ../templates/default/ldap/domain/list.html:16
@@ -576,12 +576,12 @@ msgstr "このドメインを有効にする"
 #: ../templates/default/macros/ldap.html:107
 #: ../templates/default/macros/mysql.html:74
 msgid "Enabled Services"
-msgstr ""
+msgstr "有効なサービス"
 
 #: ../templates/default/dashboard.html:36
 #, python-format
 msgid "Error while checking new version: %s"
-msgstr ""
+msgstr "新バージョン %s の確認中にエラー"
 
 #: ../templates/default/macros/msgHandlers.html:22
 #: ../templates/default/macros/msgHandlers.html:24
@@ -596,7 +596,7 @@ msgstr "イベント"
 msgid ""
 "Exceeded domain account limit. Please contact your administrator or "
 "service provider to increase it."
-msgstr ""
+msgstr "ドメインアカウントの制限を超えています. 管理者に連絡して制限値を増やしてもらってください."
 
 #: ../templates/default/macros/ldap.html:90
 #: ../templates/default/macros/mysql.html:66
@@ -628,7 +628,7 @@ msgstr "最初のページ"
 
 #: ../templates/default/macros/general.html:511
 msgid "First name"
-msgstr ""
+msgstr "First name"
 
 #: ../templates/default/macros/ldap.html:93
 msgid "Forwarding mails to other addresses"
@@ -723,11 +723,11 @@ msgstr "管理者アカウントとして作成するのではなく、各ドメ
 
 #: ../templates/default/ldap/user/list.html:61
 msgid "Job Title"
-msgstr ""
+msgstr "役職"
 
 #: ../templates/default/macros/general.html:221
 msgid "Job Title/Responsibility"
-msgstr ""
+msgstr "役職"
 
 #: ../templates/default/ldap/domain/list.html:131
 #: ../templates/default/ldap/user/list.html:116
@@ -744,7 +744,7 @@ msgstr "最終ページ"
 
 #: ../templates/default/macros/general.html:512
 msgid "Last name"
-msgstr ""
+msgstr "Last name"
 
 #: ../templates/default/ldap/domain/list.html:99
 #: ../templates/default/mysql/domain/list.html:86
@@ -796,7 +796,7 @@ msgstr "メールユーザー"
 
 #: ../templates/default/macros/msgHandlers.html:140
 msgid "Mail address already exists, please choose another one."
-msgstr ""
+msgstr "メールアドレスは既にあります. 異なるものを指定してください."
 
 #: ../templates/default/macros/msgHandlers.html:256
 msgid "Mail alias created."
@@ -820,7 +820,7 @@ msgstr "メールは削除されました."
 
 #: ../templates/default/macros/msgHandlers.html:281
 msgid "Mails were released."
-msgstr ""
+msgstr "メールは解放されました."
 
 #: ../templates/default/macros/ldap.html:5
 #: ../templates/default/macros/mysql.html:5
@@ -855,11 +855,11 @@ msgstr "モバイル"
 
 #: ../templates/default/macros/msgHandlers.html:210
 msgid "Moderators assigned success."
-msgstr ""
+msgstr "モデレーターの割り当てをしました."
 
 #: ../templates/default/macros/msgHandlers.html:211
 msgid "Moderators removed success."
-msgstr ""
+msgstr "モデレーターの割り当て解除をしました."
 
 #: ../templates/default/ldap/domain/list.html:51
 #: ../templates/default/mysql/domain/list.html:51
@@ -935,12 +935,12 @@ msgstr "メールユーザがありません."
 
 #: ../templates/default/macros/msgHandlers.html:217
 msgid "No moderator selected."
-msgstr ""
+msgstr "モデレーターが選択されていません."
 
 #: ../templates/default/macros/general.html:351
 #, python-format
 msgid "No more than %s characters."
-msgstr ""
+msgstr "%s 文字以内にしてください."
 
 #: ../templates/default/macros/msgHandlers.html:100
 msgid "No such domain."
@@ -972,11 +972,11 @@ msgstr "操作が完了しました."
 
 #: ../templates/default/macros/msgHandlers.html:108
 msgid "Or create other mail accounts:"
-msgstr ""
+msgstr "他のメールアカウント:"
 
+#: ../templates/default/login.html:62
 #: ../templates/default/ldap/admin/profile.html:48
 #: ../templates/default/ldap/user/profile.html:70
-#: ../templates/default/login.html:62
 #: ../templates/default/mysql/admin/profile.html:39
 #: ../templates/default/mysql/user/profile.html:46
 #: ../templates/default/pgsql/admin/profile.html:39
@@ -999,13 +999,13 @@ msgstr "パスワードが短すぎます."
 
 #: ../templates/default/macros/msgHandlers.html:64
 msgid "Password of cn=vmailadmin is incorrect."
-msgstr ""
+msgstr "cn=vmailadmin のパスワードが違います."
 
 #: ../templates/default/macros/general.html:439
 msgid ""
 "Per-user relay setting will override per-domain relay setting you set in "
 "this page."
-msgstr ""
+msgstr "ドメイン毎のリレー設定をユーザ毎のリレー設定で上書きします"
 
 #: ../templates/default/macros/msgHandlers.html:98
 #: ../templates/default/macros/msgHandlers.html:167
@@ -1072,7 +1072,7 @@ msgstr "Profileを更新しました."
 
 #: ../templates/default/panel/log.html:40
 msgid "Quarantined Mails"
-msgstr ""
+msgstr "隔離されたメール"
 
 #: ../templates/default/ldap/domain/list.html:52
 #: ../templates/default/ldap/user/list.html:62
@@ -1085,16 +1085,16 @@ msgstr "クォータ"
 
 #: ../templates/default/panel/log.html:36
 msgid "Received Mails"
-msgstr ""
+msgstr "受信メール"
 
 #: ../templates/default/macros/ldap.html:92
 #: ../templates/default/macros/mysql.html:61
 msgid "Receiving mails for this account on mail server"
-msgstr ""
+msgstr "メールサーバにある、このアカウント宛の受信メール"
 
 #: ../templates/default/macros/general.html:429
 msgid "Relay/Transport Setting"
-msgstr ""
+msgstr "リレー/転送設定"
 
 #: ../templates/default/login.html:74
 msgid "Remember me"
@@ -1114,20 +1114,20 @@ msgstr "変更を保存"
 
 #: ../templates/default/macros/msgHandlers.html:323
 msgid "Search keyword could not be empty."
-msgstr ""
+msgstr "検索文字列が指定されていません."
 
 #: ../templates/default/error_csrf.html:7
 msgid ""
 "Security token did not match. Please refresh current page and re-perform "
 "form action."
-msgstr ""
+msgstr "セキュリティトークンが一致しません. このページを再読込し、フォームも再入力してください."
 
 #: ../templates/default/macros/msgHandlers.html:132
 #: ../templates/default/macros/msgHandlers.html:168
 #: ../templates/default/macros/msgHandlers.html:212
 #: ../templates/default/macros/msgHandlers.html:243
 msgid "Selected accounts were deleted."
-msgstr ""
+msgstr "選択したアカウントは削除されました."
 
 #: ../templates/default/macros/msgHandlers.html:133
 #: ../templates/default/macros/msgHandlers.html:169
@@ -1182,7 +1182,7 @@ msgstr "サーバの負荷"
 msgid ""
 "Server-side size limit exceeded. Please increase \"sizelimit\" in your "
 "LDAP server."
-msgstr ""
+msgstr "サーバ側の容量上限を超えています. LDAPサーバ管理者に \"sizelimit\"の増加を依頼してください."
 
 #: ../templates/default/macros/msgHandlers.html:67
 msgid "Session expired, please re-login."
@@ -1202,7 +1202,7 @@ msgstr "送信"
 
 #: ../templates/default/macros/msgHandlers.html:99
 msgid "Submited domain name is incorrect."
-msgstr ""
+msgstr "送信したドメイン名が誤っています."
 
 #: ../templates/default/layout.html:105
 msgid "Support"
@@ -1240,7 +1240,7 @@ msgstr "無制限"
 #: ../templates/default/macros/general.html:588
 #: ../templates/default/macros/general.html:600
 msgid "Unrestricted"
-msgstr ""
+msgstr "無制限"
 
 #: ../templates/default/dashboard.html:44
 #, python-format
@@ -1279,7 +1279,7 @@ msgstr "ユーザーは作成されました."
 
 #: ../templates/default/macros/general.html:724
 msgid "User login (self-service)"
-msgstr ""
+msgstr "ユーザログイン (一般ユーザ)"
 
 #: ../templates/default/login.html:57
 msgid "Username"
@@ -1329,7 +1329,4 @@ msgstr "警告"
 #: ../templates/default/layout.html:46
 msgid "iRedMail Admin Panel"
 msgstr "iRedMailの管理画面"
-
-#~ msgid "Login To Manage Your Mail Domains & Accounts"
-#~ msgstr "メールドメインとアカウントを管理するためにログインします"
 
