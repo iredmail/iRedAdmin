@@ -3,6 +3,9 @@
         - Cannot view domain list and domain profile with MariaDB-10.x.
           Thanks Torkil Liseth <torkil.liseth _at_ gmail.com> for the feedback.
 
+    * New translation:
+        - ja_JP (Japanese). Thanks Osakana Taro <osakanataro _at_ gmail>.
+
 = 0.8 =
     * Improvements:
         + Able to generate and verify SHA512 password hash.
