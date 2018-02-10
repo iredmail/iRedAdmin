@@ -38,18 +38,21 @@ fi
 
 DOMAIN="iredadmin"
 POFILE="${DOMAIN}.po"
-AVAILABLE_LANGS="$(ls -d *_*)"
+#AVAILABLE_LANGS="$(ls -d *_*)"
+AVAILABLE_LANGS="$(ls -ld * | awk '/^d/ {print $NF}')"
 
 extract_latest()
 {
     # Extract strings from template files.
     echo "* Extract localizable messages from template files to ${POFILE}..."
 
-        #--no-location \
-    pybabel extract -F babel.cfg \
+    pybabel extract \
+        -F babel.cfg \
+        --no-location \
+        --omit-header \
         --sort-output \
         --charset=utf-8 \
-        --msgid-bugs-address=zhb@iredmail.org \
+        --msgid-bugs-address=support@iredmail.org \
         -o ${POFILE} \
         .. >/dev/null
 }
@@ -57,12 +60,13 @@ extract_latest()
 update_po()
 {
     # Update PO files.
-    echo "* Update existing new translations catalog based on ${POFILE}..."
+    echo "* Updating existing translations ..."
 
     for lang in ${LANGUAGES}
     do
         [ -d ${lang}/LC_MESSAGES/ ] || mkdir -p ${lang}/LC_MESSAGES/
-        pybabel update -i ${POFILE} \
+        pybabel update --ignore-obsolete\
+            -i ${POFILE} \
             -D ${DOMAIN} \
             -d . \
             -l ${lang}
@@ -77,11 +81,9 @@ update_po()
 
 convert_po_to_mo()
 {
-    echo "* Convert translation catalogs into binary MO files..."
-    for lang in ${LANGUAGES}
-    do
-        echo "  + Converting ${lang}..."
-        msgfmt --statistics -c ${lang}/LC_MESSAGES/${DOMAIN}.po -o ${lang}/LC_MESSAGES/${DOMAIN}.mo
+    for lang in ${LANGUAGES}; do
+        echo "  + Converting ${lang} ..."
+        msgfmt --statistics --check-format ${lang}/LC_MESSAGES/${DOMAIN}.po -o ${lang}/LC_MESSAGES/${DOMAIN}.mo
     done
 }
 

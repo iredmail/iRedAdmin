@@ -7,1326 +7,742 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: zhb@iredmail.org\n"
-"POT-Creation-Date: 2018-02-08 14:28+0900\n"
+"POT-Creation-Date: 2018-02-11 00:44+0800\n"
 "PO-Revision-Date: 2018-02-07 16:00+0900\n"
 "Last-Translator: OSAKANA TARO <osakanataro@gmail.com>\n"
-"Language-Team: ja_JP <LL@li.org>\n"
 "Language: ja_JP\n"
+"Language-Team: ja_JP <LL@li.org>\n"
 "Plural-Forms: nplurals=1; plural=0\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 0.9.6\n"
+"Generated-By: Babel 2.3.4\n"
 
-#: ../templates/default/macros/ldap.html:16
 #, python-format
 msgid "%s (%s)"
-msgstr "%s (%s)"
+msgstr ""
 
-#: ../templates/default/dashboard.html:59
 #, python-format
 msgid "%s days, %s hours, %s minutes."
 msgstr "%s 日, %s 時間, %s 分."
 
-#: ../templates/default/ldap/domain/list.html:132
-#: ../templates/default/ldap/user/list.html:117
-#: ../templates/default/mysql/domain/list.html:125
-#: ../templates/default/mysql/user/list.html:125
-#: ../templates/default/pgsql/domain/list.html:125
-#: ../templates/default/pgsql/user/list.html:125
 msgid "1 day"
-msgstr "1 日"
+msgstr ""
 
-#: ../templates/default/ldap/domain/list.html:135
-#: ../templates/default/ldap/user/list.html:120
-#: ../templates/default/mysql/domain/list.html:128
-#: ../templates/default/mysql/user/list.html:128
-#: ../templates/default/pgsql/domain/list.html:128
-#: ../templates/default/pgsql/user/list.html:128
 msgid "1 year"
-msgstr "1 年"
+msgstr ""
 
-#: ../templates/default/ldap/domain/list.html:136
-#: ../templates/default/ldap/user/list.html:121
-#: ../templates/default/mysql/domain/list.html:129
-#: ../templates/default/mysql/user/list.html:129
-#: ../templates/default/pgsql/domain/list.html:129
-#: ../templates/default/pgsql/user/list.html:129
 msgid "2 years"
-msgstr "2 年"
+msgstr ""
 
-#: ../templates/default/ldap/domain/list.html:133
-#: ../templates/default/ldap/user/list.html:118
-#: ../templates/default/mysql/domain/list.html:126
-#: ../templates/default/mysql/user/list.html:126
-#: ../templates/default/pgsql/domain/list.html:126
-#: ../templates/default/pgsql/user/list.html:126
 msgid "3 months"
-msgstr "3 ヶ月"
+msgstr ""
 
-#: ../templates/default/ldap/domain/list.html:137
-#: ../templates/default/ldap/user/list.html:122
-#: ../templates/default/mysql/domain/list.html:130
-#: ../templates/default/mysql/user/list.html:130
-#: ../templates/default/pgsql/domain/list.html:130
-#: ../templates/default/pgsql/user/list.html:130
 msgid "3 years"
-msgstr "3 年"
+msgstr ""
 
-#: ../templates/default/ldap/domain/list.html:134
-#: ../templates/default/ldap/user/list.html:119
-#: ../templates/default/mysql/domain/list.html:127
-#: ../templates/default/mysql/user/list.html:127
-#: ../templates/default/pgsql/domain/list.html:127
-#: ../templates/default/pgsql/user/list.html:127
 msgid "6 months"
-msgstr "半年"
+msgstr ""
 
-#: ../templates/default/macros/general.html:592
 #, python-format
 msgid "<a href='%s'>Domain and sub-domain users</a>"
-msgstr "<a href='%s'>ドメインとサブドメインのユーザ</a>"
+msgstr ""
 
-#: ../templates/default/macros/general.html:590
 #, python-format
 msgid "<a href='%s'>Domain users</a>"
-msgstr "<a href='%s'>ドメインのユーザ</a>"
+msgstr ""
 
-#: ../templates/default/macros/general.html:594
 #, python-format
 msgid "<a href='%s'>Members</a>"
-msgstr "<a href='%s'>メンバー</a>"
+msgstr ""
 
-#: ../templates/default/macros/general.html:598
 #, python-format
 msgid "<a href='%s'>Members</a> and <a href='%s'>moderators</a>"
-msgstr "<a href='%s'>メンバー</a> と <a href='%s'>モデレーター</a>"
+msgstr ""
 
-#: ../templates/default/macros/general.html:596
 #, python-format
 msgid "<a href='%s'>Moderators</a>"
-msgstr "<a href='%s'>モデレーター</a>"
+msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:177
-#: ../templates/default/macros/msgHandlers.html:203
-#: ../templates/default/macros/msgHandlers.html:215
-#: ../templates/default/macros/msgHandlers.html:239
 msgid "Account already exists, please choose another username."
-msgstr "既にあるアカウントです.異なる名前を指定してください."
+msgstr ""
 
-#: ../templates/default/macros/general.html:137
 msgid "Account is active."
-msgstr "アカウントは有効です."
+msgstr ""
 
-#: ../templates/default/macros/general.html:139
-#: ../templates/default/macros/general.html:140
 msgid "Account is disabled."
 msgstr "アカウントは無効です."
 
-#: ../templates/default/macros/general.html:728
 msgid "Activate account"
-msgstr "アカウントの有効化"
+msgstr "アカウントを有効化"
 
-#: ../templates/default/layout.html:66
-#: ../templates/default/ldap/user/create.html:90
-#: ../templates/default/macros/general.html:539
-#: ../templates/default/macros/general.html:580
-#: ../templates/default/mysql/user/create.html:82
-#: ../templates/default/pgsql/user/create.html:85
 msgid "Add"
 msgstr "追加"
 
-#: ../templates/default/macros/general.html:725
 msgid "Add account"
-msgstr "アカウントの追加"
+msgstr "アカウントを追加"
 
-#: ../templates/default/ldap/admin/create.html:13
-#: ../templates/default/ldap/admin/create.html:25
-#: ../templates/default/ldap/admin/create.html:28
-#: ../templates/default/ldap/admin/list.html:31
-#: ../templates/default/mysql/admin/create.html:13
-#: ../templates/default/mysql/admin/create.html:25
-#: ../templates/default/mysql/admin/create.html:28
-#: ../templates/default/mysql/admin/list.html:31
-#: ../templates/default/pgsql/admin/create.html:13
-#: ../templates/default/pgsql/admin/create.html:25
-#: ../templates/default/pgsql/admin/create.html:28
-#: ../templates/default/pgsql/admin/list.html:31
 msgid "Add admin"
-msgstr "管理者の追加"
+msgstr "管理者を追加"
 
-#: ../templates/default/ldap/domain/create.html:9
-#: ../templates/default/ldap/domain/create.html:23
-#: ../templates/default/ldap/domain/create.html:27
-#: ../templates/default/ldap/domain/list.html:30
-#: ../templates/default/macros/general.html:571
-#: ../templates/default/macros/ldap.html:32
-#: ../templates/default/macros/mysql.html:26
-#: ../templates/default/mysql/domain/create.html:7
-#: ../templates/default/mysql/domain/create.html:20
-#: ../templates/default/mysql/domain/create.html:24
-#: ../templates/default/mysql/domain/list.html:29
-#: ../templates/default/pgsql/domain/create.html:7
-#: ../templates/default/pgsql/domain/create.html:20
-#: ../templates/default/pgsql/domain/create.html:24
-#: ../templates/default/pgsql/domain/list.html:29
 msgid "Add domain"
-msgstr "ドメインの追加"
+msgstr "ドメインを追加"
 
-#: ../templates/default/ldap/domain/list.html:108
-#: ../templates/default/ldap/user/list.html:96
-#: ../templates/default/mysql/domain/list.html:100
-#: ../templates/default/mysql/user/list.html:104
-#: ../templates/default/pgsql/domain/list.html:100
-#: ../templates/default/pgsql/user/list.html:104
 msgid "Add one"
 msgstr "さらに作成しますか"
 
-#: ../templates/default/macros/msgHandlers.html:108
-#: ../templates/default/macros/msgHandlers.html:149
-#: ../templates/default/macros/msgHandlers.html:184
-#: ../templates/default/macros/msgHandlers.html:224
-#: ../templates/default/macros/msgHandlers.html:256
 msgid "Add one more?"
 msgstr "さらに作成しますか?"
 
-#: ../templates/default/ldap/user/create.html:13
-#: ../templates/default/ldap/user/create.html:38
-#: ../templates/default/mysql/user/create.html:13
-#: ../templates/default/mysql/user/create.html:33
-#: ../templates/default/pgsql/user/create.html:13
-#: ../templates/default/pgsql/user/create.html:33
 #, python-format
 msgid "Add user under domain: %s"
-msgstr "ドメイン %s にユーザーを追加"
+msgstr ""
 
-#: ../templates/default/layout.html:70 ../templates/default/panel/log.html:71
 msgid "Admin"
 msgstr "管理"
 
-#: ../templates/default/layout.html:62 ../templates/default/panel/log.html:14
-#: ../templates/default/panel/log.html:25
-#: ../templates/default/panel/log.html:32
 msgid "Admin Log"
 msgstr "管理ログ"
 
-#: ../templates/default/macros/msgHandlers.html:184
 msgid "Admin created."
 msgstr "管理者を作成した."
 
-#: ../templates/default/macros/general.html:723
 msgid "Admin login"
 msgstr "管理者ログイン"
 
-#: ../templates/default/macros/msgHandlers.html:178
 msgid "Admin not exist."
-msgstr "管理者ではありません."
+msgstr ""
 
-#: ../templates/default/layout.html:58
 msgid "Admins"
 msgstr "管理者"
 
-#: ../templates/default/macros/ldap.html:94
 msgid "Alias account"
 msgstr "エイリアスアカウント"
 
-#: ../templates/default/ldap/admin/create.html:24
-#: ../templates/default/ldap/admin/list.html:29
-#: ../templates/default/ldap/admin/profile.html:33
-#: ../templates/default/mysql/admin/create.html:24
-#: ../templates/default/mysql/admin/list.html:29
-#: ../templates/default/mysql/admin/profile.html:22
-#: ../templates/default/pgsql/admin/create.html:24
-#: ../templates/default/pgsql/admin/list.html:29
-#: ../templates/default/pgsql/admin/profile.html:22
 msgid "All admins"
 msgstr "全ての管理者"
 
-#: ../templates/default/ldap/domain/create.html:21
-#: ../templates/default/ldap/domain/list.html:28
-#: ../templates/default/ldap/domain/profile.html:27
-#: ../templates/default/ldap/user/list.html:18
-#: ../templates/default/ldap/user/profile.html:54
-#: ../templates/default/mysql/domain/create.html:18
-#: ../templates/default/mysql/domain/list.html:27
-#: ../templates/default/mysql/domain/profile.html:20
-#: ../templates/default/mysql/user/list.html:18
-#: ../templates/default/mysql/user/profile.html:28
-#: ../templates/default/pgsql/domain/create.html:18
-#: ../templates/default/pgsql/domain/list.html:27
-#: ../templates/default/pgsql/domain/profile.html:20
-#: ../templates/default/pgsql/user/list.html:18
-#: ../templates/default/pgsql/user/profile.html:28
 msgid "All domains"
 msgstr "全てのドメイン"
 
-#: ../templates/default/ldap/domain/list.html:35
-#: ../templates/default/mysql/domain/list.html:34
-#: ../templates/default/pgsql/domain/list.html:34
 msgid "All domains under your control."
 msgstr "あなたが設定できる全てのドメイン"
 
-#: ../templates/default/ldap/admin/list.html:35
-#: ../templates/default/mysql/admin/list.html:35
-#: ../templates/default/pgsql/admin/list.html:35
 msgid "All mail administrators."
-msgstr "全てのメール管理者"
+msgstr ""
 
-#: ../templates/default/mysql/domain/list.html:80
-#: ../templates/default/mysql/user/list.html:96
-#: ../templates/default/pgsql/domain/list.html:80
-#: ../templates/default/pgsql/user/list.html:96
 msgid "Allocated"
 msgstr "使用容量"
 
-#: ../templates/default/ldap/admin/list.html:86
-#: ../templates/default/ldap/domain/list.html:140
-#: ../templates/default/ldap/user/list.html:125
-#: ../templates/default/mysql/admin/list.html:102
-#: ../templates/default/mysql/domain/list.html:133
-#: ../templates/default/mysql/user/list.html:133
-#: ../templates/default/panel/log.html:121
-#: ../templates/default/pgsql/admin/list.html:102
-#: ../templates/default/pgsql/domain/list.html:133
-#: ../templates/default/pgsql/user/list.html:133
 msgid "Apply"
 msgstr "適用"
 
-#: ../templates/default/macros/general.html:347
 #, python-format
 msgid "At least %s characters, but no more than %s."
 msgstr "%s 文字以上, %s 文字未満."
 
-#: ../templates/default/macros/general.html:349
 #, python-format
 msgid "At least %s characters."
 msgstr "最低 %s 文字以上."
 
-#: ../templates/default/macros/general.html:414
 msgid "Available quota:"
 msgstr "クォータが設定されている:"
 
-#: ../templates/default/macros/general.html:453
 msgid "BCC incoming emails to single address"
-msgstr "受信メールを1つのアドレスにBCCで転送する"
+msgstr ""
 
-#: ../templates/default/macros/ldap.html:80
-#: ../templates/default/macros/ldap.html:97
 msgid "BCC incoming mails to other address"
-msgstr "受信メールを他のアドレスにBCCで転送する"
+msgstr ""
 
-#: ../templates/default/macros/general.html:465
 msgid "BCC outgoing emails to single address"
-msgstr "送信メールを1つのアドレスにBCCで転送する"
+msgstr ""
 
-#: ../templates/default/macros/ldap.html:81
-#: ../templates/default/macros/ldap.html:98
 msgid "BCC outgoing mails to other address"
-msgstr "送信メールを他のアドレスにBCCで転送する"
+msgstr ""
 
-#: ../templates/default/macros/general.html:732
 msgid "Backup"
 msgstr "バックアップ"
 
-#: ../templates/default/macros/ldap.html:110
 msgid "Check this box in order to enable other services"
 msgstr "他のサービスを有効にする場合、チェックを入れる"
 
-#: ../templates/default/ldap/admin/list.html:81
-#: ../templates/default/ldap/domain/list.html:122
-#: ../templates/default/ldap/user/list.html:107
-#: ../templates/default/mysql/admin/list.html:97
-#: ../templates/default/mysql/domain/list.html:115
-#: ../templates/default/mysql/user/list.html:115
-#: ../templates/default/panel/log.html:117
-#: ../templates/default/pgsql/admin/list.html:97
-#: ../templates/default/pgsql/domain/list.html:115
-#: ../templates/default/pgsql/user/list.html:115
 msgid "Choose Action"
 msgstr "実施内容を選択"
 
-#: ../templates/default/macros/general.html:497
 msgid "Company/Organization Name"
 msgstr "会社や組織の名称"
 
-#: ../templates/default/macros/general.html:370
 msgid "Confirm new password"
 msgstr "パスワードの再入力"
 
-#: ../templates/default/layout.html:107
 msgid "Contact webmaster"
 msgstr "Web管理者に連絡"
 
-#: ../templates/default/macros/msgHandlers.html:135
-#: ../templates/default/macros/msgHandlers.html:172
-#: ../templates/default/macros/msgHandlers.html:173
 msgid "Current password is incorrect."
 msgstr "現在のパスワードが異なります."
 
-#: ../templates/default/macros/ldap.html:95
-#: ../templates/default/macros/mysql.html:68
 msgid "Customize mail filter rule"
 msgstr "通常配信時のメールフィルタールールを編集"
 
-#: ../templates/default/macros/ldap.html:96
-#: ../templates/default/macros/mysql.html:69
 msgid "Customize mail filter rule over TLS/SSL"
 msgstr "TLS/SSL配信時のメールフィルタールールを編集"
 
-#: ../templates/default/mysql/domain/list.html:88
-#: ../templates/default/pgsql/domain/list.html:88
 msgid "DISABLED"
 msgstr "無効"
 
-#: ../templates/default/dashboard.html:5 ../templates/default/layout.html:54
 msgid "Dashboard"
 msgstr "ダッシュボード"
 
-#: ../templates/default/macros/general.html:561
 msgid "Default quota of new user"
 msgstr "新規ユーザー向けのクォータ設定"
 
-#: ../templates/default/ldap/admin/list.html:84
-#: ../templates/default/ldap/domain/list.html:125
-#: ../templates/default/ldap/user/list.html:110
-#: ../templates/default/mysql/admin/list.html:100
-#: ../templates/default/mysql/domain/list.html:118
-#: ../templates/default/mysql/user/list.html:118
-#: ../templates/default/pgsql/admin/list.html:100
-#: ../templates/default/pgsql/domain/list.html:118
-#: ../templates/default/pgsql/user/list.html:118
 msgid "Delete"
 msgstr "削除"
 
-#: ../templates/default/macros/general.html:726
 msgid "Delete account"
 msgstr "アカウントを削除"
 
-#: ../templates/default/panel/log.html:119
 msgid "Delete all in database"
 msgstr "データベース上の全てを削除"
 
-#: ../templates/default/macros/general.html:735
 msgid "Delete mailboxes"
 msgstr "メールボックスを削除"
 
-#: ../templates/default/ldap/domain/list.html:129
-#: ../templates/default/ldap/user/list.html:114
-#: ../templates/default/mysql/domain/list.html:122
-#: ../templates/default/mysql/user/list.html:122
-#: ../templates/default/pgsql/domain/list.html:122
-#: ../templates/default/pgsql/user/list.html:122
 msgid "Delete mailboxes in"
-msgstr "メールボックスを削除するか？"
+msgstr ""
 
-#: ../templates/default/panel/log.html:118
 msgid "Delete selected"
 msgstr "選択したものを削除"
 
-#: ../templates/default/ldap/admin/list.html:83
-#: ../templates/default/ldap/domain/list.html:124
-#: ../templates/default/ldap/user/list.html:109
-#: ../templates/default/mysql/admin/list.html:99
-#: ../templates/default/mysql/domain/list.html:117
-#: ../templates/default/mysql/user/list.html:117
-#: ../templates/default/pgsql/admin/list.html:99
-#: ../templates/default/pgsql/domain/list.html:117
-#: ../templates/default/pgsql/user/list.html:117
 msgid "Disable"
 msgstr "無効化"
 
-#: ../templates/default/macros/general.html:727
 msgid "Disable account"
 msgstr "アカウントを無効化"
 
-#: ../templates/default/ldap/admin/list.html:49
-#: ../templates/default/ldap/user/list.html:58
-#: ../templates/default/macros/general.html:499
-#: ../templates/default/mysql/admin/list.html:49
-#: ../templates/default/mysql/user/list.html:60
-#: ../templates/default/pgsql/admin/list.html:49
-#: ../templates/default/pgsql/user/list.html:60
 msgid "Display Name"
 msgstr "表示名"
 
-#: ../templates/default/macros/ldap.html:99
-#: ../templates/default/macros/ldap.html:103
 msgid "Display mail address in global LDAP address book"
 msgstr "LDAPの全体アドレス帳でメールアドレスを表示"
 
-#: ../templates/default/macros/general.html:278
 msgid "Displayed in Global LDAP Address Book"
-msgstr "LDAPの全体アドレス帳で表示"
+msgstr ""
 
-#: ../templates/default/layout.html:69
-#: ../templates/default/ldap/domain/list.html:50
-#: ../templates/default/mysql/domain/list.html:50
-#: ../templates/default/pgsql/domain/list.html:50
 msgid "Domain"
 msgstr "ドメイン"
 
-#: ../templates/default/ldap/admin/list.html:13
-#: ../templates/default/macros/ldap.html:41
-#: ../templates/default/macros/mysql.html:35
-#: ../templates/default/mysql/admin/list.html:13
-#: ../templates/default/pgsql/admin/list.html:13
 msgid "Domain Admins"
 msgstr "ドメインの管理者"
 
-#: ../templates/default/macros/general.html:481
 msgid "Domain Name"
 msgstr "ドメイン名"
 
-#: ../templates/default/macros/ldap.html:79
 msgid "Domain alias"
 msgstr "ドメインのエイリアス"
 
-#: ../templates/default/macros/msgHandlers.html:97
 msgid "Domain already exists. Please check both primary or alias domains."
 msgstr "ドメインは既にあります. 異なる名前を指定してください."
 
-#: ../templates/default/macros/msgHandlers.html:108
 msgid "Domain created."
 msgstr "ドメインは作成されました."
 
-#: ../templates/default/macros/msgHandlers.html:95
 msgid "Domain name is empty."
 msgstr "ドメイン名が指定されていません."
 
-#: ../templates/default/macros/msgHandlers.html:128
 msgid "Domain name or username is missed."
 msgstr "ドメイン名かユーザ名がありません."
 
-#: ../templates/default/macros/general.html:547
 msgid "Domain quota size"
 msgstr "ドメイン全体のクォータサイズ"
 
-#: ../templates/default/macros/msgHandlers.html:130
 msgid ""
 "Domain quota size exceeded. Please contact your administrator or service "
 "provider to increase it."
 msgstr "ドメインのクォータサイズを超えました. 管理者に連絡してサイズを増やしてもらってください."
 
-#: ../templates/default/layout.html:55
-#: ../templates/default/ldap/domain/list.html:16
-#: ../templates/default/mysql/domain/list.html:15
-#: ../templates/default/pgsql/domain/list.html:15
 msgid "Domains and Accounts"
 msgstr "ドメインとユーザ設定"
 
-#: ../templates/default/ldap/admin/list.html:67
-#: ../templates/default/ldap/admin/profile.html:22
-#: ../templates/default/ldap/domain/list.html:89
-#: ../templates/default/ldap/domain/profile.html:15
-#: ../templates/default/ldap/user/list.html:83
-#: ../templates/default/ldap/user/profile.html:23
-#: ../templates/default/macros/general.html:729
-#: ../templates/default/mysql/admin/list.html:63
-#: ../templates/default/mysql/admin/profile.html:17
-#: ../templates/default/mysql/domain/list.html:68
-#: ../templates/default/mysql/domain/profile.html:15
-#: ../templates/default/mysql/user/list.html:77
-#: ../templates/default/mysql/user/profile.html:23
-#: ../templates/default/pgsql/admin/list.html:63
-#: ../templates/default/pgsql/admin/profile.html:17
-#: ../templates/default/pgsql/domain/list.html:68
-#: ../templates/default/pgsql/domain/profile.html:15
-#: ../templates/default/pgsql/user/list.html:77
-#: ../templates/default/pgsql/user/profile.html:23
 msgid "Edit account profile"
 msgstr "アカウントのProfileを編集"
 
-#: ../templates/default/ldap/user/create.html:39
-#: ../templates/default/ldap/user/list.html:47
-#: ../templates/default/mysql/user/create.html:34
-#: ../templates/default/mysql/user/list.html:48
-#: ../templates/default/pgsql/user/create.html:34
-#: ../templates/default/pgsql/user/list.html:48
 msgid "Edit domain profile"
 msgstr "ドメインのProfileを編集"
 
-#: ../templates/default/macros/msgHandlers.html:249
 msgid "Empty address is not allowed."
 msgstr "アドレス無しは設定出来ません."
 
-#: ../templates/default/macros/msgHandlers.html:66
 msgid "Empty password is not allowed."
 msgstr "パスワード無しは設定出来ません."
 
-#: ../templates/default/ldap/admin/list.html:82
-#: ../templates/default/ldap/domain/list.html:123
-#: ../templates/default/ldap/user/list.html:108
-#: ../templates/default/mysql/admin/list.html:98
-#: ../templates/default/mysql/domain/list.html:116
-#: ../templates/default/mysql/user/list.html:116
-#: ../templates/default/pgsql/admin/list.html:98
-#: ../templates/default/pgsql/domain/list.html:116
-#: ../templates/default/pgsql/user/list.html:116
 msgid "Enable"
 msgstr "有効化"
 
-#: ../templates/default/macros/general.html:335
 msgid "Enable this account"
 msgstr "このアカウントを有効にする"
 
-#: ../templates/default/macros/general.html:333
 msgid "Enable this domain"
 msgstr "このドメインを有効にする"
 
-#: ../templates/default/macros/ldap.html:107
-#: ../templates/default/macros/mysql.html:74
 msgid "Enabled Services"
 msgstr "有効なサービス"
 
-#: ../templates/default/dashboard.html:36
 #, python-format
 msgid "Error while checking new version: %s"
-msgstr "新バージョン %s の確認中にエラー"
+msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:22
-#: ../templates/default/macros/msgHandlers.html:24
 msgid "Error:"
 msgstr "エラー:"
 
-#: ../templates/default/macros/general.html:722
 msgid "Events"
 msgstr "イベント"
 
-#: ../templates/default/macros/msgHandlers.html:131
 msgid ""
 "Exceeded domain account limit. Please contact your administrator or "
 "service provider to increase it."
 msgstr "ドメインアカウントの制限を超えています. 管理者に連絡して制限値を増やしてもらってください."
 
-#: ../templates/default/macros/ldap.html:90
-#: ../templates/default/macros/mysql.html:66
 msgid "Fetching mails via IMAP"
 msgstr "IMAP経由でメールを取得する"
 
-#: ../templates/default/macros/ldap.html:91
-#: ../templates/default/macros/mysql.html:67
 msgid "Fetching mails via IMAP over TLS/SSL"
 msgstr "IMAP over TLS/SSLでメールを取得する"
 
-#: ../templates/default/macros/ldap.html:88
-#: ../templates/default/macros/mysql.html:64
 msgid "Fetching mails via POP3"
 msgstr "POP3でメールを取得する"
 
-#: ../templates/default/macros/ldap.html:89
-#: ../templates/default/macros/mysql.html:65
 msgid "Fetching mails via POP3 over TLS/SSL"
 msgstr "POP3 over TLS/SSLでメールを取得する"
 
-#: ../templates/default/panel/log.html:49
 msgid "Filter:"
 msgstr "フィルター:"
 
-#: ../templates/default/macros/general.html:631
 msgid "First Page"
 msgstr "最初のページ"
 
-#: ../templates/default/macros/general.html:511
 msgid "First name"
 msgstr "First name"
 
-#: ../templates/default/macros/ldap.html:93
 msgid "Forwarding mails to other addresses"
 msgstr "メールを他のアドレスに転送する"
 
-#: ../templates/default/ldap/admin/profile.html:79
-#: ../templates/default/ldap/user/profile.html:106
 msgid "Full name"
 msgstr "フルネーム"
 
-#: ../templates/default/ldap/admin/profile.html:47
-#: ../templates/default/ldap/domain/profile.html:43
-#: ../templates/default/ldap/user/profile.html:69
-#: ../templates/default/mysql/admin/profile.html:38
-#: ../templates/default/mysql/domain/profile.html:38
-#: ../templates/default/mysql/user/profile.html:45
-#: ../templates/default/pgsql/admin/profile.html:38
-#: ../templates/default/pgsql/domain/profile.html:38
-#: ../templates/default/pgsql/user/profile.html:45
 msgid "General"
 msgstr "基本"
 
-#: ../templates/default/ldap/admin/list.html:51
-#: ../templates/default/macros/ldap.html:49
-#: ../templates/default/mysql/admin/list.html:51
-#: ../templates/default/pgsql/admin/list.html:51
 msgid "Global Admin"
 msgstr "全体管理者"
 
-#: ../templates/default/macros/general.html:306
 msgid "Global admin"
 msgstr "全体管理者"
 
-#: ../templates/default/macros/general.html:730
 msgid "Grant admin"
 msgstr "管理者権限を付与"
 
-#: ../templates/default/dashboard.html:52
 msgid "Hostname"
 msgstr "ホスト名"
 
-#: ../templates/default/panel/log.html:72
 msgid "IP Address"
 msgstr "IPアドレス"
 
-#: ../templates/default/macros/msgHandlers.html:89
-#: ../templates/default/macros/msgHandlers.html:126
-#: ../templates/default/macros/msgHandlers.html:166
-#: ../templates/default/macros/msgHandlers.html:206
-#: ../templates/default/macros/msgHandlers.html:241
-#: ../templates/default/macros/msgHandlers.html:284
-#: ../templates/default/macros/msgHandlers.html:303
-#: ../templates/default/macros/msgHandlers.html:327
 msgid "Invalid action."
 msgstr "無効な操作."
 
-#: ../templates/default/macros/msgHandlers.html:283
-#: ../templates/default/macros/msgHandlers.html:304
 msgid "Invalid domain name or mail address."
 msgstr "無効なドメイン名かメールアドレス."
 
-#: ../templates/default/macros/msgHandlers.html:93
 msgid "Invalid domain name."
 msgstr "無効なドメイン名."
 
-#: ../templates/default/macros/msgHandlers.html:94
-#: ../templates/default/macros/msgHandlers.html:129
-#: ../templates/default/macros/msgHandlers.html:176
-#: ../templates/default/macros/msgHandlers.html:325
 msgid "Invalid mail address."
 msgstr "無効なメールアドレス."
 
-#: ../templates/default/macros/msgHandlers.html:285
 msgid "Invalid request data."
 msgstr "無効なリクエスト."
 
-#: ../templates/default/macros/msgHandlers.html:204
 msgid "Invalid username."
-msgstr "無効なユーザー名."
+msgstr ""
 
-#: ../templates/default/macros/general.html:146
 msgid "Is a global admin."
 msgstr "全体管理者にしますか?"
 
-#: ../templates/default/ldap/admin/create.html:44
-#: ../templates/default/mysql/admin/create.html:44
-#: ../templates/default/pgsql/admin/create.html:44
 msgid ""
 "It is recommended to mark user as domain admin in user profile page "
 "instead of creating separate admin account."
-msgstr "管理者アカウントとして作成するのではなく、各ドメインで作成したユーザのProfileページで、全体管理者の権限を与えることを推奨します."
+msgstr ""
 
-#: ../templates/default/ldap/user/list.html:61
 msgid "Job Title"
 msgstr "役職"
 
-#: ../templates/default/macros/general.html:221
 msgid "Job Title/Responsibility"
-msgstr "役職"
+msgstr ""
 
-#: ../templates/default/ldap/domain/list.html:131
-#: ../templates/default/ldap/user/list.html:116
-#: ../templates/default/mysql/domain/list.html:124
-#: ../templates/default/mysql/user/list.html:124
-#: ../templates/default/pgsql/domain/list.html:124
-#: ../templates/default/pgsql/user/list.html:124
 msgid "Keep forever"
-msgstr "残し続ける"
+msgstr ""
 
-#: ../templates/default/macros/general.html:712
 msgid "Last Page"
 msgstr "最終ページ"
 
-#: ../templates/default/macros/general.html:512
 msgid "Last name"
 msgstr "Last name"
 
-#: ../templates/default/ldap/domain/list.html:99
-#: ../templates/default/mysql/domain/list.html:86
-#: ../templates/default/mysql/domain/list.html:90
-#: ../templates/default/pgsql/domain/list.html:86
-#: ../templates/default/pgsql/domain/list.html:90
 msgid "List all mail users."
-msgstr "全てのメールユーザを表示する."
+msgstr "全てのメールユーザーを表示する."
 
-#: ../templates/default/layout.html:33
 #, python-format
 msgid "Logged in as %s"
 msgstr "%s でログイン中"
 
-#: ../templates/default/login.html:66
 msgid "Login"
 msgstr "ログイン"
 
-#: ../templates/default/macros/msgHandlers.html:62
 msgid "Login required"
 msgstr "ログインが必要"
 
-#: ../templates/default/login.html:7 ../templates/default/login.html:42
 msgid "Login to manage your mail domains & accounts"
 msgstr "メールドメインとアカウントを管理するためにログインします"
 
-#: ../templates/default/layout.html:28
 msgid "Logout"
 msgstr "ログアウト"
 
-#: ../templates/default/ldap/admin/list.html:50
-#: ../templates/default/ldap/user/create.html:50
-#: ../templates/default/ldap/user/list.html:59
-#: ../templates/default/macros/general.html:474
-#: ../templates/default/mysql/admin/list.html:50
-#: ../templates/default/mysql/user/create.html:44
-#: ../templates/default/mysql/user/list.html:61
-#: ../templates/default/pgsql/admin/list.html:50
-#: ../templates/default/pgsql/user/create.html:44
-#: ../templates/default/pgsql/user/list.html:61
 msgid "Mail Address"
 msgstr "メールアドレス"
 
-#: ../templates/default/ldap/user/list.html:13
-#: ../templates/default/mysql/user/list.html:13
-#: ../templates/default/pgsql/user/list.html:13
 msgid "Mail Users"
 msgstr "メールユーザー"
 
-#: ../templates/default/macros/msgHandlers.html:140
 msgid "Mail address already exists, please choose another one."
-msgstr "メールアドレスは既にあります. 異なるものを指定してください."
+msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:256
 msgid "Mail alias created."
-msgstr "メールのエイリアスを作成."
+msgstr "メールエイリアスを作成."
 
-#: ../templates/default/macros/msgHandlers.html:224
 msgid "Mail list created."
 msgstr "メーリングリストを作成."
 
-#: ../templates/default/macros/ldap.html:110
 msgid "Mail service"
 msgstr "メールサービス"
 
-#: ../templates/default/macros/general.html:404
 msgid "Mailbox Quota"
 msgstr "メールボックスのクォータ(上限サイズ)"
 
-#: ../templates/default/macros/msgHandlers.html:282
 msgid "Mails were deleted."
 msgstr "メールは削除されました."
 
-#: ../templates/default/macros/msgHandlers.html:281
 msgid "Mails were released."
 msgstr "メールは解放されました."
 
-#: ../templates/default/macros/ldap.html:5
-#: ../templates/default/macros/mysql.html:5
 msgid "Managed Domains"
 msgstr "管理しているドメイン"
 
-#: ../templates/default/macros/general.html:288
 msgid "Mark as global admin"
 msgstr "全体管理者とする"
 
-#: ../templates/default/macros/general.html:304
 msgid "Mark this user as"
 msgstr "次の権限を与える"
 
-#: ../templates/default/macros/msgHandlers.html:208
-#: ../templates/default/macros/msgHandlers.html:246
 msgid "Member assigned success."
 msgstr "メンバーの割り当てをしました."
 
-#: ../templates/default/macros/msgHandlers.html:209
-#: ../templates/default/macros/msgHandlers.html:247
 msgid "Member removed success."
 msgstr "メンバーの割り当て解除をしました."
 
-#: ../templates/default/panel/log.html:73
 msgid "Message"
 msgstr "メッセージ"
 
-#: ../templates/default/macros/general.html:228
 msgid "Mobile"
 msgstr "モバイル"
 
-#: ../templates/default/macros/msgHandlers.html:210
 msgid "Moderators assigned success."
 msgstr "モデレーターの割り当てをしました."
 
-#: ../templates/default/macros/msgHandlers.html:211
 msgid "Moderators removed success."
 msgstr "モデレーターの割り当て解除をしました."
 
-#: ../templates/default/ldap/domain/list.html:51
-#: ../templates/default/mysql/domain/list.html:51
-#: ../templates/default/pgsql/domain/list.html:51
 msgid "Name"
-msgstr "名前"
+msgstr ""
 
-#: ../templates/default/macros/general.html:611
 msgid "Need a random password?"
 msgstr "ランダムパスワードが必要ですか?"
 
-#: ../templates/default/dashboard.html:72
 msgid "Network"
 msgstr "ネットワーク"
 
-#: ../templates/default/macros/general.html:364
 msgid "New password"
 msgstr "新しいパスワード"
 
-#: ../templates/default/macros/msgHandlers.html:189
 #, python-format
 msgid "New password must NOT contain more than %s characters."
 msgstr "パスワードは %s 文字以上を指定してください."
 
-#: ../templates/default/macros/msgHandlers.html:187
 #, python-format
 msgid "New password must contain at least %s characters."
 msgstr "パスワードは %s 文字以下を指定してください."
 
-#: ../templates/default/macros/msgHandlers.html:136
-#: ../templates/default/macros/msgHandlers.html:174
 msgid "New passwords are not match."
 msgstr "パスワードが一致しません."
 
-#: ../templates/default/layout.html:104
 msgid "News & Announments"
-msgstr "ニュースとお知らせ"
+msgstr ""
 
-#: ../templates/default/macros/general.html:708
 msgid "Next Page"
 msgstr "次のページ"
 
-#: ../templates/default/macros/msgHandlers.html:171
 msgid "No account selected."
 msgstr "アカウントが選択されていません."
 
-#: ../templates/default/panel/log.html:106
 msgid "No admin log."
 msgstr "管理ログがありません."
 
-#: ../templates/default/macros/msgHandlers.html:102
-#: ../templates/default/macros/msgHandlers.html:127
-#: ../templates/default/macros/msgHandlers.html:216
-#: ../templates/default/macros/msgHandlers.html:242
 msgid "No domain under control."
 msgstr "管理できるドメインがありません."
 
-#: ../templates/default/ldap/domain/list.html:107
-#: ../templates/default/ldap/domain/list.html:111
-#: ../templates/default/macros/msgHandlers.html:141
-#: ../templates/default/mysql/domain/list.html:99
-#: ../templates/default/mysql/domain/list.html:103
-#: ../templates/default/pgsql/domain/list.html:99
-#: ../templates/default/pgsql/domain/list.html:103
 msgid "No mail domain available."
 msgstr "メールドメインがありません."
 
-#: ../templates/default/ldap/user/list.html:96
-#: ../templates/default/mysql/user/list.html:104
-#: ../templates/default/pgsql/user/list.html:104
 msgid "No mail user available."
 msgstr "メールユーザがありません."
 
-#: ../templates/default/macros/msgHandlers.html:217
 msgid "No moderator selected."
 msgstr "モデレーターが選択されていません."
 
-#: ../templates/default/macros/general.html:351
 #, python-format
 msgid "No more than %s characters."
 msgstr "%s 文字以内にしてください."
 
-#: ../templates/default/macros/msgHandlers.html:100
 msgid "No such domain."
-msgstr "そのようなドメインはありません."
+msgstr ""
 
-#: ../templates/default/macros/general.html:148
 msgid "Not a global admin."
 msgstr "全体管理者ではありません."
 
-#: ../templates/default/macros/msgHandlers.html:250
 msgid "Not allowed to create mail alias under this domain."
 msgstr "このドメインではメールエイリアスの作成は許可されていません."
 
-#: ../templates/default/macros/msgHandlers.html:218
 msgid "Not allowed to create mail list under this domain."
 msgstr "このドメインではメーリングリストの作成は許可されていません."
 
-#: ../templates/default/macros/msgHandlers.html:143
 msgid "Not allowed to create mail user under this domain."
 msgstr "このドメインではメールユーザの作成は許可されていません."
 
-#: ../templates/default/macros/general.html:358
 msgid "Old password"
 msgstr "古いパスワード"
 
-#: ../templates/default/macros/msgHandlers.html:321
 msgid "Operation completed."
 msgstr "操作が完了しました."
 
-#: ../templates/default/macros/msgHandlers.html:108
 msgid "Or create other mail accounts:"
 msgstr "他のメールアカウント:"
 
-#: ../templates/default/login.html:62
-#: ../templates/default/ldap/admin/profile.html:48
-#: ../templates/default/ldap/user/profile.html:70
-#: ../templates/default/mysql/admin/profile.html:39
-#: ../templates/default/mysql/user/profile.html:46
-#: ../templates/default/pgsql/admin/profile.html:39
-#: ../templates/default/pgsql/user/profile.html:46
 msgid "Password"
 msgstr "パスワード"
 
-#: ../templates/default/macros/msgHandlers.html:137
-#: ../templates/default/macros/msgHandlers.html:175
 msgid "Password is empty."
 msgstr "パスワードが指定されていません."
 
-#: ../templates/default/macros/msgHandlers.html:139
 msgid "Password is too long."
 msgstr "パスワードが長すぎます."
 
-#: ../templates/default/macros/msgHandlers.html:138
 msgid "Password is too short."
 msgstr "パスワードが短すぎます."
 
-#: ../templates/default/macros/msgHandlers.html:64
 msgid "Password of cn=vmailadmin is incorrect."
-msgstr "cn=vmailadmin のパスワードが違います."
+msgstr ""
 
-#: ../templates/default/macros/general.html:439
 msgid ""
 "Per-user relay setting will override per-domain relay setting you set in "
 "this page."
-msgstr "ドメイン毎のリレー設定をユーザ毎のリレー設定で上書きします"
+msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:98
-#: ../templates/default/macros/msgHandlers.html:167
-#: ../templates/default/macros/msgHandlers.html:286
-#: ../templates/default/macros/msgHandlers.html:305
 msgid "Permission denied."
 msgstr "権限がありません."
 
-#: ../templates/default/macros/msgHandlers.html:142
 msgid "Please select at least one account."
 msgstr "１つ以上のアカウントを選択してください."
 
-#: ../templates/default/macros/msgHandlers.html:101
 msgid "Please select at least one domain to apply action."
-msgstr "変更を行いたいドメインを１つ以上選択してください."
+msgstr ""
 
-#: ../templates/default/layout.html:27
 msgid "Preferences"
 msgstr "設定"
 
-#: ../templates/default/macros/general.html:267
 msgid "Preferred language"
 msgstr "優先する言語"
 
-#: ../templates/default/macros/general.html:635
 msgid "Previous Page"
 msgstr "前のページ"
 
-#: ../templates/default/ldap/admin/profile.html:34
-#: ../templates/default/ldap/admin/profile.html:63
-#: ../templates/default/mysql/admin/profile.html:54
-#: ../templates/default/pgsql/admin/profile.html:54
 msgid "Profile of admin:"
 msgstr "管理者のProfile"
 
-#: ../templates/default/ldap/domain/profile.html:56
-#: ../templates/default/mysql/domain/profile.html:54
-#: ../templates/default/pgsql/domain/profile.html:54
 msgid "Profile of domain:"
 msgstr "ドメインのProfile"
 
-#: ../templates/default/ldap/user/profile.html:57
-#: ../templates/default/ldap/user/profile.html:85
-#: ../templates/default/mysql/user/profile.html:31
-#: ../templates/default/mysql/user/profile.html:61
-#: ../templates/default/pgsql/user/profile.html:31
-#: ../templates/default/pgsql/user/profile.html:61
 msgid "Profile of user:"
 msgstr "ユーザのProfile"
 
-#: ../templates/default/macros/msgHandlers.html:125
-#: ../templates/default/macros/msgHandlers.html:207
-#: ../templates/default/macros/msgHandlers.html:248
 msgid "Profile updated failed."
 msgstr "Profileの更新に失敗しました."
 
-#: ../templates/default/macros/msgHandlers.html:88
-#: ../templates/default/macros/msgHandlers.html:124
-#: ../templates/default/macros/msgHandlers.html:165
-#: ../templates/default/macros/msgHandlers.html:205
-#: ../templates/default/macros/msgHandlers.html:240
 msgid "Profile updated success."
 msgstr "Profileを更新しました."
 
-#: ../templates/default/panel/log.html:40
 msgid "Quarantined Mails"
 msgstr "隔離されたメール"
 
-#: ../templates/default/ldap/domain/list.html:52
-#: ../templates/default/ldap/user/list.html:62
-#: ../templates/default/mysql/domain/list.html:52
-#: ../templates/default/mysql/user/list.html:66
-#: ../templates/default/pgsql/domain/list.html:52
-#: ../templates/default/pgsql/user/list.html:66
 msgid "Quota"
 msgstr "クォータ"
 
-#: ../templates/default/panel/log.html:36
 msgid "Received Mails"
 msgstr "受信メール"
 
-#: ../templates/default/macros/ldap.html:92
-#: ../templates/default/macros/mysql.html:61
 msgid "Receiving mails for this account on mail server"
 msgstr "メールサーバにある、このアカウント宛の受信メール"
 
-#: ../templates/default/macros/general.html:429
 msgid "Relay/Transport Setting"
-msgstr "リレー/転送設定"
+msgstr ""
 
-#: ../templates/default/login.html:74
 msgid "Remember me"
-msgstr "記憶する"
+msgstr ""
 
-#: ../templates/default/macros/general.html:731
 msgid "Revoke admin privilege"
 msgstr "管理者権限を剥奪"
 
-#: ../templates/default/macros/general.html:440
 msgid "Sample"
 msgstr "サンプル"
 
-#: ../templates/default/macros/general.html:157
 msgid "Save changes"
 msgstr "変更を保存"
 
-#: ../templates/default/macros/msgHandlers.html:323
 msgid "Search keyword could not be empty."
 msgstr "検索文字列が指定されていません."
 
-#: ../templates/default/error_csrf.html:7
 msgid ""
 "Security token did not match. Please refresh current page and re-perform "
 "form action."
 msgstr "セキュリティトークンが一致しません. このページを再読込し、フォームも再入力してください."
 
-#: ../templates/default/macros/msgHandlers.html:132
-#: ../templates/default/macros/msgHandlers.html:168
-#: ../templates/default/macros/msgHandlers.html:212
-#: ../templates/default/macros/msgHandlers.html:243
 msgid "Selected accounts were deleted."
 msgstr "選択したアカウントは削除されました."
 
-#: ../templates/default/macros/msgHandlers.html:133
-#: ../templates/default/macros/msgHandlers.html:169
-#: ../templates/default/macros/msgHandlers.html:213
-#: ../templates/default/macros/msgHandlers.html:244
 msgid "Selected accounts were disabled."
 msgstr "選択したアカウントは無効化されました."
 
-#: ../templates/default/macros/msgHandlers.html:134
-#: ../templates/default/macros/msgHandlers.html:170
-#: ../templates/default/macros/msgHandlers.html:214
-#: ../templates/default/macros/msgHandlers.html:245
 msgid "Selected accounts were enabled."
 msgstr "選択したアカウントは有効化されました."
 
-#: ../templates/default/macros/msgHandlers.html:90
 msgid "Selected domains were deleted."
 msgstr "選択したドメインは削除されました."
 
-#: ../templates/default/macros/msgHandlers.html:91
 msgid "Selected domains were disabled."
 msgstr "選択したドメインは無効化されました."
 
-#: ../templates/default/macros/msgHandlers.html:92
 msgid "Selected domains were enabled."
 msgstr "選択したドメインは有効化されました."
 
-#: ../templates/default/macros/msgHandlers.html:271
-#: ../templates/default/macros/msgHandlers.html:302
 msgid "Selected log records were deleted."
 msgstr "選択したログは削除されました."
 
-#: ../templates/default/macros/ldap.html:86
-#: ../templates/default/macros/mysql.html:62
 msgid "Sending mails via SMTP"
 msgstr "SMTPでメールを送信する"
 
-#: ../templates/default/macros/ldap.html:87
-#: ../templates/default/macros/mysql.html:63
 msgid "Sending mails via SMTP over TLS/SSL"
 msgstr "SMTP over TLS/SSLでメールを送信する"
 
-#: ../templates/default/panel/log.html:35
 msgid "Sent Mails"
-msgstr "メール送信"
+msgstr "送信メール"
 
-#: ../templates/default/dashboard.html:64
 msgid "Server Load"
 msgstr "サーバの負荷"
 
-#: ../templates/default/macros/msgHandlers.html:96
 msgid ""
 "Server-side size limit exceeded. Please increase \"sizelimit\" in your "
 "LDAP server."
 msgstr "サーバ側の容量上限を超えています. LDAPサーバ管理者に \"sizelimit\"の増加を依頼してください."
 
-#: ../templates/default/macros/msgHandlers.html:67
 msgid "Session expired, please re-login."
 msgstr "セッションは終了しました. 再ログインしてください."
 
-#: ../templates/default/macros/general.html:417
 msgid "Set to 0 for unlimited."
 msgstr "0を指定すると無制限."
 
-#: ../templates/default/macros/general.html:378
 msgid "Store password in plain text"
 msgstr "パスワードを平文テキストで保管する"
 
-#: ../templates/default/panel/log.html:56
 msgid "Submit"
 msgstr "送信"
 
-#: ../templates/default/macros/msgHandlers.html:99
 msgid "Submited domain name is incorrect."
 msgstr "送信したドメイン名が誤っています."
 
-#: ../templates/default/layout.html:105
 msgid "Support"
 msgstr "サポート"
 
-#: ../templates/default/layout.html:60
 msgid "System"
 msgstr "システム"
 
-#: ../templates/default/dashboard.html:11
 msgid "System Information"
 msgstr "システム情報"
 
-#: ../templates/default/macros/general.html:236
-#: ../templates/default/macros/general.html:245
 msgid "Telephone Number"
 msgstr "電話番号"
 
-#: ../templates/default/panel/log.html:70
 msgid "Time"
 msgstr "時刻"
 
-#: ../templates/default/mysql/domain/list.html:80
-#: ../templates/default/pgsql/domain/list.html:80
 msgid "Total"
 msgstr "合計"
 
-#: ../templates/default/ldap/domain/list.html:96
-#: ../templates/default/macros/general.html:317
-#: ../templates/default/mysql/user/list.html:93
-#: ../templates/default/pgsql/user/list.html:93
 msgid "Unlimited"
 msgstr "無制限"
 
-#: ../templates/default/macros/general.html:588
-#: ../templates/default/macros/general.html:600
 msgid "Unrestricted"
 msgstr "無制限"
 
-#: ../templates/default/dashboard.html:44
 #, python-format
 msgid "Update available: <a href='%s' target='_blank'>v%s</a>"
-msgstr "更新版があります: <a href='%s' target='_blank'>v%s</a>"
+msgstr ""
 
-#: ../templates/default/macros/general.html:733
 msgid "Update whitelists and blacklists"
 msgstr "ホワイトリストとブラックリストを更新"
 
-#: ../templates/default/dashboard.html:58
 msgid "Uptime"
 msgstr "稼働時間"
 
-#: ../templates/default/layout.html:73
-#: ../templates/default/ldap/user/create.html:34
-#: ../templates/default/ldap/user/list.html:39
-#: ../templates/default/macros/msgHandlers.html:108
-#: ../templates/default/mysql/user/create.html:29
-#: ../templates/default/mysql/user/list.html:39
-#: ../templates/default/pgsql/user/create.html:29
-#: ../templates/default/pgsql/user/list.html:39
 msgid "User"
 msgstr "ユーザー"
 
-#: ../templates/default/ldap/user/list.html:60
-#: ../templates/default/macros/general.html:214
-#: ../templates/default/mysql/user/list.html:62
-#: ../templates/default/pgsql/user/list.html:62
 msgid "User ID"
-msgstr "ユーザーID"
+msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:149
 msgid "User created."
 msgstr "ユーザーは作成されました."
 
-#: ../templates/default/macros/general.html:724
 msgid "User login (self-service)"
-msgstr "ユーザログイン (一般ユーザ)"
+msgstr "ユーザーログイン (一般ユーザー向けサービス)"
 
-#: ../templates/default/login.html:57
 msgid "Username"
 msgstr "ユーザー名"
 
-#: ../templates/default/macros/msgHandlers.html:65
 msgid "Username must be an valid email address."
-msgstr "ユーザー名はメールアドレスです."
+msgstr "ユーザー名は有効なメールアドレスである必要があります."
 
-#: ../templates/default/macros/msgHandlers.html:63
 msgid "Username or password is incorrect."
 msgstr "ユーザー名かパスワードが違います."
 
-#: ../templates/default/ldap/domain/list.html:53
-#: ../templates/default/ldap/domain/profile.html:29
-#: ../templates/default/ldap/user/create.html:33
-#: ../templates/default/ldap/user/list.html:20
-#: ../templates/default/ldap/user/list.html:38
-#: ../templates/default/ldap/user/profile.html:56
-#: ../templates/default/mysql/domain/list.html:53
-#: ../templates/default/mysql/domain/profile.html:22
-#: ../templates/default/mysql/user/create.html:28
-#: ../templates/default/mysql/user/list.html:20
-#: ../templates/default/mysql/user/list.html:38
-#: ../templates/default/mysql/user/profile.html:30
-#: ../templates/default/pgsql/domain/list.html:53
-#: ../templates/default/pgsql/domain/profile.html:22
-#: ../templates/default/pgsql/user/create.html:28
-#: ../templates/default/pgsql/user/list.html:20
-#: ../templates/default/pgsql/user/list.html:38
-#: ../templates/default/pgsql/user/profile.html:30
 msgid "Users"
 msgstr "ユーザー"
 
-#: ../templates/default/ldap/user/list.html:43
-#: ../templates/default/mysql/user/list.html:43
-#: ../templates/default/pgsql/user/list.html:43
 #, python-format
 msgid "Users under domain: %s"
 msgstr "ドメイン %s のユーザー"
 
-#: ../templates/default/macros/msgHandlers.html:36
-#: ../templates/default/macros/msgHandlers.html:38
 msgid "Warning"
 msgstr "警告"
 
-#: ../templates/default/layout.html:46
 msgid "iRedMail Admin Panel"
-msgstr "iRedMailの管理画面"
+msgstr ""
 

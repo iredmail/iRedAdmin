@@ -7,426 +7,255 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: zhb@iredmail.org\n"
-"POT-Creation-Date: 2013-03-03 12:11+0800\n"
+"POT-Creation-Date: 2018-02-11 00:44+0800\n"
 "PO-Revision-Date: 2011-09-22 08:40+0200\n"
 "Last-Translator: Teemu Harjula <teemu.harjula@tietovirta.fi>\n"
+"Language: fi_FI\n"
 "Language-Team: fi_FI <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 0.9.6\n"
+"Generated-By: Babel 2.3.4\n"
 
-#: ../templates/default/macros/ldap.html:16
 #, python-format
 msgid "%s (%s)"
 msgstr "%s (%s)"
 
-#: ../templates/default/dashboard.html:55
 #, python-format
 msgid "%s days, %s hours, %s minutes."
 msgstr "%s päivää, %s tuntia, %s minuuttia."
 
-#: ../templates/default/macros/general.html:653
+msgid "1 day"
+msgstr ""
+
+msgid "1 year"
+msgstr ""
+
+msgid "2 years"
+msgstr ""
+
+msgid "3 months"
+msgstr ""
+
+msgid "3 years"
+msgstr ""
+
+msgid "6 months"
+msgstr ""
+
 #, python-format
 msgid "<a href='%s'>Domain and sub-domain users</a>"
 msgstr "<a href='%s'>Domain and sub-domain users</a>"
 
-#: ../templates/default/macros/general.html:651
 #, python-format
 msgid "<a href='%s'>Domain users</a>"
 msgstr "<a href='%s'>Domain users</a>"
 
-#: ../templates/default/macros/general.html:655
 #, python-format
 msgid "<a href='%s'>Members</a>"
 msgstr "<a href='%s'>Members</a>"
 
-#: ../templates/default/macros/general.html:659
 #, python-format
 msgid "<a href='%s'>Members</a> and <a href='%s'>moderators</a>"
 msgstr "<a href='%s'>Members</a> and <a href='%s'>moderators</a>"
 
-#: ../templates/default/macros/general.html:657
 #, python-format
 msgid "<a href='%s'>Moderators</a>"
 msgstr "<a href='%s'>Moderators</a>"
 
-#: ../templates/default/macros/msgHandlers.html:177
-#: ../templates/default/macros/msgHandlers.html:203
-#: ../templates/default/macros/msgHandlers.html:215
-#: ../templates/default/macros/msgHandlers.html:239
 msgid "Account already exists, please choose another username."
 msgstr "Tili on jo olemassa, valitse toinen käyttäjänimi."
 
-#: ../templates/default/macros/general.html:186
 msgid "Account is active."
 msgstr "Tili on aktiivinen."
 
-#: ../templates/default/macros/general.html:188
-#: ../templates/default/macros/general.html:189
 msgid "Account is disabled."
 msgstr "Tili on poistettu käytöstä."
 
-#: ../templates/default/macros/general.html:794
-msgid "Active account"
-msgstr "Aktiivinen tili"
+msgid "Activate account"
+msgstr ""
 
-#: ../templates/default/layout.html:66
-#: ../templates/default/ldap/user/create.html:90
-#: ../templates/default/macros/general.html:600
-#: ../templates/default/macros/general.html:641
-#: ../templates/default/mysql/user/create.html:85
-#: ../templates/default/pgsql/user/create.html:85
 msgid "Add"
 msgstr "Lisää"
 
-#: ../templates/default/macros/general.html:788
 msgid "Add account"
 msgstr "Lisää tili"
 
-#: ../templates/default/ldap/admin/create.html:13
-#: ../templates/default/ldap/admin/create.html:25
-#: ../templates/default/ldap/admin/create.html:28
-#: ../templates/default/ldap/admin/list.html:31
-#: ../templates/default/mysql/admin/create.html:13
-#: ../templates/default/mysql/admin/create.html:25
-#: ../templates/default/mysql/admin/create.html:28
-#: ../templates/default/mysql/admin/list.html:31
-#: ../templates/default/pgsql/admin/create.html:13
-#: ../templates/default/pgsql/admin/create.html:25
-#: ../templates/default/pgsql/admin/create.html:28
-#: ../templates/default/pgsql/admin/list.html:31
 msgid "Add admin"
 msgstr "Lisää ylläpitäjä"
 
-#: ../templates/default/ldap/domain/create.html:9
-#: ../templates/default/ldap/domain/create.html:23
-#: ../templates/default/ldap/domain/create.html:27
-#: ../templates/default/ldap/domain/list.html:30
-#: ../templates/default/macros/general.html:632
-#: ../templates/default/macros/ldap.html:32
-#: ../templates/default/macros/mysql.html:26
-#: ../templates/default/mysql/domain/create.html:7
-#: ../templates/default/mysql/domain/create.html:20
-#: ../templates/default/mysql/domain/create.html:24
-#: ../templates/default/mysql/domain/list.html:29
-#: ../templates/default/pgsql/domain/create.html:7
-#: ../templates/default/pgsql/domain/create.html:20
-#: ../templates/default/pgsql/domain/create.html:24
-#: ../templates/default/pgsql/domain/list.html:29
 msgid "Add domain"
 msgstr "Lisää domain"
 
-#: ../templates/default/ldap/domain/list.html:108
-#: ../templates/default/ldap/user/list.html:85
-#: ../templates/default/mysql/domain/list.html:100
-#: ../templates/default/mysql/user/list.html:93
-#: ../templates/default/pgsql/domain/list.html:100
-#: ../templates/default/pgsql/user/list.html:93
 msgid "Add one"
 msgstr "Lisää uusi"
 
-#: ../templates/default/macros/msgHandlers.html:108
-#: ../templates/default/macros/msgHandlers.html:149
-#: ../templates/default/macros/msgHandlers.html:184
-#: ../templates/default/macros/msgHandlers.html:224
-#: ../templates/default/macros/msgHandlers.html:256
 msgid "Add one more?"
 msgstr "Lisää uusi?"
 
-#: ../templates/default/ldap/user/create.html:13
-#: ../templates/default/ldap/user/create.html:38
-#: ../templates/default/mysql/user/create.html:13
-#: ../templates/default/mysql/user/create.html:33
-#: ../templates/default/pgsql/user/create.html:13
-#: ../templates/default/pgsql/user/create.html:33
 #, python-format
 msgid "Add user under domain: %s"
 msgstr "Lisää käyttäjä domainiin: %s."
 
-#: ../templates/default/layout.html:70 ../templates/default/panel/log.html:70
 msgid "Admin"
 msgstr "Ylläpitäjä"
 
-#: ../templates/default/layout.html:62 ../templates/default/panel/log.html:14
-#: ../templates/default/panel/log.html:25
-#: ../templates/default/panel/log.html:32
 msgid "Admin Log"
 msgstr "Ylläpitäjän logi"
 
-#: ../templates/default/macros/msgHandlers.html:184
 msgid "Admin created."
 msgstr ""
 
-#: ../templates/default/macros/general.html:786
 msgid "Admin login"
 msgstr "Kirjautuminen ylläpitäjänä"
 
-#: ../templates/default/macros/msgHandlers.html:178
 msgid "Admin not exist."
 msgstr "Ylläpitäjää ei löytynyt."
 
-#: ../templates/default/layout.html:58
 msgid "Admins"
 msgstr "Ylläpitäjät"
 
-#: ../templates/default/macros/ldap.html:94
 msgid "Alias account"
 msgstr "Alias-tili"
 
-#: ../templates/default/ldap/admin/create.html:24
-#: ../templates/default/ldap/admin/list.html:29
-#: ../templates/default/ldap/admin/profile.html:33
-#: ../templates/default/mysql/admin/create.html:24
-#: ../templates/default/mysql/admin/list.html:29
-#: ../templates/default/mysql/admin/profile.html:22
-#: ../templates/default/pgsql/admin/create.html:24
-#: ../templates/default/pgsql/admin/list.html:29
-#: ../templates/default/pgsql/admin/profile.html:22
 msgid "All admins"
 msgstr "Kaikki ylläpitäjät"
 
-#: ../templates/default/ldap/domain/create.html:21
-#: ../templates/default/ldap/domain/list.html:28
-#: ../templates/default/ldap/domain/profile.html:27
-#: ../templates/default/ldap/user/profile.html:54
-#: ../templates/default/mysql/domain/create.html:18
-#: ../templates/default/mysql/domain/list.html:27
-#: ../templates/default/mysql/domain/profile.html:20
-#: ../templates/default/mysql/user/profile.html:28
-#: ../templates/default/pgsql/domain/create.html:18
-#: ../templates/default/pgsql/domain/list.html:27
-#: ../templates/default/pgsql/domain/profile.html:20
-#: ../templates/default/pgsql/user/profile.html:28
 msgid "All domains"
 msgstr "Kaikki domainit"
 
-#: ../templates/default/ldap/domain/list.html:35
-#: ../templates/default/mysql/domain/list.html:34
-#: ../templates/default/pgsql/domain/list.html:34
 msgid "All domains under your control."
 msgstr "Sinun hallitsemat domainit"
 
-#: ../templates/default/ldap/admin/list.html:35
-#: ../templates/default/mysql/admin/list.html:35
-#: ../templates/default/pgsql/admin/list.html:35
 msgid "All mail administrators."
 msgstr "Kaikki sähköpostin ylläpitäjät."
 
-#: ../templates/default/mysql/domain/list.html:80
-#: ../templates/default/mysql/user/list.html:85
-#: ../templates/default/pgsql/domain/list.html:80
-#: ../templates/default/pgsql/user/list.html:85
 msgid "Allocated"
 msgstr "Varattu"
 
-#: ../templates/default/ldap/admin/list.html:86
-#: ../templates/default/ldap/domain/list.html:127
-#: ../templates/default/ldap/user/list.html:101
-#: ../templates/default/mysql/admin/list.html:102
-#: ../templates/default/mysql/domain/list.html:120
-#: ../templates/default/mysql/user/list.html:109
-#: ../templates/default/panel/log.html:110
-#: ../templates/default/pgsql/admin/list.html:102
-#: ../templates/default/pgsql/domain/list.html:120
-#: ../templates/default/pgsql/user/list.html:109
 msgid "Apply"
 msgstr "Aseta"
 
-#: ../templates/default/macros/general.html:396
 #, python-format
 msgid "At least %s characters, but no more than %s."
 msgstr "Vähintään %s ja enintään %s merkkiä."
 
-#: ../templates/default/macros/general.html:398
 #, python-format
 msgid "At least %s characters."
 msgstr "Vähintään %s merkkiä."
 
-#: ../templates/default/macros/general.html:463
 msgid "Available quota:"
 msgstr "Vapaa kiintiö:"
 
-#: ../templates/default/macros/general.html:514
 msgid "BCC incoming emails to single address"
 msgstr "Piilokopio saapuvista sähköposteista osoitteeseen"
 
-#: ../templates/default/macros/ldap.html:80
-#: ../templates/default/macros/ldap.html:97
 msgid "BCC incoming mails to other address"
 msgstr "Piilokopio saapuvista posteista toiseen osoitteeseen."
 
-#: ../templates/default/macros/general.html:526
 msgid "BCC outgoing emails to single address"
 msgstr "Piilokopio lähtevistä sähköposteista osoitteeseen"
 
-#: ../templates/default/macros/ldap.html:81
-#: ../templates/default/macros/ldap.html:98
 msgid "BCC outgoing mails to other address"
 msgstr "Piilokopio lähtevistä posteista toiseen osoitteeseen."
 
-#: ../templates/default/macros/ldap.html:110
+msgid "Backup"
+msgstr ""
+
 msgid "Check this box in order to enable other services"
 msgstr "Valitse tämä ottaaksesi käyttöön muut sähköpostiin liittyvät palvelut."
 
-#: ../templates/default/ldap/admin/list.html:81
-#: ../templates/default/ldap/domain/list.html:122
-#: ../templates/default/ldap/user/list.html:96
-#: ../templates/default/mysql/admin/list.html:97
-#: ../templates/default/mysql/domain/list.html:115
-#: ../templates/default/mysql/user/list.html:104
-#: ../templates/default/panel/log.html:106
-#: ../templates/default/pgsql/admin/list.html:97
-#: ../templates/default/pgsql/domain/list.html:115
-#: ../templates/default/pgsql/user/list.html:104
 msgid "Choose Action"
 msgstr "Valitse toiminto"
 
-#: ../templates/default/macros/general.html:558
 msgid "Company/Organization Name"
 msgstr "Yrityksen/Järjestön nimi"
 
-#: ../templates/default/macros/general.html:419
 msgid "Confirm new password"
 msgstr "Vahvista uusi salasana"
 
-#: ../templates/default/layout.html:107
 msgid "Contact webmaster"
 msgstr "Ota yhteys ylläpitäjään"
 
-#: ../templates/default/macros/msgHandlers.html:135
-#: ../templates/default/macros/msgHandlers.html:172
-#: ../templates/default/macros/msgHandlers.html:173
 msgid "Current password is incorrect."
 msgstr "Nykyinen salasana on virheellinen."
 
-#: ../templates/default/macros/ldap.html:95
-#: ../templates/default/macros/mysql.html:68
 msgid "Customize mail filter rule"
 msgstr "Muokkaa sähköpostin suodatussääntöä"
 
-#: ../templates/default/macros/ldap.html:96
-#: ../templates/default/macros/mysql.html:69
 msgid "Customize mail filter rule over TLS/SSL"
 msgstr "Muokkaa sähköpostin TLS/SSL suodatussääntöä."
 
-#: ../templates/default/mysql/domain/list.html:88
-#: ../templates/default/pgsql/domain/list.html:88
 msgid "DISABLED"
 msgstr "POISTETTU KÄYTÖSTÄ"
 
-#: ../templates/default/dashboard.html:5 ../templates/default/layout.html:54
 msgid "Dashboard"
 msgstr "Etusivu"
 
-#: ../templates/default/macros/general.html:622
 msgid "Default quota of new user"
 msgstr "Oletuskiintiö uudelle käyttäjälle"
 
-#: ../templates/default/ldap/admin/list.html:84
-#: ../templates/default/ldap/domain/list.html:125
-#: ../templates/default/ldap/user/list.html:99
-#: ../templates/default/mysql/admin/list.html:100
-#: ../templates/default/mysql/domain/list.html:118
-#: ../templates/default/mysql/user/list.html:107
-#: ../templates/default/pgsql/admin/list.html:100
-#: ../templates/default/pgsql/domain/list.html:118
-#: ../templates/default/pgsql/user/list.html:107
 msgid "Delete"
 msgstr "Poista"
 
-#: ../templates/default/macros/general.html:790
 msgid "Delete account"
 msgstr "Poista tili"
 
-#: ../templates/default/panel/log.html:108
 msgid "Delete all in database"
 msgstr "Poista kaikki tietokannasta"
 
-#: ../templates/default/panel/log.html:107
+msgid "Delete mailboxes"
+msgstr ""
+
+msgid "Delete mailboxes in"
+msgstr ""
+
 msgid "Delete selected"
 msgstr "Poista valitut"
 
-#: ../templates/default/ldap/admin/list.html:83
-#: ../templates/default/ldap/domain/list.html:124
-#: ../templates/default/ldap/user/list.html:98
-#: ../templates/default/mysql/admin/list.html:99
-#: ../templates/default/mysql/domain/list.html:117
-#: ../templates/default/mysql/user/list.html:106
-#: ../templates/default/pgsql/admin/list.html:99
-#: ../templates/default/pgsql/domain/list.html:117
-#: ../templates/default/pgsql/user/list.html:106
 msgid "Disable"
 msgstr "Poista käytöstä"
 
-#: ../templates/default/macros/general.html:792
 msgid "Disable account"
 msgstr "Poista tili käytöstä"
 
-#: ../templates/default/ldap/admin/list.html:49
-#: ../templates/default/ldap/user/list.html:47
-#: ../templates/default/macros/general.html:560
-#: ../templates/default/mysql/admin/list.html:49
-#: ../templates/default/mysql/user/list.html:49
-#: ../templates/default/pgsql/admin/list.html:49
-#: ../templates/default/pgsql/user/list.html:49
 msgid "Display Name"
 msgstr "Näyttönimi"
 
-#: ../templates/default/macros/ldap.html:99
-#: ../templates/default/macros/ldap.html:103
 msgid "Display mail address in global LDAP address book"
 msgstr "Näytä sähköpostiosoite globaalissa LDAP osoitekirjassa"
 
-#: ../templates/default/macros/general.html:327
 msgid "Displayed in Global LDAP Address Book"
 msgstr "Näytetään globaalissa LDAP osoietkirjassa"
 
-#: ../templates/default/layout.html:69
-#: ../templates/default/ldap/domain/list.html:50
-#: ../templates/default/mysql/domain/list.html:50
-#: ../templates/default/pgsql/domain/list.html:50
 msgid "Domain"
 msgstr "Domain"
 
-#: ../templates/default/ldap/admin/list.html:13
-#: ../templates/default/macros/ldap.html:41
-#: ../templates/default/macros/mysql.html:35
-#: ../templates/default/mysql/admin/list.html:13
-#: ../templates/default/pgsql/admin/list.html:13
 msgid "Domain Admins"
 msgstr "Domainin ylläpitäjät"
 
-#: ../templates/default/macros/general.html:542
 msgid "Domain Name"
 msgstr "Domain nimi"
 
-#: ../templates/default/macros/ldap.html:79
 msgid "Domain alias"
 msgstr "Domainin aliakset"
 
-#: ../templates/default/macros/msgHandlers.html:97
 msgid "Domain already exists. Please check both primary or alias domains."
 msgstr "Domain on jo olemassa. Tarkasta domainit ja domainaliakset."
 
-#: ../templates/default/macros/msgHandlers.html:108
 msgid "Domain created."
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:95
 msgid "Domain name is empty."
 msgstr "Domain nimi on tyhjä."
 
-#: ../templates/default/macros/msgHandlers.html:128
 msgid "Domain name or username is missed."
 msgstr "Domain nimi tai käyttäjänimi puuttuu."
 
-#: ../templates/default/macros/general.html:608
 msgid "Domain quota size"
 msgstr "Domainin kiintiö"
 
-#: ../templates/default/macros/msgHandlers.html:130
 msgid ""
 "Domain quota size exceeded. Please contact your administrator or service "
 "provider to increase it."
@@ -434,93 +263,43 @@ msgstr ""
 "Domainin kiintiö ylitetty. Ota yhteys ylläpitäjään tai palveluntarjoajaan"
 " kasvattaaksesi sitä."
 
-#: ../templates/default/layout.html:55
-#: ../templates/default/ldap/domain/list.html:16
-#: ../templates/default/mysql/domain/list.html:15
-#: ../templates/default/pgsql/domain/list.html:15
 msgid "Domains and Accounts"
 msgstr "Domainit ja tilit"
 
-#: ../templates/default/ldap/admin/list.html:67
-#: ../templates/default/ldap/admin/profile.html:22
-#: ../templates/default/ldap/domain/list.html:89
-#: ../templates/default/ldap/domain/profile.html:15
-#: ../templates/default/ldap/user/list.html:72
-#: ../templates/default/ldap/user/profile.html:23
-#: ../templates/default/macros/general.html:796
-#: ../templates/default/mysql/admin/list.html:63
-#: ../templates/default/mysql/admin/profile.html:17
-#: ../templates/default/mysql/domain/list.html:68
-#: ../templates/default/mysql/domain/profile.html:15
-#: ../templates/default/mysql/user/list.html:66
-#: ../templates/default/mysql/user/profile.html:23
-#: ../templates/default/pgsql/admin/list.html:63
-#: ../templates/default/pgsql/admin/profile.html:17
-#: ../templates/default/pgsql/domain/list.html:68
-#: ../templates/default/pgsql/domain/profile.html:15
-#: ../templates/default/pgsql/user/list.html:66
-#: ../templates/default/pgsql/user/profile.html:23
 msgid "Edit account profile"
 msgstr "Muokkaa tilin profiilia"
 
-#: ../templates/default/ldap/user/create.html:39
-#: ../templates/default/ldap/user/list.html:36
-#: ../templates/default/mysql/user/create.html:34
-#: ../templates/default/mysql/user/list.html:37
-#: ../templates/default/pgsql/user/create.html:34
-#: ../templates/default/pgsql/user/list.html:37
 msgid "Edit domain profile"
 msgstr "Muokkaa domainin profiilia"
 
-#: ../templates/default/macros/msgHandlers.html:249
 msgid "Empty address is not allowed."
 msgstr "Tyhjä sähköpostiosoite ei ole sallittu."
 
-#: ../templates/default/macros/msgHandlers.html:66
 msgid "Empty password is not allowed."
 msgstr "Tyhjä salasana ei ole sallittu."
 
-#: ../templates/default/ldap/admin/list.html:82
-#: ../templates/default/ldap/domain/list.html:123
-#: ../templates/default/ldap/user/list.html:97
-#: ../templates/default/mysql/admin/list.html:98
-#: ../templates/default/mysql/domain/list.html:116
-#: ../templates/default/mysql/user/list.html:105
-#: ../templates/default/pgsql/admin/list.html:98
-#: ../templates/default/pgsql/domain/list.html:116
-#: ../templates/default/pgsql/user/list.html:105
 msgid "Enable"
 msgstr "Ota käyttöön"
 
-#: ../templates/default/macros/general.html:384
 msgid "Enable this account"
 msgstr "Ota tämä tili käyttöön"
 
-#: ../templates/default/macros/general.html:382
 msgid "Enable this domain"
 msgstr "Ota tämä domain käyttöön"
 
-#: ../templates/default/macros/ldap.html:107
-#: ../templates/default/macros/mysql.html:75
-#: ../templates/default/macros/mysql.html:81
 msgid "Enabled Services"
 msgstr "Käytössä olevat palvelut"
 
-#: ../templates/default/dashboard.html:32
 #, python-format
 msgid "Error while checking new version: %s"
 msgstr "Virhe tarkastettaessa uutta versiota: %s"
 
-#: ../templates/default/macros/msgHandlers.html:22
-#: ../templates/default/macros/msgHandlers.html:24
 msgid "Error:"
 msgstr "Virhe:"
 
-#: ../templates/default/macros/general.html:784
 msgid "Events"
 msgstr "Tapahtumat"
 
-#: ../templates/default/macros/msgHandlers.html:131
 msgid ""
 "Exceeded domain account limit. Please contact your administrator or "
 "service provider to increase it."
@@ -528,411 +307,255 @@ msgstr ""
 "Domain tilien maksimimäärä on ylitetty. Ota yhteys ylläpitäjään tai "
 "palveluntarjoajaan kasvattaaksesi sitä."
 
-#: ../templates/default/macros/ldap.html:90
-#: ../templates/default/macros/mysql.html:66
 msgid "Fetching mails via IMAP"
 msgstr "Nouda sähköpostit IMAP kautta."
 
-#: ../templates/default/macros/ldap.html:91
-#: ../templates/default/macros/mysql.html:67
 msgid "Fetching mails via IMAP over TLS/SSL"
 msgstr "Nouda sähköpostit IMAP kautta (TLS/SSL)."
 
-#: ../templates/default/macros/ldap.html:88
-#: ../templates/default/macros/mysql.html:64
 msgid "Fetching mails via POP3"
 msgstr "Nouda sähköpostit POP3 kautta."
 
-#: ../templates/default/macros/ldap.html:89
-#: ../templates/default/macros/mysql.html:65
 msgid "Fetching mails via POP3 over TLS/SSL"
 msgstr "Nouda sähköpostit POP3S kautta (POP3 TLS/SSL)."
 
-#: ../templates/default/panel/log.html:48
 msgid "Filter:"
 msgstr "Filtteri:"
 
-#: ../templates/default/macros/general.html:692
 msgid "First Page"
 msgstr "Ensimmäinen sivu"
 
-#: ../templates/default/macros/general.html:572
 msgid "First name"
 msgstr "Ensimmäinen sivu"
 
-#: ../templates/default/macros/ldap.html:93
 msgid "Forwarding mails to other addresses"
 msgstr "Edelleenohjaa sähköpostit toiseen osoitteeseen"
 
-#: ../templates/default/ldap/admin/profile.html:79
-#: ../templates/default/ldap/user/profile.html:106
 msgid "Full name"
 msgstr ""
 
-#: ../templates/default/ldap/admin/profile.html:47
-#: ../templates/default/ldap/domain/profile.html:43
-#: ../templates/default/ldap/user/profile.html:69
-#: ../templates/default/mysql/admin/profile.html:38
-#: ../templates/default/mysql/domain/profile.html:38
-#: ../templates/default/mysql/user/profile.html:45
-#: ../templates/default/pgsql/admin/profile.html:38
-#: ../templates/default/pgsql/domain/profile.html:38
-#: ../templates/default/pgsql/user/profile.html:45
 msgid "General"
 msgstr "Yleinen"
 
-#: ../templates/default/ldap/admin/list.html:51
-#: ../templates/default/macros/ldap.html:49
-#: ../templates/default/mysql/admin/list.html:51
-#: ../templates/default/pgsql/admin/list.html:51
 msgid "Global Admin"
 msgstr "Globaali ylläpitäjä"
 
-#: ../templates/default/macros/general.html:355
 msgid "Global admin"
 msgstr "Globaali ylläpitäjä"
 
-#: ../templates/default/macros/ldap.html:118
-#: ../templates/default/macros/mysql.html:78
-msgid "Greylisting"
+msgid "Grant admin"
 msgstr ""
 
-#: ../templates/default/dashboard.html:48
 msgid "Hostname"
 msgstr "Isäntänimi"
 
-#: ../templates/default/panel/log.html:71
 msgid "IP Address"
 msgstr "IP-osoite"
 
-#: ../templates/default/macros/msgHandlers.html:89
-#: ../templates/default/macros/msgHandlers.html:126
-#: ../templates/default/macros/msgHandlers.html:166
-#: ../templates/default/macros/msgHandlers.html:206
-#: ../templates/default/macros/msgHandlers.html:241
-#: ../templates/default/macros/msgHandlers.html:275
-#: ../templates/default/macros/msgHandlers.html:298
-#: ../templates/default/macros/msgHandlers.html:317
-#: ../templates/default/macros/msgHandlers.html:341
 msgid "Invalid action."
 msgstr "Virheellinen toiminto."
 
-#: ../templates/default/macros/msgHandlers.html:297
-#: ../templates/default/macros/msgHandlers.html:318
 msgid "Invalid domain name or mail address."
 msgstr "Virheellinen domain nimi tai sähköpostiosoite."
 
-#: ../templates/default/macros/msgHandlers.html:93
 msgid "Invalid domain name."
 msgstr "Virheellinen domain nimi."
 
-#: ../templates/default/macros/msgHandlers.html:94
-#: ../templates/default/macros/msgHandlers.html:129
-#: ../templates/default/macros/msgHandlers.html:176
-#: ../templates/default/macros/msgHandlers.html:339
 msgid "Invalid mail address."
 msgstr "Virheellinen sähköpostiosoite."
 
-#: ../templates/default/macros/msgHandlers.html:299
 msgid "Invalid request data."
 msgstr "Virheellinen pyyntö."
 
-#: ../templates/default/macros/msgHandlers.html:204
 msgid "Invalid username."
 msgstr "Virheellinen käyttäjänimi."
 
-#: ../templates/default/macros/general.html:195
 msgid "Is a global admin."
 msgstr "On globaali ylläpitäjä."
 
-#: ../templates/default/ldap/admin/create.html:44
-#: ../templates/default/mysql/admin/create.html:44
-#: ../templates/default/pgsql/admin/create.html:44
 msgid ""
 "It is recommended to mark user as domain admin in user profile page "
 "instead of creating separate admin account."
 msgstr ""
 
-#: ../templates/default/ldap/user/list.html:50
 msgid "Job Title"
 msgstr "Tehtävänimi"
 
-#: ../templates/default/macros/general.html:270
 msgid "Job Title/Responsibility"
 msgstr "Tehtävänimi/vastuualue"
 
-#: ../templates/default/macros/general.html:773
+msgid "Keep forever"
+msgstr ""
+
 msgid "Last Page"
 msgstr "Edellinen sivu"
 
-#: ../templates/default/macros/general.html:573
 msgid "Last name"
 msgstr "Isäntänimi"
 
-#: ../templates/default/ldap/domain/list.html:99
-#: ../templates/default/mysql/domain/list.html:86
-#: ../templates/default/mysql/domain/list.html:90
-#: ../templates/default/pgsql/domain/list.html:86
-#: ../templates/default/pgsql/domain/list.html:90
 msgid "List all mail users."
 msgstr "Listaa kaikki sähköpostikäyttäjät."
 
-#: ../templates/default/layout.html:33
 #, python-format
 msgid "Logged in as %s"
 msgstr "Kirjautunut sisään tunnuksella %s"
 
-#: ../templates/default/login.html:64
 msgid "Login"
 msgstr "Kirjaudu"
 
-#: ../templates/default/macros/msgHandlers.html:62
 msgid "Login required"
 msgstr "Kirjautuminen vaaditaan"
 
-#: ../templates/default/login.html:7 ../templates/default/login.html:42
 msgid "Login to manage your mail domains & accounts"
 msgstr "Kirjaudu hallitaksesi sähköpostidomaineja ja tilejä"
 
-#: ../templates/default/layout.html:28
 msgid "Logout"
 msgstr "Kirjaudu ulos"
 
-#: ../templates/default/ldap/admin/list.html:50
-#: ../templates/default/ldap/user/create.html:50
-#: ../templates/default/ldap/user/list.html:48
-#: ../templates/default/macros/general.html:535
-#: ../templates/default/mysql/admin/list.html:50
-#: ../templates/default/mysql/user/create.html:44
-#: ../templates/default/mysql/user/list.html:50
-#: ../templates/default/pgsql/admin/list.html:50
-#: ../templates/default/pgsql/user/create.html:44
-#: ../templates/default/pgsql/user/list.html:50
 msgid "Mail Address"
 msgstr "Sähköpostiosoite"
 
-#: ../templates/default/ldap/user/list.html:12
-#: ../templates/default/mysql/user/list.html:12
-#: ../templates/default/pgsql/user/list.html:12
 msgid "Mail Users"
 msgstr "Sähköpostikäyttäjät"
 
-#: ../templates/default/macros/msgHandlers.html:140
 msgid "Mail address already exists, please choose another one."
 msgstr "Sähköpostiosoite on käytössä, valitse jokin muu."
 
-#: ../templates/default/macros/msgHandlers.html:256
 msgid "Mail alias created."
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:224
 msgid "Mail list created."
 msgstr ""
 
-#: ../templates/default/macros/ldap.html:110
 msgid "Mail service"
 msgstr "Sähköpostipalvelu"
 
-#: ../templates/default/macros/general.html:453
 msgid "Mailbox Quota"
 msgstr "Sähköpostilaatikon kiintiö"
 
-#: ../templates/default/macros/msgHandlers.html:296
 msgid "Mails were deleted."
 msgstr "Sähköpostit poistettu."
 
-#: ../templates/default/macros/msgHandlers.html:295
 msgid "Mails were released."
 msgstr "Sähköpostit julkaistu."
 
-#: ../templates/default/macros/ldap.html:5
-#: ../templates/default/macros/mysql.html:5
 msgid "Managed Domains"
 msgstr "Hallitut domainit"
 
-#: ../templates/default/macros/general.html:337
 msgid "Mark as global admin"
 msgstr "Merkitse globaaliksi ylläpitäjäksi"
 
-#: ../templates/default/macros/general.html:353
 msgid "Mark this user as"
 msgstr ""
 
-#: ../templates/default/macros/msgHandlers.html:208
-#: ../templates/default/macros/msgHandlers.html:246
 msgid "Member assigned success."
 msgstr "Jäsenen määritys onnistui."
 
-#: ../templates/default/macros/msgHandlers.html:209
-#: ../templates/default/macros/msgHandlers.html:247
 msgid "Member removed success."
 msgstr "Jäsenen poisto onnistui."
 
-#: ../templates/default/panel/log.html:72
 msgid "Message"
 msgstr "Viesti"
 
-#: ../templates/default/macros/general.html:277
 msgid "Mobile"
 msgstr "Matkapuhelin"
 
-#: ../templates/default/macros/msgHandlers.html:210
 msgid "Moderators assigned success."
 msgstr "Moderaattorit määritetty onnistuneesti."
 
-#: ../templates/default/macros/msgHandlers.html:211
 msgid "Moderators removed success."
 msgstr "Moderaattorit poistettu onnistuneesti."
 
-#: ../templates/default/ldap/domain/list.html:51
-#: ../templates/default/mysql/domain/list.html:51
-#: ../templates/default/pgsql/domain/list.html:51
 msgid "Name"
 msgstr "Nimi"
 
-#: ../templates/default/macros/general.html:672
 msgid "Need a random password?"
 msgstr "Satunnainen salasana?"
 
-#: ../templates/default/dashboard.html:68
 msgid "Network"
 msgstr "Verkko"
 
-#: ../templates/default/macros/general.html:413
 msgid "New password"
 msgstr "Uusi salasana"
 
-#: ../templates/default/macros/msgHandlers.html:189
 #, python-format
 msgid "New password must NOT contain more than %s characters."
 msgstr "Uusi salasana EI saa olla pidempi kuin %s merkkiä."
 
-#: ../templates/default/macros/msgHandlers.html:187
 #, python-format
 msgid "New password must contain at least %s characters."
 msgstr "Uuden salasanan täytyy pitää sisällään ainakin %s merkkiä."
 
-#: ../templates/default/macros/msgHandlers.html:136
-#: ../templates/default/macros/msgHandlers.html:174
 msgid "New passwords are not match."
 msgstr "Antamasi salasanat eivät täsmää"
 
-#: ../templates/default/layout.html:104
 msgid "News & Announments"
 msgstr "Uutiset & Tiedotteet"
 
-#: ../templates/default/macros/general.html:769
 msgid "Next Page"
 msgstr "Seuraava sivu"
 
-#: ../templates/default/macros/msgHandlers.html:171
 msgid "No account selected."
 msgstr "Ei tiliä valittuna."
 
-#: ../templates/default/panel/log.html:95
 msgid "No admin log."
 msgstr "Ei admin logia."
 
-#: ../templates/default/macros/msgHandlers.html:102
-#: ../templates/default/macros/msgHandlers.html:127
-#: ../templates/default/macros/msgHandlers.html:216
-#: ../templates/default/macros/msgHandlers.html:242
 msgid "No domain under control."
 msgstr "Ei domainia hallittavana."
 
-#: ../templates/default/ldap/domain/list.html:107
-#: ../templates/default/ldap/domain/list.html:111
-#: ../templates/default/macros/msgHandlers.html:141
-#: ../templates/default/mysql/domain/list.html:99
-#: ../templates/default/mysql/domain/list.html:103
-#: ../templates/default/pgsql/domain/list.html:99
-#: ../templates/default/pgsql/domain/list.html:103
 msgid "No mail domain available."
 msgstr "Ei sähköpostidomainia saatavilla."
 
-#: ../templates/default/ldap/user/list.html:85
-#: ../templates/default/mysql/user/list.html:93
-#: ../templates/default/pgsql/user/list.html:93
 msgid "No mail user available."
 msgstr "Ei sähköpostikäyttäjää saatavilla."
 
-#: ../templates/default/macros/msgHandlers.html:217
 msgid "No moderator selected."
 msgstr "Ei moderaattoria valittuna."
 
-#: ../templates/default/macros/general.html:400
 #, python-format
 msgid "No more than %s characters."
 msgstr "Enintään %s merkkiä."
 
-#: ../templates/default/macros/msgHandlers.html:100
 msgid "No such domain."
 msgstr "Ei domainia."
 
-#: ../templates/default/macros/general.html:197
 msgid "Not a global admin."
 msgstr "Ei ole globaali ylläpitäjä."
 
-#: ../templates/default/macros/msgHandlers.html:250
 msgid "Not allowed to create mail alias under this domain."
 msgstr "Sähköpostialiasten luonti tähän domainiin ei ole sallittu."
 
-#: ../templates/default/macros/msgHandlers.html:218
 msgid "Not allowed to create mail list under this domain."
 msgstr "Sähköpostilistojen luonti tähän domainiin ei ole sallittu."
 
-#: ../templates/default/macros/msgHandlers.html:143
 msgid "Not allowed to create mail user under this domain."
 msgstr "Sähköpostikäyttäjien luonti tähän domainiin ei ole sallittu."
 
-#: ../templates/default/macros/general.html:407
 msgid "Old password"
 msgstr "Vanha salasana"
 
-#: ../templates/default/macros/general.html:807
-msgid "One record per line."
-msgstr "Yksi tietue per rivi."
-
-#: ../templates/default/macros/msgHandlers.html:335
 msgid "Operation completed."
 msgstr "Toiminto valmis."
 
-#: ../templates/default/macros/msgHandlers.html:108
 msgid "Or create other mail accounts:"
 msgstr "Tai luo muita sähköpostitilejä:"
 
-#: ../templates/default/login.html:60
-#: ../templates/default/ldap/admin/profile.html:48
-#: ../templates/default/ldap/user/profile.html:70
-#: ../templates/default/mysql/admin/profile.html:39
-#: ../templates/default/mysql/user/profile.html:46
-#: ../templates/default/pgsql/admin/profile.html:39
-#: ../templates/default/pgsql/user/profile.html:46
 msgid "Password"
 msgstr "Salasana"
 
-#: ../templates/default/macros/msgHandlers.html:137
-#: ../templates/default/macros/msgHandlers.html:175
 msgid "Password is empty."
 msgstr "Salasana on tyhjä."
 
-#: ../templates/default/macros/msgHandlers.html:139
 msgid "Password is too long."
 msgstr "Salasana on liian pitkä."
 
-#: ../templates/default/macros/msgHandlers.html:138
 msgid "Password is too short."
 msgstr "Salasana on liian lyhyt."
 
-#: ../templates/default/macros/msgHandlers.html:64
 msgid "Password of cn=vmailadmin is incorrect."
 msgstr "cn=vmailadmin  salasana on virheellinen"
 
-#: ../templates/default/macros/ldap.html:118
-msgid "Per-user greylisting setting has higher priority"
-msgstr ""
-
-#: ../templates/default/macros/general.html:500
 msgid ""
 "Per-user relay setting will override per-domain relay setting you set in "
 "this page."
@@ -940,120 +563,69 @@ msgstr ""
 "Käyttäjän välityspalvelinasetukset ohittaa domainin "
 "välityspalvelinasetukset jotka määritetään tällä sivulla."
 
-#: ../templates/default/macros/msgHandlers.html:98
-#: ../templates/default/macros/msgHandlers.html:167
-#: ../templates/default/macros/msgHandlers.html:300
-#: ../templates/default/macros/msgHandlers.html:319
 msgid "Permission denied."
 msgstr "Pääsy evätty."
 
-#: ../templates/default/macros/msgHandlers.html:142
 msgid "Please select at least one account."
 msgstr "Valitse vähintään yksi tili."
 
-#: ../templates/default/macros/msgHandlers.html:101
 msgid "Please select at least one domain to apply action."
 msgstr "Valitse vähintää yksi domain käyttääksesi toimintoa."
 
-#: ../templates/default/layout.html:27
 msgid "Preferences"
 msgstr "Asetukset"
 
-#: ../templates/default/macros/general.html:316
 msgid "Preferred language"
 msgstr "Haluttu kieli"
 
-#: ../templates/default/macros/general.html:696
 msgid "Previous Page"
 msgstr "Edellinen sivu"
 
-#: ../templates/default/ldap/admin/profile.html:34
-#: ../templates/default/ldap/admin/profile.html:63
-#: ../templates/default/mysql/admin/profile.html:54
-#: ../templates/default/pgsql/admin/profile.html:54
 msgid "Profile of admin:"
 msgstr "Profiili ylläpitäjälle:"
 
-#: ../templates/default/ldap/domain/profile.html:28
-#: ../templates/default/ldap/domain/profile.html:56
-#: ../templates/default/mysql/domain/profile.html:21
-#: ../templates/default/mysql/domain/profile.html:54
-#: ../templates/default/pgsql/domain/profile.html:21
-#: ../templates/default/pgsql/domain/profile.html:54
 msgid "Profile of domain:"
 msgstr "Profiili domainille:"
 
-#: ../templates/default/ldap/user/profile.html:57
-#: ../templates/default/ldap/user/profile.html:85
-#: ../templates/default/mysql/user/profile.html:31
-#: ../templates/default/mysql/user/profile.html:61
-#: ../templates/default/pgsql/user/profile.html:31
-#: ../templates/default/pgsql/user/profile.html:61
 msgid "Profile of user:"
 msgstr "Profiili käyttäjälle:"
 
-#: ../templates/default/macros/msgHandlers.html:125
-#: ../templates/default/macros/msgHandlers.html:207
-#: ../templates/default/macros/msgHandlers.html:248
 msgid "Profile updated failed."
 msgstr "Profiilin päivitys epäonnistui."
 
-#: ../templates/default/macros/msgHandlers.html:88
-#: ../templates/default/macros/msgHandlers.html:124
-#: ../templates/default/macros/msgHandlers.html:165
-#: ../templates/default/macros/msgHandlers.html:205
-#: ../templates/default/macros/msgHandlers.html:240
 msgid "Profile updated success."
 msgstr "Profiilin päivitys onnistui."
 
-#: ../templates/default/panel/log.html:39
 msgid "Quarantined Mails"
 msgstr "Karanteenissa olevat sähköpostit"
 
-#: ../templates/default/ldap/domain/list.html:52
-#: ../templates/default/ldap/user/list.html:51
-#: ../templates/default/mysql/domain/list.html:52
-#: ../templates/default/mysql/user/list.html:55
-#: ../templates/default/pgsql/domain/list.html:52
-#: ../templates/default/pgsql/user/list.html:55
 msgid "Quota"
 msgstr "Kiintiö"
 
-#: ../templates/default/panel/log.html:35
 msgid "Received Mails"
 msgstr "Vastaanotetut sähköpostit"
 
-#: ../templates/default/macros/ldap.html:92
-#: ../templates/default/macros/mysql.html:61
 msgid "Receiving mails for this account on mail server"
 msgstr "Saapuvat sähköpostit palvelimella tälle tilille."
 
-#: ../templates/default/macros/msgHandlers.html:271
-#, python-format
-msgid "Records are added. <a href=\"%s\" target=\"_blank\">View them now</a>"
-msgstr "Tietueet lisätty. <a href=\"%s\" target=\"_blank\">Katso nyt</a>"
-
-#: ../templates/default/macros/general.html:490
 msgid "Relay/Transport Setting"
 msgstr "Välityspalvelinasetukset"
 
-#: ../templates/default/login.html:72
 msgid "Remember me"
 msgstr "Muista minut"
 
-#: ../templates/default/macros/general.html:501
+msgid "Revoke admin privilege"
+msgstr ""
+
 msgid "Sample"
 msgstr "Malli"
 
-#: ../templates/default/macros/general.html:206
 msgid "Save changes"
 msgstr "Tallenna muutokset"
 
-#: ../templates/default/macros/msgHandlers.html:337
 msgid "Search keyword could not be empty."
 msgstr "Hakusana ei voi olla tyhjä."
 
-#: ../templates/default/error_csrf.html:7
 msgid ""
 "Security token did not match. Please refresh current page and re-perform "
 "form action."
@@ -1061,67 +633,39 @@ msgstr ""
 "turvallisuusvaltuudet eivät täsmää. Päivitä nykyinen sivu ja suorita "
 "toiminto uudelleen."
 
-#: ../templates/default/macros/msgHandlers.html:132
-#: ../templates/default/macros/msgHandlers.html:168
-#: ../templates/default/macros/msgHandlers.html:212
-#: ../templates/default/macros/msgHandlers.html:243
 msgid "Selected accounts were deleted."
 msgstr "Valitut tilit poistettiin."
 
-#: ../templates/default/macros/msgHandlers.html:133
-#: ../templates/default/macros/msgHandlers.html:169
-#: ../templates/default/macros/msgHandlers.html:213
-#: ../templates/default/macros/msgHandlers.html:244
 msgid "Selected accounts were disabled."
 msgstr "Valitut tilit poistettiin käytöstä."
 
-#: ../templates/default/macros/msgHandlers.html:134
-#: ../templates/default/macros/msgHandlers.html:170
-#: ../templates/default/macros/msgHandlers.html:214
-#: ../templates/default/macros/msgHandlers.html:245
 msgid "Selected accounts were enabled."
 msgstr "Valitut tilit otettiin käyttöön."
 
-#: ../templates/default/macros/msgHandlers.html:90
 msgid "Selected domains were deleted."
 msgstr "Valitut domainit poistettiin."
 
-#: ../templates/default/macros/msgHandlers.html:91
 msgid "Selected domains were disabled."
 msgstr "Valitut domainit poistettiin käytöstä."
 
-#: ../templates/default/macros/msgHandlers.html:92
 msgid "Selected domains were enabled."
 msgstr "Valitut domainit otettiin käyttöön."
 
-#: ../templates/default/macros/msgHandlers.html:285
-#: ../templates/default/macros/msgHandlers.html:316
 msgid "Selected log records were deleted."
 msgstr "Valitut lokitietueet poistettiin."
 
-#: ../templates/default/macros/msgHandlers.html:273
-msgid "Selected records were deleted."
-msgstr "Valitut tietueet poistettiin."
-
-#: ../templates/default/macros/ldap.html:86
-#: ../templates/default/macros/mysql.html:62
 msgid "Sending mails via SMTP"
 msgstr "Lähetä sähköpostit SMTP:n kautta"
 
-#: ../templates/default/macros/ldap.html:87
-#: ../templates/default/macros/mysql.html:63
 msgid "Sending mails via SMTP over TLS/SSL"
 msgstr "Lähetä sähköpostit SMPT:n kautta (TLS/SSL)"
 
-#: ../templates/default/panel/log.html:34
 msgid "Sent Mails"
 msgstr "Lähetetyt sähköpostit"
 
-#: ../templates/default/dashboard.html:60
 msgid "Server Load"
 msgstr "Palvelimen kuorma"
 
-#: ../templates/default/macros/msgHandlers.html:96
 msgid ""
 "Server-side size limit exceeded. Please increase \"sizelimit\" in your "
 "LDAP server."
@@ -1129,142 +673,86 @@ msgstr ""
 "Palvelimen kokorajoitus ylitetty. Kasvata arvoa \"sizelimit\" LDAP-"
 "palvelimella."
 
-#: ../templates/default/macros/msgHandlers.html:67
 msgid "Session expired, please re-login."
 msgstr "Istunto vanhentunut, kirjaudu uudelleen."
 
-#: ../templates/default/macros/general.html:466
 msgid "Set to 0 for unlimited."
 msgstr "Aseta arvo 0 rajoittamattomalle"
 
-#: ../templates/default/macros/general.html:427
 msgid "Store password in plain text"
 msgstr "Nykyinen salasana on virheellinen."
 
-#: ../templates/default/panel/log.html:55
 msgid "Submit"
 msgstr "Lähetä"
 
-#: ../templates/default/macros/msgHandlers.html:99
 msgid "Submited domain name is incorrect."
 msgstr "Domainin nimi on virheellinen."
 
-#: ../templates/default/layout.html:105
 msgid "Support"
 msgstr "Tuki"
 
-#: ../templates/default/layout.html:60
 msgid "System"
 msgstr "Järjestelmä"
 
-#: ../templates/default/dashboard.html:11
 msgid "System Information"
 msgstr "Järjestelmätiedot"
 
-#: ../templates/default/macros/general.html:285
-#: ../templates/default/macros/general.html:294
 msgid "Telephone Number"
 msgstr "Puhelinnumero"
 
-#: ../templates/default/panel/log.html:69
 msgid "Time"
 msgstr "Aika"
 
-#: ../templates/default/mysql/domain/list.html:80
-#: ../templates/default/pgsql/domain/list.html:80
 msgid "Total"
 msgstr "Yhteensä"
 
-#: ../templates/default/ldap/domain/list.html:96
-#: ../templates/default/macros/general.html:366
-#: ../templates/default/mysql/user/list.html:82
-#: ../templates/default/pgsql/user/list.html:82
 msgid "Unlimited"
 msgstr "Rajoittamaton"
 
-#: ../templates/default/macros/general.html:649
-#: ../templates/default/macros/general.html:661
 msgid "Unrestricted"
 msgstr "Rajoittamaton"
 
-#: ../templates/default/dashboard.html:40
 #, python-format
 msgid "Update available: <a href='%s' target='_blank'>v%s</a>"
 msgstr "Päivitys saatavissa: <a href='%s' target='_blank'>v%s</a>"
 
-#: ../templates/default/dashboard.html:54
+msgid "Update whitelists and blacklists"
+msgstr ""
+
 msgid "Uptime"
 msgstr "Käynnissä"
 
-#: ../templates/default/macros/general.html:475
-msgid "Used"
-msgstr "Käytetty"
-
-#: ../templates/default/layout.html:73
-#: ../templates/default/ldap/user/create.html:34
-#: ../templates/default/ldap/user/list.html:28
-#: ../templates/default/macros/msgHandlers.html:108
-#: ../templates/default/mysql/user/create.html:29
-#: ../templates/default/mysql/user/list.html:28
-#: ../templates/default/pgsql/user/create.html:29
-#: ../templates/default/pgsql/user/list.html:28
 msgid "User"
 msgstr "Käyttäjä"
 
-#: ../templates/default/ldap/user/list.html:49
-#: ../templates/default/macros/general.html:263
-#: ../templates/default/mysql/user/list.html:51
-#: ../templates/default/pgsql/user/list.html:51
 msgid "User ID"
 msgstr "Käyttäjä ID"
 
-#: ../templates/default/macros/msgHandlers.html:149
 msgid "User created."
 msgstr ""
 
-#: ../templates/default/login.html:55
+msgid "User login (self-service)"
+msgstr ""
+
 msgid "Username"
 msgstr "Käyttäjänimi"
 
-#: ../templates/default/macros/msgHandlers.html:65
 msgid "Username must be an valid email address."
 msgstr "käyttäjänimi pitää olla voimassaoleva sähköpostiosoite."
 
-#: ../templates/default/macros/msgHandlers.html:63
 msgid "Username or password is incorrect."
 msgstr "Käyttäjänimi tai salasana on väärin."
 
-#: ../templates/default/ldap/domain/list.html:53
-#: ../templates/default/ldap/domain/profile.html:29
-#: ../templates/default/ldap/user/create.html:33
-#: ../templates/default/ldap/user/list.html:27
-#: ../templates/default/ldap/user/profile.html:56
-#: ../templates/default/mysql/domain/list.html:53
-#: ../templates/default/mysql/domain/profile.html:22
-#: ../templates/default/mysql/user/create.html:28
-#: ../templates/default/mysql/user/list.html:27
-#: ../templates/default/mysql/user/profile.html:30
-#: ../templates/default/pgsql/domain/list.html:53
-#: ../templates/default/pgsql/domain/profile.html:22
-#: ../templates/default/pgsql/user/create.html:28
-#: ../templates/default/pgsql/user/list.html:27
-#: ../templates/default/pgsql/user/profile.html:30
 msgid "Users"
 msgstr "Käyttäjät"
 
-#: ../templates/default/ldap/user/list.html:32
-#: ../templates/default/mysql/user/list.html:32
-#: ../templates/default/pgsql/user/list.html:32
 #, python-format
 msgid "Users under domain: %s"
 msgstr "Käyttäjiä domainissa: %s"
 
-#: ../templates/default/macros/msgHandlers.html:36
-#: ../templates/default/macros/msgHandlers.html:38
 msgid "Warning"
 msgstr "Varoitus"
 
-#: ../templates/default/layout.html:46
 msgid "iRedMail Admin Panel"
 msgstr "iRedMail Ylläpitopaneeli"
 
