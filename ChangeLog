@@ -1,5 +1,8 @@
 = 1.0 =
     * Fixed issues:
+        - LDAP backend: update library used to delete LDAP tree.
+          This causes iRedAdmin cannot be started on Ubuntu 18.04 with
+          python-ldap-3.0.
         - Not add ldap attribute/value pairs required by Dovecot-2.3:
             - enabledService=imaptls
             - enabledService=pop3tls

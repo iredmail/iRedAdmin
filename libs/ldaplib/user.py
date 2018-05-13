@@ -7,7 +7,7 @@ import ldap.filter
 import web
 import settings
 from libs import iredutils
-from libs.ldaplib import core, domain as domainlib, attrs, ldaputils, iredldif, connUtils, decorators, deltree
+from libs.ldaplib import core, domain as domainlib, attrs, ldaputils, iredldif, connUtils, decorators
 
 session = web.config.get('_session')
 
@@ -370,7 +370,7 @@ class User(core.LDAPWrap):
         # Delete user object.
         try:
             # Delete object and its subtree.
-            deltree.DelTree(self.conn, self.dnUser, ldap.SCOPE_SUBTREE)
+            connUtils.delete_ldap_tree(dn=self.dnUser, conn=self.conn)
 
             if deleteFromGroups:
                 self.deleteSingleUserFromGroups(self.mail)
@@ -412,20 +412,6 @@ class User(core.LDAPWrap):
             try:
                 # Delete user object (ldap.SCOPE_BASE).
                 self.deleteSingleUser(mail=self.mail, keep_mailbox_days=keep_mailbox_days)
-
-                # Delete user object and whole sub-tree.
-                # Get dn of mail user and domain.
-                """
-                self.userdn = ldaputils.convert_keyword_to_dn(self.mail, accountType='user')
-                deltree.DelTree(self.conn, self.userdn, ldap.SCOPE_SUBTREE)
-
-                # Log delete action.
-                web.logger(
-                    msg="Delete user: %s." % (self.mail),
-                    domain=self.mail.split('@')[1],
-                    event='delete',
-                )
-                """
             except ldap.LDAPError, e:
                 result[self.mail] = ldaputils.getExceptionDesc(e)
 

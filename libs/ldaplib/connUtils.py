@@ -5,7 +5,7 @@ import ldap
 from ldap.filter import escape_filter_chars
 import settings
 from libs import iredutils
-from libs.ldaplib import core, ldaputils, decorators, attrs, deltree
+from libs.ldaplib import core, ldaputils, decorators, attrs
 
 session = web.config.get('_session')
 
@@ -250,7 +250,7 @@ class Utils(core.LDAPWrap):
         self.account = web.safestr(account)
 
         try:
-            deltree.DelTree(self.conn, self.dn, ldap.SCOPE_SUBTREE)
+            delete_ldap_tree(dn=self.dn, conn=self.conn)
             web.logger(
                 msg="Delete %s: %s." % (str(accountType), self.account),
                 domain=self.domain,
@@ -463,3 +463,47 @@ def deleteAccountFromUsedQuota(accounts):
             return (False, str(e))
     else:
         return (True,)
+
+
+def delete_ldap_tree(dn, conn=None):
+    """Recursively delete entries under given dn (given dn will be removed too)."""
+    errors = {}
+    try:
+        if not conn:
+            _wrap = core.LDAPWrap()
+            conn = _wrap.conn
+
+        qr = conn.search_s(dn,
+                           ldap.SCOPE_ONELEVEL,
+                           '(objectClass=*)',
+                           ['hasSubordinates'])
+
+        dn_without_leaf = []
+        dn_with_leaf = []
+        for (_dn, _ldif) in qr:
+            if _ldif['hasSubordinates'][0] == 'TRUE':
+                dn_with_leaf.append(_dn)
+            else:
+                dn_without_leaf.append(_dn)
+
+        if dn_without_leaf:
+            for _dn in dn_without_leaf:
+                try:
+                    conn.delete_s(_dn)
+                except Exception, e:
+                    print 1, _dn, e
+                    errors[_dn] = repr(e)
+
+        for _dn in dn_with_leaf:
+            delete_ldap_tree(_dn, conn=conn)
+
+        conn.delete_s(dn)
+    except ldap.NO_SUCH_OBJECT:
+        pass
+    except Exception, e:
+        errors[dn] = repr(e)
+
+    if errors:
+        return (False, repr(errors))
+    else:
+        return (True, )

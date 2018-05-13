@@ -4,7 +4,7 @@ import ldap
 import ldap.filter
 import web
 from libs import iredutils
-from libs.ldaplib import core, attrs, ldaputils, iredldif, deltree, connUtils, decorators
+from libs.ldaplib import core, attrs, ldaputils, iredldif, connUtils, decorators
 
 session = web.config.get('_session')
 
@@ -208,7 +208,7 @@ class Admin(core.LDAPWrap):
                 return dn
 
             try:
-                deltree.DelTree(self.conn, dn, ldap.SCOPE_SUBTREE)
+                connUtils.delete_ldap_tree(dn=dn, conn=self.conn)
                 web.logger(msg="Delete admin: %s." % (self.mail,), event='delete',)
             except ldap.NO_SUCH_OBJECT:
                 # This is a mail user admin

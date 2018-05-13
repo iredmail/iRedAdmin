@@ -6,7 +6,7 @@ import web
 
 import settings
 from libs import iredutils
-from libs.ldaplib import core, attrs, iredldif, ldaputils, deltree, connUtils, decorators
+from libs.ldaplib import core, attrs, iredldif, ldaputils, connUtils, decorators
 
 session = web.config.get('_session')
 
@@ -177,7 +177,7 @@ class Domain(core.LDAPWrap):
                 pass
 
             try:
-                deltree.DelTree(self.conn, dn, ldap.SCOPE_SUBTREE)
+                connUtils.delete_ldap_tree(dn=dn, conn=self.conn)
                 web.logger(msg="Delete domain: %s." % (domain), domain=domain, event='delete',)
             except ldap.LDAPError, e:
                 msg[domain] = str(e)
