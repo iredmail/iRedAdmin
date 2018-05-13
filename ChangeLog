@@ -1,4 +1,4 @@
-= 1.0 =
+= 0.9.1 =
     * Fixed issues:
         - LDAP backend: update library used to delete LDAP tree.
           This causes iRedAdmin cannot be started on Ubuntu 18.04 with
