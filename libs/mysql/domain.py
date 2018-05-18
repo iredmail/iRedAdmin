@@ -36,15 +36,13 @@ class Domain(core.MySQLWrap):
 
         try:
             qr = self.conn.query(
-                '''
-                SELECT
-                    admin.username, admin.name, admin.language, admin.active
-                FROM admin
-                LEFT JOIN domain_admins ON (domain_admins.username=admin.username)
-                WHERE domain_admins.domain=$domain
-                ''',
-                vars={'domain': domain, },
-            )
+                """
+                SELECT admin.username, admin.name, admin.language, admin.active
+                  FROM `admin`
+             LEFT JOIN domain_admins ON (domain_admins.username=admin.username)
+                 WHERE domain_admins.domain=$domain
+                """,
+                vars={'domain': domain})
 
             if mailOnly is True:
                 admins = []

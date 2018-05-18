@@ -81,14 +81,11 @@ class Admin(core.MySQLWrap):
 
             # Get records
             # Separate admins
-            admins_records = self.conn.query(
-                """
+            admins_records = self.conn.query("""
                 SELECT name, username, language, active
-                FROM admin
-                ORDER BY username ASC
-                %s
-                """ % (self.sql_limit)
-            )
+                  FROM `admin`
+              ORDER BY username ASC
+                %s""" % (self.sql_limit))
 
             useradmins_records = self.conn.query(
                 """
