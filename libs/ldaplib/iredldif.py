@@ -78,7 +78,8 @@ def ldif_mailuser(domain,
                   quota=0,
                   aliasDomains=None,
                   groups=None,
-                  storageBaseDirectory=None):
+                  storageBaseDirectory=None,
+                  mailbox_format=None):
     domain = str(domain).lower()
     username = str(username).strip().replace(' ', '').lower()
     mail = username + '@' + domain
@@ -133,6 +134,12 @@ def ldif_mailuser(domain,
     if quota.isdigit():
         quota = int(quota) * 1024 * 1024
         ldif += [('mailQuota', [str(quota)])]
+
+    # Append mailbox format.
+    if not mailbox_format:
+        mailbox_format = settings.MAILBOX_FORMAT
+
+    ldif += [('mailboxFormat', [str(mailbox_format)])]
 
     # Append cn.
     ldif += ldaputils.get_ldif_of_attr(attr='cn',

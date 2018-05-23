@@ -164,6 +164,11 @@ MAILDIR_PREPEND_DOMAIN = True
 # - without timestamp: domain.ltd/username/
 MAILDIR_APPEND_TIMESTAMP = True
 
+# Default mailbox format: maildir.
+# All Dovecot supported mailbox formats are ok, e.g. mdbox.
+# https://wiki2.dovecot.org/MailboxFormat
+MAILBOX_FORMAT = 'maildir'
+
 #######################################
 # LDAP backends related settings.
 #

@@ -247,6 +247,7 @@ class User(core.MySQLWrap):
                 quota=mailQuota,
                 storagebasedirectory=storageBaseDirectory,
                 storagenode=storageNode,
+                mailboxformat=settings.MAILBOX_FORMAT,
                 created=iredutils.get_gmttime(),
                 active='1',
             )

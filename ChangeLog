@@ -1,3 +1,7 @@
+= 0.9.2 =
+    * Improvements:
+        + Able to set mailbox format while creating new user.
+
 = 0.9.1 =
     * Fixed issues:
         - LDAP backend: update library used to delete LDAP tree.
