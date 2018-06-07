@@ -2,6 +2,9 @@
     * Improvements:
         + Able to set mailbox format while creating new user.
 
+    * Fixed issues:
+        - Used an incorrect sql table name while deleting user.
+
 = 0.9.1 =
     * Fixed issues:
         - LDAP backend: update library used to delete LDAP tree.

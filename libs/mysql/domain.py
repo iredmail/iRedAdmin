@@ -206,7 +206,7 @@ class Domain(core.MySQLWrap):
                 where='alias_domain IN $domains OR target_domain IN $domains',
             )
 
-            for tbl in ['alias', 'alias_moderators', 'forwardings',
+            for tbl in ['alias', 'moderators', 'forwardings',
                         'domain_admins', 'mailbox',
                         'recipient_bcc_domain', 'recipient_bcc_user',
                         'sender_bcc_domain', 'sender_bcc_user']:
