@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `log` (
     `username` VARCHAR(255) NOT NULL DEFAULT '',
     `event` VARCHAR(20) NOT NULL DEFAULT '',
     `loglevel` VARCHAR(10) NOT NULL DEFAULT 'info',
-    `msg` TEXT NOT NULL,
+    `msg` TEXT,
     KEY id (id),
     INDEX (timestamp),
     INDEX (admin),
