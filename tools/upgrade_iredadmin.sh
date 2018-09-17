@@ -90,10 +90,12 @@ elif [ X"${KERNEL_NAME}" == X'FREEBSD' ]; then
 elif [ X"${KERNEL_NAME}" == X'OPENBSD' ]; then
     export PYTHON_BIN='/usr/local/bin/python'
     export DISTRO='OPENBSD'
-    export HTTPD_SERVERROOT='/var/www'
+    if [[ -h /opt/www/iredadmin ]]; then
+        export HTTPD_SERVERROOT='/opt/www'
+    else
+        export HTTPD_SERVERROOT='/var/www'
+    fi
 
-    export IRA_HTTPD_USER='www'
-    export IRA_HTTPD_GROUP='www'
     export CRON_SPOOL_DIR='/var/cron/tabs'
 else
     echo "Cannot detect Linux/BSD distribution. Exit."
@@ -127,6 +129,8 @@ export DEP_PY_DNS='python-dns'
 export DEP_PY_LXML='python-lxml'
 # pycurl
 export DEP_PY_CURL='python-pycurl'
+# requests
+export DEP_PY_REQUESTS='python-requests'
 if [ X"${DISTRO}" == X'RHEL' ]; then
     :
 elif [ X"${DISTRO}" == X'DEBIAN' -o X"${DISTRO}" == X'UBUNTU' ]; then
@@ -139,6 +143,7 @@ elif [ X"${DISTRO}" == X'OPENBSD' ]; then
     export DEP_PY_BS='py-beautifulsoup4'
     export DEP_PY_CURL='py-curl'
     export DEP_PY_DNS='py-dnspython'
+    export DEP_PY_REQUESTS='py-requests'
 elif [ X"${DISTRO}" == X'FREEBSD' ]; then
     export DEP_PY_JSON='devel/py-simplejson'
     export DEP_PY_BS4='www/py-beautifulsoup'
@@ -146,6 +151,7 @@ elif [ X"${DISTRO}" == X'FREEBSD' ]; then
     export DEP_PY_LXML='devel/py-lxml'
     export DEP_PY_CURL='ftp/py-pycurl'
     export DEP_PY_DNS='dns/py-dnspython'
+    export DEP_PY_REQUESTS='www/py-requests'
 fi
 
 # iRedAdmin directory and config file.
@@ -183,6 +189,32 @@ restart_web_service()
     fi
 }
 
+check_mlmmjadmin_installation()
+{
+    if [ ! -e /opt/mlmmjadmin ]; then
+        echo "<<< ERROR >>> No mlmmjadmin installation found (/opt/mlmmjadmin)."
+        echo "<<< ERROR >>> Please follow iRedMail upgrade tutorials to the latest"
+        echo "<<< ERROR >>> stable release first, then come back to upgrade iRedAdmin-Pro."
+        echo "<<< ERROR >>> mlmmj and mlmmjadmin was first introduced in iRedMail-0.9.8."
+        echo "<<< ERROR >>> https://docs.iredmail.org/iredmail.releases.html"
+        exit 255
+    fi
+}
+
+restart_mlmmjadmin()
+{
+    echo "* Restarting service: mlmmjadmin."
+    if [ X"${KERNEL_NAME}" == X'LINUX' -o X"${KERNEL_NAME}" == X'FREEBSD' ]; then
+        service mlmmjadmin restart
+    elif [ X"${KERNEL_NAME}" == X'OPENBSD' ]; then
+        rcctl restart mlmmjadmin
+    fi
+
+    if [ X"$?" != X'0' ]; then
+        echo "Failed, please restart service 'mlmmjadmin' manually."
+    fi
+}
+
 install_pkg()
 {
     echo "Install package: $@"
@@ -190,7 +222,7 @@ install_pkg()
     if [ X"${DISTRO}" == X'RHEL' ]; then
         yum -y install $@
     elif [ X"${DISTRO}" == X'DEBIAN' -o X"${DISTRO}" == X'UBUNTU' ]; then
-        apt-get install -y --force-yes $@
+        apt-get install -y $@
     elif [ X"${DISTRO}" == X'FREEBSD' ]; then
         cd /usr/ports/$@ && make install clean
     elif [ X"${DISTRO}" == X'OPENBSD' ]; then
@@ -277,6 +309,7 @@ EOF
     fi
 }
 
+check_mlmmjadmin_installation
 check_dot_my_cnf
 
 echo "* Detected Linux/BSD distribution: ${DISTRO}"
@@ -356,12 +389,14 @@ if [ -f "${IRA_ROOT_DIR}/tools/notify_quarantined_recipients.custom.html" ]; the
         ${NEW_IRA_ROOT_DIR}/tools/notify_quarantined_recipients.html.custom
 fi
 
-# Copy favicon.ico
-if grep '^BRAND_FAVICON\>' ${IRA_CONF_PY} &>/dev/null; then
-    _ico="$(grep '^BRAND_FAVICON\>' ${IRA_CONF_PY} | awk '{print $NF}' | tr -d '"' | tr -d "'")"
-    echo "* Copy ${IRA_ROOT_DIR}/static/${_ico}."
-    cp -f ${IRA_ROOT_DIR}/static/${_ico} ${NEW_IRA_ROOT_DIR}/static/
-fi
+# Copy favicon.ico and brand logo image.
+for var in 'BRAND_FAVICON' 'BRAND_LOGO'; do
+    if grep "^${var}\>" ${IRA_CONF_PY} &>/dev/null; then
+        _file=$(grep "^${var}\>" ${IRA_CONF_PY} | awk '{print $NF}' | tr -d '"' | tr -d "'")
+        echo "* Copy file ${IRA_ROOT_DIR}/static/${_file}"
+        cp -f ${IRA_ROOT_DIR}/static/${_file} ${NEW_IRA_ROOT_DIR}/static/
+    fi
+done
 
 # Set owner and permission.
 chown -R ${IRA_HTTPD_USER}:${IRA_HTTPD_GROUP} ${NEW_IRA_ROOT_DIR}
@@ -410,6 +445,30 @@ if ! grep '^iredapd_' ${IRA_CONF_PY} &>/dev/null; then
 fi
 perl -pi -e 's#iredapd_db_server#iredapd_db_host#g' ${IRA_CONF_PY}
 
+#
+# Enable mlmmj integration
+#
+if [ -e /opt/mlmmjadmin ]; then
+    echo "* Enable mlmmj integration."
+    # Force to use backend `bk_none`.
+    perl -pi -e 's#^(backend_api).*#${1} = "bk_none"#g' /opt/mlmmjadmin/settings.py
+
+    if egrep '^backend.*(ldap)' ${IRA_CONF_PY} &>/dev/null; then
+        perl -pi -e 's#^(backend_cli).*#${1} = "bk_iredmail_ldap"#g' /opt/mlmmjadmin/settings.py
+    else
+        perl -pi -e 's#^(backend_cli).*#${1} = "bk_iredmail_sql"#g' /opt/mlmmjadmin/settings.py
+    fi
+
+    # Add parameter `mlmmjadmin_api_auth_token` if missing
+    if ! grep '^mlmmjadmin_api_auth_token' ${IRA_CONF_PY}; then
+        # Get first api auth token
+        token=$(grep '^api_auth_tokens' /opt/mlmmjadmin/settings.py | awk -F"[=\']" '{print $3}' | tr -d '\n')
+        echo -e "\nmlmmjadmin_api_auth_token = '${token}'" >> ${IRA_CONF_PY}
+    fi
+
+    restart_mlmmjadmin
+fi
+
 # Change old parameter names to the new ones:
 #
 #   - ADDITION_USER_SERVICES -> ADDITIONAL_ENABLED_USER_SERVICES
@@ -433,6 +492,9 @@ echo "  + [required] dnspython"
 
 echo "  + [required] pycurl"
 [ X"$(has_python_module pycurl)" == X'NO' ] && install_pkg ${DEP_PY_CURL}
+
+echo "  + [required] requests"
+[ X"$(has_python_module requests)" == X'NO' ] && install_pkg ${DEP_PY_REQUESTS}
 
 echo "  + [optional] BeautifulSoup"
 if [ X"$(has_python_module bs4)" == X'NO' \
@@ -509,6 +571,18 @@ CREATE TABLE domain_ownership (
 CREATE UNIQUE INDEX idx_ownership_1 ON domain_ownership (admin, domain, alias_domain);
 CREATE INDEX idx_ownership_2 ON domain_ownership (verified);
 EOF
+    fi
+
+    # SQL table: newsletter_subunsub_confirms.
+    ${psql_conn} -c '\d' | grep '\<newsletter_subunsub_confirms\>' &>/dev/null
+    if [ X"$?" != X'0' ]; then
+        echo "* [SQL] Add new table: iredadmin.newsletter_subunsub_confirms."
+
+        _sql="$(cat ${IRA_ROOT_DIR}/SQL/snippets/newsletter_subunsub_confirms.pgsql)"
+        ${psql_conn} <<EOF
+${_sql}
+EOF
+        unset _sql
     fi
 fi
 
