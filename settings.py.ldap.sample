@@ -110,6 +110,12 @@ iredapd_db_user = 'iredapd'
 iredapd_db_password = 'password'
 
 ##############################################################################
+# Settings used for mlmmj (mailing list manager) and mlmmjadmin integration.
+#
+# The API auth token required to access mlmmjadmin API.
+mlmmjadmin_api_auth_token = ''
+
+##############################################################################
 # Place your custom settings below, you can override all settings in this file
 # and libs/default_settings.py here.
 #
