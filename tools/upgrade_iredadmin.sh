@@ -37,29 +37,43 @@ export KERNEL_NAME="$(uname -s | tr '[a-z]' '[A-Z]')"
 export UWSGI_RC_SCRIPT_NAME='uwsgi'
 export NGINX_PID_FILE='/var/run/nginx.pid'
 
+export USE_SYSTEMD='NO'
+if which systemctl &>/dev/null; then
+    export USE_SYSTEMD='YES'
+    export SYSTEMD_SERVICE_DIR='/lib/systemd/system'
+    export SYSTEMD_SERVICE_DIR2='/etc/systemd/system'
+    export SYSTEMD_SERVICE_USER_DIR='/etc/systemd/system/multi-user.target.wants/'
+fi
+
 if [ X"${KERNEL_NAME}" == X"LINUX" ]; then
     export PYTHON_BIN='/usr/bin/python'
 
     if [ -f /etc/redhat-release ]; then
         # RHEL/CentOS
         export DISTRO='RHEL'
-        export HTTPD_SERVERROOT='/var/www'
         export HTTPD_RC_SCRIPT_NAME='httpd'
         export CRON_SPOOL_DIR='/var/spool/cron'
+
+        if [[ -d /opt/www/iredadmin ]]; then
+            export HTTPD_SERVERROOT='/opt/www'
+        else
+            export HTTPD_SERVERROOT='/var/www'
+        fi
     elif [ -f /etc/lsb-release ]; then
         # Ubuntu
         export DISTRO='UBUNTU'
-        if [ -d '/opt/www' ]; then
+        export HTTPD_RC_SCRIPT_NAME='apache2'
+        export CRON_SPOOL_DIR='/var/spool/cron/crontabs'
+
+        if [ -d /opt/www/iredadmin ]; then
             export HTTPD_SERVERROOT='/opt/www'
         else
             export HTTPD_SERVERROOT='/usr/share/apache2'
         fi
-        export HTTPD_RC_SCRIPT_NAME='apache2'
-        export CRON_SPOOL_DIR='/var/spool/cron/crontabs'
     elif [ -f /etc/debian_version ]; then
         # Debian
         export DISTRO='DEBIAN'
-        if [ -d '/opt/www' ]; then
+        if [ -d /opt/www/iredadmin ]; then
             export HTTPD_SERVERROOT='/opt/www'
         else
             export HTTPD_SERVERROOT='/usr/share/apache2'
@@ -79,24 +93,30 @@ if [ X"${KERNEL_NAME}" == X"LINUX" ]; then
     fi
 elif [ X"${KERNEL_NAME}" == X'FREEBSD' ]; then
     export DISTRO='FREEBSD'
-    export HTTPD_SERVERROOT='/usr/local/www'
     export PYTHON_BIN='/usr/local/bin/python'
+    export CRON_SPOOL_DIR='/var/cron/tabs'
+
+    if [ -d /opt/www/iredadmin ]; then
+        export HTTPD_SERVERROOT='/opt/www'
+    else
+        export HTTPD_SERVERROOT='/usr/local/www'
+    fi
+
     if [ -f /usr/local/etc/rc.d/apache24 ]; then
         export HTTPD_RC_SCRIPT_NAME='apache24'
     else
         export HTTPD_RC_SCRIPT_NAME='apache22'
     fi
-    export CRON_SPOOL_DIR='/var/cron/tabs'
 elif [ X"${KERNEL_NAME}" == X'OPENBSD' ]; then
     export PYTHON_BIN='/usr/local/bin/python'
     export DISTRO='OPENBSD'
+    export CRON_SPOOL_DIR='/var/cron/tabs'
+
     if [[ -h /opt/www/iredadmin ]]; then
         export HTTPD_SERVERROOT='/opt/www'
     else
         export HTTPD_SERVERROOT='/var/www'
     fi
-
-    export CRON_SPOOL_DIR='/var/cron/tabs'
 else
     echo "Cannot detect Linux/BSD distribution. Exit."
     echo "Please contact author iRedMail team <support@iredmail.org> to solve it."
@@ -159,6 +179,42 @@ export IRA_ROOT_DIR="${HTTPD_SERVERROOT}/iredadmin"
 export IRA_CONF_PY="${IRA_ROOT_DIR}/settings.py"
 export IRA_CUSTOM_CONF_PY="${IRA_ROOT_DIR}/custom_settings.py"
 export IRA_CONF_INI="${IRA_ROOT_DIR}/settings.ini"
+
+enable_service() {
+    srv="$1"
+
+    if [ X"${DISTRO}" == X'RHEL' ]; then
+        if [ X"${USE_SYSTEMD}" == X'YES' ]; then
+            systemctl enable $srv
+        else
+            chkconfig --level 345 $srv on
+        fi
+    elif [ X"${DISTRO}" == X'DEBIAN' -o X"${DISTRO}" == X'UBUNTU' ]; then
+        if [ X"${USE_SYSTEMD}" == X'YES' ]; then
+            systemctl enable $srv
+        else
+            update-rc.d $srv defaults
+        fi
+    elif [ X"${DISTRO}" == X'FREEBSD' ]; then
+        /usr/sbin/sysrc -f /etc/rc.conf.local ${srv}_enable=YES
+    elif [ X"${DISTRO}" == X'OPENBSD' ]; then
+        rcctl enable $srv
+    fi
+}
+
+restart_service() {
+    srv="$1"
+
+    if [ X"${KERNEL_NAME}" == X'LINUX' -o X"${KERNEL_NAME}" == X'FREEBSD' ]; then
+        service ${web_service} restart
+    elif [ X"${KERNEL_NAME}" == X'OPENBSD' ]; then
+        rcctl restart ${srv}
+    fi
+
+    if [ X"$?" != X'0' ]; then
+        echo "Failed, please restart service manually and check its log file."
+    fi
+}
 
 restart_web_service()
 {
@@ -398,6 +454,84 @@ for var in 'BRAND_FAVICON' 'BRAND_LOGO'; do
     fi
 done
 
+# iredadmin is now ran as a standalone uwsgi instance, we don't need uwsgi
+# daemon service anymore.
+if [[ X"${DISTRO}" == X'RHEL' ]]; then
+    # Remove old uwsgi config file.
+    rm -f /etc/uwsgi.d/iredadmin.ini &>/dev/null
+    rm -f /etc/uwsgi-available/iredadmin.ini &>/dev/null
+
+    if [ X"${web_service}" == X'uwsgi' ]; then
+        service uwsgi restart &>/dev/null
+    fi
+
+    # Update uwsgi ini config file
+    perl -pi -e 's#/var/www#$ENV{HTTPD_SERVERROOT}#g' ${NEW_IRA_ROOT_DIR}/rc_scripts/uwsgi/rhel.ini
+
+elif [ X"${DISTRO}" == X'DEBIAN' -o X"${DISTRO}" == X'UBUNTU' ]; then
+    # Remove old uwsgi config file.
+    rm -f /etc/uwsgi/apps-enabled/iredadmin.ini &>/dev/null
+    rm -f /etc/uwsgi/apps-available/iredadmin.ini &>/dev/null
+
+    # Update uwsgi ini config file
+    perl -pi -e 's#/var/www#$ENV{HTTPD_SERVERROOT}#g' ${NEW_IRA_ROOT_DIR}/rc_scripts/uwsgi/rhel.ini
+
+elif [[ X"${DISTRO}" == X'FREEBSD' ]]; then
+    # Remove old uwsgi config file.
+    rm -f /usr/local/etc/uwsgi/iredadmin.ini
+
+    # Update uwsgi ini config file
+    perl -pi -e 's#/usr/local/www#$ENV{HTTPD_SERVERROOT}#g' ${NEW_IRA_ROOT_DIR}/rc_scripts/uwsgi/freebsd.ini
+
+elif [[ X"${DISTRO}" == X'OPENBSD' ]]; then
+    # Remove unused uwsgi config file.
+    rm -f /etc/uwsgi-enabled/iredadmin.ini &>/dev/null
+    rm -f /etc/uwsgi-available/iredadmin.ini &>/dev/null
+
+    # Always copy rc script.
+    cp -f ${IRA_ROOT_DIR}/rc_scripts/iredadmin.openbsd /etc/rc.d/iredadmin
+    chmod 0755 /etc/rc.d/iredadmin
+
+    # Update uwsgi ini config file
+    perl -pi -e 's#/var/www#$ENV{HTTPD_SERVERROOT}#g' ${NEW_IRA_ROOT_DIR}/rc_scripts/uwsgi/openbsd.ini
+
+fi
+
+# Copy rc script or systemd service file
+if [ X"${USE_SYSTEMD}" == X'YES' ]; then
+    echo "* Remove existing systemd service files."
+    rm -f ${SYSTEMD_SERVICE_DIR}/iredadmin.service &>/dev/null
+    rm -f ${SYSTEMD_SERVICE_DIR2}/iredadmin.service &>/dev/null
+    rm -f ${SYSTEMD_SERVICE_USER_DIR}/iredadmin.service &>/dev/null
+
+    echo "* Copy systemd service file: ${SYSTEMD_SERVICE_DIR}/iredadmin.service."
+    if [ X"${DISTRO}" == X'RHEL' ]; then
+        cp -f ${NEW_IRA_ROOT_DIR}/rc_scripts/systemd/rhel.service ${SYSTEMD_SERVICE_DIR}/iredadmin.service
+        perl -pi -e 's#/opt/www#$ENV{HTTPD_SERVERROOT}#g' ${SYSTEMD_SERVICE_DIR}/iredadmin.service
+    elif [ X"${DISTRO}" == X'DEBIAN' -o X"${DISTRO}" == X'UBUNTU' ]; then
+        cp -f ${NEW_IRA_ROOT_DIR}/rc_scripts/systemd/debian.service ${SYSTEMD_SERVICE_DIR}/iredadmin.service
+        perl -pi -e 's#/opt/www#$ENV{HTTPD_SERVERROOT}#g' ${SYSTEMD_SERVICE_DIR}/iredadmin.service
+    fi
+    chmod -R 0644 ${SYSTEMD_SERVICE_DIR}/iredadmin.service
+    systemctl daemon-reload &>/dev/null
+else
+    if [ X"${DISTRO}" == X'RHEL' ]; then
+        cp ${NEW_IRA_ROOT_DIR}/rc_scripts/iredadmin.rhel /etc/init.d/iredadmin
+        perl -pi -e 's#/opt/www#$ENV{HTTPD_SERVERROOT}#g' /etc/init.d/iredadmin
+    elif [ X"${DISTRO}" == X'DEBIAN' -o X"${DISTRO}" == X'UBUNTU' ]; then
+        cp ${NEW_IRA_ROOT_DIR}/rc_scripts/iredadmin.debian /etc/init.d/iredadmin
+        perl -pi -e 's#/opt/www#$ENV{HTTPD_SERVERROOT}#g' /etc/init.d/iredadmin
+    elif [ X"${DISTRO}" == X"FREEBSD" ]; then
+        cp ${NEW_IRA_ROOT_DIR}/rc_scripts/iredadmin.freebsd /usr/local/etc/rc.d/iredadmin
+        perl -pi -e 's#/opt/www#$ENV{HTTPD_SERVERROOT}#g' /usr/local/etc/rc.d/iredadmin
+    elif [ X"${DISTRO}" == X'OPENBSD' ]; then
+        cp ${NEW_IRA_ROOT_DIR}/rc_scripts/iredadmin.openbsd ${DIR_RC_SCRIPTS}/iredadmin
+        perl -pi -e 's#/opt/www#$ENV{HTTPD_SERVERROOT}#g' /etc/rc.d/iredadmin
+    fi
+fi
+
+# TODO Replace uwsgi socket by iRedAdmin network port.
+
 # Set owner and permission.
 chown -R ${IRA_HTTPD_USER}:${IRA_HTTPD_GROUP} ${NEW_IRA_ROOT_DIR}
 chmod -R 0555 ${NEW_IRA_ROOT_DIR}
@@ -611,13 +745,16 @@ if ! grep 'iredadmin/tools/delete_mailboxes.py' ${CRON_FILE_ROOT} &>/dev/null; t
 EOF
 fi
 
+# Clean up.
+cd ${NEW_IRA_ROOT_DIR}/
+rm -f settings.pyc settings.pyo tools/settings.py
 
 echo "* iRedAdmin has been successfully upgraded."
 restart_web_service
 
-# Clean up.
-cd ${NEW_IRA_ROOT_DIR}/
-rm -f settings.pyc settings.pyo tools/settings.py
+# Enable and restart service
+enable_service iredadmin
+restart_service iredadmin
 
 echo "* Upgrading completed."
 
