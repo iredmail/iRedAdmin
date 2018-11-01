@@ -76,13 +76,14 @@ if [ X"${KERNEL_NAME}" == X"LINUX" ]; then
     elif [ -f /etc/debian_version ]; then
         # Debian
         export DISTRO='DEBIAN'
+        export HTTPD_RC_SCRIPT_NAME='apache2'
+        export CRON_SPOOL_DIR='/var/spool/cron/crontabs'
+
         if [ -d /opt/www/iredadmin ]; then
             export HTTPD_SERVERROOT='/opt/www'
         else
             export HTTPD_SERVERROOT='/usr/share/apache2'
         fi
-        export HTTPD_RC_SCRIPT_NAME='apache2'
-        export CRON_SPOOL_DIR='/var/spool/cron/crontabs'
     elif [ -f /etc/SuSE-release ]; then
         # openSUSE
         export DISTRO='SUSE'
@@ -517,12 +518,22 @@ else
     elif [ X"${DISTRO}" == X"FREEBSD" ]; then
         cp ${NEW_IRA_ROOT_DIR}/rc_scripts/iredadmin.freebsd /usr/local/etc/rc.d/iredadmin
         perl -pi -e 's#/opt/www#$ENV{HTTPD_SERVERROOT}#g' /usr/local/etc/rc.d/iredadmin
+
+        # Remove 'uwsgi_iredadmin_flags=' in /etc/rc.conf.local
+        if [ -f /etc/rc.conf.local ]; then
+            perl -pi -e 's#^uwsgi_iredadminflags=.*##g' /etc/rc.conf.local
+        fi
     elif [ X"${DISTRO}" == X'OPENBSD' ]; then
         cp ${NEW_IRA_ROOT_DIR}/rc_scripts/iredadmin.openbsd ${DIR_RC_SCRIPTS}/iredadmin
         perl -pi -e 's#/opt/www#$ENV{HTTPD_SERVERROOT}#g' /etc/rc.d/iredadmin
 
         cp -f ${NEW_IRA_ROOT_DIR}/rc_scripts/iredadmin.openbsd /etc/rc.d/iredadmin
         chmod 0755 /etc/rc.d/iredadmin
+
+        # Remove 'uwsgi_flags=' in /etc/rc.conf.local
+        if [ -f /etc/rc.conf.local ]; then
+            perl -pi -e 's#^uwsgi_flags=.*iredadmin.*##g' /etc/rc.conf.local
+        fi
     fi
 fi
 
