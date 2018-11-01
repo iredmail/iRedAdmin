@@ -751,9 +751,10 @@ if ! grep 'iredadmin/tools/delete_mailboxes.py' ${CRON_FILE_ROOT} &>/dev/null; t
 EOF
 fi
 
-# Clean up.
+echo "* Clean up."
 cd ${NEW_IRA_ROOT_DIR}/
 rm -f settings.pyc settings.pyo tools/settings.py
+find . -name '*.so' | xargs rm -f {}
 
 echo "* iRedAdmin has been successfully upgraded."
 restart_web_service
