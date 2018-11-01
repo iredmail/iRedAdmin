@@ -35,7 +35,10 @@ export MY_CNF="${MY_CNF:=/root/.my.cnf}"
 # Check OS to detect some necessary info.
 export KERNEL_NAME="$(uname -s | tr '[a-z]' '[A-Z]')"
 export UWSGI_RC_SCRIPT_NAME='uwsgi'
+
 export NGINX_PID_FILE='/var/run/nginx.pid'
+export NGINX_SNIPPET_CONF='/etc/nginx/templates/iredadmin.tmpl'
+export NGINX_SNIPPET_CONF2='/etc/nginx/templates/iredadmin-subdomain.tmpl'
 
 export USE_SYSTEMD='NO'
 if which systemctl &>/dev/null; then
@@ -95,6 +98,8 @@ elif [ X"${KERNEL_NAME}" == X'FREEBSD' ]; then
     export DISTRO='FREEBSD'
     export PYTHON_BIN='/usr/local/bin/python'
     export CRON_SPOOL_DIR='/var/cron/tabs'
+    export NGINX_SNIPPET_CONF='/usr/local/etc/nginx/templates/iredadmin.tmpl'
+    export NGINX_SNIPPET_CONF2='/usr/local/etc/nginx/templates/iredadmin-subdomain.tmpl'
 
     if [ -d /opt/www/iredadmin ]; then
         export HTTPD_SERVERROOT='/opt/www'
@@ -183,6 +188,7 @@ export IRA_CONF_INI="${IRA_ROOT_DIR}/settings.ini"
 enable_service() {
     srv="$1"
 
+    echo "* Enable service: ${srv}"
     if [ X"${DISTRO}" == X'RHEL' ]; then
         if [ X"${USE_SYSTEMD}" == X'YES' ]; then
             systemctl enable $srv
@@ -205,7 +211,13 @@ enable_service() {
 restart_service() {
     srv="$1"
 
-    if [ X"${KERNEL_NAME}" == X'LINUX' -o X"${KERNEL_NAME}" == X'FREEBSD' ]; then
+    if [ X"${KERNEL_NAME}" == X'LINUX' ]; then
+        if [ X"${USE_SYSTEMD}" == X'YES' ]; then
+            systemctl restart ${srv}
+        else
+            service ${srv} restart
+        fi
+    elif [ X"${KERNEL_NAME}" == X'FREEBSD' ]; then
         service ${web_service} restart
     elif [ X"${KERNEL_NAME}" == X'OPENBSD' ]; then
         rcctl restart ${srv}
@@ -225,18 +237,16 @@ restart_web_service()
         fi
     fi
 
-    echo "* Restarting ${web_service} service to use new iRedAdmin release ..."
-    if [ X"${KERNEL_NAME}" == X'LINUX' -o X"${KERNEL_NAME}" == X'FREEBSD' ]; then
+    echo "* Restarting ${web_service} service."
+    if [ X"${KERNEL_NAME}" == X'LINUX' ]; then
         # The uwsgi script on CentOS 6 has problem with 'restart'
         # action, 'stop' with few seconds sleep fixes it.
         if [ X"${DISTRO}" == X'RHEL' -a X"${web_service}" == X'uwsgi' ]; then
             service ${web_service} stop
             sleep 5
             service ${web_service} start
-        else
-            service ${web_service} restart
         fi
-    elif [ X"${KERNEL_NAME}" == X'OPENBSD' ]; then
+    else
         rcctl restart ${web_service}
     fi
 
@@ -254,20 +264,6 @@ check_mlmmjadmin_installation()
         echo "<<< ERROR >>> mlmmj and mlmmjadmin was first introduced in iRedMail-0.9.8."
         echo "<<< ERROR >>> https://docs.iredmail.org/iredmail.releases.html"
         exit 255
-    fi
-}
-
-restart_mlmmjadmin()
-{
-    echo "* Restarting service: mlmmjadmin."
-    if [ X"${KERNEL_NAME}" == X'LINUX' -o X"${KERNEL_NAME}" == X'FREEBSD' ]; then
-        service mlmmjadmin restart
-    elif [ X"${KERNEL_NAME}" == X'OPENBSD' ]; then
-        rcctl restart mlmmjadmin
-    fi
-
-    if [ X"$?" != X'0' ]; then
-        echo "Failed, please restart service 'mlmmjadmin' manually."
     fi
 }
 
@@ -456,45 +452,42 @@ done
 
 # iredadmin is now ran as a standalone uwsgi instance, we don't need uwsgi
 # daemon service anymore.
-if [[ X"${DISTRO}" == X'RHEL' ]]; then
-    # Remove old uwsgi config file.
-    rm -f /etc/uwsgi.d/iredadmin.ini &>/dev/null
-    rm -f /etc/uwsgi-available/iredadmin.ini &>/dev/null
+_uwsgi_confs='
+    /etc/uwsgi.d/iredadmin.ini
+    /etc/uwsgi-available/iredadmin.ini
+    /etc/uwsgi/apps-enabled/iredadmin.ini &>/dev/null
+    /etc/uwsgi/apps-available/iredadmin.ini &>/dev/null
+    /usr/local/etc/uwsgi/iredadmin.ini
+    /etc/uwsgi-enabled/iredadmin.ini &>/dev/null
+    /etc/uwsgi-available/iredadmin.ini &>/dev/null
+'
 
-    if [ X"${web_service}" == X'uwsgi' ]; then
-        service uwsgi restart &>/dev/null
-    fi
+for f in ${_uwsgi_confs}; do
+    rm -f ${f} &>/dev/null
+done
 
-    # Update uwsgi ini config file
-    perl -pi -e 's#/var/www#$ENV{HTTPD_SERVERROOT}#g' ${NEW_IRA_ROOT_DIR}/rc_scripts/uwsgi/rhel.ini
+# Update Nginx template file
+if [[ -f ${NGINX_SNIPPET_CONF} ]]; then
+    grep 'unix:.*iredadmin.socket' ${NGINX_SNIPPET_CONF} &>/dev/null
+    retval="$?"
 
-elif [ X"${DISTRO}" == X'DEBIAN' -o X"${DISTRO}" == X'UBUNTU' ]; then
-    # Remove old uwsgi config file.
-    rm -f /etc/uwsgi/apps-enabled/iredadmin.ini &>/dev/null
-    rm -f /etc/uwsgi/apps-available/iredadmin.ini &>/dev/null
+    perl -pi -e 's#uwsgi_pass unix:.*iredadmin.socket;#uwsgi_pass 127.0.0.1:7791;#g' ${NGINX_SNIPPET_CONF}
+fi
 
-    # Update uwsgi ini config file
-    perl -pi -e 's#/var/www#$ENV{HTTPD_SERVERROOT}#g' ${NEW_IRA_ROOT_DIR}/rc_scripts/uwsgi/rhel.ini
+if [[ -f ${NGINX_SNIPPET_CONF2} ]]; then
+    grep 'unix:.*iredadmin.socket' ${NGINX_SNIPPET_CONF2} &>/dev/null
+    retval2="$?"
 
-elif [[ X"${DISTRO}" == X'FREEBSD' ]]; then
-    # Remove old uwsgi config file.
-    rm -f /usr/local/etc/uwsgi/iredadmin.ini
+    perl -pi -e 's#uwsgi_pass unix:.*iredadmin.socket;#uwsgi_pass 127.0.0.1:7791;#g' ${NGINX_SNIPPET_CONF2}
+fi
 
-    # Update uwsgi ini config file
-    perl -pi -e 's#/usr/local/www#$ENV{HTTPD_SERVERROOT}#g' ${NEW_IRA_ROOT_DIR}/rc_scripts/uwsgi/freebsd.ini
+if [[ X"${retval}" == X'0' ]] || [[ X"${retval2}" == X'0' ]]; then
+    restart_service nginx
+fi
 
-elif [[ X"${DISTRO}" == X'OPENBSD' ]]; then
-    # Remove unused uwsgi config file.
-    rm -f /etc/uwsgi-enabled/iredadmin.ini &>/dev/null
-    rm -f /etc/uwsgi-available/iredadmin.ini &>/dev/null
-
-    # Always copy rc script.
-    cp -f ${IRA_ROOT_DIR}/rc_scripts/iredadmin.openbsd /etc/rc.d/iredadmin
-    chmod 0755 /etc/rc.d/iredadmin
-
-    # Update uwsgi ini config file
-    perl -pi -e 's#/var/www#$ENV{HTTPD_SERVERROOT}#g' ${NEW_IRA_ROOT_DIR}/rc_scripts/uwsgi/openbsd.ini
-
+# Update uwsgi ini config file
+if [ -d ${NEW_IRA_ROOT_DIR}/rc_scripts/uwsgi ]; then
+    perl -pi -e 's#^chdir = (.*)#chdir = $ENV{HTTPD_SERVERROOT}/iredadmin#g' ${NEW_IRA_ROOT_DIR}/rc_scripts/uwsgi/*.ini
 fi
 
 # Copy rc script or systemd service file
@@ -527,10 +520,11 @@ else
     elif [ X"${DISTRO}" == X'OPENBSD' ]; then
         cp ${NEW_IRA_ROOT_DIR}/rc_scripts/iredadmin.openbsd ${DIR_RC_SCRIPTS}/iredadmin
         perl -pi -e 's#/opt/www#$ENV{HTTPD_SERVERROOT}#g' /etc/rc.d/iredadmin
+
+        cp -f ${NEW_IRA_ROOT_DIR}/rc_scripts/iredadmin.openbsd /etc/rc.d/iredadmin
+        chmod 0755 /etc/rc.d/iredadmin
     fi
 fi
-
-# TODO Replace uwsgi socket by iRedAdmin network port.
 
 # Set owner and permission.
 chown -R ${IRA_HTTPD_USER}:${IRA_HTTPD_GROUP} ${NEW_IRA_ROOT_DIR}
@@ -600,7 +594,8 @@ if [ -e /opt/mlmmjadmin ]; then
         echo -e "\nmlmmjadmin_api_auth_token = '${token}'" >> ${IRA_CONF_PY}
     fi
 
-    restart_mlmmjadmin
+    echo "* Restarting service: mlmmjadmin."
+    restart_service mlmmjadmin
 fi
 
 # Change old parameter names to the new ones:
