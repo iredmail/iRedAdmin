@@ -9,12 +9,17 @@
 . /etc/rc.subr
 name='iredadmin'
 rcvar=`set_rcvar_obsolete`
+start_precmd="iredadmin_precmd"
 
-PIDFILE='/var/run/iredadmin/iredadmin.pid'
+RUN_DIR='/var/run/iredadmin'
+PIDFILE="${RUN_DIR}/iredadmin.pid"
 UWSGI_INI_FILE='/opt/www/iredadmin/rc_scripts/uwsgi/freebsd.ini'
-LOGFILE='/var/log/iredadmin/iredadmin.log'
 
 PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+
+iredadmin_precmd() {
+    /usr/bin/install -m 0644 -o iredadmin -g iredadmin -d ${RUN_DIR}
+}
 
 check_status() {
     # Usage: check_status pid_number
@@ -48,7 +53,7 @@ start() {
     uwsgi --ini ${UWSGI_INI_FILE} \
           --pidfile ${PIDFILE} \
           --log-syslog \
-          --daemonize ${LOGFILE}
+          --daemonize /dev/null
 }
 
 stop() {
