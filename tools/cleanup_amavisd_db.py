@@ -44,12 +44,12 @@ from tools import ira_tool_lib
 web.config.debug = ira_tool_lib.debug
 logger = ira_tool_lib.logger
 
+if (not settings.amavisd_enable_logging) or (not settings.amavisd_enable_quarantine):
+    sys.exit("Amavisd is not enabled. SKIP.")
+
 backend = settings.backend
 logger.info('Backend: %s' % backend)
 logger.info('SQL server: %s:%d' % (settings.amavisd_db_host, int(settings.amavisd_db_port)))
-
-if (not settings.amavisd_enable_logging) or (not settings.amavisd_enable_quarantine):
-    sys.exit("Amavisd is not enabled. SKIP.")
 
 query_size_limit = settings.AMAVISD_CLEANUP_QUERY_SIZE_LIMIT
 keep_quar_days = settings.AMAVISD_REMOVE_QUARANTINED_IN_DAYS
