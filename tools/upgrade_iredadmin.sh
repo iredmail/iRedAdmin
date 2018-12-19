@@ -246,8 +246,12 @@ restart_web_service()
             service ${web_service} stop
             sleep 5
             service ${web_service} start
+        else
+            service ${web_service} restart
         fi
-    else
+    elif [ X"${KERNEL_NAME}" == X'FREEBSD' ]; then
+        service ${web_service} restart
+    elif [ X"${KERNEL_NAME}" == X'OPENBSD' ]; then
         rcctl restart ${web_service}
     fi
 
