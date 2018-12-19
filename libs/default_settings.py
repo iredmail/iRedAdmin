@@ -216,37 +216,14 @@ AMAVISD_REMOVE_MAILLOG_IN_DAYS = 3
 # NOTE: require cron job with script tools/cleanup_amavisd_db.py.
 AMAVISD_REMOVE_QUARANTINED_IN_DAYS = 7
 
-# SQL command used to create necessary Amavisd policy for newly created
-# mail user.
+# Query size limit. Used by tools/cleanup_amavisd_db.py.
 #
-# To execute specified SQL commands without enabling Amavisd integration
-# in settings.ini, please set AMAVISD_EXECUTE_SQL_WITHOUT_ENABLED to True,
-# and make sure you have correct Amavisd database related settings in
-# settings.ini.
-#
-# Available placeholders:
-#   - $mail:     replaced by email address of newly created user
-#   - $username: replaced by username part of email address
-#   - $domain:   replaced by domain part of email address
-#
-# For example:
-#
-#   AMAVISD_SQL_FOR_NEWLY_CREATED_USER = [
-#       'INSERT INTO users (priority, policy_id, email) VALUES (0, 5, $mail)',
-#       'INSERT INTO users (priority, policy_id, email) VALUES (0, 5, $username)',
-#       'INSERT INTO users (priority, policy_id, email) VALUES (0, 5, concat("@", $domain))',
-#   ]
-#
-# Will be replaced by:
-#
-#   AMAVISD_SQL_FOR_NEWLY_CREATED_USER = [
-#       'INSERT INTO users (priority, policy_id, email) VALUES (0, 5, "user@domain.ltd")',
-#       'INSERT INTO users (priority, policy_id, email) VALUES (0, 5, "user")',
-#       'INSERT INTO users (priority, policy_id, email) VALUES (0, 5, concat("@", "domain.ltd"))',
-#   ]
-#
-AMAVISD_EXECUTE_SQL_WITHOUT_ENABLED = False
-AMAVISD_SQL_FOR_NEWLY_CREATED_USER = []
+# If server is busy and Amavisd generates many records in a short time,
+# cleanup script will cause table lock while updating sql tables, and this
+# may cause other sql connections which operating on `amavisd` database
+# hang/timeout. in this case, you'd better set this parameter to a low
+# value to release the table lock sooner. e.g. 10.
+AMAVISD_CLEANUP_QUERY_SIZE_LIMIT = 100
 
 ###################################
 # iRedAdmin related settings.

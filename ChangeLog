@@ -1,6 +1,8 @@
 = 0.9.3 =
 
     * Fixed issues:
+        - Missing parameter 'AMAVISD_CLEANUP_QUERY_SIZE_LIMIT' in
+          libs/default_settings.py.
         - Upgrade script 'tools/upgrade_iredadmin.sh' doesn't correct restart
           web service.
 
