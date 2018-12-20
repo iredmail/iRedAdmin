@@ -145,14 +145,8 @@ fi
 # Dependent package names
 # SimpleJson
 export DEP_PY_JSON='simplejson'
-# BeautifulSoup 4.x
-export DEP_PY_BS4='python-beautifulsoup4'
-# BeautifulSoup 3.x
-export DEP_PY_BS='python-beautifulsoup'
 # dnspython
 export DEP_PY_DNS='python-dns'
-# lxml
-export DEP_PY_LXML='python-lxml'
 # pycurl
 export DEP_PY_CURL='python-pycurl'
 # requests
@@ -161,20 +155,13 @@ if [ X"${DISTRO}" == X'RHEL' ]; then
     :
 elif [ X"${DISTRO}" == X'DEBIAN' -o X"${DISTRO}" == X'UBUNTU' ]; then
     export DEP_PY_JSON='python-simplejson'
-    export DEP_PY_BS4='python-beautifulsoup'
-    export DEP_PY_DNS='python-dnspython'
 elif [ X"${DISTRO}" == X'OPENBSD' ]; then
     export DEP_PY_JSON='py-simplejson'
-    export DEP_PY_BS4='py-beautifulsoup4'
-    export DEP_PY_BS='py-beautifulsoup4'
     export DEP_PY_CURL='py-curl'
     export DEP_PY_DNS='py-dnspython'
     export DEP_PY_REQUESTS='py-requests'
 elif [ X"${DISTRO}" == X'FREEBSD' ]; then
     export DEP_PY_JSON='devel/py-simplejson'
-    export DEP_PY_BS4='www/py-beautifulsoup'
-    export DEP_PY_BS='www/py-beautifulsoup32'
-    export DEP_PY_LXML='devel/py-lxml'
     export DEP_PY_CURL='ftp/py-pycurl'
     export DEP_PY_DNS='dns/py-dnspython'
     export DEP_PY_REQUESTS='www/py-requests'
@@ -639,15 +626,6 @@ echo "  + [required] pycurl"
 
 echo "  + [required] requests"
 [ X"$(has_python_module requests)" == X'NO' ] && install_pkg ${DEP_PY_REQUESTS}
-
-echo "  + [optional] BeautifulSoup"
-if [ X"$(has_python_module bs4)" == X'NO' \
-     -a X"$(has_python_module BeautifulSoup)" == X'NO' ]; then
-    install_pkg ${DEP_PY_BS4}
-fi
-
-echo "  + [optional] lxml"
-[ X"$(has_python_module lxml)" == X'NO' ] && install_pkg ${DEP_PY_LXML}
 
 
 #------------------------------------------
