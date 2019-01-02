@@ -39,6 +39,8 @@ export UWSGI_RC_SCRIPT_NAME='uwsgi'
 export NGINX_PID_FILE='/var/run/nginx.pid'
 export NGINX_SNIPPET_CONF='/etc/nginx/templates/iredadmin.tmpl'
 export NGINX_SNIPPET_CONF2='/etc/nginx/templates/iredadmin-subdomain.tmpl'
+# iRedMail-0.9.7
+export NGINX_SNIPPET_CONF3='/etc/nginx/conf.d/default.conf'
 
 export USE_SYSTEMD='NO'
 if which systemctl &>/dev/null; then
@@ -101,6 +103,7 @@ elif [ X"${KERNEL_NAME}" == X'FREEBSD' ]; then
     export CRON_SPOOL_DIR='/var/cron/tabs'
     export NGINX_SNIPPET_CONF='/usr/local/etc/nginx/templates/iredadmin.tmpl'
     export NGINX_SNIPPET_CONF2='/usr/local/etc/nginx/templates/iredadmin-subdomain.tmpl'
+    export NGINX_SNIPPET_CONF3='/usr/local/etc/nginx/conf.d/default.conf'
 
     if [ -d /opt/www/iredadmin ]; then
         export HTTPD_SERVERROOT='/opt/www'
@@ -459,21 +462,17 @@ for f in ${_uwsgi_confs}; do
 done
 
 # Update Nginx template file
-if [[ -f ${NGINX_SNIPPET_CONF} ]]; then
-    grep 'unix:.*iredadmin.socket' ${NGINX_SNIPPET_CONF} &>/dev/null
-    retval="$?"
+export _restart_nginx='NO'
+for f in ${NGINX_SNIPPET_CONF} ${NGINX_SNIPPET_CONF2} ${NGINX_SNIPPET_CONF3}; do
+    if [[ -f ${f} ]]; then
+        if grep 'unix:.*iredadmin.socket' ${f} &>/dev/null; then
+            export _restart_nginx='YES'
+            perl -pi -e 's#uwsgi_pass unix:.*iredadmin.socket;#uwsgi_pass 127.0.0.1:7791;#g' ${f}
+        fi
+    fi
+done
 
-    perl -pi -e 's#uwsgi_pass unix:.*iredadmin.socket;#uwsgi_pass 127.0.0.1:7791;#g' ${NGINX_SNIPPET_CONF}
-fi
-
-if [[ -f ${NGINX_SNIPPET_CONF2} ]]; then
-    grep 'unix:.*iredadmin.socket' ${NGINX_SNIPPET_CONF2} &>/dev/null
-    retval2="$?"
-
-    perl -pi -e 's#uwsgi_pass unix:.*iredadmin.socket;#uwsgi_pass 127.0.0.1:7791;#g' ${NGINX_SNIPPET_CONF2}
-fi
-
-if [[ X"${retval}" == X'0' ]] || [[ X"${retval2}" == X'0' ]]; then
+if [[ X"${_restart_nginx}" == X'YES' ]]; then
     restart_service nginx
 fi
 
