@@ -14,6 +14,7 @@
 # Available arguments:
 #
 #   * --delete-without-timestamp:
+#
 #       [RISKY] If no timestamp string in maildir path, continue to delete it.
 #
 #       With default iRedMail settings, maildir path will contain a timestamp
@@ -28,6 +29,7 @@
 #       it becomes RISKY to remove the mailbox if no timestamp in maildir path.
 #
 #   * --delete-null-date:
+#
 #       Delete mailbox if SQL column `deleted_mailboxes.delete_date` is null.
 #
 #   * --debug: print additional log
@@ -69,6 +71,7 @@ delete_without_timestamp = False
 if '--delete-without-timestamp' in sys.argv:
     delete_without_timestamp = True
 
+
 def delete_record(conn, rid):
     try:
         conn.delete('deleted_mailboxes',
@@ -101,10 +104,11 @@ def delete_mailbox(conn, record):
             ts = _dir[-19:]
             time.strptime(ts, '%Y.%m.%d.%H.%M.%S')
         except Exception, e:
-            logger.error("<<< ERROR >>> Cannot convert timestamp in maildir path (%s), skip." % maildir)
+            logger.debug("<<< WARNING >>> Invalid or missing timestamp in maildir path (%s), skip." % maildir)
+            logger.debug("<<< WARNING >>> Error message: %s." % repr(e))
             return False
 
-    # check directory
+    # check maildir path
     if os.path.isdir(maildir):
         # Make sure directory is owned by vmail:vmail
         _dir_stat = os.stat(maildir)
@@ -117,7 +121,7 @@ def delete_mailbox(conn, record):
             return False
 
         try:
-            msg = 'Deleted mailbox (%s): %s.' % (username, maildir)
+            msg = '[%s] %s.' % (username, maildir)
             msg += ' Account was deleted at %s.' % (timestamp)
             if delete_date:
                 msg += ' Mailbox was scheduled to be removed on %s.' % (delete_date)
@@ -163,10 +167,10 @@ else:
     logger.debug('No mailbox is scheduled to be removed.')
 
     if not delete_null_date:
-        logger.debug("To remove mailboxes with empty schedule date, please run this script with argument '--delete-null-date'.")
+        logger.debug("[INFO] To remove mailboxes with empty schedule date, please run this script with argument '--delete-null-date'.")
 
     if not delete_without_timestamp:
-        logger.debug("To remove mailboxes which don't contain a timesamp in maildir path, please run this script with argument '--delete-without-timestamp'.")
+        logger.debug("[INFO] To remove mailboxes which don't contain a timesamp in maildir path, please run this script with argument '--delete-without-timestamp'.")
 
     sys.exit()
 
