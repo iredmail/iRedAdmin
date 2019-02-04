@@ -41,22 +41,19 @@ class Log:
         self.total = qr[0].total or 0
 
         # Get records.
-        if len(queryDict) == 0:
-            # No addition filter.
-            self.entries = db.select(
-                'log',
-                offset=(self.cur_page - 1) * settings.PAGE_SIZE_LIMIT,
-                limit=settings.PAGE_SIZE_LIMIT,
-                order='timestamp DESC',
-            )
-        else:
+        if queryDict:
             # With filter.
             self.entries = db.select('log',
-                    where=web.db.sqlwhere(queryDict),
-                    offset=(self.cur_page - 1) * settings.PAGE_SIZE_LIMIT,
-                    limit=settings.PAGE_SIZE_LIMIT,
-                    order='timestamp DESC',
-                    )
+                                     where=web.db.sqlwhere(queryDict.items()),
+                                     offset=(self.cur_page - 1) * settings.PAGE_SIZE_LIMIT,
+                                     limit=settings.PAGE_SIZE_LIMIT,
+                                     order='timestamp DESC')
+        else:
+            # No addition filter.
+            self.entries = db.select('log',
+                                     offset=(self.cur_page - 1) * settings.PAGE_SIZE_LIMIT,
+                                     limit=settings.PAGE_SIZE_LIMIT,
+                                     order='timestamp DESC')
 
         return (self.total, list(self.entries))
 
