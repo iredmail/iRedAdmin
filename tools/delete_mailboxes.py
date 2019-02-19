@@ -18,10 +18,10 @@
 #       [RISKY] If no timestamp string in maildir path, continue to delete it.
 #
 #       With default iRedMail settings, maildir path will contain a timestamp
-#       like this: <domain.com>/u/s/e/username-<20160817095303>/
-#       (20160817095303 is the timestamp), this way all created maildir paths
-#       are unique, even if you removed the user and recreate it with same
-#       mail address.
+#       like this: <domain.com>/u/s/e/username-2016.08.17.09.53.03/
+#       (2016.08.17.09.53.03 is the timestamp), this way all created maildir
+#       paths are unique, even if you removed the user and recreate it with
+#       same mail address.
 #
 #       Without timestamp in maildir path (e.g. <domain.com>/u/s/e/username/),
 #       if you removed a user and recreate it someday, this user will see old
@@ -72,24 +72,43 @@ if '--delete-without-timestamp' in sys.argv:
     delete_without_timestamp = True
 
 
-def delete_record(conn, rid):
+def delete_record(conn_deleted_mailboxes, rid):
     try:
-        conn.delete('deleted_mailboxes',
-                    vars={'id': rid},
-                    where='id = $id')
+        conn_deleted_mailboxes.delete('deleted_mailboxes',
+                                      vars={'id': rid},
+                                      where='id=$id')
+
         return (True, )
     except Exception, e:
         return (False, repr(e))
 
 
-def delete_mailbox(conn, record):
+def delete_mailbox(conn_deleted_mailboxes,
+                   conn_vmail,
+                   record,
+                   all_maildirs=None):
     rid = record.id
-    username = str(record.username)
-    maildir = record.maildir
+    username = str(record.username).lower()
     timestamp = str(record.timestamp)
     delete_date = record.delete_date
 
-    if not delete_without_timestamp:
+    maildir = record.maildir
+    maildir = maildir.replace('//', '/')    # Remove duplicate '/'
+
+    if delete_without_timestamp:
+        # Make sure no other mailbox is stored under the maildir.
+        if all_maildirs:
+            if not maildir.endswith('/'):
+                maildir += '/'
+
+            print "Removing: %s" % maildir
+            for mdir in all_maildirs:
+                print "- startswith:", mdir.startswith(maildir)
+                print "- equal:", mdir == maildir
+                if mdir.startswith(maildir) or (mdir == maildir):
+                    logger.error("<<< ABORT, CRITICAL >>> Trying to remove mailbox (%s) owned by user (%s), but there is another mailbox (%s) stored under this directory. Aborted." % (maildir, username, mdir))
+                    return False
+    else:
         _dir = maildir.rstrip('/')
 
         if len(_dir) <= 21:
@@ -142,15 +161,20 @@ def delete_mailbox(conn, record):
             logger.error('<<< ERROR >> while deleting mailbox (%s -> %s): %s' % (username, maildir, repr(e)))
 
     # Delete record.
-    delete_record(conn=conn, rid=rid)
+    delete_record(conn_deleted_mailboxes=conn_deleted_mailboxes, rid=rid)
 
 
 # Establish SQL connection.
 try:
     if settings.backend == 'ldap':
-        conn = ira_tool_lib.get_db_conn('iredadmin')
+        conn_deleted_mailboxes = ira_tool_lib.get_db_conn('iredadmin')
+
+        from libs.ldaplib.core import LDAPWrap
+        _wrap = LDAPWrap()
+        conn_vmail = _wrap.conn
     else:
-        conn = ira_tool_lib.get_db_conn('vmail')
+        conn_deleted_mailboxes = ira_tool_lib.get_db_conn('vmail')
+        conn_vmail = conn_deleted_mailboxes
 except Exception, e:
     sys.exit('<<< ERROR >>> Cannot connect to SQL database, aborted. Error: %s' % repr(e))
 
@@ -159,20 +183,54 @@ sql_where = 'delete_date <= %s' % web.sqlquote(web.sqlliteral('NOW()'))
 if delete_null_date:
     sql_where = '(delete_date <= %s) OR (delete_date IS NULL)' % web.sqlquote(web.sqlliteral('NOW()'))
 
-qr = conn.select('deleted_mailboxes', where=sql_where)
+qr_mailboxes = conn_deleted_mailboxes.select('deleted_mailboxes',
+                                             where=sql_where)
 
-if qr:
-    logger.info('Delete old mailboxes (%d in total).' % len(qr))
+if qr_mailboxes:
+    logger.info('Delete old mailboxes (%d in total).' % len(qr_mailboxes))
 else:
     logger.debug('No mailbox is scheduled to be removed.')
 
     if not delete_null_date:
-        logger.debug("[INFO] To remove mailboxes with empty schedule date, please run this script with argument '--delete-null-date'.")
+        logger.debug("To remove mailboxes without schedule date, please run this script with argument '--delete-null-date'.")
 
     if not delete_without_timestamp:
-        logger.debug("[INFO] To remove mailboxes which don't contain a timesamp in maildir path, please run this script with argument '--delete-without-timestamp'.")
+        logger.debug("To remove mailboxes without timesamp in maildir path, please run this script with argument '--delete-without-timestamp'. [WARNING] It's RISKY.")
 
     sys.exit()
 
-for r in list(qr):
-    delete_mailbox(conn=conn, record=r)
+# Get all maildir paths used by active mail users.
+#
+# To delete mailbox without timestamp in maildir path, we must make sure:
+#   - maildir is not used by some active user
+#   - no other mailbox is stored under this maildir path
+#
+# Q: Why query all maildir paths instead of querying SQL/LDAP directly?
+# A:
+#   1. LDAP attribute `homeDirectory` doesn't support `sub` (substring) index.
+#   2. if maildir path contains duplicate '/', the validation will fail (not
+#      equal).
+all_maildirs = []
+if delete_without_timestamp:
+    if settings.backend == 'ldap':
+        _qr = conn_vmail.search_s(settings.ldap_basedn,
+                                  2,     # ldap.SCOPE_SUBTREE
+                                  "(objectClass=mailUser)",
+                                  ['homeDirectory'])
+        for (_dn, _ldif) in _qr:
+            _dir = _ldif['homeDirectory'][0].lower().replace('//', '/')
+            all_maildirs.append(_dir)
+    elif settings.backend in ['mysql', 'pgsql']:
+        # WARNING: always append '/' in returned maildir path.
+        _qr = conn_vmail('mailbox',
+                         what='LOWER(CONCAT(storagebasedirectory, '/', storagenode, '/', maildir, '/')) AS maildir')
+
+        all_maildirs = [str(i.maildir).replace('//', '/') for i in _qr]
+
+    print 'All maildirs:', all_maildirs
+
+for r in list(qr_mailboxes):
+    delete_mailbox(conn_deleted_mailboxes=conn_deleted_mailboxes,
+                   conn_vmail=conn_vmail,
+                   record=r,
+                   all_maildirs=all_maildirs)

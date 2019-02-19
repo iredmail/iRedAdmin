@@ -1,3 +1,9 @@
+= 0.9.5 =
+    * Fixed issues:
+        - Can not filter admin activity log.
+        - tools/delete_mailboxes.py: not verify whether the maildir of removed
+          user contains other user's mailbox.
+
 = 0.9.4 =
     * Fixed issues:
         - Upgrade script (tools/upgrade_iredadmin.sh) does not correctly update
