@@ -1,3 +1,8 @@
+= 0.9.6 =
+    * Fixed issues:
+        - Remove unused function argument which causes
+          tools/delete_mailboxes.py abort.
+
 = 0.9.5 =
     * Fixed issues:
         - Can not filter admin activity log.

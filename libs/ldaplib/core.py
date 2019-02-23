@@ -9,7 +9,7 @@ session = web.config.get('_session')
 
 
 class LDAPWrap:
-    def __init__(self, app=web.app, session=session,):
+    def __init__(self, session=session):
         # Get LDAP settings.
         self.basedn = settings.ldap_basedn
         self.domainadmin_dn = settings.ldap_domainadmin_dn
