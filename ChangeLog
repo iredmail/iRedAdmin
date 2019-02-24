@@ -1,7 +1,8 @@
 = 0.9.6 =
     * Fixed issues:
-        - Remove unused function argument which causes
-          tools/delete_mailboxes.py abort.
+        - tools/delete_mailboxes.py:
+            - Not skip user account which doesn't have attribute 'homeDirectory'.
+            - Remove unused function argument which causes script abort.
 
 = 0.9.5 =
     * Fixed issues:

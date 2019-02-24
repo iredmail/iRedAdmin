@@ -218,8 +218,9 @@ if delete_without_timestamp:
                                   "(objectClass=mailUser)",
                                   ['homeDirectory'])
         for (_dn, _ldif) in _qr:
-            _dir = _ldif['homeDirectory'][0].lower().replace('//', '/')
-            all_maildirs.append(_dir)
+            if 'homeDirectory' in _ldif:
+                _dir = _ldif['homeDirectory'][0].lower().replace('//', '/')
+                all_maildirs.append(_dir)
     elif settings.backend in ['mysql', 'pgsql']:
         # WARNING: always append '/' in returned maildir path.
         _qr = conn_vmail('mailbox',
