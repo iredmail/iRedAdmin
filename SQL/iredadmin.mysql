@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `log` (
     `event` VARCHAR(20) NOT NULL DEFAULT '',
     `loglevel` VARCHAR(10) NOT NULL DEFAULT 'info',
     `msg` TEXT,
-    KEY id (id),
+    PRIMARY KEY (id),
     INDEX (timestamp),
     INDEX (admin),
     INDEX (ip),
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `log` (
 CREATE TABLE IF NOT EXISTS `updatelog` (
     `id` BIGINT(20) UNSIGNED AUTO_INCREMENT,
     `date` DATE NOT NULL,
-    KEY id (id),
+    PRIMARY KEY (id),
     INDEX (date)
 ) ENGINE=InnoDB;
 
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `deleted_mailboxes` (
     -- The time scheduled to delete this mailbox.
     -- NOTE: it requires cron job + script to actually delete the mailbox.
     delete_date DATE DEFAULT NULL,
-    KEY id (id),
+    PRIMARY KEY (id),
     INDEX (timestamp),
     INDEX (username),
     INDEX (domain),
@@ -66,9 +66,11 @@ CREATE TABLE IF NOT EXISTS `deleted_mailboxes` (
 
 -- Key-value store.
 CREATE TABLE IF NOT EXISTS `tracking` (
+    id BIGINT(20) UNSIGNED AUTO_INCREMENT,
     `k` VARCHAR(255) NOT NULL,
     `v` TEXT,
     `time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (id),
     UNIQUE KEY (k)
 ) ENGINE=InnoDB;
 

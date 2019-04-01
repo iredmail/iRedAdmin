@@ -31,6 +31,7 @@ export SYS_ROOT_USER='root'
 # If you don't have root privilege, use another sql user instead.
 export SQL_IREDADMIN_USER="${SQL_IREDADMIN_USER:=root}"
 export MY_CNF="${MY_CNF:=/root/.my.cnf}"
+export CMD_MYSQL="mysql --defaults-file=${MY_CNF} -u ${SQL_IREDADMIN_USER}"
 
 # Check OS to detect some necessary info.
 export KERNEL_NAME="$(uname -s | tr '[a-z]' '[A-Z]')"
@@ -209,7 +210,7 @@ restart_service() {
             service ${srv} restart
         fi
     elif [ X"${KERNEL_NAME}" == X'FREEBSD' ]; then
-        service ${web_service} restart
+        service ${srv} restart
     elif [ X"${KERNEL_NAME}" == X'OPENBSD' ]; then
         rcctl restart ${srv}
     fi
@@ -348,7 +349,7 @@ EOF
         fi
 
         # Check MySQL connection
-        mysql --defaults-file=${MY_CNF} -u${SQL_IREDADMIN_USER} -e "SHOW DATABASES" &>/dev/null
+        ${CMD_MYSQL} -e "SHOW DATABASES" &>/dev/null
         if [ X"$?" != X'0' ]; then
             echo "<<< ERROR >>> MySQL user name '${SQL_IREDADMIN_USER}' or password is incorrect in ${MY_CNF}, please double check."
             exit 255
@@ -646,9 +647,25 @@ psql_conn="psql -h ${ira_db_host} \
 
 if egrep '^backend.*(mysql|ldap)' ${IRA_CONF_PY} &>/dev/null; then
     echo "* Check SQL tables, and add missed ones - if there's any"
-    mysql --defaults-file=${MY_CNF} -u "${SQL_IREDADMIN_USER}" ${ira_db_name} -e "SOURCE ${IRA_ROOT_DIR}/SQL/iredadmin.mysql"
+    ${CMD_MYSQL} ${ira_db_name} -e "SOURCE ${IRA_ROOT_DIR}/SQL/iredadmin.mysql"
+    ${CMD_MYSQL} ${ira_db_name} -e "ALTER TABLE log MODIFY COLUMN msg TEXT;"
 
-    mysql --defaults-file=${MY_CNF} -u "${SQL_IREDADMIN_USER}" ${ira_db_name} -e "ALTER TABLE log MODIFY COLUMN msg TEXT;"
+    # Add column `tracking.id`.
+    ${CMD_MYSQL} ${ira_db_name} -e "DESC tracking \G" | grep 'Field: id' &>/dev/null
+    if [ X"$?" != X'0' ]; then
+        ${CMD_MYSQL} ${ira_db_name} -e "ALTER TABLE tracking ADD COLUMN id BIGINT(20) UNSIGNED AUTO_INCREMENT PRIMARY KEY;"
+    fi
+
+    # Set column `id` to `PRIMARY KEY`
+    _tables='deleted_mailboxes updatelog log tracking'
+    for _table in ${_tables}; do
+        ${CMD_MYSQL} ${ira_db_name} -e "DESC ${_table}" | grep '^id.*PRI.*auto_increment' &>/dev/null
+
+        if [ X"$?" != X'0' ]; then
+            ${CMD_MYSQL} ${ira_db_name} -e "ALTER TABLE ${_table} ADD PRIMARY KEY (id)"
+        fi
+    done
+
 elif egrep '^backend.*pgsql' ${IRA_CONF_PY} &>/dev/null; then
     export PGPASSWORD="${ira_db_password}"
 
@@ -664,6 +681,7 @@ EOF
 
         ${psql_conn} <<EOF
 CREATE TABLE tracking (
+    id SERIAL PRIMARY KEY,
     k VARCHAR(50) NOT NULL,
     v TEXT,
     time TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP
@@ -671,6 +689,8 @@ CREATE TABLE tracking (
 CREATE UNIQUE INDEX idx_tracking_k ON tracking (k);
 EOF
     fi
+
+    # Set column `tracking.id` to `PRIMARY KEY`
 
     # SQL table: domain_ownership.
     ${psql_conn} -c '\d' | grep '\<domain_ownership\>' &>/dev/null
