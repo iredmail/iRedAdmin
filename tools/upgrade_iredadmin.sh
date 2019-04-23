@@ -725,6 +725,18 @@ ${_sql}
 EOF
         unset _sql
     fi
+
+    # SQL table: settings.
+    ${psql_conn} -c '\d' | grep '\<settings\>' &>/dev/null
+    if [ X"$?" != X'0' ]; then
+        echo "* [SQL] Add new table: iredadmin.settings."
+
+        _sql="$(cat ${IRA_ROOT_DIR}/SQL/snippets/settings.pgsql)"
+        ${psql_conn} <<EOF
+${_sql}
+EOF
+        unset _sql
+    fi
 fi
 
 #------------------------------

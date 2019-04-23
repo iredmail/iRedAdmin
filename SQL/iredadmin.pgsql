@@ -97,3 +97,20 @@ CREATE UNIQUE INDEX idx_subunsub_confirms_1 ON newsletter_subunsub_confirms (mli
 CREATE INDEX idx_subunsub_confirms_2 ON newsletter_subunsub_confirms (mail);
 CREATE INDEX idx_subunsub_confirms_3 ON newsletter_subunsub_confirms (token);
 CREATE INDEX idx_subunsub_confirms_4 ON newsletter_subunsub_confirms (expired);
+
+-- Key-value store for settings.
+-- `k` is the (unique) parameter name.
+-- `v` must be a valid JSON string with only one key: "value". Its value will
+--     be converted to Python native format (string, list, integer).
+-- Samples:
+--      {"value": 20}
+--      {"value": "a-string"}
+--      {"value": [v1, v2, v3, ...]}
+--      {"value": true}
+CREATE TABLE settings (
+    id SERIAL PRIMARY KEY,
+    account VARCHAR(255) NOT NULL DEFAULT 'global',
+    k VARCHAR(255) NOT NULL,
+    v TEXT
+);
+CREATE UNIQUE INDEX idx_settings_account_k ON settings (account, k);

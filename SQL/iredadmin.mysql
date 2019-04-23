@@ -127,3 +127,21 @@ CREATE TABLE IF NOT EXISTS `newsletter_subunsub_confirms` (
     INDEX (token),
     INDEX (expired)
 ) ENGINE=InnoDB;
+
+-- Key-value store for settings.
+-- `k` is the (unique) parameter name.
+-- `v` must be a valid JSON string with only one key: "value". Its value will
+--     be converted to Python native format (string, list, integer).
+-- Samples:
+--      {"value": 20}
+--      {"value": "a-string"}
+--      {"value": [v1, v2, v3, ...]}
+--      {"value": true}
+CREATE TABLE IF NOT EXISTS `settings` (
+    `id` BIGINT(20) UNSIGNED AUTO_INCREMENT,
+    `account` VARCHAR(255) NOT NULL DEFAULT 'global',
+    `k` VARCHAR(255) NOT NULL,
+    `v` TEXT,
+    PRIMARY KEY (id),
+    UNIQUE INDEX (account, k)
+) ENGINE=InnoDB;
