@@ -1,3 +1,6 @@
+= 0.9.7 =
+    * New SQL table: iredadmin.settings.
+
 = 0.9.6 =
     * Fixed issues:
         - tools/delete_mailboxes.py:
