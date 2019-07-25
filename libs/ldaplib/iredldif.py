@@ -116,8 +116,8 @@ def ldif_mailuser(domain,
                             # ManageService name In dovecot-1.2.
                             'sieve', 'sievesecured',
                             'forward', 'senderbcc', 'recipientbcc',
-                            'internal', 'lib-storage', 'indexer-worker', 'doveadm',
-                            'dsync',
+                            'internal', 'lib-storage', 'indexer-worker',
+                            'doveadm', 'dsync', 'quota-status',
                             'shadowaddress', 'displayedInGlobalAddressBook']),
         # shadowAccount integration.
         ('shadowLastChange', ['0']),
