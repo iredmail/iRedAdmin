@@ -575,6 +575,11 @@ if ! grep '^iredapd_' ${IRA_CONF_PY} &>/dev/null; then
 fi
 perl -pi -e 's#iredapd_db_server#iredapd_db_host#g' ${IRA_CONF_PY}
 
+# FreeBSD uses /var/run/log for syslog.
+if [ X"${DISTRO}" == X'FREEBSD' ]; then
+    add_missing_parameter 'SYSLOG_SERVER' '/var/run/log'
+fi
+
 #
 # Enable mlmmj integration
 #
