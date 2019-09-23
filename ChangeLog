@@ -1,3 +1,7 @@
+= 0.9.9 =
+    * Fixed:
+        - [LDAP] Not add required attribute/value pair for newly created mail
+          user: enabledService=sievetls.
 = 0.9.8 =
     * Add new ldap attr/value pair for mail user: enabledService=quota-status.
       Required by the Dovecot `quota-status` service.
