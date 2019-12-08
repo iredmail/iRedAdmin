@@ -25,11 +25,11 @@ class Log:
 
         logLib = loglib.Log()
         total, entries = logLib.listLogs(
-                event=self.event,
-                domain=self.domain,
-                admin=self.admin,
-                cur_page=self.cur_page,
-                )
+            event=self.event,
+            domain=self.domain,
+            admin=self.admin,
+            cur_page=self.cur_page,
+        )
 
         return web.render(
             'panel/log.html',

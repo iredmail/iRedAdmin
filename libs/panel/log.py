@@ -13,49 +13,61 @@ session = web.config.get('_session')
 class Log:
     @decorators.require_login
     def listLogs(self, event='all', domain='all', admin='all', cur_page=1):
-        self.event = web.safestr(event)
-        self.domain = web.safestr(domain)
-        self.admin = web.safestr(admin)
-        self.cur_page = int(cur_page)
+        event = web.safestr(event)
+        domain = web.safestr(domain)
+        admin = web.safestr(admin)
+        cur_page = int(cur_page)
 
-        # Generate a dictionary, converted to an SQL WHERE clause.
-        queryDict = {}
-        if self.event in LOG_EVENTS and self.event != 'all':
-            queryDict['event'] = self.event
+        sql_vars = {}
+        sql_wheres = []
+        sql_where = ''
 
-        if iredutils.is_domain(self.domain):
-            queryDict['domain'] = self.domain
+        if event in LOG_EVENTS and event != 'all':
+            sql_vars['event'] = event
+            sql_wheres += ["event=$event"]
+
+        if iredutils.is_domain(domain):
+            sql_vars['domain'] = domain
+            sql_wheres += ["domain=$domain"]
 
         if session.get('domainGlobalAdmin') is not True:
-            queryDict['admin'] = session.get('username')
+            sql_vars['admin'] = session.get('username')
+            sql_wheres += ["admin=$admin"]
         else:
-            if iredutils.is_email(self.admin):
-                queryDict['admin'] = self.admin
+            if iredutils.is_email(admin):
+                sql_vars['admin'] = admin
+                sql_wheres += ["admin=$admin"]
 
         # Get number of total records.
-        if len(queryDict) == 0:
-            qr = db.select('log', what='COUNT(timestamp) AS total',)
-        else:
-            qr = db.select('log', what='COUNT(timestamp) AS total', where=web.db.sqlwhere(queryDict),)
+        if sql_wheres:
+            sql_where = ' AND '.join(sql_wheres)
 
-        self.total = qr[0].total or 0
+            qr = db.select('log',
+                           vars=sql_vars,
+                           what='COUNT(timestamp) AS total',
+                           where=sql_where)
+        else:
+            qr = db.select('log', what='COUNT(timestamp) AS total')
+
+        total = qr[0].total or 0
 
         # Get records.
-        if queryDict:
+        if sql_wheres:
             # With filter.
-            self.entries = db.select('log',
-                                     where=web.db.sqlwhere(queryDict.items()),
-                                     offset=(self.cur_page - 1) * settings.PAGE_SIZE_LIMIT,
-                                     limit=settings.PAGE_SIZE_LIMIT,
-                                     order='timestamp DESC')
+            qr = db.select('log',
+                           vars=sql_vars,
+                           where=sql_where,
+                           offset=(cur_page - 1) * settings.PAGE_SIZE_LIMIT,
+                           limit=settings.PAGE_SIZE_LIMIT,
+                           order='timestamp DESC')
         else:
             # No addition filter.
-            self.entries = db.select('log',
-                                     offset=(self.cur_page - 1) * settings.PAGE_SIZE_LIMIT,
-                                     limit=settings.PAGE_SIZE_LIMIT,
-                                     order='timestamp DESC')
+            qr = db.select('log',
+                           offset=(cur_page - 1) * settings.PAGE_SIZE_LIMIT,
+                           limit=settings.PAGE_SIZE_LIMIT,
+                           order='timestamp DESC')
 
-        return (self.total, list(self.entries))
+        return (total, list(qr))
 
     @decorators.require_global_admin
     @decorators.require_login
