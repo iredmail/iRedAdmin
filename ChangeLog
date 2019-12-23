@@ -1,3 +1,7 @@
+= 1.0 =
+    * Fixed:
+        - Logout causes 'Internal server error'.
+
 = 0.9.9 =
     * Fixed:
         - Can not filter admin log.

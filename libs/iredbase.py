@@ -25,7 +25,7 @@ web.config.debug = settings.DEBUG
 # Set session parameters.
 web.config.session_parameters['cookie_name'] = 'iRedAdmin'
 web.config.session_parameters['cookie_domain'] = None
-web.config.session_parameters['ignore_expiry'] = False
+web.config.session_parameters['ignore_expiry'] = True
 web.config.session_parameters['ignore_change_ip'] = False
 web.config.session_parameters['timeout'] = settings.SESSION_TIMEOUT
 
