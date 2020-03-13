@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Purpose: Upgrade iRedAdmin from old release.
-#          Works with both iRedAdmin open souce edition or iRedAdmin-Pro.
+#          Works with both iRedAdmin open source edition or iRedAdmin-Pro.
 
 # USAGE:
 #
@@ -52,11 +52,16 @@ if which systemctl &>/dev/null; then
 fi
 
 if [ X"${KERNEL_NAME}" == X"LINUX" ]; then
-    export PYTHON_BIN='/usr/bin/python'
+    export PYTHON_BIN='/usr/bin/python2'
 
     if [ -f /etc/redhat-release ]; then
         # RHEL/CentOS
         export DISTRO='RHEL'
+        export DISTRO_VERSION='7'
+        if [ -x /usr/bin/dnf ]; then
+            export DISTRO_VERSION='8'
+        fi
+
         export HTTPD_RC_SCRIPT_NAME='httpd'
         export CRON_SPOOL_DIR='/var/spool/cron'
 
@@ -100,7 +105,7 @@ if [ X"${KERNEL_NAME}" == X"LINUX" ]; then
     fi
 elif [ X"${KERNEL_NAME}" == X'FREEBSD' ]; then
     export DISTRO='FREEBSD'
-    export PYTHON_BIN='/usr/local/bin/python'
+    export PYTHON_BIN='/usr/local/bin/python2'
     export CRON_SPOOL_DIR='/var/cron/tabs'
     export NGINX_SNIPPET_CONF='/usr/local/etc/nginx/templates/iredadmin.tmpl'
     export NGINX_SNIPPET_CONF2='/usr/local/etc/nginx/templates/iredadmin-subdomain.tmpl'
@@ -118,7 +123,7 @@ elif [ X"${KERNEL_NAME}" == X'FREEBSD' ]; then
         export HTTPD_RC_SCRIPT_NAME='apache22'
     fi
 elif [ X"${KERNEL_NAME}" == X'OPENBSD' ]; then
-    export PYTHON_BIN='/usr/local/bin/python'
+    export PYTHON_BIN='/usr/local/bin/python2'
     export DISTRO='OPENBSD'
     export CRON_SPOOL_DIR='/var/cron/tabs'
 
@@ -491,7 +496,9 @@ if [ X"${USE_SYSTEMD}" == X'YES' ]; then
 
     echo "* Copy systemd service file: ${SYSTEMD_SERVICE_DIR}/iredadmin.service."
     if [ X"${DISTRO}" == X'RHEL' ]; then
-        cp -f ${NEW_IRA_ROOT_DIR}/rc_scripts/systemd/rhel.service ${SYSTEMD_SERVICE_DIR}/iredadmin.service
+        [[ X"${DISTRO_VERSION}" == X'7' ]] && cp -f ${NEW_IRA_ROOT_DIR}/rc_scripts/systemd/rhel.service ${SYSTEMD_SERVICE_DIR}/iredadmin.service
+        [[ X"${DISTRO_VERSION}" == X'8' ]] && cp -f ${NEW_IRA_ROOT_DIR}/rc_scripts/systemd/rhel8.service ${SYSTEMD_SERVICE_DIR}/iredadmin.service
+
         perl -pi -e 's#/opt/www#$ENV{HTTPD_SERVERROOT}#g' ${SYSTEMD_SERVICE_DIR}/iredadmin.service
     elif [ X"${DISTRO}" == X'DEBIAN' -o X"${DISTRO}" == X'UBUNTU' ]; then
         cp -f ${NEW_IRA_ROOT_DIR}/rc_scripts/systemd/debian.service ${SYSTEMD_SERVICE_DIR}/iredadmin.service
@@ -595,7 +602,7 @@ if [ -e /opt/mlmmjadmin ]; then
     fi
 
     # Add parameter `mlmmjadmin_api_auth_token` if missing
-    if ! grep '^mlmmjadmin_api_auth_token' ${IRA_CONF_PY}; then
+    if ! grep '^mlmmjadmin_api_auth_token' ${IRA_CONF_PY} >/dev/null; then
         # Get first api auth token
         token=$(grep '^api_auth_tokens' /opt/mlmmjadmin/settings.py | awk -F"[=\']" '{print $3}' | tr -d '\n')
         echo -e "\nmlmmjadmin_api_auth_token = '${token}'" >> ${IRA_CONF_PY}
