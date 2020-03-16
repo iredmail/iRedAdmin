@@ -105,6 +105,8 @@ if [ X"${KERNEL_NAME}" == X"LINUX" ]; then
     fi
 elif [ X"${KERNEL_NAME}" == X'FREEBSD' ]; then
     export DISTRO='FREEBSD'
+    export SYSRC='/usr/sbin/sysrc'
+
     export PYTHON_BIN='/usr/local/bin/python2'
     export CRON_SPOOL_DIR='/var/cron/tabs'
     export NGINX_SNIPPET_CONF='/usr/local/etc/nginx/templates/iredadmin.tmpl'
@@ -199,7 +201,7 @@ enable_service() {
             update-rc.d $srv defaults
         fi
     elif [ X"${DISTRO}" == X'FREEBSD' ]; then
-        /usr/sbin/sysrc -f /etc/rc.conf.local ${srv}_enable=YES
+        ${SYSRC} -f /etc/rc.conf.local ${srv}_enable=YES
     elif [ X"${DISTRO}" == X'OPENBSD' ]; then
         rcctl enable $srv
     fi
@@ -467,6 +469,13 @@ for f in ${_uwsgi_confs}; do
     rm -f ${f} &>/dev/null
 done
 
+# Remove 'uwsgi_XXX' from /etc/rc.conf on FreeBSD.
+if [[ X"${DISTRO}" == X'FREEBSD' ]]; then
+    ${SYSRC} -x uwsgi_enable
+    ${SYSRC} -x uwsgi_profiles
+    ${SYSRC} -x uwsgi_iredadmin_flags
+fi
+
 # Update Nginx template file
 export _restart_nginx='NO'
 for f in ${NGINX_SNIPPET_CONF} ${NGINX_SNIPPET_CONF2} ${NGINX_SNIPPET_CONF3}; do
@@ -504,6 +513,7 @@ if [ X"${USE_SYSTEMD}" == X'YES' ]; then
         cp -f ${NEW_IRA_ROOT_DIR}/rc_scripts/systemd/debian.service ${SYSTEMD_SERVICE_DIR}/iredadmin.service
         perl -pi -e 's#/opt/www#$ENV{HTTPD_SERVERROOT}#g' ${SYSTEMD_SERVICE_DIR}/iredadmin.service
     fi
+
     chmod -R 0644 ${SYSTEMD_SERVICE_DIR}/iredadmin.service
     systemctl daemon-reload &>/dev/null
 else
