@@ -103,8 +103,10 @@ def csrf_token():
 def hook_lang():
     web.ctx.lang = web.input(lang=None, _method="GET").lang or session.get('lang', 'en_US')
 
+
 # Initialize object which used to stored all translations.
 all_translations = {'en_US': gettext.NullTranslations()}
+
 
 # Translations
 def ired_gettext(string):
@@ -124,7 +126,7 @@ def ired_gettext(string):
         except:
             translation = all_translations['en_US']
 
-    return translation.ugettext(string)
+    return translation.gettext(string)
 
 
 # Define template render.
@@ -201,6 +203,7 @@ def log_error(*args):
             print(web.safestr(s), file=sys.stderr)
         except Exception as e:
             print(e, file=sys.stderr)
+
 
 # Load hooks
 app.add_processor(web.loadhook(hook_lang))

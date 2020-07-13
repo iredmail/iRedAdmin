@@ -4,12 +4,15 @@
 from os import urandom, getloadavg
 import re
 import time
-import urllib.request, urllib.error, urllib.parse
+import urllib.request
+import urllib.error
+import urllib.parse
 import socket
 from base64 import b64encode, b64decode
 from xml.dom.minidom import parseString as parseXMLString
 import random
 import subprocess
+from hashlib import sha512
 import web
 import settings
 from libs import md5crypt
@@ -35,8 +38,8 @@ sqlUnixTimestamp = web.sqlliteral('UNIX_TIMESTAMP()')
 ##############
 # Validators
 #
-INVALID_EMAIL_CHARS = '~!#$%^&*()\\/\ '
-INVALID_DOMAIN_CHARS = '~!#$%^&*()+\\/\ '
+INVALID_EMAIL_CHARS = '~!#$%^&*()\\/ '
+INVALID_DOMAIN_CHARS = '~!#$%^&*()+\\/ '
 
 
 def is_email(s):
@@ -341,9 +344,9 @@ def verify_md5_password(challenge_password, plain_password):
     elif challenge_password.startswith('{CRYPT}') or challenge_password.startswith('{crypt}'):
         challenge_password = challenge_password[7:]
 
-    if not (challenge_password.startswith('$') and
-            len(challenge_password) == 34 and
-            challenge_password.count('$') == 3):
+    if not (challenge_password.startswith('$')
+            and len(challenge_password) == 34
+            and challenge_password.count('$') == 3):
         return False
 
     # Get salt from hashed string
@@ -416,16 +419,17 @@ def verify_ssha_password(challenge_password, plain_password):
     except:
         return False
 
+
 def generate_sha512_password(p):
     """Generate SHA512 password with prefix '{SHA512}'."""
     p = str(p).strip()
-    try:
-        from hashlib import sha512
-        pw = sha512(p)
-        return '{SHA512}' + b64encode(pw.digest())
-    except ImportError:
-        # Use SSHA password instead if python is older than 2.5.
-        return generate_ssha_password(p)
+
+    if isinstance(p, str):
+        p = p.encode()
+
+    pw = sha512(p)
+    return '{SHA512}' + b64encode(pw.digest())
+
 
 def verify_sha512_password(challenge_password, plain_password):
     """Verify SHA512 password with or without prefix '{SHA512}'.
@@ -441,7 +445,9 @@ def verify_sha512_password(challenge_password, plain_password):
         challenge_bytes = b64decode(challenge_password)
         digest = challenge_bytes[:64]
 
-        from hashlib import sha512
+        if isinstance(plain_password, str):
+            plain_password = plain_password.encode()
+
         hr = sha512(plain_password)
 
         return digest == hr.digest()
@@ -452,15 +458,14 @@ def generate_ssha512_password(p):
     """Generate salted SHA512 password with prefix '{SSHA512}'.
     Return salted SHA hash if python is older than 2.5 (module hashlib)."""
     p = str(p).strip()
-    try:
-        from hashlib import sha512
-        salt = urandom(8)
-        pw = sha512(p)
-        pw.update(salt)
-        return "{SSHA512}" + b64encode(pw.digest() + salt)
-    except ImportError:
-        # Use SSHA password instead if python is older than 2.5.
-        return generate_ssha_password(p)
+    salt = urandom(8)
+
+    if isinstance(p, str):
+        p = p.encode()
+
+    pw = sha512(p)
+    pw.update(salt)
+    return "{SSHA512}" + b64encode(pw.digest() + salt)
 
 
 def verify_ssha512_password(challenge_password, plain_password):
@@ -480,7 +485,9 @@ def verify_ssha512_password(challenge_password, plain_password):
         digest = challenge_bytes[:64]
         salt = challenge_bytes[64:]
 
-        from hashlib import sha512
+        if isinstance(plain_password, str):
+            plain_password = plain_password.encode()
+
         hr = sha512(plain_password)
         hr.update(salt)
 
