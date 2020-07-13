@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # Author: Zhang Huangbin <zhb@iredmail.org>
 # Purpose: Migrate Cluebringer white/blacklist to Amavisd database.
@@ -112,8 +112,8 @@ if bl:
 else:
     logger.info('No blacklists found.')
 
-confirm = raw_input('Migrate converted white/blacklists to Amavisd database right now? [y|N]')
-if not confirm in ['y', 'Y', 'yes', 'YES']:
+confirm = input('Migrate converted white/blacklists to Amavisd database right now? [y|N]')
+if confirm not in ['y', 'Y', 'yes', 'YES']:
     logger.info('Exit without migrating to Amavisd database.')
     sys.exit()
 
@@ -127,12 +127,12 @@ try:
                   flush_before_import=False)
 
     logger.info("Don't forget to enable iRedAPD plugin 'amavisd_wblist' in /opt/iredapd/settings.py.")
-except Exception, e:
+except Exception as e:
     logger.info(str(e))
 
 # Ask to delete wblist in cluebringer
-confirm = raw_input('Delete all white/blacklists stored in Cluebringer database? [y|N]')
-if not confirm in ['y', 'Y', 'yes', 'YES']:
+confirm = input('Delete all white/blacklists stored in Cluebringer database? [y|N]')
+if confirm not in ['y', 'Y', 'yes', 'YES']:
     logger.info('Exit without deleting Cluebringer white/blacklists.')
     sys.exit()
 

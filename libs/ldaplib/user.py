@@ -44,7 +44,7 @@ class User(core.LDAPWrap):
             return (False, 'NO_SUCH_OBJECT')
         except ldap.SIZELIMIT_EXCEEDED:
             return (False, 'EXCEEDED_LDAP_SERVER_SIZELIMIT')
-        except Exception, e:
+        except Exception as e:
             return (False, ldaputils.getExceptionDesc(e))
 
     # Get values of user or domain catch-all account.
@@ -86,7 +86,7 @@ class User(core.LDAPWrap):
                 attrs.USER_ATTRS_ALL,
             )
             return (True, self.user_profile)
-        except Exception, e:
+        except Exception as e:
             return (False, ldaputils.getExceptionDesc(e))
 
     @decorators.require_domain_access
@@ -237,7 +237,7 @@ class User(core.LDAPWrap):
             return (True, )
         except ldap.ALREADY_EXISTS:
             return (False, 'ALREADY_EXISTS')
-        except Exception, e:
+        except Exception as e:
             return (False, ldaputils.getExceptionDesc(e))
 
     def getFilterOfDeleteUserFromGroups(self, mail):
@@ -316,7 +316,7 @@ class User(core.LDAPWrap):
                 pass
 
             return (True, )
-        except Exception, e:
+        except Exception as e:
             return (False, ldaputils.getExceptionDesc(e))
 
     # Delete single user.
@@ -378,7 +378,7 @@ class User(core.LDAPWrap):
             # Delete record from SQL database: real-time used quota.
             try:
                 connUtils.deleteAccountFromUsedQuota([self.mail])
-            except Exception, e:
+            except Exception as e:
                 pass
 
             # Log delete action.
@@ -386,7 +386,7 @@ class User(core.LDAPWrap):
                        domain=self.domain,
                        event='delete')
             return (True, )
-        except ldap.LDAPError, e:
+        except ldap.LDAPError as e:
             return (False, ldaputils.getExceptionDesc(e))
 
     # Delete mail users in same domain.
@@ -412,7 +412,7 @@ class User(core.LDAPWrap):
             try:
                 # Delete user object (ldap.SCOPE_BASE).
                 self.deleteSingleUser(mail=self.mail, keep_mailbox_days=keep_mailbox_days)
-            except ldap.LDAPError, e:
+            except ldap.LDAPError as e:
                 result[self.mail] = ldaputils.getExceptionDesc(e)
 
         if result == {}:
@@ -450,7 +450,7 @@ class User(core.LDAPWrap):
                     action=web.safestr(action).strip().lower(),
                     accountTypeInLogger='user',
                 )
-            except ldap.LDAPError, e:
+            except ldap.LDAPError as e:
                 result[self.mail] = str(e)
 
         if result == {}:
@@ -476,7 +476,7 @@ class User(core.LDAPWrap):
             result = domainLib.getDomainAccountSetting(domain=self.domain)
             if result[0] is True:
                 domainAccountSetting = result[1]
-        except Exception, e:
+        except Exception as e:
             pass
 
         mod_attrs = []
@@ -596,7 +596,7 @@ class User(core.LDAPWrap):
             mod_attrs += [(ldap.MOD_REPLACE, 'telephoneNumber', nums)]
 
             # Get accountStatus.
-            if 'accountStatus' in data.keys():
+            if 'accountStatus' in list(data.keys()):
                 accountStatus = 'active'
             else:
                 accountStatus = 'disabled'
@@ -630,5 +630,5 @@ class User(core.LDAPWrap):
         try:
             self.conn.modify_s(self.dn, mod_attrs)
             return (True, )
-        except Exception, e:
+        except Exception as e:
             return (False, ldaputils.getExceptionDesc(e))

@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # Author: Zhang Huangbin <zhb@iredmail.org>
 # Purpose: Remove old records in Amavisd database.
@@ -19,12 +19,12 @@
 #   3: Test this script in command line directly, make sure no errors in output
 #      message.
 #
-#       # python cleanup_amavisd_db.py
+#       # python3 cleanup_amavisd_db.py
 #
 #   4: Setup a daily cron job to execute this script. For example: execute
 #      it daily at 1:30AM.
 #
-#       30  1   *   *   *   python /path/to/cleanup_amavisd_db.py >/dev/null
+#       30  1   *   *   *   python3 /path/to/cleanup_amavisd_db.py >/dev/null
 #
 # That's all.
 
@@ -65,7 +65,7 @@ if settings.backend in ['mysql', 'ldap']:
     logger.info('Enable dirty read for querying without locking SQL tables.')
     try:
         conn.query('SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED')
-    except Exception, e:
+    except Exception as e:
         logger.error('Cannot enable dirty read: %s' % repr(e))
 
 

@@ -24,7 +24,7 @@ class Admin(core.LDAPWrap):
             ldap.SCOPE_BASE,
             attrlist=['preferredLanguage'],
         )
-        if 'preferredLanguage' in lang[0][1].keys():
+        if 'preferredLanguage' in list(lang[0][1].keys()):
             lang = lang[0][1]['preferredLanguage'][0]
         else:
             lang = web.ctx.lang
@@ -47,7 +47,7 @@ class Admin(core.LDAPWrap):
                 attrs,
             )
             return (True, result_admin + result_user)
-        except Exception, e:
+        except Exception as e:
             return (False, ldaputils.getExceptionDesc(e))
 
     # Get admin profile.
@@ -67,7 +67,7 @@ class Admin(core.LDAPWrap):
             return (True, self.admin_profile)
         except ldap.NO_SUCH_OBJECT:
             return (False, 'NO_SUCH_OBJECT')
-        except Exception, e:
+        except Exception as e:
             return (False, ldaputils.getExceptionDesc(e))
 
     # Add new admin.
@@ -111,7 +111,7 @@ class Admin(core.LDAPWrap):
             return (True,)
         except ldap.ALREADY_EXISTS:
             return (False, 'ALREADY_EXISTS')
-        except Exception, e:
+        except Exception as e:
             return (False, ldaputils.getExceptionDesc(e))
 
     # Update admin profile.
@@ -151,7 +151,7 @@ class Admin(core.LDAPWrap):
                                                     default=self.username)
 
             # Get accountStatus.
-            if 'accountStatus' in data.keys():
+            if 'accountStatus' in list(data.keys()):
                 accountStatus = 'active'
             else:
                 accountStatus = 'disabled'
@@ -164,7 +164,7 @@ class Admin(core.LDAPWrap):
                 if session.get('username') == self.mail and \
                    session.get('lang', 'en_US') != lang:
                     session['lang'] = lang
-            except ldap.LDAPError, e:
+            except ldap.LDAPError as e:
                 return (False, ldaputils.getExceptionDesc(e))
 
         elif self.profile_type == 'password':
@@ -227,9 +227,9 @@ class Admin(core.LDAPWrap):
                                                 value='yes',
                                                 action='delete')
                     web.logger(msg="Delete admin: %s." % (self.mail), event='delete')
-                except Exception, e:
+                except Exception as e:
                     result[self.mail] = str(e)
-            except ldap.LDAPError, e:
+            except ldap.LDAPError as e:
                 result[self.mail] = str(e)
 
         if result == {}:
@@ -262,7 +262,7 @@ class Admin(core.LDAPWrap):
                     action=web.safestr(action).strip().lower(),
                     accountTypeInLogger='admin',
                 )
-            except ldap.LDAPError, e:
+            except ldap.LDAPError as e:
                 result[self.mail] = str(e)
 
         if result == {}:

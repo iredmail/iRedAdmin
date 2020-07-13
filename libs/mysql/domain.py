@@ -25,7 +25,7 @@ class Domain(core.MySQLWrap):
                 result = self.conn.select('domain')
 
             return (True, list(result))
-        except Exception, e:
+        except Exception as e:
             return (False, str(e))
 
     def getDomainAdmins(self, domain, mailOnly=False):
@@ -51,7 +51,7 @@ class Domain(core.MySQLWrap):
                 return (True, admins)
             else:
                 return (True, list(qr))
-        except Exception, e:
+        except Exception as e:
             return (False, str(e))
 
     @decorators.require_domain_access
@@ -79,7 +79,7 @@ class Domain(core.MySQLWrap):
                 )
                 quota_count = qr2[0].quota_count or 0
                 return (True, mailbox_count, quota_count)
-            except Exception, e:
+            except Exception as e:
                 return (False, str(e))
         else:
             return (False, 'INVALID_ACCOUNT_TYPE')
@@ -95,7 +95,7 @@ class Domain(core.MySQLWrap):
             )
             result = list(result)
             return (True, result[0].total or 0)
-        except Exception, e:
+        except Exception as e:
             return (False, str(e))
 
     # List all domains under control.
@@ -141,7 +141,7 @@ class Domain(core.MySQLWrap):
                 )
 
                 resultOfRecords = self.conn.query(rawSQLOfRecords)
-            except Exception, e:
+            except Exception as e:
                 return (False, str(e))
         else:
             try:
@@ -153,7 +153,7 @@ class Domain(core.MySQLWrap):
                 )
 
                 resultOfRecords = self.conn.query(rawSQLOfRecords)
-            except Exception, e:
+            except Exception as e:
                 return (False, str(e))
 
         if len(resultOfTotal) == 1:
@@ -225,7 +225,7 @@ class Domain(core.MySQLWrap):
                 web.logger(msg="Delete domain: %s." % (d), domain=d, event='delete',)
 
             return (True,)
-        except Exception, e:
+        except Exception as e:
             return (False, str(e))
 
     @decorators.require_domain_access
@@ -246,7 +246,7 @@ class Domain(core.MySQLWrap):
                 return (True, list(qr)[0])
             else:
                 return (False, 'NO_SUCH_OBJECT')
-        except Exception, e:
+        except Exception as e:
             return (False, str(e))
 
     @decorators.require_domain_access
@@ -291,7 +291,7 @@ class Domain(core.MySQLWrap):
                 return (True, list(qr)[0])
             else:
                 return (False, 'NO_SUCH_OBJECT')
-        except Exception, e:
+        except Exception as e:
             return (False, str(e))
 
     @decorators.require_global_admin
@@ -321,7 +321,7 @@ class Domain(core.MySQLWrap):
                 active='1',
             )
             web.logger(msg="Create domain: %s." % (domain), domain=domain, event='create',)
-        except Exception, e:
+        except Exception as e:
             return (False, str(e))
 
         return (True,)
@@ -343,7 +343,7 @@ class Domain(core.MySQLWrap):
 
             if session.get('domainGlobalAdmin') is True:
                 # Get account status
-                if 'accountStatus' in data.keys():
+                if 'accountStatus' in list(data.keys()):
                     updates['active'] = 1
                 else:
                     updates['active'] = 0
@@ -356,7 +356,7 @@ class Domain(core.MySQLWrap):
                         where='domain=$domain',
                         **updates
                     )
-                except Exception, e:
+                except Exception as e:
                     return (False, str(e))
 
         return (True,)

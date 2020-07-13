@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # Author: Zhang Huangbin <zhb@iredmail.org>
 # Purpose: Remove old records in iRedAdmin SQL database.
@@ -15,12 +15,12 @@
 #   2: Test this script in command line directly, make sure no errors in output
 #      message.
 #
-#       # python cleanup_db.py
+#       python3 cleanup_db.py
 #
 #   3: Setup a daily cron job to execute this script. For example: execute
 #      it daily at 1:30AM.
 #
-#       30  1   *   *   *   python /path/to/cleanup_db.py >/dev/null
+#       30  1   *   *   *   python3 /path/to/cleanup_db.py >/dev/null
 #
 # That's all.
 

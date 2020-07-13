@@ -37,7 +37,7 @@ class Utils(core.LDAPWrap):
                     self.conn.modify_s(dn, [(ldap.MOD_ADD, attr, v)])
                 except (ldap.NO_SUCH_OBJECT, ldap.TYPE_OR_VALUE_EXISTS):
                     pass
-                except Exception, e:
+                except Exception as e:
                     msg += str(e)
         elif action in ['del', 'delete', 'remove', 'disable']:
             #
@@ -70,7 +70,7 @@ class Utils(core.LDAPWrap):
                     self.conn.modify_s(dn, mod_attr)
                 except ldap.NO_SUCH_ATTRIBUTE:
                     pass
-                except Exception, e:
+                except Exception as e:
                     msg += str(e)
             else:
                 # OpenLDAP
@@ -79,7 +79,7 @@ class Utils(core.LDAPWrap):
                         self.conn.modify_s(dn, [(ldap.MOD_DELETE, attr, str(v))])
                     except ldap.NO_SUCH_ATTRIBUTE:
                         pass
-                    except Exception, e:
+                    except Exception as e:
                         msg += str(e)
         else:
             return (False, 'UNKNOWN_ACTION')
@@ -98,7 +98,7 @@ class Utils(core.LDAPWrap):
             return (True,)
         except ldap.UNWILLING_TO_PERFORM:
             return (False, 'INCORRECT_OLDPW')
-        except Exception, e:
+        except Exception as e:
             return (False, ldaputils.getExceptionDesc(e))
 
     # Update value of attribute which must be single value.
@@ -107,7 +107,7 @@ class Utils(core.LDAPWrap):
         try:
             self.conn.modify_s(web.safestr(dn), self.mod_attrs)
             return (True,)
-        except Exception, e:
+        except Exception as e:
             return (False, ldaputils.getExceptionDesc(e))
 
     # Get number of current accounts.
@@ -135,7 +135,7 @@ class Utils(core.LDAPWrap):
                 ['dn', ],
             )
             return (True, len(result))
-        except Exception, e:
+        except Exception as e:
             return (False, ldaputils.getExceptionDesc(e))
 
     # Check whether domain name already exist (domainName, domainAliasName).
@@ -235,7 +235,7 @@ class Utils(core.LDAPWrap):
                 )
 
             return (True,)
-        except ldap.LDAPError, e:
+        except ldap.LDAPError as e:
             return (False, ldaputils.getExceptionDesc(e))
 
     @decorators.require_domain_access
@@ -258,7 +258,7 @@ class Utils(core.LDAPWrap):
             )
 
             return (True,)
-        except Exception, e:
+        except Exception as e:
             return (False, ldaputils.getExceptionDesc(e))
 
     def getSizelimitFromAccountLists(self, accountList, sizelimit=50, curPage=1, domain=None, accountType=None,):
@@ -360,7 +360,7 @@ class Utils(core.LDAPWrap):
             return (False, 'NO_SUCH_OBJECT')
         except ldap.SIZELIMIT_EXCEEDED:
             return (False, 'EXCEEDED_LDAP_SERVER_SIZELIMIT')
-        except Exception, e:
+        except Exception as e:
             return (False, ldaputils.getExceptionDesc(e))
 
     @decorators.require_domain_access
@@ -387,7 +387,7 @@ class Utils(core.LDAPWrap):
             all_domains = result[0][1].get('domainName', []) + result[0][1].get('domainAliasName', [])
             all_domains = [str(d).lower() for d in all_domains if iredutils.is_domain(d)]
             return (True, all_domains)
-        except Exception, e:
+        except Exception as e:
             return (False, ldaputils.getExceptionDesc(e))
 
     def getDnWithKeyword(self, value, accountType='user'):
@@ -442,7 +442,7 @@ class Utils(core.LDAPWrap):
                     domains += qr[1]['domainName']
                 self.managedDomains = domains
             return (True, self.managedDomains)
-        except Exception, e:
+        except Exception as e:
             return (False, ldaputils.getExceptionDesc(e))
 
 
@@ -459,7 +459,7 @@ def deleteAccountFromUsedQuota(accounts):
                 where='username IN $accounts',
             )
             return (True,)
-        except Exception, e:
+        except Exception as e:
             return (False, str(e))
     else:
         return (True,)
@@ -490,8 +490,8 @@ def delete_ldap_tree(dn, conn=None):
             for _dn in dn_without_leaf:
                 try:
                     conn.delete_s(_dn)
-                except Exception, e:
-                    print 1, _dn, e
+                except Exception as e:
+                    print(1, _dn, e)
                     errors[_dn] = repr(e)
 
         for _dn in dn_with_leaf:
@@ -500,7 +500,7 @@ def delete_ldap_tree(dn, conn=None):
         conn.delete_s(dn)
     except ldap.NO_SUCH_OBJECT:
         pass
-    except Exception, e:
+    except Exception as e:
         errors[dn] = repr(e)
 
     if errors:

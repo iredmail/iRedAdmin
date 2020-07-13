@@ -62,7 +62,7 @@ class User(core.MySQLWrap):
             )
 
             return (True, total, list(resultOfRecords))
-        except Exception, e:
+        except Exception as e:
             return (False, str(e))
 
     @decorators.require_domain_access
@@ -99,7 +99,7 @@ class User(core.MySQLWrap):
                 return qr
 
             return (True,)
-        except Exception, e:
+        except Exception as e:
             return (False, str(e))
 
     @decorators.require_domain_access
@@ -136,7 +136,7 @@ class User(core.MySQLWrap):
                 return (True, list(result)[0])
             else:
                 return (False, 'INVALID_MAIL')
-        except Exception, e:
+        except Exception as e:
             return (False, str(e))
 
     @decorators.require_domain_access
@@ -261,7 +261,7 @@ class User(core.MySQLWrap):
 
             web.logger(msg="Create user: %s." % (self.mail), domain=self.domain, event='create',)
             return (True,)
-        except Exception, e:
+        except Exception as e:
             return (False, str(e))
 
     @decorators.require_domain_access
@@ -322,7 +322,7 @@ class User(core.MySQLWrap):
                 session['lang'] = preferred_lang
 
             # Get account status
-            if 'accountStatus' in data.keys():
+            if 'accountStatus' in list(data.keys()):
                 updates['active'] = 1
             else:
                 updates['active'] = 0
@@ -385,5 +385,5 @@ class User(core.MySQLWrap):
                     session['domainGlobalAdmin'] = False
 
             return (True,)
-        except Exception, e:
+        except Exception as e:
             return (False, str(e))

@@ -118,5 +118,5 @@ class Utils(core.PGSQLWrap):
                 return (True, domains)
             else:
                 return (True, list(result))
-        except Exception, e:
+        except Exception as e:
             return (False, str(e))

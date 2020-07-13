@@ -15,9 +15,9 @@ from jinja2 import Environment, FileSystemLoader
 os.environ['PYTHON_EGG_CACHE'] = '/tmp/.iredadmin-eggs'
 os.environ['LC_ALL'] = 'C'
 
-import iredutils
+from . import iredutils
 import settings
-from ireddate import convert_utc_to_timezone
+from .ireddate import convert_utc_to_timezone
 
 # Set debug mode.
 web.config.debug = settings.DEBUG
@@ -94,7 +94,7 @@ web.config._session = session
 
 # Generate CSRF token and store it in session.
 def csrf_token():
-    if 'csrf_token' not in session.keys():
+    if 'csrf_token' not in list(session.keys()):
         session['csrf_token'] = iredutils.generate_random_strings(32)
 
     return session['csrf_token']
@@ -198,9 +198,9 @@ def log_into_sql(msg,
 def log_error(*args):
     for s in args:
         try:
-            print >> sys.stderr, web.safestr(s)
-        except Exception, e:
-            print >> sys.stderr, e
+            print(web.safestr(s), file=sys.stderr)
+        except Exception as e:
+            print(e, file=sys.stderr)
 
 # Load hooks
 app.add_processor(web.loadhook(hook_lang))

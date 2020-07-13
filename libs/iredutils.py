@@ -4,7 +4,7 @@
 from os import urandom, getloadavg
 import re
 import time
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 import socket
 from base64 import b64encode, b64decode
 from xml.dom.minidom import parseString as parseXMLString
@@ -194,7 +194,7 @@ def cut_string(s, length=40):
         else:
             return s
     except UnicodeDecodeError:
-        return unicode(s, 'utf-8', 'replace')
+        return str(s, 'utf-8', 'replace')
     except:
         return s
 
@@ -641,7 +641,7 @@ def getNewVersion(urlOfXML):
 
     try:
         socket.setdefaulttimeout(5)
-        dom = parseXMLString(urllib2.urlopen(urlOfXML).read())
+        dom = parseXMLString(urllib.request.urlopen(urlOfXML).read())
 
         version = dom.documentElement.getElementsByTagName('version')[0].childNodes[0].data
         date = dom.documentElement.getElementsByTagName('date')[0].childNodes[0].data
@@ -651,7 +651,7 @@ def getNewVersion(urlOfXML):
              'date': str(date),
              'url': str(urlOfReleaseNotes)}
         return (True, d)
-    except Exception, e:
+    except Exception as e:
         return (False, str(e))
 
 

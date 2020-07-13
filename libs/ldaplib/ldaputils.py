@@ -95,7 +95,7 @@ def get_ldif_of_attr(attr, value, default='None'):
 
 def getSingleModAttr(attr, value, default='None'):
     # Default value is string 'None', not None (NoneType).
-    if value is not None and value != '' and value != u'':
+    if value is not None and value != '' and value != '':
         mod_attrs = [(ldap.MOD_REPLACE, attr, value.encode('utf-8'))]
     else:
         if default is not None and default != 'None':
@@ -111,7 +111,7 @@ def getExceptionDesc(e, key='msg'):
         try:
             msg = ''
             for k in ['info', 'desc', 'matched', ]:
-                if k in e.args[0].keys():
+                if k in list(e.args[0].keys()):
                     msg += e.args[0][k] + ' '
             return msg
         except:

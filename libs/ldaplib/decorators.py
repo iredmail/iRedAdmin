@@ -42,9 +42,9 @@ def require_domain_access(func):
         if session.get('domainGlobalAdmin') is True:
             return func(*args, **kw)
         else:
-            if 'mail' in kw.keys() and iredutils.is_email(kw.get('mail')):
+            if 'mail' in list(kw.keys()) and iredutils.is_email(kw.get('mail')):
                 domain = web.safestr(kw['mail']).split('@')[-1]
-            elif 'domain' in kw.keys() and iredutils.is_domain(kw.get('domain')):
+            elif 'domain' in list(kw.keys()) and iredutils.is_domain(kw.get('domain')):
                 domain = web.safestr(kw['domain'])
             else:
                 return (False, 'PERMISSION_DENIED')

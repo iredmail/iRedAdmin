@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # Author:   Zhang Huangbin <zhb@iredmail.org>
 # Updated:  2012.07.01
@@ -15,12 +15,12 @@
 #   - Test this script in command line directly, make sure no errors in output
 #     message.
 #
-#       # python /path/to/dump_disclaimer.py /etc/postfix/disclaimer/
+#       python3 /path/to/dump_disclaimer.py /etc/postfix/disclaimer/
 #
 #   - Setup a cron job to execute this script daily. For example: execute
 #     this script at 2:01AM every day.
 #
-#       1  2   *   *   *   python /path/to/dump_disclaimer.py /etc/postfix/disclaimer/
+#       1  2   *   *   *   python3 /path/to/dump_disclaimer.py /etc/postfix/disclaimer/
 #
 # That's all.
 
@@ -68,7 +68,7 @@ def write_disclaimer(text, filename, file_type='txt'):
             f.write('\n---------\n' + text + '\n')
         logger.info("  + %s" % filename)
         f.close()
-    except Exception, e:
+    except Exception as e:
         logger.info('<<< ERROR >>> %s' % str(e))
 
 
@@ -96,7 +96,7 @@ def handle_disclaimer(domain, disclaimer_text):
             # File not exist.
             #logger.info("= %(domain)s -> [SKIP] No disciaimer configured." % vars)
             pass
-        except Exception, e:
+        except Exception as e:
             # Other errors.
             logger.info("<<< ERROR >>> %s: %s." % (domain, str(e)))
 

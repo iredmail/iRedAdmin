@@ -4,7 +4,7 @@ import time
 import ldap
 import web
 from socket import getfqdn
-from urllib import urlencode
+from urllib.parse import urlencode
 import settings
 from libs import __url_latest_ose__, __version_ose__
 from libs import iredutils, languages
@@ -70,7 +70,7 @@ class Login:
             conn.unbind_s()
         except (ldap.INVALID_CREDENTIALS):
             raise web.seeother('/login?msg=vmailadmin_INVALID_CREDENTIALS')
-        except Exception, e:
+        except Exception as e:
             raise web.seeother('/login?msg=%s' % web.safestr(e))
 
         # Check whether it's a mail user
@@ -152,7 +152,7 @@ class Dashboard:
             ifaces = netifaces.interfaces()
             for iface in ifaces:
                 addr = netifaces.ifaddresses(iface)
-                if netifaces.AF_INET in addr.keys():
+                if netifaces.AF_INET in list(addr.keys()):
                     data = addr[netifaces.AF_INET][0]
                     try:
                         netif_data[iface] = {'addr': data['addr'], 'netmask': data['netmask'], }
@@ -185,7 +185,7 @@ class Dashboard:
 
                     # Insert updating date.
                     web.admindb.insert('updatelog', date=curdate,)
-            except Exception, e:
+            except Exception as e:
                 newVersionInfo = (False, str(e))
 
         return web.render(

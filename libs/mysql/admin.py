@@ -30,7 +30,7 @@ class Admin(core.MySQLWrap):
             else:
                 admins = list(result)
             return (True, admins)
-        except Exception, e:
+        except Exception as e:
             return (False, str(e))
 
     def getAllAdmins(self, columns=[]):
@@ -42,7 +42,7 @@ class Admin(core.MySQLWrap):
                 result = self.conn.select('admin')
 
             return (True, list(result))
-        except Exception, e:
+        except Exception as e:
             return (False, str(e))
 
     @decorators.require_global_admin
@@ -97,7 +97,7 @@ class Admin(core.MySQLWrap):
                 """ % (self.sql_limit)
             )
             return (True, {'total': total, 'records': list(admins_records) + list(useradmins_records)})
-        except Exception, e:
+        except Exception as e:
             return (False, str(e))
 
     def getNumberOfManagedAccounts(self, admin=None, accountType='domain', domains=[],):
@@ -196,7 +196,7 @@ class Admin(core.MySQLWrap):
 
             web.logger(msg="Delete admin: %s." % ', '.join(self.mails), event='delete',)
             return (True,)
-        except Exception, e:
+        except Exception as e:
             return (False, str(e))
 
     @decorators.require_global_admin
@@ -224,7 +224,7 @@ class Admin(core.MySQLWrap):
                 return (True, self.domainGlobalAdmin, list(result)[0])
             else:
                 return (False, 'INVALID_MAIL')
-        except Exception, e:
+        except Exception as e:
             return (False, str(e))
 
     @decorators.require_global_admin
@@ -281,7 +281,7 @@ class Admin(core.MySQLWrap):
 
             web.logger(msg="Create admin: %s." % (self.mail), event='create',)
             return (True,)
-        except Exception, e:
+        except Exception as e:
             return (False, str(e))
 
     @decorators.require_login
@@ -316,13 +316,13 @@ class Admin(core.MySQLWrap):
                 if session.get('username') == self.mail and \
                    session.get('lang', 'en_US') != self.preferredLanguage:
                     session['lang'] = self.preferredLanguage
-            except Exception, e:
+            except Exception as e:
                 return (False, str(e))
 
             if session.get('domainGlobalAdmin') is True:
                 # Update account status
                 self.accountStatus = '0'    # Disabled
-                if 'accountStatus' in data.keys():
+                if 'accountStatus' in list(data.keys()):
                     self.accountStatus = '1'    # Active
 
                 try:
@@ -332,7 +332,7 @@ class Admin(core.MySQLWrap):
                         where='username=$username',
                         active=self.accountStatus,
                     )
-                except Exception, e:
+                except Exception as e:
                     return (False, str(e))
 
         elif self.profile_type == 'password':
@@ -363,7 +363,7 @@ class Admin(core.MySQLWrap):
                     password=self.passwd,
                     passwordlastchange=iredutils.get_gmttime(),
                 )
-            except Exception, e:
+            except Exception as e:
                 raise web.seeother('/profile/admin/password/%s?msg=%s' % (self.mail, web.urlquote(e)))
 
         return (True,)

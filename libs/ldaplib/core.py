@@ -77,5 +77,5 @@ class LDAPWrap:
                 attrs,
             )
             return (True, self.domains)
-        except Exception, e:
+        except Exception as e:
             return (False, str(e))

@@ -23,6 +23,7 @@
 #
 #       MY_CNF='/root/.my.cnf-iredadmin' SQL_IREDADMIN_USER='iredadmin' bash upgrade_iredadmin.sh
 
+export LC_ALL='C'
 export IRA_HTTPD_USER='iredadmin'
 export IRA_HTTPD_GROUP='iredadmin'
 
@@ -35,7 +36,6 @@ export CMD_MYSQL="mysql --defaults-file=${MY_CNF} -u ${SQL_IREDADMIN_USER}"
 
 # Check OS to detect some necessary info.
 export KERNEL_NAME="$(uname -s | tr '[a-z]' '[A-Z]')"
-export UWSGI_RC_SCRIPT_NAME='uwsgi'
 
 export NGINX_PID_FILE='/var/run/nginx.pid'
 export NGINX_SNIPPET_CONF='/etc/nginx/templates/iredadmin.tmpl'
@@ -182,7 +182,6 @@ fi
 export IRA_ROOT_DIR="${HTTPD_SERVERROOT}/iredadmin"
 export IRA_CONF_PY="${IRA_ROOT_DIR}/settings.py"
 export IRA_CUSTOM_CONF_PY="${IRA_ROOT_DIR}/custom_settings.py"
-export IRA_CONF_INI="${IRA_ROOT_DIR}/settings.ini"
 
 enable_service() {
     srv="$1"
@@ -232,14 +231,14 @@ restart_web_service()
     export web_service="${HTTPD_RC_SCRIPT_NAME}"
     if [ -f ${NGINX_PID_FILE} ]; then
         if [ -n "$(cat ${NGINX_PID_FILE})" ]; then
-            export web_service="${UWSGI_RC_SCRIPT_NAME}"
+            export web_service="iredadmin"
         fi
     fi
 
     echo "* Restarting ${web_service} service."
     if [ X"${KERNEL_NAME}" == X'LINUX' ]; then
-        # The uwsgi script on CentOS 6 has problem with 'restart'
-        # action, 'stop' with few seconds sleep fixes it.
+        # The uwsgi script on CentOS 6 has problem with 'restart' action,
+        # 'stop' with few seconds sleep fixes it.
         if [ X"${DISTRO}" == X'RHEL' -a X"${web_service}" == X'uwsgi' ]; then
             service ${web_service} stop
             sleep 5
@@ -254,7 +253,7 @@ restart_web_service()
     fi
 
     if [ X"$?" != X'0' ]; then
-        echo "Failed, please restart service ${HTTPD_RC_SCRIPT_NAME} or ${UWSGI_RC_SCRIPT_NAME} (if you're running Nginx as web server) manually."
+        echo "Failed, please restart Apache web server or 'iredadmin' (if you're running Nginx as web server) manually."
     fi
 }
 
@@ -312,7 +311,7 @@ add_missing_parameter()
 has_python_module()
 {
     mod="$1"
-    python -c "import $mod" &>/dev/null
+    ${PYTHON_BIN} -c "import $mod" &>/dev/null
     if [ X"$?" == X'0' ]; then
         echo 'YES'
     else
@@ -381,16 +380,8 @@ fi
 # Copy config file
 if [ -f ${IRA_CONF_PY} ]; then
     echo "* Found iRedAdmin config file: ${IRA_CONF_PY}"
-elif [ -f ${IRA_CONF_INI} ]; then
-    echo "* Found iRedAdmin config file: ${IRA_CONF_INI}"
-    echo "* Convert config file to new file name and format (settings.py)"
-    cp ${IRA_CONF_INI} .
-    bash convert_ini_to_py.sh settings.ini && \
-        rm -f settings.ini && \
-        mv settings.py ${IRA_CONF_PY} && \
-        chmod 0400 ${IRA_CONF_PY}
 else
-    echo "<<< ERROR >>> Cannot find a valid config file (settings.py or settings.ini)."
+    echo "<<< ERROR >>> Cannot find a valid config file (settings.py)."
     exit 255
 fi
 
@@ -471,9 +462,9 @@ done
 
 # Remove 'uwsgi_XXX' from /etc/rc.conf on FreeBSD.
 if [[ X"${DISTRO}" == X'FREEBSD' ]]; then
-    ${SYSRC} -x uwsgi_enable
-    ${SYSRC} -x uwsgi_profiles
-    ${SYSRC} -x uwsgi_iredadmin_flags
+    ${SYSRC} -x uwsgi_enable &>/dev/null
+    ${SYSRC} -x uwsgi_profiles &>/dev/null
+    ${SYSRC} -x uwsgi_iredadmin_flags &>/dev/null
 fi
 
 # Update Nginx template file
@@ -559,7 +550,7 @@ ln -s ${name_new_version} iredadmin
 
 # Delete all sessions to force admins to re-login.
 cd ${NEW_IRA_ROOT_DIR}/tools/
-python delete_sessions.py
+${PYTHON_BIN} delete_sessions.py
 
 # Add missing setting parameters.
 if grep 'amavisd_enable_logging.*True.*' ${IRA_CONF_PY} &>/dev/null; then
@@ -591,6 +582,57 @@ if ! grep '^iredapd_' ${IRA_CONF_PY} &>/dev/null; then
     fi
 fi
 perl -pi -e 's#iredapd_db_server#iredapd_db_host#g' ${IRA_CONF_PY}
+
+if ! grep '^fail2ban_' ${IRA_CONF_PY} &>/dev/null; then
+    # Try to get password of SQL user `fail2ban`.
+    if egrep '^backend.*(mysql|ldap)' ${IRA_CONF_PY} &>/dev/null; then
+        _my_cnf='/root/.my.cnf-fail2ban'
+        if [ -f ${_my_cnf} ]; then
+            _host="$(grep '^host=' ${_my_cnf} | awk -F'host=' '{print $2}' | strip_quotes)"
+            _port="$(grep '^port=' ${_my_cnf} | awk -F'port=' '{print $2}' | strip_quotes)"
+            _user="$(grep '^user=' ${_my_cnf} | awk -F'user=' '{print $2}' | strip_quotes)"
+            _password="$(grep '^password=' ${_my_cnf} | awk -F'password=' '{print $2}' | strip_quotes)"
+
+            [ X"${_host}" == X'' ] && _host='127.0.0.1'
+            [ X"${_port}" == X'' ] && _port='3306'
+        fi
+    elif egrep '^backend.*pgsql' ${IRA_CONF_PY} &>/dev/null; then
+        # Absolute path to ~/.pgpass
+        #   - RHEL:             /var/lib/pgsql/.pgpass
+        #   - Debian/Ubuntu:    /var/lib/postgresql/.pgpass
+        #   - FreeBSD:          /var/db/postgres/.pgpass
+        #   - OpenBSD:          /var/postgresql/.pgpass
+        for dir in \
+            /var/lib/pgsql \
+            /var/lib/postgresql \
+            /var/db/postgres \
+            /var/postgresql; do
+            _pgpass="${dir}/.pgpass"
+            if [ -f ${_pgpass} ]; then
+                if grep ':fail2ban:' ${_pgpass} &>/dev/null; then
+                    _host="127.0.0.1"
+                    _port="5432"
+                    _user="fail2ban"
+                    _password="$(grep ':fail2ban:' ${_pgpass} | awk -F':' '{print $NF}')"
+                    break
+                fi
+            fi
+        done
+    fi
+
+    if [ X"${_host}" != X'' ] && \
+        [ X"${_port}" != X'' ] && \
+        [ X"${_user}" != X'' ] && \
+        [ X"${_password}" != X'' ]; then
+        echo "* Enable Fail2ban SQL integration."
+        add_missing_parameter 'fail2ban_enabled' 'True'
+        add_missing_parameter 'fail2ban_db_host' "${_host}"
+        add_missing_parameter 'fail2ban_db_port' "${_port}"
+        add_missing_parameter 'fail2ban_db_name' "fail2ban"
+        add_missing_parameter 'fail2ban_db_user' "${_user}"
+        add_missing_parameter 'fail2ban_db_password' "${_password}"
+    fi
+fi
 
 # FreeBSD uses /var/run/log for syslog.
 if [ X"${DISTRO}" == X'FREEBSD' ]; then
@@ -789,6 +831,12 @@ fi
 echo "* Clean up."
 cd ${NEW_IRA_ROOT_DIR}/
 rm -f settings.pyc settings.pyo tools/settings.py
+if [[ -f ${NEW_IRA_ROOT_DIR}/libs/form_utils.py ]]; then
+    # Not a trial license.
+    cd ${NEW_IRA_ROOT_DIR}
+    find . -name '*.so' | xargs rm -f {}
+    cd - &>/dev/null
+fi
 
 echo "* iRedAdmin has been successfully upgraded."
 restart_web_service

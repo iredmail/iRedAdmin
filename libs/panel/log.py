@@ -76,7 +76,7 @@ class Log:
             try:
                 db.query('''DELETE FROM log''')
                 return (True,)
-            except Exception, e:
+            except Exception as e:
                 return (False, str(e))
         else:
             self.logIDs = data.get('id', [])
@@ -84,7 +84,7 @@ class Log:
                 try:
                     db.query("""DELETE FROM log WHERE id in %s""" % web.db.sqlquote(self.logIDs))
                     return (True,)
-                except Exception, e:
+                except Exception as e:
                     return (False, str(e))
             else:
                 return (False, 'TYPE_ERROR')

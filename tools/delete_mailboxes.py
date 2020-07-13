@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # Author: Zhang Huangbin <zhb@iredmail.org>
 # Purpose: Delete mailboxes which are scheduled to be removed.
@@ -9,7 +9,7 @@
 #
 # Usage: Either run this script manually, or run it with a daily cron job.
 #
-#   # python delete_mailboxes.py
+#   python3 delete_mailboxes.py
 #
 # Available arguments:
 #
@@ -79,7 +79,7 @@ def delete_record(conn_deleted_mailboxes, rid):
                                       where='id=$id')
 
         return (True, )
-    except Exception, e:
+    except Exception as e:
         return (False, repr(e))
 
 
@@ -101,10 +101,10 @@ def delete_mailbox(conn_deleted_mailboxes,
             if not maildir.endswith('/'):
                 maildir += '/'
 
-            print "Removing: %s" % maildir
+            print("Removing: %s" % maildir)
             for mdir in all_maildirs:
-                print "- startswith:", mdir.startswith(maildir)
-                print "- equal:", mdir == maildir
+                print("- startswith:", mdir.startswith(maildir))
+                print("- equal:", mdir == maildir)
                 if mdir.startswith(maildir) or (mdir == maildir):
                     logger.error("<<< ABORT, CRITICAL >>> Trying to remove mailbox (%s) owned by user (%s), but there is another mailbox (%s) stored under this directory. Aborted." % (maildir, username, mdir))
                     return False
@@ -122,7 +122,7 @@ def delete_mailbox(conn_deleted_mailboxes,
             # Extract timestamp string, make sure it's a valid time format.
             ts = _dir[-19:]
             time.strptime(ts, '%Y.%m.%d.%H.%M.%S')
-        except Exception, e:
+        except Exception as e:
             logger.debug("<<< WARNING >>> Invalid or missing timestamp in maildir path (%s), skip." % maildir)
             logger.debug("<<< WARNING >>> Error message: %s." % repr(e))
             return False
@@ -157,7 +157,7 @@ def delete_mailbox(conn_deleted_mailboxes,
                                           admin='cron_delete_mailboxes',
                                           username=username,
                                           event='delete_mailboxes')
-        except Exception, e:
+        except Exception as e:
             logger.error('<<< ERROR >> while deleting mailbox (%s -> %s): %s' % (username, maildir, repr(e)))
 
     # Delete record.
@@ -175,7 +175,7 @@ try:
     else:
         conn_deleted_mailboxes = ira_tool_lib.get_db_conn('vmail')
         conn_vmail = conn_deleted_mailboxes
-except Exception, e:
+except Exception as e:
     sys.exit('<<< ERROR >>> Cannot connect to SQL database, aborted. Error: %s' % repr(e))
 
 # Get pathes of all maildirs.
@@ -228,7 +228,7 @@ if delete_without_timestamp:
 
         all_maildirs = [str(i.maildir).replace('//', '/') for i in _qr]
 
-    print 'All maildirs:', all_maildirs
+    print('All maildirs:', all_maildirs)
 
 for r in list(qr_mailboxes):
     delete_mailbox(conn_deleted_mailboxes=conn_deleted_mailboxes,

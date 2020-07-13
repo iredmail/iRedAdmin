@@ -46,7 +46,7 @@ class Domain(core.LDAPWrap):
             web.logger(msg="Create domain: %s." % (self.domain), domain=self.domain, event='create',)
         except ldap.ALREADY_EXISTS:
             msg[self.domain] = 'ALREADY_EXISTS'
-        except ldap.LDAPError, e:
+        except ldap.LDAPError as e:
             msg[self.domain] = str(e)
 
         # Add default groups under domain.
@@ -59,7 +59,7 @@ class Domain(core.LDAPWrap):
                     self.conn.add_s(group_dn, group_ldif)
                 except ldap.ALREADY_EXISTS:
                     pass
-                except ldap.LDAPError, e:
+                except ldap.LDAPError as e:
                     msg[i] = str(e)
         else:
             pass
@@ -84,7 +84,7 @@ class Domain(core.LDAPWrap):
                 ['domainAdmin'],
             )
             return self.domainAdmins
-        except Exception, e:
+        except Exception as e:
             return str(e)
 
     # List all domains under control.
@@ -107,7 +107,7 @@ class Domain(core.LDAPWrap):
             return self.dn
 
         if domainAccountSetting is not None:
-            if 'defaultQuota' in domainAccountSetting.keys():
+            if 'defaultQuota' in list(domainAccountSetting.keys()):
                 return int(domainAccountSetting['defaultQuota'])
             else:
                 return 0
@@ -122,7 +122,7 @@ class Domain(core.LDAPWrap):
 
                 settings = ldaputils.getAccountSettingFromLdapQueryResult(result, key='domainName',)
 
-                if 'defaultQuota' in settings[self.domain].keys():
+                if 'defaultQuota' in list(settings[self.domain].keys()):
                     return int(settings[self.domain]['defaultQuota'])
                 else:
                     return 0
@@ -179,7 +179,7 @@ class Domain(core.LDAPWrap):
             try:
                 connUtils.delete_ldap_tree(dn=dn, conn=self.conn)
                 web.logger(msg="Delete domain: %s." % (domain), domain=domain, event='delete',)
-            except ldap.LDAPError, e:
+            except ldap.LDAPError as e:
                 msg[domain] = str(e)
 
         # Delete real-time mailbox quota.
@@ -215,7 +215,7 @@ class Domain(core.LDAPWrap):
                     action=web.safestr(action).strip().lower(),
                     accountTypeInLogger='domain',
                 )
-            except ldap.LDAPError, e:
+            except ldap.LDAPError as e:
                 result[self.domain] = str(e)
 
         if result == {}:
@@ -244,7 +244,7 @@ class Domain(core.LDAPWrap):
                 return (False, 'NO_SUCH_DOMAIN')
         except ldap.NO_SUCH_OBJECT:
             return (False, 'NO_SUCH_OBJECT')
-        except Exception, e:
+        except Exception as e:
             return (False, ldaputils.getExceptionDesc(e))
 
     # Update domain profile.
@@ -268,7 +268,7 @@ class Domain(core.LDAPWrap):
         if session.get('domainGlobalAdmin') is True:
             if self.profile_type == 'general':
                 # Get accountStatus.
-                if 'accountStatus' in data.keys():
+                if 'accountStatus' in list(data.keys()):
                     accountStatus = 'active'
                 else:
                     accountStatus = 'disabled'
@@ -285,7 +285,7 @@ class Domain(core.LDAPWrap):
                        domain=domain,
                        event='update')
             return (True,)
-        except Exception, e:
+        except Exception as e:
             return (False, ldaputils.getExceptionDesc(e))
 
     @decorators.require_domain_access
@@ -304,5 +304,5 @@ class Domain(core.LDAPWrap):
         try:
             allAccountSettings = ldaputils.getAccountSettingFromLdapQueryResult(allDomains, key='domainName')
             return (True, allAccountSettings.get(domain, {}))
-        except Exception, e:
+        except Exception as e:
             return (False, ldaputils.getExceptionDesc(e))

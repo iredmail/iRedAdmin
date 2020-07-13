@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # Author: Zhang Huangbin <zhb@iredmail.org>
 # Purpose: Add existing virtual mail domains (and their alias domains) to
@@ -16,7 +16,7 @@
 #
 #   2: Run this script in command line directly:
 #
-#       # python /path/to/sync_cluebringer_internal_domains.py
+#       python3 /path/to/sync_cluebringer_internal_domains.py
 #
 # That's all.
 
@@ -99,7 +99,7 @@ for domain in all_domains:
     try:
         conn.insert('policy_group_members', **value)
         logger.info('+ %s [OK]' % domain)
-    except Exception, e:
+    except Exception as e:
         # Raised error due to duplicate record:
         #   - MySQL: (1062, xxx)
         #   - PGSQL: 'duplicate key value violates unique constraint ...'

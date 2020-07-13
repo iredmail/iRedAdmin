@@ -57,7 +57,7 @@ def verify_bind_dn_pw(dn,
                 return (True, conn)
         else:
             return (False, 'INVALID_CREDENTIALS')
-    except Exception, e:
+    except Exception as e:
         return (False, ldaputils.getExceptionDesc(e))
 
 

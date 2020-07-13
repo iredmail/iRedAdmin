@@ -1,7 +1,7 @@
 import time
 import re
 from datetime import tzinfo, timedelta, datetime
-from languages import allTimezonesOffsets
+from .languages import allTimezonesOffsets
 from settings import LOCAL_TIMEZONE
 
 __timezone__ = None
@@ -62,14 +62,14 @@ class FixedOffset(tzinfo):
     def dst(self, dt):
         return ZERO
 
-for (tzname, offset) in allTimezonesOffsets.items():
+for (tzname, offset) in list(allTimezonesOffsets.items()):
     __timezones__[tzname] = FixedOffset(offset, tzname)
 
 re_timezone = re.compile(r'GMT\s?([+-]?)(\d+):(\d\d)', re.IGNORECASE)
 
 
 def fix_gmt_timezone(tz):
-    if isinstance(tz, (str, unicode)):
+    if isinstance(tz, str):
         b = re_timezone.match(tz)
         if b:
             sign = b.group(1)
@@ -99,7 +99,7 @@ def timezone(tzname):
     if not tzname:
         return None
 
-    if isinstance(tzname, (str, unicode)):
+    if isinstance(tzname, str):
         # not pytz module imported, so just return None
         tzname = fix_gmt_timezone(tzname)
         tz = __timezones__.get(tzname, None)
@@ -144,7 +144,7 @@ def to_datetime_with_tzinfo(dt, tzinfo=None, format=None):
 
     tz = pick_timezone(tzinfo, __timezone__)
 
-    if isinstance(dt, (str, unicode)):
+    if isinstance(dt, str):
         if not format:
             formats = DEFAULT_DATETIME_INPUT_FORMATS
         else:
@@ -188,8 +188,8 @@ def convert_utc_to_timezone(dt, format='%Y-%m-%d %H:%M:%S'):
 if __name__ == '__main__':
     timestamp = '2011-09-13 20:14:15'
     t = to_datetime_with_tzinfo(timestamp, tzinfo=UTC)
-    print 'Original timestamp (timezone: UTC):', t
-    print 'Local timestamp (timezone: %s): %s' % (
+    print('Original timestamp (timezone: UTC):', t)
+    print('Local timestamp (timezone: %s): %s' % (
         LOCAL_TIMEZONE,
         to_datetime_with_tzinfo(t, tzinfo=LOCAL_TIMEZONE).strftime('%Y-%m-%d %H:%M:%S'),
-    )
+    ))

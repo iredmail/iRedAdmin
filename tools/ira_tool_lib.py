@@ -1,6 +1,6 @@
-"""Library used by other scripts under tools/ directory."""
-
+#!/usr/bin/env python3
 # Author: Zhang Huangbin <zhb@iredmail.org>
+# Purpose: Library used by other scripts under tools/ directory.
 
 import os
 import sys
@@ -38,7 +38,7 @@ logger.setLevel(logging.INFO)
 
 
 def print_error(msg):
-    print '< ERROR > ' + msg
+    print('< ERROR > ' + msg)
 
 
 def get_db_conn(db):
@@ -62,7 +62,7 @@ def get_db_conn(db):
 
         conn.supports_multiple_insert = True
         return conn
-    except Exception, e:
+    except Exception as e:
         print_error(e)
 
 

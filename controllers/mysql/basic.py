@@ -2,7 +2,7 @@
 
 import time
 from socket import getfqdn
-from urllib import urlencode
+from urllib.parse import urlencode
 import web
 import settings
 from libs import __url_latest_ose__, __version_ose__
@@ -87,7 +87,7 @@ class Dashboard:
             ifaces = netifaces.interfaces()
             for iface in ifaces:
                 addr = netifaces.ifaddresses(iface)
-                if netifaces.AF_INET in addr.keys():
+                if netifaces.AF_INET in list(addr.keys()):
                     data = addr[netifaces.AF_INET][0]
                     try:
                         netif_data[iface] = {'addr': data['addr'], 'netmask': data['netmask'], }
@@ -120,7 +120,7 @@ class Dashboard:
 
                     # Insert updating date.
                     web.admindb.insert('updatelog', date=curdate,)
-            except Exception, e:
+            except Exception as e:
                 newVersionInfo = (False, str(e))
 
         return web.render(

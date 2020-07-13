@@ -98,7 +98,7 @@ class PGSQLWrap:
                     where='domain IN $accounts',
                     active=active,
                 )
-            except Exception, e:
+            except Exception as e:
                 return (False, str(e))
         elif accountType == 'user':
             accounts = [str(v) for v in accounts if iredutils.is_email(v)]
@@ -109,7 +109,7 @@ class PGSQLWrap:
                     where='username IN $accounts',
                     active=active,
                 )
-            except Exception, e:
+            except Exception as e:
                 return (False, str(e))
         elif accountType == 'admin':
             accounts = [str(v) for v in accounts if iredutils.is_email(v)]
@@ -120,7 +120,7 @@ class PGSQLWrap:
                     where='username IN $accounts',
                     active=active,
                 )
-            except Exception, e:
+            except Exception as e:
                 return (False, str(e))
         else:
             pass
@@ -150,7 +150,7 @@ class PGSQLWrap:
                     vars={'accounts': accounts, },
                     where='domain IN $accounts',
                 )
-            except Exception, e:
+            except Exception as e:
                 return (False, str(e))
         elif accountType == 'user':
             accounts = [str(v) for v in accounts if iredutils.is_email(v)]
@@ -186,7 +186,7 @@ class PGSQLWrap:
                                  vars=sql_vars,
                                  where='address IN $accounts OR forwarding IN $accounts')
 
-            except Exception, e:
+            except Exception as e:
                 return (False, str(e))
         elif accountType == 'admin':
             accounts = [str(v) for v in accounts if iredutils.is_email(v)]
@@ -196,7 +196,7 @@ class PGSQLWrap:
                     vars={'accounts': accounts, },
                     where='username IN $accounts',
                 )
-            except Exception, e:
+            except Exception as e:
                 return (False, str(e))
         else:
             pass
@@ -303,9 +303,9 @@ class PGSQLDecorators(PGSQLWrap):
 
     def require_domain_access(self, func):
         def proxyfunc(self, *args, **kw):
-            if 'mail' in kw.keys() and iredutils.is_email(kw.get('mail')):
+            if 'mail' in list(kw.keys()) and iredutils.is_email(kw.get('mail')):
                 self.domain = web.safestr(kw['mail']).split('@')[-1]
-            elif 'domain' in kw.keys() and iredutils.is_domain(kw.get('domain')):
+            elif 'domain' in list(kw.keys()) and iredutils.is_domain(kw.get('domain')):
                 self.domain = web.safestr(kw['domain'])
             else:
                 return False

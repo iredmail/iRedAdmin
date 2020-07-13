@@ -1,26 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 # Author: Zhang Huangbin <zhb@iredmail.org>
 # Purpose: Update user passwords from records in a CSV file.
 
-def usage():
-    print """Usage:
-
-    - Store the email address and new password in a plain text file, e.g.
-      'passwords.csv'. format is:
-
-          <email> <new_password>
-
-      Samples:
-
-        user1@domain.com pF4mTq4jaRzDLlWl
-        user2@domain.com SPhkTUlZs1TBxvmJ
-        user3@domain.com 8deNR8IBLycRujDN
-
-   - Run this script with this file:
-
-        # python update_password_with_csv.py passwords.csv
-    """
 
 import os
 import sys
@@ -35,6 +17,26 @@ import settings
 from tools.ira_tool_lib import debug, logger, get_db_conn
 from libs.iredutils import is_email
 from libs.iredutils import generate_password_hash
+
+def usage():
+    print("""Usage:
+
+    - Store the email address and new password in a plain text file, e.g.
+      'passwords.csv'. format is:
+
+          <email> <new_password>
+
+      Samples:
+
+        user1@domain.com pF4mTq4jaRzDLlWl
+        user2@domain.com SPhkTUlZs1TBxvmJ
+        user3@domain.com 8deNR8IBLycRujDN
+
+   - Run this script with this file:
+
+        python3 update_password_with_csv.py passwords.csv
+    """)
+
 
 backend = settings.backend
 logger.info('Backend: %s' % backend)
@@ -67,7 +69,7 @@ if len(sys.argv) == 2:
         if is_email(_email):
             users += [(_email, _pw)]
         else:
-            print '[SKIP] line %d: no valid email address: %s' % (line_num, _line)
+            print('[SKIP] line %d: no valid email address: %s' % (line_num, _line))
     f.close()
 else:
     usage()
@@ -89,8 +91,8 @@ if backend == 'ldap':
         mod_attrs = [(ldap.MOD_REPLACE, 'userPassword', [pw_hash])]
         try:
             conn.modify_s(dn, mod_attrs)
-        except Exception, e:
-            print '<<< ERROR >>>', e
+        except Exception as e:
+            print('<<< ERROR >>>', e)
 elif backend in ['mysql', 'pgsql']:
     conn = get_db_conn('vmail')
     for (_email, _pw) in users:
