@@ -12,7 +12,8 @@ from base64 import b64encode, b64decode
 from xml.dom.minidom import parseString as parseXMLString
 import random
 import subprocess
-from hashlib import sha512
+import hashlib
+
 import web
 import settings
 from libs import md5crypt
@@ -306,11 +307,7 @@ def generate_random_strings(length=10):
 
 
 def generate_bcrypt_password(p):
-    try:
-        import bcrypt
-    except:
-        return generate_ssha_password(p)
-
+    import bcrypt
     return '{CRYPT}' + bcrypt.hashpw(p, bcrypt.gensalt())
 
 
@@ -359,16 +356,12 @@ def verify_md5_password(challenge_password, plain_password):
     else:
         return False
 
-def generate_plain_md5_password(p):
-    p = str(p).strip()
-    try:
-        from hashlib import md5
-        return md5(p).hexdigest()
-    except ImportError:
-        import md5
-        return md5.new(p).hexdigest()
+def generate_plain_md5_password(p) -> str:
+    if isinstance(p, str):
+        p = p.encode()
 
-    return p
+    p = p.strip()
+    return hashlib.md5(p).hexdigest()
 
 
 def verify_plain_md5_password(challenge_password, plain_password):
@@ -381,17 +374,15 @@ def verify_plain_md5_password(challenge_password, plain_password):
     else:
         return False
 
-def generate_ssha_password(p):
-    p = str(p).strip()
+def generate_ssha_password(p) -> str:
+    if isinstance(p, str):
+        p = p.encode()
+
+    p = p.strip()
     salt = urandom(8)
-    try:
-        from hashlib import sha1
-        pw = sha1(p)
-    except ImportError:
-        import sha
-        pw = sha.new(p)
+    pw = hashlib.sha1(p)
     pw.update(salt)
-    return "{SSHA}" + b64encode(pw.digest() + salt)
+    return "{SSHA}" + b64encode(pw.digest() + salt).decode()
 
 
 def verify_ssha_password(challenge_password, plain_password):
@@ -408,14 +399,9 @@ def verify_ssha_password(challenge_password, plain_password):
         challenge_bytes = b64decode(challenge_password)
         digest = challenge_bytes[:20]
         salt = challenge_bytes[20:]
-        try:
-            from hashlib import sha1
-            hr = sha1(plain_password)
-        except ImportError:
-            import sha
-            hr = sha.new(plain_password)
+        hr = hashlib.sha1(plain_password)
         hr.update(salt)
-        return digest == hr.digest()
+        return digest == hr.digest().decode()
     except:
         return False
 
@@ -427,8 +413,8 @@ def generate_sha512_password(p):
     if isinstance(p, str):
         p = p.encode()
 
-    pw = sha512(p)
-    return '{SHA512}' + b64encode(pw.digest())
+    pw = hashlib.sha512(p)
+    return '{SHA512}' + b64encode(pw.digest()).decode()
 
 
 def verify_sha512_password(challenge_password, plain_password):
@@ -448,9 +434,9 @@ def verify_sha512_password(challenge_password, plain_password):
         if isinstance(plain_password, str):
             plain_password = plain_password.encode()
 
-        hr = sha512(plain_password)
+        hr = hashlib.sha512(plain_password)
 
-        return digest == hr.digest()
+        return digest == hr.digest().decode()
     except:
         return False
 
@@ -463,9 +449,9 @@ def generate_ssha512_password(p):
     if isinstance(p, str):
         p = p.encode()
 
-    pw = sha512(p)
+    pw = hashlib.sha512(p)
     pw.update(salt)
-    return "{SSHA512}" + b64encode(pw.digest() + salt)
+    return "{SSHA512}" + b64encode(pw.digest() + salt).decode()
 
 
 def verify_ssha512_password(challenge_password, plain_password):
@@ -480,17 +466,21 @@ def verify_ssha512_password(challenge_password, plain_password):
     if not len(challenge_password) > 64:
         return False
 
+    if isinstance(challenge_password, str):
+        challenge_password = challenge_password.encode()
+
+    if isinstance(plain_password, str):
+        plain_password = plain_password.encode()
+
     try:
         challenge_bytes = b64decode(challenge_password)
         digest = challenge_bytes[:64]
         salt = challenge_bytes[64:]
 
-        if isinstance(plain_password, str):
-            plain_password = plain_password.encode()
-
-        hr = sha512(plain_password)
+        hr = hashlib.sha512(plain_password)
         hr.update(salt)
 
+        # bytes == bytes
         return digest == hr.digest()
     except:
         return False
