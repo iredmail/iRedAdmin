@@ -496,9 +496,7 @@ if [ X"${USE_SYSTEMD}" == X'YES' ]; then
 
     echo "* Copy systemd service file: ${SYSTEMD_SERVICE_DIR}/iredadmin.service."
     if [ X"${DISTRO}" == X'RHEL' ]; then
-        [[ X"${DISTRO_VERSION}" == X'7' ]] && cp -f ${NEW_IRA_ROOT_DIR}/rc_scripts/systemd/rhel.service ${SYSTEMD_SERVICE_DIR}/iredadmin.service
-        [[ X"${DISTRO_VERSION}" == X'8' ]] && cp -f ${NEW_IRA_ROOT_DIR}/rc_scripts/systemd/rhel8.service ${SYSTEMD_SERVICE_DIR}/iredadmin.service
-
+        cp -f ${NEW_IRA_ROOT_DIR}/rc_scripts/systemd/rhel${DISTRO_VERSION}.service ${SYSTEMD_SERVICE_DIR}/iredadmin.service
         perl -pi -e 's#/opt/www#$ENV{HTTPD_SERVERROOT}#g' ${SYSTEMD_SERVICE_DIR}/iredadmin.service
     elif [ X"${DISTRO}" == X'DEBIAN' -o X"${DISTRO}" == X'UBUNTU' ]; then
         cp -f ${NEW_IRA_ROOT_DIR}/rc_scripts/systemd/debian.service ${SYSTEMD_SERVICE_DIR}/iredadmin.service
@@ -508,13 +506,7 @@ if [ X"${USE_SYSTEMD}" == X'YES' ]; then
     chmod -R 0644 ${SYSTEMD_SERVICE_DIR}/iredadmin.service
     systemctl daemon-reload &>/dev/null
 else
-    if [ X"${DISTRO}" == X'RHEL' ]; then
-        cp ${NEW_IRA_ROOT_DIR}/rc_scripts/iredadmin.rhel /etc/init.d/iredadmin
-        perl -pi -e 's#/opt/www#$ENV{HTTPD_SERVERROOT}#g' /etc/init.d/iredadmin
-    elif [ X"${DISTRO}" == X'DEBIAN' -o X"${DISTRO}" == X'UBUNTU' ]; then
-        cp ${NEW_IRA_ROOT_DIR}/rc_scripts/iredadmin.debian /etc/init.d/iredadmin
-        perl -pi -e 's#/opt/www#$ENV{HTTPD_SERVERROOT}#g' /etc/init.d/iredadmin
-    elif [ X"${DISTRO}" == X"FREEBSD" ]; then
+    if [ X"${DISTRO}" == X"FREEBSD" ]; then
         cp ${NEW_IRA_ROOT_DIR}/rc_scripts/iredadmin.freebsd /usr/local/etc/rc.d/iredadmin
         perl -pi -e 's#/opt/www#$ENV{HTTPD_SERVERROOT}#g' /usr/local/etc/rc.d/iredadmin
 
