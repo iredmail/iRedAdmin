@@ -136,10 +136,7 @@ class User(core.LDAPWrap):
             max_passwd_length=domainAccountSetting.get('maxPasswordLength', '0'),
         )
         if result[0] is True:
-            if 'storePasswordInPlainText' in data and settings.STORE_PASSWORD_IN_PLAIN_TEXT:
-                self.passwd = iredutils.generate_password_hash(result[1], pwscheme='PLAIN')
-            else:
-                self.passwd = iredutils.generate_password_hash(result[1])
+            self.passwd = result[1]
         else:
             return result
 
@@ -209,7 +206,7 @@ class User(core.LDAPWrap):
             aliasDomains=self.aliasDomains,
             username=self.username,
             cn=self.cn,
-            passwd=self.passwd,
+            passwd=None,
             quota=self.quota,
             groups=self.groups,
             storageBaseDirectory=self.defaultStorageBaseDirectory,
@@ -233,6 +230,11 @@ class User(core.LDAPWrap):
 
         try:
             self.conn.add_s(ldap.filter.escape_filter_chars(self.dn), ldif)
+            result = connutils.changePasswd(self.dn, cur_passwd=None, newpw=self.passwd)
+            if result[0]:
+                pass
+            else:
+                return result
             web.logger(msg="Create user: %s." % (self.mail), domain=self.domain, event='create')
             return (True, )
         except ldap.ALREADY_EXISTS:
@@ -618,17 +620,18 @@ class User(core.LDAPWrap):
                 max_passwd_length=maxPasswordLength,
             )
             if result[0] is True:
-                if 'storePasswordInPlainText' in data and settings.STORE_PASSWORD_IN_PLAIN_TEXT:
-                    self.passwd = iredutils.generate_password_hash(result[1], pwscheme='PLAIN')
-                else:
-                    self.passwd = iredutils.generate_password_hash(result[1])
-                mod_attrs += [(ldap.MOD_REPLACE, 'userPassword', self.passwd)]
+                # DO NOT MOD ATTRS FOR PASSWD
+                self.passwd = result[1]
                 mod_attrs += [(ldap.MOD_REPLACE, 'shadowLastChange', str(ldaputils.getDaysOfShadowLastChange()))]
             else:
                 return result
 
         try:
             self.conn.modify_s(self.dn, mod_attrs)
-            return (True, )
+            result = connutils.changePasswd(self.dn, cur_passwd=None, newpw=self.passwd)
+            if result[0]:
+                return (True, )
+            else:
+                return result
         except Exception as e:
             return (False, ldaputils.getExceptionDesc(e))
