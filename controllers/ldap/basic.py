@@ -1,39 +1,47 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
-import time
-import ldap
 import web
-from socket import getfqdn
-from urllib.parse import urlencode
 import settings
-from libs import __url_latest_ose__, __version_ose__
-from libs import iredutils, languages
-from libs.ldaplib import auth, decorators, admin as adminlib, ldaputils
 
+from libs import __version__
+from libs import iredutils, sysinfo
+from libs.l10n import TIMEZONES
+from libs.logger import logger, log_activity
+from libs.ldaplib.core import LDAPWrap
+from libs.ldaplib import auth, decorators
+from libs.ldaplib import admin as ldap_lib_admin
+from libs.ldaplib import user as ldap_lib_user
+from libs.ldaplib import general as ldap_lib_general
 
 session = web.config.get('_session')
 
 
 class Login:
     def GET(self):
-        if session.get('logged') is False:
-            i = web.input(_unicode=False)
+        if not session.get('logged'):
+            form = web.input(_unicode=False)
+
+            if not iredutils.is_allowed_admin_login_ip(client_ip=web.ctx.ip):
+                return web.render('error_without_login.html',
+                                  error='NOT_ALLOWED_IP')
 
             # Show login page.
             return web.render('login.html',
-                              languagemaps=languages.get_language_maps(),
+                              languagemaps=iredutils.get_language_maps(),
                               webmaster=session.get('webmaster'),
-                              msg=i.get('msg'))
+                              msg=form.get('msg'))
         else:
-            raise web.seeother('/dashboard')
+            if settings.REDIRECT_TO_DOMAIN_LIST_AFTER_LOGIN:
+                raise web.seeother('/domains')
+            else:
+                raise web.seeother('/dashboard')
 
     def POST(self):
         # Get username, password.
-        i = web.input(_unicode=False)
+        form = web.input(_unicode=False)
 
-        username = web.safestr(i.get('username', '').strip()).lower()
-        password = i.get('password', '').strip()
-        save_pass = web.safestr(i.get('save_pass', 'no').strip())
+        username = web.safestr(form.get('username', '').strip()).lower()
+        password = form.get('password', '').strip()
 
         if not iredutils.is_email(username):
             raise web.seeother('/login?msg=INVALID_USERNAME')
@@ -41,160 +49,140 @@ class Login:
         if not password:
             raise web.seeother('/login?msg=EMPTY_PASSWORD')
 
-        # Get LDAP URI.
-        uri = settings.ldap_uri
+        domain = username.split('@', 1)[-1]
 
-        # Verify bind_dn & bind_pw.
-        try:
-            # Detect STARTTLS support.
-            if uri.startswith('ldaps://'):
-                starttls = True
-            else:
-                starttls = False
+        _wrap = LDAPWrap()
+        conn = _wrap.conn
 
-            # Set necessary option for STARTTLS.
-            if starttls:
-                ldap.set_option(ldap.OPT_X_TLS_REQUIRE_CERT, ldap.OPT_X_TLS_NEVER)
-
-            # Initialize connection.
-            conn = ldap.initialize(uri)
-
-            # Set LDAP protocol version: LDAP v3.
-            conn.set_option(ldap.OPT_PROTOCOL_VERSION, ldap.VERSION3)
-
-            if starttls:
-                conn.set_option(ldap.OPT_X_TLS, ldap.OPT_X_TLS_DEMAND)
-
-            # synchronous bind.
-            conn.bind_s(settings.ldap_bind_dn, settings.ldap_bind_password)
-            conn.unbind_s()
-        except (ldap.INVALID_CREDENTIALS):
-            raise web.seeother('/login?msg=vmailadmin_INVALID_CREDENTIALS')
-        except Exception as e:
-            raise web.seeother('/login?msg=%s' % web.safestr(e))
-
-        # Check whether it's a mail user
-        dn_user = ldaputils.convert_keyword_to_dn(username, accountType='user')
-        qr_user_auth = auth.Auth(uri=uri, dn=dn_user, password=password)
+        # Check whether it's a mail user with admin privilege.
+        qr_user_auth = auth.login_auth(username=username,
+                                       password=password,
+                                       account_type='user',
+                                       conn=conn)
 
         qr_admin_auth = (False, 'INVALID_CREDENTIALS')
         if not qr_user_auth[0]:
             # Verify admin account under 'o=domainAdmins'.
-            dn_admin = ldaputils.convert_keyword_to_dn(username, accountType='admin')
-            qr_admin_auth = auth.Auth(uri=uri, dn=dn_admin, password=password)
+            qr_admin_auth = auth.login_auth(username=username,
+                                            password=password,
+                                            account_type='admin',
+                                            conn=conn)
 
             if not qr_admin_auth[0]:
                 session['failed_times'] += 1
-                web.logger(msg="Login failed.", admin=username, event='login', loglevel='error')
+                logger.warning("Web login failed: client_address={}, username={}".format(web.ctx.ip, username))
+                log_activity(msg="Login failed.", admin=username, event='login', loglevel='error')
                 raise web.seeother('/login?msg=INVALID_CREDENTIALS')
 
-        if qr_admin_auth[0] or qr_user_auth[0]:
-            session['username'] = username
-            session['logged'] = True
+        session['username'] = username
 
-            # Read preferred language from LDAP
-            if qr_admin_auth[0] is True:
-                adminLib = adminlib.Admin()
-                adminProfile = adminLib.profile(username, attributes=['preferredLanguage'])
-                if adminProfile[0] is True:
-                    dn, entry = adminProfile[1][0]
-                    lang = entry.get('preferredLanguage', [settings.default_language])[0]
-                    session['lang'] = lang
+        web.config.session_parameters['cookie_name'] = 'iRedAdmin-Pro'
+        web.config.session_parameters['ignore_expiry'] = False
+        web.config.session_parameters['ignore_change_ip'] = settings.SESSION_IGNORE_CHANGE_IP
 
-            if qr_user_auth[0] is True:
-                session['isMailUser'] = True
+        _attrs = ['preferredLanguage', 'accountSetting', 'disabledService']
+        # Read preferred language from LDAP
+        if qr_admin_auth[0]:
+            logger.info("Admin login success: username={}, client_address={}".format(username, web.ctx.ip))
+            log_activity(msg="Admin login success", event='login')
 
-            web.config.session_parameters['cookie_name'] = 'iRedAdmin-Pro'
-            # Session expire when client ip was changed.
-            web.config.session_parameters['ignore_change_ip'] = False
-            # Don't ignore session expiration.
-            web.config.session_parameters['ignore_expiry'] = False
+            if not session.get('timezone'):
+                # no per-admin time zone set in `login_auth()`
+                timezone = settings.LOCAL_TIMEZONE
+                session['timezone'] = timezone
 
-            if save_pass == 'yes':
-                # Session timeout (in seconds).
-                web.config.session_parameters['timeout'] = 86400    # 24 hours
-            else:
-                # Expire session when browser closed.
-                web.config.session_parameters['timeout'] = 600      # 10 minutes
+        if qr_user_auth[0]:
+            logger.info("Admin login success: username={}, client_address={}".format(username, web.ctx.ip))
+            log_activity(msg="Admin login success", admin=username, event='login')
 
-            web.logger(msg="Login success", event='login',)
+            qr_user_profile = ldap_lib_user.get_profile(mail=username, attributes=_attrs, conn=conn)
+            if qr_user_profile[0]:
+                # Time zone
+                if not session.get('timezone'):
+                    # no per-user time zone set in `login_auth()`
+                    timezone = settings.LOCAL_TIMEZONE
 
-            # Save selected language
-            selected_language = str(i.get('lang', '')).strip()
-            if selected_language != web.ctx.lang and \
-               selected_language in languages.get_language_maps():
-                session['lang'] = selected_language
+                    # Get per-domain time zone
+                    qr = ldap_lib_general.get_domain_account_setting(domain=domain, conn=conn)
+                    if qr[0]:
+                        _das = qr[1]
+                        tz_name = _das.get('timezone')
+                        if tz_name in TIMEZONES:
+                            timezone = TIMEZONES[tz_name]
 
-            raise web.seeother('/dashboard/checknew')
+                    session['timezone'] = timezone
+
+        # Save selected language
+        selected_language = str(form.get('lang', '')).strip()
+        if selected_language != web.ctx.lang and \
+           selected_language in iredutils.get_language_maps():
+            session['lang'] = selected_language
+
+        # Save 'logged' at the end, if above settings are failed, it won't
+        # redirect to other page and loop forever.
+        session["logged"] = True
+
+        if settings.REDIRECT_TO_DOMAIN_LIST_AFTER_LOGIN:
+            raise web.seeother('/domains')
         else:
-            session['failed_times'] += 1
-            web.logger(msg="Login failed.", admin=username, event='login', loglevel='error',)
-            raise web.seeother('/login?msg=%s' % qr_admin_auth[1])
+            raise web.seeother('/dashboard?checknew')
 
 
 class Logout:
-    @decorators.require_login
     def GET(self):
-        session.kill()
+        try:
+            session.kill()
+        except:
+            pass
+
         raise web.seeother('/login')
 
 
 class Dashboard:
-    @decorators.require_login
-    def GET(self, checknew=False):
-        if checknew:
-            checknew = True
-
-        # Get network interface related infomation.
-        netif_data = {}
-        try:
-            import netifaces
-            ifaces = netifaces.interfaces()
-            for iface in ifaces:
-                addr = netifaces.ifaddresses(iface)
-                if netifaces.AF_INET in list(addr.keys()):
-                    data = addr[netifaces.AF_INET][0]
-                    try:
-                        netif_data[iface] = {'addr': data['addr'], 'netmask': data['netmask'], }
-                    except Exception:
-                        pass
-        except Exception:
-            pass
+    @decorators.require_global_admin
+    def GET(self):
+        form = web.input(_unicode=False)
+        _check_new_version = ('checknew' in form)
 
         # Check new version.
-        newVersionInfo = (None, )
-        if session.get('domainGlobalAdmin') is True and checknew is True:
+        if session.get('is_global_admin') and _check_new_version:
+            (_status, _info) = sysinfo.check_new_version()
+            session['new_version_available'] = _status
+            session['new_version'] = _info      # if _status is True
+            session['new_version_check_error'] = _info  # if _status is False
+
+        # Get numbers of domains, users, aliases.
+        num_existing_domains = ldap_lib_admin.num_managed_domains()
+
+        # Get numbers of existing messages and quota bytes.
+        # Set None as default, so that it's easy to detect them in Jinja2 template.
+        total_messages = None
+        total_bytes = None
+        if settings.SHOW_USED_QUOTA:
             try:
-                curdate = time.strftime('%Y-%m-%d')
-                vars = dict(date=curdate)
+                _qr = web.conn_iredadmin.query("""
+                    SELECT
+                    SUM(messages) AS total_messages, \
+                    SUM(bytes) AS total_bytes \
+                    FROM %s
+                    """ % settings.SQL_TBL_USED_QUOTA)
 
-                r = web.admindb.select('updatelog', vars=vars, where='date >= $date',)
-                if len(r) == 0:
-                    urlInfo = {
-                        'v': __version_ose__,
-                        'lang': settings.default_language,
-                        'host': getfqdn(),
-                        'backend': settings.backend,
-                    }
-
-                    url = __url_latest_ose__ + '?' + urlencode(urlInfo)
-                    newVersionInfo = iredutils.getNewVersion(url)
-
-                    # Always remove all old records, just keep the last one.
-                    web.admindb.delete('updatelog', vars=vars, where='date < $date',)
-
-                    # Insert updating date.
-                    web.admindb.insert('updatelog', date=curdate,)
-            except Exception as e:
-                newVersionInfo = (False, str(e))
+                if _qr:
+                    _row = _qr[0]
+                    total_messages = _row.total_messages
+                    total_bytes = _row.total_bytes
+            except:
+                pass
 
         return web.render(
             'dashboard.html',
-            version=__version_ose__,
-            iredmail_version=iredutils.get_iredmail_version(),
-            hostname=getfqdn(),
-            uptime=iredutils.get_server_uptime(),
-            loadavg=iredutils.get_system_load_average(),
-            netif_data=netif_data,
-            newVersionInfo=newVersionInfo,
+            version=__version__,
+            iredmail_version=sysinfo.get_iredmail_version(),
+            hostname=sysinfo.get_hostname(),
+            uptime=sysinfo.get_server_uptime(),
+            loadavg=sysinfo.get_system_load_average(),
+            netif_data=sysinfo.get_nic_info(),
+            num_existing_domains=num_existing_domains,
+            total_messages=total_messages,
+            total_bytes=total_bytes,
         )

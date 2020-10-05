@@ -1,60 +1,73 @@
 {% extends "layout.html" %}
 
+{% from "macros/form_inputs.html" import
+    input_submit,
+    input_csrf_token
+    with context
+    %}
+
 {% from "macros/general.html" import
         display_subnav,
-        display_csrf_token,
         display_input_cn,
         display_preferred_language,
+        display_timezones,
         display_quota,
         display_input_employeeid,
-        display_input_jobtitle,
         display_input_mobile,
-        display_input_phone,
+        display_phone_numbers,
         display_account_status,
-        display_mark_user_as_admin,
         display_reset_password,
         display_random_password,
-        display_button_submit,
+        display_mark_user_as_admin
         with context
         %}
 
-{% from "macros/msgHandlers.html" import userMsgHandler with context %}
+{% from "macros/ldap.html" import
+        display_job_titles,
+        with context
+        %}
+
+{% from "macros/msg_handlers.html" import warning_info, user_msg_handler with context %}
 
 {% block title %}{{ _('Edit account profile') }}{% endblock %}
-{% block navlinks_active_domains %}class="active"{% endblock %}
+{% block navlinks_domains %}class="active"{% endblock %}
 
 {# User profile. #}
-
-{% set user = user_profile[0] %}
-{% set entries = user[1] %}
-
-{% set mail = entries.get('mail')[0] |e %}
-{% set cn = entries.get('cn', [ mail.split('@')[0] ])[0].decode('utf-8') |e %}
+{% set mail = user_profile.get('mail')[0] |e %}
+{% set cn = user_profile.get('cn', [ mail.split('@')[0] ])[0] |e %}
 {% set username, cur_domain = mail.split('@', 1) %}
-{% set employeeNumber = entries.get('employeeNumber', [''])[0].decode('utf-8') |e %}
-{% set accountStatus = entries.get('accountStatus', ['disabled'])[0] |e %}
+{% set employeeNumber = user_profile.get('employeeNumber', [''])[0] |e %}
+{% set accountStatus = user_profile.get('accountStatus', ['disabled'])[0] |e %}
 
-{# Get enabledService #}
-{% if profile_type in ['general', 'forwarding', 'aliases', 'advanced',] %}
-    {% set enabledService = entries.get('enabledService', ['']) %}
-{% endif %}
+{# Disabled user profiles #}
+{% set disabled_user_profiles = domainAccountSetting.get('disabledUserProfile', []) %}
 
 {% if profile_type == 'general' %}
-    {% set jobtitle = entries.get('title', [''])[0].decode('utf-8') |e %}
-    {% set mobile = entries.get('mobile', [''])[0] |e %}
-    {% set telephoneNumber = entries.get('telephoneNumber', []) %}
-    {% set mailQuota = '%d' % (entries.get('mailQuota', [0])[0] |int /1024/1024) %}
+    {% set first_name = user_profile.get('givenName', [''])[0] |e %}
+    {% set last_name = user_profile.get('sn', [''])[0] |e %}
+    {% set jobtitles = user_profile.get('title', []) %}
+    {% set mobile = user_profile.get('mobile', [''])[0] |e %}
+    {% set telephoneNumber = user_profile.get('telephoneNumber', []) %}
+    {% set mailQuota = '%d' % (user_profile.get('mailQuota', [0])[0] |int /1024/1024) %}
+    {% set stored_mailbox_size = accountUsedQuota.get(mail, {}).get('bytes', 0) %}
+    {% set stored_mailbox_messages = accountUsedQuota.get(mail, {}).get('messages', 0) %}
 
-    {% set first_name = entries.get('givenName', [''])[0].decode('utf-8') |e %}
-    {% set last_name = entries.get('sn', [''])[0].decode('utf-8') |e %}
+{% elif profile_type == 'password' %}
+    {% set shadowLastChange = user_profile.get('shadowLastChange', [''])[0] |e %}
+    {% if shadowLastChange %}
+        {% set password_last_change_date = shadowLastChange | epoch_days_to_date | utc_to_timezone(timezone=session.get('timezone')) %}
+    {% else %}
+        {% set password_last_change_date = '' %}
+    {% endif %}
+
 {% endif %}
 
 {% block breadcrumb %}
     {% set crumbs = [
-            (ctx.homepath + '/domains', _('All domains'),),
-            (ctx.homepath + '/profile/domain/general/' + cur_domain, cur_domain,),
-            (ctx.homepath + '/users/' + cur_domain, _('Users'),),
-            ('active', ctx.homepath + '/profile/user/general/' + mail, _('Profile of user:') + ' ' + mail,),
+            (ctx.homepath + '/domains', _('All domains')),
+            (ctx.homepath + '/profile/domain/general/' + cur_domain, cur_domain),
+            (ctx.homepath + '/users/' + cur_domain, _('Users')),
+            ('active', ctx.homepath + '/profile/user/general/' + mail, _('Profile of user:') + ' ' + mail),
             ]
             %}
     {{ display_subnav(crumbs) }}
@@ -63,13 +76,22 @@
 {% block main %}
 
 {#-- Show system message --#}
-{{ userMsgHandler(msg) }}
+{% if msg %}
+    {% if msg.startswith('PW_') %}
+        {% set _pw_errors = msg.split(',') %}
+        {% for _err in _pw_errors %}
+            {{ user_msg_handler(_err) }}
+        {% endfor %}
+    {% else %}
+        {{ user_msg_handler(msg) }}
+    {% endif %}
+{% endif %}
 
 {% set navlinks = [
-            ('general', _('General'), [true,]),
-            ('password', _('Password'), [true,]),
-            ]
-            %}
+        ('general', _('General'), [true]),
+        ('password', _('Password'), [true]),
+    ]
+    %}
 
     <div class="content-box">
         <div class="box-body">
@@ -81,69 +103,122 @@
                         {% endif %}
                     {% endfor %}
                 </ul>
-
                 <h2>{{ _('Profile of user:') }} {{ mail }}</h2>
             </div>
 
             <div class="box-wrap clear">
-            
-<form name="{{profile_type}}" method="post" action="{{ctx.homepath}}/profile/user/{{profile_type}}/{{mail}}">
-    {{ display_csrf_token() }}
+
+{% if profile_type == 'spampolicy' %}
+    {% set form_post_url = ctx.homepath + '/system/' + profile_type + '/' + mail %}
+{% else %}
+    {% set form_post_url = ctx.homepath + '/profile/user/' + profile_type + '/' + mail %}
+{% endif %}
+
+
+<form name="{{profile_type}}" method="post" action="{{ form_post_url }}">
+    {{ input_csrf_token() }}
 
     {% if profile_type == 'general' %}
         <div class="columns clear">
             <div class="col2-3">
                 {{ display_account_status(accountStatus) }}
 
-                {# Domain admin and global admin #}
-                {{ display_mark_user_as_admin(
-                        is_domain_admin='domainadmin' in enabledService,
-                        is_global_admin=entries.get('domainGlobalAdmin', ['no'])[0],
-                ) }}
-
                 <div class="bt-space10"></div>
-                {{ display_input_cn(cn,
+                {{ display_quota(value=mailQuota,
+                                 show_value_in_input=true,
+                                 used_quota=stored_mailbox_size,
+                                 stored_messages=stored_mailbox_messages,
+                                 show_used_quota=true) }}
+
+                {{ display_input_cn(value=cn,
                                     tooltip=_('Full name'),
                                     show_first_last_name=true,
                                     first_name=first_name,
-                                    last_name=last_name) }}
-                {{ display_preferred_language(value=entries.get('preferredLanguage', ['en_US'])[0], languagemaps=languagemaps) }}
-                {{ display_quota(value=mailQuota, show_value_in_input=true) }}
+                                    last_name=last_name,
+                                    email=mail,
+                                    empty_if_equal_to_username=true) }}
 
                 <div class="bt-space10"></div>
+
+                {{ display_preferred_language(value=user_profile.get('preferredLanguage', [''])[0], languagemaps=languagemaps) }}
+                {{ display_timezones(value=user_account_setting.get('timezone'), timezones=timezones) }}
+            </div>
+
+            <div class="col1-3 lastcol">
+                {% if _login_time or _lda %}
+                    <div class="mark_blue bt-space10">
+                        <ul class="standard clean-padding bt-space10">
+                            {% if _imap %}
+                                <li class="bt-space5">{{ _('IMAP Login:') }} {{ _imap | epoch_seconds_to_gmt | utc_to_timezone(timezone=session.get('timezone')) }}</li>
+                            {% endif %}
+                            {% if _pop3 %}
+                                <li class="bt-space5">{{ _('POP3 Login:') }} {{ _pop3 | epoch_seconds_to_gmt | utc_to_timezone(timezone=session.get('timezone')) }}</li>
+                            {% endif %}
+                            {% if _lda %}
+                                <li class="bt-space5">{{ _('New Mail Delivered:') }} {{ _lda | epoch_seconds_to_gmt | utc_to_timezone(timezone=session.get('timezone')) }}</li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="columns clear">
+            <div class="col2-3">
+                <div class="bt-space10"></div>
                 {{ display_input_employeeid(employeeNumber) }}
-                {{ display_input_jobtitle(jobtitle) }}
+                {{ display_job_titles(jobtitles) }}
 
                 <div class="bt-space10"></div>
                 {{ display_input_mobile(value=mobile) }}
-                {{ display_input_phone(value=telephoneNumber) }}
+                {{ display_phone_numbers(phone_numbers=telephoneNumber) }}
             </div>{#-- .col2-3 --#}
+
         </div>{#-- .columns --#}
+
+        <div class="rule"></div>
+        <div class="columns clear">
+            <div class="col2-3">
+                {{ display_mark_user_as_admin(is_global_admin=user_profile.get('domainGlobalAdmin', ['no'])[0]) }}
+            </div>
+
+            {% if session.get('is_global_admin') %}
+            <div class="col1-3 lastcol normal_admin_options">
+                <div class="mark_blue bt-space10">
+                    <p>{{ _('All domains managed by this admin share the mailbox quota and limit of mail accounts.') }}</p>
+                </div>
+            </div>{# .col1-3 #}
+            {% endif %}
+        </div>
+
     {% elif profile_type == 'password' %}
         <div class="columns clear">
             <div class="col3-4">
-                {# Password length #}
-                {% set minPasswordLength = domainAccountSetting.get('minPasswordLength', '0') %}
-                {% set maxPasswordLength = domainAccountSetting.get('maxPasswordLength', '0') %}
-
-                {{ display_reset_password(
-                        min_passwd_length=minPasswordLength,
-                        max_passwd_length=maxPasswordLength,
-                        show_confirmpw=true,
-                        store_in_plain=true,
-                        )
-                }}
+                {{ display_reset_password(min_passwd_length=min_passwd_length,
+                                          max_passwd_length=max_passwd_length,
+                                          show_confirmpw=true,
+                                          store_password_in_plain_text=store_password_in_plain_text) }}
             </div>
 
             <div class="col1-4 lastcol">
-                {{ display_random_password(maxPasswordLength) }}
+                {{ display_random_password(password_length=min_passwd_length,
+                                           password_policies=password_policies,
+                                           password_last_change_date=password_last_change_date) }}
             </div>
         </div>
     {% endif %}
 
-    {{ display_button_submit() }}
-</div>
-</div>
-</div>
+    {{ input_submit() }}
 </form>
+</div>{# box-wrap #}
+</div>{# box-body #}
+</div>{# content-box #}
 {% endblock main %}
+
+{% block extra_js %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#domain_search').quickfilter('#all_domains tr');
+    });
+</script>
+{% endblock extra_js %}

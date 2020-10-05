@@ -1,21 +1,25 @@
 {% extends "layout.html" %}
 
+{% from "macros/form_inputs.html" import
+    input_csrf_token
+    with context
+    %}
+
 {% from "macros/general.html" import
-        display_csrf_token,
         set_account_status_img,
         highlight_username_in_mail,
         set_admin_type_img,
-        show_pages,
+        show_pages
         with context
         %}
-{% from "macros/msgHandlers.html" import adminMsgHandler with context %}
+{% from "macros/msg_handlers.html" import admin_msg_handler with context %}
 
 {% block title %}{{ _('Domain Admins') }}{% endblock %}
-{% block navlinks_active_admins %}class="active"{% endblock %}
+{% block navlinks_admins %}class="active"{% endblock %}
 
 {% block main %}
 {# Show system message #}
-{{ adminMsgHandler(msg) }}
+{{ admin_msg_handler(msg) }}
 
 {# List admins #}
 
@@ -24,31 +28,29 @@
     <div class="content-box">
         <div class="box-body">
             <div class="box-header clear">
-                {# -- Tabs -- #}
-                <ul class="tabs clear">
-                    <li class="active"><a href="#list_table">{{ _('All admins') }}</a></li>
-                    {% if session.get('domainGlobalAdmin') is sameas true %}
-                        <li><a href="{{ctx.homepath}}/create/admin"><img src="{{ctx.homepath}}/static/{{skin}}/images/ico_add_12.png" class="vcenter" />&nbsp;{{ _('Add admin') }}</a></li>
-                    {% endif %}
-                </ul>
+                {% if session.get('is_global_admin') %}
+                    <ul class="tabs clear">
+                        <li><a href="{{ctx.homepath}}/create/admin"><i class="fa fa-plus"></i>&nbsp;{{ _('Add admin') }}</a></li>
+                    </ul>
+                {% endif %}
 
-                <h2>{{ _('All mail administrators.') }}
+                <h2>{{ _('All admins') }}
                     {% if total is defined and admins|length > 0 %}
-                        ({{ (cur_page-1) * pageSizeLimit + 1 }}-{{ (cur_page-1) * pageSizeLimit + admins|length}}/{{ total }})
+                        ({{ (cur_page-1) * page_size_limit + 1 }}-{{ (cur_page-1) * page_size_limit + admins|length}}/{{ total }})
                     {% endif %}
                 </h2>
             </div>
 
         <form name="admins" id="list_table" method="post" action="{{ctx.homepath}}/admins">
-        {{ display_csrf_token() }}
+        {{ input_csrf_token() }}
 
-        <table class="style1 tablesorter" cellspacing="0">
+        <table class="style1">
         <thead>
         <tr>
             <th class="checkbox"><input type="checkbox" class="checkbox select-all" /></th>
-            <th>{{ _('Display Name') }}</th>
-            <th>{{ _('Mail Address') }}</th>
-            <th>{{ _('Global Admin') }}</th>
+            <th data-sort="string-ins">{{ _('Display Name') }}</th>
+            <th data-sort="string-ins">{{ _('Mail Address') }}</th>
+            <th data-sort="string-ins">{{ _('Global Admin') }}</th>
         </tr>
         </thead>
 
@@ -57,16 +59,23 @@
             {% set entry = admin[1] %}
 
             {% set mail = entry.get('mail')[0] |e %}
-            {% set cn = entry.get('cn', [''])[0].decode('utf-8') |e %}
+            {% set cn = entry.get('cn', [''])[0] |e %}
             {% set accountStatus = entry.get('accountStatus', ['disabled'])[0] |lower |e %}
             {% set domainGlobalAdmin = entry.get('domainGlobalAdmin', ['no'])[0] |e %}
 
             <tr class="{{ accountStatus }}">
-                <td><input type="checkbox" class="checkbox " name="mail" value="{{mail}}" {% if mail == session.get('username') %}disabled{% endif %}/></td>
                 <td>
-                    <a href="{{ctx.homepath}}/profile/{% if 'mailUser' in entry.get('objectClass', []) %}user{% else %}admin{% endif %}/general/{{mail}}"><img src="{{ctx.homepath}}/static/{{skin}}/images/action_edit.png" title="{{ _('Edit account profile') }}" class="fr-space"/></a>
+                    <input type="checkbox"
+                           class="checkbox "
+                           name="mail"
+                           value="{{mail}}"
+                           {% if mail == session.get('username') %}disabled="disabled"{% endif %}
+                           />
+                </td>
+                <td>
+                    <a href="{{ctx.homepath}}/profile/{% if 'mailUser' in entry.get('objectClass', []) %}user{% else %}admin{% endif %}/general/{{mail}}"><i class="fa fa-cog fa-lg fr-space" title="{{ _('Edit account profile') }}"></i></a>
                     {{ set_account_status_img(accountStatus) }}
-                    {{ cn |cut_string }}
+                    <a href="{{ctx.homepath}}/profile/{% if 'mailUser' in entry.get('objectClass', []) %}user{% else %}admin{% endif %}/general/{{mail}}" title="{{ _('Edit account profile') }}">{{ cn |cut_string }}</a>
                 </td>
                 <td>{{ highlight_username_in_mail(mail) }}</td>
                 <td>{{ set_admin_type_img(domainGlobalAdmin) }}</td>
@@ -95,7 +104,3 @@
 {% endif %}
 
 {% endblock main %}
-
-{% block js %}
-    {{ load_jquery(['tablesorter'], nonSortedCols=[0]) }}
-{% endblock js %}

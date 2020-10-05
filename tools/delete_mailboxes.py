@@ -9,7 +9,7 @@
 #
 # Usage: Either run this script manually, or run it with a daily cron job.
 #
-#   python3 delete_mailboxes.py
+#   # python3 delete_mailboxes.py
 #
 # Available arguments:
 #
@@ -47,6 +47,7 @@ os.environ['LC_ALL'] = 'C'
 rootdir = os.path.abspath(os.path.dirname(__file__)) + '/../'
 sys.path.insert(0, rootdir)
 
+from libs import iredutils
 from tools import ira_tool_lib
 import settings
 
@@ -84,7 +85,6 @@ def delete_record(conn_deleted_mailboxes, rid):
 
 
 def delete_mailbox(conn_deleted_mailboxes,
-                   conn_vmail,
                    record,
                    all_maildirs=None):
     rid = record.id
@@ -101,12 +101,9 @@ def delete_mailbox(conn_deleted_mailboxes,
             if not maildir.endswith('/'):
                 maildir += '/'
 
-            print("Removing: %s" % maildir)
             for mdir in all_maildirs:
-                print("- startswith:", mdir.startswith(maildir))
-                print("- equal:", mdir == maildir)
                 if mdir.startswith(maildir) or (mdir == maildir):
-                    logger.error("<<< ABORT, CRITICAL >>> Trying to remove mailbox (%s) owned by user (%s), but there is another mailbox (%s) stored under this directory. Aborted." % (maildir, username, mdir))
+                    logger.error("<<< ABORT, CRITICAL >>> Trying to remove mailbox ({}) owned by user ({}), but there is another mailbox ({}) stored under this directory. Aborted.".format(maildir, username, mdir))
                     return False
     else:
         _dir = maildir.rstrip('/')
@@ -136,19 +133,20 @@ def delete_mailbox(conn_deleted_mailboxes,
         # Get uid/gid of vmail user
         owner = pwd.getpwuid(_dir_uid).pw_name
         if owner != 'vmail':
-            logger.error('<<< ERROR >> Directory is not owned by `vmail` user: uid -> %d, user -> %s.' % (_dir_uid, owner))
+            logger.error('<<< ERROR >> Directory is not owned by `vmail` user: uid -> {}, user -> {}.'.format(_dir_uid, owner))
             return False
 
         try:
-            msg = '[%s] %s.' % (username, maildir)
-            msg += ' Account was deleted at %s.' % (timestamp)
+            msg = '[{}] {}.'.format(username, maildir)
+            msg += ' Account was deleted at {}.'.format(timestamp)
             if delete_date:
-                msg += ' Mailbox was scheduled to be removed on %s.' % (delete_date)
+                msg += ' Mailbox was scheduled to be removed on {}.'.format(delete_date)
             else:
                 msg += ' Mailbox was scheduled to be removed as soon as possible.'
 
             logger.info(msg)
 
+            logger.info("Removing mailbox: {}".format(maildir))
             # Delete mailbox
             shutil.rmtree(maildir)
 
@@ -158,7 +156,7 @@ def delete_mailbox(conn_deleted_mailboxes,
                                           username=username,
                                           event='delete_mailboxes')
         except Exception as e:
-            logger.error('<<< ERROR >> while deleting mailbox (%s -> %s): %s' % (username, maildir, repr(e)))
+            logger.error('<<< ERROR >> while deleting mailbox ({} -> {}): {}'.format(username, maildir, repr(e)))
 
     # Delete record.
     delete_record(conn_deleted_mailboxes=conn_deleted_mailboxes, rid=rid)
@@ -178,17 +176,13 @@ try:
 except Exception as e:
     sys.exit('<<< ERROR >>> Cannot connect to SQL database, aborted. Error: %s' % repr(e))
 
-# Get pathes of all maildirs.
+# Get paths of all maildirs.
 sql_where = 'delete_date <= %s' % web.sqlquote(web.sqlliteral('NOW()'))
 if delete_null_date:
     sql_where = '(delete_date <= %s) OR (delete_date IS NULL)' % web.sqlquote(web.sqlliteral('NOW()'))
 
-qr_mailboxes = conn_deleted_mailboxes.select('deleted_mailboxes',
-                                             where=sql_where)
-
-if qr_mailboxes:
-    logger.info('Delete old mailboxes (%d in total).' % len(qr_mailboxes))
-else:
+qr_mailboxes = conn_deleted_mailboxes.select('deleted_mailboxes', where=sql_where)
+if not qr_mailboxes:
     logger.debug('No mailbox is scheduled to be removed.')
 
     if not delete_null_date:
@@ -218,20 +212,18 @@ if delete_without_timestamp:
                                   "(objectClass=mailUser)",
                                   ['homeDirectory'])
         for (_dn, _ldif) in _qr:
+            _ldif = iredutils.bytes2str(_ldif)
             if 'homeDirectory' in _ldif:
                 _dir = _ldif['homeDirectory'][0].lower().replace('//', '/')
                 all_maildirs.append(_dir)
     elif settings.backend in ['mysql', 'pgsql']:
         # WARNING: always append '/' in returned maildir path.
-        _qr = conn_vmail('mailbox',
-                         what='LOWER(CONCAT(storagebasedirectory, '/', storagenode, '/', maildir, '/')) AS maildir')
+        _qr = conn_vmail.select('mailbox',
+                                what="LOWER(CONCAT(storagebasedirectory, '/', storagenode, '/', maildir, '/')) AS maildir")
 
         all_maildirs = [str(i.maildir).replace('//', '/') for i in _qr]
 
-    print('All maildirs:', all_maildirs)
-
 for r in list(qr_mailboxes):
     delete_mailbox(conn_deleted_mailboxes=conn_deleted_mailboxes,
-                   conn_vmail=conn_vmail,
                    record=r,
                    all_maildirs=all_maildirs)

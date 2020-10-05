@@ -1,123 +1,31 @@
-{% macro display_all_domains(managedDomains=[], allDomains=[]) -%}
-<div class="columns clear">
-    <div class="col2-3">
-        <div class="form-field clear">
-            <h4 class="size-250 fl-space">{{ _('Managed Domains') }}</h4>
-            <div class="checklist clear">
-                <fieldset>
-                    {% for domain in allDomains %}
-                        {% set domainName = domain[1].get('domainName')[0] %}
-                        <div class="checklist-item">
-                            <span class="fl-space">
-                                <input type="checkbox" name="domainName" value="{{ domainName |e }}" {% if domainName in managedDomains %}checked{%endif%} />
-                            </span>
-                            <label>
-                                {% if domain[1].has_key('cn') %}
-                                    {{ _("%s (%s)") |format(domainName |e, domain[1].get('cn')[0].decode('utf-8') |e) }}
-                                {% else %}
-                                    {{ domainName |e }}
-                                {% endif %}
-                            </label>
-                        </div>
-                        <div class="clear"></div>
-                    {% endfor %}
-                </fieldset>
-            </div>
-        </div>
-    </div>{#-- .col2-3 --#}
+{% from "macros/form_inputs.html" import
+    input_text
+    with context
+    %}
 
-    <div class="col1-3 lastcol">
-        <div class="mark_blue bt-space10">
-            <ul class="standard clean-padding bt-space10">
-                <li class="bt-space5"><a href="{{ctx.homepath}}/create/domain" class="action_add">{{ _('Add domain') }}</a></li>
-            </ul>
-        </div>
-    </div>
-</div>{#-- .columns --#}
-{%- endmacro %}
+{% macro display_job_titles(values=None) -%}
+    {% if not values %}
+        {{ input_text(label=_('Job Title'),
+                      input_name='title',
+                      value='') }}
+    {% else %}
+        {% for value in values |sort %}
+            {% if loop.first %}
+                {% set label = _('Job Title') %}
+            {% else %}
+                {% set label = '' %}
+            {% endif %}
 
-{% macro display_all_admins(domainAdmins=[], allAdmins=[]) -%}
-    <div class="form-field clear">
-        <h4 class="size-250 fl-space">{{ _('Domain Admins') }}</h4>
-        <div class="checklist clear">
-            <fieldset>
-            {% for (dn, entry) in allAdmins %}
-                {% set mail = entry.get('mail')[0] |e %}
-                <div class="checklist-item">
-                    <span class="fl-space"><input type="checkbox" name="domainAdmin" value="{{ mail }}" {% if mail in domainAdmins %}checked{%endif%} class="checkbox" rel="checkboxhorizont" /></span>
-                    <label>
-                        {{ entry.get('cn')[0].decode('utf-8') }} (<a href="{{ctx.homepath}}/profile/admin/general/{{ mail }}" target="_blank">{{ mail }}</a>{% if 'yes' in entry.get('domainGlobalAdmin', []) %}, {{ _('Global Admin') }}{% endif %})
-                    </label>
-                </div>
-                <div class="clear"></div>
-            {% endfor %}
-            </fieldset>
-        </div>
-    </div>
-{%- endmacro %}
-
-{#
-Display enabledService
-    - accountType: domain, admin, user, maillist, alias.
-    - enabledService: list of all enabled services.
-#}
-{% macro display_enabled_services(accountType, enabledService, greylisted=false) -%}
-    {# Set list of available services for different account types.
-        Format:
-            [
-                ('type_of_input', 'value_of_enabledService', 'label'),
-                ...
-            ]
-
-        @type_of_input: value of attribute "type" in HTML <input> tag.
-                        Available: hidden, checkbox.
-                        Note: This is an OPTIONAL.
-    #}
-
-    {% if accountType == 'domain' %}
-        {% set available_services = [
-                ('checkbox', 'domainalias', _('Domain alias')),
-                ('checkbox', 'recipientbcc', _('BCC incoming mails to other address')),
-                ('checkbox', 'senderbcc', _('BCC outgoing mails to other address')),
-                ] %}
-    {% elif accountType == 'user' %}
-        {% set available_services = [
-                ('hidden', 'internal', ''),
-                ('checkbox', 'smtp', _('Sending mails via SMTP')),
-                ('checkbox', 'smtpsecured', _('Sending mails via SMTP over TLS/SSL')),
-                ('checkbox', 'pop3', _('Fetching mails via POP3')),
-                ('checkbox', 'pop3secured', _('Fetching mails via POP3 over TLS/SSL')),
-                ('checkbox', 'imap', _('Fetching mails via IMAP')),
-                ('checkbox', 'imapsecured', _('Fetching mails via IMAP over TLS/SSL')),
-                ('checkbox', 'deliver', _('Receiving mails for this account on mail server')),
-                ('checkbox', 'forward', _('Forwarding mails to other addresses')),
-                ('checkbox', 'shadowaddress', _('Alias account')),
-                ('checkbox', 'managesieve', _('Customize mail filter rule')),
-                ('checkbox', 'managesievesecured', _('Customize mail filter rule over TLS/SSL')),
-                ('checkbox', 'recipientbcc', _('BCC incoming mails to other address')),
-                ('checkbox', 'senderbcc', _('BCC outgoing mails to other address')),
-                ('checkbox', 'displayedInGlobalAddressBook', _('Display mail address in global LDAP address book')),
-                ] %}
-    {% elif accountType == 'alias' %}
-        {% set available_services = [
-                ('checkbox', 'displayedInGlobalAddressBook', _('Display mail address in global LDAP address book')),
-                ] %}
+            {{ input_text(label=label,
+                          input_name='title',
+                          value=value) }}
+        {% endfor %}
     {% endif %}
 
-    <h4 class="size-250 fl-space">{{ _('Enabled Services') }}</h4>
-    <div class="form-checkbox-item clear">
-        <input type="checkbox" name="enabledService" value="mail" {% if 'mail' in enabledService %}checked{%endif%} class="checkbox fl-space" rel="checkboxhorizont" />
-        <label>{{ _('Mail service') }} <span class="grey"><em>({{ _('Check this box in order to enable other services') }})</em></span></label>
+    <div class="form-field clear">
+        <h4 class="size-250 fl-space">&nbsp;</h4>
+        <span class="clean-padding bt-space20">
+            <input type="text" name="title" value="" size="35" class="text" />
+        </span>
     </div>
-
-        {% for srv in available_services %}
-            {% if srv[0] != 'hidden' %}
-                <h4 class="size-250 fl-space">&nbsp;</h4>
-            {% endif %}
-            <div class="form-checkbox-item clear">
-                <input type="{{ srv[0] }}" name="enabledService" value="{{ srv[1] }}" {% if srv[1] in enabledService  or srv[1] |lower in enabledService %}checked{%endif%} class="{{ srv[0] }} fl-space" rel="checkboxhorizont" />
-                <label>{{ srv[2] }}</label>
-            </div>
-        {% endfor %}
 {%- endmacro %}
-

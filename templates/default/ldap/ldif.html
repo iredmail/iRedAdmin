@@ -1,0 +1,10 @@
+<div class="modal modal-600">
+    <h2>LDIF: {{ account }}</h2>
+    <p>
+        {% for (k, v) in ldif.items() |sort %}
+            {% for i in v %}
+                {{ k }}: {{ i }}<br />
+            {% endfor %}
+        {% endfor %}
+    </p>
+</div>

@@ -1,0 +1,246 @@
+{% macro success_info(msg, removable=true, trusted=false) -%}
+<div class="notification note-success">
+        {% if removable is not sameas false %}
+            <a href="#" class="close">Close</a>
+        {% endif %}
+
+        <p><i class="far fa-check-circle fa-lg fa-fw"></i>
+            {% if trusted %}
+                {{ msg }}
+            {% else %}
+                {{ msg |e }}
+            {% endif %}
+        </p>
+    </div>
+{%- endmacro %}
+
+{% macro error_info(msg, removable=false, trusted=false) -%}
+    <div class="notification note-error">
+        {% if removable is not sameas false %}
+            <a href="#" class="close">Close</a>
+        {% endif %}
+
+        <p><i class="fa fa-times-circle fa-lg fa-fw"></i> <strong>{{ _('Error:') }}</strong>
+            {% if trusted %}
+                {{ msg }}
+            {% else %}
+                {{ msg |e }}
+            {% endif %}
+        </p>
+    </div>
+{%- endmacro %}
+
+{% macro warning_info(msg, removable=false, trusted=false) -%}
+    <div class="notification note-attention" class="padding-left: 0px;">
+        {% if removable is not sameas false %}
+            <a href="#" class="close">Close</a>
+        {% endif %}
+
+        <p><i class="fa fa-exclamation-triangle fa-lg fa-fw"></i>
+            {% if trusted %}
+                {{ msg }}
+            {% else %}
+                {{ msg |e }}
+            {% endif %}
+        </p>
+    </div>
+{%- endmacro %}
+
+{% macro general_info(msg, removable=true, trusted=false) -%}
+    <div class="notification note-info">
+        {% if removable is not sameas false %}
+            <a href="#" class="close">Close</a>
+        {% endif %}
+
+        <p><i class="fa fa-info fa-lg fa-fw"></i>
+            {% if trusted %}
+                {{ msg }}
+            {% else %}
+                {{ msg |e }}
+            {% endif %}
+        </p>
+    </div>
+{%- endmacro %}
+
+{% macro login_msg_handler(msg) -%}
+{% if msg is defined and msg is not sameas none and msg|string != '' %}
+    {% set handlers = {
+        'LOGIN_REQUIRED': error_info(_('Login required')),
+        'INVALID_CREDENTIALS': error_info(_('Username or password is incorrect.')),
+        'INVALID_USERNAME': error_info(_('Username must be an valid email address.')),
+        'EMPTY_PASSWORD': error_info(_('Empty password is not allowed.')),
+        'SESSION_EXPIRED': error_info(_('Session expired, please re-login.')),
+        'NOT_ALLOWED_IP': error_info(_('Login from your IP address is not allowed.')),
+    }
+    %}
+
+    {% if msg == 'SERVER_DOWN' %}
+        {{ error_info(_('Server is down. Please contact <a href="mailto:%s">webmaster</a> to solve it.' % webmaster ), trusted=true) }}
+    {% elif msg is sameas false %}
+        {{ error_info( ('Authentication failed.') ) }}
+    {% else %}
+        {% if msg in handlers %}
+            {{ handlers[msg] }}
+        {% else %}
+            {{ error_info( msg ) }}
+        {% endif %}
+    {% endif %}
+{% endif %}
+{%- endmacro %}
+
+{% macro domain_msg_handler(msg=none) -%}
+{% if msg is defined and msg is not sameas none and msg|string != '' %}
+    {% set handlers = {
+        'UPDATED': success_info(_('Profile has been updated.')),
+        'INVALID_ACTION': error_info(_('Invalid action.')),
+        'DELETED': success_info(_('Selected domains have been deleted.')),
+        'DISABLED': success_info(_('Selected domains were disabled.')),
+        'ENABLED': success_info(_('Selected domains were enabled.')),
+        'INVALID_DOMAIN_NAME': error_info(_('Invalid domain name.')),
+        'INVALID_MAIL': error_info(_('Invalid mail address.')),
+        'EMPTY_DOMAIN': error_info(_('Domain name is empty.')),
+        'EXCEEDED_LDAP_SERVER_SIZELIMIT': error_info(_('Server-side size limit exceeded. Please increase "sizelimit" in your LDAP server.')),
+        'ALREADY_EXISTS': error_info(_('Domain already exists. Please check both primary or alias domains.')),
+        'PERMISSION_DENIED': error_info(_('Permission denied.')),
+        'DOMAIN_NAME_MISMATCH': error_info(_('Submited domain name is incorrect.')),
+        'NO_SUCH_ACCOUNT': error_info(_('Account does not exist.')),
+        'NO_DOMAIN_SELECTED': error_info(_('Please select at least one domain.')),
+        'NO_DOMAIN_AVAILABLE': error_info(_('No domain under control.')),
+        'EXCEED_LIMIT_DOMAIN': error_info(_('Already reaches account limit (mail domains).')),
+        'EXCEED_LIMIT_QUOTA': error_info(_('Already reaches account limit (mailbox quota).')),
+        'EXCEED_LIMIT_USERS': error_info(_('Already reaches account limit (mail users).')),
+        'EXCEED_LIMIT_ALIASES': error_info(_('Already reaches account limit (mail aliases).')),
+        'EXCEED_LIMIT_LISTS': error_info(_('Already reaches account limit (mailing lists).')),
+    }
+    %}
+
+    {% if msg == 'CREATED' %}
+        <div class='notification note-success'><a href='#' class='close'></a>
+            <p><i class="far fa-check-circle fa-lg fa-fw"></i>
+                {{ _('Domain created.') }} <a href='{{ctx.homepath}}/create/domain'>{{ _('Add one more?') }}</a> {{ _('Or create other mail accounts:') }} <a href='{{ctx.homepath}}/create/user/{{cur_domain}}'>{{ _('User') }}</a>.
+            </p>
+        </div>
+    {% else %}
+        {% if msg in handlers %}
+            {{ handlers[msg] }}
+        {% else %}
+            {{ error_info(msg) }}
+        {% endif %}
+    {% endif %}
+
+{% endif %}
+{%- endmacro %}
+
+{% macro user_msg_handler(msg) -%}
+{% if msg %}
+    {% set handlers = {
+        'UPDATED': success_info(_('Profile has been updated.')),
+        'UPDATED_FAILED':  error_info( _('Profile updated failed.')),
+        'INVALID_ACTION': error_info(_('Invalid action.')),
+        'NO_DOMAIN_AVAILABLE': general_info( _('No domain under control.') ),
+        'MISSING_DOMAIN_OR_USERNAME': error_info( _('Domain name or username is missed.') ),
+        'INVALID_MAIL': error_info(_('Invalid mail address.')),
+        'INVALID_ACCOUNT': error_info(_('Invalid account.')),
+        'EXCEEDED_DOMAIN_QUOTA_SIZE': error_info(_('Domain quota size exceeded. Please contact your administrator or service provider to increase it.')),
+        'EXCEEDED_DOMAIN_ACCOUNT_LIMIT': error_info(_('Exceeded domain account limit. Please contact your administrator or service provider to increase it.')),
+        'DELETED': success_info( _('Selected accounts were deleted.') ),
+        'DISABLED': success_info( _('Selected accounts were disabled.') ),
+        'ENABLED': success_info( _('Selected accounts were enabled.') ),
+        'MARKASADMIN': success_info( _('Selected accounts were marked as domain admin.') ),
+        'UNMARKASADMIN': success_info( _('Selected accounts were unmarked as domain admin.') ),
+        'MARKASGLOBALADMIN': success_info( _('Selected accounts were marked as global admin.') ),
+        'UNMARKASGLOBALADMIN': success_info( _('Selected accounts were unmarked as global admin.') ),
+        'INCORRECT_OLDPW': error_info( _('Current password is incorrect.') ),
+        'PW_MISMATCH': error_info( _('New passwords are not match.') ),
+        'PW_NON_ASCII': error_info( _('Please do not use non-ascii character in password.') ),
+        'PW_EMPTY': error_info( _('Password is empty.') ),
+        'PW_SHORTER_THAN_MIN_LENGTH': error_info( _('Password is too short.') ),
+        'PW_GREATER_THAN_MAX_LENGTH': error_info( _('Password is too long.') ),
+        'PW_NO_LETTER': error_info( _('No letter in password.') ),
+        'PW_NO_UPPERCASE': error_info( _('No uppercase letter in password.') ),
+        'PW_NO_DIGIT_NUMBER': error_info( _('No digit number in password.') ),
+        'PW_NO_SPECIAL_CHAR': error_info( _('No special character in password.') ),
+        'ALREADY_EXISTS': error_info(_('Account already exists, please choose another one.')),
+        'NO_DOMAIN': error_info(_('No mail domain available.')),
+        'NO_ACCOUNT_SELECTED': error_info(_('Please select at least one account.')),
+        'NOT_ALLOWED': error_info(_('Not allowed to create mail user under this domain.')),
+        'PERMISSION_DENIED': error_info(_("Permission denied.")),
+        'PERMISSION_DENIED_UPDATE_GLOBAL_ADMIN_PROFILE': error_info(_("You are not allowed to update global domain admin's profile.")),
+        'WBLIST_UPDATED': success_info( _('Records were successfully updated.')),
+        'EMAIL_CHANGED': success_info( _('Email address was changed.')),
+        'NO_SUCH_ACCOUNT': error_info(_('Account does not exist.')),
+        }
+    %}
+
+    {% if msg == 'CREATED' %}
+        <div class='notification note-success'><a href='#' class='close'></a>
+            <p><i class="far fa-check-circle fa-lg fa-fw"></i>
+                {{ _('User created.') }} <a href="{{ctx.homepath}}/create/user/{{mail.split('@',1)[-1]}}">{{ _('Add one more?') }}</a>
+            </p>
+        </div>
+    {% else %}
+        {% if msg in handlers %}
+            {{ handlers[msg] }}
+        {% else %}
+            {{ error_info(msg) }}
+        {% endif %}
+    {% endif %}
+{% endif %}
+
+{%- endmacro %}
+
+{% macro admin_msg_handler(msg) -%}
+{% if msg is defined and msg is not sameas none and msg|string != '' %}
+    {% set handlers = {
+        'UPDATED': success_info(_('Profile has been updated.')),
+        'INVALID_ACTION': error_info(_('Invalid action.')),
+        'PERMISSION_DENIED': error_info(_("Permission denied.")),
+        'DELETED': success_info(_('Selected accounts were deleted.')),
+        'DISABLED': success_info(_('Selected accounts were disabled.')),
+        'ENABLED': success_info(_('Selected accounts were enabled.')),
+        'NO_ACCOUNT_SELECTED': error_info(_('No account selected.')),
+        'INCORRECT_OLDPW': error_info(_('Current password is incorrect.')),
+        'INVALID_CREDENTIALS': error_info(_('Current password is incorrect.')),
+        'PW_MISMATCH': error_info(_('New passwords are not match.')),
+        'PW_NON_ASCII': error_info( _('Please do not use non-ascii character in password.') ),
+        'PW_EMPTY': error_info(_('Password is empty.')),
+        'PW_NO_LETTER': error_info( _('No letter in password.') ),
+        'PW_NO_UPPERCASE': error_info( _('No uppercase letter in password.') ),
+        'PW_NO_DIGIT_NUMBER': error_info( _('No digit number in password.') ),
+        'PW_NO_SPECIAL_CHAR': error_info( _('No special character in password.') ),
+        'INVALID_MAIL': error_info(_('Invalid mail address.')),
+        'ALREADY_EXISTS': error_info(_('Account already exists, please choose another one.')),
+        'NO_SUCH_ACCOUNT': error_info(_('Account does not exist.')),
+        'CAN_NOT_BE_LOCAL_DOMAIN': error_info(_('Standalone admin account cannot be an user of local domain.')),
+        }
+    %}
+
+    {% if msg == 'CREATED' %}
+        <div class='notification note-success'><a href='#' class='close'></a>
+            <p><i class="far fa-check-circle fa-lg fa-fw"></i>
+                {{ _('Admin created.') }} <a href="{{ctx.homepath}}/create/admin">{{ _('Add one more?') }}</a>
+            </p>
+        </div>
+    {% elif msg == 'PW_SHORTER_THAN_MIN_LENGTH' %}
+        {{ error_info( _('New password must contain at least %s characters.') |format(min_passwd_length) ) }}
+    {% elif msg == 'PW_GREATER_THAN_MAX_LENGTH' %}
+        {{ error_info( _('New password must NOT contain more than %s characters.') |format(max_passwd_length) ) }}
+    {% else %}
+        {% if msg in handlers %}
+            {{ handlers[msg] }}
+        {% else %}
+            {{ error_info(msg) }}
+        {% endif %}
+    {% endif %}
+{% endif %}
+{%- endmacro %}
+
+{% macro log_msg_handler(msg) -%}
+{% if msg is defined and msg is not sameas none and msg|string != '' %}
+    {% if msg == 'DELETED' %}
+        {{ success_info( _('Selected log records were deleted.') ) }}
+    {% else %}
+        {{ error_info( msg ) }}
+    {% endif %}
+{% endif %}
+{%- endmacro %}

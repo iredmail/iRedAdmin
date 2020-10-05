@@ -1,0 +1,112 @@
+{% extends "layout.html" %}
+
+{% from "macros/form_inputs.html" import
+    input_submit,
+    input_csrf_token,
+    input_text
+    with context
+    %}
+
+{% from "macros/general.html" import
+        display_subnav,
+        set_account_status_img,
+        display_domain_cn,
+        display_preferred_language,
+        display_timezones,
+        display_account_status,
+        display_domain_backupmx,
+        display_domain_quota,
+        with context
+        %}
+
+{% from "macros/msg_handlers.html" import domain_msg_handler with context %}
+
+{% block title %}{{ _('Edit account profile') }}{% endblock %}
+{% block navlinks_domains %}class="active"{% endblock %}
+
+{% block breadcrumb %}
+    {% set crumbs = [
+            (ctx.homepath + '/domains', _('All domains')),
+            ('active', ctx.homepath + '/profile/domain/general/' + cur_domain, _('Profile of domain:') + '&nbsp;' + cur_domain),
+            (ctx.homepath + '/users/' + cur_domain, _('Users')),
+            ]
+            %}
+    {{ display_subnav(crumbs) }}
+{% endblock %}
+
+
+{# Domain profile. #}
+{% block main %}
+
+{# Show system message #}
+{{ domain_msg_handler(msg) }}
+
+{% set navlinks = [
+        ('general', _('General'), [true]),
+        ('advanced', _('Advanced'), [true]),
+        ]
+        %}
+
+<div class="content-box">
+    <div class="box-body">
+
+        {#-- Links --#}
+        <div class="box-header clear">
+            <ul class="tabs clear">
+                {% for nav in navlinks %}
+                    {% if not false in nav[2] and not none in nav[2] %}
+                        <li><a href="#profile_{{ nav[0] }}">{{ nav[1] }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+            <h2>{{ _('Profile of domain:') }} {{ cur_domain }}</h2>
+        </div>{# .box-header #}
+
+        <div class="box-wrap clear">
+            {# profile_type: general #}
+            <div id="profile_general">
+                <form name="general" method="post" action="{{ctx.homepath}}/profile/domain/general/{{cur_domain}}">
+                    {{ input_csrf_token() }}
+
+                    <div class="columns clear">
+                        <div class="col3-4 ">
+                            {{ display_account_status(profile.active, account_type='domain') }}
+                            {{ display_domain_cn(cn=profile.description) }}
+                        </div>{# .col2-3 #}
+                    </div>
+
+                    {{ input_submit() }}
+                </form>
+            </div><!-- . profile_general -->
+
+            {# profile_type: advanced #}
+            <div id="profile_advanced">
+                <form name="advanced" method="post" action="{{ctx.homepath}}/profile/domain/advanced/{{cur_domain}}">
+                    {{ input_csrf_token() }}
+
+                    <div class="columns clear">
+                        <div class="col2-3 ">
+                            {{ display_preferred_language(
+                                    value=domain_settings.get('default_language'),
+                                    languagemaps=languagemaps,
+                                    label=_('Default language for new user')) }}
+                            {{ display_timezones(value=domain_settings.get('timezone'), timezones=timezones) }}
+                        </div>
+                    </div>
+
+                    {{ input_submit() }}
+                </form>
+            </div><!-- #profile_advanced -->
+
+        </div><!-- .box-wrap -->
+    </div><!-- .box-body -->
+</div><!-- .content-box -->
+{% endblock main %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$(document).ready(function() {
+    $(".tabs li").idTabs("profile_{{ profile_type }}")
+});
+</script>
+{% endblock extra_js %}

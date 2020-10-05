@@ -20,5 +20,5 @@ logger = ira_tool_lib.logger
 
 conn = ira_tool_lib.get_db_conn('iredadmin')
 
-logger.info('Delete all existing sessions, admins are forced to re-login to iRedAdmin.')
+logger.info('Delete all existing sessions to force all admins to re-login.')
 conn.query('DELETE FROM sessions')

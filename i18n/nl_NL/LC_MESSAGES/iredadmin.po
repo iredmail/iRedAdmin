@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  iRedAdmin-Pro-\n"
 "Report-Msgid-Bugs-To: lverhoeven@vcn.nl\n"
-"POT-Creation-Date: 2018-02-11 00:44+0800\n"
+"POT-Creation-Date: 2020-09-27 22:43+0800\n"
 "PO-Revision-Date: 2011-06-10 23:46+0800\n"
 "Last-Translator: Luc Verhoeven <lverhoeven@vcn>\n"
 "Language: nl_NL\n"
@@ -19,65 +19,86 @@ msgstr ""
 "Generated-By: Babel 2.3.4\n"
 
 #, python-format
-msgid "%s (%s)"
-msgstr "%s (%s)"
+msgid "%d admin(s) found."
+msgstr "%d admin(s) gevonden"
+
+#, python-format
+msgid "%d domain(s) found."
+msgstr "%d domein(en) gevonden"
+
+#, python-format
+msgid "%d mail alias(es) found."
+msgstr "%d e-mail alias(sen) gevonden"
+
+#, python-format
+msgid "%d mailing list(s) found."
+msgstr ""
+
+#, python-format
+msgid "%d user(s) found."
+msgstr "%d gebruiker(s) gevonden"
+
+#, python-format
+msgid "%s account(s) exist."
+msgstr "Er bestaan %s accounts."
 
 #, python-format
 msgid "%s days, %s hours, %s minutes."
 msgstr "%s dagen, %s uur, %s minuten."
 
-msgid "1 day"
-msgstr ""
-
-msgid "1 year"
-msgstr ""
-
-msgid "2 years"
-msgstr ""
-
-msgid "3 months"
-msgstr ""
-
-msgid "3 years"
-msgstr ""
-
-msgid "6 months"
+#, python-format
+msgid "(%d messages, %s.)"
 msgstr ""
 
 #, python-format
-msgid "<a href='%s'>Domain and sub-domain users</a>"
-msgstr "<a href=\"%s\">Domein en sub-domein gebruikers</a>"
+msgid "(%d%% full, %d messages, %s.)"
+msgstr ""
+
+msgid "Access control"
+msgstr ""
 
 #, python-format
-msgid "<a href='%s'>Domain users</a>"
-msgstr "<a href=\"%s\">Domein gebruikers</a>"
+msgid ""
+"According to our <a href='%s' target='_blank' rel='noopener'>license "
+"terms</a>, you have to purchase a new license to get the latest release "
+"if your license expired."
+msgstr ""
 
-#, python-format
-msgid "<a href='%s'>Members</a>"
-msgstr "<a href=\"%s\">Leden</a>"
-
-#, python-format
-msgid "<a href='%s'>Members</a> and <a href='%s'>moderators</a>"
-msgstr "<a href=\"%s\">leden</a> en <a href=\"%s\">moderators</a>"
-
-#, python-format
-msgid "<a href='%s'>Moderators</a>"
-msgstr "<a href=\"%s\">Moderators</a>"
-
-msgid "Account already exists, please choose another username."
+msgid "Account already exists, please choose another one."
 msgstr "Account bestaat al, kies a.u.b. een andere gebruikersnaam."
 
-msgid "Account is active."
-msgstr "Account is actief"
+msgid "Account does not exist."
+msgstr "Account bestaat niet."
 
 msgid "Account is disabled."
 msgstr "Account is uitgeschakeld"
 
+msgid "Account is domain admin"
+msgstr "Account is uitgeschakeld"
+
+msgid "Account is global admin"
+msgstr "Geen globale beheerder"
+
+msgid "Account status"
+msgstr "Account status"
+
+msgid "Account type"
+msgstr "Accoutn type"
+
 msgid "Activate account"
+msgstr "Actieve account"
+
+msgid "Active"
+msgstr "Actief"
+
+msgid "Activities"
 msgstr ""
 
 msgid "Add"
 msgstr "Toevoegen"
+
+msgid "Add (subscribable) mailing list"
+msgstr ""
 
 msgid "Add account"
 msgstr "Maak een account aan"
@@ -88,15 +109,35 @@ msgstr "Admin toevoegen"
 msgid "Add domain"
 msgstr "Domein toevoegen"
 
+msgid "Add mail alias"
+msgstr "Maak een nieuw e-mail alias aan"
+
+msgid "Add mail alias under domain"
+msgstr "Maak een nieuwe e-mail alias aan onder domein %s"
+
+msgid "Add mail user"
+msgstr "Voeg een e-mail lijst toe"
+
+msgid "Add mail user under domain"
+msgstr "Voeg gebruiker toe onder domein: %s."
+
+msgid "Add mailing list"
+msgstr "Voeg een e-mail lijst toe"
+
+msgid "Add mailing list under domain"
+msgstr ""
+
+msgid "Add new members"
+msgstr "Voeg nieuwe leden toe"
+
+msgid "Add new moderators"
+msgstr "Voeg nieuwe beheerder toe"
+
 msgid "Add one"
 msgstr "Voeg er een toe"
 
 msgid "Add one more?"
 msgstr "Nog een toevoegen?"
-
-#, python-format
-msgid "Add user under domain: %s"
-msgstr "Voeg gebruiker toe onder domein: %s."
 
 msgid "Admin"
 msgstr "Beheerder"
@@ -105,19 +146,43 @@ msgid "Admin Log"
 msgstr "Beheerders log"
 
 msgid "Admin created."
-msgstr ""
+msgstr "Beheerder aangemaakt."
 
 msgid "Admin login"
 msgstr "Beheerder login"
 
-msgid "Admin not exist."
-msgstr "Beheerder bestaat niet."
-
 msgid "Admins"
 msgstr "Beheerders"
 
-msgid "Alias account"
-msgstr "Alias account"
+#, python-format
+msgid "Admins under domain: %s"
+msgstr "Gebruikers onder domein: %s"
+
+msgid "Advanced"
+msgstr "Geavanceerd"
+
+msgid "Alias"
+msgstr "Alias"
+
+#, python-format
+msgid "Alias addresses must end with domain name: %s"
+msgstr ""
+
+msgid "Alias addresses:"
+msgstr ""
+
+msgid "Alias domains:"
+msgstr ""
+
+msgid "Alias email addresses"
+msgstr ""
+
+msgid "Aliases"
+msgstr "Aliassen"
+
+#, python-format
+msgid "Aliases under domain: %s."
+msgstr "Aliassen onder domein: %s."
 
 msgid "All admins"
 msgstr "Alle beheerders"
@@ -128,43 +193,78 @@ msgstr "Alle domeinen"
 msgid "All domains under your control."
 msgstr "Alle domeinen in uw beheer."
 
-msgid "All mail administrators."
-msgstr "Alle e-mail beheerders"
+msgid "All emails"
+msgstr ""
 
 msgid "Allocated"
 msgstr "Toegewezen"
 
+#, python-format
+msgid "Already exceed max number of account limit (%d)."
+msgstr ""
+
+msgid "Already reaches account limit (mail aliases)."
+msgstr ""
+
+msgid "Already reaches account limit (mail domains)."
+msgstr ""
+
+msgid "Already reaches account limit (mail users)."
+msgstr ""
+
+msgid "Already reaches account limit (mailbox quota)."
+msgstr ""
+
+msgid "Already reaches account limit (mailing lists)."
+msgstr ""
+
 msgid "Apply"
 msgstr "Toepassen"
 
+msgid "Archive"
+msgstr ""
+
+msgid "Assigned groups:"
+msgstr ""
+
 #, python-format
-msgid "At least %s characters, but no more than %s."
-msgstr "Ten minste %s karakters, maar niet meer dan %s."
+msgid "At least %d characters."
+msgstr ""
 
 #, python-format
 msgid "At least %s characters."
 msgstr "Tenminste %s karakters."
 
+msgid "At least one digit number"
+msgstr ""
+
+msgid "At least one letter"
+msgstr ""
+
+msgid "At least one special character:"
+msgstr ""
+
+msgid "At least one uppercase letter"
+msgstr ""
+
 msgid "Available quota:"
 msgstr "Quota beschikbaar:"
 
-msgid "BCC incoming emails to single address"
-msgstr "BCC inkomende e-mails naar ander adres."
-
-msgid "BCC incoming mails to other address"
-msgstr "BCC inkomende e-mails naar ander adres."
-
-msgid "BCC outgoing emails to single address"
-msgstr "BCC uitgaande e-mails naar ander adres."
-
-msgid "BCC outgoing mails to other address"
-msgstr "BCC uitgaande e-mails naar ander adres."
+#, python-format
+msgid "Available: %d (Existing: %d, Max: %d.)"
+msgstr ""
 
 msgid "Backup"
 msgstr ""
 
-msgid "Check this box in order to enable other services"
-msgstr "Selecteer dit vakje om alle e-mail gerelateerde services in te schakelen."
+msgid "Backup MX"
+msgstr ""
+
+msgid "Change email address"
+msgstr "Ongeldig e-mail adres"
+
+msgid "Change email address to"
+msgstr "Een e-mail adres per lijn"
 
 msgid "Choose Action"
 msgstr "Kies aktie"
@@ -181,19 +281,13 @@ msgstr "Neem contact op met de beheerder"
 msgid "Current password is incorrect."
 msgstr "Huidige wachtwoord is onjuist"
 
-msgid "Customize mail filter rule"
-msgstr "Personaliseer e-mail filter regel."
-
-msgid "Customize mail filter rule over TLS/SSL"
-msgstr "Personaliseer e-mail filter regel over TLS/SSL."
-
 msgid "DISABLED"
 msgstr "UITGESCHAKELD"
 
 msgid "Dashboard"
 msgstr "Dashboard"
 
-msgid "Default quota of new user"
+msgid "Default language for new user"
 msgstr "Standaard quota voor nieuwe gebruikers"
 
 msgid "Delete"
@@ -205,14 +299,20 @@ msgstr "Verwijder account"
 msgid "Delete all in database"
 msgstr "Verwijder alle in database"
 
+msgid "Delete and archive"
+msgstr ""
+
 msgid "Delete mailboxes"
 msgstr ""
 
-msgid "Delete mailboxes in"
+msgid "Delete selected log"
 msgstr ""
 
-msgid "Delete selected"
-msgstr "Verwijder geselecteerde"
+msgid "Delete without archiving"
+msgstr ""
+
+msgid "Digest"
+msgstr ""
 
 msgid "Disable"
 msgstr "Uitschakelen"
@@ -220,14 +320,52 @@ msgstr "Uitschakelen"
 msgid "Disable account"
 msgstr "Schakel account uit"
 
+msgid ""
+"Disable subscription and unsubscription via email (existing subscribers "
+"are still able to send to list)"
+msgstr ""
+
+msgid "Disable subscription but allow unsubscription via email"
+msgstr ""
+
+msgid "Disable subscription confirm"
+msgstr ""
+
+msgid "Disabled"
+msgstr "Uitgeschakeld"
+
+msgid "Disabled accounts"
+msgstr "Schakel account uit"
+
+msgid "Disabled domains"
+msgstr "Wijzig domein profiel"
+
 msgid "Display Name"
 msgstr "Weergave naam"
 
-msgid "Display mail address in global LDAP address book"
-msgstr "Geef e-mail adres weer in het globale LDAP adres boek"
+msgid "Do not archive received emails"
+msgstr ""
 
-msgid "Displayed in Global LDAP Address Book"
-msgstr "Geef e-mail adres weer in het globale LDAP adres boek"
+msgid ""
+"Do not notify sender when posting to a moderator-only mailing list was "
+"denied"
+msgstr ""
+
+msgid ""
+"Do not notify sender when posting to a subscriber-only mailing list was "
+"denied"
+msgstr ""
+
+msgid ""
+"Do not notify sender when posting was denied due to exceed max message "
+"size"
+msgstr ""
+
+msgid "Do not notify subscription requestor when subscription is under moderated"
+msgstr ""
+
+msgid "Do not send a copy to sender"
+msgstr ""
 
 msgid "Domain"
 msgstr "Domein"
@@ -238,13 +376,19 @@ msgstr "Domein beheerder"
 msgid "Domain Name"
 msgstr "Domeinnaam"
 
-msgid "Domain alias"
-msgstr "Domein alias"
-
 msgid "Domain already exists. Please check both primary or alias domains."
 msgstr "Domein bestaat al. Controleer alstublieft primaire of alias domeinen."
 
 msgid "Domain created."
+msgstr "Domein aangemaakt."
+
+msgid "Domain is active, but marked as backup MX."
+msgstr ""
+
+msgid "Domain is active, but relay to other host"
+msgstr ""
+
+msgid "Domain is disabled."
 msgstr ""
 
 msgid "Domain name is empty."
@@ -263,6 +407,9 @@ msgstr ""
 "Domein quota overschreden. Neem alstublieft contact om met uw beheerder "
 "of provider om het te vergroten."
 
+msgid "Domains"
+msgstr "Domeinen"
+
 msgid "Domains and Accounts"
 msgstr "Domeinen en Accounts"
 
@@ -272,8 +419,39 @@ msgstr "Wijzig account profiel"
 msgid "Edit domain profile"
 msgstr "Wijzig domein profiel"
 
-msgid "Empty address is not allowed."
-msgstr "Leeg adres is niet toegestaan."
+msgid "Edit quota setting"
+msgstr "Wijzig quota instellingen"
+
+msgid "Email"
+msgstr ""
+
+msgid "Email address was changed."
+msgstr "Een e-mail adres per lijn"
+
+msgid ""
+"Email addresses of the mailing list moderators which need to be contacted"
+" when there is some email under moderated. If empty, mailing list owners "
+"will be used instead."
+msgstr ""
+
+msgid ""
+"Email addresses of the mailing list moderators which need to be contacted"
+" when there is someone subscribing to the list and under moderated. If "
+"empty, mailing list moderators will be used instead."
+msgstr ""
+
+#, python-format
+msgid ""
+"Email addresses of the mailing list owners which need to be contacted via"
+" email %s, either by the system or by end users."
+msgstr ""
+
+msgid "Emails"
+msgstr "E-mails"
+
+#, python-format
+msgid "Emails sent to alias addresses will be delivered to %s."
+msgstr ""
 
 msgid "Empty password is not allowed."
 msgstr "Leeg wachtwoord is niet toegestaan."
@@ -281,17 +459,25 @@ msgstr "Leeg wachtwoord is niet toegestaan."
 msgid "Enable"
 msgstr "Inschakelen"
 
+msgid "Enable newsletter-style mailing list"
+msgstr ""
+
+msgid "Enable subscription and unsubscription from website"
+msgstr ""
+
 msgid "Enable this account"
 msgstr "Activeer dit account"
 
 msgid "Enable this domain"
 msgstr "Activeer dit domein"
 
-msgid "Enabled Services"
-msgstr "Geactiveerde diensten"
+msgid "Error"
+msgstr ""
 
-#, python-format
-msgid "Error while checking new version: %s"
+msgid "Error while checking new version of iRedAdmin:"
+msgstr ""
+
+msgid "Error while getting license info:"
 msgstr "Fout tijdens het controleren op nieuwe versie: %s"
 
 msgid "Error:"
@@ -300,6 +486,9 @@ msgstr "Error:"
 msgid "Events"
 msgstr "Evenementen"
 
+msgid "Everyone can send mail to this address"
+msgstr "Iedereen kan e-mails sturen naa dit adres"
+
 msgid ""
 "Exceeded domain account limit. Please contact your administrator or "
 "service provider to increase it."
@@ -307,17 +496,38 @@ msgstr ""
 "Domein account limiet overschreden. Neem alstublieft contact op \"\n"
 "\"met de beheerder of de provider."
 
-msgid "Fetching mails via IMAP"
-msgstr "Haal e-mails op via IMAP"
+msgid "Exceeded:"
+msgstr ""
 
-msgid "Fetching mails via IMAP over TLS/SSL"
-msgstr "Haal e-mails op via IMAP over TLS/SSL"
+msgid "Expire date"
+msgstr "Datum verlopen"
 
-msgid "Fetching mails via POP3"
-msgstr "Haal e-mails op via POP3"
+msgid "Expired"
+msgstr "Datum verlopen"
 
-msgid "Fetching mails via POP3 over TLS/SSL"
-msgstr "Haal e-mails op via POP3S (POP3 over TLS/SSL)."
+msgid "Export account in LDIF format"
+msgstr ""
+
+msgid "Export accounts"
+msgstr ""
+
+msgid "Export all managed accounts"
+msgstr ""
+
+msgid "Export statistics of admins"
+msgstr ""
+
+msgid "External Members"
+msgstr "Externe leden"
+
+msgid "External moderators"
+msgstr "Externe beheerders"
+
+msgid "Filter accounts by first character in email addresses"
+msgstr ""
+
+msgid "Filter domains by first character in mail domain name"
+msgstr ""
 
 msgid "Filter:"
 msgstr "Filter:"
@@ -328,35 +538,71 @@ msgstr "Eerste pagina"
 msgid "First name"
 msgstr "Eerste pagina"
 
-msgid "Forwarding mails to other addresses"
-msgstr "Stuur e-mails door naar andere adressen"
+msgid "Footer text (HTML format)"
+msgstr ""
+
+msgid "Footer text (plain text format)"
+msgstr ""
+
+msgid "Forwarding addresses (saved a copy in mailbox)"
+msgstr ""
+
+msgid "Forwarding addresses (without saving a copy in mailbox)"
+msgstr ""
 
 msgid "Full name"
-msgstr ""
+msgstr "Volledige naam"
 
 msgid "General"
 msgstr "Algemeen"
 
+msgid "Get a newsletter signup form"
+msgstr ""
+
 msgid "Global Admin"
 msgstr "Globale beheerder"
 
-msgid "Global admin"
-msgstr "Globale beheerder"
-
 msgid "Grant admin"
-msgstr ""
+msgstr "Aantal domeinen"
 
 msgid "Hostname"
 msgstr "Systeemnaam"
 
+msgid "IMAP Login:"
+msgstr ""
+
 msgid "IP Address"
 msgstr "IP adres"
 
-msgid "Invalid action."
+msgid ""
+"If you prefer redirecting user to a subscription page, this is the url of"
+" subscription page."
+msgstr ""
+
+msgid "Increase it now?"
+msgstr "Nu verhogen?"
+
+msgid ""
+"Input mail addresses of either internal or external members below, "
+"multiple addresses must be separated by comma, space or new line."
+msgstr ""
+
+msgid ""
+"Input mail addresses of either internal or external moderators below, "
+"multiple addresses must be separated by comma, space or new line."
+msgstr ""
+
+msgid "Internal Members"
+msgstr "Interne leden"
+
+msgid "Internal Moderators"
+msgstr "Interne beheerders"
+
+msgid "Invalid account."
 msgstr "Ongeldige aktie."
 
-msgid "Invalid domain name or mail address."
-msgstr "Ongeldige domeinnaam of e-mail adres"
+msgid "Invalid action."
+msgstr "Ongeldige aktie."
 
 msgid "Invalid domain name."
 msgstr "Ongeldige domeinnaam."
@@ -364,27 +610,63 @@ msgstr "Ongeldige domeinnaam."
 msgid "Invalid mail address."
 msgstr "Ongeldig e-mail adres"
 
-msgid "Invalid request data."
+msgid "Invalid product id."
 msgstr "Ongeldige verzoek gegevens"
-
-msgid "Invalid username."
-msgstr "Ongeldige gebruikersnaam."
 
 msgid "Is a global admin."
 msgstr "Is globale beheerder"
 
 msgid ""
-"It is recommended to mark user as domain admin in user profile page "
-"instead of creating separate admin account."
+"It's better create a subscribable mailing list instead, so that you can "
+"restrict the mail posting and delivery."
+msgstr ""
+
+msgid ""
+"It's better create a subscribable mailing list, so that you can restrict "
+"the mail posting and delivery."
 msgstr ""
 
 msgid "Job Title"
 msgstr "Functiebenaming"
 
-msgid "Job Title/Responsibility"
-msgstr "Functieomschrijving/Verantwoordelijkheid"
+#, python-format
+msgid "Keep mailbox for %d days"
+msgstr ""
 
-msgid "Keep forever"
+#, python-format
+msgid "Keep mailbox for %d months"
+msgstr ""
+
+#, python-format
+msgid "Keep mailbox for %d weeks"
+msgstr ""
+
+#, python-format
+msgid "Keep mailbox for %d years"
+msgstr ""
+
+msgid "Keep mailbox for 1 day"
+msgstr ""
+
+msgid "Keep mailbox for 1 month "
+msgstr ""
+
+msgid "Keep mailbox for 1 week"
+msgstr ""
+
+msgid "Keep mailbox for 1 year"
+msgstr ""
+
+msgid "Keep mailbox forever"
+msgstr ""
+
+msgid "Keyword"
+msgstr "Trefwoord"
+
+msgid "Last Login"
+msgstr ""
+
+msgid "Last Login:"
 msgstr ""
 
 msgid "Last Page"
@@ -393,8 +675,41 @@ msgstr "Laatste pagina"
 msgid "Last name"
 msgstr "Systeemnaam"
 
+msgid "Latest version"
+msgstr "Laatste versie"
+
+msgid "Leave it empty to use max value."
+msgstr ""
+
+msgid "License"
+msgstr "Licentie"
+
+msgid "License Key"
+msgstr ""
+
+msgid "License is active"
+msgstr "Licentie is actief"
+
+msgid "License owner(s)"
+msgstr ""
+
+msgid "License status"
+msgstr "Licentie status"
+
+msgid "Lifetime license"
+msgstr "Levenslange licentie"
+
+msgid "List all mail aliases."
+msgstr "Geef alle e-mail aliassen weer"
+
 msgid "List all mail users."
 msgstr "Geef alle e-mail gebruikers weer"
+
+msgid "List all mailing lists."
+msgstr ""
+
+msgid "Lists"
+msgstr "E-mail lijsten"
 
 #, python-format
 msgid "Logged in as %s"
@@ -402,6 +717,9 @@ msgstr "Ingelogd als %s"
 
 msgid "Login"
 msgstr "Login"
+
+msgid "Login from your IP address is not allowed."
+msgstr ""
 
 msgid "Login required"
 msgstr "Login nodig"
@@ -415,65 +733,118 @@ msgstr "Uitloggen"
 msgid "Mail Address"
 msgstr "E-mail adres"
 
+msgid "Mail Aliases"
+msgstr "E-mail aliassen"
+
+msgid "Mail Deliver Restriction"
+msgstr "E-mail bezorgings restricties"
+
+msgid "Mail Delivery"
+msgstr ""
+
 msgid "Mail Users"
 msgstr "E-mail gebruikers"
 
-msgid "Mail address already exists, please choose another one."
-msgstr "Het e-mail adres bestaat reeds, kies a.u.b. een andere."
-
-msgid "Mail alias created."
+msgid "Mail deliver restriction will be migrated."
 msgstr ""
 
-msgid "Mail list created."
+msgid ""
+"Mail delivery restriction will be set to allow email from any sender by "
+"default."
 msgstr ""
 
-msgid "Mail service"
-msgstr "E-mail dienst"
+msgid "Mail posting"
+msgstr ""
+
+msgid "Mail sent to alias will be forwarded to members."
+msgstr "E-mails verzonden naar alias accounts zullen bezorgd worden bij leden"
 
 msgid "Mailbox Quota"
 msgstr "Mailbox quota"
 
-msgid "Mails were deleted."
-msgstr "De e-mails zijn verwijderd"
+msgid "Mailing List"
+msgstr ""
 
-msgid "Mails were released."
-msgstr "De e-mails zijn doorgelaten"
+msgid "Mailing List (Subscribable)"
+msgstr ""
 
-msgid "Managed Domains"
-msgstr "Beheerder domeinen"
+msgid "Mailing Lists"
+msgstr ""
+
+#, python-format
+msgid "Mailing lists under domain: %s"
+msgstr ""
+
+#, python-format
+msgid "Mailing lists under domain: %s."
+msgstr ""
+
+msgid "Mark as domain admin"
+msgstr "Alle e-mail beheerders"
 
 msgid "Mark as global admin"
 msgstr "Markeer als globale beheerder"
 
-msgid "Mark this user as"
+msgid "Max message size"
 msgstr ""
 
-msgid "Member assigned success."
-msgstr "Lid succesvol toegewezen"
+msgid "Max:"
+msgstr ""
 
-msgid "Member removed success."
-msgstr "Lid succesvol verwijderd"
+msgid "Member of mailing lists:"
+msgstr ""
+
+msgid "Members"
+msgstr "Leden"
+
+msgid "Members and moderators"
+msgstr ""
+
+msgid "Members and moderators will be fully migrated."
+msgstr ""
+
+msgid "Members will be fully migrated."
+msgstr ""
 
 msgid "Message"
 msgstr "Bericht"
 
+msgid "Messages sent to mailing list will be delivered to its members."
+msgstr ""
+
+msgid "Migrate Now"
+msgstr ""
+
+msgid "Migrate to subscribable mailing list"
+msgstr ""
+
+msgid "Migrate to subscribable mailing list?"
+msgstr ""
+
 msgid "Mobile"
 msgstr "Mobiel"
 
-msgid "Moderators assigned success."
-msgstr "Beheerder succesvol toegewezen"
+msgid "Moderate all posts (Moderators are required)"
+msgstr ""
 
-msgid "Moderators removed success."
-msgstr "Beheerders succesvol verwijderd"
+msgid "Moderate subscriptions"
+msgstr ""
 
-msgid "Name"
-msgstr "Gebruikersnaam"
+msgid "Moderators"
+msgstr "Beheerders"
 
-msgid "Need a random password?"
-msgstr "Een willekeurig wachtwoord nodig?"
+#, python-format
+msgid "Must be %s - %s characters."
+msgstr ""
+
+msgid "Need a strong password?"
+msgstr ""
 
 msgid "Network"
 msgstr "Netwerk"
+
+msgid "New Mail Delivered:"
+msgstr ""
 
 msgid "New password"
 msgstr "Nieuw wachtwoord"
@@ -489,8 +860,20 @@ msgstr "Nieuw wachtwoord moet minimaal %s karakters bevatten."
 msgid "New passwords are not match."
 msgstr "Nieuwe wachtwoorden komen niet overeen"
 
-msgid "News & Announments"
+msgid "New version is available."
+msgstr "Nieuwe versie beschikbaar."
+
+#, python-format
+msgid ""
+"New version of iRedAdmin, %s, is now available for upgrading. <a "
+"href='%s/system/license' class='button green'>Details</a>"
+msgstr ""
+
+msgid "News & Announcements"
 msgstr "Nieuws & Mededelingen"
+
+msgid "Newsletter"
+msgstr ""
 
 msgid "Next Page"
 msgstr "Volgende pagina"
@@ -501,8 +884,29 @@ msgstr "Geen account geselecteerd"
 msgid "No admin log."
 msgstr "Beheerder login"
 
+msgid "No digit number in password."
+msgstr ""
+
 msgid "No domain under control."
 msgstr "Alle domeinen in uw beheer"
+
+msgid "No email"
+msgstr ""
+
+msgid "No free domain quota left."
+msgstr "Geen quota beschikbaar."
+
+msgid "No letter in password."
+msgstr ""
+
+msgid "No mail admin assigned."
+msgstr ""
+
+msgid "No mail admin available."
+msgstr "Geen e-mail domein beschikbaar."
+
+msgid "No mail alias available."
+msgstr "Geen e-mail alias beschikbaar."
 
 msgid "No mail domain available."
 msgstr "Geen e-mail domein beschikbaar."
@@ -510,15 +914,28 @@ msgstr "Geen e-mail domein beschikbaar."
 msgid "No mail user available."
 msgstr "Geen e-mail gebruiker beschikbaar."
 
-msgid "No moderator selected."
-msgstr "Geen beheerder geselecteerd"
+msgid "No mailing list available."
+msgstr ""
+
+msgid "No members."
+msgstr "Geef leden weer"
+
+msgid "No moderators."
+msgstr "Beheerders"
+
+#, python-format
+msgid "No more than %d characters."
+msgstr ""
 
 #, python-format
 msgid "No more than %s characters."
 msgstr "Niet meer dan <strong>%s</strong> karakters."
 
-msgid "No such domain."
-msgstr "Geen domein gevonden."
+msgid "No special character in password."
+msgstr ""
+
+msgid "No uppercase letter in password."
+msgstr ""
 
 msgid "Not a global admin."
 msgstr "Geen globale beheerder"
@@ -526,20 +943,64 @@ msgstr "Geen globale beheerder"
 msgid "Not allowed to create mail alias under this domain."
 msgstr "U kunt geen nieuwe e-mail alias meer aanmaken onder dit domein."
 
-msgid "Not allowed to create mail list under this domain."
-msgstr "U kunt geen e-mail lijsten meer aanmaken onder dit domein."
-
 msgid "Not allowed to create mail user under this domain."
 msgstr "U kunt geen nieuwe e-mail gebruiker meer aanmaken onder dit domein."
+
+msgid "Not allowed to create mailing list under this domain."
+msgstr ""
+
+msgid "Notifications"
+msgstr ""
+
+msgid ""
+"Notify owner(s) when someone subscribe to or unsubscribe from the mailing"
+" list"
+msgstr ""
+
+msgid "Notify sender if email is under moderated"
+msgstr ""
+
+msgid "Number of domains"
+msgstr "Aantal domeinen"
+
+msgid "Number of max mail aliases"
+msgstr "Maximaal aantal e-mail aliassen"
+
+msgid "Number of max mail users"
+msgstr "Maximaal aantal e-mail gebruikers"
+
+msgid "Number of max mailing lists"
+msgstr ""
+
+msgid "Number of users"
+msgstr "Aantal e-mail gebruikers"
 
 msgid "Old password"
 msgstr "Oud wachtwoord"
 
-msgid "Operation completed."
-msgstr "Bewerking is voltooid"
+msgid ""
+"One IP address or network per line. Invalid address or network will be "
+"discarded."
+msgstr ""
+
+msgid "One mail address per line. Invalid address will be discarded."
+msgstr ""
 
 msgid "Or create other mail accounts:"
 msgstr "Of maak een andere e-mail account aan:"
+
+#, python-format
+msgid "Owner will be set to postmaster@%s."
+msgstr ""
+
+msgid "Owners"
+msgstr ""
+
+msgid "Owners and Moderators"
+msgstr ""
+
+msgid "POP3 Login:"
+msgstr ""
 
 msgid "Password"
 msgstr "Wachtwoord"
@@ -553,24 +1014,30 @@ msgstr "Wachtwoord is te lang."
 msgid "Password is too short."
 msgstr "Wachtwoord is te kort."
 
-msgid "Password of cn=vmailadmin is incorrect."
-msgstr "Huidige wachtwoord is onjuist"
-
-msgid ""
-"Per-user relay setting will override per-domain relay setting you set in "
-"this page."
+msgid "Password last change:"
 msgstr ""
-"Per gebruiker relay instellingen zullen de per domein relay instellingen "
-"welke je in deze pagina insteld overtreffen."
+
+msgid "Password must contain"
+msgstr "Nieuw wachtwoord moet minimaal %s karakters bevatten."
 
 msgid "Permission denied."
 msgstr "Toestemming geweigerd."
 
+msgid "Please do not use non-ascii character in password."
+msgstr ""
+
+msgid ""
+"Please either mark mail user as domain admin or create a separate admin "
+"account."
+msgstr ""
+"Markeer a.u.b. een gebruiker als domein beheerder op maak een aparte "
+"beheerders account aan."
+
 msgid "Please select at least one account."
 msgstr "Selecter tenminste een account"
 
-msgid "Please select at least one domain to apply action."
-msgstr "Selecteer tenminste een domein om de actie toe te passen."
+msgid "Please select at least one domain."
+msgstr "Selecter tenminste een account"
 
 msgid "Preferences"
 msgstr "Voorkeuren"
@@ -578,14 +1045,29 @@ msgstr "Voorkeuren"
 msgid "Preferred language"
 msgstr "Voorkeurs taal"
 
+msgid "Prefix text to mail subject"
+msgstr ""
+
 msgid "Previous Page"
 msgstr "Vorige pagina"
+
+msgid "Product name"
+msgstr "Systeemnaam"
+
+msgid "Profile has been updated."
+msgstr ""
 
 msgid "Profile of admin:"
 msgstr "Profiel van beheerder:"
 
+msgid "Profile of alias:"
+msgstr "Profiel van alias:"
+
 msgid "Profile of domain:"
 msgstr "Profiel van domein:"
+
+msgid "Profile of mailing list:"
+msgstr ""
 
 msgid "Profile of user:"
 msgstr "Profiel van gebruiker"
@@ -593,43 +1075,60 @@ msgstr "Profiel van gebruiker"
 msgid "Profile updated failed."
 msgstr "Aanpassen profiel mislukt."
 
-msgid "Profile updated success."
-msgstr "Aanpassen profiel geslaagd."
+msgid "Purchase a new license"
+msgstr "Vernieuw licentie"
 
-msgid "Quarantined Mails"
-msgstr "E-mails in quarantine"
+msgid "Purchase date"
+msgstr "Aanschaf datum"
 
 msgid "Quota"
 msgstr "Quota"
 
-msgid "Received Mails"
-msgstr "Ontvangen e-mails"
-
-msgid "Receiving mails for this account on mail server"
-msgstr "E-mails voor dit account aan het ontvangen op de mailserver"
-
-msgid "Relay/Transport Setting"
-msgstr "Relay instelling"
-
-msgid "Remember me"
-msgstr "Onthoud mij"
-
-msgid "Revoke admin privilege"
+msgid "Records were successfully updated."
 msgstr ""
 
-msgid "Sample"
-msgstr "Voorbeeld"
+msgid "Redirect user to subscription page"
+msgstr ""
+
+msgid "Relay"
+msgstr "Relay"
+
+msgid "Release Notes and Upgrade Tutorials"
+msgstr "Upgrade handleidingen"
+
+msgid "Remove ALL members"
+msgstr ""
+
+msgid "Remove from list"
+msgstr "Verwijder uit lijst"
+
+msgid "Remove selected members"
+msgstr ""
+
+msgid "Renew license"
+msgstr "Vernieuw licentie"
+
+msgid "Revoke admin privilege"
+msgstr "Profiel van beheerder:"
 
 msgid "Save changes"
 msgstr "Wijzigingen opslaan"
 
-msgid "Search keyword could not be empty."
-msgstr "Zoek trefwoord kan niet leef zijn."
+msgid "Search"
+msgstr "Zoeken"
+
+msgid "Search mail accounts"
+msgstr "Of maak een andere e-mail account aan:"
+
+msgid "Search results."
+msgstr "Zoek resultaten"
 
 msgid ""
 "Security token did not match. Please refresh current page and re-perform "
 "form action."
 msgstr ""
+"Beveiligings teken komt niet overeen. Ververs de huidige pagina en voer "
+"de actie opnieuw uit."
 
 msgid "Selected accounts were deleted."
 msgstr "Geselecteerde accounts zijn verwijderd."
@@ -640,8 +1139,20 @@ msgstr "Geselecteerde accounts zijn uitgeschakeld."
 msgid "Selected accounts were enabled."
 msgstr "Geselecteerde accounts zijn ingeschakeld."
 
-msgid "Selected domains were deleted."
-msgstr "Geselecteerde domeinen zijn verwijderd."
+msgid "Selected accounts were marked as domain admin."
+msgstr "Geselecteerde accounts zijn ingeschakeld."
+
+msgid "Selected accounts were marked as global admin."
+msgstr "Geselecteerde accounts zijn ingeschakeld."
+
+msgid "Selected accounts were unmarked as domain admin."
+msgstr "Geselecteerde accounts zijn ingeschakeld."
+
+msgid "Selected accounts were unmarked as global admin."
+msgstr "Geselecteerde accounts zijn ingeschakeld."
+
+msgid "Selected domains have been deleted."
+msgstr ""
 
 msgid "Selected domains were disabled."
 msgstr "Geselecteerde domeinen zijn uitgeschakeld."
@@ -652,14 +1163,11 @@ msgstr "Geselecteerde domeinen zijn ingeschakeld."
 msgid "Selected log records were deleted."
 msgstr "Geselecteerde log items zijn verwijderd."
 
-msgid "Sending mails via SMTP"
-msgstr "Verzenden e-mails via SMTP"
+msgid "Send email to new members for subscription confirm"
+msgstr ""
 
-msgid "Sending mails via SMTP over TLS/SSL"
-msgstr "Verzenden e-mails via SMTP over TLS/SSL."
-
-msgid "Sent Mails"
-msgstr "Verzonden e-mails"
+msgid "Send me an email with download link"
+msgstr "Stuur mij een e-mail met de download link"
 
 msgid "Server Load"
 msgstr "Server belasting"
@@ -677,14 +1185,52 @@ msgstr "Sessie verlopen, log alstublieft opnieuw in."
 msgid "Set to 0 for unlimited."
 msgstr "Voer 0 in voor ongelimiteerd"
 
-msgid "Store password in plain text"
+msgid "Set value to -1 means not allowed to create this kind of account."
 msgstr ""
+"Instellen op -1 betekend dat het niet is toegestaan om dit account te "
+"maken."
+
+msgid "Set value to 0 or leave it empty for unlimited."
+msgstr "Voer 0 in of laat het leeg voor ongelimiteerd"
+
+msgid "Settings"
+msgstr ""
+
+msgid "Show in Global Address Book"
+msgstr "Geef e-mail adres weer in het globale LDAP adres boek"
+
+#, python-format
+msgid "Some addresses have been discarded because they have been used: %s."
+msgstr ""
+
+msgid "Standalone admin account cannot be an user of local domain."
+msgstr ""
+
+msgid "Store password in plain text"
+msgstr "Sla het wachtwoord ongecodeerd op"
+
+msgid "Stored"
+msgstr "Opgeslagen"
+
+msgid "Stored emails"
+msgstr "Opgeslagen e-mails"
 
 msgid "Submit"
 msgstr "Verzend"
 
 msgid "Submited domain name is incorrect."
 msgstr "Ingevoerde domeinnaam is niet juist."
+
+msgid "Subscription Moderators"
+msgstr ""
+
+msgid ""
+"Subscription and unsubscription will be disabled by default, feel free to"
+" enable them after migration."
+msgstr ""
+
+msgid "Subscription control"
+msgstr ""
 
 msgid "Support"
 msgstr "Ondersteuning"
@@ -698,39 +1244,62 @@ msgstr "Systeem informatie"
 msgid "Telephone Number"
 msgstr "Telefoonnummer"
 
+msgid "Text to introduce this newsletter on subscription page"
+msgstr ""
+
+msgid "This is a mail alias."
+msgstr "Geef alle e-mail aliassen weer"
+
+msgid "This is a mailing list."
+msgstr "Geef alle e-mail lijsten weer"
+
 msgid "Time"
 msgstr "Tijd"
 
-msgid "Total"
-msgstr "Totaal"
+msgid "Time zone"
+msgstr ""
+
+msgid "To add new members, please enable mailing list account first."
+msgstr ""
+
+msgid "Unban IP address"
+msgstr ""
 
 msgid "Unlimited"
 msgstr "Ongelimiteerd"
 
+msgid "Unmark as domain admin"
+msgstr "Alle e-mail beheerders"
+
+msgid "Unmark as global admin"
+msgstr "Markeer als globale beheerder"
+
 msgid "Unrestricted"
 msgstr "Onbeperkt"
 
-#, python-format
-msgid "Update available: <a href='%s' target='_blank'>v%s</a>"
-msgstr "Update beschikbaar: <a href=\"%s\">v%s</a>."
-
 msgid "Update whitelists and blacklists"
-msgstr ""
+msgstr "Voeg nieuwe whitelist toe"
 
 msgid "Uptime"
 msgstr "Draaitijd"
 
+msgid "Use this password"
+msgstr ""
+
+msgid "Used"
+msgstr "Gebruikt"
+
 msgid "User"
 msgstr "Gebruiker"
 
-msgid "User ID"
-msgstr "Gebruikers ID"
-
 msgid "User created."
-msgstr ""
+msgstr "Gebruiker aangemaakt."
 
 msgid "User login (self-service)"
 msgstr ""
+
+msgid "User/Employee ID"
+msgstr "Gebruikers/Werknemers ID"
 
 msgid "Username"
 msgstr "Gebruikersnaam"
@@ -748,9 +1317,81 @@ msgstr "Gebruikers"
 msgid "Users under domain: %s"
 msgstr "Gebruikers onder domein: %s"
 
-msgid "Warning"
-msgstr "Waarschuwing:"
+msgid "Users under same domain"
+msgstr ""
 
-msgid "iRedMail Admin Panel"
-msgstr "iRedMail beheer paneel"
+msgid "Users under same domain and its sub-domains"
+msgstr ""
+
+msgid "View members"
+msgstr "Geef leden weer"
+
+msgid "Who can send email to this list"
+msgstr "Wie kunnen er e-mails verzenden naar deze lijst"
+
+msgid "You are not allowed to update global domain admin's profile."
+msgstr ""
+
+#, python-format
+msgid "You are running version %s"
+msgstr "U draait versie %s"
+
+#, python-format
+msgid "You can NOT create more users under domain %s."
+msgstr "U kunt geen nieuwe e-mail gebruikers meer aanmaken onder domein %s."
+
+#, python-format
+msgid "You can create <strong>%d</strong> more mail alias(es) under domain %s."
+msgstr "U kunt nog <strong>%d</strong> e-mail alias(sen) aanmaken onder domein %s"
+
+#, python-format
+msgid ""
+"You can create <strong>%d</strong> more mail domains (Existing: %d, Max: "
+"%d)"
+msgstr ""
+
+#, python-format
+msgid "You can create <strong>%d</strong> more mail user(s) under domain %s."
+msgstr "U kunt nog <strong>%d</strong> gebruiker(s) aanmaken onder domein %s."
+
+#, python-format
+msgid "You can create <strong>%d</strong> more mailing list(s) under domain %s."
+msgstr ""
+
+msgid ""
+"You can embed a mailing list signup form (HTML code below) on any page of"
+" your website. Feel free to customize the form to add your brand name, "
+"logo image, or combine it with special offers to attract new subscribers "
+"and boost engagement."
+msgstr ""
+
+msgid ""
+"You can enable self-service (per-domain setting) to allow users to manage"
+" their own preferences and more."
+msgstr ""
+
+#, python-format
+msgid "You can't create mail aliases under domain %s."
+msgstr "U kunt geen nieuwe e-mail alias meer aanmaken onder domein %s."
+
+#, python-format
+msgid "You can't create mailing lists under domain %s."
+msgstr ""
+
+#, python-format
+msgid "You can't create more mail aliases under domain %s."
+msgstr "U kunt geen nieuwe e-mail alias meer aanmaken onder domein %s."
+
+#, python-format
+msgid "You can't create more mailing lists under domain %s."
+msgstr ""
+
+msgid "Your license is invalid. Please contact support@iredmail.org to fix it."
+msgstr ""
+
+msgid "Your search returned no hits."
+msgstr "Uw zoekopdracht leverde niets op."
+
+msgid "without verifying local recipients"
+msgstr ""
 

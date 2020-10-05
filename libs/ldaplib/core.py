@@ -1,81 +1,46 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
-import web
 import ldap
 import settings
-from libs.ldaplib import attrs
-
-session = web.config.get('_session')
+from libs.logger import logger
 
 
 class LDAPWrap:
-    def __init__(self, session=session):
-        # Get LDAP settings.
-        self.basedn = settings.ldap_basedn
-        self.domainadmin_dn = settings.ldap_domainadmin_dn
-
+    def __init__(self):
         # Initialize LDAP connection.
+        self.conn = None
+
+        uri = settings.ldap_uri
+
+        # Detect STARTTLS support.
+        starttls = False
+        if uri.startswith('ldaps://'):
+            starttls = True
+
+            # Rebuild uri, use ldap:// + STARTTLS (with normal port 389)
+            # instead of ldaps:// (port 636) for secure connection.
+            uri = uri.replace('ldaps://', 'ldap://')
+
+            # Don't check CA cert
+            ldap.set_option(ldap.OPT_X_TLS_REQUIRE_CERT, ldap.OPT_X_TLS_NEVER)
+
+        self.conn = ldap.initialize(uri=uri)
+
+        # Set LDAP protocol version: LDAP v3.
+        self.conn.set_option(ldap.OPT_PROTOCOL_VERSION, ldap.VERSION3)
+
+        if starttls:
+            self.conn.start_tls_s()
+
         try:
-            # Get LDAP URI.
-            uri = settings.ldap_uri
-
-            # Detect STARTTLS support.
-            if uri.startswith('ldaps://'):
-                starttls = True
-            else:
-                starttls = False
-
-            # Set necessary option for STARTTLS.
-            if starttls:
-                ldap.set_option(ldap.OPT_X_TLS_REQUIRE_CERT, ldap.OPT_X_TLS_NEVER)
-
-            # Initialize connection.
-            self.conn = ldap.initialize(uri, trace_level=settings.LDAP_CONN_TRACE_LEVEL,)
-
-            # Set LDAP protocol version: LDAP v3.
-            self.conn.set_option(ldap.OPT_PROTOCOL_VERSION, ldap.VERSION3)
-
-            if starttls:
-                self.conn.set_option(ldap.OPT_X_TLS, ldap.OPT_X_TLS_DEMAND)
-
-        except:
-            return False
-
-        # synchronous bind.
-        self.conn.bind_s(settings.ldap_bind_dn, settings.ldap_bind_password)
+            # bind as vmailadmin
+            self.conn.bind_s(settings.ldap_bind_dn, settings.ldap_bind_password)
+        except Exception as e:
+            logger.error('VMAILADMIN_INVALID_CREDENTIALS. Detail: %s' % repr(e))
 
     def __del__(self):
         try:
-            self.conn.unbind()
+            if self.conn:
+                self.conn.unbind()
         except:
             pass
-
-    # List all domains.
-    def getAllDomains(self, attrs=attrs.DOMAIN_SEARCH_ATTRS, filter=None,):
-        admin = session.get('username')
-        if admin is None:
-            return (False, 'INVALID_USERNAME')
-
-        # Check whether admin is a site wide admin.
-        if filter is None:
-            if session.get('domainGlobalAdmin') is True:
-                self.filter = '(objectClass=mailDomain)'
-            else:
-                self.filter = '(&(objectClass=mailDomain)(domainAdmin=%s))' % (admin)
-        else:
-            if session.get('domainGlobalAdmin') is True:
-                self.filter = filter
-            else:
-                self.filter = '(&' + filter + ')'
-
-        # List all domains under control.
-        try:
-            self.domains = self.conn.search_s(
-                self.basedn,
-                ldap.SCOPE_ONELEVEL,
-                self.filter,
-                attrs,
-            )
-            return (True, self.domains)
-        except Exception as e:
-            return (False, str(e))

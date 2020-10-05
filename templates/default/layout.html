@@ -1,21 +1,20 @@
-{% from "macros/general.html" import load_jquery %}
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+{%- from "macros/form_inputs.html" import
+    input_csrf_token
+    with context
+    -%}
+{%- from "macros/general.html" import load_jquery -%}
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <title>{% block title %}{%endblock%}</title>
 
     {# CSS #}
-    <link rel="stylesheet" type="text/css" href="{{ctx.homepath}}/static/{{skin}}/css/reset.css">
-    <link rel="stylesheet" type="text/css" href="{{ctx.homepath}}/static/{{skin}}/css/screen.css">
-    <link rel="stylesheet" type="text/css" href="{{ctx.homepath}}/static/{{skin}}/css/fancybox.css">
-
-    <!--[if IE 7]>
-        <link rel="stylesheet" type="text/css" href="{{ctx.homepath}}/static/{{skin}}/css/ie7.css">
-    <![endif]-->
-
-    {% block extraHeader %}{% endblock extraHeader %}
+    <link rel="stylesheet" type="text/css" href="{{ctx.homepath}}/static/{{skin}}/css/reset.css" />
+    <link rel="stylesheet" type="text/css" href="{{ctx.homepath}}/static/{{skin}}/css/fancybox.css" />
+    <link rel="stylesheet" type="text/css" href="{{ctx.homepath}}/static/fontawesome/css/fontawesome-all.min.css" />
+    <link rel="stylesheet" type="text/css" href="{{ctx.homepath}}/static/{{skin}}/css/screen.css" />
+    <link rel="icon" type="image/x-icon" href="{{ctx.homepath}}/static/{% if brand_favicon %}{{ brand_favicon }}{% else %}favicon.ico{% endif %}" />
 </head>
 
 <body>
@@ -24,7 +23,7 @@
             <div class="head_top">
                 <div class="topbuts">
                     <ul class="clear">
-                        <li><a href="{{ctx.homepath}}/profile/{%if session.get('isMailUser') is sameas true%}user{%else%}admin{%endif%}/general/{{session.get('username')}}">{{ _('Preferences') }}</a></li>
+                        <li><a href="{{ctx.homepath}}/profile/{%if session.get('admin_is_mail_user') %}user{%else%}admin{%endif%}/general/{{session.get('username')}}">{{ _('Preferences') }}</a></li>
                         <li><a href="{{ctx.homepath}}/logout" class="red">{{ _('Logout') }}</a></li>
                     </ul>
 
@@ -42,8 +41,8 @@
                             <img src="{{ctx.homepath}}/static/{{ brand_logo }}" alt="logo" class="picture" />
                         {% endif %}
                         <span class="textlogo">
-                            <span class="title">iRedAdmin</span>
-                            <span class="text">{{_('iRedMail Admin Panel') }}</span>
+                            <span class="title">{{ brand_name }}</span>
+                            <span class="text">{{ brand_desc }}</span>
                         </span>
                     </a>
                 </div>
@@ -51,28 +50,29 @@
 
             <div class="menu"><!-- menu -->
                 <ul class="clear">
-                    <li {% block navlinks_active_dashboard %}{% endblock %}><a href="{{ctx.homepath}}/dashboard">{{ _('Dashboard') }}</a></li>
-                    <li {% block navlinks_active_domains %}{% endblock %}><a href="{{ctx.homepath}}/domains">{{ _('Domains and Accounts') }}</a></li>
+                    <li {% block navlinks_dashboard %}{% endblock %}><a href="{{ctx.homepath}}/dashboard">{{ _('Dashboard') }}</a></li>
+                    <li {% block navlinks_domains %}{% endblock %}><a href="{{ctx.homepath}}/domains">{{ _('Domains and Accounts') }}</a></li>
+
                     {# Display extra menus for global admin. #}
-                    {% if session.get('domainGlobalAdmin') is sameas true %}
-                        <li {% block navlinks_active_admins %}{% endblock %}><a href="{{ctx.homepath}}/admins">{{ _('Admins') }}</a></li>
+                    {% if session.get('is_global_admin') %}
+                        <li {% block navlinks_admins %}{% endblock %}><a href="{{ctx.homepath}}/admins">{{ _('Admins') }}</a></li>
                     {% endif %}
-                    <li {% block navlinks_active_system %}{% endblock %}><a href="{{ctx.homepath}}/system/log">{{ _('System') }}</a>
+
+                    <li {% block navlinks_activities %}{% endblock %}><a href="#">{{ _('Activities') }}</a>
                         <ul>
-                            <li><a href="{{ctx.homepath}}/system/log">{{ _('Admin Log') }}</a></li>
+                            <li><a href="{{ctx.homepath}}/activities/admins">{{ _('Admin Log') }}</a></li>
                         </ul>
                     </li>
-                    <li {% block navlinks_active_create %}{% endblock %}>
-                        <a href="#"><img src="{{ctx.homepath}}/static/{{skin}}/images/ico_add_12.png" /> {{ _('Add') }}...</a>
+
+                    <li {% block navlinks_create %}{% endblock %}>
+                        <a href="#"><i class="fa fa-plus fa-lg"></i> {{ _('Add') }}...</a>
                         <ul>
-                            {% if session.get('domainGlobalAdmin') is sameas true %}
                             <li><a href="{{ctx.homepath}}/create/domain">{{ _('Domain') }}</a></li>
                             <li><a href="{{ctx.homepath}}/create/admin">{{ _('Admin') }}</a></li>
-                            {% endif %}
-
                             <li><a href="{{ctx.homepath}}/create/user">{{ _('User') }}</a></li>
                         </ul>
                     </li>
+
                 </ul>
             </div> <!-- End menu -->
 
@@ -84,10 +84,7 @@
     <div class="main pagesize"> <!-- *** mainpage layout *** -->
         <div class="main-wrap">
             <div class="page clear">
-                {#-- float-right bar in sub-nav-bar. Used for exporting LDIF and account profile metadata. --#}
-                {% block crumb_top %}{% endblock %}
-
-                {#-- Main page content --#}
+                {# Main page content #}
                 {% block main %}{% endblock %}
 
             </div>{# -- End .page .clear -- #}
@@ -99,10 +96,9 @@
     <div class="footer">
         <div class="pagesize clear">
             <p class="bt-space0">
-                &copy 2020 <a target="_blank" href="http://www.iredmail.org/">iRedMail Project</a>
-                {% if session.get('domainGlobalAdmin') is sameas true %}
-                    | <a href="http://www.iredmail.org/forum/forum4-news-announcements.html" target="_blank">{{ _('News & Announcements') }}</a>
-                    | <a target="_blank" href="http://www.iredmail.org/forum/">{{ _('Support') }}</a>
+                &copy; <a href="https://www.iredmail.org/" target="_blank" rel="noopener">iRedMail</a>
+                {% if session.get('is_global_admin') %}
+                    | <a href="https://forum.iredmail.org/" target="_blank" rel="noopener">{{ _('Support') }}</a>
                 {% else %}
                     | <a href="mailto:{{session.get('webmaster')}}">{{ _('Contact webmaster') }}</a>
                 {% endif %}
@@ -111,13 +107,14 @@
     </div>
     {% endblock footer %}
 
-    {#-- Basic javascript functions. --#}
+    {# Basic javascript functions. #}
     <script type="text/javascript">
-        function changeUrl(domain, baseurl) {
+        // redirect to url
+        function change_url(domain, baseurl) {
             if ( domain.options[domain.selectedIndex].value != 'none' ) {
                 location.href = baseurl + domain.options[domain.selectedIndex].value;
             }
-        }
+        };
     </script>
 
     {#-- Load jQuery --#}
@@ -125,6 +122,6 @@
         {{ load_jquery() }}
     {% endblock js %}
 
-    {% block body_end %}{% endblock body_end %}
+    {% block extra_js %}{% endblock extra_js %}
 </body>
 </html>

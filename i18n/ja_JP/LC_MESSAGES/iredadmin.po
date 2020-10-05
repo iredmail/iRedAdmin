@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: zhb@iredmail.org\n"
-"POT-Creation-Date: 2018-02-11 00:44+0800\n"
+"POT-Creation-Date: 2020-09-27 22:43+0800\n"
 "PO-Revision-Date: 2018-02-07 16:00+0900\n"
 "Last-Translator: OSAKANA TARO <osakanataro@gmail.com>\n"
 "Language: ja_JP\n"
@@ -19,65 +19,86 @@ msgstr ""
 "Generated-By: Babel 2.3.4\n"
 
 #, python-format
-msgid "%s (%s)"
+msgid "%d admin(s) found."
+msgstr "%d 個の管理者が見付かりました."
+
+#, python-format
+msgid "%d domain(s) found."
+msgstr "%d 個のドメインが見付かりました."
+
+#, python-format
+msgid "%d mail alias(es) found."
+msgstr "%d 個のメールエイリアスが見付かりました."
+
+#, python-format
+msgid "%d mailing list(s) found."
 msgstr ""
+
+#, python-format
+msgid "%d user(s) found."
+msgstr "%d 個のユーザが見付かりました."
+
+#, python-format
+msgid "%s account(s) exist."
+msgstr "%s 個のアカウントがありません."
 
 #, python-format
 msgid "%s days, %s hours, %s minutes."
 msgstr "%s 日, %s 時間, %s 分."
 
-msgid "1 day"
-msgstr ""
-
-msgid "1 year"
-msgstr ""
-
-msgid "2 years"
-msgstr ""
-
-msgid "3 months"
-msgstr ""
-
-msgid "3 years"
-msgstr ""
-
-msgid "6 months"
-msgstr ""
+#, python-format
+msgid "(%d messages, %s.)"
+msgstr "(%d 個のメッセージ, %s)"
 
 #, python-format
-msgid "<a href='%s'>Domain and sub-domain users</a>"
-msgstr ""
+msgid "(%d%% full, %d messages, %s.)"
+msgstr "(%d%% 使用, %d このメッセージ, %s)"
+
+msgid "Access control"
+msgstr "アクセス制御"
 
 #, python-format
-msgid "<a href='%s'>Domain users</a>"
+msgid ""
+"According to our <a href='%s' target='_blank' rel='noopener'>license "
+"terms</a>, you have to purchase a new license to get the latest release "
+"if your license expired."
 msgstr ""
 
-#, python-format
-msgid "<a href='%s'>Members</a>"
-msgstr ""
+msgid "Account already exists, please choose another one."
+msgstr "既にあるアカウントです.異なる名前を指定してください."
 
-#, python-format
-msgid "<a href='%s'>Members</a> and <a href='%s'>moderators</a>"
-msgstr ""
-
-#, python-format
-msgid "<a href='%s'>Moderators</a>"
-msgstr ""
-
-msgid "Account already exists, please choose another username."
-msgstr ""
-
-msgid "Account is active."
-msgstr ""
+msgid "Account does not exist."
+msgstr "アカウントはありません."
 
 msgid "Account is disabled."
 msgstr "アカウントは無効です."
 
+msgid "Account is domain admin"
+msgstr "アカウントはドメイン管理者"
+
+msgid "Account is global admin"
+msgstr "アカウントは全体管理者"
+
+msgid "Account status"
+msgstr "アカウントの状態"
+
+msgid "Account type"
+msgstr "アカウントの種類"
+
 msgid "Activate account"
 msgstr "アカウントを有効化"
 
+msgid "Active"
+msgstr "有効"
+
+msgid "Activities"
+msgstr ""
+
 msgid "Add"
 msgstr "追加"
+
+msgid "Add (subscribable) mailing list"
+msgstr "メーリングリストを追加"
 
 msgid "Add account"
 msgstr "アカウントを追加"
@@ -88,15 +109,35 @@ msgstr "管理者を追加"
 msgid "Add domain"
 msgstr "ドメインを追加"
 
+msgid "Add mail alias"
+msgstr "メールエイリアスを追加"
+
+msgid "Add mail alias under domain"
+msgstr "ドメインのメールエイリアスを追加"
+
+msgid "Add mail user"
+msgstr "メールユーザーを追加"
+
+msgid "Add mail user under domain"
+msgstr "ドメインのメールユーザーを追加"
+
+msgid "Add mailing list"
+msgstr "メーリングリストを追加"
+
+msgid "Add mailing list under domain"
+msgstr "ドメインのメーリングリストを追加"
+
+msgid "Add new members"
+msgstr "メンバーを追加"
+
+msgid "Add new moderators"
+msgstr "モデレーターを追加"
+
 msgid "Add one"
 msgstr "さらに作成しますか"
 
 msgid "Add one more?"
 msgstr "さらに作成しますか?"
-
-#, python-format
-msgid "Add user under domain: %s"
-msgstr ""
 
 msgid "Admin"
 msgstr "管理"
@@ -110,14 +151,38 @@ msgstr "管理者を作成した."
 msgid "Admin login"
 msgstr "管理者ログイン"
 
-msgid "Admin not exist."
-msgstr ""
-
 msgid "Admins"
 msgstr "管理者"
 
-msgid "Alias account"
-msgstr "エイリアスアカウント"
+#, python-format
+msgid "Admins under domain: %s"
+msgstr "ドメイン %s のユーザー"
+
+msgid "Advanced"
+msgstr "拡張設定"
+
+msgid "Alias"
+msgstr "エイリアス"
+
+#, python-format
+msgid "Alias addresses must end with domain name: %s"
+msgstr ""
+
+msgid "Alias addresses:"
+msgstr "エイリアスアドレス:"
+
+msgid "Alias domains:"
+msgstr "エイリアスドメイン:"
+
+msgid "Alias email addresses"
+msgstr ""
+
+msgid "Aliases"
+msgstr "エイリアス"
+
+#, python-format
+msgid "Aliases under domain: %s."
+msgstr "ドメイン %s のエイリアス"
 
 msgid "All admins"
 msgstr "全ての管理者"
@@ -128,43 +193,78 @@ msgstr "全てのドメイン"
 msgid "All domains under your control."
 msgstr "あなたが設定できる全てのドメイン"
 
-msgid "All mail administrators."
+msgid "All emails"
 msgstr ""
 
 msgid "Allocated"
 msgstr "使用容量"
 
+#, python-format
+msgid "Already exceed max number of account limit (%d)."
+msgstr "既にアカウントの上限数 %d に到達しています."
+
+msgid "Already reaches account limit (mail aliases)."
+msgstr "既にメールエイリアスの最大数に到達しています."
+
+msgid "Already reaches account limit (mail domains)."
+msgstr "既にメールドメインの最大数に到達しています."
+
+msgid "Already reaches account limit (mail users)."
+msgstr "既にメールユーザの最大数に到達しています."
+
+msgid "Already reaches account limit (mailbox quota)."
+msgstr "既にメールボックスクォータの最大数に到達しています."
+
+msgid "Already reaches account limit (mailing lists)."
+msgstr "既にメーリングリストの最大数に到達しています."
+
 msgid "Apply"
 msgstr "適用"
 
+msgid "Archive"
+msgstr "長期保存"
+
+msgid "Assigned groups:"
+msgstr "グループの割り当て:"
+
 #, python-format
-msgid "At least %s characters, but no more than %s."
-msgstr "%s 文字以上, %s 文字未満."
+msgid "At least %d characters."
+msgstr ""
 
 #, python-format
 msgid "At least %s characters."
 msgstr "最低 %s 文字以上."
 
+msgid "At least one digit number"
+msgstr ""
+
+msgid "At least one letter"
+msgstr ""
+
+msgid "At least one special character:"
+msgstr ""
+
+msgid "At least one uppercase letter"
+msgstr ""
+
 msgid "Available quota:"
 msgstr "クォータが設定されている:"
 
-msgid "BCC incoming emails to single address"
-msgstr ""
-
-msgid "BCC incoming mails to other address"
-msgstr ""
-
-msgid "BCC outgoing emails to single address"
-msgstr ""
-
-msgid "BCC outgoing mails to other address"
+#, python-format
+msgid "Available: %d (Existing: %d, Max: %d.)"
 msgstr ""
 
 msgid "Backup"
 msgstr "バックアップ"
 
-msgid "Check this box in order to enable other services"
-msgstr "他のサービスを有効にする場合、チェックを入れる"
+msgid "Backup MX"
+msgstr "バックアップ MX"
+
+msgid "Change email address"
+msgstr "メールアドレスを変更"
+
+msgid "Change email address to"
+msgstr "メールアドレスを次のものに変更"
 
 msgid "Choose Action"
 msgstr "実施内容を選択"
@@ -181,19 +281,13 @@ msgstr "Web管理者に連絡"
 msgid "Current password is incorrect."
 msgstr "現在のパスワードが異なります."
 
-msgid "Customize mail filter rule"
-msgstr "通常配信時のメールフィルタールールを編集"
-
-msgid "Customize mail filter rule over TLS/SSL"
-msgstr "TLS/SSL配信時のメールフィルタールールを編集"
-
 msgid "DISABLED"
 msgstr "無効"
 
 msgid "Dashboard"
 msgstr "ダッシュボード"
 
-msgid "Default quota of new user"
+msgid "Default language for new user"
 msgstr "新規ユーザー向けのクォータ設定"
 
 msgid "Delete"
@@ -205,14 +299,20 @@ msgstr "アカウントを削除"
 msgid "Delete all in database"
 msgstr "データベース上の全てを削除"
 
+msgid "Delete and archive"
+msgstr "削除と長期保存"
+
 msgid "Delete mailboxes"
 msgstr "メールボックスを削除"
 
-msgid "Delete mailboxes in"
-msgstr ""
+msgid "Delete selected log"
+msgstr "選択したログを削除"
 
-msgid "Delete selected"
-msgstr "選択したものを削除"
+msgid "Delete without archiving"
+msgstr "長期保存無しで削除"
+
+msgid "Digest"
+msgstr ""
 
 msgid "Disable"
 msgstr "無効化"
@@ -220,13 +320,51 @@ msgstr "無効化"
 msgid "Disable account"
 msgstr "アカウントを無効化"
 
+msgid ""
+"Disable subscription and unsubscription via email (existing subscribers "
+"are still able to send to list)"
+msgstr ""
+
+msgid "Disable subscription but allow unsubscription via email"
+msgstr ""
+
+msgid "Disable subscription confirm"
+msgstr ""
+
+msgid "Disabled"
+msgstr "無効化"
+
+msgid "Disabled accounts"
+msgstr "アカウントを無効化"
+
+msgid "Disabled domains"
+msgstr "ドメインを無効化"
+
 msgid "Display Name"
 msgstr "表示名"
 
-msgid "Display mail address in global LDAP address book"
-msgstr "LDAPの全体アドレス帳でメールアドレスを表示"
+msgid "Do not archive received emails"
+msgstr ""
 
-msgid "Displayed in Global LDAP Address Book"
+msgid ""
+"Do not notify sender when posting to a moderator-only mailing list was "
+"denied"
+msgstr ""
+
+msgid ""
+"Do not notify sender when posting to a subscriber-only mailing list was "
+"denied"
+msgstr ""
+
+msgid ""
+"Do not notify sender when posting was denied due to exceed max message "
+"size"
+msgstr ""
+
+msgid "Do not notify subscription requestor when subscription is under moderated"
+msgstr ""
+
+msgid "Do not send a copy to sender"
 msgstr ""
 
 msgid "Domain"
@@ -238,14 +376,20 @@ msgstr "ドメインの管理者"
 msgid "Domain Name"
 msgstr "ドメイン名"
 
-msgid "Domain alias"
-msgstr "ドメインのエイリアス"
-
 msgid "Domain already exists. Please check both primary or alias domains."
 msgstr "ドメインは既にあります. 異なる名前を指定してください."
 
 msgid "Domain created."
 msgstr "ドメインは作成されました."
+
+msgid "Domain is active, but marked as backup MX."
+msgstr "ドメインは有効です, ただしバックアップMXとして設定されています"
+
+msgid "Domain is active, but relay to other host"
+msgstr "ドメインは有効です, ただし他ホストへのリレーサーバです"
+
+msgid "Domain is disabled."
+msgstr "アカウントは無効です."
 
 msgid "Domain name is empty."
 msgstr "ドメイン名が指定されていません."
@@ -261,6 +405,9 @@ msgid ""
 "provider to increase it."
 msgstr "ドメインのクォータサイズを超えました. 管理者に連絡してサイズを増やしてもらってください."
 
+msgid "Domains"
+msgstr "ドメイン"
+
 msgid "Domains and Accounts"
 msgstr "ドメインとユーザ設定"
 
@@ -270,8 +417,39 @@ msgstr "アカウントのProfileを編集"
 msgid "Edit domain profile"
 msgstr "ドメインのProfileを編集"
 
-msgid "Empty address is not allowed."
-msgstr "アドレス無しは設定出来ません."
+msgid "Edit quota setting"
+msgstr "クォータを編集"
+
+msgid "Email"
+msgstr "メール"
+
+msgid "Email address was changed."
+msgstr "メールアドレスが作成されました."
+
+msgid ""
+"Email addresses of the mailing list moderators which need to be contacted"
+" when there is some email under moderated. If empty, mailing list owners "
+"will be used instead."
+msgstr ""
+
+msgid ""
+"Email addresses of the mailing list moderators which need to be contacted"
+" when there is someone subscribing to the list and under moderated. If "
+"empty, mailing list moderators will be used instead."
+msgstr ""
+
+#, python-format
+msgid ""
+"Email addresses of the mailing list owners which need to be contacted via"
+" email %s, either by the system or by end users."
+msgstr ""
+
+msgid "Emails"
+msgstr "メール"
+
+#, python-format
+msgid "Emails sent to alias addresses will be delivered to %s."
+msgstr ""
 
 msgid "Empty password is not allowed."
 msgstr "パスワード無しは設定出来ません."
@@ -279,18 +457,26 @@ msgstr "パスワード無しは設定出来ません."
 msgid "Enable"
 msgstr "有効化"
 
+msgid "Enable newsletter-style mailing list"
+msgstr "ニュース形式のメーリングリストを有効化"
+
+msgid "Enable subscription and unsubscription from website"
+msgstr ""
+
 msgid "Enable this account"
 msgstr "このアカウントを有効にする"
 
 msgid "Enable this domain"
 msgstr "このドメインを有効にする"
 
-msgid "Enabled Services"
-msgstr "有効なサービス"
+msgid "Error"
+msgstr "エラー:"
 
-#, python-format
-msgid "Error while checking new version: %s"
+msgid "Error while checking new version of iRedAdmin:"
 msgstr ""
+
+msgid "Error while getting license info:"
+msgstr "ライセンス情報の確認中にエラー"
 
 msgid "Error:"
 msgstr "エラー:"
@@ -298,22 +484,46 @@ msgstr "エラー:"
 msgid "Events"
 msgstr "イベント"
 
+msgid "Everyone can send mail to this address"
+msgstr "誰でもこのアドレスにメールを送信出来る"
+
 msgid ""
 "Exceeded domain account limit. Please contact your administrator or "
 "service provider to increase it."
 msgstr "ドメインアカウントの制限を超えています. 管理者に連絡して制限値を増やしてもらってください."
 
-msgid "Fetching mails via IMAP"
-msgstr "IMAP経由でメールを取得する"
+msgid "Exceeded:"
+msgstr ""
 
-msgid "Fetching mails via IMAP over TLS/SSL"
-msgstr "IMAP over TLS/SSLでメールを取得する"
+msgid "Expire date"
+msgstr "期限切れ日"
 
-msgid "Fetching mails via POP3"
-msgstr "POP3でメールを取得する"
+msgid "Expired"
+msgstr "期限切れ"
 
-msgid "Fetching mails via POP3 over TLS/SSL"
-msgstr "POP3 over TLS/SSLでメールを取得する"
+msgid "Export account in LDIF format"
+msgstr ""
+
+msgid "Export accounts"
+msgstr ""
+
+msgid "Export all managed accounts"
+msgstr ""
+
+msgid "Export statistics of admins"
+msgstr ""
+
+msgid "External Members"
+msgstr "外部メンバー"
+
+msgid "External moderators"
+msgstr "外部モデレーター"
+
+msgid "Filter accounts by first character in email addresses"
+msgstr ""
+
+msgid "Filter domains by first character in mail domain name"
+msgstr ""
 
 msgid "Filter:"
 msgstr "フィルター:"
@@ -324,8 +534,17 @@ msgstr "最初のページ"
 msgid "First name"
 msgstr "First name"
 
-msgid "Forwarding mails to other addresses"
-msgstr "メールを他のアドレスに転送する"
+msgid "Footer text (HTML format)"
+msgstr "フッター(HTML形式用)"
+
+msgid "Footer text (plain text format)"
+msgstr "フッター(テキスト形式用)"
+
+msgid "Forwarding addresses (saved a copy in mailbox)"
+msgstr ""
+
+msgid "Forwarding addresses (without saving a copy in mailbox)"
+msgstr ""
 
 msgid "Full name"
 msgstr "フルネーム"
@@ -333,10 +552,10 @@ msgstr "フルネーム"
 msgid "General"
 msgstr "基本"
 
-msgid "Global Admin"
-msgstr "全体管理者"
+msgid "Get a newsletter signup form"
+msgstr ""
 
-msgid "Global admin"
+msgid "Global Admin"
 msgstr "全体管理者"
 
 msgid "Grant admin"
@@ -345,14 +564,41 @@ msgstr "管理者権限を付与"
 msgid "Hostname"
 msgstr "ホスト名"
 
+msgid "IMAP Login:"
+msgstr ""
+
 msgid "IP Address"
 msgstr "IPアドレス"
 
+msgid ""
+"If you prefer redirecting user to a subscription page, this is the url of"
+" subscription page."
+msgstr ""
+
+msgid "Increase it now?"
+msgstr "いま増加させますか?"
+
+msgid ""
+"Input mail addresses of either internal or external members below, "
+"multiple addresses must be separated by comma, space or new line."
+msgstr ""
+
+msgid ""
+"Input mail addresses of either internal or external moderators below, "
+"multiple addresses must be separated by comma, space or new line."
+msgstr ""
+
+msgid "Internal Members"
+msgstr "内部メンバー"
+
+msgid "Internal Moderators"
+msgstr "内部モデレーター"
+
+msgid "Invalid account."
+msgstr "無効なアカウント."
+
 msgid "Invalid action."
 msgstr "無効な操作."
-
-msgid "Invalid domain name or mail address."
-msgstr "無効なドメイン名かメールアドレス."
 
 msgid "Invalid domain name."
 msgstr "無効なドメイン名."
@@ -360,27 +606,63 @@ msgstr "無効なドメイン名."
 msgid "Invalid mail address."
 msgstr "無効なメールアドレス."
 
-msgid "Invalid request data."
-msgstr "無効なリクエスト."
-
-msgid "Invalid username."
-msgstr ""
+msgid "Invalid product id."
+msgstr "無効なプロダクトID."
 
 msgid "Is a global admin."
 msgstr "全体管理者にしますか?"
 
 msgid ""
-"It is recommended to mark user as domain admin in user profile page "
-"instead of creating separate admin account."
+"It's better create a subscribable mailing list instead, so that you can "
+"restrict the mail posting and delivery."
+msgstr ""
+
+msgid ""
+"It's better create a subscribable mailing list, so that you can restrict "
+"the mail posting and delivery."
 msgstr ""
 
 msgid "Job Title"
 msgstr "役職"
 
-msgid "Job Title/Responsibility"
+#, python-format
+msgid "Keep mailbox for %d days"
 msgstr ""
 
-msgid "Keep forever"
+#, python-format
+msgid "Keep mailbox for %d months"
+msgstr ""
+
+#, python-format
+msgid "Keep mailbox for %d weeks"
+msgstr ""
+
+#, python-format
+msgid "Keep mailbox for %d years"
+msgstr ""
+
+msgid "Keep mailbox for 1 day"
+msgstr "1日間 メールボックスを保持"
+
+msgid "Keep mailbox for 1 month "
+msgstr ""
+
+msgid "Keep mailbox for 1 week"
+msgstr ""
+
+msgid "Keep mailbox for 1 year"
+msgstr "1年間 メールボックスを保持"
+
+msgid "Keep mailbox forever"
+msgstr "残し続ける"
+
+msgid "Keyword"
+msgstr "キーワード"
+
+msgid "Last Login"
+msgstr ""
+
+msgid "Last Login:"
 msgstr ""
 
 msgid "Last Page"
@@ -389,8 +671,41 @@ msgstr "最終ページ"
 msgid "Last name"
 msgstr "Last name"
 
+msgid "Latest version"
+msgstr "最新版"
+
+msgid "Leave it empty to use max value."
+msgstr ""
+
+msgid "License"
+msgstr "ライセンス"
+
+msgid "License Key"
+msgstr "ライセンスキー"
+
+msgid "License is active"
+msgstr "ライセンスは有効です."
+
+msgid "License owner(s)"
+msgstr ""
+
+msgid "License status"
+msgstr "ライセンス状況"
+
+msgid "Lifetime license"
+msgstr "永続ライセンス"
+
+msgid "List all mail aliases."
+msgstr "全てのメールエイリアスを表示する."
+
 msgid "List all mail users."
 msgstr "全てのメールユーザーを表示する."
+
+msgid "List all mailing lists."
+msgstr ""
+
+msgid "Lists"
+msgstr "一覧"
 
 #, python-format
 msgid "Logged in as %s"
@@ -398,6 +713,9 @@ msgstr "%s でログイン中"
 
 msgid "Login"
 msgstr "ログイン"
+
+msgid "Login from your IP address is not allowed."
+msgstr ""
 
 msgid "Login required"
 msgstr "ログインが必要"
@@ -411,65 +729,118 @@ msgstr "ログアウト"
 msgid "Mail Address"
 msgstr "メールアドレス"
 
+msgid "Mail Aliases"
+msgstr "メールエイリアス"
+
+msgid "Mail Deliver Restriction"
+msgstr "メール配信制限"
+
+msgid "Mail Delivery"
+msgstr "メール配信"
+
 msgid "Mail Users"
 msgstr "メールユーザー"
 
-msgid "Mail address already exists, please choose another one."
+msgid "Mail deliver restriction will be migrated."
 msgstr ""
 
-msgid "Mail alias created."
-msgstr "メールエイリアスを作成."
+msgid ""
+"Mail delivery restriction will be set to allow email from any sender by "
+"default."
+msgstr ""
 
-msgid "Mail list created."
-msgstr "メーリングリストを作成."
+msgid "Mail posting"
+msgstr ""
 
-msgid "Mail service"
-msgstr "メールサービス"
+msgid "Mail sent to alias will be forwarded to members."
+msgstr ""
 
 msgid "Mailbox Quota"
 msgstr "メールボックスのクォータ(上限サイズ)"
 
-msgid "Mails were deleted."
-msgstr "メールは削除されました."
+msgid "Mailing List"
+msgstr "メーリングリスト"
 
-msgid "Mails were released."
-msgstr "メールは解放されました."
+msgid "Mailing List (Subscribable)"
+msgstr "メーリングリスト(購読可能)"
 
-msgid "Managed Domains"
-msgstr "管理しているドメイン"
+msgid "Mailing Lists"
+msgstr "メーリングリスト"
+
+#, python-format
+msgid "Mailing lists under domain: %s"
+msgstr ""
+
+#, python-format
+msgid "Mailing lists under domain: %s."
+msgstr "ドメイン %s のメーリングリスト"
+
+msgid "Mark as domain admin"
+msgstr "ドメイン管理者とする"
 
 msgid "Mark as global admin"
 msgstr "全体管理者とする"
 
-msgid "Mark this user as"
-msgstr "次の権限を与える"
+msgid "Max message size"
+msgstr "最大メッセージサイズ"
 
-msgid "Member assigned success."
-msgstr "メンバーの割り当てをしました."
+msgid "Max:"
+msgstr "最大:"
 
-msgid "Member removed success."
-msgstr "メンバーの割り当て解除をしました."
+msgid "Member of mailing lists:"
+msgstr "メーリングリストのメンバー"
+
+msgid "Members"
+msgstr "メンバー"
+
+msgid "Members and moderators"
+msgstr "メンバーとモデレーター"
+
+msgid "Members and moderators will be fully migrated."
+msgstr ""
+
+msgid "Members will be fully migrated."
+msgstr ""
 
 msgid "Message"
 msgstr "メッセージ"
 
+msgid "Messages sent to mailing list will be delivered to its members."
+msgstr ""
+
+msgid "Migrate Now"
+msgstr ""
+
+msgid "Migrate to subscribable mailing list"
+msgstr ""
+
+msgid "Migrate to subscribable mailing list?"
+msgstr ""
+
 msgid "Mobile"
 msgstr "モバイル"
 
-msgid "Moderators assigned success."
-msgstr "モデレーターの割り当てをしました."
-
-msgid "Moderators removed success."
-msgstr "モデレーターの割り当て解除をしました."
-
-msgid "Name"
+msgid "Moderate all posts (Moderators are required)"
 msgstr ""
 
-msgid "Need a random password?"
-msgstr "ランダムパスワードが必要ですか?"
+msgid "Moderate subscriptions"
+msgstr ""
+
+msgid "Moderators"
+msgstr "モデレーター"
+
+#, python-format
+msgid "Must be %s - %s characters."
+msgstr ""
+
+msgid "Need a strong password?"
+msgstr ""
 
 msgid "Network"
 msgstr "ネットワーク"
+
+msgid "New Mail Delivered:"
+msgstr ""
 
 msgid "New password"
 msgstr "新しいパスワード"
@@ -485,8 +856,20 @@ msgstr "パスワードは %s 文字以下を指定してください."
 msgid "New passwords are not match."
 msgstr "パスワードが一致しません."
 
-msgid "News & Announments"
+msgid "New version is available."
+msgstr "新しいバージョンがあります."
+
+#, python-format
+msgid ""
+"New version of iRedAdmin, %s, is now available for upgrading. <a "
+"href='%s/system/license' class='button green'>Details</a>"
 msgstr ""
+
+msgid "News & Announcements"
+msgstr "ニュースとお知らせ"
+
+msgid "Newsletter"
+msgstr "ニュースレター"
 
 msgid "Next Page"
 msgstr "次のページ"
@@ -497,8 +880,29 @@ msgstr "アカウントが選択されていません."
 msgid "No admin log."
 msgstr "管理ログがありません."
 
+msgid "No digit number in password."
+msgstr ""
+
 msgid "No domain under control."
 msgstr "管理できるドメインがありません."
+
+msgid "No email"
+msgstr "メールがありません"
+
+msgid "No free domain quota left."
+msgstr "ドメインのクォータに空きがありません."
+
+msgid "No letter in password."
+msgstr ""
+
+msgid "No mail admin assigned."
+msgstr ""
+
+msgid "No mail admin available."
+msgstr "メール管理者がありません."
+
+msgid "No mail alias available."
+msgstr "メールエイリアスがありません."
 
 msgid "No mail domain available."
 msgstr "メールドメインがありません."
@@ -506,15 +910,28 @@ msgstr "メールドメインがありません."
 msgid "No mail user available."
 msgstr "メールユーザがありません."
 
-msgid "No moderator selected."
-msgstr "モデレーターが選択されていません."
+msgid "No mailing list available."
+msgstr "メーリングリストがありません."
+
+msgid "No members."
+msgstr "メンバーがありません."
+
+msgid "No moderators."
+msgstr "モデレーターがありません."
+
+#, python-format
+msgid "No more than %d characters."
+msgstr ""
 
 #, python-format
 msgid "No more than %s characters."
 msgstr "%s 文字以内にしてください."
 
-msgid "No such domain."
-msgstr ""
+msgid "No special character in password."
+msgstr "パスワードに記号が含まれていません."
+
+msgid "No uppercase letter in password."
+msgstr "パスワードに大文字が含まれていません."
 
 msgid "Not a global admin."
 msgstr "全体管理者ではありません."
@@ -522,20 +939,64 @@ msgstr "全体管理者ではありません."
 msgid "Not allowed to create mail alias under this domain."
 msgstr "このドメインではメールエイリアスの作成は許可されていません."
 
-msgid "Not allowed to create mail list under this domain."
-msgstr "このドメインではメーリングリストの作成は許可されていません."
-
 msgid "Not allowed to create mail user under this domain."
 msgstr "このドメインではメールユーザの作成は許可されていません."
+
+msgid "Not allowed to create mailing list under this domain."
+msgstr ""
+
+msgid "Notifications"
+msgstr "通知"
+
+msgid ""
+"Notify owner(s) when someone subscribe to or unsubscribe from the mailing"
+" list"
+msgstr ""
+
+msgid "Notify sender if email is under moderated"
+msgstr ""
+
+msgid "Number of domains"
+msgstr "ドメイン数"
+
+msgid "Number of max mail aliases"
+msgstr "メールエイリアスの最大数"
+
+msgid "Number of max mail users"
+msgstr "メールユーザーの最大数"
+
+msgid "Number of max mailing lists"
+msgstr "メーリングリストの最大数"
+
+msgid "Number of users"
+msgstr "ユーザー数"
 
 msgid "Old password"
 msgstr "古いパスワード"
 
-msgid "Operation completed."
-msgstr "操作が完了しました."
+msgid ""
+"One IP address or network per line. Invalid address or network will be "
+"discarded."
+msgstr ""
+
+msgid "One mail address per line. Invalid address will be discarded."
+msgstr ""
 
 msgid "Or create other mail accounts:"
 msgstr "他のメールアカウント:"
+
+#, python-format
+msgid "Owner will be set to postmaster@%s."
+msgstr "オーナーは postmaster@%s が設定されます."
+
+msgid "Owners"
+msgstr "オーナー"
+
+msgid "Owners and Moderators"
+msgstr "オーナーとモデレーター"
+
+msgid "POP3 Login:"
+msgstr ""
 
 msgid "Password"
 msgstr "パスワード"
@@ -549,22 +1010,28 @@ msgstr "パスワードが長すぎます."
 msgid "Password is too short."
 msgstr "パスワードが短すぎます."
 
-msgid "Password of cn=vmailadmin is incorrect."
+msgid "Password last change:"
 msgstr ""
 
-msgid ""
-"Per-user relay setting will override per-domain relay setting you set in "
-"this page."
-msgstr ""
+msgid "Password must contain"
+msgstr "パスワードは次のものが含まれている必要があります:"
 
 msgid "Permission denied."
 msgstr "権限がありません."
 
+msgid "Please do not use non-ascii character in password."
+msgstr "パスワードにASCII文字列以外を使用しないでください."
+
+msgid ""
+"Please either mark mail user as domain admin or create a separate admin "
+"account."
+msgstr "管理者アカウントとして作成するのではなく、各ドメインで作成したユーザのProfileページで、全体管理者の権限を与えることを推奨します."
+
 msgid "Please select at least one account."
 msgstr "１つ以上のアカウントを選択してください."
 
-msgid "Please select at least one domain to apply action."
-msgstr ""
+msgid "Please select at least one domain."
+msgstr "１つ以上のドメインを選択してください."
 
 msgid "Preferences"
 msgstr "設定"
@@ -572,14 +1039,29 @@ msgstr "設定"
 msgid "Preferred language"
 msgstr "優先する言語"
 
+msgid "Prefix text to mail subject"
+msgstr "メールのサブジェクトに追加する文字列"
+
 msgid "Previous Page"
 msgstr "前のページ"
+
+msgid "Product name"
+msgstr "製品名"
+
+msgid "Profile has been updated."
+msgstr ""
 
 msgid "Profile of admin:"
 msgstr "管理者のProfile"
 
+msgid "Profile of alias:"
+msgstr "エイリアスのProfile"
+
 msgid "Profile of domain:"
 msgstr "ドメインのProfile"
+
+msgid "Profile of mailing list:"
+msgstr "メーリングリストのProfile"
 
 msgid "Profile of user:"
 msgstr "ユーザのProfile"
@@ -587,38 +1069,53 @@ msgstr "ユーザのProfile"
 msgid "Profile updated failed."
 msgstr "Profileの更新に失敗しました."
 
-msgid "Profile updated success."
-msgstr "Profileを更新しました."
+msgid "Purchase a new license"
+msgstr "新しいライセンスの購入"
 
-msgid "Quarantined Mails"
-msgstr "隔離されたメール"
+msgid "Purchase date"
+msgstr "購入日"
 
 msgid "Quota"
 msgstr "クォータ"
 
-msgid "Received Mails"
-msgstr "受信メール"
-
-msgid "Receiving mails for this account on mail server"
-msgstr "メールサーバにある、このアカウント宛の受信メール"
-
-msgid "Relay/Transport Setting"
+msgid "Records were successfully updated."
 msgstr ""
 
-msgid "Remember me"
+msgid "Redirect user to subscription page"
 msgstr ""
+
+msgid "Relay"
+msgstr "リレー"
+
+msgid "Release Notes and Upgrade Tutorials"
+msgstr "リリースノートとアップグレードの解説"
+
+msgid "Remove ALL members"
+msgstr "全てのメンバーを削除"
+
+msgid "Remove from list"
+msgstr "リストから削除"
+
+msgid "Remove selected members"
+msgstr "選択したメンバーを削除"
+
+msgid "Renew license"
+msgstr "ライセンス更新"
 
 msgid "Revoke admin privilege"
 msgstr "管理者権限を剥奪"
 
-msgid "Sample"
-msgstr "サンプル"
-
 msgid "Save changes"
 msgstr "変更を保存"
 
-msgid "Search keyword could not be empty."
-msgstr "検索文字列が指定されていません."
+msgid "Search"
+msgstr "検索"
+
+msgid "Search mail accounts"
+msgstr "メールアカウントを検索"
+
+msgid "Search results."
+msgstr "検索結果."
 
 msgid ""
 "Security token did not match. Please refresh current page and re-perform "
@@ -634,8 +1131,20 @@ msgstr "選択したアカウントは無効化されました."
 msgid "Selected accounts were enabled."
 msgstr "選択したアカウントは有効化されました."
 
-msgid "Selected domains were deleted."
-msgstr "選択したドメインは削除されました."
+msgid "Selected accounts were marked as domain admin."
+msgstr "選択したアカウントはドメイン管理者になりました."
+
+msgid "Selected accounts were marked as global admin."
+msgstr "選択したアカウントは全体管理者になりました."
+
+msgid "Selected accounts were unmarked as domain admin."
+msgstr "選択したアカウントはドメイン管理者ではなくなりました."
+
+msgid "Selected accounts were unmarked as global admin."
+msgstr "選択したアカウントは全体管理者ではなくなりました."
+
+msgid "Selected domains have been deleted."
+msgstr ""
 
 msgid "Selected domains were disabled."
 msgstr "選択したドメインは無効化されました."
@@ -646,14 +1155,11 @@ msgstr "選択したドメインは有効化されました."
 msgid "Selected log records were deleted."
 msgstr "選択したログは削除されました."
 
-msgid "Sending mails via SMTP"
-msgstr "SMTPでメールを送信する"
+msgid "Send email to new members for subscription confirm"
+msgstr ""
 
-msgid "Sending mails via SMTP over TLS/SSL"
-msgstr "SMTP over TLS/SSLでメールを送信する"
-
-msgid "Sent Mails"
-msgstr "送信メール"
+msgid "Send me an email with download link"
+msgstr "ダウンロードリンクを私にメールする"
 
 msgid "Server Load"
 msgstr "サーバの負荷"
@@ -669,14 +1175,50 @@ msgstr "セッションは終了しました. 再ログインしてください.
 msgid "Set to 0 for unlimited."
 msgstr "0を指定すると無制限."
 
+msgid "Set value to -1 means not allowed to create this kind of account."
+msgstr "-1を指定するとこの種類のアカウントが作成できなくなります."
+
+msgid "Set value to 0 or leave it empty for unlimited."
+msgstr "0か空欄を指定すると無制限."
+
+msgid "Settings"
+msgstr "設定"
+
+msgid "Show in Global Address Book"
+msgstr "LDAPの全体アドレス帳でメールアドレスを表示"
+
+#, python-format
+msgid "Some addresses have been discarded because they have been used: %s."
+msgstr ""
+
+msgid "Standalone admin account cannot be an user of local domain."
+msgstr ""
+
 msgid "Store password in plain text"
 msgstr "パスワードを平文テキストで保管する"
+
+msgid "Stored"
+msgstr "保管"
+
+msgid "Stored emails"
+msgstr "保管されたメール"
 
 msgid "Submit"
 msgstr "送信"
 
 msgid "Submited domain name is incorrect."
 msgstr "送信したドメイン名が誤っています."
+
+msgid "Subscription Moderators"
+msgstr ""
+
+msgid ""
+"Subscription and unsubscription will be disabled by default, feel free to"
+" enable them after migration."
+msgstr ""
+
+msgid "Subscription control"
+msgstr ""
 
 msgid "Support"
 msgstr "サポート"
@@ -690,21 +1232,38 @@ msgstr "システム情報"
 msgid "Telephone Number"
 msgstr "電話番号"
 
+msgid "Text to introduce this newsletter on subscription page"
+msgstr ""
+
+msgid "This is a mail alias."
+msgstr "これはメールエイリアスです."
+
+msgid "This is a mailing list."
+msgstr "これはメーリングリストです."
+
 msgid "Time"
 msgstr "時刻"
 
-msgid "Total"
-msgstr "合計"
+msgid "Time zone"
+msgstr "タイムゾーン"
+
+msgid "To add new members, please enable mailing list account first."
+msgstr ""
+
+msgid "Unban IP address"
+msgstr ""
 
 msgid "Unlimited"
 msgstr "無制限"
 
+msgid "Unmark as domain admin"
+msgstr "ドメイン管理者を解除"
+
+msgid "Unmark as global admin"
+msgstr "全体管理者を解除"
+
 msgid "Unrestricted"
 msgstr "無制限"
-
-#, python-format
-msgid "Update available: <a href='%s' target='_blank'>v%s</a>"
-msgstr ""
 
 msgid "Update whitelists and blacklists"
 msgstr "ホワイトリストとブラックリストを更新"
@@ -712,17 +1271,23 @@ msgstr "ホワイトリストとブラックリストを更新"
 msgid "Uptime"
 msgstr "稼働時間"
 
+msgid "Use this password"
+msgstr "このパスワードを使用"
+
+msgid "Used"
+msgstr "使用済"
+
 msgid "User"
 msgstr "ユーザー"
-
-msgid "User ID"
-msgstr ""
 
 msgid "User created."
 msgstr "ユーザーは作成されました."
 
 msgid "User login (self-service)"
 msgstr "ユーザーログイン (一般ユーザー向けサービス)"
+
+msgid "User/Employee ID"
+msgstr "ユーザー/雇用者 ID"
 
 msgid "Username"
 msgstr "ユーザー名"
@@ -740,9 +1305,81 @@ msgstr "ユーザー"
 msgid "Users under domain: %s"
 msgstr "ドメイン %s のユーザー"
 
-msgid "Warning"
-msgstr "警告"
+msgid "Users under same domain"
+msgstr "同じドメインのユーザー"
 
-msgid "iRedMail Admin Panel"
+msgid "Users under same domain and its sub-domains"
+msgstr "同じドメインとサブドメインのユーザー"
+
+msgid "View members"
+msgstr "メンバーを見る"
+
+msgid "Who can send email to this list"
+msgstr ""
+
+msgid "You are not allowed to update global domain admin's profile."
+msgstr ""
+
+#, python-format
+msgid "You are running version %s"
+msgstr ""
+
+#, python-format
+msgid "You can NOT create more users under domain %s."
+msgstr "ドメイン %s ではこれ以上のユーザの作成はできません."
+
+#, python-format
+msgid "You can create <strong>%d</strong> more mail alias(es) under domain %s."
+msgstr ""
+
+#, python-format
+msgid ""
+"You can create <strong>%d</strong> more mail domains (Existing: %d, Max: "
+"%d)"
+msgstr ""
+
+#, python-format
+msgid "You can create <strong>%d</strong> more mail user(s) under domain %s."
+msgstr ""
+
+#, python-format
+msgid "You can create <strong>%d</strong> more mailing list(s) under domain %s."
+msgstr ""
+
+msgid ""
+"You can embed a mailing list signup form (HTML code below) on any page of"
+" your website. Feel free to customize the form to add your brand name, "
+"logo image, or combine it with special offers to attract new subscribers "
+"and boost engagement."
+msgstr ""
+
+msgid ""
+"You can enable self-service (per-domain setting) to allow users to manage"
+" their own preferences and more."
+msgstr ""
+
+#, python-format
+msgid "You can't create mail aliases under domain %s."
+msgstr "ドメイン %s ではメールエイリアスの作成は許可されていません."
+
+#, python-format
+msgid "You can't create mailing lists under domain %s."
+msgstr ""
+
+#, python-format
+msgid "You can't create more mail aliases under domain %s."
+msgstr "ドメイン %s ではこれ以上のメールエイリアスの作成は許可されていません."
+
+#, python-format
+msgid "You can't create more mailing lists under domain %s."
+msgstr ""
+
+msgid "Your license is invalid. Please contact support@iredmail.org to fix it."
+msgstr ""
+
+msgid "Your search returned no hits."
+msgstr "検索結果 なし"
+
+msgid "without verifying local recipients"
 msgstr ""
 

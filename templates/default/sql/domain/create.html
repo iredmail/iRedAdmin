@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% from "macros/general.html" import display_add_domain with context %}
+{% from "macros/msg_handlers.html" import domain_msg_handler with context %}
+
+{% block title %}{{ _('Add domain') }}{% endblock title %}
+{% block navlinks_create %}class="active"{% endblock %}
+
+{% block main %}
+{# Show system message #}
+{{ domain_msg_handler(msg) }}
+
+    <div class="content-box">
+        <div class="box-body">
+            <div class="box-header clear">
+                <h2>{{ _('Add domain') }}</h2>
+            </div>
+
+            {{ display_add_domain(label=false,
+                                  preferred_language=preferred_language,
+                                  languagemaps=languagemaps,
+                                  timezones=timezones) }}
+        </div>
+    </div>
+
+{% endblock main %}

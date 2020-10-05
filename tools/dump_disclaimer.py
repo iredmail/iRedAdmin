@@ -15,12 +15,12 @@
 #   - Test this script in command line directly, make sure no errors in output
 #     message.
 #
-#       python3 /path/to/dump_disclaimer.py /etc/postfix/disclaimer/
+#       # python /path/to/dump_disclaimer.py /etc/postfix/disclaimer/
 #
 #   - Setup a cron job to execute this script daily. For example: execute
 #     this script at 2:01AM every day.
 #
-#       1  2   *   *   *   python3 /path/to/dump_disclaimer.py /etc/postfix/disclaimer/
+#       1  2   *   *   *   python /path/to/dump_disclaimer.py /etc/postfix/disclaimer/
 #
 # That's all.
 
@@ -44,6 +44,7 @@ rootdir = os.path.abspath(os.path.dirname(__file__)) + '/../'
 sys.path.insert(0, rootdir)
 
 import settings
+from libs import iredutils
 from tools import ira_tool_lib
 logger = ira_tool_lib.logger
 
@@ -53,6 +54,7 @@ elif settings.backend == 'mysql':
     sql_dbn = 'mysql'
 elif settings.backend == 'pgsql':
     sql_dbn = 'postgres'
+
 
 def write_disclaimer(text, filename, file_type='txt'):
     # Write plain text
@@ -93,18 +95,18 @@ def handle_disclaimer(domain, disclaimer_text):
                     os.remove(f)
                     logger.info("  - Remove %s." % f)
         except OSError:
-            # File not exist.
-            #logger.info("= %(domain)s -> [SKIP] No disciaimer configured." % vars)
             pass
         except Exception as e:
             # Other errors.
-            logger.info("<<< ERROR >>> %s: %s." % (domain, str(e)))
+            logger.info("<<< ERROR >>> {}: {}.".format(domain, str(e)))
 
 
 def dump_from_ldap():
     """Dump disclaimer text from LDAP server."""
     logger.info('Connecting to LDAP server')
-    conn = ldap.initialize(settings.ldap_uri, trace_level=0)
+    conn = ldap.initialize(uri=settings.ldap_uri,
+                           trace_level=0,
+                           bytes_strictness='silent')
     conn.set_option(ldap.OPT_PROTOCOL_VERSION, 3)
 
     logger.info('Binding with dn: %s' % settings.ldap_basedn)
@@ -121,11 +123,13 @@ def dump_from_ldap():
 
     logger.info('Dumping ...')
 
-    for (dn, entry) in qr:
+    for (_dn, _ldif) in qr:
+        _ldif = iredutils.bytes2str(_ldif)
+
         # Get domain names.
-        _domains = entry['domainName']
-        _alias_domains = entry.get('domainAliasName', [])
-        disclaimer_text = entry.get('disclaimer', [''])[0]
+        _domains = _ldif['domainName']
+        _alias_domains = _ldif.get('domainAliasName', [])
+        disclaimer_text = _ldif.get('disclaimer', [''])[0]
 
         domains = _domains + _alias_domains
 

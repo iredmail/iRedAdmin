@@ -1,297 +1,404 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
 import ldap
-import ldap.filter
 import web
-from libs import iredutils
-from libs.ldaplib import core, attrs, ldaputils, iredldif, connUtils, decorators
+import settings
+from libs import iredutils, iredpwd, form_utils
+from libs.l10n import TIMEZONES
+from libs.logger import log_activity
+
+from libs.ldaplib.core import LDAPWrap
+from libs.ldaplib import attrs, ldaputils, iredldif
+from libs.ldaplib import general as ldap_lib_general
 
 session = web.config.get('_session')
 
 
-class Admin(core.LDAPWrap):
-    def __del__(self):
-        try:
-            self.conn.unbind()
-        except:
-            pass
+def get_profile(mail, attributes=None, conn=None):
+    """Get admin profile."""
+    mail = web.safestr(mail)
+    dn = ldaputils.rdn_value_to_admin_dn(mail)
 
-    # Get preferredLanguage.
-    def getPreferredLanguage(self, dn):
-        dn = ldap.filter.escape_filter_chars(dn)
-        lang = self.conn.search_s(
-            dn,
-            ldap.SCOPE_BASE,
-            attrlist=['preferredLanguage'],
-        )
-        if 'preferredLanguage' in list(lang[0][1].keys()):
-            lang = lang[0][1]['preferredLanguage'][0]
+    if not attributes:
+        attributes = list(attrs.ADMIN_ATTRS_ALL)
+
+    if not conn:
+        _wrap = LDAPWrap()
+        conn = _wrap.conn
+
+    try:
+        qr = conn.search_s(dn,
+                           ldap.SCOPE_BASE,
+                           '(&(objectClass=mailAdmin)(mail=%s))' % mail,
+                           attributes)
+
+        (_dn, _ldif) = qr[0]
+        return (True, {'dn': _dn, 'ldif': iredutils.bytes2str(_ldif)})
+    except ldap.NO_SUCH_OBJECT:
+        return (False, 'NO_SUCH_ACCOUNT')
+    except Exception as e:
+        return (False, repr(e))
+
+
+def get_managed_domains(admin,
+                        attributes=None,
+                        domain_name_only=True,
+                        conn=None):
+    """Get domains managed by given admin.
+
+    :param admin: email address of domain admin
+    :param attributes: LDAP attribute names used when `domain_name_only=False`.
+    :param domain_name_only: If `True`, return a list of domain names.
+                             Otherwise return full LDIF data (dict).
+    :param conn: ldap connection cursor
+    """
+    admin = str(admin).lower()
+    if not iredutils.is_email(admin):
+        return (False, 'INVALID_ADMIN')
+
+    if admin == session.get('username') and session.get('is_global_admin'):
+        _filter = '(objectClass=mailDomain)'
+    else:
+        _filter = '(&(objectClass=mailDomain)(domainAdmin=%s))' % admin
+
+    if not attributes:
+        attributes = list(attrs.ADMIN_ATTRS_ALL)
+
+    # We need attr 'domainName'
+    if 'domainName' not in attributes:
+        attributes.append('domainName')
+
+    try:
+        if not conn:
+            _wrap = LDAPWrap()
+            conn = _wrap.conn
+
+        qr = conn.search_s(settings.ldap_basedn,
+                           ldap.SCOPE_ONELEVEL,
+                           _filter,
+                           attributes)
+
+        if domain_name_only:
+            # Return list of domain names.
+            domains = []
+            for (_dn, _ldif) in qr:
+                _ldif = iredutils.bytes2str(_ldif)
+                domains += _ldif.get('domainName', [])
+
+            domains = [d.lower() for d in domains]
+            domains.sort()
+
+            return (True, domains)
         else:
-            lang = web.ctx.lang
-        return lang
+            qr = iredutils.bytes2str(qr)
+            qr.sort()
+            return (True, qr)
+    except Exception as e:
+        return (False, repr(e))
 
-    # List all admin accounts.
-    @decorators.require_global_admin
-    def listAccounts(self, attrs=attrs.ADMIN_SEARCH_ATTRS):
-        try:
-            result_admin = self.conn.search_s(
-                self.domainadmin_dn,
-                ldap.SCOPE_ONELEVEL,
-                '(objectClass=mailAdmin)',
-                attrs,
-            )
-            result_user = self.conn.search_s(
-                self.basedn,
-                ldap.SCOPE_SUBTREE,
-                '(&(objectClass=mailUser)(accountStatus=active)(enabledService=domainadmin))',
-                attrs,
-            )
-            return (True, result_admin + result_user)
-        except Exception as e:
-            return (False, ldaputils.getExceptionDesc(e))
 
-    # Get admin profile.
-    def profile(self, mail, attributes=attrs.ADMIN_ATTRS_ALL):
-        self.mail = web.safestr(mail)
-        self.dn = ldaputils.convert_keyword_to_dn(self.mail, accountType='admin')
-        if self.dn[0] is False:
-            return self.dn
+def get_standalone_admin_emails(conn=None):
+    """Return a list of standalone admins' email addresses."""
+    emails = []
+    try:
+        if not conn:
+            _wrap = LDAPWrap()
+            conn = _wrap.conn
 
-        try:
-            self.admin_profile = self.conn.search_s(
-                self.dn,
-                ldap.SCOPE_BASE,
-                '(&(objectClass=mailAdmin)(mail=%s))' % self.mail,
-                attributes,
-            )
-            return (True, self.admin_profile)
-        except ldap.NO_SUCH_OBJECT:
-            return (False, 'NO_SUCH_OBJECT')
-        except Exception as e:
-            return (False, ldaputils.getExceptionDesc(e))
+        qr = conn.search_s(settings.ldap_domainadmin_dn,
+                           ldap.SCOPE_ONELEVEL,
+                           '(objectClass=mailAdmin)',
+                           ['mail'])
 
-    # Add new admin.
-    @decorators.require_global_admin
-    def add(self, data):
-        self.cn = data.get('cn')
-        self.mail = web.safestr(data.get('mail')).strip().lower()
+        for (_dn, _ldif) in qr:
+            _ldif = iredutils.bytes2str(_ldif)
+            emails += _ldif['mail']
 
-        if not iredutils.is_email(self.mail):
-            return (False, 'INVALID_MAIL')
+        # Sort and remove duplicate emails.
+        emails = list(set(emails))
 
-        self.domainGlobalAdmin = web.safestr(data.get('domainGlobalAdmin', 'no'))
-        if self.domainGlobalAdmin not in ['yes', 'no', ]:
-            self.domainGlobalAdmin = 'no'
+        return (True, emails)
+    except Exception as e:
+        return (False, repr(e))
 
-        self.preferredLanguage = web.safestr(data.get('preferredLanguage', 'en_US'))
 
-        # Check password.
-        self.newpw = web.safestr(data.get('newpw'))
-        self.confirmpw = web.safestr(data.get('confirmpw'))
+def list_accounts(attributes=None, email_only=False, conn=None):
+    """List all admin accounts."""
+    if not attributes:
+        attributes = list(attrs.ADMIN_SEARCH_ATTRS)
 
-        result = iredutils.verify_new_password(self.newpw, self.confirmpw)
-        if result[0] is True:
-            self.passwd = iredutils.generate_password_hash(result[1])
+    if not conn:
+        _wrap = LDAPWrap()
+        conn = _wrap.conn
+
+    try:
+        # Get standalone admins
+        qr_admins = conn.search_s(settings.ldap_domainadmin_dn,
+                                  ldap.SCOPE_ONELEVEL,
+                                  '(objectClass=mailAdmin)',
+                                  attributes)
+
+        # Get mail users with admin privileges
+        _filter = '(&(objectClass=mailUser)(accountStatus=active)(domainGlobalAdmin=yes))'
+        qr_users = conn.search_s(settings.ldap_basedn,
+                                 ldap.SCOPE_SUBTREE,
+                                 _filter,
+                                 attributes)
+
+        if email_only:
+            emails = []
+            for (_dn, _ldif) in qr_admins:
+                _ldif = iredutils.bytes2str(_ldif)
+                emails += _ldif.get('mail', [])
+
+            for (_dn, _ldif) in qr_users:
+                _ldif = iredutils.bytes2str(_ldif)
+                emails += _ldif.get('mail', [])
+
+            # Remove duplicate mail addresses.
+            emails = list(set(emails))
+
+            return (True, emails)
         else:
-            return result
+            return (True, iredutils.bytes2str(qr_admins) + iredutils.bytes2str(qr_users))
+    except Exception as e:
+        return (False, repr(e))
 
-        ldif = iredldif.ldif_mailadmin(mail=self.mail,
-                                       passwd=self.passwd,
-                                       cn=self.cn,
-                                       preferredLanguage=self.preferredLanguage,
-                                       domainGlobalAdmin=self.domainGlobalAdmin)
 
-        self.dn = ldaputils.convert_keyword_to_dn(self.mail, accountType='admin')
-        if self.dn[0] is False:
-            return self.dn
-
-        try:
-            self.conn.add_s(self.dn, ldif)
-            web.logger(msg="Create admin: %s." % (self.mail), event='create',)
-            return (True,)
-        except ldap.ALREADY_EXISTS:
-            return (False, 'ALREADY_EXISTS')
-        except Exception as e:
-            return (False, ldaputils.getExceptionDesc(e))
-
-    # Update admin profile.
-    def update(self, profile_type, mail, data):
-        self.profile_type = web.safestr(profile_type)
-        self.mail = web.safestr(mail)
-        self.username, self.domain = self.mail.split('@', 1)
-
-        if session.get('domainGlobalAdmin') is not True and session.get('username') != self.mail:
-            # Don't allow to view/update other admins' profile.
-            return (False, 'PERMISSION_DENIED')
-
-        self.dn = ldaputils.convert_keyword_to_dn(self.mail, accountType='admin')
-        if self.dn[0] is False:
-            return self.dn
-
-        mod_attrs = []
-        if self.profile_type == 'general':
-            # Get preferredLanguage.
-            lang = web.safestr(data.get('preferredLanguage', 'en_US'))
-            mod_attrs += [(ldap.MOD_REPLACE, 'preferredLanguage', lang)]
-
-            # Get cn.
-            cn = data.get('cn', None)
-            mod_attrs += ldaputils.getSingleModAttr(attr='cn',
-                                                    value=cn,
-                                                    default=self.username)
-
-            first_name = data.get('first_name', '')
-            mod_attrs += ldaputils.getSingleModAttr(attr='givenName',
-                                                    value=first_name,
-                                                    default=self.username)
-
-            last_name = data.get('last_name', '')
-            mod_attrs += ldaputils.getSingleModAttr(attr='sn',
-                                                    value=last_name,
-                                                    default=self.username)
-
-            # Get accountStatus.
-            if 'accountStatus' in list(data.keys()):
-                accountStatus = 'active'
-            else:
-                accountStatus = 'disabled'
-
-            mod_attrs += [(ldap.MOD_REPLACE, 'accountStatus', accountStatus)]
-
-            try:
-                # Modify profiles.
-                self.conn.modify_s(self.dn, mod_attrs)
-                if session.get('username') == self.mail and \
-                   session.get('lang', 'en_US') != lang:
-                    session['lang'] = lang
-            except ldap.LDAPError as e:
-                return (False, ldaputils.getExceptionDesc(e))
-
-        elif self.profile_type == 'password':
-            self.cur_passwd = data.get('oldpw', None)
-            self.newpw = web.safestr(data.get('newpw'))
-            self.confirmpw = web.safestr(data.get('confirmpw'))
-
-            result = iredutils.verify_new_password(self.newpw, self.confirmpw)
-            if result[0] is True:
-                self.passwd = result[1]
-            else:
-                return result
-
-            # Change password.
-            if self.cur_passwd is None and session.get('domainGlobalAdmin') is True:
-                # Reset password without verify old password.
-                self.cur_passwd = None
-            else:
-                self.cur_passwd = str(self.cur_passwd)
-
-            connutils = connUtils.Utils()
-            result = connutils.changePasswd(dn=self.dn, cur_passwd=self.cur_passwd, newpw=self.passwd,)
-            if result[0] is True:
-                return (True,)
-            else:
-                return result
-
-        return (True,)
-
-    @decorators.require_global_admin
-    def delete(self, mails):
-        if mails is None or len(mails) == 0:
-            return (False, 'NO_ACCOUNT_SELECTED')
-
-        result = {}
-
-        for mail in mails:
-            self.mail = web.safestr(mail)
-            dn = ldaputils.convert_keyword_to_dn(self.mail, accountType='admin')
-            if dn[0] is False:
-                return dn
-
-            try:
-                connUtils.delete_ldap_tree(dn=dn, conn=self.conn)
-                web.logger(msg="Delete admin: %s." % (self.mail,), event='delete',)
-            except ldap.NO_SUCH_OBJECT:
-                # This is a mail user admin
-                dn = ldaputils.convert_keyword_to_dn(self.mail, accountType='user')
-                try:
-                    connutils = connUtils.Utils()
-                    # Delete enabledService=domainadmin
-                    connutils.addOrDelAttrValue(dn=dn,
-                                                attr='enabledService',
-                                                value='domainadmin',
-                                                action='delete')
-
-                    # Delete domainGlobalAdmin=yes
-                    connutils.addOrDelAttrValue(dn=dn,
-                                                attr='domainGlobalAdmin',
-                                                value='yes',
-                                                action='delete')
-                    web.logger(msg="Delete admin: %s." % (self.mail), event='delete')
-                except Exception as e:
-                    result[self.mail] = str(e)
-            except ldap.LDAPError as e:
-                result[self.mail] = str(e)
-
-        if result == {}:
-            return (True,)
-        else:
-            return (False, ldaputils.getExceptionDesc(result))
-
-    @decorators.require_global_admin
-    def enableOrDisableAccount(self, mails, action, attr='accountStatus',):
-        if mails is None or len(mails) == 0:
-            return (False, 'NO_ACCOUNT_SELECTED')
-
-        result = {}
-        connutils = connUtils.Utils()
-        for mail in mails:
-            self.mail = web.safestr(mail).strip().lower()
-            if not iredutils.is_email(self.mail):
-                continue
-
-            self.domain = self.mail.split('@')[-1]
-            self.dn = ldaputils.convert_keyword_to_dn(self.mail, accountType='admin')
-            if self.dn[0] is False:
-                return self.dn
-
-            try:
-                connutils.enableOrDisableAccount(
-                    domain=self.domain,
-                    account=self.mail,
-                    dn=self.dn,
-                    action=web.safestr(action).strip().lower(),
-                    accountTypeInLogger='admin',
-                )
-            except ldap.LDAPError as e:
-                result[self.mail] = str(e)
-
-        if result == {}:
-            return (True,)
-        else:
-            return (False, ldaputils.getExceptionDesc(result))
-
-    def getNumberOfManagedAccounts(self, admin=None, accountType='domain', domains=[],):
-        if admin is None:
-            admin = session.get('username')
-        else:
-            admin = str(admin)
-
+def num_managed_domains(admin=None, conn=None):
+    if not admin:
+        admin = session.get('username')
+    else:
+        admin = str(admin).lower()
         if not iredutils.is_email(admin):
             return 0
 
-        domains = []
-        if len(domains) > 0:
-            domains = [str(d).lower() for d in domains if iredutils.is_domain(d)]
-        else:
-            connutils = connUtils.Utils()
-            qr = connutils.getManagedDomains(mail=admin, attrs=['domainName'], listedOnly=True)
-            if qr[0] is True:
-                domains = qr[1]
+    if not conn:
+        _wrap = LDAPWrap()
+        conn = _wrap.conn
 
-        if accountType == 'domain':
-            try:
-                return len(domains)
-            except Exception:
-                pass
-
+    qr = get_managed_domains(admin=admin,
+                             conn=conn,
+                             attributes=['domainName'])
+    if qr[0]:
+        domains = qr[1]
+        return len(domains)
+    else:
         return 0
+
+
+def add(form, conn=None):
+    """Add new standalone admin account."""
+    mail = form_utils.get_single_value(form=form,
+                                       input_name='mail',
+                                       to_lowercase=True,
+                                       to_string=True)
+
+    if not iredutils.is_auth_email(mail):
+        return (False, 'INVALID_MAIL')
+
+    if not conn:
+        _wrap = LDAPWrap()
+        conn = _wrap.conn
+
+    # Make sure it's not hosted domain
+    domain = mail.split('@', 1)[-1]
+    if ldap_lib_general.is_domain_exists(domain=domain, conn=conn):
+        return (False, 'CAN_NOT_BE_LOCAL_DOMAIN')
+
+    name = form_utils.get_single_value(form=form, input_name='cn')
+    account_status = form_utils.get_single_value(form=form,
+                                                 input_name='accountStatus',
+                                                 default_value='active',
+                                                 to_string=True)
+    lang = form_utils.get_single_value(form=form,
+                                       input_name='preferredLanguage',
+                                       to_string=True)
+
+    # Check password.
+    newpw = web.safestr(form.get('newpw'))
+    confirmpw = web.safestr(form.get('confirmpw'))
+
+    result = iredpwd.verify_new_password(newpw, confirmpw)
+    if result[0] is True:
+        passwd = iredpwd.generate_password_hash(result[1])
+    else:
+        return result
+
+    ldif = iredldif.ldif_mailadmin(mail=mail,
+                                   passwd=passwd,
+                                   cn=name,
+                                   account_status=account_status,
+                                   preferred_language=lang)
+
+    dn = ldaputils.rdn_value_to_admin_dn(mail)
+
+    try:
+        conn.add_s(dn, ldif)
+        log_activity(msg="Create admin: %s." % (mail), event='create')
+        return (True, )
+    except ldap.ALREADY_EXISTS:
+        return (False, 'ALREADY_EXISTS')
+    except Exception as e:
+        return (False, repr(e))
+
+
+def delete(mails, revoke_admin_privilege_from_user=True, conn=None):
+    """
+    Delete standalone domain admin accounts, or revoke admin privilege from
+    mail user which is domain admin.
+
+    :param mails: list of domain admin email addresses
+    :param revoke_admin_privilege_from_user: if @mails contains mail user which
+              has domain admin privilege, we should revoke the privilege.
+    :param conn: ldap connection cursor
+    """
+    mails = [str(i).lower() for i in mails if iredutils.is_email(i)]
+    if not mails:
+        return (True, )
+
+    if not conn:
+        _wrap = LDAPWrap()
+        conn = _wrap.conn
+
+    result = {}
+
+    for mail in mails:
+        # Get dn of admin account under o=domainAdmins
+        dn = ldaputils.rdn_value_to_admin_dn(mail)
+
+        try:
+            conn.delete_s(dn)
+            log_activity(msg="Delete admin: %s." % (mail), event='delete')
+        except ldap.NO_SUCH_OBJECT:
+            if revoke_admin_privilege_from_user:
+                # This is a mail user admin
+                dn = ldaputils.rdn_value_to_user_dn(mail)
+                try:
+                    # Delete enabledService=domainadmin
+                    ldap_lib_general.remove_attr_values(dn=dn,
+                                                        attr='enabledService',
+                                                        values=['domainadmin'],
+                                                        conn=conn)
+
+                    # Delete domainGlobalAdmin=yes
+                    ldap_lib_general.remove_attr_values(dn=dn,
+                                                        attr='domainGlobalAdmin',
+                                                        values=['yes'],
+                                                        conn=conn)
+
+                    log_activity(msg="Revoke domain admin privilege: %s." % (mail), event='delete')
+                except Exception as e:
+                    result[mail] = str(e)
+        except ldap.LDAPError as e:
+            result[mail] = str(e)
+
+    if result == {}:
+        return (True, )
+    else:
+        return (False, repr(result))
+
+
+# Update admin profile.
+def update_profile(form, mail, profile_type, conn=None):
+    mail = web.safestr(mail).lower()
+    username = mail.split('@', 1)[0]
+
+    if (not session.get('is_global_admin')) and (session.get('username') != mail):
+        # Don't allow to view/update other admins' profile.
+        return (False, 'PERMISSION_DENIED')
+
+    if not conn:
+        _wrap = LDAPWrap()
+        conn = _wrap.conn
+
+    dn = ldaputils.rdn_value_to_admin_dn(mail)
+
+    mod_attrs = []
+    if profile_type == 'general':
+        # Get preferredLanguage.
+        lang = form_utils.get_language(form)
+        mod_attrs += ldaputils.mod_replace('preferredLanguage', lang)
+
+        # Get cn.
+        cn = form.get('cn', None)
+        mod_attrs += ldaputils.mod_replace(attr='cn',
+                                           value=cn,
+                                           default=username)
+
+        first_name = form.get('first_name', '')
+        mod_attrs += ldaputils.mod_replace(attr='givenName',
+                                           value=first_name,
+                                           default=username)
+
+        last_name = form.get('last_name', '')
+        mod_attrs += ldaputils.mod_replace(attr='sn',
+                                           value=last_name,
+                                           default=username)
+
+        # Get account setting
+        _qr = ldap_lib_general.get_admin_account_setting(mail=mail,
+                                                         profile=None,
+                                                         conn=conn)
+        if not _qr[0]:
+            return _qr
+
+        _as = _qr[1]
+
+        # Update timezone
+        tz_name = form_utils.get_timezone(form)
+
+        if tz_name:
+            _as['timezone'] = tz_name
+
+            if session['username'] == mail:
+                session['timezone'] = TIMEZONES[tz_name]
+
+        if session.get('is_global_admin'):
+            # check account status.
+            account_status = 'disabled'
+            if 'accountStatus' in form:
+                account_status = 'active'
+
+            mod_attrs += ldaputils.mod_replace('accountStatus', account_status)
+
+            # Get domainGlobalAdmin.
+            if 'domainGlobalAdmin' in form:
+                mod_attrs += ldaputils.mod_replace('domainGlobalAdmin', 'yes')
+            else:
+                mod_attrs += ldaputils.mod_replace('domainGlobalAdmin', None)
+
+        try:
+            # Modify profiles.
+            conn.modify_s(dn, mod_attrs)
+
+            if session.get('username') == mail and session.get('lang') != lang:
+                session['lang'] = lang
+        except Exception as e:
+            return (False, repr(e))
+
+    elif profile_type == 'password':
+        cur_passwd = web.safestr(form.get('oldpw', ''))
+        newpw = web.safestr(form.get('newpw', ''))
+        confirmpw = web.safestr(form.get('confirmpw', ''))
+
+        _qr = iredpwd.verify_new_password(newpw, confirmpw)
+        if _qr[0]:
+            passwd = _qr[1]
+        else:
+            return _qr
+
+        # Change password.
+        if session.get('is_global_admin'):
+            # Reset password without verify old password.
+            cur_passwd = None
+
+        _qr = ldap_lib_general.change_password(dn=dn,
+                                               old_password=cur_passwd,
+                                               new_password=passwd,
+                                               conn=conn)
+
+        if _qr[0]:
+            return (True, )
+        else:
+            return _qr

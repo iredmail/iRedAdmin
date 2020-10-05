@@ -3,632 +3,880 @@
 import os
 import time
 import ldap
-import ldap.filter
 import web
 import settings
-from libs import iredutils
-from libs.ldaplib import core, domain as domainlib, attrs, ldaputils, iredldif, connUtils, decorators
+
+from libs import iredutils, iredpwd, form_utils
+from libs.l10n import TIMEZONES
+from libs.logger import log_activity
+
+from libs.ldaplib.core import LDAPWrap
+from libs.ldaplib import attrs, ldaputils, iredldif
+from libs.ldaplib import domain as ldap_lib_domain
+from libs.ldaplib import general as ldap_lib_general
+from libs.ldaplib import decorators
 
 session = web.config.get('_session')
 
 
-class User(core.LDAPWrap):
-    def __del__(self):
+# List all users under one domain.
+@decorators.require_global_admin
+def list_accounts(domain,
+                  search_filter=None,
+                  attrlist=None,
+                  email_only=False,
+                  disabled_only=False,
+                  conn=None):
+    # Update number of existing users in domain profile.
+    update_count = False
+
+    if not search_filter:
+        # Use '(!(mail=@domain.com))' to hide catch-all account.
+        search_filter = '(&(objectClass=mailUser)(!(mail=@%s)))' % domain
+        update_count = True
+
+    if disabled_only:
+        # use "is True" here to prevent client input invalid value in url.
+        search_filter = '(&' + search_filter + '(accountStatus=disabled)' + ')'
+
+    if not attrlist:
+        if email_only:
+            attrlist = ['mail']
+        else:
+            attrlist = list(attrs.USER_SEARCH_ATTRS)
+
+    dn_domain = ldaputils.rdn_value_to_domain_dn(domain)
+
+    # Search only admins INSIDE same domain.
+    dn = attrs.DN_BETWEEN_USER_AND_DOMAIN + dn_domain
+
+    if not conn:
+        _wrap = LDAPWrap()
+        conn = _wrap.conn
+
+    try:
+        qr = conn.search_s(dn,
+                           ldap.SCOPE_ONELEVEL,
+                           search_filter,
+                           attrlist)
+        if qr:
+            qr = iredutils.bytes2str(qr)
+
+        _emails = []
+        if email_only:
+            for (_dn, _ldif) in qr:
+                _emails += _ldif.get('mail', [])
+
+            _emails.sort()
+
+        if update_count:
+            # Reset number of existing users in domain profile.
+            ldap_lib_general.reset_num_domain_current_users(domain=domain,
+                                                            num=len(qr),
+                                                            conn=conn)
+
+        if email_only:
+            return (True, _emails)
+        else:
+            return (True, qr)
+    except ldap.NO_SUCH_OBJECT:
+        return (False, 'NO_SUCH_ACCOUNT')
+    except ldap.SIZELIMIT_EXCEEDED:
+        return (False, 'EXCEEDED_LDAP_SERVER_SIZELIMIT')
+    except Exception as e:
+        return (False, repr(e))
+
+
+@decorators.require_global_admin
+def get_profile(mail, attributes=None, conn=None):
+    """Get user profile.
+
+    :param mail: full email address or '@domain.com' (catch-all account)
+    :param attributes: list of LDAP attribute names
+    :param conn: LDAP connection cursor
+
+    Returned data:
+
+    - (True, {'dn': '<full_dn>', 'ldif': dict})
+    - (False, <error_reason>)
+    """
+    if not attributes:
+        attributes = list(attrs.USER_ATTRS_ALL)
+
+    if not conn:
+        _wrap = LDAPWrap()
+        conn = _wrap.conn
+
+    try:
+        dn = ldaputils.rdn_value_to_user_dn(mail)
+        _filter = '(&(objectClass=mailUser)(mail=%s))' % (mail)
+
+        qr = ldap_lib_general.get_profile_by_dn(dn=dn,
+                                                query_filter=_filter,
+                                                attributes=attributes,
+                                                conn=conn)
+
+        if not qr[0]:
+            return qr
+
+        _dn = qr[1]['dn']
+        _ldif = qr[1]['ldif']
+
+        # Normal domain admin is not allowed to view/update global admin profile
+        if not session.get('is_global_admin'):
+            if _ldif.get('domainGlobalAdmin', ['no']) == ['yes']:
+                return (False, 'PERMISSION_DENIED_UPDATE_GLOBAL_ADMIN_PROFILE')
+
+        # Sort some lists
+        for k in ['shadowAddress', 'mailForwardingAddress']:
+            if k in _ldif:
+                _addrs = _ldif[k]
+                _addrs.sort()
+                _ldif[k] = _addrs
+
+        return (True, {'dn': _dn, 'ldif': _ldif})
+    except ldap.NO_SUCH_OBJECT:
+        return (False, 'NO_SUCH_ACCOUNT')
+    except Exception as e:
+        return (False, repr(e))
+
+
+@decorators.require_global_admin
+def get_user_forwardings(mail, profile=None, conn=None):
+    if not conn:
+        _wrap = LDAPWrap()
+        conn = _wrap.conn
+
+    if not profile:
+        _qr = get_profile(mail=mail, attributes=['mailForwardingAddress'], conn=conn)
+        if not _qr[0]:
+            return _qr
+
+        profile = _qr[1]['ldif']
+
+    _addresses = [i.lower() for i in profile.get('mailForwardingAddress', [])]
+    _addresses = list(set(_addresses))
+
+    return (True, _addresses)
+
+
+def user_is_global_admin(mail, user_profile=None, conn=None):
+    if not user_profile:
+        if not conn:
+            _wrap = LDAPWrap()
+            conn = _wrap.conn
+
+        dn = ldaputils.rdn_value_to_user_dn(mail)
+        search_filter = '(&(objectClass=mailUser)(mail=%s))' % (mail)
+        search_scope = ldap.SCOPE_BASE
         try:
-            self.conn.unbind()
-        except:
-            pass
+            qr = conn.search_s(dn,
+                               search_scope,
+                               search_filter,
+                               ['domainGlobalAdmin'])
 
-    # List all users under one domain.
-    @decorators.require_domain_access
-    def listAccounts(self, domain):
-        self.domain = domain
-        self.domainDN = ldaputils.convert_keyword_to_dn(self.domain, accountType='domain')
-        if self.domainDN[0] is False:
-            return self.domainDN
-
-        try:
-            # Use '(!(mail=@domain.ltd))' to hide catch-all account.
-            self.users = self.conn.search_s(
-                attrs.DN_BETWEEN_USER_AND_DOMAIN + self.domainDN,
-                ldap.SCOPE_SUBTREE,
-                '(&(objectClass=mailUser)(!(mail=@%s)))' % self.domain,
-                attrs.USER_SEARCH_ATTRS,
-            )
-
-            connutils = connUtils.Utils()
-            connutils.updateAttrSingleValue(self.domainDN, 'domainCurrentUserNumber', len(self.users))
-
-            return (True, self.users)
+            if qr:
+                user_profile = iredutils.bytes2str(qr[0][1])
         except ldap.NO_SUCH_OBJECT:
-            return (False, 'NO_SUCH_OBJECT')
-        except ldap.SIZELIMIT_EXCEEDED:
-            return (False, 'EXCEEDED_LDAP_SERVER_SIZELIMIT')
-        except Exception as e:
-            return (False, ldaputils.getExceptionDesc(e))
+            return False
+        except:
+            return False
 
-    # Get values of user or domain catch-all account.
-    # accountType in ['user', 'catchall',]
-    @decorators.require_domain_access
-    def profile(self, domain, mail, accountType='user'):
-        self.mail = web.safestr(mail)
-        self.domain = self.mail.split('@', 1)[-1]
+    if user_profile.get('domainGlobalAdmin', ['no'])[0] == 'yes':
+        return True
+    else:
+        return False
 
-        if self.domain != domain:
-            raise web.seeother('/domains?msg=PERMISSION_DENIED')
 
-        self.filter = '(&(objectClass=mailUser)(mail=%s))' % (self.mail)
-        if accountType == 'catchall':
-            self.filter = '(&(objectClass=mailUser)(mail=@%s))' % (self.mail)
+def reset_forwardings(mail, forwardings=None, conn=None):
+    if forwardings:
+        _addresses = [str(v).lower()
+                      for v in forwardings
+                      if iredutils.is_email(v)]
+    else:
+        _addresses = []
+
+    # Remove duplicate addresses
+    if _addresses:
+        _addresses = list(set(_addresses))
+
+    # Remove non-existing addresses in same domain.
+    domain = mail.split('@', 1)[-1]
+    addrs_in_domain = set()
+    addrs_not_in_domain = set()
+
+    for addr in _addresses:
+        if addr.endswith('@' + domain):
+            addrs_in_domain.add(addr)
         else:
-            if not self.mail.endswith('@' + self.domain):
-                raise web.seeother('/domains?msg=PERMISSION_DENIED')
+            addrs_not_in_domain.add(addr)
 
-        if attrs.RDN_USER == 'mail':
-            self.searchdn = ldaputils.convert_keyword_to_dn(self.mail, accountType=accountType)
-            self.scope = ldap.SCOPE_BASE
+    if not conn:
+        _wrap = LDAPWrap()
+        conn = _wrap.conn
 
-            if self.searchdn[0] is False:
-                return self.searchdn
-        else:
-            domain_dn = ldaputils.convert_keyword_to_dn(self.domain, accountType='domain')
-            if domain_dn[0] is False:
-                return domain_dn
+    # Get existing addresses
+    valid_addrs_in_domain = set()
+    if addrs_in_domain:
+        dn = ldaputils.rdn_value_to_domain_dn(domain)
+        _qr = ldap_lib_general.filter_existing_emails(mails=addrs_in_domain,
+                                                      base_dn=dn,
+                                                      conn=conn)
 
-            self.searchdn = attrs.DN_BETWEEN_USER_AND_DOMAIN + domain_dn
-            self.scope = ldap.SCOPE_SUBTREE
+        valid_addrs_in_domain = set(_qr['exist'])
 
-        try:
-            self.user_profile = self.conn.search_s(
-                self.searchdn,
-                self.scope,
-                self.filter,
-                attrs.USER_ATTRS_ALL,
-            )
-            return (True, self.user_profile)
-        except Exception as e:
-            return (False, ldaputils.getExceptionDesc(e))
+    fwd_addrs = list(valid_addrs_in_domain | addrs_not_in_domain)
 
-    @decorators.require_domain_access
-    def add(self, domain, data):
-        # Get domain name, username, cn.
-        self.domain = web.safestr(data.get('domainName')).strip().lower()
-        self.username = web.safestr(data.get('username')).strip().lower()
-        self.mail = self.username + '@' + self.domain
-        self.groups = data.get('groups', [])
+    if fwd_addrs:
+        mod_attr = ldaputils.mod_replace('mailForwardingAddress', fwd_addrs)
+    else:
+        mod_attr = ldaputils.mod_replace('mailForwardingAddress', None)
 
-        if not iredutils.is_domain(self.domain) or not iredutils.is_email(self.mail):
-            return (False, 'MISSING_DOMAIN_OR_USERNAME')
+    try:
+        dn = ldaputils.rdn_value_to_user_dn(mail)
+        conn.modify_s(dn, mod_attr)
+        return (True, )
+    except Exception as e:
+        return (False, repr(e))
 
-        # Check account existing.
-        connutils = connUtils.Utils()
-        if connutils.isAccountExists(domain=self.domain, mail=self.mail):
-            return (False, 'ALREADY_EXISTS')
 
-        # Get @domainAccountSetting.
-        domainLib = domainlib.Domain()
-        result_domain_profile = domainLib.profile(domain=self.domain)
+@decorators.require_global_admin
+def update_managed_user_attrs(domain, mail, mod_attrs, conn=None):
+    """Update custom LDAP attributes of mail user account.
 
-        # Initial parameters.
-        domainAccountSetting = {}
-        self.aliasDomains = []
+    @domain - the domain which contains specified user (@mail)
+    @mail - full email address of mail user
+    @mod_attrs - a list of ldap.MOD_REPLACE actions
+    @conn - LDAP connection cursor
+    """
+    if not mail.endswith('@' + domain):
+        raise web.seeother('/domains?msg=PERMISSION_DENIED')
 
-        if result_domain_profile[0] is not True:
-            return (False, result_domain_profile[1])
+    if not mod_attrs:
+        return (True, )
 
-        domainProfile = result_domain_profile[1]
-        domainAccountSetting = ldaputils.getAccountSettingFromLdapQueryResult(domainProfile, key='domainName').get(self.domain, {})
-        self.aliasDomains = domainProfile[0][1].get('domainAliasName', [])
+    if not conn:
+        _wrap = LDAPWrap()
+        conn = _wrap.conn
 
-        # Check account number limit.
-        numberOfAccounts = domainAccountSetting.get('numberOfUsers')
-        if numberOfAccounts == '-1':
-            return (False, 'NOT_ALLOWED')
+    try:
+        dn = ldaputils.rdn_value_to_user_dn(mail)
+        conn.modify_s(dn, mod_attrs)
+        return (True, )
+    except Exception as e:
+        return (False, repr(e))
 
-        # Check password.
-        self.newpw = web.safestr(data.get('newpw'))
-        self.confirmpw = web.safestr(data.get('confirmpw'))
 
-        result = iredutils.verify_new_password(
-            self.newpw,
-            self.confirmpw,
-            min_passwd_length=domainAccountSetting.get('minPasswordLength', '0'),
-            max_passwd_length=domainAccountSetting.get('maxPasswordLength', '0'),
-        )
-        if result[0] is True:
-            if 'storePasswordInPlainText' in data and settings.STORE_PASSWORD_IN_PLAIN_TEXT:
-                self.passwd = iredutils.generate_password_hash(result[1], pwscheme='PLAIN')
-            else:
-                self.passwd = iredutils.generate_password_hash(result[1])
-        else:
-            return result
+@decorators.require_global_admin
+def add(domain, form, conn=None):
+    # Get domain name, username, cn.
+    form_domain = form_utils.get_domain_name(form)
+    if not (domain == form_domain):
+        return (False, 'INVALID_DOMAIN_NAME')
 
-        # Get display name.
-        self.cn = data.get('cn')
+    username = web.safestr(form.get('username')).strip().lower()
+    mail = username + '@' + domain
+    mail = iredutils.strip_mail_ext_address(mail)
 
-        # Get user quota. Unit is MB.
-        # 0 or empty is not allowed if domain quota is set, set to
-        # @defaultUserQuota or @domainSpareQuotaSize
+    if not iredutils.is_auth_email(mail):
+        return (False, 'INVALID_MAIL')
 
-        # Initial final mailbox quota.
-        self.quota = 0
+    if not conn:
+        _wrap = LDAPWrap()
+        conn = _wrap.conn
 
-        # Get mail quota from web form.
-        defaultUserQuota = domainLib.getDomainDefaultUserQuota(self.domain, domainAccountSetting)
-        self.mailQuota = str(data.get('mailQuota')).strip()
-        if self.mailQuota.isdigit():
-            self.mailQuota = int(self.mailQuota)
-        else:
-            self.mailQuota = defaultUserQuota
+    _qr = ldap_lib_general.check_account_existence(mail=mail, account_type='mail', conn=conn)
+    if _qr[0] is not False:
+        return (False, 'ALREADY_EXISTS')
 
-        # 0 means unlimited.
-        domainQuotaSize, domainQuotaUnit = domainAccountSetting.get('domainQuota', '0:GB').split(':')
-        if int(domainQuotaSize) == 0:
-            # Unlimited.
-            self.quota = self.mailQuota
-        else:
-            # Get domain quota, convert to MB.
-            if domainQuotaUnit == 'TB':
-                domainQuota = int(domainQuotaSize) * 1024 * 1024  # TB
-            elif domainQuotaUnit == 'GB':
-                domainQuota = int(domainQuotaSize) * 1024  # GB
-            else:
-                domainQuota = int(domainQuotaSize)  # MB
+    # Get @domainAccountSetting.
+    qr = ldap_lib_domain.get_profile(domain=domain, conn=conn)
 
-            result = connutils.getDomainCurrentQuotaSizeFromLDAP(domain=self.domain)
-            if result[0] is True:
-                domainCurrentQuotaSize = result[1]
-            else:
-                domainCurrentQuotaSize = 0
+    if not qr[0]:
+        return qr
 
-            # Spare quota.
-            domainSpareQuotaSize = domainQuota - domainCurrentQuotaSize / (1024 * 1024)
+    domain_profile = qr[1]['ldif']
+    domain_status = domain_profile.get('accountStatus', ['disabled'])[0]
+    domainAccountSetting = ldaputils.get_account_setting_from_profile(domain_profile)
 
-            if domainSpareQuotaSize <= 0:
-                return (False, 'EXCEEDED_DOMAIN_QUOTA_SIZE')
+    # Check account number limit.
+    _num_users = domainAccountSetting.get('numberOfUsers')
+    if _num_users == '-1':
+        return (False, 'NOT_ALLOWED')
 
-            # Get FINAL mailbox quota.
-            if self.mailQuota == 0:
-                self.quota = domainSpareQuotaSize
-            else:
-                if domainSpareQuotaSize > self.mailQuota:
-                    self.quota = self.mailQuota
-                else:
-                    self.quota = domainSpareQuotaSize
+    _pw_hash = form.get('password_hash', '')
+    if _pw_hash:
+        if not iredpwd.is_supported_password_scheme(_pw_hash):
+            return (False, 'INVALID_PASSWORD_SCHEME')
 
-        # Get default groups.
-        self.groups = [web.safestr(v)
-                       for v in domainAccountSetting.get('defaultList', '').split(',')
-                       if iredutils.is_email(v)]
-
-        self.defaultStorageBaseDirectory = domainAccountSetting.get('defaultStorageBaseDirectory', None)
-
-        # Get default mail lists which set in domain accountSetting.
-        ldif = iredldif.ldif_mailuser(
-            domain=self.domain,
-            aliasDomains=self.aliasDomains,
-            username=self.username,
-            cn=self.cn,
-            passwd=self.passwd,
-            quota=self.quota,
-            groups=self.groups,
-            storageBaseDirectory=self.defaultStorageBaseDirectory,
+        passwd_plain = ''
+        passwd_hash = _pw_hash
+    else:
+        (min_pw_len, max_pw_len) = ldap_lib_general.get_domain_password_lengths(
+            domain=domain,
+            account_settings=domainAccountSetting,
+            fallback_to_global_settings=False,
+            conn=conn,
         )
 
-        domain_dn = ldaputils.convert_keyword_to_dn(self.domain, accountType='domain')
-        if domain_dn[0] is False:
-            return domain_dn
+        qr = form_utils.get_password(form=form,
+                                     input_name='newpw',
+                                     confirm_pw_input_name='confirmpw',
+                                     min_passwd_length=min_pw_len,
+                                     max_passwd_length=max_pw_len)
 
-        if attrs.RDN_USER == 'mail':
-            self.dn = ldaputils.convert_keyword_to_dn(self.mail, accountType='user')
-            if self.dn[0] is False:
-                return self.dn
-
-        elif attrs.RDN_USER == 'cn':
-            self.dn = 'cn=' + self.cn + ',' + attrs.DN_BETWEEN_USER_AND_DOMAIN + domain_dn
-        elif attrs.RDN_USER == 'uid':
-            self.dn = 'uid=' + self.username + ',' + attrs.DN_BETWEEN_USER_AND_DOMAIN + domain_dn
+        if qr[0]:
+            passwd_plain = qr[1]['pw_plain']
+            passwd_hash = qr[1]['pw_hash']
         else:
-            return (False, 'UNSUPPORTED_USER_RDN')
+            return qr
+
+    cn = form_utils.get_name(form=form, input_name="cn")
+
+    # Get preferred language.
+    preferred_language = form_utils.get_language(form=form)
+    if preferred_language not in iredutils.get_language_maps():
+        preferred_language = None
+
+    # Get user quota. Unit is MB.
+    quota = form_utils.get_single_value(form=form,
+                                        input_name='mailQuota',
+                                        default_value=0,
+                                        is_integer=True)
+
+    quota = abs(quota)
+
+    if quota == 0:
+        # Get per-domain default user quota
+        default_user_quota = ldap_lib_domain.get_default_user_quota(domain=domain,
+                                                                    domain_account_setting=domainAccountSetting)
+
+        quota = default_user_quota
+
+    defaultStorageBaseDirectory = domainAccountSetting.get('defaultStorageBaseDirectory', None)
+
+    db_settings = iredutils.get_settings_from_db()
+    # Get mailbox format and folder.
+    _mailbox_format = form.get('mailboxFormat', '').lower()
+    _mailbox_folder = form.get('mailboxFolder', '')
+    if not iredutils.is_valid_mailbox_format(_mailbox_format):
+        _mailbox_format = db_settings['mailbox_format']
+
+    if not iredutils.is_valid_mailbox_folder(_mailbox_folder):
+        _mailbox_folder = db_settings['mailbox_folder']
+
+    # Get full maildir path
+    _mailbox_maildir = form.get('maildir')
+
+    # Get default mailing lists which set in domain accountSetting.
+    ldif = iredldif.ldif_mailuser(
+        domain=domain,
+        username=username,
+        cn=cn,
+        passwd=passwd_hash,
+        quota=quota,
+        storage_base_directory=defaultStorageBaseDirectory,
+        mailbox_format=_mailbox_format,
+        mailbox_folder=_mailbox_folder,
+        mailbox_maildir=_mailbox_maildir,
+        language=preferred_language,
+        domain_status=domain_status,
+    )
+
+    dn_user = ldaputils.rdn_value_to_user_dn(mail)
+
+    # Store plain password in additional attribute
+    if passwd_plain and settings.STORE_PLAIN_PASSWORD_IN_ADDITIONAL_ATTR:
+        ldif += [(settings.STORE_PLAIN_PASSWORD_IN_ADDITIONAL_ATTR, [passwd_plain])]
+
+    try:
+        conn.add_s(dn_user, ldif)
+
+        # Update count of accounts
+        ldap_lib_general.update_num_domain_current_users(domain=domain,
+                                                         increase=True,
+                                                         conn=conn)
+
+        log_activity(msg="Create user: %s." % (mail), domain=domain, event='create')
+
+        return (True, )
+    except ldap.ALREADY_EXISTS:
+        return (False, 'ALREADY_EXISTS')
+    except Exception as e:
+        return (False, repr(e))
+
+
+@decorators.require_global_admin
+def mark_unmark_as_admin(domain, mails, action, conn=None):
+    domain = str(domain).lower()
+    mails = [str(v).lower()
+             for v in mails
+             if iredutils.is_email(v) and v.endswith('@' + domain)]
+
+    if not conn:
+        _wrap = LDAPWrap()
+        conn = _wrap.conn
+
+    result = {}
+    for mail in mails:
+        dn = ldaputils.rdn_value_to_user_dn(mail)
+
+        if action in ['markasadmin', 'unmarkasadmin']:
+            update_attribute = 'enabledService'
+            update_value = 'domainadmin'
+            update_action = 'delete'
+
+            if action == 'markasadmin':
+                update_action = 'add'
+        elif action in ['markasglobaladmin', 'unmarkasglobaladmin']:
+            # Require global admin
+            if not session.get('is_global_admin'):
+                return (False, 'PERMISSION_DENIED')
+
+            update_attribute = 'domainGlobalAdmin'
+            update_value = 'yes'
+            update_action = 'delete'
+
+            if action == 'markasglobaladmin':
+                update_action = 'add'
 
         try:
-            self.conn.add_s(ldap.filter.escape_filter_chars(self.dn), ldif)
-            web.logger(msg="Create user: %s." % (self.mail), domain=self.domain, event='create')
-            return (True, )
-        except ldap.ALREADY_EXISTS:
-            return (False, 'ALREADY_EXISTS')
+            ldap_lib_general.add_or_remove_attr_values(dn=dn,
+                                                       attr=update_attribute,
+                                                       values=[update_value],
+                                                       action=update_action,
+                                                       conn=conn)
         except Exception as e:
-            return (False, ldaputils.getExceptionDesc(e))
+            result[mail] = str(e)
 
-    def getFilterOfDeleteUserFromGroups(self, mail):
-        # Get valid emails as list.
-        if isinstance(mail, list):
-            self.mails = [web.safestr(v).lower() for v in mail if iredutils.is_email(str(v))]
+    if result == {}:
+        return (True, )
+    else:
+        return (False, repr(result))
+
+
+# Delete single user.
+def __delete_single_user(mail,
+                         keep_mailbox_days=0,
+                         conn=None):
+    mail = web.safestr(mail)
+    if not iredutils.is_email(mail):
+        return (False, 'INVALID_MAIL')
+
+    # Get domain name of this account.
+    domain = mail.split('@')[-1]
+
+    # Get dn of mail user and domain.
+    dn_user = ldaputils.rdn_value_to_user_dn(mail)
+
+    try:
+        keep_mailbox_days = int(keep_mailbox_days)
+    except:
+        if session.get('is_global_admin'):
+            keep_mailbox_days = 0
         else:
-            # Single email.
-            self.mails = [web.safestr(mail).lower()]
+            _max_days = max(settings.DAYS_TO_KEEP_REMOVED_MAILBOX)
+            if keep_mailbox_days > _max_days:
+                # Get the max days
+                keep_mailbox_days = _max_days
 
-        filterUserAndAlias = '(&(|(objectClass=mailAlias)(objectClass=mailUser))(|'
-        filterExternalUser = '(&(objectClass=mailExternalUser)(|'
+    if not conn:
+        _wrap = LDAPWrap()
+        conn = _wrap.conn
 
-        for mail in self.mails:
-            filterUserAndAlias += '(mailForwardingAddress=%s)' % mail
-            filterExternalUser += '(mail=%s)' % mail
+    # Log maildir path in SQL table.
+    try:
+        qr = get_profile(mail=mail, conn=conn)
+        if not qr[0]:
+            if qr[1] == 'NO_SUCH_ACCOUNT':
+                # If destination user doesn't exist, don't waste time to check
+                # other data.
+                return (True, )
 
-        # Close filter string.
-        filterUserAndAlias += '))'
-        filterExternalUser += '))'
+            return qr
 
-        filter = '(|' + filterUserAndAlias + filterExternalUser + ')'
-        return filter
+        user_profile = qr[1]['ldif']
 
-    # Delete single user from mail list, alias, user forwarding addresses.
-    def deleteSingleUserFromGroups(self, mail):
-        self.mail = web.safestr(mail)
-        if not iredutils.is_email(self.mail):
-            return (False, 'INVALID_MAIL')
+        if 'homeDirectory' in user_profile:
+            maildir = user_profile.get('homeDirectory', [''])[0]
+        else:
+            storageBaseDirectory = user_profile.get('storageBaseDirectory', [''])[0]
+            mailMessageStore = user_profile.get('mailMessageStore', [''])[0]
+            maildir = os.path.join(storageBaseDirectory, mailMessageStore)
 
-        # Get domain name of this account.
-        self.domain = self.mail.split('@')[-1]
-
-        # Get dn of mail user and domain.
-        self.dnUser = ldaputils.convert_keyword_to_dn(self.mail, accountType='user')
-        self.dnDomain = ldaputils.convert_keyword_to_dn(self.domain, accountType='domain')
-
-        if self.dnUser[0] is False:
-            return self.dnUser
-
-        if self.dnDomain[0] is False:
-            return self.dnDomain
-
-        try:
-            # Get accounts which contains destination email.
-            objsHasUser = self.conn.search_s(
-                self.dnDomain,
-                ldap.SCOPE_SUBTREE,
-                self.getFilterOfDeleteUserFromGroups(self.mail),
-                ['dn'],
-            )
-
-            if len(objsHasUser) >= 1:
-                connutils = connUtils.Utils()
-                for obj in objsHasUser:
-                    if obj[0].endswith(attrs.DN_BETWEEN_ALIAS_AND_DOMAIN + self.dnDomain) or \
-                       obj[0].endswith(attrs.DN_BETWEEN_USER_AND_DOMAIN + self.dnDomain):
-                        # Remove address from alias and user.
-                        connutils.addOrDelAttrValue(
-                            dn=obj[0],
-                            attr='mailForwardingAddress',
-                            value=self.mail,
-                            action='delete',
-                        )
-                    elif obj[0].endswith('ou=Externals,' + self.domaindn):
-                        # Remove address from external member list.
-                        connutils.addOrDelAttrValue(
-                            dn=obj[0],
-                            attr='mail',
-                            value=self.mail,
-                            action='delete',
-                        )
-                    else:
-                        pass
-            else:
-                pass
-
-            return (True, )
-        except Exception as e:
-            return (False, ldaputils.getExceptionDesc(e))
-
-    # Delete single user.
-    def deleteSingleUser(self, mail, deleteFromGroups=True, keep_mailbox_days=0):
-        self.mail = web.safestr(mail)
-        if not iredutils.is_email(self.mail):
-            return (False, 'INVALID_MAIL')
-
-        # Get domain name of this account.
-        self.domain = self.mail.split('@')[-1]
-
-        # Get dn of mail user and domain.
-        self.dnUser = ldaputils.convert_keyword_to_dn(self.mail, accountType='user')
-        if self.dnUser[0] is False:
-            return self.dnUser
-
-        # Log maildir path in SQL table.
-        try:
-            qr_profile = self.profile(domain=self.domain, mail=self.mail)
-            if qr_profile[0]:
-                user_profile = qr_profile[1][0][1]
-            else:
-                return qr_profile
-
-            if 'homeDirectory' in user_profile:
-                maildir = user_profile.get('homeDirectory', [''])[0]
-            else:
-                storageBaseDirectory = user_profile.get('storageBaseDirectory', [''])[0]
-                mailMessageStore = user_profile.get('mailMessageStore', [''])[0]
-                maildir = os.path.join(storageBaseDirectory, mailMessageStore)
-
-            if keep_mailbox_days == 0:
-                keep_mailbox_days = 36500
-
+        if keep_mailbox_days == 0:
+            sql_keep_days = None
+        else:
             # Convert keep days to string
             _now_in_seconds = time.time()
             _days_in_seconds = _now_in_seconds + (keep_mailbox_days * 24 * 60 * 60)
-            sql_keep_days = time.strftime('%Y-%m-%d', time.strptime(time.ctime(_days_in_seconds)))
+            sql_keep_days = time.strftime('%Y-%m-%d', time.localtime(_days_in_seconds))
 
-            web.admindb.insert('deleted_mailboxes',
-                               maildir=maildir,
-                               username=self.mail,
-                               domain=self.domain,
-                               admin=session.get('username'),
-                               delete_date=sql_keep_days)
+        web.conn_iredadmin.insert(
+            'deleted_mailboxes',
+            maildir=maildir,
+            username=mail,
+            domain=domain,
+            admin=session.get('username'),
+            delete_date=sql_keep_days,
+        )
+    except:
+        pass
+
+    # Delete user object.
+    try:
+        # Delete object and its subtree.
+        _qr = ldap_lib_general.delete_ldap_tree(dn=dn_user, conn=conn)
+        if not _qr[0]:
+            return _qr
+
+        # Delete record from SQL database: real-time used quota.
+        try:
+            ldap_lib_general.delete_account_used_quota([mail])
         except:
             pass
 
-        del maildir
+        # Log delete action.
+        log_activity(msg="Delete user: %s." % (mail),
+                     domain=domain,
+                     event='delete')
 
-        # Delete user object.
-        try:
-            # Delete object and its subtree.
-            connUtils.delete_ldap_tree(dn=self.dnUser, conn=self.conn)
+        return (True, )
+    except ldap.LDAPError as e:
+        return (False, repr(e))
 
-            if deleteFromGroups:
-                self.deleteSingleUserFromGroups(self.mail)
 
-            # Delete record from SQL database: real-time used quota.
-            try:
-                connUtils.deleteAccountFromUsedQuota([self.mail])
-            except Exception as e:
-                pass
+# Delete mail users in same domain.
+@decorators.require_global_admin
+def delete(domain,
+           mails=None,
+           keep_mailbox_days=0,
+           conn=None):
+    if not mails:
+        return (False, 'NO_ACCOUNT_SELECTED')
 
-            # Log delete action.
-            web.logger(msg="Delete user: %s." % (self.mail),
-                       domain=self.domain,
-                       event='delete')
-            return (True, )
-        except ldap.LDAPError as e:
-            return (False, ldaputils.getExceptionDesc(e))
+    domain = str(domain).lower()
+    mails = [str(v).lower()
+             for v in mails
+             if iredutils.is_email(v) and str(v).endswith('@' + domain)]
 
-    # Delete mail users in same domain.
-    @decorators.require_domain_access
-    def delete(self, domain, mails=None, keep_mailbox_days=0):
-        if not mails:
-            return (False, 'NO_ACCOUNT_SELECTED')
+    if not mails:
+        return (False, 'INVALID_MAIL')
 
-        self.domain = web.safestr(domain)
-        self.mails = [str(v) for v in mails if iredutils.is_email(v) and str(v).endswith('@' + self.domain)]
-        if not len(self.mails) > 0:
-            return (False, 'INVALID_MAIL')
+    if not iredutils.is_domain(domain):
+        return (False, 'INVALID_DOMAIN_NAME')
 
-        if not iredutils.is_domain(self.domain):
-            return (False, 'INVALID_DOMAIN_NAME')
+    if not conn:
+        _wrap = LDAPWrap()
+        conn = _wrap.conn
 
-        self.domaindn = ldaputils.convert_keyword_to_dn(self.domain, accountType='domain')
+    try:
+        # Remove users from:
+        #   - domain admin list
+        #   - member of mail alias account
+        _filter1 = '(&(objectClass=mailDomain)(|'
+        for m in mails:
+            _filter1 += '(domainAdmin=%s)' % m
+        _filter1 += '))'
 
-        result = {}
-        for mail in self.mails:
-            self.mail = web.safestr(mail)
+        _filter2 = '(&(objectClass=mailAlias)(|'
+        for m in mails:
+            _filter2 += '(mailForwardingAddress=%s)' % m
+        _filter2 += '))'
 
-            try:
-                # Delete user object (ldap.SCOPE_BASE).
-                self.deleteSingleUser(mail=self.mail, keep_mailbox_days=keep_mailbox_days)
-            except ldap.LDAPError as e:
-                result[self.mail] = ldaputils.getExceptionDesc(e)
+        _filter = '(|' + _filter1 + _filter2 + ')'
 
-        if result == {}:
-            return (True, )
+        qr = conn.search_s(settings.ldap_basedn,
+                           ldap.SCOPE_SUBTREE,
+                           _filter,
+                           ['dn', 'objectClass', 'domainAdmin', 'mailForwardingAddress'])
+
+        if qr:
+            obj_attr_maps = [('mailDomain', 'domainAdmin'),
+                             ('mailAlias', 'mailForwardingAddress')]
+
+            for (_dn, _ldif) in qr:
+                _ldif = iredutils.bytes2str(_ldif)
+                _objs = _ldif.get('objectClass', [])
+
+                for (_obj, _attr) in obj_attr_maps:
+                    if _obj in _objs:
+                        _remove_addrs = list(set(mails) & set(_ldif.get(_attr, [])))
+                        ldap_lib_general.remove_attr_values(dn=_dn,
+                                                            attr=_attr,
+                                                            values=_remove_addrs,
+                                                            conn=conn)
+    except:
+        pass
+
+    result = {}
+    num_removed = 0
+    for m in mails:
+        m = web.safestr(m)
+
+        # Delete user object (ldap.SCOPE_BASE).
+        qr = __delete_single_user(mail=m,
+                                  keep_mailbox_days=keep_mailbox_days,
+                                  conn=conn)
+
+        if qr[0]:
+            num_removed += 1
         else:
-            return (False, str(result))
+            result[m] = repr(qr[1])
 
-    @decorators.require_domain_access
-    def enableOrDisableAccount(self, domain, mails, action, attr='accountStatus'):
-        if mails is None or len(mails) == 0:
-            return (False, 'NO_ACCOUNT_SELECTED')
+    # Update count of accounts
+    if num_removed > 0:
+        ldap_lib_general.update_num_domain_current_users(domain=domain,
+                                                         decrease=True,
+                                                         conn=conn)
 
-        self.mails = [str(v)
-                      for v in mails
-                      if iredutils.is_email(v) and str(v).endswith('@' + str(domain))]
+    if result == {}:
+        return (True, )
+    else:
+        return (False, repr(result))
 
-        result = {}
-        connutils = connUtils.Utils()
-        for mail in self.mails:
-            self.mail = web.safestr(mail)
-            if not iredutils.is_email(self.mail):
-                continue
 
-            self.domain = self.mail.split('@')[-1]
-            self.dn = ldaputils.convert_keyword_to_dn(self.mail, accountType='user')
-            if self.dn[0] is False:
-                result[self.mail] = self.dn[1]
-                continue
+@decorators.require_global_admin
+def update(profile_type, mail, form, conn=None):
+    profile_type = web.safestr(profile_type)
+    mail = str(mail).lower()
+    (username, domain) = mail.split('@', 1)
 
-            try:
-                connutils.enableOrDisableAccount(
-                    domain=self.domain,
-                    account=self.mail,
-                    dn=self.dn,
-                    action=web.safestr(action).strip().lower(),
-                    accountTypeInLogger='user',
-                )
-            except ldap.LDAPError as e:
-                result[self.mail] = str(e)
+    if not conn:
+        _wrap = LDAPWrap()
+        conn = _wrap.conn
 
-        if result == {}:
-            return (True, )
-        else:
-            return (False, str(result))
+    # Get account dn.
+    dn_user = ldaputils.rdn_value_to_user_dn(mail)
 
-    @decorators.require_domain_access
-    def update(self, profile_type, mail, data):
-        self.profile_type = web.safestr(profile_type)
-        self.mail = str(mail).lower()
-        self.username, self.domain = self.mail.split('@', 1)
+    mod_attrs = []
 
-        domainAccountSetting = {}
+    qr = ldap_lib_general.get_domain_account_setting(domain=domain, conn=conn)
+    if qr[0]:
+        domainAccountSetting = qr[1]
+    else:
+        return qr
 
-        connutils = connUtils.Utils()
-        domainLib = domainlib.Domain()
+    qr = get_profile(mail=mail, conn=conn)
+    if qr[0]:
+        user_profile = qr[1]['ldif']
+        user_account_setting = ldaputils.get_account_setting_from_profile(user_profile)
+    else:
+        return qr
 
-        # Get account dn.
-        self.dn = connutils.getDnWithKeyword(self.mail, accountType='user')
-
-        try:
-            result = domainLib.getDomainAccountSetting(domain=self.domain)
-            if result[0] is True:
-                domainAccountSetting = result[1]
-        except Exception as e:
-            pass
-
-        mod_attrs = []
-        if self.profile_type == 'general':
+    if profile_type == 'general':
+        # Update domainGlobalAdmin=yes
+        if session.get('is_global_admin'):
             # Update domainGlobalAdmin=yes
-            if session.get('domainGlobalAdmin') is True:
-                # Update domainGlobalAdmin=yes
-                if 'domainGlobalAdmin' in data:
-                    mod_attrs = [(ldap.MOD_REPLACE, 'domainGlobalAdmin', 'yes')]
-                    # Update enabledService=domainadmin
-                    connutils.addOrDelAttrValue(
-                        dn=self.dn,
-                        attr='enabledService',
-                        value='domainadmin',
-                        action='add',
-                    )
-                else:
-                    mod_attrs = [(ldap.MOD_REPLACE, 'domainGlobalAdmin', None)]
-                    # Remove enabledService=domainadmin
-                    connutils.addOrDelAttrValue(
-                        dn=self.dn,
-                        attr='enabledService',
-                        value='domainadmin',
-                        action='delete',
-                    )
+            if 'domainGlobalAdmin' in form:
+                mod_attrs = ldaputils.mod_replace('domainGlobalAdmin', 'yes')
 
-            # Get display name.
-            cn = data.get('cn', None)
-            mod_attrs += ldaputils.getSingleModAttr(attr='cn',
-                                                    value=cn,
-                                                    default=self.username)
-
-            first_name = data.get('first_name', '')
-            mod_attrs += ldaputils.getSingleModAttr(attr='givenName',
-                                                    value=first_name,
-                                                    default=self.username)
-
-            last_name = data.get('last_name', '')
-            mod_attrs += ldaputils.getSingleModAttr(attr='sn',
-                                                    value=last_name,
-                                                    default=self.username)
-
-            # Get preferred language: short lang code. e.g. en_US, de_DE.
-            preferred_lang = web.safestr(data.get('preferredLanguage', 'en_US'))
-            # Must be equal to or less than 5 characters.
-            if len(preferred_lang) > 5:
-                preferred_lang = preferred_lang[:5]
-            mod_attrs += [(ldap.MOD_REPLACE, 'preferredLanguage', preferred_lang)]
-            # Update language immediately.
-            if session.get('username') == self.mail and \
-               session.get('lang', 'en_US') != preferred_lang:
-                session['lang'] = preferred_lang
-
-            # Update employeeNumber, mobile, title.
-            for tmp_attr in ['employeeNumber', 'mobile', 'title', ]:
-                mod_attrs += ldaputils.getSingleModAttr(attr=tmp_attr, value=data.get(tmp_attr), default=None)
-
-            ############
-            # Get quota
-
-            # Get mail quota from web form.
-            quota = web.safestr(data.get('mailQuota', '')).strip()
-            oldquota = web.safestr(data.get('oldMailQuota', '')).strip()
-            if not oldquota.isdigit():
-                oldquota = 0
+                if user_profile.get('domainGlobalAdmin') != ['yes']:
+                    log_activity(msg="User %s is marked as global admin." % mail,
+                                 username=mail,
+                                 domain=domain,
+                                 event='grant')
             else:
-                oldquota = int(oldquota)
+                mod_attrs = ldaputils.mod_replace('domainGlobalAdmin', None)
 
-            if quota == '' or not quota.isdigit():
-                # Don't touch it, keep original value.
-                pass
+                if user_profile.get('domainGlobalAdmin') == ['yes']:
+                    log_activity(msg="User %s is not a global admin anymore." % mail,
+                                 username=mail,
+                                 domain=domain,
+                                 event='revoke')
+
+        # Get full name, first name, last name.
+        # Note: cn, givenName, sn are required by objectClass `inetOrgPerson`.
+        cn = form_utils.get_name(form=form, input_name="cn")
+        first_name = form_utils.get_single_value(form=form, input_name="first_name")
+        last_name = form_utils.get_single_value(form=form, input_name="last_name")
+
+        mod_attrs += ldaputils.mod_replace(attr="cn",
+                                           value=cn,
+                                           default=username)
+
+        mod_attrs += ldaputils.mod_replace(attr='givenName',
+                                           value=first_name,
+                                           default=username)
+
+        mod_attrs += ldaputils.mod_replace(attr='sn',
+                                           value=last_name,
+                                           default=username)
+
+        # Get preferred language: short lang code. e.g. en_US, de_DE.
+        preferred_language = form_utils.get_language(form)
+        # Must be equal to or less than 5 characters.
+        if not (preferred_language in iredutils.get_language_maps()):
+            preferred_language = None
+
+        mod_attrs += ldaputils.mod_replace('preferredLanguage', preferred_language)
+
+        # Update language immediately.
+        if session.get('username') == mail and \
+           session.get('lang', 'en_US') != preferred_language:
+            session['lang'] = preferred_language
+
+        # Update timezone
+        tz_name = form_utils.get_timezone(form)
+
+        if qr[0]:
+            user_account_setting['timezone'] = tz_name
+
+            if session['username'] == mail and tz_name:
+                session['timezone'] = TIMEZONES[tz_name]
+
+        # Update employeeNumber, mobile, title.
+        mod_attrs += ldaputils.mod_replace('employeeNumber', form.get('employeeNumber'))
+
+        ############
+        # Reset quota
+        #
+        # Get new mail quota from web form.
+        quota = form_utils.get_single_value(form=form,
+                                            input_name='mailQuota',
+                                            default_value=0,
+                                            is_integer=True)
+
+        mod_attrs += ldaputils.mod_replace('mailQuota', quota)
+
+        # Get telephoneNumber, mobile.
+        # - multi values are allowed.
+        # - non-ascii characters are not allowed.
+        for k in ['mobile', 'telephoneNumber']:
+            mod_attrs += ldaputils.form_mod_attrs_from_api(form=form,
+                                                           input_name=k,
+                                                           attr=k,
+                                                           to_string=True)
+
+        # Get title, with multiple values.
+        for _attr in ['title']:
+            _values = [v for v in form.get(_attr, []) if v]
+
+            # Remove duplicate entries
+            _values = list(set(_values))
+
+            mod_attrs += ldaputils.mod_replace(attr=_attr, value=_values)
+
+        # check account status.
+        accountStatus = 'disabled'
+        if 'accountStatus' in form:
+            accountStatus = 'active'
+        mod_attrs += ldaputils.mod_replace('accountStatus', accountStatus)
+
+    elif profile_type == 'password':
+        # Get password length from @domainAccountSetting.
+        (min_pw_len, max_pw_len) = ldap_lib_general.get_domain_password_lengths(domain=domain,
+                                                                                account_settings=domainAccountSetting,
+                                                                                fallback_to_global_settings=False,
+                                                                                conn=conn)
+
+        # Get new passwords from user input.
+        newpw = web.safestr(form.get('newpw', ''))
+        confirmpw = web.safestr(form.get('confirmpw', ''))
+
+        result = iredpwd.verify_new_password(newpw=newpw,
+                                             confirmpw=confirmpw,
+                                             min_passwd_length=min_pw_len,
+                                             max_passwd_length=max_pw_len)
+
+        if result[0] is True:
+            if 'store_password_in_plain_text' in form and settings.STORE_PASSWORD_IN_PLAIN_TEXT:
+                passwd = iredpwd.generate_password_hash(result[1], pwscheme='PLAIN')
             else:
-                # Assign quota which got from web form.
-                mailQuota = int(quota)
+                passwd = iredpwd.generate_password_hash(result[1])
 
-                # If mailQuota > domainSpareQuotaSize, use domainSpareQuotaSize.
-                # if mailQuota < domainSpareQuotaSize, use mailQuota
-                # 0 means unlimited.
-                domainQuotaSize, domainQuotaUnit = domainAccountSetting.get('domainQuota', '0:GB').split(':')
+            mod_attrs += ldaputils.mod_replace('userPassword', passwd)
+            mod_attrs += ldaputils.mod_replace('shadowLastChange', ldaputils.get_days_of_shadow_last_change())
 
-                if int(domainQuotaSize) == 0:
-                    # Unlimited. Keep quota which got from web form.
-                    mod_attrs += [(ldap.MOD_REPLACE, 'mailQuota', str(mailQuota * 1024 * 1024))]
-                else:
-                    # Get domain quota.
-                    if domainQuotaUnit == 'TB':
-                        domainQuota = int(domainQuotaSize) * 1024 * 1024  # TB
-                    elif domainQuotaUnit == 'GB':
-                        domainQuota = int(domainQuotaSize) * 1024  # GB
-                    else:
-                        domainQuota = int(domainQuotaSize)  # MB
+            # Always store plain password in another attribute.
+            if settings.STORE_PLAIN_PASSWORD_IN_ADDITIONAL_ATTR:
+                mod_attrs += ldaputils.mod_replace(settings.STORE_PLAIN_PASSWORD_IN_ADDITIONAL_ATTR, newpw)
+        else:
+            return result
 
-                    # Query LDAP and get current domain quota size.
-                    result = connutils.getDomainCurrentQuotaSizeFromLDAP(domain=self.domain)
-                    if result[0] is True:
-                        domainCurrentQuotaSizeInBytes = result[1]
-                    else:
-                        domainCurrentQuotaSizeInBytes = 0
+    # accountSetting
+    list_of_account_setting = ldaputils.account_setting_dict_to_list(user_account_setting)
+    mod_attrs += ldaputils.mod_replace('accountSetting', list_of_account_setting)
 
-                    # Spare quota.
-                    domainSpareQuotaSize = (domainQuota + oldquota) - (domainCurrentQuotaSizeInBytes / (1024 * 1024))
+    try:
+        conn.modify_s(dn_user, mod_attrs)
 
-                    if domainSpareQuotaSize <= 0:
-                        # Set to 1MB. don't exceed domain quota size.
-                        mod_attrs += [(ldap.MOD_REPLACE, 'mailQuota', str(1024 * 1024))]
-                    else:
-                        # Get FINAL mailbox quota.
-                        if mailQuota >= domainSpareQuotaSize:
-                            mailQuota = domainSpareQuotaSize
-                        mod_attrs += [(ldap.MOD_REPLACE, 'mailQuota', str(mailQuota * 1024 * 1024))]
-            # End quota
-            ############
+        log_activity(msg="Update user profile ({}): {}.".format(profile_type, mail),
+                     admin=session.get('username'),
+                     username=mail,
+                     domain=domain,
+                     event='update')
 
-            # Get telephoneNumber.
-            telephoneNumber = data.get('telephoneNumber', [])
-            nums = [str(num) for num in telephoneNumber if len(num) > 0]
-            mod_attrs += [(ldap.MOD_REPLACE, 'telephoneNumber', nums)]
+        return (True, {})
+    except Exception as e:
+        return (False, repr(e))
 
-            # Get accountStatus.
-            if 'accountStatus' in list(data.keys()):
-                accountStatus = 'active'
-            else:
-                accountStatus = 'disabled'
-            mod_attrs += [(ldap.MOD_REPLACE, 'accountStatus', accountStatus)]
 
-        elif self.profile_type == 'password':
-            # Get password length from @domainAccountSetting.
-            minPasswordLength = domainAccountSetting.get('minPasswordLength', settings.min_passwd_length)
-            maxPasswordLength = domainAccountSetting.get('maxPasswordLength', settings.max_passwd_length)
+def __mark_user_as_admin(user, domains, conn=None):
+    user = str(user).lower()
+    if not iredutils.is_email(user):
+        return (False, 'INVALID_MAIL')
 
-            # Get new passwords from user input.
-            self.newpw = str(data.get('newpw', None))
-            self.confirmpw = str(data.get('confirmpw', None))
+    if not conn:
+        _wrap = LDAPWrap()
+        conn = _wrap.conn
 
-            result = iredutils.verify_new_password(
-                newpw=self.newpw,
-                confirmpw=self.confirmpw,
-                min_passwd_length=minPasswordLength,
-                max_passwd_length=maxPasswordLength,
-            )
-            if result[0] is True:
-                if 'storePasswordInPlainText' in data and settings.STORE_PASSWORD_IN_PLAIN_TEXT:
-                    self.passwd = iredutils.generate_password_hash(result[1], pwscheme='PLAIN')
-                else:
-                    self.passwd = iredutils.generate_password_hash(result[1])
-                mod_attrs += [(ldap.MOD_REPLACE, 'userPassword', self.passwd)]
-                mod_attrs += [(ldap.MOD_REPLACE, 'shadowLastChange', str(ldaputils.getDaysOfShadowLastChange()))]
-            else:
-                return result
-
+    for i in domains:
+        domain_dn = ldaputils.rdn_value_to_domain_dn(i)
         try:
-            self.conn.modify_s(self.dn, mod_attrs)
+            qr = ldap_lib_general.add_attr_values(dn=domain_dn,
+                                                  attr='domainAdmin',
+                                                  values=[user],
+                                                  conn=conn)
+            if not qr[0]:
+                return qr
+
+        except Exception as e:
+            return (False, repr(e))
+
+    return (True, )
+
+
+def __unmark_user_as_admin(user, domains=None, all_domains=False, conn=None):
+    user = str(user).lower()
+    if not iredutils.is_email(user):
+        return (False, 'INVALID_MAIL')
+
+    if not conn:
+        _wrap = LDAPWrap()
+        conn = _wrap.conn
+
+    if domains:
+        try:
+            for d in domains:
+                domain_dn = ldaputils.rdn_value_to_domain_dn(d)
+                qr = ldap_lib_general.remove_attr_values(dn=domain_dn,
+                                                         attr='domainAdmin',
+                                                         values=[user],
+                                                         conn=conn)
+                if not qr[0]:
+                    return qr
+
             return (True, )
         except Exception as e:
-            return (False, ldaputils.getExceptionDesc(e))
+            return (False, repr(e))
+    else:
+        if all_domains:
+            # Remove this user admin from all domains by default.
+            qr_filter = '(&(objectClass=mailDomain)(domainAdmin=%s))' % user
+
+            qr = conn.search_s(settings.ldap_basedn,
+                               ldap.SCOPE_ONELEVEL,
+                               qr_filter,
+                               ['dn'])
+
+            for (dn, _ldif) in qr:
+                try:
+                    ldap_lib_general.remove_attr_values(dn=dn,
+                                                        attr='domainAdmin',
+                                                        values=[user],
+                                                        conn=conn)
+                except Exception as e:
+                    return (False, repr(e))
+
+        return (True, )

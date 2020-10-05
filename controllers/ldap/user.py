@@ -2,242 +2,313 @@
 
 import web
 import settings
+
 from libs import iredutils, form_utils
-from libs.languages import get_language_maps
-from libs.ldaplib import decorators, domain as domainlib, user, ldaputils, connUtils
+from libs.l10n import TIMEZONES
+from libs.ldaplib.core import LDAPWrap
+from libs.ldaplib import decorators, ldaputils
+from libs.ldaplib import domain as ldap_lib_domain
+from libs.ldaplib import user as ldap_lib_user
+from libs.ldaplib import general as ldap_lib_general
 
 session = web.config.get('_session')
 
-#
-# User related.
-#
-class List:
-    def __del__(self):
-        pass
 
-    @decorators.require_login
-    def GET(self, domain='', cur_page=1):
-        domain = web.safestr(domain).split('/', 1)[0]
+# User related.
+class Users:
+    @decorators.require_global_admin
+    def GET(self, domain, cur_page=1, disabled_only=False):
+        domain = web.safestr(domain)
         cur_page = int(cur_page)
 
-        if not iredutils.is_domain(domain):
-            raise web.seeother('/domains?msg=INVALID_DOMAIN_NAME')
+        form = web.input()
 
-        if cur_page == 0:
-            cur_page = 1
+        order_name = form.get('order_name')
+        order_by_desc = (form.get('order_by', 'asc').lower() == 'desc')
 
-        i = web.input()
+        first_char = None
+        search_filter = None
+        if 'starts_with' in form:
+            first_char = form.get('starts_with')[:1].upper()
 
-        domainLib = domainlib.Domain()
-        result = domainLib.listAccounts(attrs=['domainName', 'accountStatus', ])
-        if result[0] is True:
-            allDomains = result[1]
+            if iredutils.is_valid_account_first_char(first_char):
+                search_filter = '(&(objectClass=mailUser)(mail=%s*))' % first_char
+
+        _wrap = LDAPWrap()
+        conn = _wrap.conn
+
+        qr = ldap_lib_user.list_accounts(domain=domain,
+                                         search_filter=search_filter,
+                                         disabled_only=disabled_only,
+                                         conn=conn)
+
+        if not qr[0]:
+            raise web.seeother('/domains?msg=%s' % web.urlquote(qr[1]))
+
+        all_users = qr[1]
+        sl = ldap_lib_general.get_paged_account_list(account_profiles=all_users,
+                                                     current_page=cur_page,
+                                                     domain=domain,
+                                                     account_type='user',
+                                                     order_name=order_name,
+                                                     order_by_desc=order_by_desc,
+                                                     conn=conn)
+
+        account_profiles = sl['account_profiles']
+
+        # Get real-time used quota.
+        used_quotas = {}
+
+        if settings.SHOW_USED_QUOTA:
+            # Get email address list.
+            accountEmailLists = []
+            for tmpuser in account_profiles:
+                accountEmailLists += tmpuser[1].get('mail', [])
+
+            if len(accountEmailLists) > 0:
+                used_quotas = ldap_lib_general.get_account_used_quota(accountEmailLists)
+
+        if cur_page > sl['pages']:
+            cur_page = sl['pages']
+
+        if session.get('is_global_admin'):
+            days_to_keep_removed_mailbox = settings.DAYS_TO_KEEP_REMOVED_MAILBOX_FOR_GLOBAL_ADMIN
         else:
-            return result
+            days_to_keep_removed_mailbox = settings.DAYS_TO_KEEP_REMOVED_MAILBOX
 
-        userLib = user.User()
-        result = userLib.listAccounts(domain=domain)
-        if result[0] is True:
-            connutils = connUtils.Utils()
-            sl = connutils.getSizelimitFromAccountLists(
-                result[1],
-                curPage=cur_page,
-                sizelimit=settings.PAGE_SIZE_LIMIT,
-                accountType='user',
-                domain=domain,
-            )
+        all_first_chars = ldap_lib_general.get_first_char_of_all_accounts(domain=domain,
+                                                                          account_type='user',
+                                                                          conn=conn)
 
-            accountList = sl.get('accountList', [])
-
-            if cur_page > sl.get('totalPages'):
-                cur_page = sl.get('totalPages')
-
-            return web.render(
-                'ldap/user/list.html',
-                cur_page=cur_page,
-                total=sl.get('totalAccounts'),
-                users=accountList,
-                cur_domain=domain,
-                allDomains=allDomains,
-                accountUsedQuota={},
-                msg=i.get('msg'),
-            )
-        else:
-            raise web.seeother('/domains?msg=%s' % web.urlquote(result[1]))
+        return web.render('ldap/user/list.html',
+                          cur_page=cur_page,
+                          total=sl['total'],
+                          users=account_profiles,
+                          cur_domain=domain,
+                          used_quotas=used_quotas,
+                          order_name=order_name,
+                          order_by_desc=order_by_desc,
+                          all_first_chars=all_first_chars,
+                          first_char=first_char,
+                          disabled_only=disabled_only,
+                          days_to_keep_removed_mailbox=days_to_keep_removed_mailbox,
+                          msg=form.get('msg'))
 
     # Delete users.
     @decorators.csrf_protected
-    @decorators.require_login
-    def POST(self, domain):
-        i = web.input(_unicode=False, mail=[])
-        self.domain = web.safestr(domain)
-        self.mails = i.get('mail', [])
-        action = i.get('action', None)
+    @decorators.require_global_admin
+    def POST(self, domain, page=1):
+        form = web.input(_unicode=False, mail=[])
+        page = int(page)
+        if page < 1:
+            page = 1
 
-        userLib = user.User()
+        domain = str(domain).lower()
+        mails = form.get('mail', [])
+        action = form.get('action', None)
+
+        mails = [str(v).lower()
+                 for v in mails
+                 if iredutils.is_email(v) and str(v).endswith('@' + str(domain))]
 
         if action == 'delete':
-            keep_mailbox_days = form_utils.get_single_value(form=i,
+            keep_mailbox_days = form_utils.get_single_value(form=form,
                                                             input_name='keep_mailbox_days',
                                                             default_value=0,
                                                             is_integer=True)
-            result = userLib.delete(domain=self.domain, mails=self.mails, keep_mailbox_days=keep_mailbox_days)
+
+            result = ldap_lib_user.delete(domain=domain,
+                                          mails=mails,
+                                          keep_mailbox_days=keep_mailbox_days,
+                                          conn=None)
             msg = 'DELETED'
         elif action == 'disable':
-            result = userLib.enableOrDisableAccount(domain=self.domain, mails=self.mails, action='disable',)
+            result = ldap_lib_general.enable_disable_users(mails=mails, action='disable', conn=None)
             msg = 'DISABLED'
         elif action == 'enable':
-            result = userLib.enableOrDisableAccount(domain=self.domain, mails=self.mails, action='enable',)
+            result = ldap_lib_general.enable_disable_users(mails=mails, action='enable', conn=None)
             msg = 'ENABLED'
+        elif action in ['markasadmin', 'unmarkasadmin', 'markasglobaladmin', 'unmarkasglobaladmin']:
+            result = ldap_lib_user.mark_unmark_as_admin(domain=domain, mails=mails, action=action, conn=None)
+            msg = action.upper()
         else:
             result = (False, 'INVALID_ACTION')
-            msg = i.get('msg', None)
+            msg = form.get('msg', None)
 
         if result[0] is True:
-            cur_page = i.get('cur_page', '1')
-            raise web.seeother('/users/%s/page/%s?msg=%s' % (self.domain, str(cur_page), msg, ))
+            raise web.seeother('/users/%s/page/%d?msg=%s' % (domain, page, msg))
         else:
-            raise web.seeother('/users/%s?msg=%s' % (self.domain, web.urlquote(result[1])))
+            raise web.seeother('/users/%s/page/%d?msg=%s' % (domain, page, web.urlquote(result[1])))
+
+
+class DisabledUsers:
+    @decorators.require_global_admin
+    def GET(self, domain, cur_page=1):
+        _users = Users()
+        return _users.GET(domain=domain, cur_page=cur_page, disabled_only=True)
 
 
 class Profile:
-    @decorators.require_login
+    @decorators.require_global_admin
     def GET(self, profile_type, mail):
-        i = web.input(enabledService=[], telephoneNumber=[], )
-        self.mail = web.safestr(mail)
-        self.cur_domain = self.mail.split('@', 1)[-1]
-        self.profile_type = web.safestr(profile_type)
+        mail = str(mail).lower()
+        cur_domain = mail.split('@', 1)[-1]
 
-        if self.mail.startswith('@') and iredutils.is_domain(self.cur_domain):
-            # Catchall account.
-            raise web.seeother('/profile/domain/catchall/%s' % self.cur_domain)
+        form = web.input(enabledService=[], telephoneNumber=[], domainName=[])
+        msg = form.get('msg')
 
-        if not iredutils.is_email(self.mail):
-            raise web.seeother('/domains?msg=INVALID_USER')
+        profile_type = web.safestr(profile_type)
 
+        _wrap = LDAPWrap()
+        conn = _wrap.conn
+
+        qr = ldap_lib_user.get_profile(mail=mail, conn=conn)
+        if not qr[0]:
+            raise web.seeother('/users/{}?msg={}'.format(cur_domain, web.urlquote(qr[1])))
+
+        user_profile = qr[1]['ldif']
+        user_account_setting = ldaputils.account_setting_list_to_dict(user_profile.get('accountSetting', []))
+
+        # profile_type == 'general'
+        accountUsedQuota = {}
+
+        # Per-domain account settings
         domainAccountSetting = {}
 
-        userLib = user.User()
-        result = userLib.profile(domain=self.cur_domain, mail=self.mail)
-        if result[0] is False:
-            raise web.seeother('/users/%s?msg=%s' % (self.cur_domain, web.urlquote(result[1])))
+        # Get accountSetting of current domain.
+        qr = ldap_lib_general.get_domain_account_setting(domain=cur_domain, conn=conn)
+        if qr[0] is True:
+            domainAccountSetting = qr[1]
 
-        if self.profile_type == 'password':
-            # Get accountSetting of current domain.
-            domainLib = domainlib.Domain()
-            result_setting = domainLib.getDomainAccountSetting(domain=self.cur_domain)
-            if result_setting[0] is True:
-                domainAccountSetting = result_setting[1]
+        if profile_type == 'general':
+            # Get account used quota.
+            if settings.SHOW_USED_QUOTA:
+                accountUsedQuota = ldap_lib_general.get_account_used_quota([mail])
 
-        minPasswordLength = domainAccountSetting.get('minPasswordLength', '0')
-        maxPasswordLength = domainAccountSetting.get('maxPasswordLength', '0')
+        (min_passwd_length, max_passwd_length) = ldap_lib_general.get_domain_password_lengths(domain=cur_domain,
+                                                                                              account_settings=domainAccountSetting,
+                                                                                              fallback_to_global_settings=False)
+
+        password_policies = iredutils.get_password_policies()
+        if min_passwd_length > 0:
+            password_policies['min_passwd_length'] = min_passwd_length
+
+        if max_passwd_length > 0:
+            password_policies['max_passwd_length'] = max_passwd_length
 
         return web.render(
             'ldap/user/profile.html',
-            profile_type=self.profile_type,
-            mail=self.mail,
-            user_profile=result[1],
+            profile_type=profile_type,
+            mail=mail,
+            user_profile=user_profile,
+            user_account_setting=user_account_setting,
             defaultStorageBaseDirectory=settings.storage_base_directory,
-            minPasswordLength=minPasswordLength,
-            maxPasswordLength=maxPasswordLength,
+            timezones=TIMEZONES,
+            min_passwd_length=min_passwd_length,
+            max_passwd_length=max_passwd_length,
+            store_password_in_plain_text=settings.STORE_PASSWORD_IN_PLAIN_TEXT,
+            password_policies=iredutils.get_password_policies(),
+            accountUsedQuota=accountUsedQuota,
             domainAccountSetting=domainAccountSetting,
-            languagemaps=get_language_maps(),
-            msg=i.get('msg', None),
+            languagemaps=iredutils.get_language_maps(),
+            msg=msg,
         )
 
+    @decorators.require_global_admin
     @decorators.csrf_protected
-    @decorators.require_login
     def POST(self, profile_type, mail):
-        i = web.input(
+        mail = str(mail).lower()
+        domain = mail.split('@', 1)[-1]
+
+        _wrap = LDAPWrap()
+        conn = _wrap.conn
+
+        # - Allow global admin
+        # - normal admin who manages this domain
+        # - allow normal admin who doesn't manage this domain, but is updating its own profile
+        if not ldap_lib_general.is_domain_admin(domain=domain, admin=session.get('username'), conn=conn):
+            raise web.seeother('/domains?msg=PERMISSION_DENIED')
+
+        form = web.input(
+            domainName=[],      # Managed domains
+            oldDomainName=[],   # Old managed domains
             enabledService=[],
-            mailForwardingAddress=[],
+            mobile=[],
+            title=[],
             telephoneNumber=[],
-            memberOfGroup=[],
-        )
-        self.profile_type = web.safestr(profile_type)
-        self.mail = web.safestr(mail)
-
-        userLib = user.User()
-        result = userLib.update(
-            profile_type=self.profile_type,
-            mail=self.mail,
-            data=i,
         )
 
-        if result[0] is True:
-            raise web.seeother('/profile/user/%s/%s?msg=UPDATED' % (self.profile_type, self.mail))
+        result = ldap_lib_user.update(profile_type=profile_type,
+                                      mail=mail,
+                                      form=form,
+                                      conn=conn)
+
+        if result[0]:
+            raise web.seeother('/profile/user/{}/{}?msg=UPDATED'.format(profile_type, mail))
         else:
-            raise web.seeother('/profile/user/%s/%s?msg=%s' % (self.profile_type, self.mail, web.urlquote(result[1])))
+            raise web.seeother('/profile/user/{}/{}?msg={}'.format(profile_type, mail, web.urlquote(result[1])))
 
 
 class Create:
-    @decorators.require_login
-    def GET(self, domainName=None):
-        i = web.input()
+    @decorators.require_global_admin
+    def GET(self, domain):
+        domain = str(domain).lower()
+        form = web.input()
 
-        if domainName is None:
-            self.cur_domain = ''
-        else:
-            self.cur_domain = web.safestr(domainName)
+        _wrap = LDAPWrap()
+        conn = _wrap.conn
 
-        domainLib = domainlib.Domain()
-        result = domainLib.listAccounts(attrs=['domainName', 'accountSetting', 'domainCurrentQuotaSize', ])
+        _attrs = ['domainName', 'accountSetting', 'domainCurrentQuotaSize']
+        result = ldap_lib_domain.list_accounts(attributes=_attrs, conn=conn)
         if result[0] is True:
             allDomains = result[1]
 
-            if len(allDomains) == 0:
-                raise web.seeother('/domains?msg=NO_DOMAIN_AVAILABLE')
-            else:
-                # Redirect to create new user under first domain, so that we
-                # can get per-domain account settings, such as number of
-                # account limit, password length control, etc.
-                if self.cur_domain == '':
-                    raise web.seeother('/create/user/' + str(allDomains[0][1]['domainName'][0]))
-
             # Get accountSetting of current domain.
-            allAccountSettings = ldaputils.getAccountSettingFromLdapQueryResult(allDomains, key='domainName')
-            domainAccountSetting = allAccountSettings.get(self.cur_domain, {})
-            defaultUserQuota = domainLib.getDomainDefaultUserQuota(self.cur_domain, domainAccountSetting)
+            allAccountSettings = ldaputils.get_account_settings_from_qr(allDomains)
+            domainAccountSetting = allAccountSettings.get(domain, {})
+
+            defaultUserQuota = ldap_lib_domain.get_default_user_quota(domain=domain,
+                                                                      domain_account_setting=domainAccountSetting)
         else:
-            raise web.seeother('/domains?msg=' % web.urlquote(result[1]))
+            raise web.seeother('/domains?msg=' + web.urlquote(result[1]))
 
         # Get number of account limit.
-        connutils = connUtils.Utils()
-        result = connutils.getNumberOfCurrentAccountsUnderDomain(self.cur_domain, accountType='user', )
-        if result[0] is True:
-            numberOfCurrentAccounts = result[1]
-        else:
-            numberOfCurrentAccounts = 0
+        numberOfCurrentAccounts = ldap_lib_general.num_users_under_domain(domain=domain, conn=conn)
 
-        # Get current domain quota size.
-        result = connutils.getDomainCurrentQuotaSizeFromLDAP(domain=self.cur_domain)
-        if result[0] is True:
-            domainCurrentQuotaSize = result[1]
-        else:
-            # -1 means temporary error. Don't allow to create new user.
-            domainCurrentQuotaSize = -1
+        (min_passwd_length, max_passwd_length) = ldap_lib_general.get_domain_password_lengths(
+            domain=domain,
+            account_settings=domainAccountSetting,
+            fallback_to_global_settings=True,
+        )
 
         return web.render('ldap/user/create.html',
-                          cur_domain=self.cur_domain,
+                          cur_domain=domain,
                           allDomains=allDomains,
                           defaultUserQuota=defaultUserQuota,
                           domainAccountSetting=domainAccountSetting,
+                          min_passwd_length=min_passwd_length,
+                          max_passwd_length=max_passwd_length,
+                          store_password_in_plain_text=settings.STORE_PASSWORD_IN_PLAIN_TEXT,
+                          password_policies=iredutils.get_password_policies(),
                           numberOfCurrentAccounts=numberOfCurrentAccounts,
-                          domainCurrentQuotaSize=domainCurrentQuotaSize,
-                          msg=i.get('msg'))
+                          languagemaps=iredutils.get_language_maps(),
+                          msg=form.get('msg'))
 
     @decorators.csrf_protected
-    @decorators.require_login
-    def POST(self):
-        i = web.input()
+    @decorators.require_global_admin
+    def POST(self, domain):
+        domain = str(domain).lower()
+        form = web.input()
 
-        # Get domain name, username, cn.
-        self.cur_domain = web.safestr(i.get('domainName'))
-        self.username = web.safestr(i.get('username'))
+        domain_in_form = form_utils.get_domain_name(form)
+        if domain != domain_in_form:
+            raise web.seeother('/domains?msg=PERMISSION_DENIED')
 
-        userLib = user.User()
-        result = userLib.add(domain=self.cur_domain, data=i)
+        # Get username, cn.
+        username = form_utils.get_single_value(form, input_name='username', to_string=True)
+
+        result = ldap_lib_user.add(domain=domain, form=form, conn=None)
         if result[0] is True:
-            raise web.seeother('/profile/user/general/%s?msg=CREATED' % (self.username + '@' + self.cur_domain))
+            raise web.seeother('/profile/user/general/%s?msg=CREATED' % (username + '@' + domain))
         else:
-            raise web.seeother('/create/user/%s?msg=%s' % (self.cur_domain, web.urlquote(result[1])))
+            raise web.seeother('/create/user/{}?msg={}'.format(domain, web.urlquote(result[1])))

@@ -1,0 +1,141 @@
+{% extends "layout.html" %}
+
+{% from "macros/form_inputs.html" import
+    input_submit,
+    input_csrf_token
+    with context
+    %}
+
+{% from "macros/general.html" import
+                display_subnav,
+                set_account_status_img,
+                display_account_status,
+                display_input_cn,
+                display_preferred_language,
+                display_reset_password,
+                display_random_password,
+                display_input_global_admin,
+                with context
+                %}
+
+{% from "macros/msg_handlers.html" import admin_msg_handler with context %}
+
+{% block title %}{{ _('Edit account profile') }}{% endblock %}
+{% block navlinks_admins %}class="active"{% endblock %}
+
+{% block breadcrumb %}
+    {% if session.get('is_global_admin') %}
+        {% set crumbs = [(ctx.homepath + '/admins', _('All admins')),
+                         ('active', ctx.homepath + '/profile/admin/general/' + mail, _('Profile of admin:') + '&nbsp;' + mail)] %}
+    {% else %}
+        {% set crumbs = [('active', ctx.homepath + '/profile/admin/general/' + mail, _('Profile of admin:') + '&nbsp;' + mail)] %}
+    {% endif %}
+
+    {{ display_subnav(crumbs) }}
+{% endblock %}
+
+
+{% block main %}
+
+
+{# Show system message #}
+{% if msg %}
+    {% if msg.startswith('PW_') %}
+        {% set _pw_errors = msg.split(',') %}
+        {% for _err in _pw_errors %}
+            {{ admin_msg_handler(_err) }}
+        {% endfor %}
+    {% else %}
+        {{ admin_msg_handler(msg) }}
+    {% endif %}
+{% endif %}
+
+{% set navlinks = [
+                ('general', _('General'), []),
+                ('password', _('Password'), []),
+                ]
+                %}
+
+<div class="content-box">
+    <div class="box-body">
+        <div class="box-header clear">
+            <ul class="tabs clear">
+                {% for nav in navlinks %}
+                    {% if not false in nav[2] and not none in nav[2] %}
+                        <li><a href="#profile_{{ nav[0] }}">{{ nav[1] }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+
+            <h2>{{ _('Profile of admin:') }} {{ mail }}</h2>
+        </div>
+
+        <div class="box-wrap clear">
+            <div id="profile_general">
+                <form name="general" method="post" action="{{ctx.homepath}}/profile/admin/general/{{mail}}">
+                    {{ input_csrf_token() }}
+
+                    <div class="columns clear">
+                        <div class="col2-3">
+                            {% if session.get('is_global_admin') %}
+                                {{ display_account_status(profile.active) }}
+                            {% endif %}
+
+                            {{ display_input_cn(value=profile.name, account_type='admin') }}
+                            {{ display_preferred_language(value=profile.get('language', 'en_US') |e,
+                                                          languagemaps=languagemaps) }}
+
+                            {% if session.get('is_global_admin') %}
+                                <div class="rule"></div>
+                                {{ display_input_global_admin(value=is_global_admin) }}
+                            {% endif %}
+                        </div>
+                    </div>{# .columns #}
+
+                    {{ input_submit() }}
+                </form>
+            </div>
+
+            <div id="profile_password">
+                <form name="password" method="post" action="{{ctx.homepath}}/profile/admin/password/{{mail}}">
+                    {{ input_csrf_token() }}
+                    <div class="columns clear">
+                        <div class="col3-4">
+                            {% if session.get('is_global_admin') %}
+                                {{ display_reset_password(
+                                        min_passwd_length=min_passwd_length,
+                                        max_passwd_length=max_passwd_length,
+                                        show_confirmpw=true,
+                                        store_password_in_plain_text=store_password_in_plain_text) }}
+                            {% else %}
+                                {{ display_reset_password(
+                                        min_passwd_length=min_passwd_length,
+                                        max_passwd_length=max_passwd_length,
+                                        show_oldpw=true,
+                                        show_confirmpw=true,
+                                        store_password_in_plain_text=store_password_in_plain_text) }}
+                            {% endif %}
+                        </div>
+
+                        <div class="col1-4 lastcol">
+                            {{ display_random_password(password_length=min_passwd_length,
+                                                       password_policies=password_policies) }}
+                        </div>
+                    </div>
+
+                    {{ input_submit() }}
+                </form>
+            </div>
+        </div>{# .box-wrap #}
+    </div>{# .box-body #}
+</div>{#-- .content-box --#}
+{% endblock main %}
+
+{% block extra_js %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".tabs li").idTabs("profile_{{ profile_type }}");
+        $('#domain_search').quickfilter('#all_domains tr');
+    });
+</script>
+{% endblock extra_js %}

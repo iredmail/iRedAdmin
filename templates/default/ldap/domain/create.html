@@ -1,33 +1,29 @@
 {% extends "layout.html" %}
+
 {% from "macros/general.html" import
-        display_csrf_token,
-        display_add_domain,
+        display_add_domain
         with context %}
 
-{% from "macros/msgHandlers.html" import domainMsgHandler, with context %}
+{% from "macros/msg_handlers.html" import domain_msg_handler with context %}
 
 {% block title %}{{ _('Add domain') }}{% endblock title %}
-{% block navlinks_active_create %}class="active"{% endblock %}
+{% block navlinks_create %}class="active"{% endblock %}
 
 {% block main %}
 
 {# Show system message #}
-{{ domainMsgHandler(msg) }}
+{{ domain_msg_handler(msg) }}
 
     <div class="content-box">
         <div class="box-body">
             <div class="box-header clear">
-                <ul class="tabs clear">
-                    <li><a href="{{ctx.homepath}}/domains">{{ _('All domains') }}</a></li>
-                    {% if session.get('domainGlobalAdmin') is sameas true %}
-                        <li class="active"><a href="{{ctx.homepath}}/create/domain"><img src="{{ctx.homepath}}/static/{{skin}}/images/ico_add_12.png" /> {{ _('Add domain') }}</a></li>
-                    {% endif %}
-                </ul>
-
                 <h2>{{ _('Add domain') }}</h2>
             </div>
 
-            {{ display_add_domain(label=false) }}
+            {{ display_add_domain(label=false,
+                                  preferred_language=preferred_language,
+                                  languagemaps=languagemaps,
+                                  timezones=timezones) }}
         </div>
     </div>
 

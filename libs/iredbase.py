@@ -1,92 +1,80 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
 import os
-import sys
-import gettext
 
 import web
 from jinja2 import Environment, FileSystemLoader
 
-# Init settings
-
 # Directory to be used as the Python egg cache directory.
 # Note that the directory specified must exist and be writable by the
 # user that the daemon process run as.
-os.environ['PYTHON_EGG_CACHE'] = '/tmp/.iredadmin-eggs'
-os.environ['LC_ALL'] = 'C'
+os.environ["PYTHON_EGG_CACHE"] = "/tmp/.iredadmin-eggs"
+os.environ["LC_ALL"] = "C"
 
-from . import iredutils
+# Absolute path to this file.
+rootdir = os.path.abspath(os.path.dirname(__file__))
+
 import settings
-from .ireddate import convert_utc_to_timezone
+from . import iredutils
+from . import iredpwd
+from . import jinja_filters
+from . import ireddate
+from . import hooks
 
 # Set debug mode.
 web.config.debug = settings.DEBUG
 
 # Set session parameters.
-web.config.session_parameters['cookie_name'] = 'iRedAdmin'
-web.config.session_parameters['cookie_domain'] = None
-web.config.session_parameters['ignore_expiry'] = True
-web.config.session_parameters['ignore_change_ip'] = False
-web.config.session_parameters['timeout'] = settings.SESSION_TIMEOUT
+web.config.session_parameters["cookie_name"] = "iRedAdmin-Pro-%s" % settings.backend.upper()
+web.config.session_parameters["cookie_domain"] = None
+web.config.session_parameters["ignore_expiry"] = True
+web.config.session_parameters["ignore_change_ip"] = settings.SESSION_IGNORE_CHANGE_IP
+web.config.session_parameters["timeout"] = settings.SESSION_TIMEOUT
+web.config.session_parameters["httponly"] = True
+web.config.session_parameters["samesite"] = "Strict"
+# web.config.session_parameters['secure'] = True
 
 # Initialize session object.
-session_dbn = 'mysql'
-if settings.backend in ['pgsql', ]:
-    session_dbn = 'postgres'
+__sql_dbn = "mysql"
+if settings.backend == "pgsql":
+    __sql_dbn = "postgres"
 
-db_iredadmin = web.database(
-    host=settings.iredadmin_db_host,
-    port=int(settings.iredadmin_db_port),
-    dbn=session_dbn,
-    db=settings.iredadmin_db_name,
-    user=settings.iredadmin_db_user,
-    pw=settings.iredadmin_db_password,
-)
-db_iredadmin.supports_multiple_insert = True
-
-# Store session data in 'iredadmin.sessions'.
-sessionStore = web.session.DBStore(db_iredadmin, 'sessions')
-
-# We will use web.admindb in module 'iredutils' later.
-web.admindb = db_iredadmin
+conn_iredadmin = iredutils.get_db_conn(db_name="iredadmin", sql_dbn=__sql_dbn)
+web.conn_iredadmin = conn_iredadmin
 
 # URL handlers.
 # Import backend related urls.
-if settings.backend == 'ldap':
-    from controllers.ldap.urls import urls as backendUrls
-elif settings.backend == 'mysql':
-    from controllers.mysql.urls import urls as backendUrls
-elif settings.backend == 'pgsql':
-    from controllers.pgsql.urls import urls as backendUrls
-else:
-    backendUrls = []
+urls_backend = []
+if settings.backend == "ldap":
+    from controllers.ldap.urls import urls as urls_backend
+elif settings.backend in ["mysql", "pgsql"]:
+    from controllers.sql.urls import urls as urls_backend
 
-urls = backendUrls
+urls = urls_backend
 
-from controllers.panel.urls import urls as panelUrls
-urls += panelUrls
+# iRedAdmin.
+from controllers.panel.urls import urls as urls_panel
+urls += urls_panel
 
 # Initialize application object.
-app = web.application(urls, globals(),)
+app = web.application(urls)
+
+session_initializer = {
+    "webmaster": settings.webmaster,
+    "username": None,
+    "logged": False,
+    # Admin
+    "is_global_admin": False,
+    "failed_times": 0,  # Integer.
+    "lang": settings.default_language,
+    # Show used quota.
+    "show_used_quota": settings.SHOW_USED_QUOTA,
+}
 
 session = web.session.Session(
-    app,
-    sessionStore,
-    initializer={
-        'webmaster': settings.webmaster,
-        'username': None,
-        'logged': False,
-        'failed_times': 0,   # Integer.
-        'lang': settings.default_language,
-        'is_global_admin': False,
-        'default_mta_transport': settings.default_mta_transport,
-
-        # Store password in plain text.
-        'store_password_in_plain_text': settings.STORE_PASSWORD_IN_PLAIN_TEXT,
-
-        # Amavisd related features.
-        'amavisd_enable_quarantine': settings.amavisd_enable_quarantine,
-    }
+    app=app,
+    store=web.session.DBStore(conn_iredadmin, "sessions"),
+    initializer=session_initializer,
 )
 
 web.config._session = session
@@ -94,127 +82,113 @@ web.config._session = session
 
 # Generate CSRF token and store it in session.
 def csrf_token():
-    if 'csrf_token' not in list(session.keys()):
-        session['csrf_token'] = iredutils.generate_random_strings(32)
+    if "csrf_token" not in session:
+        session["csrf_token"] = iredutils.generate_random_strings(32)
 
-    return session['csrf_token']
-
-# Hooks.
-def hook_lang():
-    web.ctx.lang = web.input(lang=None, _method="GET").lang or session.get('lang', 'en_US')
+    return session["csrf_token"]
 
 
-# Initialize object which used to stored all translations.
-all_translations = {'en_US': gettext.NullTranslations()}
+jinja_env_vars = {
+    # Set global variables for Jinja2 template
+    "_": iredutils.ired_gettext,  # Override _() which provided by Jinja2.
+    "ctx": web.ctx,  # Used to get 'homepath'.
+    "skin": settings.SKIN,
+    "session": web.config._session,
+    "backend": settings.backend,
+    "csrf_token": csrf_token,
+    "page_size_limit": settings.PAGE_SIZE_LIMIT,
+    "url_support": settings.URL_SUPPORT,
+    # newsletter (mlmmj mailing list)
+    "newsletter_base_url": settings.NEWSLETTER_BASE_URL,
+    # Brand logo, name, description
+    "brand_logo": settings.BRAND_LOGO,
+    "brand_name": settings.BRAND_NAME,
+    "brand_desc": settings.BRAND_DESC,
+    "brand_favicon": settings.BRAND_FAVICON,
+}
+
+jinja_env_filters = {
+    "file_size_format": jinja_filters.file_size_format,
+    "cut_string": jinja_filters.cut_string,
+    "convert_to_percentage": jinja_filters.convert_to_percentage,
+    "epoch_seconds_to_gmt": iredutils.epoch_seconds_to_gmt,
+    "epoch_days_to_date": iredutils.epoch_days_to_date,
+    "set_datetime_format": iredutils.set_datetime_format,
+    "generate_random_password": iredpwd.generate_random_password,
+    "utc_to_timezone": ireddate.utc_to_timezone,
+}
+
+_default_template_dir = rootdir + "/../templates/" + settings.SKIN
 
 
-# Translations
-def ired_gettext(string):
-    """Translate a given string to the language of the application."""
-    lang = session.lang
-
-    if lang in all_translations:
-        translation = all_translations[lang]
-    else:
-        try:
-            # Store new translation
-            translation = gettext.translation(
-                'iredadmin',
-                os.path.abspath(os.path.dirname(__file__)) + '/../i18n',
-                languages=[lang])
-            all_translations[lang] = translation
-        except:
-            translation = all_translations['en_US']
-
-    return translation.gettext(string)
-
-
-# Define template render.
-def render_template(template_name, **context):
+# Define template renders.
+def render_template(template_name, **kwargs):
     jinja_env = Environment(
-        loader=FileSystemLoader(os.path.join(os.path.dirname(__file__),
-                                             '../templates/default', )),
-        extensions=[],
+        loader=FileSystemLoader(_default_template_dir),
+        extensions=["jinja2.ext.do"],
     )
-    jinja_env.globals.update({
-        '_': ired_gettext,  # Override _() which provided by Jinja2.
-        'ctx': web.ctx,     # Used to get 'homepath'.
-        'skin': 'default',  # Used for static files.
-        'session': web.config._session,
-        'backend': settings.backend,
-        'csrf_token': csrf_token,
-        'pageSizeLimit': settings.PAGE_SIZE_LIMIT,
-        # Brand logo, name, description
-        'brand_logo': settings.BRAND_LOGO,
-        'brand_name': settings.BRAND_NAME,
-        'brand_desc': settings.BRAND_DESC,
-    })
 
-    jinja_env.filters.update({
-        'filesizeformat': iredutils.filesizeformat,
-        'set_datetime_format': iredutils.set_datetime_format,
-        'generate_random_strings': iredutils.generate_random_strings,
-        'cut_string': iredutils.cut_string,
-        'convert_utc_to_timezone': convert_utc_to_timezone,
-    })
+    jinja_env.globals.update(jinja_env_vars)
+    jinja_env.filters.update(jinja_env_filters)
 
-    web.header('Content-Type', 'text/html')
-    return jinja_env.get_template(template_name).render(context)
+    web.header("Content-Type", "text/html")
+    return jinja_env.get_template(template_name).render(kwargs)
 
 
 class SessionExpired(web.HTTPError):
     def __init__(self, message):
-        message = web.seeother('/login?msg=SESSION_EXPIRED')
-        web.HTTPError.__init__(self, '303 See Other', {}, data=message)
+        try:
+            # Expire the cookie. Fixed in webpy master branch on Sep 21, 2020.
+            cookie_name = web.config.session_parameters['cookie_name']
+            web.setcookie(cookie_name, session.session_id, expires=-1)
+            session.kill()
+        except:
+            pass
+
+        message = web.seeother("/login?msg=SESSION_EXPIRED")
+        web.HTTPError.__init__(self, "303 See Other", {}, data=message)
 
 
 # Logger. Logging into SQL database.
-def log_into_sql(msg,
-                 admin='',
-                 domain='',
-                 username='',
-                 event='',
-                 loglevel='info'):
+def log_into_sql(msg, admin="", domain="", username="", event="", loglevel="info"):
     try:
         if not admin:
-            admin = session.get('username')
+            admin = session.get("username")
 
-        db_iredadmin.insert(
-            'log',
+        msg = str(msg)
+
+        # Prepend '[API]' in log message
+        try:
+            if web.ctx.fullpath.startswith("/api/"):
+                msg = "[API] " + msg
+        except:
+            pass
+
+        conn_iredadmin.insert(
+            "log",
             admin=str(admin),
             domain=str(domain),
             username=str(username),
             loglevel=str(loglevel),
             event=str(event),
-            msg=str(msg),
+            msg=msg,
             ip=str(session.ip),
             timestamp=iredutils.get_gmttime(),
         )
-    except Exception:
+    except:
         pass
 
     return None
 
 
-# Log error message. default log to sys.stderr.
-def log_error(*args):
-    for s in args:
-        try:
-            print(web.safestr(s), file=sys.stderr)
-        except Exception as e:
-            print(e, file=sys.stderr)
-
-
 # Load hooks
-app.add_processor(web.loadhook(hook_lang))
+app.add_processor(web.loadhook(hooks.hook_set_language))
+
 
 # Mail 500 error to webmaster.
 if settings.MAIL_ERROR_TO_WEBMASTER:
     app.internalerror = web.emailerrors(settings.webmaster, web.webapi._InternalError)
 
 # Store objects in 'web' module.
-web.app = app
 web.render = render_template
-web.logger = log_into_sql
-web.log_error = log_error
 web.session.SessionExpired = SessionExpired

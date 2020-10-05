@@ -1,0 +1,1404 @@
+# Bulgarian (Bulgaria) translations for iRedAdmin-Pro-SQL.
+# Copyright (C) 2015 Plamen Vasileff
+# This file is distributed under the same license as the iRedAdmin-Pro
+# project.
+# Plamen Vasilev a.k.a Paco <p.vasileff@gmail.com>, 2015.
+# #######################################################
+msgid ""
+msgstr ""
+"Project-Id-Version:  iRedAdmin-Pro-SQL-2.1.3\n"
+"Report-Msgid-Bugs-To: zhb@iredmail.org\n"
+"POT-Creation-Date: 2020-09-27 22:43+0800\n"
+"PO-Revision-Date: 2015-12-23 04:19+0200\n"
+"Last-Translator: Plamen Vasilev a.k.a Paco <p.vasileff@gmail.com>\n"
+"Language: bg_BG\n"
+"Language-Team: Plamen Vasilev a.k.a Paco <p.vasileff@gmail.com>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.3.4\n"
+
+#, python-format
+msgid "%d admin(s) found."
+msgstr "Намерени са %d админ(а)"
+
+#, python-format
+msgid "%d domain(s) found."
+msgstr "Намерени са %d домейн(а)"
+
+#, python-format
+msgid "%d mail alias(es) found."
+msgstr "Намерени са %d препращания"
+
+#, python-format
+msgid "%d mailing list(s) found."
+msgstr ""
+
+#, python-format
+msgid "%d user(s) found."
+msgstr "Намерени са %d пощи"
+
+#, python-format
+msgid "%s account(s) exist."
+msgstr "Добавени са вече %s такива."
+
+#, python-format
+msgid "%s days, %s hours, %s minutes."
+msgstr "%s дни, %s часа, %s мин."
+
+#, python-format
+msgid "(%d messages, %s.)"
+msgstr ""
+
+#, python-format
+msgid "(%d%% full, %d messages, %s.)"
+msgstr ""
+
+msgid "Access control"
+msgstr ""
+
+#, python-format
+msgid ""
+"According to our <a href='%s' target='_blank' rel='noopener'>license "
+"terms</a>, you have to purchase a new license to get the latest release "
+"if your license expired."
+msgstr ""
+
+msgid "Account already exists, please choose another one."
+msgstr "Акаунта вече съществува, моля изберете друг."
+
+msgid "Account does not exist."
+msgstr "Акаунта не съществува."
+
+msgid "Account is disabled."
+msgstr "Акаунта е деактивиран"
+
+msgid "Account is domain admin"
+msgstr "Акаунта е домейн админ"
+
+msgid "Account is global admin"
+msgstr "Акаунта е глобален админ"
+
+msgid "Account status"
+msgstr "Статус на акаунта"
+
+msgid "Account type"
+msgstr "Тип на акаунта"
+
+msgid "Activate account"
+msgstr "Активиране на акаунт"
+
+msgid "Active"
+msgstr "Активен"
+
+msgid "Activities"
+msgstr ""
+
+msgid "Add"
+msgstr "Добави"
+
+msgid "Add (subscribable) mailing list"
+msgstr ""
+
+msgid "Add account"
+msgstr "Добави акаунт"
+
+msgid "Add admin"
+msgstr "Добави админ"
+
+msgid "Add domain"
+msgstr "Добави домейн"
+
+msgid "Add mail alias"
+msgstr "Добави препращане"
+
+msgid "Add mail alias under domain"
+msgstr "Добави препращане за домейн"
+
+msgid "Add mail user"
+msgstr "Добави поща"
+
+msgid "Add mail user under domain"
+msgstr "Добави поща за домейн"
+
+msgid "Add mailing list"
+msgstr "Добави препращане"
+
+msgid "Add mailing list under domain"
+msgstr ""
+
+msgid "Add new members"
+msgstr "Добави нови участници"
+
+msgid "Add new moderators"
+msgstr "Добави нови модератори"
+
+msgid "Add one"
+msgstr "Желаеш ли да добавиш"
+
+msgid "Add one more?"
+msgstr "Желаеш ли да добавиш още един?"
+
+msgid "Admin"
+msgstr "Админ"
+
+msgid "Admin Log"
+msgstr "Лог на операциите"
+
+msgid "Admin created."
+msgstr "Админа е създаден."
+
+msgid "Admin login"
+msgstr "Админ вход"
+
+msgid "Admins"
+msgstr "Админи"
+
+#, python-format
+msgid "Admins under domain: %s"
+msgstr "Админи за домейн: %s"
+
+msgid "Advanced"
+msgstr "Разширени"
+
+msgid "Alias"
+msgstr "Препращане"
+
+#, python-format
+msgid "Alias addresses must end with domain name: %s"
+msgstr ""
+
+msgid "Alias addresses:"
+msgstr ""
+
+msgid "Alias domains:"
+msgstr ""
+
+msgid "Alias email addresses"
+msgstr ""
+
+msgid "Aliases"
+msgstr "Препращания"
+
+#, python-format
+msgid "Aliases under domain: %s."
+msgstr "Препращания за домейн: %s."
+
+msgid "All admins"
+msgstr "Всички админи"
+
+msgid "All domains"
+msgstr "Всички домейни"
+
+msgid "All domains under your control."
+msgstr "Всички домейни, които може да управлявате."
+
+msgid "All emails"
+msgstr ""
+
+msgid "Allocated"
+msgstr "Общ размер"
+
+#, python-format
+msgid "Already exceed max number of account limit (%d)."
+msgstr ""
+
+msgid "Already reaches account limit (mail aliases)."
+msgstr ""
+
+msgid "Already reaches account limit (mail domains)."
+msgstr ""
+
+msgid "Already reaches account limit (mail users)."
+msgstr ""
+
+msgid "Already reaches account limit (mailbox quota)."
+msgstr ""
+
+msgid "Already reaches account limit (mailing lists)."
+msgstr ""
+
+msgid "Apply"
+msgstr "Приложи"
+
+msgid "Archive"
+msgstr ""
+
+msgid "Assigned groups:"
+msgstr ""
+
+#, python-format
+msgid "At least %d characters."
+msgstr ""
+
+#, python-format
+msgid "At least %s characters."
+msgstr "Най-малко %s символа."
+
+msgid "At least one digit number"
+msgstr ""
+
+msgid "At least one letter"
+msgstr ""
+
+msgid "At least one special character:"
+msgstr ""
+
+msgid "At least one uppercase letter"
+msgstr ""
+
+msgid "Available quota:"
+msgstr "Налична квота:"
+
+#, python-format
+msgid "Available: %d (Existing: %d, Max: %d.)"
+msgstr ""
+
+msgid "Backup"
+msgstr "Бекъп"
+
+msgid "Backup MX"
+msgstr "Бекъп"
+
+msgid "Change email address"
+msgstr "Промяна на имейл адреса"
+
+msgid "Change email address to"
+msgstr "Промени имейл адреса на"
+
+msgid "Choose Action"
+msgstr "-Избери действие-"
+
+msgid "Company/Organization Name"
+msgstr "Организация"
+
+msgid "Confirm new password"
+msgstr "Потвърди новата парола"
+
+msgid "Contact webmaster"
+msgstr "Връзка с уебмастър"
+
+msgid "Current password is incorrect."
+msgstr "Текущата парола не е правилна."
+
+msgid "DISABLED"
+msgstr "ДЕАКТИВИРАНО"
+
+msgid "Dashboard"
+msgstr "Табло за управление"
+
+msgid "Default language for new user"
+msgstr "Език по подразбиране за нови потребители"
+
+msgid "Delete"
+msgstr "Изтрий"
+
+msgid "Delete account"
+msgstr "Изтрий акаунт"
+
+msgid "Delete all in database"
+msgstr "Изтрий всички записи"
+
+msgid "Delete and archive"
+msgstr ""
+
+msgid "Delete mailboxes"
+msgstr ""
+
+msgid "Delete selected log"
+msgstr ""
+
+msgid "Delete without archiving"
+msgstr ""
+
+msgid "Digest"
+msgstr ""
+
+msgid "Disable"
+msgstr "Деактивирай"
+
+msgid "Disable account"
+msgstr "Деактивирай акаунт"
+
+msgid ""
+"Disable subscription and unsubscription via email (existing subscribers "
+"are still able to send to list)"
+msgstr ""
+
+msgid "Disable subscription but allow unsubscription via email"
+msgstr ""
+
+msgid "Disable subscription confirm"
+msgstr ""
+
+msgid "Disabled"
+msgstr "Деактивиран"
+
+msgid "Disabled accounts"
+msgstr "Деактивирай акаунт"
+
+msgid "Disabled domains"
+msgstr "Деактивирани домейни"
+
+msgid "Display Name"
+msgstr "Име за показване"
+
+msgid "Do not archive received emails"
+msgstr ""
+
+msgid ""
+"Do not notify sender when posting to a moderator-only mailing list was "
+"denied"
+msgstr ""
+
+msgid ""
+"Do not notify sender when posting to a subscriber-only mailing list was "
+"denied"
+msgstr ""
+
+msgid ""
+"Do not notify sender when posting was denied due to exceed max message "
+"size"
+msgstr ""
+
+msgid "Do not notify subscription requestor when subscription is under moderated"
+msgstr ""
+
+msgid "Do not send a copy to sender"
+msgstr ""
+
+msgid "Domain"
+msgstr "Домейн"
+
+msgid "Domain Admins"
+msgstr "Домейн Админи"
+
+msgid "Domain Name"
+msgstr "Име на Домейна"
+
+msgid "Domain already exists. Please check both primary or alias domains."
+msgstr "Домейна съществува. Провери добавените или паркираните домейни."
+
+msgid "Domain created."
+msgstr "Домейна е създаден."
+
+msgid "Domain is active, but marked as backup MX."
+msgstr ""
+
+msgid "Domain is active, but relay to other host"
+msgstr ""
+
+msgid "Domain is disabled."
+msgstr ""
+
+msgid "Domain name is empty."
+msgstr "Полето за домейн е празно."
+
+msgid "Domain name or username is missed."
+msgstr "Домейна или пощата е пропуснато."
+
+msgid "Domain quota size"
+msgstr "Квота за целия домейн"
+
+msgid ""
+"Domain quota size exceeded. Please contact your administrator or service "
+"provider to increase it."
+msgstr ""
+"Квота за домейн е достигната. Свържете се с глобален админ или "
+"администратора на сървъра, за да я увеличи."
+
+msgid "Domains"
+msgstr "Домейни"
+
+msgid "Domains and Accounts"
+msgstr "Домейни и Акаунти"
+
+msgid "Edit account profile"
+msgstr "Редактиране на настройките за акаунт"
+
+msgid "Edit domain profile"
+msgstr "Редактиране на настройките за домейн"
+
+msgid "Edit quota setting"
+msgstr "Редактиране на настройките за квота"
+
+msgid "Email"
+msgstr ""
+
+msgid "Email address was changed."
+msgstr "Имейл адреса беше променен."
+
+msgid ""
+"Email addresses of the mailing list moderators which need to be contacted"
+" when there is some email under moderated. If empty, mailing list owners "
+"will be used instead."
+msgstr ""
+
+msgid ""
+"Email addresses of the mailing list moderators which need to be contacted"
+" when there is someone subscribing to the list and under moderated. If "
+"empty, mailing list moderators will be used instead."
+msgstr ""
+
+#, python-format
+msgid ""
+"Email addresses of the mailing list owners which need to be contacted via"
+" email %s, either by the system or by end users."
+msgstr ""
+
+msgid "Emails"
+msgstr "Писма"
+
+#, python-format
+msgid "Emails sent to alias addresses will be delivered to %s."
+msgstr ""
+
+msgid "Empty password is not allowed."
+msgstr "Не е възможно полето за парола да е празно."
+
+msgid "Enable"
+msgstr "Активирай"
+
+msgid "Enable newsletter-style mailing list"
+msgstr ""
+
+msgid "Enable subscription and unsubscription from website"
+msgstr ""
+
+msgid "Enable this account"
+msgstr "Активирай този акаунт"
+
+msgid "Enable this domain"
+msgstr "Активирай този домейн"
+
+msgid "Error"
+msgstr ""
+
+msgid "Error while checking new version of iRedAdmin:"
+msgstr ""
+
+msgid "Error while getting license info:"
+msgstr "Грешка при проверката на информацията за лиценза:"
+
+msgid "Error:"
+msgstr "Грешка:"
+
+msgid "Events"
+msgstr "Събития"
+
+msgid "Everyone can send mail to this address"
+msgstr "Всеки може да изпраща писма до този адрес"
+
+msgid ""
+"Exceeded domain account limit. Please contact your administrator or "
+"service provider to increase it."
+msgstr ""
+"Броя акаунти за домейн е достигната. Свържете се с глобален админ или "
+"администратора на сървъра, за да я увеличи."
+
+msgid "Exceeded:"
+msgstr ""
+
+msgid "Expire date"
+msgstr "Дата на изтичане"
+
+msgid "Expired"
+msgstr "Изтекъл"
+
+msgid "Export account in LDIF format"
+msgstr ""
+
+msgid "Export accounts"
+msgstr ""
+
+msgid "Export all managed accounts"
+msgstr ""
+
+msgid "Export statistics of admins"
+msgstr ""
+
+msgid "External Members"
+msgstr ""
+
+msgid "External moderators"
+msgstr "Добави нови модератори"
+
+msgid "Filter accounts by first character in email addresses"
+msgstr "Филтрирай акаунтите по първата буква от името й"
+
+msgid "Filter domains by first character in mail domain name"
+msgstr "Филтрирай домейните по първата буква от името му"
+
+msgid "Filter:"
+msgstr "Филтър:"
+
+msgid "First Page"
+msgstr "Първа Страница"
+
+msgid "First name"
+msgstr "Първо име"
+
+msgid "Footer text (HTML format)"
+msgstr ""
+
+msgid "Footer text (plain text format)"
+msgstr ""
+
+msgid "Forwarding addresses (saved a copy in mailbox)"
+msgstr ""
+
+msgid "Forwarding addresses (without saving a copy in mailbox)"
+msgstr ""
+
+msgid "Full name"
+msgstr ""
+
+msgid "General"
+msgstr "Основни"
+
+msgid "Get a newsletter signup form"
+msgstr ""
+
+msgid "Global Admin"
+msgstr "Глобален Админ"
+
+msgid "Grant admin"
+msgstr "Главен админ"
+
+msgid "Hostname"
+msgstr "Име на сървъра"
+
+msgid "IMAP Login:"
+msgstr ""
+
+msgid "IP Address"
+msgstr "IP адрес"
+
+msgid ""
+"If you prefer redirecting user to a subscription page, this is the url of"
+" subscription page."
+msgstr ""
+
+msgid "Increase it now?"
+msgstr "Увеличаване сега?"
+
+msgid ""
+"Input mail addresses of either internal or external members below, "
+"multiple addresses must be separated by comma, space or new line."
+msgstr ""
+
+msgid ""
+"Input mail addresses of either internal or external moderators below, "
+"multiple addresses must be separated by comma, space or new line."
+msgstr ""
+
+msgid "Internal Members"
+msgstr "Добави нови участници"
+
+msgid "Internal Moderators"
+msgstr "Добави нови модератори"
+
+msgid "Invalid account."
+msgstr "Невалиден акаунт."
+
+msgid "Invalid action."
+msgstr "Невалидно действие."
+
+msgid "Invalid domain name."
+msgstr "Невалидно домейн име"
+
+msgid "Invalid mail address."
+msgstr "Невалиден имейл адрес."
+
+msgid "Invalid product id."
+msgstr "Невалиден ID на продукта."
+
+msgid "Is a global admin."
+msgstr "е глобален админ."
+
+msgid ""
+"It's better create a subscribable mailing list instead, so that you can "
+"restrict the mail posting and delivery."
+msgstr ""
+
+msgid ""
+"It's better create a subscribable mailing list, so that you can restrict "
+"the mail posting and delivery."
+msgstr ""
+
+msgid "Job Title"
+msgstr "Длъжност"
+
+#, python-format
+msgid "Keep mailbox for %d days"
+msgstr ""
+
+#, python-format
+msgid "Keep mailbox for %d months"
+msgstr ""
+
+#, python-format
+msgid "Keep mailbox for %d weeks"
+msgstr ""
+
+#, python-format
+msgid "Keep mailbox for %d years"
+msgstr ""
+
+msgid "Keep mailbox for 1 day"
+msgstr ""
+
+msgid "Keep mailbox for 1 month "
+msgstr ""
+
+msgid "Keep mailbox for 1 week"
+msgstr ""
+
+msgid "Keep mailbox for 1 year"
+msgstr ""
+
+msgid "Keep mailbox forever"
+msgstr ""
+
+msgid "Keyword"
+msgstr "Търсене за:"
+
+msgid "Last Login"
+msgstr ""
+
+msgid "Last Login:"
+msgstr ""
+
+msgid "Last Page"
+msgstr "Последна Страница"
+
+msgid "Last name"
+msgstr "Фамилия"
+
+msgid "Latest version"
+msgstr "Последна версия"
+
+msgid "Leave it empty to use max value."
+msgstr ""
+
+msgid "License"
+msgstr "Лиценз"
+
+msgid "License Key"
+msgstr ""
+
+msgid "License is active"
+msgstr "Лиценза е активен"
+
+msgid "License owner(s)"
+msgstr ""
+
+msgid "License status"
+msgstr "Статус на лиценза"
+
+msgid "Lifetime license"
+msgstr "Доживотен лиценз"
+
+msgid "List all mail aliases."
+msgstr "Списък на всички препращания."
+
+msgid "List all mail users."
+msgstr "Списък на всички пощи."
+
+msgid "List all mailing lists."
+msgstr ""
+
+msgid "Lists"
+msgstr "БЯЛ списък"
+
+#, python-format
+msgid "Logged in as %s"
+msgstr "Влезли сте като %s"
+
+msgid "Login"
+msgstr "Вход"
+
+msgid "Login from your IP address is not allowed."
+msgstr ""
+
+msgid "Login required"
+msgstr "Изисква се вход"
+
+msgid "Login to manage your mail domains & accounts"
+msgstr "Влезте, за да управлявате домейните и акаунтите си"
+
+msgid "Logout"
+msgstr "Изход"
+
+msgid "Mail Address"
+msgstr "Имейл адрес"
+
+msgid "Mail Aliases"
+msgstr "Препращания"
+
+msgid "Mail Deliver Restriction"
+msgstr ""
+
+msgid "Mail Delivery"
+msgstr ""
+
+msgid "Mail Users"
+msgstr "Пощи"
+
+msgid "Mail deliver restriction will be migrated."
+msgstr ""
+
+msgid ""
+"Mail delivery restriction will be set to allow email from any sender by "
+"default."
+msgstr ""
+
+msgid "Mail posting"
+msgstr ""
+
+msgid "Mail sent to alias will be forwarded to members."
+msgstr ""
+"Писмата изпратени до списъка за препращане ще бъдат препратени към "
+"членовете."
+
+msgid "Mailbox Quota"
+msgstr "Квота"
+
+msgid "Mailing List"
+msgstr ""
+
+msgid "Mailing List (Subscribable)"
+msgstr ""
+
+msgid "Mailing Lists"
+msgstr ""
+
+#, python-format
+msgid "Mailing lists under domain: %s"
+msgstr ""
+
+#, python-format
+msgid "Mailing lists under domain: %s."
+msgstr ""
+
+msgid "Mark as domain admin"
+msgstr "Отбележи като домейн админ"
+
+msgid "Mark as global admin"
+msgstr "Отбележи като глобален админ"
+
+msgid "Max message size"
+msgstr ""
+
+msgid "Max:"
+msgstr ""
+
+msgid "Member of mailing lists:"
+msgstr ""
+
+msgid "Members"
+msgstr "Участници"
+
+msgid "Members and moderators"
+msgstr ""
+
+msgid "Members and moderators will be fully migrated."
+msgstr ""
+
+msgid "Members will be fully migrated."
+msgstr ""
+
+msgid "Message"
+msgstr "Информация, свързана с това действие"
+
+msgid "Messages sent to mailing list will be delivered to its members."
+msgstr ""
+
+msgid "Migrate Now"
+msgstr ""
+
+msgid "Migrate to subscribable mailing list"
+msgstr ""
+
+msgid "Migrate to subscribable mailing list?"
+msgstr ""
+
+msgid "Mobile"
+msgstr "Мобилен"
+
+msgid "Moderate all posts (Moderators are required)"
+msgstr ""
+
+msgid "Moderate subscriptions"
+msgstr ""
+
+msgid "Moderators"
+msgstr "Модератори"
+
+#, python-format
+msgid "Must be %s - %s characters."
+msgstr ""
+
+msgid "Need a strong password?"
+msgstr ""
+
+msgid "Network"
+msgstr "Мрежа"
+
+msgid "New Mail Delivered:"
+msgstr ""
+
+msgid "New password"
+msgstr "Нова парола"
+
+#, python-format
+msgid "New password must NOT contain more than %s characters."
+msgstr "Новата парола НЕ ТРЯБВА да съдържа повече от %s символа."
+
+#, python-format
+msgid "New password must contain at least %s characters."
+msgstr "Новата парола трябва да съдържа най-малко %s символа."
+
+msgid "New passwords are not match."
+msgstr "Новите пароли не съвпадат."
+
+msgid "New version is available."
+msgstr "Налична е нова версия."
+
+#, python-format
+msgid ""
+"New version of iRedAdmin, %s, is now available for upgrading. <a "
+"href='%s/system/license' class='button green'>Details</a>"
+msgstr ""
+
+msgid "News & Announcements"
+msgstr "Новини и Съобщения"
+
+msgid "Newsletter"
+msgstr ""
+
+msgid "Next Page"
+msgstr "Следваща Страница"
+
+msgid "No account selected."
+msgstr "Не е избран акаунт."
+
+msgid "No admin log."
+msgstr "Не са намерени записи в лога с операциите."
+
+msgid "No digit number in password."
+msgstr "Паролата трябва да съдържа цифра."
+
+msgid "No domain under control."
+msgstr "Няма домейни, които може да управлявате."
+
+msgid "No email"
+msgstr ""
+
+msgid "No free domain quota left."
+msgstr "Няма останала налична квота за домейна"
+
+msgid "No letter in password."
+msgstr "Паролата трябва да съдържа малка латинска буква."
+
+msgid "No mail admin assigned."
+msgstr ""
+
+msgid "No mail admin available."
+msgstr "Все още няма добавени домейни."
+
+msgid "No mail alias available."
+msgstr "Все още няма добавени препращания."
+
+msgid "No mail domain available."
+msgstr "Все още няма добавени домейни."
+
+msgid "No mail user available."
+msgstr "Все още няма добавени акаунти."
+
+msgid "No mailing list available."
+msgstr ""
+
+msgid "No members."
+msgstr "Добави нови участници"
+
+msgid "No moderators."
+msgstr "Модератори"
+
+#, python-format
+msgid "No more than %d characters."
+msgstr ""
+
+#, python-format
+msgid "No more than %s characters."
+msgstr "Не повече от %s символа."
+
+msgid "No special character in password."
+msgstr "Паролата трябва да съдържа специялен символ."
+
+msgid "No uppercase letter in password."
+msgstr "Паролата трябва да съдържа ГОЛЯМА латинска буква."
+
+msgid "Not a global admin."
+msgstr "Не е глобален админ."
+
+msgid "Not allowed to create mail alias under this domain."
+msgstr "Не е позволено създаването на препращане за този домейн."
+
+msgid "Not allowed to create mail user under this domain."
+msgstr "Не е позволено създаването поща за този домейн."
+
+msgid "Not allowed to create mailing list under this domain."
+msgstr ""
+
+msgid "Notifications"
+msgstr ""
+
+msgid ""
+"Notify owner(s) when someone subscribe to or unsubscribe from the mailing"
+" list"
+msgstr ""
+
+msgid "Notify sender if email is under moderated"
+msgstr ""
+
+msgid "Number of domains"
+msgstr "Брой домейни"
+
+msgid "Number of max mail aliases"
+msgstr "Максимален брой препращания"
+
+msgid "Number of max mail users"
+msgstr "Максимален брой пощи"
+
+msgid "Number of max mailing lists"
+msgstr ""
+
+msgid "Number of users"
+msgstr "Брой пощи"
+
+msgid "Old password"
+msgstr "Стара парола"
+
+msgid ""
+"One IP address or network per line. Invalid address or network will be "
+"discarded."
+msgstr ""
+
+msgid "One mail address per line. Invalid address will be discarded."
+msgstr ""
+
+msgid "Or create other mail accounts:"
+msgstr "Или създай други пощи:"
+
+#, python-format
+msgid "Owner will be set to postmaster@%s."
+msgstr ""
+
+msgid "Owners"
+msgstr ""
+
+msgid "Owners and Moderators"
+msgstr ""
+
+msgid "POP3 Login:"
+msgstr ""
+
+msgid "Password"
+msgstr "Парола"
+
+msgid "Password is empty."
+msgstr "Паролата е празна."
+
+msgid "Password is too long."
+msgstr "Паролата е прекалено дълга."
+
+msgid "Password is too short."
+msgstr "Паролата е прекалено къса."
+
+msgid "Password last change:"
+msgstr ""
+
+msgid "Password must contain"
+msgstr "Паролата трябва да съдържа"
+
+msgid "Permission denied."
+msgstr "Нямате достатъчно права."
+
+msgid "Please do not use non-ascii character in password."
+msgstr "Моля, използвайте САМО малки и ГОЛЕМИ латински букви в паролата."
+
+msgid ""
+"Please either mark mail user as domain admin or create a separate admin "
+"account."
+msgstr ""
+"Препоръчително е да маркирате вече създадена поща като домейн админ от "
+"страницата за настройка на поща, вместо да създавате отделен админ "
+"акаунт."
+
+msgid "Please select at least one account."
+msgstr "Моля, изберете поне един акаунт."
+
+msgid "Please select at least one domain."
+msgstr "Моля, изберете поне един домейн."
+
+msgid "Preferences"
+msgstr "Настройки"
+
+msgid "Preferred language"
+msgstr "Избран език"
+
+msgid "Prefix text to mail subject"
+msgstr ""
+
+msgid "Previous Page"
+msgstr "Предишна Страница"
+
+msgid "Product name"
+msgstr "Име на продукта"
+
+msgid "Profile has been updated."
+msgstr ""
+
+msgid "Profile of admin:"
+msgstr "Настройки на админ:"
+
+msgid "Profile of alias:"
+msgstr "Настройки на препращане:"
+
+msgid "Profile of domain:"
+msgstr "Настройки на домейн:"
+
+msgid "Profile of mailing list:"
+msgstr ""
+
+msgid "Profile of user:"
+msgstr "Настройки на поща:"
+
+msgid "Profile updated failed."
+msgstr "Неуспешно записване на промените."
+
+msgid "Purchase a new license"
+msgstr "Закуване на нов лиценз"
+
+msgid "Purchase date"
+msgstr "Дата на закупуване"
+
+msgid "Quota"
+msgstr "Квота"
+
+msgid "Records were successfully updated."
+msgstr "Записите са обновени успешно."
+
+msgid "Redirect user to subscription page"
+msgstr ""
+
+msgid "Relay"
+msgstr "Relay"
+
+msgid "Release Notes and Upgrade Tutorials"
+msgstr "Бележки по изданието и статии за обновяване"
+
+msgid "Remove ALL members"
+msgstr ""
+
+msgid "Remove from list"
+msgstr ""
+
+msgid "Remove selected members"
+msgstr ""
+
+msgid "Renew license"
+msgstr "Поднови лиценз"
+
+msgid "Revoke admin privilege"
+msgstr "Премахване на админ права"
+
+msgid "Save changes"
+msgstr "Запази направените промени"
+
+msgid "Search"
+msgstr "Търсене"
+
+msgid "Search mail accounts"
+msgstr "Търсене"
+
+msgid "Search results."
+msgstr "Резултати от търсенето"
+
+msgid ""
+"Security token did not match. Please refresh current page and re-perform "
+"form action."
+msgstr ""
+"Секретния токън не съвпада. Моля, презаредете страницата и поворете "
+"действието, което се опитвате да извършите."
+
+msgid "Selected accounts were deleted."
+msgstr "Избраните акаунти са изтрити."
+
+msgid "Selected accounts were disabled."
+msgstr "Избраните акаунти са деактивирани."
+
+msgid "Selected accounts were enabled."
+msgstr "Избраните акаунти са активирани."
+
+msgid "Selected accounts were marked as domain admin."
+msgstr "Избраните акаунти са добавени като домейн админи"
+
+msgid "Selected accounts were marked as global admin."
+msgstr "Избраните акаунти са добавени като глобални админи"
+
+msgid "Selected accounts were unmarked as domain admin."
+msgstr "На избраните акаунти са премахнати правата на домейн админи"
+
+msgid "Selected accounts were unmarked as global admin."
+msgstr "На избраните акаунти са премахнати правата на глобални админи"
+
+msgid "Selected domains have been deleted."
+msgstr ""
+
+msgid "Selected domains were disabled."
+msgstr "Избраните домейни са деактивирани."
+
+msgid "Selected domains were enabled."
+msgstr "Избраните домейни са активирани."
+
+msgid "Selected log records were deleted."
+msgstr "Избраните лог операции са изтрити."
+
+msgid "Send email to new members for subscription confirm"
+msgstr ""
+
+msgid "Send me an email with download link"
+msgstr "Изпрати ми имейл с линк за сваляне"
+
+msgid "Server Load"
+msgstr "Натоварване на сървъра"
+
+msgid ""
+"Server-side size limit exceeded. Please increase \"sizelimit\" in your "
+"LDAP server."
+msgstr ""
+"Зададения размер на сървъра е достигнат. Увеличи \"sizelimit\" в "
+"настройките наLDAP сървъра."
+
+msgid "Session expired, please re-login."
+msgstr "Сесията е изтекла. Нужно е да се логнеш отново."
+
+msgid "Set to 0 for unlimited."
+msgstr "Задай 0 за да няма ограничение"
+
+msgid "Set value to -1 means not allowed to create this kind of account."
+msgstr "Зададено -1 означава, че не е позволено създаването на такъв вид акаунт."
+
+msgid "Set value to 0 or leave it empty for unlimited."
+msgstr "Задай 0 или остави празно, за да няма ограничение."
+
+msgid "Settings"
+msgstr ""
+
+msgid "Show in Global Address Book"
+msgstr "Покажи в Глобалната адресна книга"
+
+#, python-format
+msgid "Some addresses have been discarded because they have been used: %s."
+msgstr ""
+
+msgid "Standalone admin account cannot be an user of local domain."
+msgstr ""
+
+msgid "Store password in plain text"
+msgstr "Съхрани паролата в чист текст"
+
+msgid "Stored"
+msgstr "Съхранени"
+
+msgid "Stored emails"
+msgstr "Брой съхранени"
+
+msgid "Submit"
+msgstr "Приложи"
+
+msgid "Submited domain name is incorrect."
+msgstr "Въведения домейн е невалиден."
+
+msgid "Subscription Moderators"
+msgstr ""
+
+msgid ""
+"Subscription and unsubscription will be disabled by default, feel free to"
+" enable them after migration."
+msgstr ""
+
+msgid "Subscription control"
+msgstr ""
+
+msgid "Support"
+msgstr "Поддръжка"
+
+msgid "System"
+msgstr "Система"
+
+msgid "System Information"
+msgstr "Системна информация"
+
+msgid "Telephone Number"
+msgstr "Телефонен Номер"
+
+msgid "Text to introduce this newsletter on subscription page"
+msgstr ""
+
+msgid "This is a mail alias."
+msgstr "Списък на всички препращания."
+
+msgid "This is a mailing list."
+msgstr "Списък на всички препращания."
+
+msgid "Time"
+msgstr "Дата и час"
+
+msgid "Time zone"
+msgstr "Часова зона"
+
+msgid "To add new members, please enable mailing list account first."
+msgstr ""
+
+msgid "Unban IP address"
+msgstr ""
+
+msgid "Unlimited"
+msgstr "Неограничен"
+
+msgid "Unmark as domain admin"
+msgstr "Премахни правата на домейн админ"
+
+msgid "Unmark as global admin"
+msgstr "Премахни правата на глобален админ"
+
+msgid "Unrestricted"
+msgstr "Неограничени"
+
+msgid "Update whitelists and blacklists"
+msgstr "Обновяване на whitelists и blacklists"
+
+msgid "Uptime"
+msgstr "Време на работа"
+
+msgid "Use this password"
+msgstr ""
+
+msgid "Used"
+msgstr "Използвани"
+
+msgid "User"
+msgstr "Поща"
+
+msgid "User created."
+msgstr "Пощата е създадена."
+
+msgid "User login (self-service)"
+msgstr "Поща за вход (самообслужване)"
+
+msgid "User/Employee ID"
+msgstr "Потребителско ID"
+
+msgid "Username"
+msgstr "Потребител"
+
+msgid "Username must be an valid email address."
+msgstr "Потребителското име трябва да е валиден имейл адрес."
+
+msgid "Username or password is incorrect."
+msgstr "Потребителското име или паролата са грешни."
+
+msgid "Users"
+msgstr "Пощи"
+
+#, python-format
+msgid "Users under domain: %s"
+msgstr "Пощи за домейн: %s"
+
+msgid "Users under same domain"
+msgstr ""
+
+msgid "Users under same domain and its sub-domains"
+msgstr ""
+
+msgid "View members"
+msgstr "Добави нови участници"
+
+msgid "Who can send email to this list"
+msgstr "Кой може да изпраща писма до този списък"
+
+msgid "You are not allowed to update global domain admin's profile."
+msgstr ""
+
+#, python-format
+msgid "You are running version %s"
+msgstr "Този сървър използва %s"
+
+#, python-format
+msgid "You can NOT create more users under domain %s."
+msgstr "НЕ Е ВЪЗМОЖНО да създавате повече пощи за домейн %s."
+
+#, python-format
+msgid "You can create <strong>%d</strong> more mail alias(es) under domain %s."
+msgstr ""
+"Имате възможност да създадете още <strong>%d</strong> препращания за "
+"домейн %s."
+
+#, python-format
+msgid ""
+"You can create <strong>%d</strong> more mail domains (Existing: %d, Max: "
+"%d)"
+msgstr ""
+
+#, python-format
+msgid "You can create <strong>%d</strong> more mail user(s) under domain %s."
+msgstr "Имате възможност да създадете още <strong>%d</strong> пощи за домейн %s."
+
+#, python-format
+msgid "You can create <strong>%d</strong> more mailing list(s) under domain %s."
+msgstr ""
+
+msgid ""
+"You can embed a mailing list signup form (HTML code below) on any page of"
+" your website. Feel free to customize the form to add your brand name, "
+"logo image, or combine it with special offers to attract new subscribers "
+"and boost engagement."
+msgstr ""
+
+msgid ""
+"You can enable self-service (per-domain setting) to allow users to manage"
+" their own preferences and more."
+msgstr ""
+"Може да активирате режим \"самообслужване\" (в настройките на домейна), "
+"за да дадете възможност на всяка една поща да управлява нейните собствени"
+" настройки."
+
+#, python-format
+msgid "You can't create mail aliases under domain %s."
+msgstr "Не е възможно да създадете препращания за домейн %s."
+
+#, python-format
+msgid "You can't create mailing lists under domain %s."
+msgstr ""
+
+#, python-format
+msgid "You can't create more mail aliases under domain %s."
+msgstr "Не е възможно да създадете препращания за домейн %s."
+
+#, python-format
+msgid "You can't create more mailing lists under domain %s."
+msgstr ""
+
+msgid "Your license is invalid. Please contact support@iredmail.org to fix it."
+msgstr ""
+
+msgid "Your search returned no hits."
+msgstr "Търсенето не върна никакви резултати."
+
+msgid "without verifying local recipients"
+msgstr ""
+

@@ -1,7 +1,8 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
+# fmt: off
 urls = [
-    '/expired', 'controllers.utils.Expired',
     '/system', 'controllers.panel.log.Log',
-    '/system/log', 'controllers.panel.log.Log',
+    '/activities/admins', 'controllers.panel.log.Log',
 ]
+# fmt: on

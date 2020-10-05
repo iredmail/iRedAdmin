@@ -4,16 +4,16 @@
 import os
 import sys
 
-rootdir = os.path.abspath(os.path.dirname(__file__))
-sys.path.insert(0, rootdir)
+sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 from libs import iredbase
 
 # Initialize webpy app.
 app = iredbase.app
 
-if __name__ != '__main__':
-    # Run app under Apache + mod_wsgi.
-    application = app.wsgifunc()
-else:
+if __name__ == "__main__":
     # Starting webpy builtin http server.
+    # WARNING: this should not be used for production.
     app.run()
+else:
+    # Run as a WSGI application
+    application = app.wsgifunc()

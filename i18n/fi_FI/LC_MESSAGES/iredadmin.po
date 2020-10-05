@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: zhb@iredmail.org\n"
-"POT-Creation-Date: 2018-02-11 00:44+0800\n"
+"POT-Creation-Date: 2020-09-27 22:43+0800\n"
 "PO-Revision-Date: 2011-09-22 08:40+0200\n"
 "Last-Translator: Teemu Harjula <teemu.harjula@tietovirta.fi>\n"
 "Language: fi_FI\n"
@@ -19,65 +19,86 @@ msgstr ""
 "Generated-By: Babel 2.3.4\n"
 
 #, python-format
-msgid "%s (%s)"
-msgstr "%s (%s)"
+msgid "%d admin(s) found."
+msgstr "%d ylläpitäjä(ä) löytyi."
+
+#, python-format
+msgid "%d domain(s) found."
+msgstr "%d domainia löytyi."
+
+#, python-format
+msgid "%d mail alias(es) found."
+msgstr "%d alias(ta) löytyi."
+
+#, python-format
+msgid "%d mailing list(s) found."
+msgstr ""
+
+#, python-format
+msgid "%d user(s) found."
+msgstr "%d käyttäjä(ä) löytyi."
+
+#, python-format
+msgid "%s account(s) exist."
+msgstr "%s tiliä."
 
 #, python-format
 msgid "%s days, %s hours, %s minutes."
 msgstr "%s päivää, %s tuntia, %s minuuttia."
 
-msgid "1 day"
-msgstr ""
-
-msgid "1 year"
-msgstr ""
-
-msgid "2 years"
-msgstr ""
-
-msgid "3 months"
-msgstr ""
-
-msgid "3 years"
-msgstr ""
-
-msgid "6 months"
+#, python-format
+msgid "(%d messages, %s.)"
 msgstr ""
 
 #, python-format
-msgid "<a href='%s'>Domain and sub-domain users</a>"
-msgstr "<a href='%s'>Domain and sub-domain users</a>"
+msgid "(%d%% full, %d messages, %s.)"
+msgstr ""
+
+msgid "Access control"
+msgstr ""
 
 #, python-format
-msgid "<a href='%s'>Domain users</a>"
-msgstr "<a href='%s'>Domain users</a>"
+msgid ""
+"According to our <a href='%s' target='_blank' rel='noopener'>license "
+"terms</a>, you have to purchase a new license to get the latest release "
+"if your license expired."
+msgstr ""
 
-#, python-format
-msgid "<a href='%s'>Members</a>"
-msgstr "<a href='%s'>Members</a>"
-
-#, python-format
-msgid "<a href='%s'>Members</a> and <a href='%s'>moderators</a>"
-msgstr "<a href='%s'>Members</a> and <a href='%s'>moderators</a>"
-
-#, python-format
-msgid "<a href='%s'>Moderators</a>"
-msgstr "<a href='%s'>Moderators</a>"
-
-msgid "Account already exists, please choose another username."
+msgid "Account already exists, please choose another one."
 msgstr "Tili on jo olemassa, valitse toinen käyttäjänimi."
 
-msgid "Account is active."
-msgstr "Tili on aktiivinen."
+msgid "Account does not exist."
+msgstr "Tiliä ei löydy."
 
 msgid "Account is disabled."
 msgstr "Tili on poistettu käytöstä."
 
+msgid "Account is domain admin"
+msgstr "Tili on poistettu käytöstä."
+
+msgid "Account is global admin"
+msgstr "Ei ole globaali ylläpitäjä."
+
+msgid "Account status"
+msgstr "Tilin tila"
+
+msgid "Account type"
+msgstr "Tilin tyyppi"
+
 msgid "Activate account"
+msgstr "Aktiivinen tili"
+
+msgid "Active"
+msgstr "Aktiivinen"
+
+msgid "Activities"
 msgstr ""
 
 msgid "Add"
 msgstr "Lisää"
+
+msgid "Add (subscribable) mailing list"
+msgstr ""
 
 msgid "Add account"
 msgstr "Lisää tili"
@@ -88,15 +109,35 @@ msgstr "Lisää ylläpitäjä"
 msgid "Add domain"
 msgstr "Lisää domain"
 
+msgid "Add mail alias"
+msgstr "Lisää sähköpostialias"
+
+msgid "Add mail alias under domain"
+msgstr "Lisää sähköpostialias domainiin %s"
+
+msgid "Add mail user"
+msgstr "Lisää sähköpostilista"
+
+msgid "Add mail user under domain"
+msgstr "Lisää käyttäjä domainiin: %s."
+
+msgid "Add mailing list"
+msgstr "Lisää sähköpostilista"
+
+msgid "Add mailing list under domain"
+msgstr ""
+
+msgid "Add new members"
+msgstr "Lisää uusi jäsen"
+
+msgid "Add new moderators"
+msgstr "Lisää uusi moderaattori"
+
 msgid "Add one"
 msgstr "Lisää uusi"
 
 msgid "Add one more?"
 msgstr "Lisää uusi?"
-
-#, python-format
-msgid "Add user under domain: %s"
-msgstr "Lisää käyttäjä domainiin: %s."
 
 msgid "Admin"
 msgstr "Ylläpitäjä"
@@ -105,19 +146,43 @@ msgid "Admin Log"
 msgstr "Ylläpitäjän logi"
 
 msgid "Admin created."
-msgstr ""
+msgstr "Ylläpitäjä luotu."
 
 msgid "Admin login"
 msgstr "Kirjautuminen ylläpitäjänä"
 
-msgid "Admin not exist."
-msgstr "Ylläpitäjää ei löytynyt."
-
 msgid "Admins"
 msgstr "Ylläpitäjät"
 
-msgid "Alias account"
-msgstr "Alias-tili"
+#, python-format
+msgid "Admins under domain: %s"
+msgstr "Käyttäjiä domainissa: %s"
+
+msgid "Advanced"
+msgstr "Edistynyt"
+
+msgid "Alias"
+msgstr "Alias"
+
+#, python-format
+msgid "Alias addresses must end with domain name: %s"
+msgstr ""
+
+msgid "Alias addresses:"
+msgstr ""
+
+msgid "Alias domains:"
+msgstr ""
+
+msgid "Alias email addresses"
+msgstr ""
+
+msgid "Aliases"
+msgstr "Aliakset"
+
+#, python-format
+msgid "Aliases under domain: %s."
+msgstr "Aliakset domainiin: %s."
 
 msgid "All admins"
 msgstr "Kaikki ylläpitäjät"
@@ -128,43 +193,78 @@ msgstr "Kaikki domainit"
 msgid "All domains under your control."
 msgstr "Sinun hallitsemat domainit"
 
-msgid "All mail administrators."
-msgstr "Kaikki sähköpostin ylläpitäjät."
+msgid "All emails"
+msgstr ""
 
 msgid "Allocated"
 msgstr "Varattu"
 
+#, python-format
+msgid "Already exceed max number of account limit (%d)."
+msgstr ""
+
+msgid "Already reaches account limit (mail aliases)."
+msgstr ""
+
+msgid "Already reaches account limit (mail domains)."
+msgstr ""
+
+msgid "Already reaches account limit (mail users)."
+msgstr ""
+
+msgid "Already reaches account limit (mailbox quota)."
+msgstr ""
+
+msgid "Already reaches account limit (mailing lists)."
+msgstr ""
+
 msgid "Apply"
 msgstr "Aseta"
 
+msgid "Archive"
+msgstr ""
+
+msgid "Assigned groups:"
+msgstr ""
+
 #, python-format
-msgid "At least %s characters, but no more than %s."
-msgstr "Vähintään %s ja enintään %s merkkiä."
+msgid "At least %d characters."
+msgstr ""
 
 #, python-format
 msgid "At least %s characters."
 msgstr "Vähintään %s merkkiä."
 
+msgid "At least one digit number"
+msgstr ""
+
+msgid "At least one letter"
+msgstr ""
+
+msgid "At least one special character:"
+msgstr ""
+
+msgid "At least one uppercase letter"
+msgstr ""
+
 msgid "Available quota:"
 msgstr "Vapaa kiintiö:"
 
-msgid "BCC incoming emails to single address"
-msgstr "Piilokopio saapuvista sähköposteista osoitteeseen"
-
-msgid "BCC incoming mails to other address"
-msgstr "Piilokopio saapuvista posteista toiseen osoitteeseen."
-
-msgid "BCC outgoing emails to single address"
-msgstr "Piilokopio lähtevistä sähköposteista osoitteeseen"
-
-msgid "BCC outgoing mails to other address"
-msgstr "Piilokopio lähtevistä posteista toiseen osoitteeseen."
+#, python-format
+msgid "Available: %d (Existing: %d, Max: %d.)"
+msgstr ""
 
 msgid "Backup"
 msgstr ""
 
-msgid "Check this box in order to enable other services"
-msgstr "Valitse tämä ottaaksesi käyttöön muut sähköpostiin liittyvät palvelut."
+msgid "Backup MX"
+msgstr ""
+
+msgid "Change email address"
+msgstr "Virheellinen sähköpostiosoite."
+
+msgid "Change email address to"
+msgstr "Yksi sähköpostiosoite per rivi."
 
 msgid "Choose Action"
 msgstr "Valitse toiminto"
@@ -181,19 +281,13 @@ msgstr "Ota yhteys ylläpitäjään"
 msgid "Current password is incorrect."
 msgstr "Nykyinen salasana on virheellinen."
 
-msgid "Customize mail filter rule"
-msgstr "Muokkaa sähköpostin suodatussääntöä"
-
-msgid "Customize mail filter rule over TLS/SSL"
-msgstr "Muokkaa sähköpostin TLS/SSL suodatussääntöä."
-
 msgid "DISABLED"
 msgstr "POISTETTU KÄYTÖSTÄ"
 
 msgid "Dashboard"
 msgstr "Etusivu"
 
-msgid "Default quota of new user"
+msgid "Default language for new user"
 msgstr "Oletuskiintiö uudelle käyttäjälle"
 
 msgid "Delete"
@@ -205,14 +299,20 @@ msgstr "Poista tili"
 msgid "Delete all in database"
 msgstr "Poista kaikki tietokannasta"
 
+msgid "Delete and archive"
+msgstr ""
+
 msgid "Delete mailboxes"
 msgstr ""
 
-msgid "Delete mailboxes in"
+msgid "Delete selected log"
 msgstr ""
 
-msgid "Delete selected"
-msgstr "Poista valitut"
+msgid "Delete without archiving"
+msgstr ""
+
+msgid "Digest"
+msgstr ""
 
 msgid "Disable"
 msgstr "Poista käytöstä"
@@ -220,14 +320,52 @@ msgstr "Poista käytöstä"
 msgid "Disable account"
 msgstr "Poista tili käytöstä"
 
+msgid ""
+"Disable subscription and unsubscription via email (existing subscribers "
+"are still able to send to list)"
+msgstr ""
+
+msgid "Disable subscription but allow unsubscription via email"
+msgstr ""
+
+msgid "Disable subscription confirm"
+msgstr ""
+
+msgid "Disabled"
+msgstr "Poistettu käytöstä"
+
+msgid "Disabled accounts"
+msgstr "Poista tili käytöstä"
+
+msgid "Disabled domains"
+msgstr "Muokkaa domainin profiilia"
+
 msgid "Display Name"
 msgstr "Näyttönimi"
 
-msgid "Display mail address in global LDAP address book"
-msgstr "Näytä sähköpostiosoite globaalissa LDAP osoitekirjassa"
+msgid "Do not archive received emails"
+msgstr ""
 
-msgid "Displayed in Global LDAP Address Book"
-msgstr "Näytetään globaalissa LDAP osoietkirjassa"
+msgid ""
+"Do not notify sender when posting to a moderator-only mailing list was "
+"denied"
+msgstr ""
+
+msgid ""
+"Do not notify sender when posting to a subscriber-only mailing list was "
+"denied"
+msgstr ""
+
+msgid ""
+"Do not notify sender when posting was denied due to exceed max message "
+"size"
+msgstr ""
+
+msgid "Do not notify subscription requestor when subscription is under moderated"
+msgstr ""
+
+msgid "Do not send a copy to sender"
+msgstr ""
 
 msgid "Domain"
 msgstr "Domain"
@@ -238,13 +376,19 @@ msgstr "Domainin ylläpitäjät"
 msgid "Domain Name"
 msgstr "Domain nimi"
 
-msgid "Domain alias"
-msgstr "Domainin aliakset"
-
 msgid "Domain already exists. Please check both primary or alias domains."
 msgstr "Domain on jo olemassa. Tarkasta domainit ja domainaliakset."
 
 msgid "Domain created."
+msgstr "Domain luotu."
+
+msgid "Domain is active, but marked as backup MX."
+msgstr ""
+
+msgid "Domain is active, but relay to other host"
+msgstr ""
+
+msgid "Domain is disabled."
 msgstr ""
 
 msgid "Domain name is empty."
@@ -263,6 +407,9 @@ msgstr ""
 "Domainin kiintiö ylitetty. Ota yhteys ylläpitäjään tai palveluntarjoajaan"
 " kasvattaaksesi sitä."
 
+msgid "Domains"
+msgstr "Domainit"
+
 msgid "Domains and Accounts"
 msgstr "Domainit ja tilit"
 
@@ -272,8 +419,39 @@ msgstr "Muokkaa tilin profiilia"
 msgid "Edit domain profile"
 msgstr "Muokkaa domainin profiilia"
 
-msgid "Empty address is not allowed."
-msgstr "Tyhjä sähköpostiosoite ei ole sallittu."
+msgid "Edit quota setting"
+msgstr "Muokkaa kiintiön asetuksia"
+
+msgid "Email"
+msgstr ""
+
+msgid "Email address was changed."
+msgstr "Yksi sähköpostiosoite per rivi."
+
+msgid ""
+"Email addresses of the mailing list moderators which need to be contacted"
+" when there is some email under moderated. If empty, mailing list owners "
+"will be used instead."
+msgstr ""
+
+msgid ""
+"Email addresses of the mailing list moderators which need to be contacted"
+" when there is someone subscribing to the list and under moderated. If "
+"empty, mailing list moderators will be used instead."
+msgstr ""
+
+#, python-format
+msgid ""
+"Email addresses of the mailing list owners which need to be contacted via"
+" email %s, either by the system or by end users."
+msgstr ""
+
+msgid "Emails"
+msgstr "Sähköpostit"
+
+#, python-format
+msgid "Emails sent to alias addresses will be delivered to %s."
+msgstr ""
 
 msgid "Empty password is not allowed."
 msgstr "Tyhjä salasana ei ole sallittu."
@@ -281,17 +459,25 @@ msgstr "Tyhjä salasana ei ole sallittu."
 msgid "Enable"
 msgstr "Ota käyttöön"
 
+msgid "Enable newsletter-style mailing list"
+msgstr ""
+
+msgid "Enable subscription and unsubscription from website"
+msgstr ""
+
 msgid "Enable this account"
 msgstr "Ota tämä tili käyttöön"
 
 msgid "Enable this domain"
 msgstr "Ota tämä domain käyttöön"
 
-msgid "Enabled Services"
-msgstr "Käytössä olevat palvelut"
+msgid "Error"
+msgstr ""
 
-#, python-format
-msgid "Error while checking new version: %s"
+msgid "Error while checking new version of iRedAdmin:"
+msgstr ""
+
+msgid "Error while getting license info:"
 msgstr "Virhe tarkastettaessa uutta versiota: %s"
 
 msgid "Error:"
@@ -300,6 +486,9 @@ msgstr "Virhe:"
 msgid "Events"
 msgstr "Tapahtumat"
 
+msgid "Everyone can send mail to this address"
+msgstr "Jokainen voi lähettää sähköpostia tähän osoitteeseen"
+
 msgid ""
 "Exceeded domain account limit. Please contact your administrator or "
 "service provider to increase it."
@@ -307,17 +496,38 @@ msgstr ""
 "Domain tilien maksimimäärä on ylitetty. Ota yhteys ylläpitäjään tai "
 "palveluntarjoajaan kasvattaaksesi sitä."
 
-msgid "Fetching mails via IMAP"
-msgstr "Nouda sähköpostit IMAP kautta."
+msgid "Exceeded:"
+msgstr ""
 
-msgid "Fetching mails via IMAP over TLS/SSL"
-msgstr "Nouda sähköpostit IMAP kautta (TLS/SSL)."
+msgid "Expire date"
+msgstr "Vanhentumispäivä"
 
-msgid "Fetching mails via POP3"
-msgstr "Nouda sähköpostit POP3 kautta."
+msgid "Expired"
+msgstr "Vanhentumispäivä"
 
-msgid "Fetching mails via POP3 over TLS/SSL"
-msgstr "Nouda sähköpostit POP3S kautta (POP3 TLS/SSL)."
+msgid "Export account in LDIF format"
+msgstr ""
+
+msgid "Export accounts"
+msgstr ""
+
+msgid "Export all managed accounts"
+msgstr ""
+
+msgid "Export statistics of admins"
+msgstr ""
+
+msgid "External Members"
+msgstr "Ulkoiset jäsenet"
+
+msgid "External moderators"
+msgstr "Ulkoiset moderaattorit"
+
+msgid "Filter accounts by first character in email addresses"
+msgstr ""
+
+msgid "Filter domains by first character in mail domain name"
+msgstr ""
 
 msgid "Filter:"
 msgstr "Filtteri:"
@@ -328,35 +538,71 @@ msgstr "Ensimmäinen sivu"
 msgid "First name"
 msgstr "Ensimmäinen sivu"
 
-msgid "Forwarding mails to other addresses"
-msgstr "Edelleenohjaa sähköpostit toiseen osoitteeseen"
+msgid "Footer text (HTML format)"
+msgstr ""
+
+msgid "Footer text (plain text format)"
+msgstr ""
+
+msgid "Forwarding addresses (saved a copy in mailbox)"
+msgstr ""
+
+msgid "Forwarding addresses (without saving a copy in mailbox)"
+msgstr ""
 
 msgid "Full name"
-msgstr ""
+msgstr "Koko nimi"
 
 msgid "General"
 msgstr "Yleinen"
 
+msgid "Get a newsletter signup form"
+msgstr ""
+
 msgid "Global Admin"
 msgstr "Globaali ylläpitäjä"
 
-msgid "Global admin"
-msgstr "Globaali ylläpitäjä"
-
 msgid "Grant admin"
-msgstr ""
+msgstr "Domainien määrä"
 
 msgid "Hostname"
 msgstr "Isäntänimi"
 
+msgid "IMAP Login:"
+msgstr ""
+
 msgid "IP Address"
 msgstr "IP-osoite"
 
-msgid "Invalid action."
+msgid ""
+"If you prefer redirecting user to a subscription page, this is the url of"
+" subscription page."
+msgstr ""
+
+msgid "Increase it now?"
+msgstr "Kasvata nyt?"
+
+msgid ""
+"Input mail addresses of either internal or external members below, "
+"multiple addresses must be separated by comma, space or new line."
+msgstr ""
+
+msgid ""
+"Input mail addresses of either internal or external moderators below, "
+"multiple addresses must be separated by comma, space or new line."
+msgstr ""
+
+msgid "Internal Members"
+msgstr "Sisäiset jäsenet"
+
+msgid "Internal Moderators"
+msgstr "Sisäiset moderaattorit"
+
+msgid "Invalid account."
 msgstr "Virheellinen toiminto."
 
-msgid "Invalid domain name or mail address."
-msgstr "Virheellinen domain nimi tai sähköpostiosoite."
+msgid "Invalid action."
+msgstr "Virheellinen toiminto."
 
 msgid "Invalid domain name."
 msgstr "Virheellinen domain nimi."
@@ -364,27 +610,63 @@ msgstr "Virheellinen domain nimi."
 msgid "Invalid mail address."
 msgstr "Virheellinen sähköpostiosoite."
 
-msgid "Invalid request data."
+msgid "Invalid product id."
 msgstr "Virheellinen pyyntö."
-
-msgid "Invalid username."
-msgstr "Virheellinen käyttäjänimi."
 
 msgid "Is a global admin."
 msgstr "On globaali ylläpitäjä."
 
 msgid ""
-"It is recommended to mark user as domain admin in user profile page "
-"instead of creating separate admin account."
+"It's better create a subscribable mailing list instead, so that you can "
+"restrict the mail posting and delivery."
+msgstr ""
+
+msgid ""
+"It's better create a subscribable mailing list, so that you can restrict "
+"the mail posting and delivery."
 msgstr ""
 
 msgid "Job Title"
 msgstr "Tehtävänimi"
 
-msgid "Job Title/Responsibility"
-msgstr "Tehtävänimi/vastuualue"
+#, python-format
+msgid "Keep mailbox for %d days"
+msgstr ""
 
-msgid "Keep forever"
+#, python-format
+msgid "Keep mailbox for %d months"
+msgstr ""
+
+#, python-format
+msgid "Keep mailbox for %d weeks"
+msgstr ""
+
+#, python-format
+msgid "Keep mailbox for %d years"
+msgstr ""
+
+msgid "Keep mailbox for 1 day"
+msgstr ""
+
+msgid "Keep mailbox for 1 month "
+msgstr ""
+
+msgid "Keep mailbox for 1 week"
+msgstr ""
+
+msgid "Keep mailbox for 1 year"
+msgstr ""
+
+msgid "Keep mailbox forever"
+msgstr ""
+
+msgid "Keyword"
+msgstr "Hakusana"
+
+msgid "Last Login"
+msgstr ""
+
+msgid "Last Login:"
 msgstr ""
 
 msgid "Last Page"
@@ -393,8 +675,41 @@ msgstr "Edellinen sivu"
 msgid "Last name"
 msgstr "Isäntänimi"
 
+msgid "Latest version"
+msgstr "Viimeisin versio"
+
+msgid "Leave it empty to use max value."
+msgstr ""
+
+msgid "License"
+msgstr "Lisenssi"
+
+msgid "License Key"
+msgstr ""
+
+msgid "License is active"
+msgstr "Tili on aktiivinen."
+
+msgid "License owner(s)"
+msgstr ""
+
+msgid "License status"
+msgstr "Tilin tila"
+
+msgid "Lifetime license"
+msgstr "Elinikäinen lisenssi"
+
+msgid "List all mail aliases."
+msgstr "Listaa kaikki sähköpostialiakset."
+
 msgid "List all mail users."
 msgstr "Listaa kaikki sähköpostikäyttäjät."
+
+msgid "List all mailing lists."
+msgstr ""
+
+msgid "Lists"
+msgstr "Listat"
 
 #, python-format
 msgid "Logged in as %s"
@@ -402,6 +717,9 @@ msgstr "Kirjautunut sisään tunnuksella %s"
 
 msgid "Login"
 msgstr "Kirjaudu"
+
+msgid "Login from your IP address is not allowed."
+msgstr ""
 
 msgid "Login required"
 msgstr "Kirjautuminen vaaditaan"
@@ -415,65 +733,118 @@ msgstr "Kirjaudu ulos"
 msgid "Mail Address"
 msgstr "Sähköpostiosoite"
 
+msgid "Mail Aliases"
+msgstr "Sähköpostialiakset"
+
+msgid "Mail Deliver Restriction"
+msgstr "Postivälityksen rajoitteet"
+
+msgid "Mail Delivery"
+msgstr ""
+
 msgid "Mail Users"
 msgstr "Sähköpostikäyttäjät"
 
-msgid "Mail address already exists, please choose another one."
-msgstr "Sähköpostiosoite on käytössä, valitse jokin muu."
-
-msgid "Mail alias created."
+msgid "Mail deliver restriction will be migrated."
 msgstr ""
 
-msgid "Mail list created."
+msgid ""
+"Mail delivery restriction will be set to allow email from any sender by "
+"default."
 msgstr ""
 
-msgid "Mail service"
-msgstr "Sähköpostipalvelu"
+msgid "Mail posting"
+msgstr ""
+
+msgid "Mail sent to alias will be forwarded to members."
+msgstr "Aliakselle lähetetyt sähköpostit edelleenohjataan sen jäsenille."
 
 msgid "Mailbox Quota"
 msgstr "Sähköpostilaatikon kiintiö"
 
-msgid "Mails were deleted."
-msgstr "Sähköpostit poistettu."
+msgid "Mailing List"
+msgstr ""
 
-msgid "Mails were released."
-msgstr "Sähköpostit julkaistu."
+msgid "Mailing List (Subscribable)"
+msgstr ""
 
-msgid "Managed Domains"
-msgstr "Hallitut domainit"
+msgid "Mailing Lists"
+msgstr ""
+
+#, python-format
+msgid "Mailing lists under domain: %s"
+msgstr ""
+
+#, python-format
+msgid "Mailing lists under domain: %s."
+msgstr ""
+
+msgid "Mark as domain admin"
+msgstr "Kaikki sähköpostin ylläpitäjät."
 
 msgid "Mark as global admin"
 msgstr "Merkitse globaaliksi ylläpitäjäksi"
 
-msgid "Mark this user as"
+msgid "Max message size"
 msgstr ""
 
-msgid "Member assigned success."
-msgstr "Jäsenen määritys onnistui."
+msgid "Max:"
+msgstr ""
 
-msgid "Member removed success."
-msgstr "Jäsenen poisto onnistui."
+msgid "Member of mailing lists:"
+msgstr ""
+
+msgid "Members"
+msgstr "Jäsenet"
+
+msgid "Members and moderators"
+msgstr ""
+
+msgid "Members and moderators will be fully migrated."
+msgstr ""
+
+msgid "Members will be fully migrated."
+msgstr ""
 
 msgid "Message"
 msgstr "Viesti"
 
+msgid "Messages sent to mailing list will be delivered to its members."
+msgstr ""
+
+msgid "Migrate Now"
+msgstr ""
+
+msgid "Migrate to subscribable mailing list"
+msgstr ""
+
+msgid "Migrate to subscribable mailing list?"
+msgstr ""
+
 msgid "Mobile"
 msgstr "Matkapuhelin"
 
-msgid "Moderators assigned success."
-msgstr "Moderaattorit määritetty onnistuneesti."
+msgid "Moderate all posts (Moderators are required)"
+msgstr ""
 
-msgid "Moderators removed success."
-msgstr "Moderaattorit poistettu onnistuneesti."
+msgid "Moderate subscriptions"
+msgstr ""
 
-msgid "Name"
-msgstr "Nimi"
+msgid "Moderators"
+msgstr "Moderaattorit"
 
-msgid "Need a random password?"
-msgstr "Satunnainen salasana?"
+#, python-format
+msgid "Must be %s - %s characters."
+msgstr ""
+
+msgid "Need a strong password?"
+msgstr ""
 
 msgid "Network"
 msgstr "Verkko"
+
+msgid "New Mail Delivered:"
+msgstr ""
 
 msgid "New password"
 msgstr "Uusi salasana"
@@ -489,8 +860,20 @@ msgstr "Uuden salasanan täytyy pitää sisällään ainakin %s merkkiä."
 msgid "New passwords are not match."
 msgstr "Antamasi salasanat eivät täsmää"
 
-msgid "News & Announments"
+msgid "New version is available."
+msgstr "Uusi versio saatavilla."
+
+#, python-format
+msgid ""
+"New version of iRedAdmin, %s, is now available for upgrading. <a "
+"href='%s/system/license' class='button green'>Details</a>"
+msgstr ""
+
+msgid "News & Announcements"
 msgstr "Uutiset & Tiedotteet"
+
+msgid "Newsletter"
+msgstr ""
 
 msgid "Next Page"
 msgstr "Seuraava sivu"
@@ -501,8 +884,29 @@ msgstr "Ei tiliä valittuna."
 msgid "No admin log."
 msgstr "Ei admin logia."
 
+msgid "No digit number in password."
+msgstr ""
+
 msgid "No domain under control."
 msgstr "Ei domainia hallittavana."
+
+msgid "No email"
+msgstr ""
+
+msgid "No free domain quota left."
+msgstr "Ei vapaata domainkiintiötä jäljellä."
+
+msgid "No letter in password."
+msgstr ""
+
+msgid "No mail admin assigned."
+msgstr ""
+
+msgid "No mail admin available."
+msgstr "Ei sähköpostidomainia saatavilla."
+
+msgid "No mail alias available."
+msgstr "Ei sähköpostialiasta saatavilla."
 
 msgid "No mail domain available."
 msgstr "Ei sähköpostidomainia saatavilla."
@@ -510,15 +914,28 @@ msgstr "Ei sähköpostidomainia saatavilla."
 msgid "No mail user available."
 msgstr "Ei sähköpostikäyttäjää saatavilla."
 
-msgid "No moderator selected."
-msgstr "Ei moderaattoria valittuna."
+msgid "No mailing list available."
+msgstr ""
+
+msgid "No members."
+msgstr "Selaa jäseniä"
+
+msgid "No moderators."
+msgstr "Moderaattorit"
+
+#, python-format
+msgid "No more than %d characters."
+msgstr ""
 
 #, python-format
 msgid "No more than %s characters."
 msgstr "Enintään %s merkkiä."
 
-msgid "No such domain."
-msgstr "Ei domainia."
+msgid "No special character in password."
+msgstr ""
+
+msgid "No uppercase letter in password."
+msgstr ""
 
 msgid "Not a global admin."
 msgstr "Ei ole globaali ylläpitäjä."
@@ -526,20 +943,64 @@ msgstr "Ei ole globaali ylläpitäjä."
 msgid "Not allowed to create mail alias under this domain."
 msgstr "Sähköpostialiasten luonti tähän domainiin ei ole sallittu."
 
-msgid "Not allowed to create mail list under this domain."
-msgstr "Sähköpostilistojen luonti tähän domainiin ei ole sallittu."
-
 msgid "Not allowed to create mail user under this domain."
 msgstr "Sähköpostikäyttäjien luonti tähän domainiin ei ole sallittu."
+
+msgid "Not allowed to create mailing list under this domain."
+msgstr ""
+
+msgid "Notifications"
+msgstr ""
+
+msgid ""
+"Notify owner(s) when someone subscribe to or unsubscribe from the mailing"
+" list"
+msgstr ""
+
+msgid "Notify sender if email is under moderated"
+msgstr ""
+
+msgid "Number of domains"
+msgstr "Domainien määrä"
+
+msgid "Number of max mail aliases"
+msgstr "Sähköpostialiasten maksimimäärä"
+
+msgid "Number of max mail users"
+msgstr "Sähköpostikäyttäjien maksimimäärä"
+
+msgid "Number of max mailing lists"
+msgstr ""
+
+msgid "Number of users"
+msgstr "Käyttäjien määrä"
 
 msgid "Old password"
 msgstr "Vanha salasana"
 
-msgid "Operation completed."
-msgstr "Toiminto valmis."
+msgid ""
+"One IP address or network per line. Invalid address or network will be "
+"discarded."
+msgstr ""
+
+msgid "One mail address per line. Invalid address will be discarded."
+msgstr ""
 
 msgid "Or create other mail accounts:"
 msgstr "Tai luo muita sähköpostitilejä:"
+
+#, python-format
+msgid "Owner will be set to postmaster@%s."
+msgstr ""
+
+msgid "Owners"
+msgstr ""
+
+msgid "Owners and Moderators"
+msgstr ""
+
+msgid "POP3 Login:"
+msgstr ""
 
 msgid "Password"
 msgstr "Salasana"
@@ -553,24 +1014,30 @@ msgstr "Salasana on liian pitkä."
 msgid "Password is too short."
 msgstr "Salasana on liian lyhyt."
 
-msgid "Password of cn=vmailadmin is incorrect."
-msgstr "cn=vmailadmin  salasana on virheellinen"
-
-msgid ""
-"Per-user relay setting will override per-domain relay setting you set in "
-"this page."
+msgid "Password last change:"
 msgstr ""
-"Käyttäjän välityspalvelinasetukset ohittaa domainin "
-"välityspalvelinasetukset jotka määritetään tällä sivulla."
+
+msgid "Password must contain"
+msgstr "Uuden salasanan täytyy pitää sisällään ainakin %s merkkiä."
 
 msgid "Permission denied."
 msgstr "Pääsy evätty."
 
+msgid "Please do not use non-ascii character in password."
+msgstr ""
+
+msgid ""
+"Please either mark mail user as domain admin or create a separate admin "
+"account."
+msgstr ""
+"Merkitse sähköpostikäyttäjä domainin ylläpitäjäksi tai luo erillinen "
+"ylläpitotunnus."
+
 msgid "Please select at least one account."
 msgstr "Valitse vähintään yksi tili."
 
-msgid "Please select at least one domain to apply action."
-msgstr "Valitse vähintää yksi domain käyttääksesi toimintoa."
+msgid "Please select at least one domain."
+msgstr "Valitse vähintään yksi tili."
 
 msgid "Preferences"
 msgstr "Asetukset"
@@ -578,14 +1045,29 @@ msgstr "Asetukset"
 msgid "Preferred language"
 msgstr "Haluttu kieli"
 
+msgid "Prefix text to mail subject"
+msgstr ""
+
 msgid "Previous Page"
 msgstr "Edellinen sivu"
+
+msgid "Product name"
+msgstr "Isäntänimi"
+
+msgid "Profile has been updated."
+msgstr ""
 
 msgid "Profile of admin:"
 msgstr "Profiili ylläpitäjälle:"
 
+msgid "Profile of alias:"
+msgstr "Profiili aliakselle:"
+
 msgid "Profile of domain:"
 msgstr "Profiili domainille:"
+
+msgid "Profile of mailing list:"
+msgstr ""
 
 msgid "Profile of user:"
 msgstr "Profiili käyttäjälle:"
@@ -593,38 +1075,53 @@ msgstr "Profiili käyttäjälle:"
 msgid "Profile updated failed."
 msgstr "Profiilin päivitys epäonnistui."
 
-msgid "Profile updated success."
-msgstr "Profiilin päivitys onnistui."
+msgid "Purchase a new license"
+msgstr "Uusi lisenssi"
 
-msgid "Quarantined Mails"
-msgstr "Karanteenissa olevat sähköpostit"
+msgid "Purchase date"
+msgstr "Ostopäivä"
 
 msgid "Quota"
 msgstr "Kiintiö"
 
-msgid "Received Mails"
-msgstr "Vastaanotetut sähköpostit"
-
-msgid "Receiving mails for this account on mail server"
-msgstr "Saapuvat sähköpostit palvelimella tälle tilille."
-
-msgid "Relay/Transport Setting"
-msgstr "Välityspalvelinasetukset"
-
-msgid "Remember me"
-msgstr "Muista minut"
-
-msgid "Revoke admin privilege"
+msgid "Records were successfully updated."
 msgstr ""
 
-msgid "Sample"
-msgstr "Malli"
+msgid "Redirect user to subscription page"
+msgstr ""
+
+msgid "Relay"
+msgstr "Välityspalvelin"
+
+msgid "Release Notes and Upgrade Tutorials"
+msgstr "Päivitä "
+
+msgid "Remove ALL members"
+msgstr ""
+
+msgid "Remove from list"
+msgstr "Poista listasta"
+
+msgid "Remove selected members"
+msgstr ""
+
+msgid "Renew license"
+msgstr "Uusi lisenssi"
+
+msgid "Revoke admin privilege"
+msgstr "Profiili ylläpitäjälle:"
 
 msgid "Save changes"
 msgstr "Tallenna muutokset"
 
-msgid "Search keyword could not be empty."
-msgstr "Hakusana ei voi olla tyhjä."
+msgid "Search"
+msgstr "Etsi"
+
+msgid "Search mail accounts"
+msgstr "Tai luo muita sähköpostitilejä:"
+
+msgid "Search results."
+msgstr "Hakutulokset."
 
 msgid ""
 "Security token did not match. Please refresh current page and re-perform "
@@ -642,8 +1139,20 @@ msgstr "Valitut tilit poistettiin käytöstä."
 msgid "Selected accounts were enabled."
 msgstr "Valitut tilit otettiin käyttöön."
 
-msgid "Selected domains were deleted."
-msgstr "Valitut domainit poistettiin."
+msgid "Selected accounts were marked as domain admin."
+msgstr "Valitut tilit otettiin käyttöön."
+
+msgid "Selected accounts were marked as global admin."
+msgstr "Valitut tilit otettiin käyttöön."
+
+msgid "Selected accounts were unmarked as domain admin."
+msgstr "Valitut tilit otettiin käyttöön."
+
+msgid "Selected accounts were unmarked as global admin."
+msgstr "Valitut tilit otettiin käyttöön."
+
+msgid "Selected domains have been deleted."
+msgstr ""
 
 msgid "Selected domains were disabled."
 msgstr "Valitut domainit poistettiin käytöstä."
@@ -654,14 +1163,11 @@ msgstr "Valitut domainit otettiin käyttöön."
 msgid "Selected log records were deleted."
 msgstr "Valitut lokitietueet poistettiin."
 
-msgid "Sending mails via SMTP"
-msgstr "Lähetä sähköpostit SMTP:n kautta"
+msgid "Send email to new members for subscription confirm"
+msgstr ""
 
-msgid "Sending mails via SMTP over TLS/SSL"
-msgstr "Lähetä sähköpostit SMPT:n kautta (TLS/SSL)"
-
-msgid "Sent Mails"
-msgstr "Lähetetyt sähköpostit"
+msgid "Send me an email with download link"
+msgstr "Lähetä latauslinkki sähköpostilla"
 
 msgid "Server Load"
 msgstr "Palvelimen kuorma"
@@ -679,14 +1185,52 @@ msgstr "Istunto vanhentunut, kirjaudu uudelleen."
 msgid "Set to 0 for unlimited."
 msgstr "Aseta arvo 0 rajoittamattomalle"
 
+msgid "Set value to -1 means not allowed to create this kind of account."
+msgstr ""
+"Arvon asettaminen -1 tarkoittaa ettei tämänkaltaisen tilin luonti ole "
+"sallittu."
+
+msgid "Set value to 0 or leave it empty for unlimited."
+msgstr "Aseta arvo 0 tai jätä tyhjäksi rajoittamattomalle."
+
+msgid "Settings"
+msgstr ""
+
+msgid "Show in Global Address Book"
+msgstr "Näytetään globaalissa LDAP osoietkirjassa"
+
+#, python-format
+msgid "Some addresses have been discarded because they have been used: %s."
+msgstr ""
+
+msgid "Standalone admin account cannot be an user of local domain."
+msgstr ""
+
 msgid "Store password in plain text"
 msgstr "Nykyinen salasana on virheellinen."
+
+msgid "Stored"
+msgstr "Tallennetut"
+
+msgid "Stored emails"
+msgstr "Tallennetut sähköpostit"
 
 msgid "Submit"
 msgstr "Lähetä"
 
 msgid "Submited domain name is incorrect."
 msgstr "Domainin nimi on virheellinen."
+
+msgid "Subscription Moderators"
+msgstr ""
+
+msgid ""
+"Subscription and unsubscription will be disabled by default, feel free to"
+" enable them after migration."
+msgstr ""
+
+msgid "Subscription control"
+msgstr ""
 
 msgid "Support"
 msgstr "Tuki"
@@ -700,39 +1244,62 @@ msgstr "Järjestelmätiedot"
 msgid "Telephone Number"
 msgstr "Puhelinnumero"
 
+msgid "Text to introduce this newsletter on subscription page"
+msgstr ""
+
+msgid "This is a mail alias."
+msgstr "Listaa kaikki sähköpostialiakset."
+
+msgid "This is a mailing list."
+msgstr "Listaa kaikki sähköpostilistat."
+
 msgid "Time"
 msgstr "Aika"
 
-msgid "Total"
-msgstr "Yhteensä"
+msgid "Time zone"
+msgstr ""
+
+msgid "To add new members, please enable mailing list account first."
+msgstr ""
+
+msgid "Unban IP address"
+msgstr ""
 
 msgid "Unlimited"
 msgstr "Rajoittamaton"
 
+msgid "Unmark as domain admin"
+msgstr "Kaikki sähköpostin ylläpitäjät."
+
+msgid "Unmark as global admin"
+msgstr "Merkitse globaaliksi ylläpitäjäksi"
+
 msgid "Unrestricted"
 msgstr "Rajoittamaton"
 
-#, python-format
-msgid "Update available: <a href='%s' target='_blank'>v%s</a>"
-msgstr "Päivitys saatavissa: <a href='%s' target='_blank'>v%s</a>"
-
 msgid "Update whitelists and blacklists"
-msgstr ""
+msgstr "Lisää valkoinen lista"
 
 msgid "Uptime"
 msgstr "Käynnissä"
 
+msgid "Use this password"
+msgstr ""
+
+msgid "Used"
+msgstr "Käytetty"
+
 msgid "User"
 msgstr "Käyttäjä"
 
-msgid "User ID"
-msgstr "Käyttäjä ID"
-
 msgid "User created."
-msgstr ""
+msgstr "Käyttäjä luotu."
 
 msgid "User login (self-service)"
 msgstr ""
+
+msgid "User/Employee ID"
+msgstr "Käyttäjä/Työntekijä ID"
 
 msgid "Username"
 msgstr "Käyttäjänimi"
@@ -750,9 +1317,81 @@ msgstr "Käyttäjät"
 msgid "Users under domain: %s"
 msgstr "Käyttäjiä domainissa: %s"
 
-msgid "Warning"
-msgstr "Varoitus"
+msgid "Users under same domain"
+msgstr ""
 
-msgid "iRedMail Admin Panel"
-msgstr "iRedMail Ylläpitopaneeli"
+msgid "Users under same domain and its sub-domains"
+msgstr ""
+
+msgid "View members"
+msgstr "Selaa jäseniä"
+
+msgid "Who can send email to this list"
+msgstr "Kuka voi lähettää sähköpostia tähän listaan."
+
+msgid "You are not allowed to update global domain admin's profile."
+msgstr ""
+
+#, python-format
+msgid "You are running version %s"
+msgstr "Käytössäsi on versio %s"
+
+#, python-format
+msgid "You can NOT create more users under domain %s."
+msgstr "Et voi luoda enempää käyttäjiä domainiin %s."
+
+#, python-format
+msgid "You can create <strong>%d</strong> more mail alias(es) under domain %s."
+msgstr "Voit luoda <strong>%d</strong> sähköpostialiasta domainiin %s."
+
+#, python-format
+msgid ""
+"You can create <strong>%d</strong> more mail domains (Existing: %d, Max: "
+"%d)"
+msgstr ""
+
+#, python-format
+msgid "You can create <strong>%d</strong> more mail user(s) under domain %s."
+msgstr "Voit luoda <strong>%d</strong> sähköpostikäyttäjää domainiin %s."
+
+#, python-format
+msgid "You can create <strong>%d</strong> more mailing list(s) under domain %s."
+msgstr ""
+
+msgid ""
+"You can embed a mailing list signup form (HTML code below) on any page of"
+" your website. Feel free to customize the form to add your brand name, "
+"logo image, or combine it with special offers to attract new subscribers "
+"and boost engagement."
+msgstr ""
+
+msgid ""
+"You can enable self-service (per-domain setting) to allow users to manage"
+" their own preferences and more."
+msgstr ""
+
+#, python-format
+msgid "You can't create mail aliases under domain %s."
+msgstr "Et voi luoda sähköpostialiaksia domainiin %s."
+
+#, python-format
+msgid "You can't create mailing lists under domain %s."
+msgstr ""
+
+#, python-format
+msgid "You can't create more mail aliases under domain %s."
+msgstr "Et voi luoda enempää sähköpostialiaksia domainiin %s."
+
+#, python-format
+msgid "You can't create more mailing lists under domain %s."
+msgstr ""
+
+msgid "Your license is invalid. Please contact support@iredmail.org to fix it."
+msgstr ""
+
+msgid "Your search returned no hits."
+msgstr "Hakusi ei tuottanut tuloksia."
+
+msgid "without verifying local recipients"
+msgstr ""
 

@@ -37,33 +37,31 @@ logger.addHandler(_ch)
 logger.setLevel(logging.INFO)
 
 
-def print_error(msg):
-    print('< ERROR > ' + msg)
+def get_db_conn(db_name):
+    if backend == 'ldap' and db_name in ['ldap', 'vmail']:
+        logger.error("""Please use code below to get LDAP connection cursor:\n
 
+from libs.ldaplib.core import LDAPWrap\n
+_wrap = LDAPWrap()\n
+conn = _wrap.conn\n""")
 
-def get_db_conn(db):
-    if backend == 'ldap' and db in ['ldap', 'vmail']:
-        from libs.ldaplib.auth import verify_bind_dn_pw
-        qr = verify_bind_dn_pw(dn=settings.ldap_bind_dn,
-                               password=settings.ldap_bind_password,
-                               close_connection=False)
-        if qr[0]:
-            return qr[1]
-        else:
-            return None
+        return None
 
     try:
-        conn = web.database(dbn=sql_dbn,
-                            host=settings.__dict__[db + '_db_host'],
-                            port=int(settings.__dict__[db + '_db_port']),
-                            db=settings.__dict__[db + '_db_name'],
-                            user=settings.__dict__[db + '_db_user'],
-                            pw=settings.__dict__[db + '_db_password'])
+        conn = web.database(
+            dbn=sql_dbn,
+            host=settings.__dict__[db_name + '_db_host'],
+            port=int(settings.__dict__[db_name + '_db_port']),
+            db=settings.__dict__[db_name + '_db_name'],
+            user=settings.__dict__[db_name + '_db_user'],
+            pw=settings.__dict__[db_name + '_db_password'],
+        )
 
         conn.supports_multiple_insert = True
         return conn
     except Exception as e:
-        print_error(e)
+        logger.error(e)
+        return None
 
 
 # Log in `iredadmin.log`

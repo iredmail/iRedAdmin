@@ -1,0 +1,140 @@
+{% extends "layout.html" %}
+
+{% from "macros/form_inputs.html" import
+    input_submit,
+    input_csrf_token
+    with context
+    %}
+
+{% from "macros/general.html" import
+        display_subnav,
+        display_input_cn,
+        display_preferred_language,
+        display_timezones,
+        display_quota,
+        display_input_employeeid,
+        display_account_status,
+        display_reset_password,
+        display_random_password,
+        with context
+        %}
+
+{% from "macros/msg_handlers.html" import warning_info, user_msg_handler with context %}
+
+{% block title %}{{ _('Edit account profile') }}{% endblock %}
+{% block navlinks_domains %}class="active"{% endblock %}
+
+{% block breadcrumb %}
+    {% set crumbs = [
+            (ctx.homepath + '/domains', _('All domains')),
+            (ctx.homepath + '/profile/domain/general/' + cur_domain, cur_domain),
+            (ctx.homepath + '/users/' + cur_domain, _('Users')),
+            ('active', ctx.homepath + '/profile/user/general/' + mail, _('Profile of user:') + '&nbsp;' + mail),
+            ] %}
+
+    {{ display_subnav(crumbs) }}
+{% endblock %}
+
+{% block main %}
+
+{# Show system message #}
+{% if msg %}
+    {% if msg.startswith('PW_') %}
+        {% set _pw_errors = msg.split(',') %}
+        {% for _err in _pw_errors %}
+            {{ user_msg_handler(_err) }}
+        {% endfor %}
+    {% else %}
+        {{ user_msg_handler(msg) }}
+    {% endif %}
+{% endif %}
+
+{% if discarded_aliases %}
+    {% set _msg = _('Some addresses have been discarded because they have been used: %s.') |format(discarded_aliases | join(', ')) %}
+    {{ warning_info(msg=_msg, removable=true) }}
+{% endif %}
+
+{% set navlinks = [
+        ('general', _('General'), [true]),
+        ('password', _('Password'), [true]),
+        ('advanced', _('Advanced'), [true]),
+        ]
+        %}
+
+<div class="content-box">
+    <div class="box-body">
+        <div class="box-header clear">
+            <ul class="tabs clear">
+                {% for nav in navlinks %}
+                    {% if not false in nav[2] and not none in nav[2] %}
+                        <li><a href="#profile_{{nav[0]}}">{{ nav[1] }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="box-wrap clear">
+            <div id="profile_general">
+                <form name="general" method="post" action="{{ctx.homepath}}/profile/user/general/{{mail}}">
+                    {{ input_csrf_token() }}
+
+                    <div class="columns clear">
+                        <div class="col2-3">
+                            {{ display_account_status(profile.active) }}
+
+                            <div class="bt-space10"></div>
+                            {{ display_input_cn(value=profile.name, email=mail, empty_if_equal_to_username=true) }}
+
+                            {% set stored_mailbox_size = used_quota.get(mail, {}).get('bytes', 0) %}
+                            {% set stored_mailbox_messages = used_quota.get(mail, {}).get('messages', 0) %}
+
+                            {{ display_quota(value=profile.quota,
+                                             show_value_in_input=true,
+                                             used_quota=stored_mailbox_size,
+                                             stored_messages=stored_mailbox_messages,
+                                             show_used_quota=true) }}
+
+                            {{ display_preferred_language(value=profile.get('language'), languagemaps=languagemaps) }}
+                            {{ display_timezones(value=user_settings.get('timezone'), timezones=timezones) }}
+                            <div class="bt-space10"></div>
+                            {{ display_input_employeeid(profile.employeeid) }}
+                        </div>{#-- .col2-3 --#}
+                    </div>{#-- .columns --#}
+                    {{ input_submit() }}
+                </form>
+            </div>{# #profile_general #}
+
+        {# Password #}
+            <div id="profile_password">
+                <form name="password" method="post" action="{{ctx.homepath}}/profile/user/password/{{mail}}">
+                    {{ input_csrf_token() }}
+                    <div class="columns clear">
+                        <div class="col3-4">
+                            {{ display_reset_password(show_confirmpw=true,
+                                                      min_passwd_length=min_passwd_length,
+                                                      max_passwd_length=max_passwd_length,
+                                                      store_password_in_plain_text=store_password_in_plain_text) }}
+                        </div>
+                        <div class="col1-4 lastcol">
+                            {{ display_random_password(password_length=min_passwd_length,
+                                                       password_policies=password_policies,
+                                                       password_last_change_date=profile.passwordlastchange) }}
+                        </div>
+                    </div>
+
+                    {{ input_submit() }}
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main %}
+
+{% block extra_js %}
+<script type="text/javascript">
+$(document).ready(function() {
+    $(".tabs li").idTabs("profile_{{ profile_type }}");
+    $('#domain_search').quickfilter('#all_domains tr');
+});
+</script>
+{% endblock extra_js %}

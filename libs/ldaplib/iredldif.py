@@ -1,50 +1,62 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
+#
+# NOTES:
+#
+#   o always use `ldaputils.attr_ldif()` or `ldaputils.attrs_ldif()` to
+#     construct ldif list(s) used for LDAP object CREATION.
+#                                                 ^^^^^^^^
+#   o always use `ldaputils.mod_replace()` to construct ldif list used for LDAP
+#     object MODIFICATION.
+#            ^^^^^^^^^^^^
 
+import os
 import web
 import settings
 from libs import iredutils
-from libs.ldaplib import ldaputils
+from libs.ldaplib import ldaputils, attrs
 
 
-# Define and return LDIF structure of domain.
-def ldif_maildomain(domain,
-                    cn=None,
-                    mtaTransport=settings.default_mta_transport,
-                    enabledService=['mail']):
-    domain = web.safestr(domain).lower()
+def ldif_domain(domain,
+                cn=None,
+                transport=None,
+                account_status=None,
+                account_settings=None):
+    """Return LDIF structure of mail domain used for creation."""
+    domain = domain.lower()
 
-    minPasswordLength = settings.min_passwd_length
+    if not transport:
+        transport = settings.default_mta_transport
 
-    ldif = [('objectClass', ['mailDomain']),
-            ('domainName', [domain]),
-            ('mtaTransport', [mtaTransport]),
-            ('accountStatus', ['active']),
-            ('enabledService', enabledService),
-            ('accountSetting', ['minPasswordLength:%s' % minPasswordLength])]
+    _enabled_services = list(set(list(attrs.DOMAIN_ENABLED_SERVICE_FOR_NEW_DOMAIN) + settings.ADDITIONAL_ENABLED_DOMAIN_SERVICES))
+    _enabled_services = [i
+                         for i in _enabled_services
+                         if i not in settings.ADDITIONAL_DISABLED_DOMAIN_SERVICES]
 
-    ldif += ldaputils.get_ldif_of_attr(attr='cn', value=cn, default=domain)
+    ldif = ldaputils.attrs_ldif({
+        'objectClass': 'mailDomain',
+        'domainName': domain,
+        'mtaTransport': transport,
+        'enabledService': _enabled_services,
+        'cn': cn,
+    })
+
+    if account_status in ['active', None]:
+        ldif += ldaputils.attr_ldif('accountStatus', 'active')
+    else:
+        ldif += ldaputils.attr_ldif('accountStatus', 'disabled')
+
+    if account_settings:
+        _as = ldaputils.account_setting_dict_to_list(account_settings)
+        ldif += ldaputils.attr_ldif('accountSetting', _as)
 
     return ldif
 
 
 def ldif_group(name):
-    ldif = [('objectClass', ['organizationalUnit']),
-            ('ou', [name])]
-
-    return ldif
-
-
-def ldif_mailExternalUser(mail):
-    mail = web.safestr(mail).lower()
-    if not iredutils.is_email(mail):
-        return None
-
-    listname, domain = mail.split('@')
-    ldif = [('objectClass', ['mailExternalUser']),
-            ('accountStatus', ['active']),
-            ('memberOfGroup', [mail]),
-            ('enabledService', ['mail', 'deliver'])]
-
+    ldif = ldaputils.attrs_ldif({
+        'objectClass': 'organizationalUnit',
+        'ou': name,
+    })
     return ldif
 
 
@@ -52,20 +64,45 @@ def ldif_mailExternalUser(mail):
 def ldif_mailadmin(mail,
                    passwd,
                    cn,
-                   preferredLanguage='en_US',
-                   domainGlobalAdmin='no'):
+                   account_status=None,
+                   preferred_language=None,
+                   account_setting=None,
+                   disabled_services=None):
+    """Generate LDIF used to create a standalone domain admin account.
+
+    :param mail: full email address. The mail domain cannot be one of locally
+                 hosted domain.
+    :param passwd: hashed password string
+    :param cn: the display name of this admin
+    :param account_status: account status (active, disabled)
+    :param preferred_language: short code of preferred language. e.g. en_US.
+    :param is_global_admin: mark this admin as a global admin (yes, no)
+    :param account_setting: a dict of per-account settings.
+    :param disabled_services: a list/tupe/set of disabled services.
+    """
     mail = web.safestr(mail).lower()
 
-    ldif = [('objectClass', ['mailAdmin']),
-            ('mail', [mail]),
-            ('userPassword', [str(passwd)]),
-            ('accountStatus', ['active']),
-            ('preferredLanguage', [web.safestr(preferredLanguage)]),
-            ('domainGlobalAdmin', [web.safestr(domainGlobalAdmin)])]
+    if account_status not in ['active', 'disabled']:
+        account_status = 'disabled'
 
-    ldif += ldaputils.get_ldif_of_attr(attr='cn',
-                                       value=cn,
-                                       default=mail.split('@', 1)[0])
+    ldif = ldaputils.attrs_ldif({
+        'objectClass': 'mailAdmin',
+        'mail': mail,
+        'userPassword': passwd,
+        'accountStatus': account_status,
+        'domainGlobalAdmin': 'yes',
+        'shadowLastChange': ldaputils.get_days_of_shadow_last_change(),
+        'cn': cn,
+        'disabledService': disabled_services,
+    })
+
+    if preferred_language:
+        if preferred_language in iredutils.get_language_maps():
+            ldif += ldaputils.attr_ldif("preferredLanguage", preferred_language)
+
+    if account_setting and isinstance(account_setting, dict):
+        _as = ldaputils.account_setting_dict_to_list(account_setting)
+        ldif += ldaputils.attr_ldif("accountSetting", _as)
 
     return ldif
 
@@ -76,80 +113,70 @@ def ldif_mailuser(domain,
                   cn,
                   passwd,
                   quota=0,
-                  aliasDomains=None,
-                  groups=None,
-                  storageBaseDirectory=None,
-                  mailbox_format=None):
+                  storage_base_directory=None,
+                  mailbox_format=None,
+                  mailbox_folder=None,
+                  mailbox_maildir=None,
+                  language=None,
+                  disabled_services=None,
+                  domain_status=None):
     domain = str(domain).lower()
     username = str(username).strip().replace(' ', '').lower()
     mail = username + '@' + domain
+    if not cn:
+        cn = username
 
-    if storageBaseDirectory is None:
-        tmpStorageBaseDirectory = settings.storage_base_directory.lower()
+    if not (storage_base_directory and os.path.isabs(storage_base_directory)):
+        storage_base_directory = settings.storage_base_directory
+
+    if mailbox_maildir and os.path.isabs(mailbox_maildir):
+        home_directory = str(mailbox_maildir).lower()
     else:
-        tmpStorageBaseDirectory = storageBaseDirectory
+        home_directory = os.path.join(storage_base_directory, iredutils.generate_maildir_path(mail))
 
-    splitedSBD = tmpStorageBaseDirectory.rstrip('/').split('/')
+    enabled_services = list(attrs.USER_SERVICES_OF_NORMAL_USER) + settings.ADDITIONAL_ENABLED_USER_SERVICES
 
-    storageNode = splitedSBD.pop()
-    storageBaseDirectory = '/'.join(splitedSBD)
+    if disabled_services:
+        enabled_services = set(enabled_services) - set(disabled_services)
+        enabled_services = list(enabled_services)
 
-    mailMessageStore = storageNode + '/' + iredutils.generate_maildir_path(mail)
-    homeDirectory = storageBaseDirectory + '/' + mailMessageStore
+    lang = language or settings.default_language
+    if lang not in iredutils.get_language_maps():
+        lang = None
 
     # Generate basic LDIF.
-    ldif = [
-        ('objectClass', ['inetOrgPerson', 'mailUser', 'shadowAccount', 'amavisAccount']),
-        ('mail', [mail]),
-        ('userPassword', [str(passwd)]),
-        ('sn', [username]),
-        ('uid', [username]),
-        ('storageBaseDirectory', [storageBaseDirectory]),
-        ('mailMessageStore', [mailMessageStore]),
-        ('homeDirectory', [homeDirectory]),
-        ('accountStatus', ['active']),
-        ('enabledService', ['mail', 'deliver', 'lda', 'lmtp', 'smtp', 'smtpsecured',
-                            'pop3', 'pop3secured', 'pop3tls',
-                            'imap', 'imapsecured', 'imaptls',
-                            'managesieve', 'managesievesecured', 'managesievetls',
-                            'sogo',
-                            # ManageService name In dovecot-1.2.
-                            'sieve', 'sievesecured', 'sievetls',
-                            'forward', 'senderbcc', 'recipientbcc',
-                            'internal', 'lib-storage', 'indexer-worker',
-                            'doveadm', 'dsync', 'quota-status',
-                            'shadowaddress', 'displayedInGlobalAddressBook']),
+    ldif = ldaputils.attrs_ldif({
+        'objectClass': ['inetOrgPerson', 'mailUser', 'shadowAccount', 'amavisAccount'],
+        'mail': mail,
+        'userPassword': passwd,
+        'cn': cn,
+        'sn': username,
+        'uid': username,
+        'homeDirectory': home_directory,
+        'accountStatus': 'active',
+        'enabledService': enabled_services,
+        'preferredLanguage': lang,
         # shadowAccount integration.
-        ('shadowLastChange', ['0']),
+        'shadowLastChange': ldaputils.get_days_of_shadow_last_change(),
         # Amavisd integration.
-        ('amavisLocal', ['TRUE'])]
-
-    # Append `shadowAddress`
-    if aliasDomains:
-        _shadowAddresses = [username + '@' + d for d in aliasDomains if iredutils.is_domain(d)]
-        ldif += [('shadowAddress', _shadowAddresses)]
+        'amavisLocal': 'TRUE',
+    })
 
     # Append quota. No 'mailQuota' attribute means unlimited.
     quota = str(quota).strip()
     if quota.isdigit():
-        quota = int(quota) * 1024 * 1024
-        ldif += [('mailQuota', [str(quota)])]
+        quota = int(int(quota) * 1024 * 1024)
+        ldif += ldaputils.attr_ldif('mailQuota', quota)
 
     # Append mailbox format.
-    if not mailbox_format:
-        mailbox_format = settings.MAILBOX_FORMAT
+    if mailbox_format:
+        ldif += ldaputils.attr_ldif('mailboxFormat', str(mailbox_format).lower())
 
-    ldif += [('mailboxFormat', [str(mailbox_format)])]
+    # mailbox folder
+    if mailbox_folder:
+        ldif += ldaputils.attr_ldif('mailboxFolder', mailbox_folder)
 
-    # Append cn.
-    ldif += ldaputils.get_ldif_of_attr(attr='cn',
-                                       value=cn,
-                                       default=username)
-
-    # Append groups.
-    if groups and isinstance(groups, list):
-        # Remove duplicate items.
-        grps = [str(g).strip() for g in groups]
-        ldif += [('memberOfGroup', list(set(grps)))]
+    if domain_status not in ['active', None]:
+        ldif += ldaputils.attr_ldif('domainStatus', 'disabled')
 
     return ldif

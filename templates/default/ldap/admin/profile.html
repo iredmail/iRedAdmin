@@ -1,39 +1,44 @@
 {% extends "layout.html" %}
+
+{% from "macros/form_inputs.html" import
+    input_submit,
+    input_csrf_token
+    with context
+    %}
+
 {% from "macros/general.html" import
                 display_subnav,
                 set_account_status_img,
-                display_csrf_token,
                 display_account_status,
                 display_input_cn,
                 display_preferred_language,
+                display_timezones,
                 display_reset_password,
                 display_random_password,
-                display_button_submit,
+                display_input_global_admin,
                 with context
                 %}
 
-{% from "macros/ldap.html" import
-                display_all_domains,
-                with context
-                %}
-
-{% from "macros/msgHandlers.html" import adminMsgHandler with context %}
+{% from "macros/msg_handlers.html" import admin_msg_handler with context %}
 
 {% block title %}{{ _('Edit account profile') }}{% endblock %}
-{% block navlinks_active_admins %}class="active"{% endblock %}
+{% block navlinks_admins %}class="active"{% endblock %}
 
-{% set entry = profile[0][1] %}
-{% set cn = entry.get('cn', [''])[0].decode('utf-8') %}
-{% set first_name = entry.get('givenName', [''])[0].decode('utf-8') |e %}
-{% set last_name = entry.get('sn', [''])[0].decode('utf-8') |e %}
-{% set accountStatus = entry.get('accountStatus', ['disabled'])[0] %}
+{% set cn = admin_profile.get('cn', [''])[0] %}
+{% set first_name = admin_profile.get('givenName', [''])[0] |e %}
+{% set last_name = admin_profile.get('sn', [''])[0] |e %}
+{% set accountStatus = admin_profile.get('accountStatus', ['disabled'])[0] %}
+{% set disabled_services = admin_profile.get('disabledService', []) %}
+
 
 {% block breadcrumb %}
-    {% set crumbs = [
-            (ctx.homepath + '/admins', _('All admins'),),
-            ('active', ctx.homepath + '/profile/admin/general/' + mail, _('Profile of admin:') + '&nbsp;' + mail,),
-            ]
-            %}
+    {% if session.get('is_global_admin') %}
+        {% set crumbs = [(ctx.homepath + '/admins', _('All admins')),
+                         ('active', ctx.homepath + '/profile/admin/general/' + mail, _('Profile of admin:') + '&nbsp;' + mail)] %}
+    {% else %}
+        {% set crumbs = [('active', ctx.homepath + '/profile/admin/general/' + mail, _('Profile of admin:') + '&nbsp;' + mail)] %}
+    {% endif %}
+
     {{ display_subnav(crumbs) }}
 {% endblock %}
 
@@ -41,79 +46,95 @@
 {% block main %}
 
 {# Show system message #}
-{{ adminMsgHandler(msg) }}
-
-{% set navlinks = [
-                ('general', _('General'), []),
-                ('password', _('Password'), []),
-                ]
-                %}
+{% if msg %}
+    {% if msg.startswith('PW_') %}
+        {% set _pw_errors = msg.split(',') %}
+        {% for _err in _pw_errors %}
+            {{ admin_msg_handler(_err) }}
+        {% endfor %}
+    {% else %}
+        {{ admin_msg_handler(msg) }}
+    {% endif %}
+{% endif %}
 
 <div class="content-box">
     <div class="box-body">
         <div class="box-header clear">
             <ul class="tabs clear">
-                {% for nav in navlinks %}
-                    {% if not false in nav[2] and not none in nav[2] %}
-                        <li {% if profile_type == nav[0] %}class="active"{% endif %}><a href="{{ctx.homepath}}/profile/admin/{{nav[0]}}/{{mail}}">{{ nav[1] }}</a></li>
-                    {% endif %}
-                {% endfor %}
+                <li><a href="#profile_general">{{ _('General') }}</a></li>
+                <li><a href="#profile_password">{{ _('Password') }}</a></li>
             </ul>
-
-            <h2>{{ _('Profile of admin:') }} {{ mail }}</h2>
         </div>
 
         <div class="box-wrap clear">
-            <form name="{{profile_type}}" method="post" action="{{ctx.homepath}}/profile/admin/{{profile_type}}/{{mail}}">
-                {{ display_csrf_token() }}
+            <div id="profile_general">
+                <form name="general" method="post" action="{{ctx.homepath}}/profile/admin/general/{{mail}}">
+                    {{ input_csrf_token() }}
 
-                {% if profile_type == 'general' %}
-                    <div class="columns clear">
-                        <div class="col2-3">
-                            {% if session.get('domainGlobalAdmin') is sameas true %}
-                                {{ display_account_status(accountStatus) }}
-                                <div class="bt-space0">&nbsp;</div>
-                            {% endif %}
+                        <div class="columns clear">
+                            <div class="col2-3">
+                                {% if session.get('is_global_admin') %}
+                                    {{ display_account_status(accountStatus) }}
+                                {% endif %}
 
-                            {{ display_input_cn(cn,
-                                                tooltip=_('Full name'),
-                                                show_first_last_name=true,
-                                                first_name=first_name,
-                                                last_name=last_name) }}
-                            {{ display_preferred_language(value=entry.get('preferredLanguage', ['en_US'])[0], languagemaps=languagemaps) }}
-                        </div>
-                    </div>{# .columns #}
+                                {{ display_input_cn(value=cn,
+                                                    tooltip=_('Full name'),
+                                                    show_first_last_name=true,
+                                                    first_name=first_name,
+                                                    last_name=last_name) }}
+                                {{ display_preferred_language(value=admin_profile.get('preferredLanguage', ['en_US'])[0],
+                                                              languagemaps=languagemaps) }}
 
-                {% elif profile_type == 'password' %}
+                                {{ display_timezones(value=account_settings.get('timezone'), timezones=timezones) }}
+
+                                {% if session.get('is_global_admin') %}
+                                    <div class="rule"></div>
+                                    {{ display_input_global_admin(value=admin_profile.get('domainGlobalAdmin', ['no'])[0]) }}
+                                {% endif %}
+                            </div>
+                        </div>{# .columns #}
+                    {{ input_submit() }}
+                </form>
+            </div>
+
+            <div id="profile_password">
+                <form name="password" method="post" action="{{ctx.homepath}}/profile/admin/password/{{mail}}">
+                    {{ input_csrf_token() }}
                     <div class="columns clear">
                         <div class="col3-4">
-                            {% if session.get('domainGlobalAdmin') is sameas true %}
+                            {% if session.get('is_global_admin') %}
                                 {{ display_reset_password(
                                         min_passwd_length=min_passwd_length,
                                         max_passwd_length=max_passwd_length,
                                         show_confirmpw=true,
-                                        )
-                                }}
+                                        store_password_in_plain_text=store_password_in_plain_text) }}
                             {% else %}
                                 {{ display_reset_password(
                                         min_passwd_length=min_passwd_length,
                                         max_passwd_length=max_passwd_length,
                                         show_oldpw=true,
                                         show_confirmpw=true,
-                                        )
-                                }}
+                                        store_password_in_plain_text=store_password_in_plain_text) }}
                             {% endif %}
                         </div>
 
                         <div class="col1-4 lastcol">
-                            {{ display_random_password(max_passwd_length) }}
+                            {{ display_random_password(password_length=min_passwd_length,
+                                                       password_policies=password_policies) }}
                         </div>
                     </div>
-                {% endif %}{# profile_type #}
-
-                {{ display_button_submit() }}
-            </form>
+                    {{ input_submit() }}
+                </form>
+            </div>
         </div>{# .box-wrap #}
     </div>{# .box-body #}
 </div>{#-- .content-box --#}
 {% endblock main %}
+
+{% block extra_js %}
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#domain_search').quickfilter('#all_domains tr');
+    });
+</script>
+{% endblock extra_js %}
