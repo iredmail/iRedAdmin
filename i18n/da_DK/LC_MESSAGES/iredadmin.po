@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-09-27 22:43+0800\n"
+"POT-Creation-Date: 2020-10-05 15:15+0800\n"
 "PO-Revision-Date: 2020-06-29 12:40+0100\n"
 "Last-Translator: Søren Mortensen <sm@upnavigator.dk>\n"
 "Language: da_DK\n"
@@ -17,30 +17,6 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
-
-#, python-format
-msgid "%d admin(s) found."
-msgstr "%d admin(s) fundet."
-
-#, python-format
-msgid "%d domain(s) found."
-msgstr "%d domæne(r) fundet."
-
-#, python-format
-msgid "%d mail alias(es) found."
-msgstr "%d mail alias(er) fundet."
-
-#, python-format
-msgid "%d mailing list(s) found."
-msgstr "%d mailing liste(r) fundet."
-
-#, python-format
-msgid "%d user(s) found."
-msgstr "%d bruger(e) fundet."
-
-#, python-format
-msgid "%s account(s) exist."
-msgstr "%s konto/konti findes."
 
 #, python-format
 msgid "%s days, %s hours, %s minutes."
@@ -54,18 +30,8 @@ msgstr "(%d beskeder, %s.)"
 msgid "(%d%% full, %d messages, %s.)"
 msgstr "(%d%% fuld, %d beskeder, %s.)"
 
-msgid "Access control"
-msgstr "Adgangskontrol"
-
-#, python-format
-msgid ""
-"According to our <a href='%s' target='_blank' rel='noopener'>license "
-"terms</a>, you have to purchase a new license to get the latest release "
-"if your license expired."
+msgid "(Mailbox is empty.)"
 msgstr ""
-"I følge vores <a href='%s' target='_blank' rel='noopener'>license "
-"betingelser</a>, skal du købe en ny licens for at få den seneste release,"
-" hvis din licens er udløbet."
 
 msgid "Account already exists, please choose another one."
 msgstr "Konto findes allerede, vælg en anden konto."
@@ -76,32 +42,17 @@ msgstr "Konto findes ikke."
 msgid "Account is disabled."
 msgstr "Kontoen er deaktiveret."
 
-msgid "Account is domain admin"
-msgstr "Kontoen er domænets admin"
-
 msgid "Account is global admin"
 msgstr "Kontoen er global admin"
 
-msgid "Account status"
-msgstr "Konto status"
-
-msgid "Account type"
-msgstr "Konto type"
-
 msgid "Activate account"
 msgstr "Aktiver konto"
-
-msgid "Active"
-msgstr "Aktiv"
 
 msgid "Activities"
 msgstr "Aktiviteter"
 
 msgid "Add"
 msgstr "Tilføj"
-
-msgid "Add (subscribable) mailing list"
-msgstr "Tilføj (abonnérbar) mailliste"
 
 msgid "Add account"
 msgstr "Tilføj konto"
@@ -112,29 +63,11 @@ msgstr "Tilføj admin"
 msgid "Add domain"
 msgstr "Tilføj domæne"
 
-msgid "Add mail alias"
-msgstr "Tilføj mail alias"
-
-msgid "Add mail alias under domain"
-msgstr "Tilføj mail alias til domæne"
-
 msgid "Add mail user"
 msgstr "Tilføj mail bruger"
 
 msgid "Add mail user under domain"
 msgstr "Tilføj mail bruger til domæne"
-
-msgid "Add mailing list"
-msgstr "Tilføj mailliste"
-
-msgid "Add mailing list under domain"
-msgstr "Tilføj mailliste til domæne"
-
-msgid "Add new members"
-msgstr "Tilføj nye medlemmer"
-
-msgid "Add new moderators"
-msgstr "Tilføj nye moderatorer"
 
 msgid "Add one"
 msgstr "Tilføj en"
@@ -164,28 +97,8 @@ msgstr "Admins under domæne: %s"
 msgid "Advanced"
 msgstr "Avanceret"
 
-msgid "Alias"
-msgstr "Alias"
-
-#, python-format
-msgid "Alias addresses must end with domain name: %s"
-msgstr ""
-
-msgid "Alias addresses:"
-msgstr "Alias adresser:"
-
 msgid "Alias domains:"
 msgstr "Alias domæner"
-
-msgid "Alias email addresses"
-msgstr ""
-
-msgid "Aliases"
-msgstr "Aliasser"
-
-#, python-format
-msgid "Aliases under domain: %s."
-msgstr "Aliasser under domæne: %s."
 
 msgid "All admins"
 msgstr "Alle admins"
@@ -193,18 +106,16 @@ msgstr "Alle admins"
 msgid "All domains"
 msgstr "Alle domæner"
 
+msgid ""
+"All domains managed by this admin share the mailbox quota and limit of "
+"mail accounts."
+msgstr ""
+
 msgid "All domains under your control."
 msgstr "Alle domæner under din kontrol."
 
-msgid "All emails"
-msgstr "Alle e-mails"
-
 msgid "Allocated"
 msgstr "Tildelte"
-
-#, python-format
-msgid "Already exceed max number of account limit (%d)."
-msgstr "Allerede overskredet max antal konto grænse (%d)."
 
 msgid "Already reaches account limit (mail aliases)."
 msgstr "Allerede nået konto grænse (mail aliasser)"
@@ -223,12 +134,6 @@ msgstr "Allerede nået konto grænse (maillister)"
 
 msgid "Apply"
 msgstr "Anvend"
-
-msgid "Archive"
-msgstr "Arkiv"
-
-msgid "Assigned groups:"
-msgstr "Tildelte grupper:"
 
 #, python-format
 msgid "At least %d characters."
@@ -253,21 +158,17 @@ msgstr "Mindst et stort bogstav"
 msgid "Available quota:"
 msgstr "Tilgængelig kvote:"
 
-#, python-format
-msgid "Available: %d (Existing: %d, Max: %d.)"
-msgstr "Tilgængelig: %d (Findes: %d, Max: %d.)"
-
 msgid "Backup"
 msgstr "Backup"
 
 msgid "Backup MX"
 msgstr "Backup MX"
 
-msgid "Change email address"
-msgstr "Skift e-mailadresse"
+msgid "Can not be longer than"
+msgstr ""
 
-msgid "Change email address to"
-msgstr "Skift e-mailadresse til"
+msgid "Can not be shorter than"
+msgstr ""
 
 msgid "Choose Action"
 msgstr "Vælg handling"
@@ -280,6 +181,9 @@ msgstr "Bekræft ny adgangskode"
 
 msgid "Contact webmaster"
 msgstr "Kontakt webmaster"
+
+msgid "Content of disclaimer will be appended to outgoing emails."
+msgstr ""
 
 msgid "Current password is incorrect."
 msgstr "Nuværende adgangskode er forkert."
@@ -302,39 +206,17 @@ msgstr "Slet konto"
 msgid "Delete all in database"
 msgstr "Slet alt i databasen"
 
-msgid "Delete and archive"
-msgstr "Slet og arkiver"
-
 msgid "Delete mailboxes"
 msgstr "Slet postkasser"
 
 msgid "Delete selected log"
 msgstr "Slet valgte log"
 
-msgid "Delete without archiving"
-msgstr "Slet uden arkivering"
-
-msgid "Digest"
-msgstr "Digest"
-
 msgid "Disable"
 msgstr "Deaktiver"
 
 msgid "Disable account"
 msgstr "Deaktiver konto"
-
-msgid ""
-"Disable subscription and unsubscription via email (existing subscribers "
-"are still able to send to list)"
-msgstr ""
-"Deaktiver abonnement og abonnement via e-mail (eksisterende abonnenter "
-"kan stadig sende til liste)"
-
-msgid "Disable subscription but allow unsubscription via email"
-msgstr "Deaktiver abonnement men tillade afmelding via e-mail"
-
-msgid "Disable subscription confirm"
-msgstr "Deaktiver abonnement bekræft"
 
 msgid "Disabled"
 msgstr "Deaktiveret"
@@ -345,38 +227,11 @@ msgstr "Deaktiverede konti"
 msgid "Disabled domains"
 msgstr "Deaktiverede domæner"
 
+msgid "Disclaimer"
+msgstr ""
+
 msgid "Display Name"
 msgstr "Vist navn"
-
-msgid "Do not archive received emails"
-msgstr "Gem ikke modtagne e-mails"
-
-msgid ""
-"Do not notify sender when posting to a moderator-only mailing list was "
-"denied"
-msgstr ""
-"Undlad at underrette afsender, når der blev afvist post til en kun for "
-"moderatorer mailingliste"
-
-msgid ""
-"Do not notify sender when posting to a subscriber-only mailing list was "
-"denied"
-msgstr ""
-"Undlad at underrette afsender, når der blev afvist post til en kun for "
-"abonnenter mailingliste"
-
-msgid ""
-"Do not notify sender when posting was denied due to exceed max message "
-"size"
-msgstr ""
-"Underret ikke afsender, når afsendelse blev nægtet, fordi den oversteg "
-"den maksimal meddelelsesstørrelse"
-
-msgid "Do not notify subscription requestor when subscription is under moderated"
-msgstr "Underret ikke abonnement, når abonnementet er modereret"
-
-msgid "Do not send a copy to sender"
-msgstr "Send ikke en kopi til afsenderen"
 
 msgid "Domain"
 msgstr "Domæne"
@@ -408,9 +263,6 @@ msgstr "Domæne navnet er tomt."
 msgid "Domain name or username is missed."
 msgstr "Domænenavn eller brugernavn mangler."
 
-msgid "Domain quota size"
-msgstr "Domæne kvote størrelse"
-
 msgid ""
 "Domain quota size exceeded. Please contact your administrator or service "
 "provider to increase it."
@@ -424,6 +276,9 @@ msgstr "Domæner"
 msgid "Domains and Accounts"
 msgstr "Domæner og konti"
 
+msgid "Dump disclaimer automatically"
+msgstr ""
+
 msgid "Edit account profile"
 msgstr "Rediger konto profil"
 
@@ -433,56 +288,17 @@ msgstr "Rediger domæne profil"
 msgid "Edit quota setting"
 msgstr "Rediger kvote indstilling"
 
-msgid "Email"
-msgstr "E-mail"
-
 msgid "Email address was changed."
 msgstr "E-mail adresse blev ændret."
 
-msgid ""
-"Email addresses of the mailing list moderators which need to be contacted"
-" when there is some email under moderated. If empty, mailing list owners "
-"will be used instead."
-msgstr ""
-"E-mail adresser på mailinglistens moderatorer, der skal kontaktes, når "
-"der er nogle e-mail som skal modereres. Hvis tom, vil mailinglistens ejer"
-" blive brugt i stedet for."
-
-msgid ""
-"Email addresses of the mailing list moderators which need to be contacted"
-" when there is someone subscribing to the list and under moderated. If "
-"empty, mailing list moderators will be used instead."
-msgstr ""
-"E-mail adresser på mailinglistens moderatorer, der skal kontaktes, når "
-"der er nogen, der abonnerer på listen og som skal modereres. Hvis tom, "
-"vil mailinglistens moderatorer blive brugt i stedet."
-
-#, python-format
-msgid ""
-"Email addresses of the mailing list owners which need to be contacted via"
-" email %s, either by the system or by end users."
-msgstr ""
-"E-mail adresser til mailinglistens ejere, som skal kontaktes via e-mail "
-"%s, enten af systemet eller af slutbrugerne."
-
 msgid "Emails"
 msgstr "E-mails"
-
-#, python-format
-msgid "Emails sent to alias addresses will be delivered to %s."
-msgstr ""
 
 msgid "Empty password is not allowed."
 msgstr "Tom adgangskode er ikke tilladt."
 
 msgid "Enable"
 msgstr "Aktivér"
-
-msgid "Enable newsletter-style mailing list"
-msgstr "Aktivér mailingliste for nyhedsbreve"
-
-msgid "Enable subscription and unsubscription from website"
-msgstr "Aktivér abonnement og afmelding af abonnement fra hjemmeside"
 
 msgid "Enable this account"
 msgstr "Aktivér denne konto"
@@ -495,9 +311,6 @@ msgstr "Fejl"
 
 msgid "Error while checking new version of iRedAdmin:"
 msgstr ""
-
-msgid "Error while getting license info:"
-msgstr "Fejl under hentning af licensoplysninger:"
 
 msgid "Error:"
 msgstr "Fejl:"
@@ -515,33 +328,6 @@ msgstr ""
 "Overskridelse af domænekonto grænse. Kontakt venligst din administrator "
 "eller tjenesteudbyder for at forøge den."
 
-msgid "Exceeded:"
-msgstr "Overskredet:"
-
-msgid "Expire date"
-msgstr "Udløbsdato"
-
-msgid "Expired"
-msgstr "Udløbet"
-
-msgid "Export account in LDIF format"
-msgstr ""
-
-msgid "Export accounts"
-msgstr "Eksporter konti"
-
-msgid "Export all managed accounts"
-msgstr "Eksport af alle administrerede konti"
-
-msgid "Export statistics of admins"
-msgstr "Eksport statistik for admins"
-
-msgid "External Members"
-msgstr "Eksterne medlemmer"
-
-msgid "External moderators"
-msgstr "Eksterne moderatorer"
-
 msgid "Filter accounts by first character in email addresses"
 msgstr "Filtrer konti efter første tegn i e-mailadresser"
 
@@ -557,26 +343,11 @@ msgstr "Første side"
 msgid "First name"
 msgstr "Fornavn"
 
-msgid "Footer text (HTML format)"
-msgstr "Fod tekst (HTML-format)"
-
-msgid "Footer text (plain text format)"
-msgstr "Fod tekst (almindeligt tekstformat)"
-
-msgid "Forwarding addresses (saved a copy in mailbox)"
-msgstr "Videresend adresser (gem en kopi i postkasse)"
-
-msgid "Forwarding addresses (without saving a copy in mailbox)"
-msgstr "Videresend adresser (uden at gemme en kopi i postkasse)"
-
 msgid "Full name"
 msgstr "Fulde navn"
 
 msgid "General"
 msgstr "Generel"
-
-msgid "Get a newsletter signup form"
-msgstr "Få en tilmeldingsblanket til nyhedsbrev"
 
 msgid "Global Admin"
 msgstr "Global Admin"
@@ -593,36 +364,6 @@ msgstr "IMAP Login:"
 msgid "IP Address"
 msgstr "IP Adresse"
 
-msgid ""
-"If you prefer redirecting user to a subscription page, this is the url of"
-" subscription page."
-msgstr ""
-"Hvis du foretrækker omdirigering af bruger til en abonnementsside, er "
-"dette adressen til din abonnementsside."
-
-msgid "Increase it now?"
-msgstr "Forøg det nu?"
-
-msgid ""
-"Input mail addresses of either internal or external members below, "
-"multiple addresses must be separated by comma, space or new line."
-msgstr ""
-"Input mail-adresser på enten interne eller eksterne medlemmer nedenfor, "
-"skal flere adresser adskilles af komma, mellemrum eller ny linje."
-
-msgid ""
-"Input mail addresses of either internal or external moderators below, "
-"multiple addresses must be separated by comma, space or new line."
-msgstr ""
-"Input mail-adresser på enten interne eller eksterne moderatorer nedenfor,"
-" skal flere adresser adskilles af komma, plads eller ny linje."
-
-msgid "Internal Members"
-msgstr "Interne medlemmer"
-
-msgid "Internal Moderators"
-msgstr "Interne Moderatorer"
-
 msgid "Invalid account."
 msgstr "Ugyldig konto."
 
@@ -635,25 +376,8 @@ msgstr "Ugyldigt domænenavn"
 msgid "Invalid mail address."
 msgstr "Ugyldig e-mailadresse."
 
-msgid "Invalid product id."
-msgstr "Ugyldigt produkt id."
-
 msgid "Is a global admin."
 msgstr "Er en global administrator."
-
-msgid ""
-"It's better create a subscribable mailing list instead, so that you can "
-"restrict the mail posting and delivery."
-msgstr ""
-"Det er bedre at oprette en abonnent mailingliste i stedet for, så du kan "
-"begrænse mail afsendelse og levering."
-
-msgid ""
-"It's better create a subscribable mailing list, so that you can restrict "
-"the mail posting and delivery."
-msgstr ""
-"Det er bedre at oprette en abonnent mailingliste, så du kan begrænse mail"
-" afsendelse og levering."
 
 msgid "Job Title"
 msgstr "Job Titel"
@@ -689,56 +413,17 @@ msgstr "Bevar postkasse i 1 år"
 msgid "Keep mailbox forever"
 msgstr "Bevar postkasse evigt"
 
-msgid "Keyword"
-msgstr "Nøgleord"
-
-msgid "Last Login"
-msgstr "Sidste login"
-
-msgid "Last Login:"
-msgstr "Sidste login:"
-
 msgid "Last Page"
 msgstr "Sidste Side"
 
 msgid "Last name"
 msgstr "Efternavn"
 
-msgid "Latest version"
-msgstr "Nyeste version"
-
-msgid "Leave it empty to use max value."
-msgstr "Lad det være tomt for at bruge maksimal værdi."
-
-msgid "License"
-msgstr "Licens"
-
-msgid "License Key"
-msgstr "Licensnøgle"
-
-msgid "License is active"
-msgstr "Licensen er aktiv"
-
-msgid "License owner(s)"
-msgstr "Licensejer(e)"
-
-msgid "License status"
-msgstr "Licens status"
-
-msgid "Lifetime license"
-msgstr "Livstidslicens"
-
-msgid "List all mail aliases."
-msgstr "Liste over alle mail aliasser."
+msgid "Leave it empty to use server-wide default setting."
+msgstr ""
 
 msgid "List all mail users."
 msgstr "Liste over alle mail brugere."
-
-msgid "List all mailing lists."
-msgstr "Vis alle maillister."
-
-msgid "Lists"
-msgstr "Lister"
 
 #, python-format
 msgid "Logged in as %s"
@@ -762,53 +447,14 @@ msgstr "Log af"
 msgid "Mail Address"
 msgstr "Mail Adresse"
 
-msgid "Mail Aliases"
-msgstr "Mail Aliasser"
-
-msgid "Mail Deliver Restriction"
-msgstr "Mail Leverings Begrænsning"
-
-msgid "Mail Delivery"
-msgstr "Mail Levering"
-
 msgid "Mail Users"
 msgstr "Mail Brugere"
-
-msgid "Mail deliver restriction will be migrated."
-msgstr "Mail leveringsrestriktion vil blive migreret."
-
-msgid ""
-"Mail delivery restriction will be set to allow email from any sender by "
-"default."
-msgstr ""
-"E-mail leveringsrestriktion vil blive indstillet til at tillade e-mail "
-"fra en afsender som standard."
-
-msgid "Mail posting"
-msgstr "Mail afsendelse"
-
-msgid "Mail sent to alias will be forwarded to members."
-msgstr "Mail sendt til alias bliver videresendt til medlemmerne."
 
 msgid "Mailbox Quota"
 msgstr "Postkasse kvote"
 
-msgid "Mailing List"
-msgstr "Mailliste"
-
-msgid "Mailing List (Subscribable)"
-msgstr "Mailliste (abonnérbar)"
-
-msgid "Mailing Lists"
-msgstr "Maillister"
-
-#, python-format
-msgid "Mailing lists under domain: %s"
-msgstr "Maillister under domæne: %s"
-
-#, python-format
-msgid "Mailing lists under domain: %s."
-msgstr "Maillister under domæne: %s."
+msgid "Make sure disclaimer work as expected:"
+msgstr ""
 
 msgid "Mark as domain admin"
 msgstr "Markér som domæne administrator"
@@ -816,11 +462,11 @@ msgstr "Markér som domæne administrator"
 msgid "Mark as global admin"
 msgstr "Markér som global administrator"
 
-msgid "Max message size"
-msgstr "Maksimal meddelelsesstørrelse"
+msgid "Mark this user as global admin"
+msgstr ""
 
-msgid "Max:"
-msgstr "Maks:"
+msgid "Maximum password length"
+msgstr ""
 
 msgid "Member of mailing lists:"
 msgstr "Medlem af mail lister"
@@ -831,35 +477,14 @@ msgstr "Medlemmer"
 msgid "Members and moderators"
 msgstr "Medlemmer og moderatorer"
 
-msgid "Members and moderators will be fully migrated."
-msgstr "Medlemmer og moderatorer vil blive fuldt migreret."
-
-msgid "Members will be fully migrated."
-msgstr "Medlemmerne vil blive fuldt migreret."
-
 msgid "Message"
 msgstr "Besked"
 
-msgid "Messages sent to mailing list will be delivered to its members."
-msgstr "Meddelelser, der sendes til maillisten, leveres til medlemmerne."
-
-msgid "Migrate Now"
-msgstr "Migrere nu"
-
-msgid "Migrate to subscribable mailing list"
-msgstr "Migrer til abonnérbar mail liste"
-
-msgid "Migrate to subscribable mailing list?"
-msgstr "Migrer til abonnérbar mailingliste?"
+msgid "Minimum password length"
+msgstr ""
 
 msgid "Mobile"
 msgstr "Mobil"
-
-msgid "Moderate all posts (Moderators are required)"
-msgstr "Moderate af alle indlæg (Moderatorer er påkrævet)"
-
-msgid "Moderate subscriptions"
-msgstr "Moderate abonnementer"
 
 msgid "Moderators"
 msgstr "Moderatorer"
@@ -891,20 +516,12 @@ msgstr "Ny adgangskode skal indeholde mindst %s tegn."
 msgid "New passwords are not match."
 msgstr "Nye adgangskoder matcher ikke."
 
-msgid "New version is available."
-msgstr "Ny version er tilgængelig."
-
 #, python-format
 msgid ""
 "New version of iRedAdmin, %s, is now available for upgrading. <a "
-"href='%s/system/license' class='button green'>Details</a>"
+"href='https://docs.iredmail.org/migrate.or.upgrade.iredadmin.html' "
+"class='button green'>Upgrade tutorial</a>."
 msgstr ""
-
-msgid "News & Announcements"
-msgstr "Nyheder og meddelelser"
-
-msgid "Newsletter"
-msgstr "Nyhedsbrev"
 
 msgid "Next Page"
 msgstr "Næste side"
@@ -921,38 +538,17 @@ msgstr "Ingen ciffernummer i adgangskoden."
 msgid "No domain under control."
 msgstr "Intet domæne under kontrol."
 
-msgid "No email"
-msgstr "Ingen e-mail"
-
-msgid "No free domain quota left."
-msgstr "Ingen fri domæne kvote tilbage."
-
 msgid "No letter in password."
 msgstr "Intet bogstaver i adgangskoden."
 
 msgid "No mail admin assigned."
 msgstr "Der er ikke tildelt nogen mailadministrator."
 
-msgid "No mail admin available."
-msgstr "Ingen mail admin tilgængelig."
-
-msgid "No mail alias available."
-msgstr "Intet mail-alias er tilgængeligt."
-
 msgid "No mail domain available."
 msgstr "Ingen mail domæne til rådighed."
 
 msgid "No mail user available."
 msgstr "Ingen mail bruger tilgængelig."
-
-msgid "No mailing list available."
-msgstr "Ingen mailingliste tilgængelig."
-
-msgid "No members."
-msgstr "Ingen medlemmer."
-
-msgid "No moderators."
-msgstr "Ingen moderatorer."
 
 #, python-format
 msgid "No more than %d characters."
@@ -971,39 +567,14 @@ msgstr "Ingen store bogstaver i kodeord."
 msgid "Not a global admin."
 msgstr "Ikke en global administrator."
 
-msgid "Not allowed to create mail alias under this domain."
-msgstr "Ikke tilladt at oprette mail-alias under dette domæne."
-
 msgid "Not allowed to create mail user under this domain."
 msgstr "Ikke tilladt at oprette e-mail bruger under dette domæne."
 
-msgid "Not allowed to create mailing list under this domain."
-msgstr "Det er ikke tilladt at oprette maillister under dette domæne."
-
-msgid "Notifications"
-msgstr "Notifikationer."
-
-msgid ""
-"Notify owner(s) when someone subscribe to or unsubscribe from the mailing"
-" list"
+msgid "Note: Global admin can manage all mail domains."
 msgstr ""
-"Underret ejeren/ejerne, når nogen abonnerer på eller afmelder sig fra "
-"maillisten"
-
-msgid "Notify sender if email is under moderated"
-msgstr "Informer afsender, hvis e-mail er under modereret"
 
 msgid "Number of domains"
 msgstr "Antal domæner"
-
-msgid "Number of max mail aliases"
-msgstr "Antal maks. mail aliasser"
-
-msgid "Number of max mail users"
-msgstr "Antal maks. mail brugere"
-
-msgid "Number of max mailing lists"
-msgstr "Antal maks. maillister"
 
 msgid "Number of users"
 msgstr "Antal brugere"
@@ -1023,16 +594,6 @@ msgstr "Én postadresse pr. linje. Ugyldig adresse vil blive kasseret."
 
 msgid "Or create other mail accounts:"
 msgstr "Eller opret andre mailkonti:"
-
-#, python-format
-msgid "Owner will be set to postmaster@%s."
-msgstr "Ejer vil blive indstillet til postmaster@%s."
-
-msgid "Owners"
-msgstr "Ejere"
-
-msgid "Owners and Moderators"
-msgstr "Ejere og Moderatorer"
 
 msgid "POP3 Login:"
 msgstr "POP3 Login:"
@@ -1058,15 +619,11 @@ msgstr "Adgangskoden skal indeholde"
 msgid "Permission denied."
 msgstr "Adgang nægtet."
 
+msgid "Plain text only"
+msgstr ""
+
 msgid "Please do not use non-ascii character in password."
 msgstr "Brug venligst ikke-ascii-tegn i password."
-
-msgid ""
-"Please either mark mail user as domain admin or create a separate admin "
-"account."
-msgstr ""
-"Vær venlig enten at markere mail bruger som domæneadministrator eller "
-"oprette en separat administratorkonto."
 
 msgid "Please select at least one account."
 msgstr "Vælg mindst en konto."
@@ -1080,14 +637,8 @@ msgstr "Indstillinger"
 msgid "Preferred language"
 msgstr "Foretrukne sprog"
 
-msgid "Prefix text to mail subject"
-msgstr "Prefix tekst til mail emne"
-
 msgid "Previous Page"
 msgstr "Forrige side"
-
-msgid "Product name"
-msgstr "Produkt navn"
 
 msgid "Profile has been updated."
 msgstr "Profilen er blevet opdateret."
@@ -1095,14 +646,8 @@ msgstr "Profilen er blevet opdateret."
 msgid "Profile of admin:"
 msgstr "Profil af admin:"
 
-msgid "Profile of alias:"
-msgstr "Profil af alias:"
-
 msgid "Profile of domain:"
 msgstr "Profil af domæne:"
-
-msgid "Profile of mailing list:"
-msgstr "Profil af mailliste:"
 
 msgid "Profile of user:"
 msgstr "Profil af bruger:"
@@ -1110,53 +655,20 @@ msgstr "Profil af bruger:"
 msgid "Profile updated failed."
 msgstr "Profil opdatering mislykkedes."
 
-msgid "Purchase a new license"
-msgstr "Køb en ny licens"
-
-msgid "Purchase date"
-msgstr "Købsdato"
-
 msgid "Quota"
 msgstr "Kvote"
 
 msgid "Records were successfully updated."
 msgstr "Poster blev opdateret."
 
-msgid "Redirect user to subscription page"
-msgstr "Omdirigér bruger til abonnementsside"
-
 msgid "Relay"
 msgstr "Relay"
-
-msgid "Release Notes and Upgrade Tutorials"
-msgstr "Udgivelsesnotater og opgrader vejledninger"
-
-msgid "Remove ALL members"
-msgstr "Fjern ALLE medlemmer"
-
-msgid "Remove from list"
-msgstr "Fjern fra listen"
-
-msgid "Remove selected members"
-msgstr "Fjern udvalgte medlemmer"
-
-msgid "Renew license"
-msgstr "Forny licens"
 
 msgid "Revoke admin privilege"
 msgstr "Tilbagekald admin privilegium"
 
 msgid "Save changes"
 msgstr "Gem ændringer"
-
-msgid "Search"
-msgstr "Søg"
-
-msgid "Search mail accounts"
-msgstr "Søg e-mail konti"
-
-msgid "Search results."
-msgstr "Søgeresultater."
 
 msgid ""
 "Security token did not match. Please refresh current page and re-perform "
@@ -1198,12 +710,6 @@ msgstr "De valgte domæner blev aktiveret."
 msgid "Selected log records were deleted."
 msgstr "De valgte log optegnelser blev slettet"
 
-msgid "Send email to new members for subscription confirm"
-msgstr "Send e-mail til nye medlemmer for abonnementsbekræftelse"
-
-msgid "Send me an email with download link"
-msgstr "Send mig en e-mail med download link"
-
 msgid "Server Load"
 msgstr "Server Load"
 
@@ -1219,20 +725,6 @@ msgstr "Sessionen er udløbet. Vær venlig at logge ind igen."
 
 msgid "Set to 0 for unlimited."
 msgstr "Indstil til 0 for ubegrænset."
-
-msgid "Set value to -1 means not allowed to create this kind of account."
-msgstr ""
-"Indstil værdi til -1 betyder, at det ikke er tilladt at oprette denne "
-"type konto."
-
-msgid "Set value to 0 or leave it empty for unlimited."
-msgstr "Indstil værdi til 0 eller lad den være tom for ubegrænset."
-
-msgid "Settings"
-msgstr "Indstillinger"
-
-msgid "Show in Global Address Book"
-msgstr "Vis i Global Adressebog"
 
 #, python-format
 msgid "Some addresses have been discarded because they have been used: %s."
@@ -1256,24 +748,8 @@ msgstr "Send"
 msgid "Submited domain name is incorrect."
 msgstr "Indsendt domænenavn er forkert."
 
-msgid "Subscription Moderators"
-msgstr "Abonnement Moderatorer"
-
-msgid ""
-"Subscription and unsubscription will be disabled by default, feel free to"
-" enable them after migration."
-msgstr ""
-"Abonnement og abonnement vil blive deaktiveret som standard. Du er "
-"velkommen til at aktivere dem efter migrering."
-
-msgid "Subscription control"
-msgstr "Abonnementskontrol"
-
 msgid "Support"
 msgstr "Support"
-
-msgid "System"
-msgstr "System"
 
 msgid "System Information"
 msgstr "System Information"
@@ -1281,23 +757,11 @@ msgstr "System Information"
 msgid "Telephone Number"
 msgstr "Telefon nummer"
 
-msgid "Text to introduce this newsletter on subscription page"
-msgstr "Tekst til at introducere dette nyhedsbrev på abonnementssiden"
-
-msgid "This is a mail alias."
-msgstr "Dette er et mail-alias."
-
-msgid "This is a mailing list."
-msgstr "Dette er en mailliste."
-
 msgid "Time"
 msgstr "Tid"
 
 msgid "Time zone"
 msgstr "Tidszone"
-
-msgid "To add new members, please enable mailing list account first."
-msgstr "For at tilføje nye medlemmer skal du først aktivere maillistekonto."
 
 msgid "Unban IP address"
 msgstr "Unban IP-adresse"
@@ -1360,85 +824,14 @@ msgstr "Brugere under samme domæne"
 msgid "Users under same domain and its sub-domains"
 msgstr "Brugere under samme domæne og dets underdomæner"
 
-msgid "View members"
-msgstr "Vis medlemmer"
-
 msgid "Who can send email to this list"
 msgstr "Hvem kan sende e-mail til denne liste"
 
 msgid "You are not allowed to update global domain admin's profile."
 msgstr "Du har ikke lov til at opdatere den globale domæneadministrators profil."
 
-#, python-format
-msgid "You are running version %s"
-msgstr "Du kører version %s"
-
-#, python-format
-msgid "You can NOT create more users under domain %s."
-msgstr "Du kan IKKE oprette flere brugere under domæne %s."
-
-#, python-format
-msgid "You can create <strong>%d</strong> more mail alias(es) under domain %s."
-msgstr "Du kan oprette <strong>%d</strong> flere mail-alias(er) under domæne %s."
-
-#, python-format
-msgid ""
-"You can create <strong>%d</strong> more mail domains (Existing: %d, Max: "
-"%d)"
+msgid "or longer than"
 msgstr ""
-"Du kan oprette <strong>%d</strong> flere mail domæner (Eksisterende: %d, "
-"Max: %d)"
-
-#, python-format
-msgid "You can create <strong>%d</strong> more mail user(s) under domain %s."
-msgstr "Du kan oprette <strong>%d</strong> flere mail brugere under domæne %s."
-
-#, python-format
-msgid "You can create <strong>%d</strong> more mailing list(s) under domain %s."
-msgstr "Du kan oprette <strong>%d</ strong> flere maillister under domæne %s."
-
-msgid ""
-"You can embed a mailing list signup form (HTML code below) on any page of"
-" your website. Feel free to customize the form to add your brand name, "
-"logo image, or combine it with special offers to attract new subscribers "
-"and boost engagement."
-msgstr ""
-"Du kan indlejre en mailliste tilmeldingsformular (HTML kode nedenfor) på "
-"en hvilken som helst side på din hjemmeside. Du er velkommen til at "
-"tilpasse formularen for at tilføje dit varemærke, logo billede eller "
-"kombinere det med særlige tilbud for at tiltrække nye abonnenter og øge "
-"engagementet."
-
-msgid ""
-"You can enable self-service (per-domain setting) to allow users to manage"
-" their own preferences and more."
-msgstr ""
-"Du kan aktivere selvbetjening (per domæneindstilling), så brugerne kan "
-"administrere deres egne præferencer og mere."
-
-#, python-format
-msgid "You can't create mail aliases under domain %s."
-msgstr "Du kan ikke oprette mail-aliasser under domæne %s."
-
-#, python-format
-msgid "You can't create mailing lists under domain %s."
-msgstr "Du kan ikke oprette adresselister under domænet %s."
-
-#, python-format
-msgid "You can't create more mail aliases under domain %s."
-msgstr "Du kan ikke oprette flere mail-aliasser under domæne %s."
-
-#, python-format
-msgid "You can't create more mailing lists under domain %s."
-msgstr "Du kan ikke oprette flere maillister under domænet %s."
-
-msgid "Your license is invalid. Please contact support@iredmail.org to fix it."
-msgstr ""
-"Din licens er ugyldig. Kontakt venligst support@iredmail.org for at rette"
-" op på det."
-
-msgid "Your search returned no hits."
-msgstr "Din søgning gav ingen hits."
 
 msgid "without verifying local recipients"
 msgstr "uden at verificere lokale modtagere"

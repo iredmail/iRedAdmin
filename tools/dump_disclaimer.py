@@ -5,7 +5,7 @@
 # Purpose:  Dump disclaimer text from OpenLDAP directory server or SQL servers.
 # Requirements: iRedMail-0.5.0 or later releases
 #
-# Shipped within iRedAdmin-Pro: http://www.iredmail.org/admin_panel.html
+# Shipped within iRedAdmin: http://www.iredmail.org/admin_panel.html
 
 # USAGE:
 #

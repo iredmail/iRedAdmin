@@ -25,7 +25,7 @@ from . import hooks
 web.config.debug = settings.DEBUG
 
 # Set session parameters.
-web.config.session_parameters["cookie_name"] = "iRedAdmin-Pro-%s" % settings.backend.upper()
+web.config.session_parameters["cookie_name"] = "iRedAdmin-%s" % settings.backend.upper()
 web.config.session_parameters["cookie_domain"] = None
 web.config.session_parameters["ignore_expiry"] = True
 web.config.session_parameters["ignore_change_ip"] = settings.SESSION_IGNORE_CHANGE_IP

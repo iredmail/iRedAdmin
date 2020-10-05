@@ -625,7 +625,7 @@ BRAND_LOGO = ""
 BRAND_FAVICON = ""
 
 # Product name, short description.
-BRAND_NAME = "iRedAdmin-Pro"
+BRAND_NAME = "iRedAdmin"
 BRAND_DESC = "iRedMail Admin Panel"
 
 # Path to `sendmail` command

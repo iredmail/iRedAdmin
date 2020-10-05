@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: zhb@iredmail.org\n"
-"POT-Creation-Date: 2020-09-27 22:43+0800\n"
+"POT-Creation-Date: 2020-10-05 15:15+0800\n"
 "PO-Revision-Date: 2013-03-15 13:15+0800\n"
 "Last-Translator: Ho <ho.iredmail@gmail.com>\n"
 "Language: zh_Hant_TW\n"
@@ -17,30 +17,6 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.3.4\n"
-
-#, python-format
-msgid "%d admin(s) found."
-msgstr "找到 %d 個管理員。"
-
-#, python-format
-msgid "%d domain(s) found."
-msgstr "找到 %d 個網域。"
-
-#, python-format
-msgid "%d mail alias(es) found."
-msgstr "找到 %d 個郵件別名。"
-
-#, python-format
-msgid "%d mailing list(s) found."
-msgstr "找到 %d 個郵寄名單"
-
-#, python-format
-msgid "%d user(s) found."
-msgstr "找到 %d 個用戶"
-
-#, python-format
-msgid "%s account(s) exist."
-msgstr "已有 %s 個帳號。"
 
 #, python-format
 msgid "%s days, %s hours, %s minutes."
@@ -54,14 +30,7 @@ msgstr ""
 msgid "(%d%% full, %d messages, %s.)"
 msgstr ""
 
-msgid "Access control"
-msgstr "存取控制"
-
-#, python-format
-msgid ""
-"According to our <a href='%s' target='_blank' rel='noopener'>license "
-"terms</a>, you have to purchase a new license to get the latest release "
-"if your license expired."
+msgid "(Mailbox is empty.)"
 msgstr ""
 
 msgid "Account already exists, please choose another one."
@@ -73,32 +42,17 @@ msgstr "帳號不存在。"
 msgid "Account is disabled."
 msgstr "帳號已停用。"
 
-msgid "Account is domain admin"
-msgstr "帳號為域管理員。"
-
 msgid "Account is global admin"
 msgstr "帳號為全域管理員。"
 
-msgid "Account status"
-msgstr "帳號狀態"
-
-msgid "Account type"
-msgstr "帳號類型"
-
 msgid "Activate account"
 msgstr "啟用帳號"
-
-msgid "Active"
-msgstr "啟用"
 
 msgid "Activities"
 msgstr "活動"
 
 msgid "Add"
 msgstr "新增"
-
-msgid "Add (subscribable) mailing list"
-msgstr "新增（可訂閱的）郵寄名單"
 
 msgid "Add account"
 msgstr "新增帳號"
@@ -109,29 +63,11 @@ msgstr "新增管理員"
 msgid "Add domain"
 msgstr "新增網域"
 
-msgid "Add mail alias"
-msgstr "新增郵件別名"
-
-msgid "Add mail alias under domain"
-msgstr "在網域 %s 內新增郵件別名"
-
 msgid "Add mail user"
 msgstr "新增郵件用戶"
 
 msgid "Add mail user under domain"
 msgstr "在網域 %s 內新增用戶"
-
-msgid "Add mailing list"
-msgstr "新增郵件列表"
-
-msgid "Add mailing list under domain"
-msgstr "在域名下新增郵寄名單"
-
-msgid "Add new members"
-msgstr "新增成員"
-
-msgid "Add new moderators"
-msgstr "新增仲裁者"
 
 msgid "Add one"
 msgstr "新增一個"
@@ -161,28 +97,8 @@ msgstr "網域 %s 的管理員"
 msgid "Advanced"
 msgstr "進階設定"
 
-msgid "Alias"
-msgstr "郵件別名"
-
-#, python-format
-msgid "Alias addresses must end with domain name: %s"
-msgstr ""
-
-msgid "Alias addresses:"
-msgstr "別名地址："
-
 msgid "Alias domains:"
 msgstr "網域別名："
-
-msgid "Alias email addresses"
-msgstr ""
-
-msgid "Aliases"
-msgstr "別名"
-
-#, python-format
-msgid "Aliases under domain: %s."
-msgstr "網域 %s 內的別名："
 
 msgid "All admins"
 msgstr "所有管理員"
@@ -190,18 +106,16 @@ msgstr "所有管理員"
 msgid "All domains"
 msgstr "所有網域"
 
+msgid ""
+"All domains managed by this admin share the mailbox quota and limit of "
+"mail accounts."
+msgstr ""
+
 msgid "All domains under your control."
 msgstr "您管理的所有郵件網域。"
 
-msgid "All emails"
-msgstr "所有電子郵件"
-
 msgid "Allocated"
 msgstr "已分配"
-
-#, python-format
-msgid "Already exceed max number of account limit (%d)."
-msgstr "已經超過最大帳戶數限制（%d）"
 
 msgid "Already reaches account limit (mail aliases)."
 msgstr "已經達到帳戶限制（郵件別名）"
@@ -220,12 +134,6 @@ msgstr "已達到帳戶限制（郵件列表）"
 
 msgid "Apply"
 msgstr "套用"
-
-msgid "Archive"
-msgstr "封存"
-
-msgid "Assigned groups:"
-msgstr "指派的群組："
 
 #, python-format
 msgid "At least %d characters."
@@ -250,21 +158,17 @@ msgstr "至少一個大寫字母"
 msgid "Available quota:"
 msgstr "可用空間配額"
 
-#, python-format
-msgid "Available: %d (Existing: %d, Max: %d.)"
-msgstr "可用： %d （已有： %d，最大： %d。）"
-
 msgid "Backup"
 msgstr "備份"
 
 msgid "Backup MX"
 msgstr "備份 MX"
 
-msgid "Change email address"
-msgstr "更改郵件地址。"
+msgid "Can not be longer than"
+msgstr ""
 
-msgid "Change email address to"
-msgstr "郵件地址更改為"
+msgid "Can not be shorter than"
+msgstr ""
 
 msgid "Choose Action"
 msgstr "選擇操作"
@@ -277,6 +181,9 @@ msgstr "確認新密碼"
 
 msgid "Contact webmaster"
 msgstr "聯繫管理員"
+
+msgid "Content of disclaimer will be appended to outgoing emails."
+msgstr ""
 
 msgid "Current password is incorrect."
 msgstr "當前密碼錯誤。"
@@ -299,19 +206,10 @@ msgstr "刪除帳號"
 msgid "Delete all in database"
 msgstr "刪除資料庫裡的所有記錄"
 
-msgid "Delete and archive"
-msgstr ""
-
 msgid "Delete mailboxes"
 msgstr ""
 
 msgid "Delete selected log"
-msgstr ""
-
-msgid "Delete without archiving"
-msgstr ""
-
-msgid "Digest"
 msgstr ""
 
 msgid "Disable"
@@ -319,17 +217,6 @@ msgstr "停用"
 
 msgid "Disable account"
 msgstr "停用帳號"
-
-msgid ""
-"Disable subscription and unsubscription via email (existing subscribers "
-"are still able to send to list)"
-msgstr ""
-
-msgid "Disable subscription but allow unsubscription via email"
-msgstr ""
-
-msgid "Disable subscription confirm"
-msgstr ""
 
 msgid "Disabled"
 msgstr "已停用"
@@ -340,32 +227,11 @@ msgstr "停用的帳號"
 msgid "Disabled domains"
 msgstr "停用的網域"
 
+msgid "Disclaimer"
+msgstr ""
+
 msgid "Display Name"
 msgstr "顯示名稱"
-
-msgid "Do not archive received emails"
-msgstr ""
-
-msgid ""
-"Do not notify sender when posting to a moderator-only mailing list was "
-"denied"
-msgstr ""
-
-msgid ""
-"Do not notify sender when posting to a subscriber-only mailing list was "
-"denied"
-msgstr ""
-
-msgid ""
-"Do not notify sender when posting was denied due to exceed max message "
-"size"
-msgstr ""
-
-msgid "Do not notify subscription requestor when subscription is under moderated"
-msgstr ""
-
-msgid "Do not send a copy to sender"
-msgstr ""
 
 msgid "Domain"
 msgstr "網域名"
@@ -397,9 +263,6 @@ msgstr "郵件網域名稱為空白。"
 msgid "Domain name or username is missed."
 msgstr "沒有網域名稱或用戶名。"
 
-msgid "Domain quota size"
-msgstr "郵件網域的總郵箱空間配額"
-
 msgid ""
 "Domain quota size exceeded. Please contact your administrator or service "
 "provider to increase it."
@@ -411,6 +274,9 @@ msgstr "網域名稱"
 msgid "Domains and Accounts"
 msgstr "網域和帳號"
 
+msgid "Dump disclaimer automatically"
+msgstr ""
+
 msgid "Edit account profile"
 msgstr "編輯帳號屬性"
 
@@ -420,48 +286,17 @@ msgstr "編輯網域屬性"
 msgid "Edit quota setting"
 msgstr "編輯空間配額設定"
 
-msgid "Email"
-msgstr ""
-
 msgid "Email address was changed."
 msgstr "郵件地址已被更改。"
 
-msgid ""
-"Email addresses of the mailing list moderators which need to be contacted"
-" when there is some email under moderated. If empty, mailing list owners "
-"will be used instead."
-msgstr ""
-
-msgid ""
-"Email addresses of the mailing list moderators which need to be contacted"
-" when there is someone subscribing to the list and under moderated. If "
-"empty, mailing list moderators will be used instead."
-msgstr ""
-
-#, python-format
-msgid ""
-"Email addresses of the mailing list owners which need to be contacted via"
-" email %s, either by the system or by end users."
-msgstr ""
-
 msgid "Emails"
 msgstr "郵件"
-
-#, python-format
-msgid "Emails sent to alias addresses will be delivered to %s."
-msgstr ""
 
 msgid "Empty password is not allowed."
 msgstr "不允許空白密碼。"
 
 msgid "Enable"
 msgstr "啟用"
-
-msgid "Enable newsletter-style mailing list"
-msgstr "啟用電子報形式的郵寄名單"
-
-msgid "Enable subscription and unsubscription from website"
-msgstr ""
 
 msgid "Enable this account"
 msgstr "啟用此帳號"
@@ -474,9 +309,6 @@ msgstr ""
 
 msgid "Error while checking new version of iRedAdmin:"
 msgstr ""
-
-msgid "Error while getting license info:"
-msgstr "檢查許可證時發生錯誤："
 
 msgid "Error:"
 msgstr "錯誤："
@@ -491,33 +323,6 @@ msgid ""
 "Exceeded domain account limit. Please contact your administrator or "
 "service provider to increase it."
 msgstr "帳號數已達網域的最大限制。請聯絡系統管理員或服務提供者來增加。"
-
-msgid "Exceeded:"
-msgstr ""
-
-msgid "Expire date"
-msgstr "到期日"
-
-msgid "Expired"
-msgstr "已過期"
-
-msgid "Export account in LDIF format"
-msgstr ""
-
-msgid "Export accounts"
-msgstr ""
-
-msgid "Export all managed accounts"
-msgstr ""
-
-msgid "Export statistics of admins"
-msgstr ""
-
-msgid "External Members"
-msgstr "外部成員"
-
-msgid "External moderators"
-msgstr "外部仲裁者"
 
 msgid "Filter accounts by first character in email addresses"
 msgstr "按郵件地址的第一個字符過濾帳號"
@@ -534,26 +339,11 @@ msgstr "第一頁"
 msgid "First name"
 msgstr "名字"
 
-msgid "Footer text (HTML format)"
-msgstr ""
-
-msgid "Footer text (plain text format)"
-msgstr ""
-
-msgid "Forwarding addresses (saved a copy in mailbox)"
-msgstr "轉發地址（已在郵箱中保存副本）"
-
-msgid "Forwarding addresses (without saving a copy in mailbox)"
-msgstr "轉發地址（不保存郵箱中的副本）"
-
 msgid "Full name"
 msgstr "全名"
 
 msgid "General"
 msgstr "一般設定"
-
-msgid "Get a newsletter signup form"
-msgstr "得到電子報訂閱表格"
 
 msgid "Global Admin"
 msgstr "全域管理員"
@@ -570,30 +360,6 @@ msgstr ""
 msgid "IP Address"
 msgstr "IP 地址"
 
-msgid ""
-"If you prefer redirecting user to a subscription page, this is the url of"
-" subscription page."
-msgstr ""
-
-msgid "Increase it now?"
-msgstr "現在增加？"
-
-msgid ""
-"Input mail addresses of either internal or external members below, "
-"multiple addresses must be separated by comma, space or new line."
-msgstr "在下方輸入內部或外部成員的郵件地址，多個地址必須用逗號、空格或新的一行分隔。"
-
-msgid ""
-"Input mail addresses of either internal or external moderators below, "
-"multiple addresses must be separated by comma, space or new line."
-msgstr "在下方輸入內部或外部仲裁者的郵件地址，多個地址必須用逗號、空格或新的一行分隔。"
-
-msgid "Internal Members"
-msgstr "內部成員"
-
-msgid "Internal Moderators"
-msgstr "內部仲裁者"
-
 msgid "Invalid account."
 msgstr "無效的帳號。"
 
@@ -606,21 +372,8 @@ msgstr "無效的網域名稱。"
 msgid "Invalid mail address."
 msgstr "無效的郵件地址。"
 
-msgid "Invalid product id."
-msgstr "無效的產品 ID。"
-
 msgid "Is a global admin."
 msgstr "是全域管理員。"
-
-msgid ""
-"It's better create a subscribable mailing list instead, so that you can "
-"restrict the mail posting and delivery."
-msgstr ""
-
-msgid ""
-"It's better create a subscribable mailing list, so that you can restrict "
-"the mail posting and delivery."
-msgstr ""
 
 msgid "Job Title"
 msgstr "職位"
@@ -656,56 +409,17 @@ msgstr "保留郵箱 1 年"
 msgid "Keep mailbox forever"
 msgstr "永久保留郵箱"
 
-msgid "Keyword"
-msgstr "關鍵字"
-
-msgid "Last Login"
-msgstr "上次登入"
-
-msgid "Last Login:"
-msgstr "上次登入："
-
 msgid "Last Page"
 msgstr "最後一頁"
 
 msgid "Last name"
 msgstr "姓"
 
-msgid "Latest version"
-msgstr "最新版本"
-
-msgid "Leave it empty to use max value."
+msgid "Leave it empty to use server-wide default setting."
 msgstr ""
-
-msgid "License"
-msgstr "許可證"
-
-msgid "License Key"
-msgstr "許可證金鑰"
-
-msgid "License is active"
-msgstr "許可證已啟用"
-
-msgid "License owner(s)"
-msgstr "許可證擁有者"
-
-msgid "License status"
-msgstr "許可證狀態"
-
-msgid "Lifetime license"
-msgstr "終生許可證"
-
-msgid "List all mail aliases."
-msgstr "列出所有郵件別名。"
 
 msgid "List all mail users."
 msgstr "列出所有郵件用戶。"
-
-msgid "List all mailing lists."
-msgstr "列出所有郵寄名單。"
-
-msgid "Lists"
-msgstr "列表"
 
 #, python-format
 msgid "Logged in as %s"
@@ -729,50 +443,13 @@ msgstr "登出"
 msgid "Mail Address"
 msgstr "郵件地址"
 
-msgid "Mail Aliases"
-msgstr "郵件別名"
-
-msgid "Mail Deliver Restriction"
-msgstr "郵件發送限制"
-
-msgid "Mail Delivery"
-msgstr ""
-
 msgid "Mail Users"
 msgstr "郵件用戶"
-
-msgid "Mail deliver restriction will be migrated."
-msgstr ""
-
-msgid ""
-"Mail delivery restriction will be set to allow email from any sender by "
-"default."
-msgstr ""
-
-msgid "Mail posting"
-msgstr ""
-
-msgid "Mail sent to alias will be forwarded to members."
-msgstr "發送給別名的郵件將會被轉發給成員。"
 
 msgid "Mailbox Quota"
 msgstr "郵箱空間配額"
 
-msgid "Mailing List"
-msgstr ""
-
-msgid "Mailing List (Subscribable)"
-msgstr ""
-
-msgid "Mailing Lists"
-msgstr ""
-
-#, python-format
-msgid "Mailing lists under domain: %s"
-msgstr ""
-
-#, python-format
-msgid "Mailing lists under domain: %s."
+msgid "Make sure disclaimer work as expected:"
 msgstr ""
 
 msgid "Mark as domain admin"
@@ -781,10 +458,10 @@ msgstr "標記為網域管理員。"
 msgid "Mark as global admin"
 msgstr "標記為全域管理員"
 
-msgid "Max message size"
+msgid "Mark this user as global admin"
 msgstr ""
 
-msgid "Max:"
+msgid "Maximum password length"
 msgstr ""
 
 msgid "Member of mailing lists:"
@@ -796,35 +473,14 @@ msgstr "成員"
 msgid "Members and moderators"
 msgstr "成員和仲裁者"
 
-msgid "Members and moderators will be fully migrated."
-msgstr "成員和仲裁者將會被完整遷移"
-
-msgid "Members will be fully migrated."
-msgstr "成員將會被完整遷移"
-
 msgid "Message"
 msgstr "訊息"
 
-msgid "Messages sent to mailing list will be delivered to its members."
-msgstr ""
-
-msgid "Migrate Now"
-msgstr ""
-
-msgid "Migrate to subscribable mailing list"
-msgstr ""
-
-msgid "Migrate to subscribable mailing list?"
+msgid "Minimum password length"
 msgstr ""
 
 msgid "Mobile"
 msgstr "手機"
-
-msgid "Moderate all posts (Moderators are required)"
-msgstr "Moderate all posts（需要仲裁者）"
-
-msgid "Moderate subscriptions"
-msgstr ""
 
 msgid "Moderators"
 msgstr "仲裁者"
@@ -856,20 +512,12 @@ msgstr "新密碼必須包含至少 %s 個字元。"
 msgid "New passwords are not match."
 msgstr "新密碼不符。"
 
-msgid "New version is available."
-msgstr "有新版本可用"
-
 #, python-format
 msgid ""
 "New version of iRedAdmin, %s, is now available for upgrading. <a "
-"href='%s/system/license' class='button green'>Details</a>"
+"href='https://docs.iredmail.org/migrate.or.upgrade.iredadmin.html' "
+"class='button green'>Upgrade tutorial</a>."
 msgstr ""
-
-msgid "News & Announcements"
-msgstr "新訊息與公告"
-
-msgid "Newsletter"
-msgstr "電子報"
 
 msgid "Next Page"
 msgstr "下一頁"
@@ -886,38 +534,17 @@ msgstr "密碼未包含數字"
 msgid "No domain under control."
 msgstr "沒有管理網域。"
 
-msgid "No email"
-msgstr "沒有信件"
-
-msgid "No free domain quota left."
-msgstr "沒有足夠的網域可用容量。"
-
 msgid "No letter in password."
 msgstr "密碼未包含字母"
 
 msgid "No mail admin assigned."
 msgstr "沒有指派管理"
 
-msgid "No mail admin available."
-msgstr "沒有郵件管理員。"
-
-msgid "No mail alias available."
-msgstr "沒有郵件別名。"
-
 msgid "No mail domain available."
 msgstr "沒有郵件網域。"
 
 msgid "No mail user available."
 msgstr "沒有用戶。"
-
-msgid "No mailing list available."
-msgstr "沒有可用的郵件列表"
-
-msgid "No members."
-msgstr "沒有成員"
-
-msgid "No moderators."
-msgstr "沒有仲裁者。"
 
 #, python-format
 msgid "No more than %d characters."
@@ -936,37 +563,14 @@ msgstr "密碼未包含大寫字母。"
 msgid "Not a global admin."
 msgstr "不是全域管理員。"
 
-msgid "Not allowed to create mail alias under this domain."
-msgstr "不允許在此網域內建立郵件別名。"
-
 msgid "Not allowed to create mail user under this domain."
 msgstr "不允許在此網域內建立郵件用戶。"
 
-msgid "Not allowed to create mailing list under this domain."
-msgstr "不允許在此網域內建立郵寄名單"
-
-msgid "Notifications"
-msgstr "通知"
-
-msgid ""
-"Notify owner(s) when someone subscribe to or unsubscribe from the mailing"
-" list"
-msgstr "在有人從此郵寄名單中訂閱或取消訂閱時通知所有者"
-
-msgid "Notify sender if email is under moderated"
+msgid "Note: Global admin can manage all mail domains."
 msgstr ""
 
 msgid "Number of domains"
 msgstr "郵件網域數量"
-
-msgid "Number of max mail aliases"
-msgstr "郵件別名的最大數量"
-
-msgid "Number of max mail users"
-msgstr "郵件用戶的最大數量"
-
-msgid "Number of max mailing lists"
-msgstr "郵寄名單的最大數量"
 
 msgid "Number of users"
 msgstr "郵件用戶數量"
@@ -984,16 +588,6 @@ msgstr ""
 
 msgid "Or create other mail accounts:"
 msgstr "或建立其它郵件帳號："
-
-#, python-format
-msgid "Owner will be set to postmaster@%s."
-msgstr ""
-
-msgid "Owners"
-msgstr "擁有者"
-
-msgid "Owners and Moderators"
-msgstr "擁有者和仲裁者"
 
 msgid "POP3 Login:"
 msgstr ""
@@ -1019,13 +613,11 @@ msgstr "密碼必須包含"
 msgid "Permission denied."
 msgstr "權限受限。"
 
+msgid "Plain text only"
+msgstr ""
+
 msgid "Please do not use non-ascii character in password."
 msgstr "請不要在密碼中使用非ASCII字符。"
-
-msgid ""
-"Please either mark mail user as domain admin or create a separate admin "
-"account."
-msgstr "建議在用戶屬性頁面將用戶標記為管理員，而不是創建獨立的管理員帳號。"
 
 msgid "Please select at least one account."
 msgstr "請至少選擇一個帳號進行操作。"
@@ -1039,14 +631,8 @@ msgstr "偏好設定"
 msgid "Preferred language"
 msgstr "偏好的語言"
 
-msgid "Prefix text to mail subject"
-msgstr ""
-
 msgid "Previous Page"
 msgstr "上一頁"
-
-msgid "Product name"
-msgstr "產品名稱"
 
 msgid "Profile has been updated."
 msgstr "設定已被更新"
@@ -1054,14 +640,8 @@ msgstr "設定已被更新"
 msgid "Profile of admin:"
 msgstr "管理員屬性："
 
-msgid "Profile of alias:"
-msgstr "別名屬性："
-
 msgid "Profile of domain:"
 msgstr "網域屬性："
-
-msgid "Profile of mailing list:"
-msgstr "郵寄名單屬性："
 
 msgid "Profile of user:"
 msgstr "用戶屬性："
@@ -1069,53 +649,20 @@ msgstr "用戶屬性："
 msgid "Profile updated failed."
 msgstr "屬性更新失敗。"
 
-msgid "Purchase a new license"
-msgstr "購買新許可證"
-
-msgid "Purchase date"
-msgstr "購買日期"
-
 msgid "Quota"
 msgstr "配額"
 
 msgid "Records were successfully updated."
 msgstr "記錄已成功更新。"
 
-msgid "Redirect user to subscription page"
-msgstr ""
-
 msgid "Relay"
 msgstr "中繼轉發"
-
-msgid "Release Notes and Upgrade Tutorials"
-msgstr "發行說明和升級教學"
-
-msgid "Remove ALL members"
-msgstr "移除所有成員"
-
-msgid "Remove from list"
-msgstr "從列表移除"
-
-msgid "Remove selected members"
-msgstr "移除選擇的成員"
-
-msgid "Renew license"
-msgstr "更新許可證"
 
 msgid "Revoke admin privilege"
 msgstr "撤銷管理員權限"
 
 msgid "Save changes"
 msgstr "儲存變更設定"
-
-msgid "Search"
-msgstr "搜尋"
-
-msgid "Search mail accounts"
-msgstr "搜尋郵件帳號："
-
-msgid "Search results."
-msgstr "搜尋結果。"
 
 msgid ""
 "Security token did not match. Please refresh current page and re-perform "
@@ -1155,12 +702,6 @@ msgstr "已啟用所選的網域。"
 msgid "Selected log records were deleted."
 msgstr "已刪除所選的日誌。"
 
-msgid "Send email to new members for subscription confirm"
-msgstr ""
-
-msgid "Send me an email with download link"
-msgstr "發送含下載鏈接的郵件給我"
-
 msgid "Server Load"
 msgstr "伺服器負載"
 
@@ -1174,18 +715,6 @@ msgstr "登入資料過期，請重新登入。"
 
 msgid "Set to 0 for unlimited."
 msgstr "設定為 0 表示無限制。"
-
-msgid "Set value to -1 means not allowed to create this kind of account."
-msgstr "設定為 -1 表示禁止建立此類帳號。"
-
-msgid "Set value to 0 or leave it empty for unlimited."
-msgstr "設定為 0 或保持空白表示無限制。"
-
-msgid "Settings"
-msgstr "設定"
-
-msgid "Show in Global Address Book"
-msgstr "在全域 LDAP 通訊錄中顯示"
 
 #, python-format
 msgid "Some addresses have been discarded because they have been used: %s."
@@ -1209,22 +738,8 @@ msgstr "送出"
 msgid "Submited domain name is incorrect."
 msgstr "送出的網域名稱不正確"
 
-msgid "Subscription Moderators"
-msgstr "訂閱仲裁者"
-
-msgid ""
-"Subscription and unsubscription will be disabled by default, feel free to"
-" enable them after migration."
-msgstr ""
-
-msgid "Subscription control"
-msgstr ""
-
 msgid "Support"
 msgstr "技術支援"
-
-msgid "System"
-msgstr "系統"
 
 msgid "System Information"
 msgstr "系統資訊"
@@ -1232,23 +747,11 @@ msgstr "系統資訊"
 msgid "Telephone Number"
 msgstr "電話號碼"
 
-msgid "Text to introduce this newsletter on subscription page"
-msgstr "在訂閱頁面上介紹此電子報的文字"
-
-msgid "This is a mail alias."
-msgstr "此為郵件別名。"
-
-msgid "This is a mailing list."
-msgstr "此為郵件列表。"
-
 msgid "Time"
 msgstr "時間"
 
 msgid "Time zone"
 msgstr "時區"
-
-msgid "To add new members, please enable mailing list account first."
-msgstr ""
 
 msgid "Unban IP address"
 msgstr ""
@@ -1311,74 +814,14 @@ msgstr ""
 msgid "Users under same domain and its sub-domains"
 msgstr ""
 
-msgid "View members"
-msgstr "查看成員"
-
 msgid "Who can send email to this list"
 msgstr "誰能發送郵件到這個列表"
 
 msgid "You are not allowed to update global domain admin's profile."
 msgstr ""
 
-#, python-format
-msgid "You are running version %s"
-msgstr "您正在使用版本 %s"
-
-#, python-format
-msgid "You can NOT create more users under domain %s."
-msgstr "您無法在網域 %s 內建立更多的郵件用戶。"
-
-#, python-format
-msgid "You can create <strong>%d</strong> more mail alias(es) under domain %s."
-msgstr "您還可以建立 <strong>%d</strong> 個郵件別名（網域 %s）。"
-
-#, python-format
-msgid ""
-"You can create <strong>%d</strong> more mail domains (Existing: %d, Max: "
-"%d)"
+msgid "or longer than"
 msgstr ""
-
-#, python-format
-msgid "You can create <strong>%d</strong> more mail user(s) under domain %s."
-msgstr "您還可以建立 <strong>%d</strong> 個郵件用戶（網域 %s）。"
-
-#, python-format
-msgid "You can create <strong>%d</strong> more mailing list(s) under domain %s."
-msgstr ""
-
-msgid ""
-"You can embed a mailing list signup form (HTML code below) on any page of"
-" your website. Feel free to customize the form to add your brand name, "
-"logo image, or combine it with special offers to attract new subscribers "
-"and boost engagement."
-msgstr ""
-
-msgid ""
-"You can enable self-service (per-domain setting) to allow users to manage"
-" their own preferences and more."
-msgstr "您可以啟用自助服務（每個域設置），以允許用戶管理自己的偏好等。"
-
-#, python-format
-msgid "You can't create mail aliases under domain %s."
-msgstr "您無法在網域 %s 內建立郵件別名。"
-
-#, python-format
-msgid "You can't create mailing lists under domain %s."
-msgstr ""
-
-#, python-format
-msgid "You can't create more mail aliases under domain %s."
-msgstr "您無法在網域 %s 內建立更多的郵件別名。"
-
-#, python-format
-msgid "You can't create more mailing lists under domain %s."
-msgstr ""
-
-msgid "Your license is invalid. Please contact support@iredmail.org to fix it."
-msgstr ""
-
-msgid "Your search returned no hits."
-msgstr "沒有符合搜尋條件的記錄。"
 
 msgid "without verifying local recipients"
 msgstr ""

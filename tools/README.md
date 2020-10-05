@@ -18,8 +18,7 @@
 
 * upgrade_iredadmin.sh
 
-    Upgrade an old iRedAdmin-Pro or iRedAdmin open source edition to current
-    release.
+    Upgrade an old iRedAdmin(-Pro) to current release.
 
 * update_mailbox_quota.py
 

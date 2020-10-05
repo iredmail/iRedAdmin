@@ -4,7 +4,7 @@
 ```
 BRAND_LOGO = 'logo.png'             # load file 'static/logo.png'
 BRAND_FAVICON = 'favicon.ico'       # load file 'static/favicon.ico'
-BRAND_NAME = 'iRedAdmin-Pro'
+BRAND_NAME = 'iRedAdmin'
 BRAND_DESC = 'iRedMail Admin Panel'
 ```
 

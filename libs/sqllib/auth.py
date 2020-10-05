@@ -113,7 +113,7 @@ def auth(conn,
                 pass
 
     session['logged'] = True
-    web.config.session_parameters['cookie_name'] = 'iRedAdmin-Pro'
+    web.config.session_parameters['cookie_name'] = 'iRedAdmin'
     web.config.session_parameters['ignore_change_ip'] = settings.SESSION_IGNORE_CHANGE_IP
     web.config.session_parameters['ignore_expiry'] = False
 
