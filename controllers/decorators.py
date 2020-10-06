@@ -22,7 +22,10 @@ def require_global_admin(func):
         if session.get("is_global_admin"):
             return func(*args, **kw)
         else:
-            raise web.seeother("/domains?msg=PERMISSION_DENIED")
+            if session.get("logged"):
+                raise web.seeother("/domains?msg=PERMISSION_DENIED")
+            else:
+                raise web.seeother("/login?msg=LOGIN_REQUIRED")
 
     return proxyfunc
 

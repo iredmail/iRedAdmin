@@ -9,13 +9,11 @@
 {% block main %}
 
 {# Checked and get response data #}
-{% if session.get('is_global_admin') %}
-    {% if session.get('new_version_available') %}
-        {{ success_info( _("New version of iRedAdmin, %s, is now available for upgrading. <a href='https://docs.iredmail.org/migrate.or.upgrade.iredadmin.html' class='button green'>Upgrade tutorial</a>.") |format(session.get('new_version') |e), removable=false, trusted=true ) }}
-    {% elif session.get('new_version_available') is sameas false %}
-        {# Error while checking new version #}
-        {{ error_info( _('Error while checking new version of iRedAdmin:') + ' ' + session.get('new_version_check_error') |e ) }}
-    {% endif %}
+{% if session.get('new_version_available') %}
+    {{ success_info( _("New version of iRedAdmin, %s, is now available for upgrading. <a href='https://docs.iredmail.org/migrate.or.upgrade.iredadmin.html' class='button green'>Upgrade tutorial</a>.") |format(session.get('new_version') |e), removable=false, trusted=true ) }}
+{% elif session.get('new_version_available') is sameas false %}
+    {# Error while checking new version #}
+    {{ error_info( _('Error while checking new version of iRedAdmin:') + ' ' + session.get('new_version_check_error') |e ) }}
 {% endif %}
 
 <div class="columns clear">
@@ -37,7 +35,6 @@
                         </tr>
                     {% endif %}
 
-                {% if session.get('is_global_admin') %}
                     {% if session.get('show_used_quota') %}
                         <tr>
                             <th>{{ _('Stored emails') }}</th>
@@ -87,10 +84,30 @@
                             <td>{{ netif[1] }}</td>
                         </tr>
                     {% endfor %}
-                {% endif %}{# global admin #}
                 </tbody>
             </table>
         </div> {# .box-wrap #}
     </div>{# col1-3 #}
+
+    <div class="col2-4">
+        <div class="box-wrap clear">
+            <h3 style="font-size: 20px;">Upgrade to iRedAdmin-Pro for more features</h3>
+            <ul class="standard clean-padding bt-space10">
+                <li><a href="https://docs.iredmail.org/iredadmin-pro.restful.api.html">RESTful API interface</a></li>
+                <li>Domain level admins. Grant clients to manage their own domains.</li>
+                <li>Unlimited mailing list and mail alias accounts</li>
+                <li>Manage more domain profiles: forwarding, bcc, relay, alias domain, catch-all</li>
+                <li>Manage more user profiles: forwarding, bcc, relay, alias addresses, real-time quota usage report</li>
+                <li>Greylisting setting</li>
+                <li>Throttle setting</li>
+                <li>View basic info of received and sent emails</li>
+                <li>Manage quarantined mails</li>
+                <li>User self-service: change password, mail forwarding, white/blacklists, spam policy</li>
+                <li>Per-domain and per-user service restrictions</li>
+                <li>And many more ...</li>
+            </ul>
+            <a href="https://www.iredmail.org/admin_panel.html" class="button" />Comparison and Pricing</a>
+        </div>
+    </div><!-- .col2-4 -->
 </div>{# .columns #}
 {% endblock main %}
