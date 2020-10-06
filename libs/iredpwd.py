@@ -163,13 +163,13 @@ def generate_random_password(length=10, db_settings=None):
     return password
 
 
-def generate_bcrypt_password(p):
+def generate_bcrypt_password(p) -> str:
     try:
         import bcrypt
     except:
         return generate_ssha_password(p)
 
-    return "{CRYPT}" + bcrypt.hashpw(p, bcrypt.gensalt())
+    return "{CRYPT}" + bcrypt.hashpw(p, bcrypt.gensalt()).decode()
 
 
 def verify_bcrypt_password(challenge_password, plain_password):
