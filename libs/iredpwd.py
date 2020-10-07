@@ -172,7 +172,7 @@ def generate_bcrypt_password(p) -> str:
     return "{CRYPT}" + bcrypt.hashpw(p, bcrypt.gensalt()).decode()
 
 
-def verify_bcrypt_password(challenge_password, plain_password):
+def verify_bcrypt_password(challenge_password: str, plain_password: str) -> bool:
     try:
         import bcrypt
     except:
@@ -183,12 +183,10 @@ def verify_bcrypt_password(challenge_password, plain_password):
             or challenge_password.startswith("{crypt}$2a$")
             or challenge_password.startswith("{crypt}$2b$")):
         challenge_password = challenge_password[7:]
-    elif challenge_password.startswith("{BLF-CRYPT}") or challenge_password.startswith(
-        "{blf-crypt}"
-    ):
+    elif challenge_password.startswith("{BLF-CRYPT}") or challenge_password.startswith("{blf-crypt}"):
         challenge_password = challenge_password[11:]
 
-    return bcrypt.checkpw(plain_password, challenge_password)
+    return bcrypt.checkpw(plain_password.encode(), challenge_password.encode())
 
 
 def generate_md5_password(p: str) -> str:
@@ -526,7 +524,11 @@ def verify_password_hash(challenge_password: Union[str, bytes],
         return verify_ssha_password(challenge_password, plain_password)
     elif upwd.startswith("{SSHA512}"):
         return verify_ssha512_password(challenge_password, plain_password)
-    elif upwd.startswith("{CRYPT}$2A$") or upwd.startswith("{CRYPT}$2B$"):
+    elif (upwd.startswith("{CRYPT}$2A$")
+          or upwd.startswith("{CRYPT}$2B$")
+          or upwd.startswith("{BLF-CRYPT}$2A$")
+          or upwd.startswith("{BLF-CRYPT}$2B$")
+          or upwd.startswith("{BLF-CRYPT}$2Y$")):
         return verify_bcrypt_password(challenge_password, plain_password)
     elif upwd.startswith("{CRYPT}$6$") or upwd.startswith("{CRYPT}$2B$"):
         # CRYPT-SHA-512
