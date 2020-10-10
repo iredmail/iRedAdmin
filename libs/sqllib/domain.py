@@ -384,10 +384,6 @@ def add(form, conn=None):
                                   to_string=True)
     params.update(kv)
 
-    kv = form_utils.get_form_dict(form=form,
-                                  input_name='timezone',
-                                  to_string=True)
-    params.update(kv)
     params['active'] = 1
 
     # Add domain in database.

@@ -833,7 +833,10 @@
             {{ display_preferred_language(value=preferred_language,
                                           languagemaps=languagemaps,
                                           label=_('Default language for new user')) }}
-            {{ display_timezones(value=None, timezones=timezones) }}
+
+            {% if timezones %}
+                {{ display_timezones(value=None, timezones=timezones) }}
+            {% endif %}
 
             <div class="rule2"></div>
 
