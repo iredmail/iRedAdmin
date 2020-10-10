@@ -356,35 +356,16 @@ def add(form, conn=None):
     if sql_lib_general.is_domain_exists(domain=domain, conn=conn):
         return (False, 'ALREADY_EXISTS')
 
-    params = {'domain': domain,
-              'mailboxes': 0,
-              'aliases': 0,
-              'created': iredutils.get_gmttime()}
-
-    # Quota
-    domain_quota = form_utils.get_domain_quota_and_unit(form=form)['quota']
-    params['maxquota'] = domain_quota
-
-    # Number of users
-    kv = form_utils.get_form_dict(form=form,
-                                  input_name='numberOfUsers',
-                                  key_name='mailboxes',
-                                  default_value=0,
-                                  is_integer=True)
-    params.update(kv)
+    params = {
+        'domain': domain,
+        'transport': settings.default_mta_transport,
+        'active': 1,
+        'created': iredutils.get_gmttime(),
+    }
 
     # Name
     kv = form_utils.get_form_dict(form=form, input_name='cn', key_name='description')
     params.update(kv)
-
-    # Transport
-    kv = form_utils.get_form_dict(form=form,
-                                  input_name='transport',
-                                  default_value=settings.default_mta_transport,
-                                  to_string=True)
-    params.update(kv)
-
-    params['active'] = 1
 
     # Add domain in database.
     try:

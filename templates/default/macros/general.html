@@ -830,14 +830,6 @@
             {{ display_input_domain(required=true) }}
             {{ display_domain_cn() }}
 
-            {{ display_preferred_language(value=preferred_language,
-                                          languagemaps=languagemaps,
-                                          label=_('Default language for new user')) }}
-
-            {% if timezones %}
-                {{ display_timezones(value=None, timezones=timezones) }}
-            {% endif %}
-
             <div class="rule2"></div>
 
             <h4 class="size-250 fl-space">&nbsp;</h4>

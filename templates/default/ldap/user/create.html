@@ -8,7 +8,6 @@
 {% from "macros/general.html" import
         display_subnav,
         display_input_cn,
-        display_preferred_language,
         display_reset_password,
         display_random_password,
         display_quota
@@ -96,7 +95,6 @@
                         <div class="bt-space5">&nbsp;</div>
 
                         {{ display_input_cn(value=cn, account_type='user') }}
-                        {{ display_preferred_language(value=defaultLanguage, languagemaps=languagemaps) }}
                         {{ display_quota(value=defaultUserQuota,
                                          show_spare_quota=true,
                                          show_value_in_input=true,

@@ -62,7 +62,6 @@
 {# Set profile tabs #}
 {% set navlinks = [
         ('general', _('General'), [true,]),
-        ('advanced', _('Advanced'), [true,]),
     ]
 %}
 
@@ -126,72 +125,7 @@
                             </div>
                         </div>{# .col1-3 #}
                     </div>{# .columns #}
-
-
-            {% elif profile_type == 'advanced' %}
-                <div class="columns clear">
-                    <div class="col2-3 ">
-                        {{ display_preferred_language(value=defaultLanguage,
-                                                      languagemaps=languagemaps,
-                                                      label=_('Default language for new user')) }}
-
-                        {{ display_timezones(value=accountSetting.get('timezone'), timezones=timezones) }}
-                    </div>{# col2-3 #}
-                </div>{# .columns #}
-
-                <div class="columns clear">
-                    <div class="col2-3">
-                        <div class="clear bt-space">&nbsp;</div>
-
-                        {% if session.get('is_global_admin') %}
-                            {% set comment_min_passwd_length = none %}
-                            {% set comment_max_passwd_length = none %}
-                        {% else %}
-                            {% if global_min_passwd_length > 0 %}
-                                {% set comment_min_passwd_length = _('Can not be shorter than') + ' ' + (global_min_passwd_length | string ) %}
-                            {% else %}
-                                {% set comment_min_passwd_length = none %}
-                            {% endif %}
-
-                            {% if global_max_passwd_length > 0 %}
-                                {% if global_min_passwd_length > 0 %}
-                                    {% set comment_max_passwd_length = _('Can not be shorter than') + ' ' + (global_min_passwd_length | string ) + ' ' + _('or longer than') + ' ' + (global_max_passwd_length | string) %}
-                                {% else %}
-                                    {% set comment_max_passwd_length = _('Can not be longer than') + ' ' + (global_max_passwd_length | string) %}
-                                {% endif %}
-                            {% else %}
-                                {% if global_min_passwd_length > 0 %}
-                                    {% set comment_max_passwd_length = _('Can not be shorter than') + ' ' + (global_min_passwd_length | string ) %}
-                                {% else %}
-                                    {% set comment_max_passwd_length = none %}
-                                {% endif %}
-                            {% endif %}
-                        {% endif %}
-
-                        {{ input_text(label=_('Minimum password length'),
-                                      input_name='minPasswordLength',
-                                      value=min_passwd_length,
-                                      size=8,
-                                      comment=comment_min_passwd_length,
-                                      comment_as_text=True) }}
-
-                        {{ input_text(label=_('Maximum password length'),
-                                      input_name='maxPasswordLength',
-                                      value=max_passwd_length,
-                                      size=8,
-                                      comment=comment_max_passwd_length,
-                                      comment_as_text=True) }}
-                    </div>{# .col2-3 #}
-
-                    <div class="col1-3 lastcol">
-                        <div class="mark_blue bt-space10">
-                            <ul class="standard clean-padding bt-space10">
-                                <li class="bt-space5">{{ _('Leave it empty to use server-wide default setting.') }}</li>
-                            </ul>
-                        </div>
-                    </div>{# .col1-3 #}
-                </div>{# .columns #}
-            {% endif %}
+                {% endif %}
 
                 {{ input_submit() }}
             </form>

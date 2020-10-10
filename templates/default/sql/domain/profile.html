@@ -43,7 +43,6 @@
 
 {% set navlinks = [
         ('general', _('General'), [true]),
-        ('advanced', _('Advanced'), [true]),
         ]
         %}
 
@@ -78,26 +77,6 @@
                     {{ input_submit() }}
                 </form>
             </div><!-- . profile_general -->
-
-            {# profile_type: advanced #}
-            <div id="profile_advanced">
-                <form name="advanced" method="post" action="{{ctx.homepath}}/profile/domain/advanced/{{cur_domain}}">
-                    {{ input_csrf_token() }}
-
-                    <div class="columns clear">
-                        <div class="col2-3 ">
-                            {{ display_preferred_language(
-                                    value=domain_settings.get('default_language'),
-                                    languagemaps=languagemaps,
-                                    label=_('Default language for new user')) }}
-                            {{ display_timezones(value=domain_settings.get('timezone'), timezones=timezones) }}
-                        </div>
-                    </div>
-
-                    {{ input_submit() }}
-                </form>
-            </div><!-- #profile_advanced -->
-
         </div><!-- .box-wrap -->
     </div><!-- .box-body -->
 </div><!-- .content-box -->

@@ -354,26 +354,6 @@ def add(form, conn=None):
 
     # Get name, transport
     cn = form_utils.get_single_value(form, input_name='cn', default_value=None)
-    transport = form_utils.get_single_value(form, input_name='mtaTransport', default_value=None)
-    account_status = form_utils.get_single_value(form, input_name='accountStatus', default_value='active')
-
-    # Language
-    default_language = form_utils.get_language(form)
-    if default_language:
-        _as['defaultLanguage'] = default_language
-
-    # Get timezone
-    tz_name = form_utils.get_timezone(form)
-    if tz_name:
-        _as['timezone'] = tz_name
-
-    # Get domain quota. 0 means unlimited.
-    quota_and_unit = form_utils.get_domain_quota_and_unit(form=form, convert_to_mb=False)
-    domain_quota = quota_and_unit['quota']
-    domain_quota_unit = quota_and_unit['unit']
-
-    if domain_quota > 0:
-        _as['domainQuota'] = '%d:%s' % (domain_quota, domain_quota_unit)
 
     # Get default quota for newly created mail users.
     default_user_quota = form_utils.get_quota(form, input_name='defaultQuota')
@@ -382,8 +362,6 @@ def add(form, conn=None):
 
     ldif = iredldif.ldif_domain(domain=domain,
                                 cn=cn,
-                                transport=transport,
-                                account_status=account_status,
                                 account_settings=_as)
 
     # msg: {key: value}
@@ -435,31 +413,19 @@ def update(domain, profile_type, form, conn=None):
     @conn -- ldap connection cursor
     """
     domain = str(domain).lower()
-    domaindn = ldaputils.rdn_value_to_domain_dn(domain)
 
     old_account_status = 'active'
-    account_setting = {}
     mod_attrs = []
 
     if not conn:
         _wrap = LDAPWrap()
         conn = _wrap.conn
 
-    disabled_domain_profiles = []
-    if profile_type in ['general', 'aliases', 'bcc', 'catchall', 'relay',
-                        'greylisting', 'throttle', 'wblist',
-                        'advanced', 'backupmx']:
-        qr = get_profile(domain=domain, conn=conn)
-        if qr[0] is True:
-            _ldif = qr[1]['ldif']
-            account_setting = ldaputils.get_account_setting_from_profile(_ldif)
-            old_account_status = _ldif.get('accountStatus', ['active'])[0]
-        del qr
-        disabled_domain_profiles = account_setting.get('disabledDomainProfile', [])
-
-        if not session.get('is_global_admin'):
-            if profile_type in disabled_domain_profiles:
-                return (False, 'PERMISSION_DENIED')
+    qr = get_profile(domain=domain, conn=conn)
+    if qr[0] is True:
+        _ldif = qr[1]['ldif']
+        old_account_status = _ldif.get('accountStatus', ['active'])[0]
+    del qr
 
     # Allow normal admin to update profiles.
     if profile_type == 'general':
@@ -475,75 +441,20 @@ def update(domain, profile_type, form, conn=None):
         else:
             mod_attrs += ldaputils.mod_replace('disclaimer', None)
 
-    elif profile_type == 'advanced':
-        db_settings = iredutils.get_settings_from_db()
-
-        preferred_language = form_utils.get_language(form)
-        account_setting['defaultLanguage'] = str(preferred_language)
-
-        _tz = form_utils.get_timezone(form)
-        if _tz:
-            account_setting['timezone'] = _tz
-        else:
-            if 'timezone' in account_setting:
-                account_setting.pop('timezone')
-
-        # Value type is number.
-        _int_params = ['defaultQuota']
-        if session.get('is_global_admin') or ('password_policies' not in disabled_domain_profiles):
-            _int_params += ['minPasswordLength', 'maxPasswordLength']
-
-        for k in _int_params:
-            _v = form_utils.get_single_value(form,
-                                             input_name=k,
-                                             default_value=0,
-                                             is_integer=True)
-
-            if _v == 0:
-                if k in account_setting:
-                    account_setting.pop(k)
-            else:
-                if not session.get('is_global_admin'):
-                    # Make sure domain setting doesn't exceed global setting.
-                    if k == 'minPasswordLength':
-                        # Cannot be shorter than global setting.
-                        if _v < db_settings['min_passwd_length']:
-                            _v = db_settings['min_passwd_length']
-                    elif k == 'maxPasswordLength':
-                        # Cannot be longer than global setting.
-                        if (db_settings['max_passwd_length'] > 0) and \
-                           (_v > db_settings['max_passwd_length'] or _v <= db_settings['min_passwd_length']):
-                            _v = db_settings['max_passwd_length']
-
-                account_setting[k] = abs(_v)
-
     # Allow global admin to update profiles.
-    if session.get('is_global_admin'):
-        if profile_type == 'general':
-            # check account status.
-            account_status = 'disabled'
-            if 'accountStatus' in form:
-                account_status = 'active'
+    if profile_type == 'general':
+        # check account status.
+        account_status = 'disabled'
+        if 'accountStatus' in form:
+            account_status = 'active'
 
-            mod_attrs += ldaputils.mod_replace('accountStatus', account_status)
+        mod_attrs += ldaputils.mod_replace('accountStatus', account_status)
 
-            if account_status != old_account_status:
-                # Update all mail accounts with `domainStatus=disabled`
-                qr = update_domain_status_for_all_accounts(domain=domain, status=account_status, conn=conn)
-                if not qr[0]:
-                    return qr
-
-    if profile_type == 'advanced':
-        # Convert accountSetting to 'k:v' pairs
-        tmp_account_settings = []
-        for (k, v) in list(account_setting.items()):
-            if isinstance(v, list):
-                for i in v:
-                    tmp_account_settings += ['{}:{}'.format(k, i)]
-            else:
-                tmp_account_settings += ['{}:{}'.format(k, v)]
-        mod_attrs += ldaputils.mod_replace('accountSetting', tmp_account_settings)
-        del tmp_account_settings
+        if account_status != old_account_status:
+            # Update all mail accounts with `domainStatus=disabled`
+            qr = update_domain_status_for_all_accounts(domain=domain, status=account_status, conn=conn)
+            if not qr[0]:
+                return qr
 
     if mod_attrs:
         try:
