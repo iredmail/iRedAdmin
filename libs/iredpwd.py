@@ -164,6 +164,9 @@ def generate_random_password(length=10, db_settings=None):
 
 
 def generate_bcrypt_password(p) -> str:
+    if isinstance(p, str):
+        p = p.encode()
+
     try:
         import bcrypt
     except:
