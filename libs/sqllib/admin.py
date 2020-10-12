@@ -4,7 +4,7 @@ import web
 import settings
 from libs import iredutils, iredpwd, form_utils
 from libs.logger import log_traceback, log_activity
-from libs.sqllib import SQLWrap, auth
+from libs.sqllib import SQLWrap
 from libs.sqllib import general as sql_lib_general
 
 session = web.config.get('_session', {})
@@ -541,11 +541,6 @@ def add_admin_from_form(form, conn=None):
     if is_admin_exists(conn=conn, admin=mail):
         return (False, 'ALREADY_EXISTS')
 
-    is_global_admin = False
-    _is_global_admin = form_utils.get_single_value(form=form, input_name='domainGlobalAdmin', default_value='no')
-    if _is_global_admin == 'yes':
-        is_global_admin = True
-
     # Name, language
     cn = form.get('cn', '')
     lang = form_utils.get_language(form)
@@ -564,12 +559,11 @@ def add_admin_from_form(form, conn=None):
                     created=iredutils.get_gmttime(),
                     active=_status)
 
-        if is_global_admin:
-            conn.insert('domain_admins',
-                        username=mail,
-                        domain='ALL',
-                        created=iredutils.get_gmttime(),
-                        active='1')
+        conn.insert('domain_admins',
+                    username=mail,
+                    domain='ALL',
+                    created=iredutils.get_gmttime(),
+                    active='1')
 
         log_activity(msg="Create admin: %s." % (mail), event='create')
         return (True, )
@@ -671,19 +665,11 @@ def update(mail, profile_type, form, conn=None):
         params['name'] = form.get('cn', '')
         params['language'] = form_utils.get_language(form)
 
-        """
-        # Update language immediately.
-        if session.get('username') == mail and session.get('lang') != lang:
-            session['lang'] = lang
-        """
-
-        if session.get('is_global_admin'):
-            # Update account status
-            params['active'] = 0
-            if 'accountStatus' in form:
-                params['active'] = 1
+        # Update account status
+        params['active'] = 0
+        if 'accountStatus' in form:
+            params['active'] = 1
     elif profile_type == 'password':
-        cur_passwd = web.safestr(form.get('oldpw', ''))
         newpw = web.safestr(form.get('newpw', ''))
         confirmpw = web.safestr(form.get('confirmpw', ''))
 
@@ -696,17 +682,6 @@ def update(mail, profile_type, form, conn=None):
             params['passwordlastchange'] = iredutils.get_gmttime()
         else:
             return qr
-
-        if not session.get('is_global_admin'):
-            # Verify old password.
-            qr = auth.auth(conn=conn,
-                           username=mail,
-                           password=cur_passwd,
-                           account_type='admin',
-                           verify_password=True)
-
-            if not qr[0]:
-                return qr
 
     if params:
         try:

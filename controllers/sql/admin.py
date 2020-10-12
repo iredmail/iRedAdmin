@@ -61,7 +61,12 @@ class List:
         _wrap = SQLWrap()
         conn = _wrap.conn
 
-        if action == 'disable':
+        if action == 'delete':
+            result = sql_lib_admin.delete_admins(mails=accounts,
+                                                 revoke_admin_privilege_from_user=True,
+                                                 conn=conn)
+            msg = 'DELETED'
+        elif action == 'disable':
             result = sql_lib_utils.set_account_status(conn=conn,
                                                       accounts=accounts,
                                                       account_type='admin',
@@ -79,7 +84,7 @@ class List:
         if result[0] is True:
             raise web.seeother('/admins?msg=%s' % msg)
         else:
-            raise web.seeother('/admins?msg=?' + web.urlquote(result[1]))
+            raise web.seeother('/admins?msg=' + web.urlquote(result[1]))
 
 
 class Profile:

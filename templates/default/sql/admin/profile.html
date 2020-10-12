@@ -84,11 +84,6 @@
                             {{ display_input_cn(value=profile.name, account_type='admin') }}
                             {{ display_preferred_language(value=profile.get('language', 'en_US') |e,
                                                           languagemaps=languagemaps) }}
-
-                            {% if session.get('is_global_admin') %}
-                                <div class="rule"></div>
-                                {{ display_input_global_admin(value=is_global_admin) }}
-                            {% endif %}
                         </div>
                     </div>{# .columns #}
 
@@ -101,20 +96,11 @@
                     {{ input_csrf_token() }}
                     <div class="columns clear">
                         <div class="col3-4">
-                            {% if session.get('is_global_admin') %}
-                                {{ display_reset_password(
-                                        min_passwd_length=min_passwd_length,
-                                        max_passwd_length=max_passwd_length,
-                                        show_confirmpw=true,
-                                        store_password_in_plain_text=store_password_in_plain_text) }}
-                            {% else %}
-                                {{ display_reset_password(
-                                        min_passwd_length=min_passwd_length,
-                                        max_passwd_length=max_passwd_length,
-                                        show_oldpw=true,
-                                        show_confirmpw=true,
-                                        store_password_in_plain_text=store_password_in_plain_text) }}
-                            {% endif %}
+                            {{ display_reset_password(
+                                    min_passwd_length=min_passwd_length,
+                                    max_passwd_length=max_passwd_length,
+                                    show_confirmpw=true,
+                                    store_password_in_plain_text=store_password_in_plain_text) }}
                         </div>
 
                         <div class="col1-4 lastcol">
