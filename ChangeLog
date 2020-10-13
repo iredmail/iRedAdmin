@@ -1,6 +1,7 @@
 = 1.1 =
     * It now works with Python 3. Python 2 support has been completely dropped.
     * Sync code base with the latest iRedAdmin-Pro.
+    * New translation: Japanese (ja_JP). Thanks Osakana Taro (osakanataro@github).
 
 = 1.0 =
     * Fixed:
