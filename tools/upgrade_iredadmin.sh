@@ -59,13 +59,13 @@ export CMD_PIP3='/usr/bin/pip3'
 export CMD_UWSGI='/usr/bin/uwsgi'
 
 if [ X"${KERNEL_NAME}" == X"LINUX" ]; then
+    export DISTRO_VERSION=$(awk -F'"' '/^VERSION_ID=/ {print $2}' /etc/os-release)
+
     if [ -f /etc/redhat-release ]; then
         # RHEL/CentOS
         export DISTRO='RHEL'
-        export DISTRO_VERSION='7'
         export CMD_UWSGI='/usr/sbin/uwsgi'
-        if [ -x /usr/bin/dnf ]; then
-            export DISTRO_VERSION='8'
+        if [ X"${DISTRO_VERSION}" == X'8' ]; then
             # CentOS 8 doesn't have uwsgi package, we will install it with pip3.
             export CMD_UWSGI='/usr/local/bin/uwsgi'
         fi
@@ -82,12 +82,6 @@ if [ X"${KERNEL_NAME}" == X"LINUX" ]; then
         # Ubuntu
         export DISTRO='UBUNTU'
 
-        # Ubuntu version number and code name:
-        #   - 18.04: bionic
-        #   - 20.04: focal
-        export DISTRO_VERSION="$(awk -F'=' '/^DISTRIB_RELEASE/ {print $2}' /etc/lsb-release)"
-        export DISTRO_CODENAME="$(awk -F'=' '/^DISTRIB_CODENAME/ {print $2}' /etc/lsb-release)"
-
         export HTTPD_RC_SCRIPT_NAME='apache2'
         export CRON_SPOOL_DIR='/var/spool/cron/crontabs'
 
@@ -99,16 +93,6 @@ if [ X"${KERNEL_NAME}" == X"LINUX" ]; then
     elif [ -f /etc/debian_version ]; then
         # Debian
         export DISTRO='DEBIAN'
-
-        # Set distro code name and unsupported releases.
-        if grep -i '^10' /etc/debian_version &>/dev/null; then
-            export DISTRO_VERSION='10'
-            export DISTRO_CODENAME='buster'
-        elif grep '^9' /etc/debian_version &>/dev/null || \
-            grep -i '^stretch' /etc/debian_version &>/dev/null; then
-            export DISTRO_VERSION='9'
-            export DISTRO_CODENAME='stretch'
-        fi
 
         export HTTPD_RC_SCRIPT_NAME='apache2'
         export CRON_SPOOL_DIR='/var/spool/cron/crontabs'
@@ -695,7 +679,8 @@ if [ X"${DISTRO}" == X'RHEL' ]; then
     export PKG_PY_DNS='python3-dns'
 elif [ X"${DISTRO}" == X'DEBIAN' -o X"${DISTRO}" == X'UBUNTU' ]; then
     export PKG_UWSGI="uwsgi-core uwsgi-plugin-python3"
-    if [ X"${DISTRO_CODENAME}" == X'stretch' ]; then
+
+    if [ X"${DISTRO_VERSION}" == X'9' ]; then
         export PKG_PY_LDAP='python3-pyldap'
     else
         export PKG_PY_LDAP='python3-ldap'
@@ -726,7 +711,15 @@ fi
 [ X"$(has_python_module simplejson)" == X'NO' ] && REQUIRED_PKGS="${REQUIRED_PKGS} ${PKG_PY_JSON}"
 [ X"$(has_python_module dns)" == X'NO' ] && REQUIRED_PKGS="${REQUIRED_PKGS} ${PKG_PY_DNS}"
 [ X"$(has_python_module requests)" == X'NO' ] && REQUIRED_PKGS="${REQUIRED_PKGS} ${PKG_PY_REQUESTS}"
-[ X"$(has_python_module web)" == X'NO' ] && PIP3_MODS="${PIP3_MODS} web.py>=0.61"
+if [ X"$(has_python_module web)" == X'NO' ]; then
+    PIP3_MODS="${PIP3_MODS} web.py>=0.61"
+else
+    # Verify module version.
+    _webpy_ver=$(${CMD_PYTHON3} -c "import web; print(web.__version__)")
+    if echo ${_webpy_ver} | grep '^0\.[45]' &>/dev/null; then
+        PIP3_MODS="${PIP3_MODS} web.py>=0.61"
+    fi
+fi
 
 if [ X"${REQUIRED_PKGS}" != X'' ]; then
     install_pkg ${REQUIRED_PKGS}
@@ -737,7 +730,7 @@ if [ X"${REQUIRED_PKGS}" != X'' ]; then
 fi
 
 if [ X"${PIP3_MODS}" != X'' ]; then
-    ${CMD_PIP3} install ${PIP3_MODS}
+    ${CMD_PIP3} install -U ${PIP3_MODS}
     if [ X"$?" != X'0' ]; then
         echo "Package installation failed, please check console output and fix it manually."
         exist 255
