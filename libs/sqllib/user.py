@@ -487,9 +487,12 @@ def add_user_from_form(domain, form, conn=None):
         if domain_profile.mailboxes <= num_exist_accounts:
             return (False, 'EXCEEDED_DOMAIN_ACCOUNT_LIMIT')
 
-    # Check spare quota and number of spare account limit.
     # Get quota from <form>
-    quota = str(form.get('mailQuota')).strip()
+    quota = str(form.get('mailQuota', 0)).strip()
+    try:
+        quota = int(quota)
+    except:
+        quota = 0
 
     #
     # Get password from <form>.
