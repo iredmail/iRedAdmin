@@ -103,7 +103,7 @@ status() {
 start_cmd="start"
 stop_cmd="stop"
 status_cmd="status"
-restart_cmd="stop && start"
+restart_cmd="stop && sleep 2 && start"
 
 command="start"
 load_rc_config ${name}
