@@ -661,10 +661,12 @@ export PKG_PY_PGSQL='python3-psycopg2'
 export PKG_PY_JSON='python3-simplejson'
 export PKG_PY_DNS='python3-dnspython'
 export PKG_PY_REQUESTS='python3-requests'
+export PKG_PY_JINJA='python3-jinja2'
 # Python modules installed with pip3: uwsgi.
 
 if [ X"${DISTRO}" == X'RHEL' ]; then
     if [ X"${DISTRO_VERSION}" == X'7' ]; then
+        export PKG_PY_JINJA='python36-jinja2'
         if [ ! -x ${CMD_UWSGI} ]; then
             export PKG_UWSGI="uwsgi uwsgi-logger-syslog uwsgi-plugin-python36"
             REQUIRED_PKGS="${REQUIRED_PKGS} ${PKG_UWSGI}"
@@ -690,12 +692,14 @@ elif [ X"${DISTRO}" == X'OPENBSD' ]; then
     export PKG_PY_JSON='py3-simplejson'
     export PKG_PY_DNS='py3-dnspython'
     export PKG_PY_REQUESTS='py3-requests'
+    export PKG_PY_JINJA='py3-jinja2'
 elif [ X"${DISTRO}" == X'FREEBSD' ]; then
     export PKG_PY_PIP='devel/py-pip'
     export PKG_UWSGI="www/uwsgi"
     export PKG_PY_JSON='devel/py-simplejson'
     export PKG_PY_DNS='dns/py-dnspython'
     export PKG_PY_REQUESTS='www/py-requests'
+    export PKG_PY_JINJA='devel/py-Jinja2'
 fi
 
 echo "* Check and install required packages."
@@ -713,13 +717,13 @@ fi
 [ X"$(has_python_module requests)" == X'NO' ] && REQUIRED_PKGS="${REQUIRED_PKGS} ${PKG_PY_REQUESTS}"
 if [ X"$(has_python_module web)" == X'NO' ]; then
     PIP3_MODS="${PIP3_MODS} web.py>=0.61"
-else
-    # Verify module version.
+else # Verify module version.
     _webpy_ver=$(${CMD_PYTHON3} -c "import web; print(web.__version__)")
     if echo ${_webpy_ver} | grep '^0\.[45]' &>/dev/null; then
         PIP3_MODS="${PIP3_MODS} web.py>=0.61"
     fi
 fi
+[ X"$(has_python_module jinja2)" == X'NO' ] && REQUIRED_PKGS="${REQUIRED_PKGS} ${PKG_PY_JINJA}"
 
 if [ X"${REQUIRED_PKGS}" != X'' ]; then
     install_pkg ${REQUIRED_PKGS}
