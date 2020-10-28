@@ -65,6 +65,7 @@ if [ X"${KERNEL_NAME}" == X"LINUX" ]; then
         # RHEL/CentOS
         export DISTRO='RHEL'
         export CMD_UWSGI='/usr/sbin/uwsgi'
+
         if [ X"${DISTRO_VERSION}" == X'8' ]; then
             # CentOS 8 doesn't have uwsgi package, we will install it with pip3.
             export CMD_UWSGI='/usr/local/bin/uwsgi'
@@ -119,6 +120,7 @@ elif [ X"${KERNEL_NAME}" == X'FREEBSD' ]; then
 
     export CMD_PYTHON3='/usr/local/bin/python3'
     export CMD_PIP3='/usr/local/bin/pip3'
+    export CMD_UWSGI='/usr/local/bin/uwsgi'
     export CRON_SPOOL_DIR='/var/cron/tabs'
     export NGINX_SNIPPET_CONF='/usr/local/etc/nginx/templates/iredadmin.tmpl'
     export NGINX_SNIPPET_CONF2='/usr/local/etc/nginx/templates/iredadmin-subdomain.tmpl'
@@ -138,6 +140,7 @@ elif [ X"${KERNEL_NAME}" == X'FREEBSD' ]; then
 elif [ X"${KERNEL_NAME}" == X'OPENBSD' ]; then
     export CMD_PYTHON3='/usr/local/bin/python3'
     export CMD_PIP3='/usr/local/bin/pip3'
+    export CMD_UWSGI='/usr/local/bin/uwsgi'
     export DISTRO='OPENBSD'
     export CRON_SPOOL_DIR='/var/cron/tabs'
 
@@ -666,11 +669,9 @@ export PKG_PY_JINJA='python3-jinja2'
 
 if [ X"${DISTRO}" == X'RHEL' ]; then
     if [ X"${DISTRO_VERSION}" == X'7' ]; then
+        export PKG_PY_JSON='python36-simplejson'
         export PKG_PY_JINJA='python36-jinja2'
-        if [ ! -x ${CMD_UWSGI} ]; then
-            export PKG_UWSGI="uwsgi uwsgi-logger-syslog uwsgi-plugin-python36"
-            REQUIRED_PKGS="${REQUIRED_PKGS} ${PKG_UWSGI}"
-        fi
+        export REQUIRED_PKGS="${REQUIRED_PKGS} uwsgi uwsgi-plugin-python36 uwsgi-plugin-syslog"
     else
         if [ ! -x ${CMD_UWSGI} ]; then
             export REQUIRED_PKGS="${REQUIRED_PKGS} python3-devel python3-pip"
@@ -680,7 +681,7 @@ if [ X"${DISTRO}" == X'RHEL' ]; then
 
     export PKG_PY_DNS='python3-dns'
 elif [ X"${DISTRO}" == X'DEBIAN' -o X"${DISTRO}" == X'UBUNTU' ]; then
-    export PKG_UWSGI="uwsgi-core uwsgi-plugin-python3"
+    export REQUIRED_PKGS="${REQUIRED_PKGS} uwsgi-core uwsgi-plugin-python3"
 
     if [ X"${DISTRO_VERSION}" == X'9' ]; then
         export PKG_PY_LDAP='python3-pyldap'
@@ -693,6 +694,10 @@ elif [ X"${DISTRO}" == X'OPENBSD' ]; then
     export PKG_PY_DNS='py3-dnspython'
     export PKG_PY_REQUESTS='py3-requests'
     export PKG_PY_JINJA='py3-jinja2'
+
+    if [ ! -x ${CMD_UWSGI} ]; then
+        export PIP3_MODS="${PIP3_MODS} uwsgi"
+    fi
 elif [ X"${DISTRO}" == X'FREEBSD' ]; then
     export PKG_PY_PIP='devel/py-pip'
     export PKG_UWSGI="www/uwsgi"
@@ -700,6 +705,10 @@ elif [ X"${DISTRO}" == X'FREEBSD' ]; then
     export PKG_PY_DNS='dns/py-dnspython'
     export PKG_PY_REQUESTS='www/py-requests'
     export PKG_PY_JINJA='devel/py-Jinja2'
+
+    if [ ! -x ${CMD_UWSGI} ]; then
+        export REQUIRED_PKGS="${REQUIRED_PKGS} ${PKG_UWSGI}"
+    fi
 fi
 
 echo "* Check and install required packages."
