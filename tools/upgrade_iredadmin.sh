@@ -669,6 +669,7 @@ export PKG_PY_JINJA='python3-jinja2'
 
 if [ X"${DISTRO}" == X'RHEL' ]; then
     if [ X"${DISTRO_VERSION}" == X'7' ]; then
+        export PKG_PY_MYSQL='python36-PyMySQL'
         export PKG_PY_JSON='python36-simplejson'
         export PKG_PY_JINJA='python36-jinja2'
         export REQUIRED_PKGS="${REQUIRED_PKGS} uwsgi uwsgi-plugin-python36 uwsgi-plugin-syslog"
