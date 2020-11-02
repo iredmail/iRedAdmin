@@ -737,7 +737,8 @@ def update(profile_type, mail, form, conn=None):
                                             default_value=0,
                                             is_integer=True)
 
-        mod_attrs += ldaputils.mod_replace('mailQuota', quota)
+        # quota must be stored in bytes.
+        mod_attrs += ldaputils.mod_replace('mailQuota', quota*1024*1024)
 
         # Get telephoneNumber, mobile.
         # - multi values are allowed.
