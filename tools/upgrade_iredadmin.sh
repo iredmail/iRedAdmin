@@ -59,7 +59,8 @@ export CMD_PIP3='/usr/bin/pip3'
 export CMD_UWSGI='/usr/bin/uwsgi'
 
 if [ X"${KERNEL_NAME}" == X"LINUX" ]; then
-    export DISTRO_VERSION=$(awk -F'"' '/^VERSION_ID=/ {print $2}' /etc/os-release)
+    # Note: RHEL has minor version number in VERSION_ID.
+    export DISTRO_VERSION=$(awk -F'"' '/^VERSION_ID=/ {print $2}' /etc/os-release | awk -F'.' '{print $1}')
 
     if [ -f /etc/redhat-release ]; then
         # RHEL/CentOS
@@ -695,6 +696,11 @@ elif [ X"${DISTRO}" == X'OPENBSD' ]; then
     export PKG_PY_DNS='py3-dnspython'
     export PKG_PY_REQUESTS='py3-requests'
     export PKG_PY_JINJA='py3-jinja2'
+    if [ X"${DISTRO_VERSION}" == X'6.6' -o X"${DISTRO_VERSION}" == X'6.7' ]; then
+        export PKG_PY_MYSQL='py3-mysqlclient'
+    else
+        export PKG_PY_MYSQL='py3-pymysql'
+    fi
 
     if [ ! -x ${CMD_UWSGI} ]; then
         export PIP3_MODS="${PIP3_MODS} uwsgi"
