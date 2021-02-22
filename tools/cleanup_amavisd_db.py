@@ -95,16 +95,9 @@ def remove_from_one_table(sql_table, index_column, removed_values):
 # Delete old quarantined mails from table 'msgs'. It will also
 # delete records in table 'quarantine'.
 logger.info('Delete quarantined mails which older than %d days' % keep_quar_days)
-
-if ira_tool_lib.sql_dbn == 'mysql':
-    sql_where = """quar_type = 'Q'
-                   AND time_num < UNIX_TIMESTAMP(DATE_SUB(NOW(), INTERVAL %d DAY))""" % keep_quar_days
-elif ira_tool_lib.sql_dbn == 'postgres':
-    sql_where = """quar_type = 'Q'
-                   AND time_iso < CURRENT_TIMESTAMP - INTERVAL '%d DAYS'""" % keep_quar_days
-else:
-    logger.error('Invalid SQL backend: %s' % ira_tool_lib.sql_dbn)
-    sys.exit()
+_now = int(time.time())
+_expire_seconds = _now - (keep_quar_days * 86400)
+sql_where = """time_num < %d AND quar_type='Q'""" % _expire_seconds
 
 counter_msgs = 0
 while True:
@@ -128,12 +121,9 @@ while True:
 
 logger.info('Delete incoming/outgoing emails which older than %d days' % keep_inout_days)
 
-if ira_tool_lib.sql_dbn == 'mysql':
-    sql_where = """quar_type <> 'Q'
-                   AND time_num < UNIX_TIMESTAMP(DATE_SUB(NOW(), INTERVAL %d DAY))""" % keep_inout_days
-elif ira_tool_lib.sql_dbn == 'postgres':
-    sql_where = """quar_type <> 'Q'
-                   AND time_iso < CURRENT_TIMESTAMP - INTERVAL '%d DAYS'""" % keep_inout_days
+_now = int(time.time())
+_expire_seconds = _now - (keep_inout_days * 86400)
+sql_where = """time_num < %d AND quar_type <> 'Q'""" % _expire_seconds
 
 # We experienced an issue with PostgreSQL, it always return an non-existing
 # SQL record, and it causes endless loop. As a hack, we store all removed
@@ -148,7 +138,7 @@ while True:
                              limit=query_size_limit)
 
     if qr:
-        ids = [str(r.mail_id) for r in qr]
+        ids = [iredutils.bytes2str(r.mail_id) for r in qr]
         _total = len(ids)
 
         _removing_ids = list(set(ids) - set(_removed_ids))
