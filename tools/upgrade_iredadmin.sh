@@ -260,6 +260,13 @@ check_mlmmjadmin_installation()
     fi
 }
 
+remove_pkg() {
+    echo "Remove package(s): $@"
+    if [ X"${DISTRO}" == X'RHEL' ]; then
+        yum remove -y $@
+    fi
+}
+
 install_pkg()
 {
     echo "Install package(s): $@"
@@ -674,6 +681,12 @@ if [ X"${DISTRO}" == X'RHEL' ]; then
         export PKG_PY_JSON='python36-simplejson'
         export PKG_PY_JINJA='python36-jinja2'
         export REQUIRED_PKGS="${REQUIRED_PKGS} uwsgi uwsgi-plugin-python36 uwsgi-plugin-syslog"
+
+        if rpm -q mod_wsgi &>/dev/null; then
+            remove_pkg mod_wsgi
+            export REQUIRED_PKGS="${REQUIRED_PKGS} python3-mod_wsgi"
+        fi
+
     else
         if [ ! -x ${CMD_UWSGI} ]; then
             export REQUIRED_PKGS="${REQUIRED_PKGS} python3-devel python3-pip"
