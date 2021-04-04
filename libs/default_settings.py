@@ -24,6 +24,12 @@ SESSION_IGNORE_CHANGE_IP = False
 MAIL_ERROR_TO_WEBMASTER = False
 
 #
+# Logs
+#
+
+DEFAULT_LOG_LEVEL = "info"
+
+#
 # Syslog
 #
 # Syslog server address. Log to local syslog socket by default.
@@ -32,12 +38,21 @@ MAIL_ERROR_TO_WEBMASTER = False
 #   - /var/run/log on FreeBSD.
 # Some distro running systemd may have incorrect permission on /dev/log, it's
 # ok to use alternative syslog socket /run/systemd/journal/syslog instead.
+
+LOG_TO_SYSLOG = True
+
 SYSLOG_SERVER = "/dev/log"
 SYSLOG_PORT = 514
 
 # Syslog facility
 SYSLOG_FACILITY = "local5"
 SYSLOG_LOG_LEVEL = "info"
+
+#
+# Stdout log
+#
+LOG_TO_STDOUT = False
+STDOUT_LOG_LEVEL = "info"
 
 # Log programming error in SQL database, and viewed in `System -> Admin Log`.
 # This should be used only in testing server, not on production server, because
