@@ -1,3 +1,7 @@
+= 1.3 =
+    * Able to log to stdout. Should be useful in Docker environment.
+    * Activities are logged to SQL by default, it now logs to syslog/stdout too.
+
 = 1.2 =
     * Fixed:
         - [LDAP] Error while updating user's mailbox quota.
