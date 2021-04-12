@@ -24,6 +24,16 @@ SESSION_IGNORE_CHANGE_IP = False
 MAIL_ERROR_TO_WEBMASTER = False
 
 #
+# Logging
+#
+# Log target: syslog, stdout.
+# If set to `syslog`, parameters start with `SYSLOG_` below are required.
+LOG_TARGET = "syslog"
+
+# Log level. Used by all logging handlers.
+LOG_LEVEL = "info"
+
+#
 # Syslog
 #
 # Syslog server address. Log to local syslog socket by default.
@@ -37,7 +47,6 @@ SYSLOG_PORT = 514
 
 # Syslog facility
 SYSLOG_FACILITY = "local5"
-SYSLOG_LOG_LEVEL = "info"
 
 # Log programming error in SQL database, and viewed in `System -> Admin Log`.
 # This should be used only in testing server, not on production server, because
