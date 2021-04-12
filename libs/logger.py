@@ -16,14 +16,13 @@ logger = logging.getLogger("iredadmin")
 _log_level = getattr(logging, str(settings.LOG_LEVEL).upper())
 logger.setLevel(_log_level)
 
-# Log format
-_formatter = logging.Formatter("%(name)s %(message)s (%(pathname)s, line %(lineno)d)")
-
 if settings.LOG_TARGET == "stdout":
-    _handler = logging.StreamHandler(sys.stdout)
+    _handler = logging.StreamHandler()
+    _formatter = logging.Formatter("%(message)s (%(pathname)s, L%(lineno)d)")
 else:
     # Defaults to "syslog":
     _facility = getattr(SysLogHandler, "LOG_" + settings.SYSLOG_FACILITY.upper())
+    _formatter = logging.Formatter("%(name)s %(message)s (%(pathname)s, L%(lineno)d)")
 
     if settings.SYSLOG_SERVER.startswith("/"):
         # Log to a local socket
@@ -68,6 +67,13 @@ def log_activity(msg, admin="", domain="", username="", event="", loglevel="info
             ip=str(session.ip),
             timestamp=iredutils.get_gmttime(),
         )
+
+        if loglevel == "info":
+            logger.info("{0} admin={1}, domain={2}, username={3}, event={4}, "
+                        "ip={5}".format(msg, admin, domain, username, event, session.ip))
+        elif loglevel == "error":
+            logger.error("{0} admin={1}, domain={2}, username={3}, event={4}, "
+                         "ip={5}".format(msg, admin, domain, username, event, session.ip))
     except:
         pass
 
