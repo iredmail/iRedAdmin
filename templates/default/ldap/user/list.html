@@ -178,14 +178,8 @@
                             <option value="delete">{{ _('Delete') }}</option>
 
                             <option disabled>----</option>
-                            <option value="markasadmin">{{ _('Mark as domain admin') }}</option>
-                            <option value="unmarkasadmin">{{ _('Unmark as domain admin') }}</option>
-
-                            {% if session.get('is_global_admin') %}
-                                <option disabled>----</option>
-                                <option value="markasglobaladmin">{{ _('Mark as global admin') }}</option>
-                                <option value="unmarkasglobaladmin">{{ _('Unmark as global admin') }}</option>
-                            {% endif %}
+                            <option value="markasglobaladmin">{{ _('Mark as global admin') }}</option>
+                            <option value="unmarkasglobaladmin">{{ _('Unmark as global admin') }}</option>
                         </select>
 
                         <select name="keep_mailbox_days" class="fl-space" id="account_delete_date">

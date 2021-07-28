@@ -144,18 +144,6 @@ class List:
                                                       account_type='user',
                                                       enable_account=True)
             msg = 'ENABLED'
-        elif action == 'markasadmin':
-            result = sql_lib_user.mark_user_as_admin(conn=conn,
-                                                     domain=domain,
-                                                     users=mails,
-                                                     as_normal_admin=True)
-            msg = 'MARKASADMIN'
-        elif action == 'unmarkasadmin':
-            result = sql_lib_user.mark_user_as_admin(conn=conn,
-                                                     domain=domain,
-                                                     users=mails,
-                                                     as_normal_admin=False)
-            msg = 'UNMARKASADMIN'
         elif action == 'markasglobaladmin':
             result = sql_lib_user.mark_user_as_admin(conn=conn,
                                                      domain=domain,

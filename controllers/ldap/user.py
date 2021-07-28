@@ -128,7 +128,7 @@ class Users:
         elif action == 'enable':
             result = ldap_lib_general.enable_disable_users(mails=mails, action='enable', conn=None)
             msg = 'ENABLED'
-        elif action in ['markasadmin', 'unmarkasadmin', 'markasglobaladmin', 'unmarkasglobaladmin']:
+        elif action in ['markasglobaladmin', 'unmarkasglobaladmin']:
             result = ldap_lib_user.mark_unmark_as_admin(domain=domain, mails=mails, action=action, conn=None)
             msg = action.upper()
         else:

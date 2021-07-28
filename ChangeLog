@@ -1,3 +1,7 @@
+= 1.4 =
+    * Fixed: remove html code used to mark user as normal domain admin.
+      Note: Normal domain admin is only supported by iRedAdmin-Pro.
+
 = 1.3 =
     * Able to log to stdout. Should be useful in Docker environment.
     * Activities are logged to SQL by default, it now logs to syslog/stdout too.

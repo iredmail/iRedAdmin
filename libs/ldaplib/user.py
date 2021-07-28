@@ -421,14 +421,7 @@ def mark_unmark_as_admin(domain, mails, action, conn=None):
     for mail in mails:
         dn = ldaputils.rdn_value_to_user_dn(mail)
 
-        if action in ['markasadmin', 'unmarkasadmin']:
-            update_attribute = 'enabledService'
-            update_value = 'domainadmin'
-            update_action = 'delete'
-
-            if action == 'markasadmin':
-                update_action = 'add'
-        elif action in ['markasglobaladmin', 'unmarkasglobaladmin']:
+        if action in ['markasglobaladmin', 'unmarkasglobaladmin']:
             # Require global admin
             if not session.get('is_global_admin'):
                 return (False, 'PERMISSION_DENIED')
