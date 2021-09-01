@@ -36,7 +36,7 @@ def auth(conn,
             result = conn.select(
                 'mailbox',
                 vars={'username': username},
-                where="username=$username AND active=1 AND (isadmin=1 OR isglobaladmin=1)",
+                where="username=$username AND isglobaladmin=1 AND active=1",
                 what='password, language, isadmin, isglobaladmin, settings',
                 limit=1,
             )
@@ -46,7 +46,7 @@ def auth(conn,
         result = conn.select('mailbox',
                              vars={'username': username},
                              what='password, language, isadmin, isglobaladmin, settings',
-                             where="username=$username AND active=1",
+                             where="username=$username AND isglobaladmin=1 AND active=1",
                              limit=1)
     else:
         return (False, 'INVALID_ACCOUNT_TYPE')
@@ -99,6 +99,8 @@ def auth(conn,
         if session.get('admin_is_mail_user'):
             if record.get('isglobaladmin', 0) == 1:
                 session['is_global_admin'] = True
+            else:
+                return (False, "INVALID_CREDENTIALS")
 
         else:
             try:
@@ -109,6 +111,8 @@ def auth(conn,
                                      limit=1)
                 if result:
                     session['is_global_admin'] = True
+                else:
+                    return (False, "INVALID_CREDENTIALS")
             except:
                 pass
 

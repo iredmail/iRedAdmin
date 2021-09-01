@@ -1,3 +1,7 @@
+# 1.5
+
+- Fixed: normal admin login causes infinite loop.
+
 = 1.4 =
     * Fixed: remove html code used to mark user as normal domain admin.
       Note: Normal domain admin is only supported by iRedAdmin-Pro.
