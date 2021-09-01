@@ -17,17 +17,6 @@ from libs.sqllib import domain as sql_lib_domain
 session = web.config.get('_session', {})
 
 
-ENABLED_SERVICES = [
-    'enablesmtp', 'enablesmtpsecured',
-    'enablepop3', 'enablepop3secured',
-    'enableimap', 'enableimapsecured',
-    'enablesogo',
-    'enablemanagesieve', 'enablemanagesievesecured',
-    'enablesieve', 'enablesievesecured',
-    'enabledeliver',
-]
-
-
 def user_is_global_admin(conn, mail, user_profile=None):
     try:
         if user_profile:

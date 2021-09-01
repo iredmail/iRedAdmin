@@ -126,7 +126,7 @@ USER_SERVICES_OF_NORMAL_USER = tuple(list(USER_SERVICES_INTERNAL) + [
     'recipientbcc', 'senderbcc',
     'forward', 'shadowaddress',
     'displayedInGlobalAddressBook',
-    'sogo',
+    'sogo', 'sogowebmail', 'sogocalendar', 'sogoactivesync',
 ])
 
 # All available services for a mail user account.

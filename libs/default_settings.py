@@ -493,6 +493,9 @@ ADDITIONAL_USER_ATTRIBUTES = []
 #        managesieve
 #        managesievesecured
 #        sogo
+#        sogowebmail
+#        sogocalendar
+#        sogoactivesync
 #
 #      They're mapped to SQL column name in `vmail.mailbox` table with prefix
 #      string 'enable'. e.g. 'smtp' is mapped to 'enablesmtp' column.
