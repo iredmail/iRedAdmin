@@ -1,3 +1,8 @@
+# 1.5.1
+
+    * Fixed issues:
+        - Settings stored in SQL db does not work in command line tools.
+
 # 1.5
 
 - Fixed: normal admin login causes infinite loop.

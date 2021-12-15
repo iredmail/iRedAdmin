@@ -977,7 +977,7 @@ setting_kvs_map = {
 }
 
 
-def get_settings_from_db(params=None, account=None) -> Dict:
+def get_settings_from_db(params=None, account=None, conn_iredadmin=None) -> Dict:
     """Get a dict of settings defined in both `settings.py` and SQL database.
 
     - `params` is a list/tuple/set of parameter names of defined in settings.
@@ -1031,16 +1031,22 @@ def get_settings_from_db(params=None, account=None) -> Dict:
             else:
                 _settings[k.lower()] = v
 
+    if not conn_iredadmin:
+        if hasattr(web, "conn_iredadmin"):
+            conn_iredadmin = web.conn_iredadmin
+        else:
+            conn_iredadmin = get_db_conn(settings.iredadmin_db_name, settings.backend)
+
     try:
         if params:
-            qr = web.conn_iredadmin.select(
+            qr = conn_iredadmin.select(
                 "settings",
                 vars={"account": account, "params": params},
                 what="k,v",
                 where="account=$account AND k IN $params",
             )
         else:
-            qr = web.conn_iredadmin.select(
+            qr = conn_iredadmin.select(
                 "settings",
                 vars={"account": account},
                 where="account=$account",

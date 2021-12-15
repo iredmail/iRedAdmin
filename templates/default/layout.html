@@ -38,7 +38,11 @@
                     <a href="{{ctx.homepath}}/">
                         {# Logo image and brand name, description #}
                         {% if brand_logo %}
-                            <img src="{{ctx.homepath}}/static/{{ brand_logo }}" alt="logo" class="picture" />
+                            <img style="height: 80px;"
+                                src="{{ctx.homepath}}/static/{{ brand_logo }}"
+                                alt="logo"
+                                class="picture"
+                                />
                         {% endif %}
                         <span class="textlogo">
                             <span class="title">{{ brand_name }}</span>
