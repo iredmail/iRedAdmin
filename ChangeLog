@@ -1,4 +1,4 @@
-# 1.5.1
+# 1.6
 
 - Fixed issues:
     - Settings stored in SQL db does not work in command line tools.
