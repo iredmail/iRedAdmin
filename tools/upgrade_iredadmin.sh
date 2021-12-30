@@ -120,8 +120,12 @@ elif [ X"${KERNEL_NAME}" == X'FREEBSD' ]; then
     export SYSRC='/usr/sbin/sysrc'
 
     export CMD_PYTHON3='/usr/local/bin/python3'
-    export CMD_PIP3='/usr/local/bin/pip3'
     export CMD_UWSGI='/usr/local/bin/uwsgi'
+
+    [ -x /usr/local/bin/pip-3.8 ] && export CMD_PIP3='/usr/local/bin/pip-3.8'
+    [ -x /usr/local/bin/pip3 ] && export CMD_PIP3='/usr/local/bin/pip3'
+    [ -x /usr/local/bin/pip ] && export CMD_PIP3='/usr/local/bin/pip'
+
     export CRON_SPOOL_DIR='/var/cron/tabs'
     export NGINX_SNIPPET_CONF='/usr/local/etc/nginx/templates/iredadmin.tmpl'
     export NGINX_SNIPPET_CONF2='/usr/local/etc/nginx/templates/iredadmin-subdomain.tmpl'
