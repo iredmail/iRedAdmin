@@ -81,7 +81,7 @@ def list_logs(event='all', domain='all', admin='all', cur_page=1):
 def delete_logs(form, delete_all=False):
     if delete_all:
         try:
-            web.conn_iredadmin.delete('log')
+            web.conn_iredadmin.delete('log', where="1=1")
             return (True, )
         except Exception as e:
             return (False, repr(e))

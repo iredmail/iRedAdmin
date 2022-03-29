@@ -1,3 +1,8 @@
+# 1.7
+
+- Fixed issues:
+    - Can not delete all admin activities with option 'Delete all in database'.
+
 # 1.6
 
 - Fixed issues:
