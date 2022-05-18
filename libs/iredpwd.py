@@ -568,7 +568,7 @@ def is_supported_password_scheme(pw_hash):
             "SSHA",
             "SHA512",
             "SSHA512",
-            "SHA512-CRYPT"
+            "SHA512-CRYPT",
             "BCRYPT",
             "CRAM-MD5",
             "NTLM",
