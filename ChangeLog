@@ -1,6 +1,7 @@
 # 1.7
 
 - Fixed issues:
+    - Incorrect variable name caused internal server error.
     - Can not delete all admin activities with option 'Delete all in database'.
 
 # 1.6

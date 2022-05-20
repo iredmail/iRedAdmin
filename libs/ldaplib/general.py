@@ -1163,7 +1163,7 @@ def get_profile_by_dn(dn, query_filter=None, attributes=None, conn=None):
     if not attributes:
         attributes = ['*']
 
-    if not filter:
+    if not query_filter:
         query_filter = "(objectClass=*)"
 
     try:
