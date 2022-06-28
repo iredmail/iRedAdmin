@@ -1,3 +1,10 @@
+# 1.8
+
+- Fixed issues:
+    - Default uwsgi buffer size (4096) for iRedAdmin may be too small if
+      iRedAdmin is running behind a proxy server. Increased to 8192 now.
+      Thanks Marcel for the feedback.
+
 # 1.7
 
 - Fixed issues:
