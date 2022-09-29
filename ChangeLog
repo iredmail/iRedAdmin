@@ -1,3 +1,6 @@
+# 1.8.1
+    - Support CentOS Stream 9, Rocky Linux 9, Alma Linux 9.
+
 # 1.8
 
 - Fixed issues:
