@@ -254,12 +254,18 @@ STORE_PASSWORD_IN_PLAIN_TEXT = False
 # in `vmail.mailbox` table.
 STORE_PLAIN_PASSWORD_IN_ADDITIONAL_ATTR = ""
 
+# Set password last change date for newly created user. Defaults to True.
+# If you want to force end user to change password when first login or send
+# first email (with iRedAPD plugin `*_force_change_password`), please set it to
+# False.
+SET_PASSWORD_CHANGE_DATE_FOR_NEW_USER = True
+
 #
 # Password restrictions
 #
 # Special characters which can be used in password.
 # Notes: iOS devices may have problem with character '^'.
-PASSWORD_SPECIAL_CHARACTERS = """#$%&*+-,.:;!=?@[]/(){}_`~"""
+PASSWORD_SPECIAL_CHARACTERS = """#$%&*+-,.:;!=<>'"?@[]/(){}_`~"""
 # Must contain at least one letter, one uppercase letter, one number, one special character
 PASSWORD_HAS_LETTER = True
 PASSWORD_HAS_UPPERCASE = True
@@ -555,6 +561,16 @@ AMAVISD_SHOW_NON_LOCAL_DOMAINS = False
 # hang/timeout. in this case, you'd better set this parameter to a low
 # value to release the table lock sooner. e.g. 10.
 AMAVISD_CLEANUP_QUERY_SIZE_LIMIT = 100
+
+# Additional Amavisd ban rules.
+# iRedMail has 4 builtin ban rules since iRedMail-1.4.1:
+#   - ALLOW_MS_OFFICE: Allow all Microsoft Office documents.
+#   - ALLOW_MS_WORD: Allow Microsoft Word documents (.doc, .docx).
+#   - ALLOW_MS_EXCEL: Allow Microsoft Excel documents (.xls, .xlsx).
+#   - ALLOW_MS_PPT: Allow Microsoft PowerPoint documents (.ppt, .pptx).
+# You can add your custom ban rules here. Format is:
+# {"<rule_name>": "<comment>"}
+AMAVISD_BAN_RULES = {}
 
 # Show how many top senders/recipients on Dashboard page.
 NUM_TOP_SENDERS = 10
