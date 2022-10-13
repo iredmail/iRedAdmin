@@ -1,3 +1,8 @@
+# 1.9
+    * Improvements:
+        + New: tools/promote_user_to_global_admin.py, used to promote an
+          existing mail user to be a global admin.
+
 # 1.8.1
     - Support CentOS Stream 9, Rocky Linux 9, Alma Linux 9.
 
