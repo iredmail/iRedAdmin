@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/ksh
 # Author: Zhang Huangbin <zhb@iredmail.org>
 # Purpose: Start/stop iRedAdmin uwsgi instance.
 
