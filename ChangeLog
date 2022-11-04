@@ -1,4 +1,5 @@
 # 1.9
+    - Ship Python module web.py (github.com/webpy/webpy, public domain).
     * Improvements:
         + New: tools/promote_user_to_global_admin.py, used to promote an
           existing mail user to be a global admin.
