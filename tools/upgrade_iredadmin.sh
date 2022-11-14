@@ -58,6 +58,11 @@ export CMD_PIP3='/usr/bin/pip3'
 # uwsgi
 export CMD_UWSGI='/usr/bin/uwsgi'
 
+# If uwsgi is installed with pip, plugins are compiled into core binary
+# directly, not plugins are installed separately.
+# Mainly used on RHEL/CentOS/Rocky/Alma.
+export UWSGI_HAS_PLUGINS="YES"
+
 if [ X"${KERNEL_NAME}" == X"LINUX" ]; then
     # Note: RHEL has minor version number in VERSION_ID.
     export DISTRO_VERSION=$(awk -F'"' '/^VERSION_ID=/ {print $2}' /etc/os-release | awk -F'.' '{print $1}')
@@ -65,11 +70,13 @@ if [ X"${KERNEL_NAME}" == X"LINUX" ]; then
     if [ -f /etc/redhat-release ]; then
         # RHEL/CentOS
         export DISTRO='RHEL'
+
+        # Installed with pip.
         export CMD_UWSGI='/usr/sbin/uwsgi'
 
-        if [ X"${DISTRO_VERSION}" == X'8' ]; then
-            # CentOS 8 doesn't have uwsgi package, we will install it with pip3.
+        if [[ -x "/usr/local/bin/uwsgi" ]]; then
             export CMD_UWSGI='/usr/local/bin/uwsgi'
+            export UWSGI_HAS_PLUGINS="NO"
         fi
 
         export HTTPD_RC_SCRIPT_NAME='httpd'
@@ -500,6 +507,13 @@ if [ X"${USE_SYSTEMD}" == X'YES' ]; then
     if [ X"${DISTRO}" == X'RHEL' ]; then
         cp -f ${NEW_IRA_ROOT_DIR}/rc_scripts/systemd/rhel${DISTRO_VERSION}.service ${SYSTEMD_SERVICE_DIR}/iredadmin.service
         perl -pi -e 's#/opt/www#$ENV{HTTPD_SERVERROOT}#g' ${SYSTEMD_SERVICE_DIR}/iredadmin.service
+
+        if [[ X"${UWSGI_HAS_PLUGINS}" == X"NO" ]]; then
+            _ini_file="${NEW_IRA_ROOT_DIR}/rc_scripts/uwsgi/rhel${DISTRO_VERSION}.ini"
+            if [[ -f ${_ini_file} ]]; then
+                perl -pi -e 's#^(plugins.*)##g' ${_ini_file}
+            fi
+        fi
     elif [ X"${DISTRO}" == X'DEBIAN' -o X"${DISTRO}" == X'UBUNTU' ]; then
         cp -f ${NEW_IRA_ROOT_DIR}/rc_scripts/systemd/debian.service ${SYSTEMD_SERVICE_DIR}/iredadmin.service
         perl -pi -e 's#/opt/www#$ENV{HTTPD_SERVERROOT}#g' ${SYSTEMD_SERVICE_DIR}/iredadmin.service
@@ -693,7 +707,8 @@ if [ X"${DISTRO}" == X'RHEL' ]; then
 
     else
         if [ ! -x ${CMD_UWSGI} ]; then
-            export REQUIRED_PKGS="${REQUIRED_PKGS} python3-devel python3-pip"
+            # gcc is required to install uwsgi.
+            export REQUIRED_PKGS="${REQUIRED_PKGS} python3-devel python3-pip gcc"
             export PIP3_MODS="${PIP3_MODS} uwsgi"
         fi
     fi
