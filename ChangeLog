@@ -1,3 +1,6 @@
+# 2.0
+    - Fixed: tools/upgrade_iredadmin.sh: handle uwsgi installed with pip.
+
 # 1.9
     - Ship Python module web.py (github.com/webpy/webpy, public domain).
     * Improvements:
