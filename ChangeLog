@@ -1,3 +1,7 @@
+# 2.1
+    + New translation: Swedish (sv_SE).
+      Thanks Anders Johansson <johansson _at_ aljmedia.se>.
+
 # 2.0
     - Fixed: tools/upgrade_iredadmin.sh: handle uwsgi installed with pip.
 
