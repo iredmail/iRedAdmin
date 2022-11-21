@@ -507,6 +507,7 @@ if [ X"${USE_SYSTEMD}" == X'YES' ]; then
     if [ X"${DISTRO}" == X'RHEL' ]; then
         cp -f ${NEW_IRA_ROOT_DIR}/rc_scripts/systemd/rhel${DISTRO_VERSION}.service ${SYSTEMD_SERVICE_DIR}/iredadmin.service
         perl -pi -e 's#/opt/www#$ENV{HTTPD_SERVERROOT}#g' ${SYSTEMD_SERVICE_DIR}/iredadmin.service
+        perl -pi -e 's#/usr/local/bin/uwsgi#${CMD_UWSGI}#g' ${SYSTEMD_SERVICE_DIR}/iredadmin.service
 
         if [[ X"${UWSGI_HAS_PLUGINS}" == X"NO" ]]; then
             _ini_file="${NEW_IRA_ROOT_DIR}/rc_scripts/uwsgi/rhel${DISTRO_VERSION}.ini"

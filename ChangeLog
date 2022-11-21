@@ -1,4 +1,5 @@
 # 2.1
+    - Fixed: tools/upgrade_iredadmin.sh: incorrect uwsgi path on CentOS 8.
     + New translation: Swedish (sv_SE).
       Thanks Anders Johansson <johansson _at_ aljmedia.se>.
 
