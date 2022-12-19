@@ -57,6 +57,10 @@ keep_quar_days = db_settings['amavisd_remove_quarantined_in_days']
 keep_inout_days = db_settings['amavisd_remove_maillog_in_days']
 query_size_limit = settings.AMAVISD_CLEANUP_QUERY_SIZE_LIMIT
 
+# SQL records in `quarantine` table reference to `msgs`.
+if keep_quar_days > keep_inout_days:
+    keep_inout_days = keep_quar_days
+
 conn_amavisd = ira_tool_lib.get_db_conn('amavisd')
 
 if settings.backend in ['mysql', 'ldap']:
@@ -123,7 +127,7 @@ logger.info('Delete incoming/outgoing emails which older than %d days' % keep_in
 
 _now = int(time.time())
 _expire_seconds = _now - (keep_inout_days * 86400)
-sql_where = """time_num < %d AND quar_type <> 'Q'""" % _expire_seconds
+sql_where = """time_num < %d AND (quar_type <> 'Q' OR quar_type IS NULL)""" % _expire_seconds
 
 # We experienced an issue with PostgreSQL, it always return an non-existing
 # SQL record, and it causes endless loop. As a hack, we store all removed

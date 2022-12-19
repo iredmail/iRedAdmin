@@ -1,19 +1,29 @@
+# 2.2
+
+- Fixed issues:
+    - tools/cleanup_amavisd_db.py: can not delete old records if column
+      `msgs.quar_type` is null.
+
 # 2.1
-    - Fixed: tools/upgrade_iredadmin.sh: incorrect uwsgi path on CentOS 8.
-    + New translation: Swedish (sv_SE).
-      Thanks Anders Johansson <johansson _at_ aljmedia.se>.
+
+- Fixed: tools/upgrade_iredadmin.sh: incorrect uwsgi path on CentOS 8.
++ New translation: Swedish (sv_SE).
+  Thanks Anders Johansson <johansson _at_ aljmedia.se>.
 
 # 2.0
-    - Fixed: tools/upgrade_iredadmin.sh: handle uwsgi installed with pip.
+
+- Fixed: tools/upgrade_iredadmin.sh: handle uwsgi installed with pip.
 
 # 1.9
-    - Ship Python module web.py (github.com/webpy/webpy, public domain).
-    * Improvements:
-        + New: tools/promote_user_to_global_admin.py, used to promote an
-          existing mail user to be a global admin.
+
+- Ship Python module web.py (github.com/webpy/webpy, public domain).
+* Improvements:
+    + New: tools/promote_user_to_global_admin.py, used to promote an
+      existing mail user to be a global admin.
 
 # 1.8.1
-    - Support CentOS Stream 9, Rocky Linux 9, Alma Linux 9.
+
+- Support CentOS Stream 9, Rocky Linux 9, Alma Linux 9.
 
 # 1.8
 
