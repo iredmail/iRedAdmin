@@ -26,9 +26,6 @@
 
 import os
 import sys
-import web
-
-web.config.debug = False
 
 # Directory used to store disclaimer files.
 # Default directory is /etc/postfix/disclaimer/.
@@ -42,6 +39,9 @@ else:
 os.environ['LC_ALL'] = 'C'
 rootdir = os.path.abspath(os.path.dirname(__file__)) + '/../'
 sys.path.insert(0, rootdir)
+
+import web
+web.config.debug = False
 
 import settings
 from libs import iredutils
