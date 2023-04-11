@@ -1,3 +1,8 @@
+# 2.3
+
+- Fixed issues:
+    - Incorrect order of importing web.py module in tools/*.py.
+
 # 2.2
 
 - Fixed issues:
