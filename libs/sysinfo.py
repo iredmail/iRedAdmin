@@ -37,13 +37,13 @@ def get_iredmail_version():
 
 
 def __get_proxied_urlopen():
-    socket.setdefaulttimeout(5)
+    socket.setdefaulttimeout(5):
 
-    if settings.HTTP_PROXY:
+    if getattr(settings, "HTTP_PROXY", ""):
         # urllib2 adds proxy handlers with environment variables automatically
-        os.environ["http_proxy"] = settings.HTTP_PROXY
-        os.environ["https_proxy"] = settings.HTTP_PROXY
-        os.environ["no_proxy"] = settings.NO_PROXY if settings.NO_PROXY else "localhost, 127.0.0.1"
+        os.environ["http_proxy"] = getattr(settings, "HTTP_PROXY")
+        os.environ["https_proxy"] = getattr(settings, "HTTP_PROXY")
+        os.environ["no_proxy"] = getattr(settings, "NO_PROXY", "localhost, 127.0.0.1")
 
     return urllib.request.urlopen
 
