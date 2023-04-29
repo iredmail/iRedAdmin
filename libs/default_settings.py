@@ -71,8 +71,8 @@ HTTP_PROXY = ""
 # Reference: https://docs.python.org/3/library/urllib.request.html#urllib.request.ProxyHandler
 #
 # Sample:
-#   - With dot notation: NO_PROXY = "localhost, 127.0.0.1, .mydomain.local"
-#   - With fqdn: NO_PROXY = "localhost, 127.0.0.1, host.mydomain.local"
+#   - With dot notation: NO_PROXY = "localhost, 127.0.0.1, ::1, .mydomain.local"
+#   - With fqdn: NO_PROXY = "localhost, 127.0.0.1, ::1, host.mydomain.local"
 NO_PROXY = "localhost, 127.0.0.1, ::1"
 
 # Local timezone. It must be one of below:
