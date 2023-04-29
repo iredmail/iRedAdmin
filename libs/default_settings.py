@@ -67,11 +67,13 @@ HTTP_PROXY = ""
 
 # Set a comma-separated list of domain extensions or ip addresses that the proxy should not be used for
 # if iRedAdmin cannot access internet (iredmail.org) directly.
+#
+# Reference: https://docs.python.org/3/library/urllib.request.html#urllib.request.ProxyHandler
+#
 # Sample:
 #   - With dot notation: NO_PROXY = "localhost, 127.0.0.1, .mydomain.local"
-#   - With cidr notation: NO_PROXY = "localhost, 127.0.0.1, 192.168.86.0/24"
 #   - With fqdn: NO_PROXY = "localhost, 127.0.0.1, host.mydomain.local"
-NO_PROXY = "localhost, 127.0.0.1"
+NO_PROXY = "localhost, 127.0.0.1, ::1"
 
 # Local timezone. It must be one of below:
 #   GMT-12:00
