@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  iRedAdmin\n"
 "Report-Msgid-Bugs-To: lverhoeven@vcn.nl\n"
-"POT-Creation-Date: 2020-10-05 15:15+0800\n"
+"POT-Creation-Date: 2023-06-16 23:51+0800\n"
 "PO-Revision-Date: 2011-06-10 23:46+0800\n"
 "Last-Translator: Luc Verhoeven <lverhoeven@vcn>\n"
 "Language: nl_NL\n"
 "Language-Team: nl_NL <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.3.4\n"
+"Generated-By: Babel 2.11.0\n"
 
 #, python-format
 msgid "%s days, %s hours, %s minutes."
@@ -94,9 +94,6 @@ msgstr "Beheerders"
 msgid "Admins under domain: %s"
 msgstr "Gebruikers onder domein: %s"
 
-msgid "Advanced"
-msgstr "Geavanceerd"
-
 msgid "Alias domains:"
 msgstr ""
 
@@ -164,12 +161,6 @@ msgstr ""
 msgid "Backup MX"
 msgstr ""
 
-msgid "Can not be longer than"
-msgstr ""
-
-msgid "Can not be shorter than"
-msgstr ""
-
 msgid "Choose Action"
 msgstr "Kies aktie"
 
@@ -193,9 +184,6 @@ msgstr "UITGESCHAKELD"
 
 msgid "Dashboard"
 msgstr "Dashboard"
-
-msgid "Default language for new user"
-msgstr "Standaard quota voor nieuwe gebruikers"
 
 msgid "Delete"
 msgstr "Verwijder"
@@ -419,9 +407,6 @@ msgstr "Laatste pagina"
 msgid "Last name"
 msgstr "Systeemnaam"
 
-msgid "Leave it empty to use server-wide default setting."
-msgstr ""
-
 msgid "List all mail users."
 msgstr "Geef alle e-mail gebruikers weer"
 
@@ -456,16 +441,10 @@ msgstr "Mailbox quota"
 msgid "Make sure disclaimer work as expected:"
 msgstr ""
 
-msgid "Mark as domain admin"
-msgstr "Alle e-mail beheerders"
-
 msgid "Mark as global admin"
 msgstr "Markeer als globale beheerder"
 
 msgid "Mark this user as global admin"
-msgstr ""
-
-msgid "Maximum password length"
 msgstr ""
 
 msgid "Member of mailing lists:"
@@ -479,9 +458,6 @@ msgstr ""
 
 msgid "Message"
 msgstr "Bericht"
-
-msgid "Minimum password length"
-msgstr ""
 
 msgid "Mobile"
 msgstr "Mobiel"
@@ -767,9 +743,6 @@ msgstr ""
 msgid "Unlimited"
 msgstr "Ongelimiteerd"
 
-msgid "Unmark as domain admin"
-msgstr "Alle e-mail beheerders"
-
 msgid "Unmark as global admin"
 msgstr "Markeer als globale beheerder"
 
@@ -826,9 +799,6 @@ msgid "Who can send email to this list"
 msgstr "Wie kunnen er e-mails verzenden naar deze lijst"
 
 msgid "You are not allowed to update global domain admin's profile."
-msgstr ""
-
-msgid "or longer than"
 msgstr ""
 
 msgid "without verifying local recipients"

@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  iRedAdmin\n"
 "Report-Msgid-Bugs-To: suds77@gmail.com\n"
-"POT-Creation-Date: 2020-10-05 15:15+0800\n"
+"POT-Creation-Date: 2023-06-16 23:51+0800\n"
 "PO-Revision-Date: 2013-07-24 09:24+0400\n"
 "Last-Translator: Dmitry Sukharev <suds77@gmail.com>\n"
 "Language: ru_RU\n"
 "Language-Team: ru_RU <suds77@gmail.com>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.3.4\n"
+"Generated-By: Babel 2.11.0\n"
 
 #, python-format
 msgid "%s days, %s hours, %s minutes."
@@ -94,9 +94,6 @@ msgstr "Администраторы"
 msgid "Admins under domain: %s"
 msgstr "Админстраторы в домене: %s"
 
-msgid "Advanced"
-msgstr "Дополнительно"
-
 msgid "Alias domains:"
 msgstr ""
 
@@ -164,12 +161,6 @@ msgstr ""
 msgid "Backup MX"
 msgstr ""
 
-msgid "Can not be longer than"
-msgstr ""
-
-msgid "Can not be shorter than"
-msgstr ""
-
 msgid "Choose Action"
 msgstr "Выбрать действие"
 
@@ -193,9 +184,6 @@ msgstr "Отключен"
 
 msgid "Dashboard"
 msgstr "Панель управления"
-
-msgid "Default language for new user"
-msgstr "Язык по умолчанию для нового пользователя"
 
 msgid "Delete"
 msgstr "Удалить"
@@ -419,9 +407,6 @@ msgstr "Последняя страница"
 msgid "Last name"
 msgstr "Хост"
 
-msgid "Leave it empty to use server-wide default setting."
-msgstr ""
-
 msgid "List all mail users."
 msgstr "Список всех пользователей почты"
 
@@ -456,16 +441,10 @@ msgstr "Квота ящика"
 msgid "Make sure disclaimer work as expected:"
 msgstr ""
 
-msgid "Mark as domain admin"
-msgstr "Отметить как администратор домена"
-
 msgid "Mark as global admin"
 msgstr "Отметить как Глобальный админ"
 
 msgid "Mark this user as global admin"
-msgstr ""
-
-msgid "Maximum password length"
 msgstr ""
 
 msgid "Member of mailing lists:"
@@ -479,9 +458,6 @@ msgstr ""
 
 msgid "Message"
 msgstr "Сообщение"
-
-msgid "Minimum password length"
-msgstr ""
 
 msgid "Mobile"
 msgstr "Мобильный телефон"
@@ -767,9 +743,6 @@ msgstr ""
 msgid "Unlimited"
 msgstr "Неограничено"
 
-msgid "Unmark as domain admin"
-msgstr "Отменить как администратора домена"
-
 msgid "Unmark as global admin"
 msgstr "Отменить как Глобальный админ"
 
@@ -826,9 +799,6 @@ msgid "Who can send email to this list"
 msgstr "Кто может слать почту на этот список"
 
 msgid "You are not allowed to update global domain admin's profile."
-msgstr ""
-
-msgid "or longer than"
 msgstr ""
 
 msgid "without verifying local recipients"

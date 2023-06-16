@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  iRedAdmin\n"
 "Report-Msgid-Bugs-To: zhb@iredmail.org\n"
-"POT-Creation-Date: 2020-10-05 15:15+0800\n"
+"POT-Creation-Date: 2023-06-16 23:51+0800\n"
 "PO-Revision-Date: 2011-06-10 23:46+0800\n"
 "Last-Translator: Juris BALANDIS <juris.balandis@gmail.com>\n"
 "Language: lv_LV\n"
 "Language-Team: lv_LV <juris.balandis@gmail.com>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.3.4\n"
+"Generated-By: Babel 2.11.0\n"
 
 #, python-format
 msgid "%s days, %s hours, %s minutes."
@@ -94,9 +94,6 @@ msgstr "Administratori"
 msgid "Admins under domain: %s"
 msgstr "Administratori domēnā: %s"
 
-msgid "Advanced"
-msgstr "Papildus"
-
 msgid "Alias domains:"
 msgstr "Aizstājvārdu domēni:"
 
@@ -164,12 +161,6 @@ msgstr "Dublēšana"
 msgid "Backup MX"
 msgstr "Dublēšana MX"
 
-msgid "Can not be longer than"
-msgstr ""
-
-msgid "Can not be shorter than"
-msgstr ""
-
 msgid "Choose Action"
 msgstr "Izvēlieties darbību"
 
@@ -193,9 +184,6 @@ msgstr "ATSPĒJOTS"
 
 msgid "Dashboard"
 msgstr "Informācijas panelis"
-
-msgid "Default language for new user"
-msgstr "Jauna lietotāja noklusējuma valoda"
 
 msgid "Delete"
 msgstr "Dzēst"
@@ -419,9 +407,6 @@ msgstr "Pēdējā lapa"
 msgid "Last name"
 msgstr "Uzvārds"
 
-msgid "Leave it empty to use server-wide default setting."
-msgstr ""
-
 msgid "List all mail users."
 msgstr "Visu e-pastu lietotāju saraksts"
 
@@ -456,16 +441,10 @@ msgstr "Pastkastes kvota"
 msgid "Make sure disclaimer work as expected:"
 msgstr ""
 
-msgid "Mark as domain admin"
-msgstr "Atzīmēt kā domēna administratoru"
-
 msgid "Mark as global admin"
 msgstr "Atzīmēt kā globālo administratoru"
 
 msgid "Mark this user as global admin"
-msgstr ""
-
-msgid "Maximum password length"
 msgstr ""
 
 msgid "Member of mailing lists:"
@@ -479,9 +458,6 @@ msgstr "Dalībnieki un regulētāji"
 
 msgid "Message"
 msgstr "Ziņa"
-
-msgid "Minimum password length"
-msgstr ""
 
 msgid "Mobile"
 msgstr "Mobilais"
@@ -769,9 +745,6 @@ msgstr ""
 msgid "Unlimited"
 msgstr "Neierobežots"
 
-msgid "Unmark as domain admin"
-msgstr "Noņemt atzīmi kā domēna administrators"
-
 msgid "Unmark as global admin"
 msgstr "Noņemt atzīmi kā globālais administrators"
 
@@ -829,9 +802,6 @@ msgstr "Kurš var sūtīt e-pasta ziņojumu šim sarakstam"
 
 msgid "You are not allowed to update global domain admin's profile."
 msgstr "Jums nav atļauts atjaunināt globālā domēna administratora profilu."
-
-msgid "or longer than"
-msgstr ""
 
 msgid "without verifying local recipients"
 msgstr "nepārbaudot vietējos saņēmējus"

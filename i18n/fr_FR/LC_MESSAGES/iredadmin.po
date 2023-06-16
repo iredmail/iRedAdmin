@@ -6,16 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  iRedAdmin\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-10-05 15:15+0800\n"
+"POT-Creation-Date: 2023-06-16 23:51+0800\n"
 "PO-Revision-Date: 2011-06-10 23:46+0800\n"
 "Last-Translator: Shafeek SUMSER <shafeeks@gmail.com>\n"
 "Language: fr_FR\n"
 "Language-Team: fr_FR <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n > 1)\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.3.4\n"
+"Generated-By: Babel 2.11.0\n"
 
 #, python-format
 msgid "%s days, %s hours, %s minutes."
@@ -93,9 +93,6 @@ msgstr "Administrateurs"
 msgid "Admins under domain: %s"
 msgstr "Utilisateurs du domaine : %s"
 
-msgid "Advanced"
-msgstr "Avancé"
-
 msgid "Alias domains:"
 msgstr ""
 
@@ -163,12 +160,6 @@ msgstr ""
 msgid "Backup MX"
 msgstr ""
 
-msgid "Can not be longer than"
-msgstr ""
-
-msgid "Can not be shorter than"
-msgstr ""
-
 msgid "Choose Action"
 msgstr "Choisir une action"
 
@@ -192,9 +183,6 @@ msgstr "Inactif"
 
 msgid "Dashboard"
 msgstr "Tableau de bord"
-
-msgid "Default language for new user"
-msgstr "Quota par défaut pour un nouvel utilisateur"
 
 msgid "Delete"
 msgstr "Supprimer"
@@ -423,9 +411,6 @@ msgstr "Dernière page"
 msgid "Last name"
 msgstr "Nom d'hôte"
 
-msgid "Leave it empty to use server-wide default setting."
-msgstr ""
-
 msgid "List all mail users."
 msgstr "Lister tous les comptes de messagerie."
 
@@ -460,16 +445,10 @@ msgstr "Quota de boite aux lettres"
 msgid "Make sure disclaimer work as expected:"
 msgstr ""
 
-msgid "Mark as domain admin"
-msgstr "Marquer comme administrateur du domaine"
-
 msgid "Mark as global admin"
 msgstr "Marquer comme administrateur global"
 
 msgid "Mark this user as global admin"
-msgstr ""
-
-msgid "Maximum password length"
 msgstr ""
 
 msgid "Member of mailing lists:"
@@ -483,9 +462,6 @@ msgstr ""
 
 msgid "Message"
 msgstr "Message"
-
-msgid "Minimum password length"
-msgstr ""
 
 msgid "Mobile"
 msgstr "Mobile"
@@ -777,9 +753,6 @@ msgstr ""
 msgid "Unlimited"
 msgstr "Illimité"
 
-msgid "Unmark as domain admin"
-msgstr "Ne pas marquer comme administrateur du domaine."
-
 msgid "Unmark as global admin"
 msgstr "Ne pas marquer comme administrateur global"
 
@@ -836,9 +809,6 @@ msgid "Who can send email to this list"
 msgstr "Qui peuvent envoyer des courriels à cette liste"
 
 msgid "You are not allowed to update global domain admin's profile."
-msgstr ""
-
-msgid "or longer than"
 msgstr ""
 
 msgid "without verifying local recipients"

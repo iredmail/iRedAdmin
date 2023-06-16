@@ -9,16 +9,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  iRedAdmin\n"
 "Report-Msgid-Bugs-To: zhb@iredmail.org\n"
-"POT-Creation-Date: 2020-10-05 15:15+0800\n"
+"POT-Creation-Date: 2023-06-16 23:51+0800\n"
 "PO-Revision-Date: 2017-11-02 12:34+0100\n"
 "Last-Translator: Peter <info@nuw.biz>\n"
 "Language: de_DE\n"
 "Language-Team: de_DE <zhb@iredmail.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.3.4\n"
+"Generated-By: Babel 2.11.0\n"
 
 #, python-format
 msgid "%s days, %s hours, %s minutes."
@@ -98,9 +98,6 @@ msgstr "Administratoren"
 msgid "Admins under domain: %s"
 msgstr "Administratoren der Domain: %s"
 
-msgid "Advanced"
-msgstr "Erweitert"
-
 msgid "Alias domains:"
 msgstr "Alias Domänen"
 
@@ -168,12 +165,6 @@ msgstr "Backup"
 msgid "Backup MX"
 msgstr "Backup MX"
 
-msgid "Can not be longer than"
-msgstr ""
-
-msgid "Can not be shorter than"
-msgstr ""
-
 msgid "Choose Action"
 msgstr "Aktion wählen"
 
@@ -197,9 +188,6 @@ msgstr "Deaktiviert"
 
 msgid "Dashboard"
 msgstr "Übersicht"
-
-msgid "Default language for new user"
-msgstr "Standard Sprache für neue Benutzer"
 
 msgid "Delete"
 msgstr "Entfernen"
@@ -425,9 +413,6 @@ msgstr "Letzte Seite"
 msgid "Last name"
 msgstr "Nachname"
 
-msgid "Leave it empty to use server-wide default setting."
-msgstr ""
-
 msgid "List all mail users."
 msgstr "Alle E-Mail Benutzer zeigen."
 
@@ -462,16 +447,10 @@ msgstr "Postfach Quota"
 msgid "Make sure disclaimer work as expected:"
 msgstr ""
 
-msgid "Mark as domain admin"
-msgstr "Als Domain-Admin markieren"
-
 msgid "Mark as global admin"
 msgstr "Als Globalen Administrator markieren"
 
 msgid "Mark this user as global admin"
-msgstr ""
-
-msgid "Maximum password length"
 msgstr ""
 
 msgid "Member of mailing lists:"
@@ -485,9 +464,6 @@ msgstr "Mitglieder und Moderatoren"
 
 msgid "Message"
 msgstr "Nachricht"
-
-msgid "Minimum password length"
-msgstr ""
 
 msgid "Mobile"
 msgstr "Handy"
@@ -775,9 +751,6 @@ msgstr ""
 msgid "Unlimited"
 msgstr "Unbegrenzt"
 
-msgid "Unmark as domain admin"
-msgstr "Status 'Domain-Admin' aufheben"
-
 msgid "Unmark as global admin"
 msgstr "Status 'globaler Admin' aufheben"
 
@@ -837,9 +810,6 @@ msgid "You are not allowed to update global domain admin's profile."
 msgstr ""
 "Sie dürfen das Profil der globalen Domainadministratoren nicht "
 "aktualisieren."
-
-msgid "or longer than"
-msgstr ""
 
 msgid "without verifying local recipients"
 msgstr "ohne lokale Empfänger zu überprüfen"

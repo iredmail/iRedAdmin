@@ -74,9 +74,6 @@ msgstr ""
 msgid "Admins under domain: %s"
 msgstr ""
 
-msgid "Advanced"
-msgstr ""
-
 msgid "Alias domains:"
 msgstr ""
 
@@ -144,12 +141,6 @@ msgstr ""
 msgid "Backup MX"
 msgstr ""
 
-msgid "Can not be longer than"
-msgstr ""
-
-msgid "Can not be shorter than"
-msgstr ""
-
 msgid "Choose Action"
 msgstr ""
 
@@ -172,9 +163,6 @@ msgid "DISABLED"
 msgstr ""
 
 msgid "Dashboard"
-msgstr ""
-
-msgid "Default language for new user"
 msgstr ""
 
 msgid "Delete"
@@ -395,9 +383,6 @@ msgstr ""
 msgid "Last name"
 msgstr ""
 
-msgid "Leave it empty to use server-wide default setting."
-msgstr ""
-
 msgid "List all mail users."
 msgstr ""
 
@@ -432,16 +417,10 @@ msgstr ""
 msgid "Make sure disclaimer work as expected:"
 msgstr ""
 
-msgid "Mark as domain admin"
-msgstr ""
-
 msgid "Mark as global admin"
 msgstr ""
 
 msgid "Mark this user as global admin"
-msgstr ""
-
-msgid "Maximum password length"
 msgstr ""
 
 msgid "Member of mailing lists:"
@@ -454,9 +433,6 @@ msgid "Members and moderators"
 msgstr ""
 
 msgid "Message"
-msgstr ""
-
-msgid "Minimum password length"
 msgstr ""
 
 msgid "Mobile"
@@ -739,9 +715,6 @@ msgstr ""
 msgid "Unlimited"
 msgstr ""
 
-msgid "Unmark as domain admin"
-msgstr ""
-
 msgid "Unmark as global admin"
 msgstr ""
 
@@ -798,9 +771,6 @@ msgid "Who can send email to this list"
 msgstr ""
 
 msgid "You are not allowed to update global domain admin's profile."
-msgstr ""
-
-msgid "or longer than"
 msgstr ""
 
 msgid "without verifying local recipients"

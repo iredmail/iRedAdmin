@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2020-10-05 15:15+0800\n"
+"POT-Creation-Date: 2023-06-16 23:51+0800\n"
 "PO-Revision-Date: 2020-06-29 12:40+0100\n"
 "Last-Translator: Søren Mortensen <sm@upnavigator.dk>\n"
 "Language: da_DK\n"
 "Language-Team: da_DK <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.3.4\n"
+"Generated-By: Babel 2.11.0\n"
 
 #, python-format
 msgid "%s days, %s hours, %s minutes."
@@ -94,9 +94,6 @@ msgstr "Admins"
 msgid "Admins under domain: %s"
 msgstr "Admins under domæne: %s"
 
-msgid "Advanced"
-msgstr "Avanceret"
-
 msgid "Alias domains:"
 msgstr "Alias domæner"
 
@@ -164,12 +161,6 @@ msgstr "Backup"
 msgid "Backup MX"
 msgstr "Backup MX"
 
-msgid "Can not be longer than"
-msgstr ""
-
-msgid "Can not be shorter than"
-msgstr ""
-
 msgid "Choose Action"
 msgstr "Vælg handling"
 
@@ -193,9 +184,6 @@ msgstr "DEAKTIVERET"
 
 msgid "Dashboard"
 msgstr "Oversigt"
-
-msgid "Default language for new user"
-msgstr "Standard sprog for ny bruger"
 
 msgid "Delete"
 msgstr "Slet"
@@ -419,9 +407,6 @@ msgstr "Sidste Side"
 msgid "Last name"
 msgstr "Efternavn"
 
-msgid "Leave it empty to use server-wide default setting."
-msgstr ""
-
 msgid "List all mail users."
 msgstr "Liste over alle mail brugere."
 
@@ -456,16 +441,10 @@ msgstr "Postkasse kvote"
 msgid "Make sure disclaimer work as expected:"
 msgstr ""
 
-msgid "Mark as domain admin"
-msgstr "Markér som domæne administrator"
-
 msgid "Mark as global admin"
 msgstr "Markér som global administrator"
 
 msgid "Mark this user as global admin"
-msgstr ""
-
-msgid "Maximum password length"
 msgstr ""
 
 msgid "Member of mailing lists:"
@@ -479,9 +458,6 @@ msgstr "Medlemmer og moderatorer"
 
 msgid "Message"
 msgstr "Besked"
-
-msgid "Minimum password length"
-msgstr ""
 
 msgid "Mobile"
 msgstr "Mobil"
@@ -769,9 +745,6 @@ msgstr "Unban IP-adresse"
 msgid "Unlimited"
 msgstr "Ubegrænset"
 
-msgid "Unmark as domain admin"
-msgstr "Fjern markering som domæne admin"
-
 msgid "Unmark as global admin"
 msgstr "Fjern markering som global admin"
 
@@ -829,9 +802,6 @@ msgstr "Hvem kan sende e-mail til denne liste"
 
 msgid "You are not allowed to update global domain admin's profile."
 msgstr "Du har ikke lov til at opdatere den globale domæneadministrators profil."
-
-msgid "or longer than"
-msgstr ""
 
 msgid "without verifying local recipients"
 msgstr "uden at verificere lokale modtagere"

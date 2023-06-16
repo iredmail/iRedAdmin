@@ -1,3 +1,24 @@
+# Romanian (Romania) translations for PROJECT.
+# Copyright (C) 2023 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2023.
+#
+
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2023-06-16 23:51+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: ro_RO\n"
+"Language-Team: ro_RO <LL@li.org>\n"
+"Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100"
+" < 20)) ? 1 : 2);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.11.0\n"
 
 #, python-format
 msgid "%s days, %s hours, %s minutes."
@@ -75,9 +96,6 @@ msgstr "Administratori"
 msgid "Admins under domain: %s"
 msgstr "Administratori sub domeniu: %s"
 
-msgid "Advanced"
-msgstr "Avansat"
-
 msgid "Alias domains:"
 msgstr "Domenii alias:"
 
@@ -91,7 +109,8 @@ msgid ""
 "All domains managed by this admin share the mailbox quota and limit of "
 "mail accounts."
 msgstr ""
-"Toate domeniile gestionate de acest administrator împart cota de căsuțe poștale și limita de conturi de e-mail."
+"Toate domeniile gestionate de acest administrator împart cota de căsuțe "
+"poștale și limita de conturi de e-mail."
 
 msgid "All domains under your control."
 msgstr "Toate domeniile aflate sub controlul dumneavoastră."
@@ -146,12 +165,6 @@ msgstr "Backup"
 msgid "Backup MX"
 msgstr "Backup MX"
 
-msgid "Can not be longer than"
-msgstr "Nu poate fi mai lung de"
-
-msgid "Can not be shorter than"
-msgstr "Nu poate fi mai scurt de"
-
 msgid "Choose Action"
 msgstr "Alegeți acțiunea"
 
@@ -165,7 +178,9 @@ msgid "Contact webmaster"
 msgstr "Contactați webmaster-ul"
 
 msgid "Content of disclaimer will be appended to outgoing emails."
-msgstr "Conținutul clauzei de renunțare la răspundere va fi anexat la e-mailurile trimise."
+msgstr ""
+"Conținutul clauzei de renunțare la răspundere va fi anexat la e-mailurile"
+" trimise."
 
 msgid "Current password is incorrect."
 msgstr "Parola curentă este incorectă."
@@ -175,9 +190,6 @@ msgstr "DEZACTIVAT"
 
 msgid "Dashboard"
 msgstr "Tablo de bord"
-
-msgid "Default language for new user"
-msgstr "Limba implicită pentru noul utilizator"
 
 msgid "Delete"
 msgstr "Ștergeți"
@@ -225,7 +237,9 @@ msgid "Domain Name"
 msgstr "Nume de domeniu"
 
 msgid "Domain already exists. Please check both primary or alias domains."
-msgstr "Domeniul există deja. Vă rugăm să verificați atât domeniile primare cât și cele alias."
+msgstr ""
+"Domeniul există deja. Vă rugăm să verificați atât domeniile primare cât "
+"și cele alias."
 
 msgid "Domain created."
 msgstr "Domeniu creat."
@@ -249,7 +263,8 @@ msgid ""
 "Domain quota size exceeded. Please contact your administrator or service "
 "provider to increase it."
 msgstr ""
-"Dimensiunea cotei domeniului a fost depășită. Vă rugăm să contactați administratorul sau furnizorul de servicii pentru a-l mări."
+"Dimensiunea cotei domeniului a fost depășită. Vă rugăm să contactați "
+"administratorul sau furnizorul de servicii pentru a-l mări."
 
 msgid "Domains"
 msgstr "Domenii"
@@ -306,7 +321,8 @@ msgid ""
 "Exceeded domain account limit. Please contact your administrator or "
 "service provider to increase it."
 msgstr ""
-"Limita contului de domeniu a fost depășită. Vă rugăm să contactați administratorul sau furnizorul de servicii pentru a-l mări."
+"Limita contului de domeniu a fost depășită. Vă rugăm să contactați "
+"administratorul sau furnizorul de servicii pentru a-l mări."
 
 msgid "Filter accounts by first character in email addresses"
 msgstr "Filtrați conturile după primul caracter din adresele de e-mail"
@@ -399,9 +415,6 @@ msgstr "Ultima pagină"
 msgid "Last name"
 msgstr "Numele de familie"
 
-msgid "Leave it empty to use server-wide default setting."
-msgstr "Lăsați-l gol pentru a utiliza setarea implicită la nivelul întregului server."
-
 msgid "List all mail users."
 msgstr "Lista tuturor utilizatorilor de e-mail."
 
@@ -434,19 +447,15 @@ msgid "Mailbox Quota"
 msgstr "Cota căsuței poștale"
 
 msgid "Make sure disclaimer work as expected:"
-msgstr "Asigurați-vă că declarația de renunțare la răspundere funcționează conform așteptărilor:"
-
-msgid "Mark as domain admin"
-msgstr "Marcați ca administrator de domeniu"
+msgstr ""
+"Asigurați-vă că declarația de renunțare la răspundere funcționează "
+"conform așteptărilor:"
 
 msgid "Mark as global admin"
 msgstr "Marcați ca administrator global"
 
 msgid "Mark this user as global admin"
 msgstr "Marcați acest utilizator ca administrator global"
-
-msgid "Maximum password length"
-msgstr "Lungimea maximă a parolei"
 
 msgid "Member of mailing lists:"
 msgstr "Membru al listelor de discuții:"
@@ -459,9 +468,6 @@ msgstr "Membri și moderatori"
 
 msgid "Message"
 msgstr "Mesaj"
-
-msgid "Minimum password length"
-msgstr "Lungimea minimă a parolei"
 
 msgid "Mobile"
 msgstr "Mobil"
@@ -502,7 +508,9 @@ msgid ""
 "href='https://docs.iredmail.org/migrate.or.upgrade.iredadmin.html' "
 "class='button green'>Upgrade tutorial</a>."
 msgstr ""
-"Noua versiune a iRedAdmin, %s, este acum disponibilă pentru actualizare. https://docs.iredmail.org/migrate.or.upgrade.iredadmin.htmlTutorial de actualizare</a>."
+"Noua versiune a iRedAdmin, %s, este acum disponibilă pentru actualizare. "
+"https://docs.iredmail.org/migrate.or.upgrade.iredadmin.htmlTutorial de "
+"actualizare</a>."
 
 msgid "Next Page"
 msgstr "Pagina următoare"
@@ -549,7 +557,9 @@ msgid "Not a global admin."
 msgstr "Nu este un administrator global."
 
 msgid "Not allowed to create mail user under this domain."
-msgstr "Nu este permisă crearea unui utilizator de poștă electronică în acest domeniu."
+msgstr ""
+"Nu este permisă crearea unui utilizator de poștă electronică în acest "
+"domeniu."
 
 msgid "Note: Global admin can manage all mail domains."
 msgstr "Notă: Administratorul global poate gestiona toate domeniile de e-mail."
@@ -567,7 +577,8 @@ msgid ""
 "One IP address or network per line. Invalid address or network will be "
 "discarded."
 msgstr ""
-"O adresă IP sau o rețea pe linie. Adresa sau rețeaua nevalabilă va fi respinsă."
+"O adresă IP sau o rețea pe linie. Adresa sau rețeaua nevalabilă va fi "
+"respinsă."
 
 msgid "One mail address per line. Invalid address will be discarded."
 msgstr "O singură adresă email pe linie. Adresa invalidă va fi eliminată."
@@ -654,7 +665,8 @@ msgid ""
 "Security token did not match. Please refresh current page and re-perform "
 "form action."
 msgstr ""
-"Token-ul de securitate nu se potrivește. Vă rugăm să reîmprospătați pagina curentă și să efectuați din nou acțiunea formularului."
+"Token-ul de securitate nu se potrivește. Vă rugăm să reîmprospătați "
+"pagina curentă și să efectuați din nou acțiunea formularului."
 
 msgid "Selected accounts were deleted."
 msgstr "Conturile selectate au fost șterse."
@@ -675,7 +687,9 @@ msgid "Selected accounts were unmarked as domain admin."
 msgstr "Conturile selectate au fost nemarcate ca administrator de domeniu."
 
 msgid "Selected accounts were unmarked as global admin."
-msgstr "Conturile selectate au fost nemarcate ca fiind administrate la nivel global."
+msgstr ""
+"Conturile selectate au fost nemarcate ca fiind administrate la nivel "
+"global."
 
 msgid "Selected domains have been deleted."
 msgstr "Domeniile selectate au fost șterse."
@@ -696,7 +710,8 @@ msgid ""
 "Server-side size limit exceeded. Please increase \"sizelimit\" in your "
 "LDAP server."
 msgstr ""
-"Limita de mărime pe server a fost depășită. Vă rugăm să măriți \"limita de mărime (sizelimit)\" în serverul LDAP."
+"Limita de mărime pe server a fost depășită. Vă rugăm să măriți \"limita "
+"de mărime (sizelimit)\" în serverul LDAP."
 
 msgid "Session expired, please re-login."
 msgstr "Sesiunea a expirat, vă rugăm să vă autentificați din nou."
@@ -709,7 +724,9 @@ msgid "Some addresses have been discarded because they have been used: %s."
 msgstr "Unele adrese au fost eliminate pentru că au fost folosite: %s."
 
 msgid "Standalone admin account cannot be an user of local domain."
-msgstr "Contul de administrator independent nu poate fi un utilizator din domeniul local."
+msgstr ""
+"Contul de administrator independent nu poate fi un utilizator din "
+"domeniul local."
 
 msgid "Store password in plain text"
 msgstr "Stocați parola în text simplu"
@@ -746,9 +763,6 @@ msgstr "Adresa IP de dezinterzis"
 
 msgid "Unlimited"
 msgstr "Nelimitat"
-
-msgid "Unmark as domain admin"
-msgstr "Anulați marcarea ca administrator de domeniu"
 
 msgid "Unmark as global admin"
 msgstr "Anulați marcarea ca administrator global"
@@ -806,10 +820,10 @@ msgid "Who can send email to this list"
 msgstr "Cine poate trimite e-mailuri către această listă"
 
 msgid "You are not allowed to update global domain admin's profile."
-msgstr "Nu aveți permisiunea de a actualiza profilul administratorului global al domeniului."
-
-msgid "or longer than"
-msgstr "sau mai mult decât"
+msgstr ""
+"Nu aveți permisiunea de a actualiza profilul administratorului global al "
+"domeniului."
 
 msgid "without verifying local recipients"
 msgstr "fără a verifica destinatarii locali"
+

@@ -7,17 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: zhb@iredmail.org\n"
-"POT-Creation-Date: 2020-10-05 15:15+0800\n"
+"POT-Creation-Date: 2023-06-16 23:51+0800\n"
 "PO-Revision-Date: 2012-03-29 10:33+0800\n"
 "Last-Translator: Marko Kobal <marko.kobal@arctur.si>\n"
 "Language: sl_SI\n"
 "Language-Team: Marko Kobal <marko.kobal@arctur.si>\n"
 "Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 "
-"|| n%100==4 ? 2 : 3)\n"
+"|| n%100==4 ? 2 : 3);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.3.4\n"
+"Generated-By: Babel 2.11.0\n"
 
 #, python-format
 msgid "%s days, %s hours, %s minutes."
@@ -95,9 +95,6 @@ msgstr "Upravitelji"
 msgid "Admins under domain: %s"
 msgstr "Uporabniki v domeni: %s"
 
-msgid "Advanced"
-msgstr "Napredno"
-
 msgid "Alias domains:"
 msgstr ""
 
@@ -165,12 +162,6 @@ msgstr ""
 msgid "Backup MX"
 msgstr ""
 
-msgid "Can not be longer than"
-msgstr ""
-
-msgid "Can not be shorter than"
-msgstr ""
-
 msgid "Choose Action"
 msgstr "Izberite dejanje"
 
@@ -194,9 +185,6 @@ msgstr "ONEMOGOČENO"
 
 msgid "Dashboard"
 msgstr "Nadzorna plošča"
-
-msgid "Default language for new user"
-msgstr "Privzeta kvota novega uporabnika"
 
 msgid "Delete"
 msgstr "Izbriši"
@@ -420,9 +408,6 @@ msgstr "Zadnja stran"
 msgid "Last name"
 msgstr "Strežniško ime"
 
-msgid "Leave it empty to use server-wide default setting."
-msgstr ""
-
 msgid "List all mail users."
 msgstr "Navedi vse poštne uporabnike."
 
@@ -457,16 +442,10 @@ msgstr "Kvota poštnega predala"
 msgid "Make sure disclaimer work as expected:"
 msgstr ""
 
-msgid "Mark as domain admin"
-msgstr "Vsi poštni upravitelji."
-
 msgid "Mark as global admin"
 msgstr "Označi kot globalnega upravitelja"
 
 msgid "Mark this user as global admin"
-msgstr ""
-
-msgid "Maximum password length"
 msgstr ""
 
 msgid "Member of mailing lists:"
@@ -480,9 +459,6 @@ msgstr ""
 
 msgid "Message"
 msgstr "Sporočilo"
-
-msgid "Minimum password length"
-msgstr ""
 
 msgid "Mobile"
 msgstr "Mobilnik"
@@ -768,9 +744,6 @@ msgstr ""
 msgid "Unlimited"
 msgstr "Neomejeno število"
 
-msgid "Unmark as domain admin"
-msgstr "Vsi poštni upravitelji."
-
 msgid "Unmark as global admin"
 msgstr "Označi kot globalnega upravitelja"
 
@@ -827,9 +800,6 @@ msgid "Who can send email to this list"
 msgstr "Kdo lahko pošilja pošto na ta seznam"
 
 msgid "You are not allowed to update global domain admin's profile."
-msgstr ""
-
-msgid "or longer than"
 msgstr ""
 
 msgid "without verifying local recipients"

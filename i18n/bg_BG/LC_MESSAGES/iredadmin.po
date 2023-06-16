@@ -8,16 +8,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version:  iRedAdmin\n"
 "Report-Msgid-Bugs-To: zhb@iredmail.org\n"
-"POT-Creation-Date: 2020-10-05 15:15+0800\n"
+"POT-Creation-Date: 2023-06-16 23:51+0800\n"
 "PO-Revision-Date: 2015-12-23 04:19+0200\n"
 "Last-Translator: Plamen Vasilev a.k.a Paco <p.vasileff@gmail.com>\n"
 "Language: bg_BG\n"
 "Language-Team: Plamen Vasilev a.k.a Paco <p.vasileff@gmail.com>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.3.4\n"
+"Generated-By: Babel 2.11.0\n"
 
 #, python-format
 msgid "%s days, %s hours, %s minutes."
@@ -95,9 +95,6 @@ msgstr "Админи"
 msgid "Admins under domain: %s"
 msgstr "Админи за домейн: %s"
 
-msgid "Advanced"
-msgstr "Разширени"
-
 msgid "Alias domains:"
 msgstr ""
 
@@ -165,12 +162,6 @@ msgstr "Бекъп"
 msgid "Backup MX"
 msgstr "Бекъп"
 
-msgid "Can not be longer than"
-msgstr ""
-
-msgid "Can not be shorter than"
-msgstr ""
-
 msgid "Choose Action"
 msgstr "-Избери действие-"
 
@@ -194,9 +185,6 @@ msgstr "ДЕАКТИВИРАНО"
 
 msgid "Dashboard"
 msgstr "Табло за управление"
-
-msgid "Default language for new user"
-msgstr "Език по подразбиране за нови потребители"
 
 msgid "Delete"
 msgstr "Изтрий"
@@ -420,9 +408,6 @@ msgstr "Последна Страница"
 msgid "Last name"
 msgstr "Фамилия"
 
-msgid "Leave it empty to use server-wide default setting."
-msgstr ""
-
 msgid "List all mail users."
 msgstr "Списък на всички пощи."
 
@@ -457,16 +442,10 @@ msgstr "Квота"
 msgid "Make sure disclaimer work as expected:"
 msgstr ""
 
-msgid "Mark as domain admin"
-msgstr "Отбележи като домейн админ"
-
 msgid "Mark as global admin"
 msgstr "Отбележи като глобален админ"
 
 msgid "Mark this user as global admin"
-msgstr ""
-
-msgid "Maximum password length"
 msgstr ""
 
 msgid "Member of mailing lists:"
@@ -480,9 +459,6 @@ msgstr ""
 
 msgid "Message"
 msgstr "Информация, свързана с това действие"
-
-msgid "Minimum password length"
-msgstr ""
 
 msgid "Mobile"
 msgstr "Мобилен"
@@ -768,9 +744,6 @@ msgstr ""
 msgid "Unlimited"
 msgstr "Неограничен"
 
-msgid "Unmark as domain admin"
-msgstr "Премахни правата на домейн админ"
-
 msgid "Unmark as global admin"
 msgstr "Премахни правата на глобален админ"
 
@@ -827,9 +800,6 @@ msgid "Who can send email to this list"
 msgstr "Кой може да изпраща писма до този списък"
 
 msgid "You are not allowed to update global domain admin's profile."
-msgstr ""
-
-msgid "or longer than"
 msgstr ""
 
 msgid "without verifying local recipients"
