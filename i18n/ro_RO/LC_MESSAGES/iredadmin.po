@@ -1,0 +1,815 @@
+
+#, python-format
+msgid "%s days, %s hours, %s minutes."
+msgstr "%s zile, %s ore, %s minute."
+
+#, python-format
+msgid "(%d messages, %s.)"
+msgstr "(%d mesaje, %s.)"
+
+#, python-format
+msgid "(%d%% full, %d messages, %s.)"
+msgstr "(%d%% plin, %d mesaje, %s.)"
+
+msgid "(Mailbox is empty.)"
+msgstr "(Cutia poștală este goală.)"
+
+msgid "Account already exists, please choose another one."
+msgstr "Contul există deja, vă rugăm să alegeți altul."
+
+msgid "Account does not exist."
+msgstr "Contul nu există."
+
+msgid "Account is disabled."
+msgstr "Contul este dezactivat."
+
+msgid "Account is global admin"
+msgstr "Contul este administrator global"
+
+msgid "Activate account"
+msgstr "Activați contul"
+
+msgid "Activities"
+msgstr "Activități"
+
+msgid "Add"
+msgstr "Adăugați"
+
+msgid "Add account"
+msgstr "Adăugați un cont"
+
+msgid "Add admin"
+msgstr "Adăugați admin"
+
+msgid "Add domain"
+msgstr "Adăugați domeniul"
+
+msgid "Add mail user"
+msgstr "Adăugați un utilizator de poștă electronică"
+
+msgid "Add mail user under domain"
+msgstr "Adăugați un utilizator de poștă electronică sub domeniu"
+
+msgid "Add one"
+msgstr "Adăugați unul"
+
+msgid "Add one more?"
+msgstr "Mai adăugați unul?"
+
+msgid "Admin"
+msgstr "Admin"
+
+msgid "Admin Log"
+msgstr "Jurnal administrativ"
+
+msgid "Admin created."
+msgstr "Administratorul a fost creat."
+
+msgid "Admin login"
+msgstr "Autentificare administrator"
+
+msgid "Admins"
+msgstr "Administratori"
+
+#, python-format
+msgid "Admins under domain: %s"
+msgstr "Administratori sub domeniu: %s"
+
+msgid "Advanced"
+msgstr "Avansat"
+
+msgid "Alias domains:"
+msgstr "Domenii alias:"
+
+msgid "All admins"
+msgstr "Toți administratorii"
+
+msgid "All domains"
+msgstr "Toate domeniile"
+
+msgid ""
+"All domains managed by this admin share the mailbox quota and limit of "
+"mail accounts."
+msgstr ""
+"Toate domeniile gestionate de acest administrator împart cota de căsuțe poștale și limita de conturi de e-mail."
+
+msgid "All domains under your control."
+msgstr "Toate domeniile aflate sub controlul dumneavoastră."
+
+msgid "Allocated"
+msgstr "Alocat"
+
+msgid "Already reaches account limit (mail aliases)."
+msgstr "A atins deja limita contului (aliasuri de e-mail)."
+
+msgid "Already reaches account limit (mail domains)."
+msgstr "A atins deja limita contului (domenii de e-mail)."
+
+msgid "Already reaches account limit (mail users)."
+msgstr "A atins deja limita contului (utilizatori de e-mail)."
+
+msgid "Already reaches account limit (mailbox quota)."
+msgstr "A atins deja limita contului (cota căsuței poștale)."
+
+msgid "Already reaches account limit (mailing lists)."
+msgstr "A atins deja limita contului (liste de distribuție)."
+
+msgid "Apply"
+msgstr "Aplicați"
+
+#, python-format
+msgid "At least %d characters."
+msgstr "Cel puțin %d caractere."
+
+#, python-format
+msgid "At least %s characters."
+msgstr "Cel puțin %s caractere."
+
+msgid "At least one digit number"
+msgstr "Număr de cel puțin o cifră"
+
+msgid "At least one letter"
+msgstr "Cel puțin o literă"
+
+msgid "At least one special character:"
+msgstr "Cel puțin un caracter special:"
+
+msgid "At least one uppercase letter"
+msgstr "Cel puțin o literă majusculă"
+
+msgid "Available quota:"
+msgstr "Cota disponibilă:"
+
+msgid "Backup"
+msgstr "Backup"
+
+msgid "Backup MX"
+msgstr "Backup MX"
+
+msgid "Can not be longer than"
+msgstr "Nu poate fi mai lung de"
+
+msgid "Can not be shorter than"
+msgstr "Nu poate fi mai scurt de"
+
+msgid "Choose Action"
+msgstr "Alegeți acțiunea"
+
+msgid "Company/Organization Name"
+msgstr "Numele companiei/organizației"
+
+msgid "Confirm new password"
+msgstr "Confirmați noua parolă"
+
+msgid "Contact webmaster"
+msgstr "Contactați webmaster-ul"
+
+msgid "Content of disclaimer will be appended to outgoing emails."
+msgstr "Conținutul clauzei de renunțare la răspundere va fi anexat la e-mailurile trimise."
+
+msgid "Current password is incorrect."
+msgstr "Parola curentă este incorectă."
+
+msgid "DISABLED"
+msgstr "DEZACTIVAT"
+
+msgid "Dashboard"
+msgstr "Tablo de bord"
+
+msgid "Default language for new user"
+msgstr "Limba implicită pentru noul utilizator"
+
+msgid "Delete"
+msgstr "Ștergeți"
+
+msgid "Delete account"
+msgstr "Ștergeți contul"
+
+msgid "Delete all in database"
+msgstr "Ștergeți totul în baza de date"
+
+msgid "Delete mailboxes"
+msgstr "Ștergerea cutiilor poștale"
+
+msgid "Delete selected log"
+msgstr "Ștergeți jurnalul selectat"
+
+msgid "Disable"
+msgstr "Dezactivare"
+
+msgid "Disable account"
+msgstr "Dezactivare cont"
+
+msgid "Disabled"
+msgstr "Dezactivat"
+
+msgid "Disabled accounts"
+msgstr "Conturi dezactivate"
+
+msgid "Disabled domains"
+msgstr "Domenii dezactivate"
+
+msgid "Disclaimer"
+msgstr "Declinare de responsabilitate"
+
+msgid "Display Name"
+msgstr "Afișați numele"
+
+msgid "Domain"
+msgstr "Domeniu"
+
+msgid "Domain Admins"
+msgstr "Administratori de domeniu"
+
+msgid "Domain Name"
+msgstr "Nume de domeniu"
+
+msgid "Domain already exists. Please check both primary or alias domains."
+msgstr "Domeniul există deja. Vă rugăm să verificați atât domeniile primare cât și cele alias."
+
+msgid "Domain created."
+msgstr "Domeniu creat."
+
+msgid "Domain is active, but marked as backup MX."
+msgstr "Domeniul este activ, dar este marcat ca fiind de rezervă MX."
+
+msgid "Domain is active, but relay to other host"
+msgstr "Domeniul este activ, dar este retransmis către alt host"
+
+msgid "Domain is disabled."
+msgstr "Domeniul este dezactivat."
+
+msgid "Domain name is empty."
+msgstr "Numele de domeniu este gol."
+
+msgid "Domain name or username is missed."
+msgstr "Numele de domeniu sau numele de utilizator lipsește."
+
+msgid ""
+"Domain quota size exceeded. Please contact your administrator or service "
+"provider to increase it."
+msgstr ""
+"Dimensiunea cotei domeniului a fost depășită. Vă rugăm să contactați administratorul sau furnizorul de servicii pentru a-l mări."
+
+msgid "Domains"
+msgstr "Domenii"
+
+msgid "Domains and Accounts"
+msgstr "Domenii și conturi"
+
+msgid "Dump disclaimer automatically"
+msgstr ""
+
+msgid "Edit account profile"
+msgstr "Editați profilul contului"
+
+msgid "Edit domain profile"
+msgstr "Editați profilul domeniului"
+
+msgid "Edit quota setting"
+msgstr "Editarea setării cotelor"
+
+msgid "Email address was changed."
+msgstr "Adresa de e-mail a fost schimbată."
+
+msgid "Emails"
+msgstr "E-mailuri"
+
+msgid "Empty password is not allowed."
+msgstr "Parola goală nu este permisă."
+
+msgid "Enable"
+msgstr "Activare"
+
+msgid "Enable this account"
+msgstr "Activați acest cont"
+
+msgid "Enable this domain"
+msgstr "Activați acest domeniu"
+
+msgid "Error"
+msgstr "Eroare"
+
+msgid "Error while checking new version of iRedAdmin:"
+msgstr "Eroare la verificarea noii versiuni a iRedAdmin:"
+
+msgid "Error:"
+msgstr "Eroare:"
+
+msgid "Events"
+msgstr "Evenimente"
+
+msgid "Everyone can send mail to this address"
+msgstr "Toată lumea poate trimite corespondență la această adresă"
+
+msgid ""
+"Exceeded domain account limit. Please contact your administrator or "
+"service provider to increase it."
+msgstr ""
+"Limita contului de domeniu a fost depășită. Vă rugăm să contactați administratorul sau furnizorul de servicii pentru a-l mări."
+
+msgid "Filter accounts by first character in email addresses"
+msgstr "Filtrați conturile după primul caracter din adresele de e-mail"
+
+msgid "Filter domains by first character in mail domain name"
+msgstr "Filtrare domenii după primul caracter din numele domeniului de e-mail"
+
+msgid "Filter:"
+msgstr "Filtru:"
+
+msgid "First Page"
+msgstr "Prima pagină"
+
+msgid "First name"
+msgstr "Prenume"
+
+msgid "Full name"
+msgstr "Nume și prenume"
+
+msgid "General"
+msgstr "General"
+
+msgid "Global Admin"
+msgstr "Administrare globală"
+
+msgid "Grant admin"
+msgstr "Acordare de drepturi de administrare"
+
+msgid "Hostname"
+msgstr "Nume host"
+
+msgid "IMAP Login:"
+msgstr "Autentificare IMAP:"
+
+msgid "IP Address"
+msgstr "Adresa IP"
+
+msgid "Invalid account."
+msgstr "Cont invalid."
+
+msgid "Invalid action."
+msgstr "Acțiune invalidă."
+
+msgid "Invalid domain name."
+msgstr "Nume de domeniu invalid."
+
+msgid "Invalid mail address."
+msgstr "Adresa de e-mail invalidă."
+
+msgid "Is a global admin."
+msgstr "Este un administrator global."
+
+msgid "Job Title"
+msgstr "Titlul postului"
+
+#, python-format
+msgid "Keep mailbox for %d days"
+msgstr "Păstrați cutia poștală pentru %d zile"
+
+#, python-format
+msgid "Keep mailbox for %d months"
+msgstr "Păstrați cutia poștală pentru %d luni"
+
+#, python-format
+msgid "Keep mailbox for %d weeks"
+msgstr "Păstrați cutia poștală pentru %d săptămâni"
+
+#, python-format
+msgid "Keep mailbox for %d years"
+msgstr "Păstrați cutia poștală pentru %d ani"
+
+msgid "Keep mailbox for 1 day"
+msgstr "Păstrați cutia poștală timp de 1 zi"
+
+msgid "Keep mailbox for 1 month "
+msgstr "Păstrați cutia poștală timp de 1 lună "
+
+msgid "Keep mailbox for 1 week"
+msgstr "Păstrați cutia poștală timp de 1 săptămână"
+
+msgid "Keep mailbox for 1 year"
+msgstr "Păstrați cutia poștală timp de 1 an"
+
+msgid "Keep mailbox forever"
+msgstr "Păstrați cutia poștală pentru totdeauna"
+
+msgid "Last Page"
+msgstr "Ultima pagină"
+
+msgid "Last name"
+msgstr "Numele de familie"
+
+msgid "Leave it empty to use server-wide default setting."
+msgstr "Lăsați-l gol pentru a utiliza setarea implicită la nivelul întregului server."
+
+msgid "List all mail users."
+msgstr "Lista tuturor utilizatorilor de e-mail."
+
+#, python-format
+msgid "Logged in as %s"
+msgstr "Conectat ca %s"
+
+msgid "Login"
+msgstr "Autentificare"
+
+msgid "Login from your IP address is not allowed."
+msgstr "Autentificarea de la adresa dvs. de IP nu este permisă."
+
+msgid "Login required"
+msgstr "Autentificare necesară"
+
+msgid "Login to manage your mail domains & accounts"
+msgstr "Conectați-vă pentru a vă gestiona domeniile și conturile de e-mail"
+
+msgid "Logout"
+msgstr "Logout"
+
+msgid "Mail Address"
+msgstr "Adresă poștală"
+
+msgid "Mail Users"
+msgstr "Utilizatori de e-mail"
+
+msgid "Mailbox Quota"
+msgstr "Cota căsuței poștale"
+
+msgid "Make sure disclaimer work as expected:"
+msgstr "Asigurați-vă că declarația de renunțare la răspundere funcționează conform așteptărilor:"
+
+msgid "Mark as domain admin"
+msgstr "Marcați ca administrator de domeniu"
+
+msgid "Mark as global admin"
+msgstr "Marcați ca administrator global"
+
+msgid "Mark this user as global admin"
+msgstr "Marcați acest utilizator ca administrator global"
+
+msgid "Maximum password length"
+msgstr "Lungimea maximă a parolei"
+
+msgid "Member of mailing lists:"
+msgstr "Membru al listelor de discuții:"
+
+msgid "Members"
+msgstr "Membri"
+
+msgid "Members and moderators"
+msgstr "Membri și moderatori"
+
+msgid "Message"
+msgstr "Mesaj"
+
+msgid "Minimum password length"
+msgstr "Lungimea minimă a parolei"
+
+msgid "Mobile"
+msgstr "Mobil"
+
+msgid "Moderators"
+msgstr "Moderatori"
+
+#, python-format
+msgid "Must be %s - %s characters."
+msgstr "Trebuie să fie %s - %s caractere."
+
+msgid "Need a strong password?"
+msgstr "Aveți nevoie de o parolă puternică?"
+
+msgid "Network"
+msgstr "Rețea"
+
+msgid "New Mail Delivered:"
+msgstr "Noua corespondență livrată:"
+
+msgid "New password"
+msgstr "Parolă nouă"
+
+#, python-format
+msgid "New password must NOT contain more than %s characters."
+msgstr "Noua parolă NU trebuie să conțină mai mult de %s caractere."
+
+#, python-format
+msgid "New password must contain at least %s characters."
+msgstr "Noua parolă trebuie să conțină cel puțin %s caractere."
+
+msgid "New passwords are not match."
+msgstr "Parolele noi nu se potrivesc."
+
+#, python-format
+msgid ""
+"New version of iRedAdmin, %s, is now available for upgrading. <a "
+"href='https://docs.iredmail.org/migrate.or.upgrade.iredadmin.html' "
+"class='button green'>Upgrade tutorial</a>."
+msgstr ""
+"Noua versiune a iRedAdmin, %s, este acum disponibilă pentru actualizare. https://docs.iredmail.org/migrate.or.upgrade.iredadmin.htmlTutorial de actualizare</a>."
+
+msgid "Next Page"
+msgstr "Pagina următoare"
+
+msgid "No account selected."
+msgstr "Nu este selectat niciun cont."
+
+msgid "No admin log."
+msgstr "Nu există jurnal de administrare."
+
+msgid "No digit number in password."
+msgstr "Nu există nicio  cifră în parolă."
+
+msgid "No domain under control."
+msgstr "Niciun domeniu sub control."
+
+msgid "No letter in password."
+msgstr "Nu există nicio literă în parolă."
+
+msgid "No mail admin assigned."
+msgstr "Nu este atribuit niciun administrator de e-mail."
+
+msgid "No mail domain available."
+msgstr "Nu este disponibil niciun domeniu de e-mail."
+
+msgid "No mail user available."
+msgstr "Nu există niciun utilizator de e-mail disponibil."
+
+#, python-format
+msgid "No more than %d characters."
+msgstr "Nu mai mult de %d caractere."
+
+#, python-format
+msgid "No more than %s characters."
+msgstr "Nu mai mult de %s caractere."
+
+msgid "No special character in password."
+msgstr "Nu există caractere speciale în parolă."
+
+msgid "No uppercase letter in password."
+msgstr "Nu există litere majuscule în parolă."
+
+msgid "Not a global admin."
+msgstr "Nu este un administrator global."
+
+msgid "Not allowed to create mail user under this domain."
+msgstr "Nu este permisă crearea unui utilizator de poștă electronică în acest domeniu."
+
+msgid "Note: Global admin can manage all mail domains."
+msgstr "Notă: Administratorul global poate gestiona toate domeniile de e-mail."
+
+msgid "Number of domains"
+msgstr "Număr de domenii"
+
+msgid "Number of users"
+msgstr "Număr de utilizatori"
+
+msgid "Old password"
+msgstr "Parola veche"
+
+msgid ""
+"One IP address or network per line. Invalid address or network will be "
+"discarded."
+msgstr ""
+"O adresă IP sau o rețea pe linie. Adresa sau rețeaua nevalabilă va fi respinsă."
+
+msgid "One mail address per line. Invalid address will be discarded."
+msgstr "O singură adresă email pe linie. Adresa invalidă va fi eliminată."
+
+msgid "Or create other mail accounts:"
+msgstr "Sau creați alte conturi de e-mail:"
+
+msgid "POP3 Login:"
+msgstr "Autentificare POP3:"
+
+msgid "Password"
+msgstr "Parola"
+
+msgid "Password is empty."
+msgstr "Parola este goală."
+
+msgid "Password is too long."
+msgstr "Parola este prea lungă."
+
+msgid "Password is too short."
+msgstr "Parola este prea scurtă."
+
+msgid "Password last change:"
+msgstr "Ultima modificare a parolei:"
+
+msgid "Password must contain"
+msgstr "Parola trebuie să conțină"
+
+msgid "Permission denied."
+msgstr "Permisiune refuzată."
+
+msgid "Plain text only"
+msgstr "Numai text simplu"
+
+msgid "Please do not use non-ascii character in password."
+msgstr "Vă rugăm să nu folosiți caractere non-ascii în parolă."
+
+msgid "Please select at least one account."
+msgstr "Vă rugăm să selectați cel puțin un cont."
+
+msgid "Please select at least one domain."
+msgstr "Vă rugăm să selectați cel puțin un domeniu."
+
+msgid "Preferences"
+msgstr "Preferințe"
+
+msgid "Preferred language"
+msgstr "Limba preferată"
+
+msgid "Previous Page"
+msgstr "Pagina anterioară"
+
+msgid "Profile has been updated."
+msgstr "Profilul a fost actualizat."
+
+msgid "Profile of admin:"
+msgstr "Profilul administratorului:"
+
+msgid "Profile of domain:"
+msgstr "Profilul domeniului:"
+
+msgid "Profile of user:"
+msgstr "Profilul utilizatorului:"
+
+msgid "Profile updated failed."
+msgstr "Actualizarea profilului a eșuat."
+
+msgid "Quota"
+msgstr "Cota"
+
+msgid "Records were successfully updated."
+msgstr "Înregistrările au fost actualizate cu succes."
+
+msgid "Relay"
+msgstr "Releu"
+
+msgid "Revoke admin privilege"
+msgstr "Revocarea privilegiului de administrator"
+
+msgid "Save changes"
+msgstr "Salvați modificările"
+
+msgid ""
+"Security token did not match. Please refresh current page and re-perform "
+"form action."
+msgstr ""
+"Token-ul de securitate nu se potrivește. Vă rugăm să reîmprospătați pagina curentă și să efectuați din nou acțiunea formularului."
+
+msgid "Selected accounts were deleted."
+msgstr "Conturile selectate au fost șterse."
+
+msgid "Selected accounts were disabled."
+msgstr "Conturile selectate au fost dezactivate."
+
+msgid "Selected accounts were enabled."
+msgstr "Conturile selectate au fost activate."
+
+msgid "Selected accounts were marked as domain admin."
+msgstr "Conturile selectate au fost marcate ca administrator de domeniu."
+
+msgid "Selected accounts were marked as global admin."
+msgstr "Conturile selectate au fost marcate ca administrator global."
+
+msgid "Selected accounts were unmarked as domain admin."
+msgstr "Conturile selectate au fost nemarcate ca administrator de domeniu."
+
+msgid "Selected accounts were unmarked as global admin."
+msgstr "Conturile selectate au fost nemarcate ca fiind administrate la nivel global."
+
+msgid "Selected domains have been deleted."
+msgstr "Domeniile selectate au fost șterse."
+
+msgid "Selected domains were disabled."
+msgstr "Domeniile selectate au fost dezactivate."
+
+msgid "Selected domains were enabled."
+msgstr "Domeniile selectate au fost activate."
+
+msgid "Selected log records were deleted."
+msgstr "Au fost șterse înregistrările de jurnal selectate."
+
+msgid "Server Load"
+msgstr "Încărcarea serverului"
+
+msgid ""
+"Server-side size limit exceeded. Please increase \"sizelimit\" in your "
+"LDAP server."
+msgstr ""
+"Limita de mărime pe server a fost depășită. Vă rugăm să măriți \"limita de mărime (sizelimit)\" în serverul LDAP."
+
+msgid "Session expired, please re-login."
+msgstr "Sesiunea a expirat, vă rugăm să vă autentificați din nou."
+
+msgid "Set to 0 for unlimited."
+msgstr "Setați la 0 pentru nelimitat."
+
+#, python-format
+msgid "Some addresses have been discarded because they have been used: %s."
+msgstr "Unele adrese au fost eliminate pentru că au fost folosite: %s."
+
+msgid "Standalone admin account cannot be an user of local domain."
+msgstr "Contul de administrator independent nu poate fi un utilizator din domeniul local."
+
+msgid "Store password in plain text"
+msgstr "Stocați parola în text simplu"
+
+msgid "Stored"
+msgstr "Stocat"
+
+msgid "Stored emails"
+msgstr "E-mailuri stocate"
+
+msgid "Submit"
+msgstr "Trimiteți"
+
+msgid "Submited domain name is incorrect."
+msgstr "Numele de domeniu introdus  este incorect."
+
+msgid "Support"
+msgstr "Suport"
+
+msgid "System Information"
+msgstr "Informații de sistem"
+
+msgid "Telephone Number"
+msgstr "Număr de telefon"
+
+msgid "Time"
+msgstr "Ora"
+
+msgid "Time zone"
+msgstr "Fusul orar"
+
+msgid "Unban IP address"
+msgstr "Adresa IP de dezinterzis"
+
+msgid "Unlimited"
+msgstr "Nelimitat"
+
+msgid "Unmark as domain admin"
+msgstr "Anulați marcarea ca administrator de domeniu"
+
+msgid "Unmark as global admin"
+msgstr "Anulați marcarea ca administrator global"
+
+msgid "Unrestricted"
+msgstr "Nerestricționat"
+
+msgid "Update whitelists and blacklists"
+msgstr "Actualizarea listelor albe și a listelor negre"
+
+msgid "Uptime"
+msgstr "Timp de funcționare"
+
+msgid "Use this password"
+msgstr "Utilizați această parolă"
+
+msgid "Used"
+msgstr "Folosit"
+
+msgid "User"
+msgstr "Utilizator"
+
+msgid "User created."
+msgstr "Utilizator creat."
+
+msgid "User login (self-service)"
+msgstr "Autentificare utilizator (self-service)"
+
+msgid "User/Employee ID"
+msgstr "ID-ul utilizatorului/angajatului"
+
+msgid "Username"
+msgstr "Nume utilizator"
+
+msgid "Username must be an valid email address."
+msgstr "Numele de utilizator trebuie să fie o adresă de e-mail validă."
+
+msgid "Username or password is incorrect."
+msgstr "Numele de utilizator sau parola este incorectă."
+
+msgid "Users"
+msgstr "Utilizatori"
+
+#, python-format
+msgid "Users under domain: %s"
+msgstr "Utilizatori sub domeniu: %s"
+
+msgid "Users under same domain"
+msgstr "Utilizatori sub același domeniu"
+
+msgid "Users under same domain and its sub-domains"
+msgstr "Utilizatorii din același domeniu și subdomeniile acestuia"
+
+msgid "Who can send email to this list"
+msgstr "Cine poate trimite e-mailuri către această listă"
+
+msgid "You are not allowed to update global domain admin's profile."
+msgstr "Nu aveți permisiunea de a actualiza profilul administratorului global al domeniului."
+
+msgid "or longer than"
+msgstr "sau mai mult decât"
+
+msgid "without verifying local recipients"
+msgstr "fără a verifica destinatarii locali"
