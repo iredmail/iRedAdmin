@@ -1,3 +1,7 @@
+# 2.5
+
+- Fixed: tools/upgrade_iredadmin.sh, no need to check web.py anymore.
+
 # 2.4
 
 - Improvements:
