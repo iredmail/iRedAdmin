@@ -311,6 +311,13 @@ SELF_SERVICE_DEFAULT_PAGE = "preferences"
 # Maildir related.
 #
 
+# Mailbox format (in lower cases)
+#
+# Any mailbox formats supported by Dovecot can be used here, e.g. maildir,
+# mdbox. For more details please visit Dovecot website:
+# https://wiki.dovecot.org/MailboxFormat
+MAILBOX_FORMAT = "maildir"
+
 # It's RECOMMEND for better performance. Samples:
 #   - hashed: domain.com/u/s/e/username-2009.09.04.12.05.33/
 #   - non-hashed: domain.com/username-2009.09.04.12.05.33/
@@ -326,12 +333,11 @@ MAILDIR_PREPEND_DOMAIN = True
 #   - without timestamp: domain.com/username/
 MAILDIR_APPEND_TIMESTAMP = True
 
-# Mailbox format (in lower cases)
-#
-# Any mailbox formats supported by Dovecot can be used here, e.g. maildir,
-# mdbox. For more details please visit Dovecot website:
-# https://wiki.dovecot.org/MailboxFormat
-MAILBOX_FORMAT = "maildir"
+# Avoid too many folders (domain name) in same directory (/var/vmail/vmail1/).
+# Useful if server hosts email domains.
+#   - With hash: d/o/domain.com/...
+#   - Without: domain.com/...
+MAILDIR_DOMAIN_HASHED = False
 
 # Default folder used to store mailbox under per-user HOME directory.
 #

@@ -609,7 +609,22 @@ def generate_maildir_path(mail: str,
         maildir = "{}{}/".format(username, timestamp)
 
     if prepend_domain_name:
-        maildir = domain + "/" + maildir
+        if settings.MAILDIR_DOMAIN_HASHED:
+            part1 = domain.split(".", 1)
+
+            if len(part1) == 1:
+                char1 = part1
+                char2 = "_"
+            else:
+                char1 = part1[0]
+                if char2.isalpha() or char2.isdigit():
+                    char2 = part1[1]
+                else:
+                    char2 = "_"
+
+            maildir = char1 + "/" + char2 + "/" + domain + "/" + maildir
+        else:
+            maildir = domain + "/" + maildir
 
     return maildir
 
