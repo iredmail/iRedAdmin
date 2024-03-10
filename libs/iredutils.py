@@ -610,16 +610,16 @@ def generate_maildir_path(mail: str,
 
     if prepend_domain_name:
         if settings.MAILDIR_DOMAIN_HASHED:
-            part1 = domain.split(".", 1)
+            part1 = domain.split(".", 1)[0]
 
             if len(part1) == 1:
                 char1 = part1
                 char2 = "_"
             else:
                 char1 = part1[0]
-                if char2.isalpha() or char2.isdigit():
-                    char2 = part1[1]
-                else:
+                char2 = part1[1]
+
+                if not (char2.isalpha() or char2.isdigit()):
                     char2 = "_"
 
             maildir = char1 + "/" + char2 + "/" + domain + "/" + maildir
