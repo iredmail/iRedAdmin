@@ -4,6 +4,10 @@
     - New option (MAILDIR_DOMAIN_HASHED) to hash domain name in maildir path.
       Defaults to `False`.
 
+* Fixed issues:
+    - Incorrect time zone (America/Sao_Paulo, GMT-03:00).
+      Thanks to Guilherme Rauth.
+
 # 2.5
 
 - Fixed: tools/upgrade_iredadmin.sh, no need to check web.py anymore.

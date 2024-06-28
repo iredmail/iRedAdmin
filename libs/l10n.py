@@ -269,7 +269,7 @@ TIMEZONES = {
     "Atlantic/Stanley": "GMT-03:00",
     "America/Montevideo": "GMT-02:00",
     "America/Noronha": "GMT-02:00",
-    "America/Sao_Paulo": "GMT-02:00",
+    "America/Sao_Paulo": "GMT-03:00",
     "Atlantic/South_Georgia": "GMT-02:00",
     "America/Scoresbysund": "GMT-01:00",
     "Atlantic/Azores": "GMT-01:00",
