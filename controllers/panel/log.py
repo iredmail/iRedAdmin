@@ -3,6 +3,7 @@
 import web
 import settings
 from controllers import decorators
+from libs import iredutils
 from libs.panel import LOG_EVENTS, log as loglib
 
 session = web.config.get('_session')
@@ -24,6 +25,16 @@ class Log:
         form_domain = web.safestr(form.get('domain', 'all'))
         form_admin = web.safestr(form.get('admin', 'all'))
         form_cur_page = web.safestr(form.get('page', '1'))
+
+        # Verify input data.
+        if form_event not in LOG_EVENTS:
+            form_event = "all"
+
+        if not iredutils.is_domain(form_domain):
+            form_domain = ""
+
+        if not iredutils.is_email(form_admin):
+            form_admin = ""
 
         if not form_cur_page.isdigit() or form_cur_page == '0':
             form_cur_page = 1

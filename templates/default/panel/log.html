@@ -66,9 +66,9 @@
 <form name="log" id="list_table" method="post" action="{{ctx.homepath}}/activities/admins">
     {{ input_csrf_token() }}
 
-    <input type="hidden" name="domain" value="{{ domain }}" />
-    <input type="hidden" name="admin" value="{{ admin }}" />
-    <input type="hidden" name="event" value="{{ event }}" />
+    <input type="hidden" name="domain" value="{{ domain |e }}" />
+    <input type="hidden" name="admin" value="{{ admin |e }}" />
+    <input type="hidden" name="event" value="{{ event |e }}" />
 
     <table class="style1">
         <thead>
