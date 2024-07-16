@@ -230,10 +230,19 @@
                           total=total,
                           cur_page=cur_page) }}
         {% else %}
+            {% set url_suffix = "" %}
+
+            {% if order_name in ["name", "quota"] %}
+                {% set url_suffix = "?order_name=" + order_name %}
+                {% if order_by_desc %}
+                    {% set url_suffix = url_suffix + "&order_by=desc" %}
+                {% endif %}
+            {% endif %}
+
             {{ show_pages(baseurl=baseurl,
                           total=total,
                           cur_page=cur_page,
-                          url_suffix=ctx.query) }}
+                          url_suffix=url_suffix) }}
         {% endif %}
     </div>
     {% endif %}

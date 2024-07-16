@@ -23,7 +23,13 @@ class List:
         cur_page = int(cur_page) or 1
 
         form = web.input(_unicode=False)
+
         order_name = form.get('order_name')
+
+        # Currently only sorting by `name` and `quota` are supported.
+        if order_name not in ["name", "quota"]:
+            order_name = "name"
+
         order_by_desc = (form.get('order_by', 'asc').lower() == 'desc')
 
         records = []

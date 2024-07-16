@@ -5,6 +5,8 @@
       Defaults to `False`.
 
 * Fixed issues:
+    - 2 possible XSS vulnerabilities.
+      Thanks to Simone Quatrini @surecloudcyber.com.
     - Incorrect time zone (America/Sao_Paulo, GMT-03:00).
       Thanks to Guilherme Rauth.
 

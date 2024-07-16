@@ -315,7 +315,6 @@ def get_paged_users(conn,
                 limit=settings.PAGE_SIZE_LIMIT,
                 offset=(cur_page - 1) * settings.PAGE_SIZE_LIMIT,
             )
-
         else:
             qr = conn.select(
                 'mailbox',

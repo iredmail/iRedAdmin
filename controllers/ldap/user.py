@@ -24,6 +24,11 @@ class Users:
         form = web.input()
 
         order_name = form.get('order_name')
+
+        # Currently only sorting by `name` and `quota` are supported.
+        if order_name not in ["name", "quota"]:
+            order_name = "name"
+
         order_by_desc = (form.get('order_by', 'asc').lower() == 'desc')
 
         first_char = None
