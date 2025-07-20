@@ -1,6 +1,20 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
-import crypt
+
+from passlib.context import CryptContext
+
+# Support both legacy and secure schemes
+pwd_context = CryptContext(
+    schemes=["sha512_crypt", "md5_crypt"],
+    default="sha512_crypt",
+    deprecated=["md5_crypt"],
+)
+
+def hash_password(password):
+    return pwd_context.hash(password)
+
+def verify_password(plain_password, hashed_password):
+    return pwd_context.verify(plain_password, hashed_password)
 import hashlib
 import random
 import string
@@ -193,7 +207,7 @@ def verify_bcrypt_password(challenge_password: str, plain_password: str) -> bool
 
 
 def generate_md5_password(p: str) -> str:
-    return crypt.crypt(p, salt=crypt.METHOD_MD5)
+    return hash_password(p)
 
 
 def verify_md5_password(challenge_password: Union[str, bytes],
@@ -213,7 +227,7 @@ def verify_md5_password(challenge_password: Union[str, bytes],
         return False
 
     return compare_digest(challenge_password,
-                          crypt.crypt(plain_password, challenge_password))
+                          verify_password(plain_password, challenge_password))
 
 
 def generate_plain_md5_password(p: Union[str, bytes]) -> str:
@@ -326,7 +340,7 @@ def verify_sha512_crypt_password(challenge_password: Union[str, bytes],
 
     challenge_password = challenge_password[14:]
     return compare_digest(challenge_password,
-                          crypt.crypt(plain_password, challenge_password))
+                          verify_password(plain_password, challenge_password))
 
 
 def generate_ssha512_password(p: Union[str, bytes]) -> str:
