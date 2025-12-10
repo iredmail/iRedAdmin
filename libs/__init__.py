@@ -1,3 +1,3 @@
 __author__ = "Zhang Huangbin"
 __author_mail__ = "zhb@iredmail.org"
-__version__ = "2.6"
+__version__ = "2.7"
