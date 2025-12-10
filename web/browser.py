@@ -1,6 +1,7 @@
 """Browser to test web applications.
 (from web.py)
 """
+
 import os
 import webbrowser
 from http.cookiejar import CookieJar
@@ -46,7 +47,7 @@ class Browser:
 
     def build_opener(self):
         """Builds the opener using (urllib2/urllib.request).build_opener.
-        Subclasses can override this function to prodive custom openers.
+        Subclasses can override this function to provide custom openers.
         """
         return urllib_build_opener()
 
@@ -282,7 +283,6 @@ class AppHandler(HTTPHandler):
         return self.http_open(req)
 
     def _make_response(self, result, url):
-
         data = "\r\n".join([f"{k}: {v}" for k, v in result.header_items])
 
         import email

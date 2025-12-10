@@ -69,10 +69,7 @@ class Form:
                     html
                 )
             else:
-                out += (
-                    '    <tr><th><label for="%s">%s</label></th><td>%s</td></tr>\n'
-                    % (net.websafe(i.id), net.websafe(i.description), html)
-                )
+                out += f'    <tr><th><label for="{net.websafe(i.id)}">{net.websafe(i.description)}</label></th><td>{html}</td></tr>\n'
         out += "</table>"
         return out
 
@@ -82,8 +79,7 @@ class Form:
         for i in self.inputs:
             if not i.is_hidden():
                 out.append(
-                    '<label for="%s">%s</label>'
-                    % (net.websafe(i.id), net.websafe(i.description))
+                    f'<label for="{net.websafe(i.id)}">{net.websafe(i.description)}</label>'
                 )
             out.append(i.pre)
             out.append(i.render())
@@ -104,7 +100,9 @@ class Form:
         for i in self.inputs:
             v = attrget(source, i.name)
             if _validate:
-                out = i.validate(v) and out
+                if not i.validate(v):
+                    self.note = i.note
+                    return False
             else:
                 i.set_value(v)
         if _validate:
@@ -344,10 +342,9 @@ class Dropdown(Input):
             select_p = ' selected="selected"'
         else:
             select_p = ""
-        return indent + '<option{} value="{}">{}</option>\n'.format(
-            select_p,
-            net.websafe(value),
-            net.websafe(desc),
+        return (
+            indent
+            + f'<option{select_p} value="{net.websafe(value)}">{net.websafe(desc)}</option>\n'
         )
 
 

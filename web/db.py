@@ -2,13 +2,13 @@
 Database API
 (part of web.py)
 """
+
 import ast
 import datetime
 import os
 import re
 import time
-from urllib import parse as urlparse
-from urllib.parse import unquote
+from urllib.parse import unquote, urlparse
 
 from .py3helpers import iteritems
 from .utils import iters, safestr, safeunicode, storage, threadeddict
@@ -1197,9 +1197,17 @@ class PostgresDB(DB):
                 seqname = None
 
         if seqname:
-            query += "; SELECT currval('%s')" % seqname
+            query += self.get_sequence_query(seqname)
 
         return query
+
+    def get_sequence_query(self, seqname):
+        import re
+
+        # Ensure the sequence name is valid
+        if not re.match(r"^[a-zA-Z_][a-zA-Z0-9_$]*$", seqname):
+            raise ValueError(f"Invalid sequence name: {seqname}")
+        return SQLQuery(f"; SELECT currval('{seqname}')")
 
     def _get_all_sequences(self):
         """Query postgres to find names of all sequences used in this database."""
@@ -1221,7 +1229,6 @@ class PostgresDB(DB):
 
 class MySQLDB(DB):
     def __init__(self, **keywords):
-
         db = import_driver(mysql_drivers, preferred=keywords.pop("driver", None))
 
         if db.__name__ == "pymysql":
@@ -1424,7 +1431,7 @@ def dburl2dict(url):
         >>> dburl2dict('sqlite:////absolute/path/mygreatdb.db')
         {'db': '/absolute/path/mygreatdb.db', 'dbn': 'sqlite'}
     """
-    parts = urlparse.urlparse(unquote(url))
+    parts = urlparse(unquote(url))
 
     if parts.scheme == "sqlite":
         return {"dbn": parts.scheme, "db": parts.path[1:]}

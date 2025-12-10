@@ -6,22 +6,17 @@ Session Management
 import datetime
 import os
 import os.path
+import pickle
 import shutil
 import threading
 import time
+from base64 import decodebytes, encodebytes
 from copy import deepcopy
 from hashlib import sha1
 
 from . import utils
 from . import webapi as web
 from .py3helpers import iteritems
-
-try:
-    import cPickle as pickle
-except ImportError:
-    import pickle
-
-from base64 import decodebytes, encodebytes
 
 __all__ = ["Session", "SessionExpired", "Store", "DiskStore", "DBStore", "MemoryStore"]
 
@@ -286,7 +281,7 @@ class DiskStore(Store):
         path = self._get_path(key)
         pickled = self.encode(value)
         try:
-            tname = path + "." + threading.current_thread().getName()
+            tname = path + "." + threading.current_thread().name
             f = open(tname, "wb")
             try:
                 f.write(pickled)
