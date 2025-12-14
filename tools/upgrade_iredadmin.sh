@@ -692,6 +692,7 @@ export PKG_PY_JSON='python3-simplejson'
 export PKG_PY_DNS='python3-dnspython'
 export PKG_PY_REQUESTS='python3-requests'
 export PKG_PY_JINJA='python3-jinja2'
+export PKG_PY_BCRYPT='python3-bcrypt'
 # Python modules installed with pip3: uwsgi.
 
 if [ X"${DISTRO}" == X'RHEL' ]; then
@@ -729,6 +730,8 @@ elif [ X"${DISTRO}" == X'OPENBSD' ]; then
     export PKG_PY_DNS='py3-dnspython'
     export PKG_PY_REQUESTS='py3-requests'
     export PKG_PY_JINJA='py3-jinja2'
+    export PKG_PY_BCRYPT='py3-bcrypt'
+
     if [ X"${DISTRO_VERSION}" == X'6.6' -o X"${DISTRO_VERSION}" == X'6.7' ]; then
         export PKG_PY_MYSQL='py3-mysqlclient'
     else
@@ -766,6 +769,7 @@ fi
 [ X"$(has_python_module dns)" == X'NO' ] && REQUIRED_PKGS="${REQUIRED_PKGS} ${PKG_PY_DNS}"
 [ X"$(has_python_module requests)" == X'NO' ] && REQUIRED_PKGS="${REQUIRED_PKGS} ${PKG_PY_REQUESTS}"
 [ X"$(has_python_module jinja2)" == X'NO' ] && REQUIRED_PKGS="${REQUIRED_PKGS} ${PKG_PY_JINJA}"
+[ X"$(has_python_module bcrypt)" == X'NO' ] && REQUIRED_PKGS="${REQUIRED_PKGS} ${PKG_PY_BCRYPT}"
 
 if [ X"${REQUIRED_PKGS}" != X'' ]; then
     install_pkg ${REQUIRED_PKGS}
