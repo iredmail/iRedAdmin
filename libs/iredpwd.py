@@ -1,6 +1,5 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
-import crypt
 import hashlib
 import random
 import string
@@ -9,6 +8,7 @@ from base64 import b64encode, b64decode
 from hmac import compare_digest
 from os import urandom
 from typing import Union, List
+from passlib.hash import md5_crypt, sha512_crypt
 
 import settings
 
@@ -193,7 +193,7 @@ def verify_bcrypt_password(challenge_password: str, plain_password: str) -> bool
 
 
 def generate_md5_password(p: str) -> str:
-    return crypt.crypt(p, salt=crypt.METHOD_MD5)
+    return md5_crypt.hash(p)
 
 
 def verify_md5_password(challenge_password: Union[str, bytes],
@@ -212,8 +212,7 @@ def verify_md5_password(challenge_password: Union[str, bytes],
             and challenge_password.count("$") == 3):
         return False
 
-    return compare_digest(challenge_password,
-                          crypt.crypt(plain_password, challenge_password))
+    return md5_crypt.verify(plain_password, challenge_password)
 
 
 def generate_plain_md5_password(p: Union[str, bytes]) -> str:
@@ -325,8 +324,8 @@ def verify_sha512_crypt_password(challenge_password: Union[str, bytes],
         return False
 
     challenge_password = challenge_password[14:]
-    return compare_digest(challenge_password,
-                          crypt.crypt(plain_password, challenge_password))
+
+    return sha512_crypt.verify(plain_password, challenge_password)
 
 
 def generate_ssha512_password(p: Union[str, bytes]) -> str:
