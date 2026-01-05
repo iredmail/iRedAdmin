@@ -24,6 +24,9 @@ netifaces
 # bcrypt password hash.
 bcrypt
 
+# Password hashing library (replaces deprecated crypt module)
+passlib
+
 # Required by Python 3.5 and LDAP backend.
 #
 # Use `simplejson` instead of the Python builtin `json`, because `json` doesn't
