@@ -1,0 +1,46 @@
+# https://github.com/charliermarsh/ruff
+
+# Exclude a variety of commonly ignored directories.
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "node_modules",
+    "venv",
+    "web",  # webpy
+]
+
+# Enable flake8-bugbear (`B`) rules.
+lint.select = ["E", "F", "B"]
+
+# B904 Within an except clause, raise exceptions with `raise ... from err` or `raise ... from None` to distinguish them from errors in exception handling
+# B905 `zip()` without an explicit `strict=` parameter
+# E402 Module level import not at top of file
+# E501 line length violations
+# E722 Do not use bare `except`
+lint.ignore = ["B904", "B905", "E402", "E501", "E722"]
+
+# Avoid trying to fix flake8-bugbear (`B`) violations.
+lint.unfixable = ["B"]
+
+# Ignore `E402` (import violations) in all `__init__.py` files, and in `path/to/file.py`.
+#[per-file-ignores]
+#"__init__.py" = ["E402"]
+#"path/to/file.py" = ["E402"]
+
+cache-dir = "~/.ruff/cache"
