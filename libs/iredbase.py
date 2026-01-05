@@ -186,7 +186,7 @@ app.add_processor(web.loadhook(hooks.hook_set_language))
 
 if settings.DEBUG:
     app.internalerror = web.debugerror
-elif settings.MAIL_ERROR_TO_WEBMASTER: # Mail 500 error to webmaster.
+elif settings.MAIL_ERROR_TO_WEBMASTER:  # Mail 500 error to webmaster.
     app.internalerror = web.emailerrors(settings.webmaster, web.webapi._InternalError)
 
 # Store objects in 'web' module.
