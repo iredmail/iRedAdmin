@@ -5,7 +5,6 @@ import random
 import string
 import subprocess
 from base64 import b64encode, b64decode
-from hmac import compare_digest
 from os import urandom
 from typing import Union, List
 from passlib.hash import md5_crypt, sha512_crypt

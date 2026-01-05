@@ -1,0 +1,26 @@
+name: ruff + flake8
+
+on: [push]
+#on:
+#  schedule:
+#    # A complete cython build takes about 14 minutes, let's run it every Monday
+#    # and not waste too much GitHub free resource.
+#    - cron:  '1 1 * * 1'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v6
+      with:
+        fetch-depth: 1
+
+    - uses: astral-sh/ruff-action@v3
+    - uses: py-actions/flake8@v2
+      with:
+          ignore: "C901,E501,E402,W503,E722"
+          max-line-length: "127"
+          exclude: "web"
+          #path: "src"
+          #plugins: "flake8-bugbear==22.1.11 flake8-black"
