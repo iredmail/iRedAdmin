@@ -1,6 +1,5 @@
 # Author: Zhang Huangbin <zhb@iredmail.org>
 
-import simplejson as json
 import web
 
 

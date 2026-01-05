@@ -699,7 +699,7 @@ def update(profile_type, mail, form, conn=None):
         # Get preferred language: short lang code. e.g. en_US, de_DE.
         preferred_language = form_utils.get_language(form)
         # Must be equal to or less than 5 characters.
-        if not (preferred_language in iredutils.get_language_maps()):
+        if preferred_language not in iredutils.get_language_maps():
             preferred_language = None
 
         mod_attrs += ldaputils.mod_replace('preferredLanguage', preferred_language)
