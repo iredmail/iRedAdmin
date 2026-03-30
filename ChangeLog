@@ -1,3 +1,7 @@
+# 2.8
+
+- Replace `crypt` by `passlib`.
+
 # 2.7
 
 - Update dependent web.py to 0.70.
