@@ -1,6 +1,8 @@
 # 2.8
 
 - Replace `crypt` by `passlib`.
+- Fixed: Password hash is accepted instead of the plaintext password.
+  Thanks to @sigprof.
 
 # 2.7
 
