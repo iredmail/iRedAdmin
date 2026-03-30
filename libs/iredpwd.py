@@ -512,7 +512,6 @@ def verify_password_hash(challenge_password: Union[str, bytes],
 
     # Check plain password and MD5 first.
     if challenge_password in [
-        plain_password,
         "{PLAIN}" + plain_password,
         "{plain}" + plain_password,
     ]:
