@@ -694,9 +694,12 @@ export PKG_PY_REQUESTS='python3-requests'
 export PKG_PY_JINJA='python3-jinja2'
 export PKG_PY_BCRYPT='python3-bcrypt'
 export PKG_PY_PASSLIB='python3-passlib'
+export PKG_PY_MULTIPART='python3-multipart'
 # Python modules installed with pip3: uwsgi.
 
 if [ X"${DISTRO}" == X'RHEL' ]; then
+    export PKG_PY_MULTIPART='python3-python-multipart'
+
     if [ X"${DISTRO_VERSION}" == X'7' ]; then
         export PKG_PY_MYSQL='python36-PyMySQL'
         export PKG_PY_JSON='python36-simplejson'
@@ -721,6 +724,7 @@ if [ X"${DISTRO}" == X'RHEL' ]; then
 
     export PKG_PY_DNS='python3-dns'
 elif [ X"${DISTRO}" == X'DEBIAN' -o X"${DISTRO}" == X'UBUNTU' ]; then
+    export PKG_PY_MULTIPART='python3-multipart'
     export REQUIRED_PKGS="${REQUIRED_PKGS} uwsgi-core uwsgi-plugin-python3 python3-passlib"
 
     if [ X"${DISTRO_VERSION}" == X'9' ]; then
@@ -736,6 +740,7 @@ elif [ X"${DISTRO}" == X'OPENBSD' ]; then
     export PKG_PY_JINJA='py3-jinja2'
     export PKG_PY_BCRYPT='py3-bcrypt'
     export PKG_PY_PASSLIB='py3-passlib'
+    export PKG_PY_MULTIPART='py3-multipart'
 
     if [ X"${DISTRO_VERSION}" == X'6.6' -o X"${DISTRO_VERSION}" == X'6.7' ]; then
         export PKG_PY_MYSQL='py3-mysqlclient'
@@ -754,6 +759,7 @@ elif [ X"${DISTRO}" == X'FREEBSD' ]; then
     export PKG_PY_REQUESTS='www/py-requests'
     export PKG_PY_JINJA='devel/py-Jinja2'
     export PKG_PY_PASSLIB='security/py-passlib'
+    export PKG_PY_MULTIPART='devel/py-multipart'
 
     if [ ! -x ${CMD_UWSGI} ]; then
         export REQUIRED_PKGS="${REQUIRED_PKGS} ${PKG_UWSGI}"
@@ -777,6 +783,7 @@ fi
 [ X"$(has_python_module jinja2)" == X'NO' ] && REQUIRED_PKGS="${REQUIRED_PKGS} ${PKG_PY_JINJA}"
 [ X"$(has_python_module bcrypt)" == X'NO' ] && REQUIRED_PKGS="${REQUIRED_PKGS} ${PKG_PY_BCRYPT}"
 [ X"$(has_python_module passlib)" == X'NO' ] && REQUIRED_PKGS="${REQUIRED_PKGS} ${PKG_PY_PASSLIB}"
+[ X"$(has_python_module multipart)" == X'NO' ] && REQUIRED_PKGS="${REQUIRED_PKGS} ${PKG_PY_MULTIPART}"
 
 if [ X"${REQUIRED_PKGS}" != X'' ]; then
     install_pkg ${REQUIRED_PKGS}
