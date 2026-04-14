@@ -695,6 +695,7 @@ export PKG_PY_JINJA='python3-jinja2'
 export PKG_PY_BCRYPT='python3-bcrypt'
 export PKG_PY_PASSLIB='python3-passlib'
 export PKG_PY_MULTIPART='python3-multipart'
+export PKG_PY_MORE_ITERTOOLS='python3-more-itertools'
 # Python modules installed with pip3: uwsgi.
 
 if [ X"${DISTRO}" == X'RHEL' ]; then
@@ -783,6 +784,7 @@ fi
 [ X"$(has_python_module jinja2)" == X'NO' ] && REQUIRED_PKGS="${REQUIRED_PKGS} ${PKG_PY_JINJA}"
 [ X"$(has_python_module bcrypt)" == X'NO' ] && REQUIRED_PKGS="${REQUIRED_PKGS} ${PKG_PY_BCRYPT}"
 [ X"$(has_python_module passlib)" == X'NO' ] && REQUIRED_PKGS="${REQUIRED_PKGS} ${PKG_PY_PASSLIB}"
+[ X"$(has_python_module more_itertools)" == X'NO' ] && REQUIRED_PKGS="${REQUIRED_PKGS} ${PKG_PY_MORE_ITERTOOLS}"
 [ X"$(has_python_module multipart)" == X'NO' ] && REQUIRED_PKGS="${REQUIRED_PKGS} ${PKG_PY_MULTIPART}"
 
 if [ X"${REQUIRED_PKGS}" != X'' ]; then

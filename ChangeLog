@@ -1,3 +1,7 @@
+# 2.8.1
+
+- Fixed: tools/upgrade_iredadmin.sh didn't install required Python modules.
+
 # 2.8
 
 - Replace `crypt` by `passlib`.
