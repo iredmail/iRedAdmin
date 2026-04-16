@@ -699,20 +699,30 @@ export PKG_PY_MORE_ITERTOOLS='python3-more-itertools'
 # Python modules installed with pip3: uwsgi.
 
 if [ X"${DISTRO}" == X'RHEL' ]; then
-    export PKG_PY_MULTIPART='python3-python-multipart'
 
     if [ X"${DISTRO_VERSION}" == X'7' ]; then
         export PKG_PY_MYSQL='python36-PyMySQL'
         export PKG_PY_JSON='python36-simplejson'
         export PKG_PY_JINJA='python36-jinja2'
+        export PKG_PY_MULTIPART=''
+        export PKG_PY_MORE_ITERTOOLS=''
+
+        export PIP3_MODS="${PIP3_MODS} multipart more-itertools"
         export REQUIRED_PKGS="${REQUIRED_PKGS} uwsgi uwsgi-plugin-python36 uwsgi-plugin-syslog"
 
         if rpm -q mod_wsgi &>/dev/null; then
             remove_pkg mod_wsgi
             export REQUIRED_PKGS="${REQUIRED_PKGS} python3-mod_wsgi"
         fi
-
     else
+        if [ X"${DISTRO_VERSION}" == X'8' ]; then
+            # Rocky 8 doesn't have `multipart`.
+            export PKG_PY_MULTIPART=''
+            export PIP3_MODS="${PIP3_MODS} multipart"
+        else
+            export PKG_PY_MULTIPART='python3-python-multipart'
+        fi
+
         if [ ! -x ${CMD_UWSGI} ]; then
             # gcc is required to install uwsgi.
             export REQUIRED_PKGS="${REQUIRED_PKGS} python3-devel python3-pip gcc"
