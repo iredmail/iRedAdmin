@@ -65,11 +65,22 @@ export UWSGI_HAS_PLUGINS="YES"
 
 if [ X"${KERNEL_NAME}" == X"LINUX" ]; then
     # Note: RHEL has minor version number in VERSION_ID.
-    export DISTRO_VERSION=$(awk -F'"' '/^VERSION_ID=/ {print $2}' /etc/os-release | awk -F'.' '{print $1}')
+    export DISTRO_VERSION=$(awk -F'"' '/^VERSION_ID=/ {print $2}' /etc/os-release)
+
+    # Debian:
+    #   - 12: bookworm
+    #   - 13: trixie
+    # Ubuntu:
+    #   - 24.04: noble
+    #   - 26.04: noble
+    export DISTRO_CODENAME=$(awk -F'=' '/^VERSION_CODENAME=/ {print $2}' /etc/os-release)
 
     if [ -f /etc/redhat-release ]; then
         # RHEL/CentOS
         export DISTRO='RHEL'
+
+        # RedHat has minor version number in `VERSION_ID` line, e.g. `VERSION_ID="8.3"`.
+        export DISTRO_VERSION="$(echo ${DISTRO_VERSION} | awk -F'.' '{print $1}')"
 
         # Installed with pip.
         export CMD_UWSGI='/usr/sbin/uwsgi'
@@ -704,10 +715,11 @@ if [ X"${DISTRO}" == X'RHEL' ]; then
         export PKG_PY_MYSQL='python36-PyMySQL'
         export PKG_PY_JSON='python36-simplejson'
         export PKG_PY_JINJA='python36-jinja2'
+        export PKG_PY_BCRYPT=''
         export PKG_PY_MULTIPART=''
         export PKG_PY_MORE_ITERTOOLS=''
 
-        export PIP3_MODS="${PIP3_MODS} multipart more-itertools"
+        export PIP3_MODS="${PIP3_MODS} multipart more-itertools bcrypt"
         export REQUIRED_PKGS="${REQUIRED_PKGS} uwsgi uwsgi-plugin-python36 uwsgi-plugin-syslog"
 
         if rpm -q mod_wsgi &>/dev/null; then
@@ -735,7 +747,14 @@ if [ X"${DISTRO}" == X'RHEL' ]; then
 
     export PKG_PY_DNS='python3-dns'
 elif [ X"${DISTRO}" == X'DEBIAN' -o X"${DISTRO}" == X'UBUNTU' ]; then
-    export PKG_PY_MULTIPART='python3-multipart'
+    if [ X"${DISTRO}" == X'UBUNTU' -a X"${DISTRO_VERSION}" == X'18.04' ]; then
+        # Ubuntu 18.04 doesn't have package `python3-multipart`.
+        export PKG_PY_MULTIPART=''
+        export PIP3_MODS="${PIP3_MODS} multipart"
+    else
+        export PKG_PY_MULTIPART='python3-multipart'
+    fi
+
     export REQUIRED_PKGS="${REQUIRED_PKGS} uwsgi-core uwsgi-plugin-python3 python3-passlib"
 
     if [ X"${DISTRO_VERSION}" == X'9' ]; then
@@ -801,7 +820,7 @@ if [ X"${REQUIRED_PKGS}" != X'' ]; then
     install_pkg ${REQUIRED_PKGS}
     if [ X"$?" != X'0' ]; then
         echo "Package installation failed, please check console output and fix it manually."
-        exist 255
+        exit 255
     fi
 fi
 
@@ -809,7 +828,7 @@ if [ X"${PIP3_MODS}" != X'' ]; then
     ${CMD_PIP3} install -U ${PIP3_MODS}
     if [ X"$?" != X'0' ]; then
         echo "Package installation failed, please check console output and fix it manually."
-        exist 255
+        exit 255
     fi
 fi
 
